@@ -154,6 +154,12 @@ html, body {
     padding: 10px 8px;
     gap: 6px;
   }
+  .popup-backdrop {
+    backdrop-filter: blur(4px); /* Reducido en mobile */
+  }
+  .popup-simple {
+    backdrop-filter: blur(10px); /* Reducido en mobile */
+  }
 }
 
 @media (max-width: 520px) {
@@ -291,7 +297,7 @@ html, body {
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: border-color 0.25s ease;
   outline: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   appearance: none;
@@ -367,7 +373,7 @@ html, body {
   color: #fff;
   font-size: 24px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -398,7 +404,7 @@ html, body {
   color: #fff;
   text-align: left;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -447,9 +453,17 @@ html, body {
 /* Ajustar controles UI en mobile para que no tapen tanto */
 @media (max-width: 899px) {
   .ui {
+    backdrop-filter: blur(6px); /* ⚡ Reducido de 12px a 6px */
     bottom: 10px;
     padding: 8px 14px;
     gap: 10px;
+  }
+  .map-select {
+    backdrop-filter: blur(6px); /* Reducido en mobile */
+  }
+
+  .drawer {
+    backdrop-filter: blur(10px); /* Reducido de 20px a 10px */
   }
 }
 
@@ -462,7 +476,7 @@ html, body {
   color: #fff;
   font-size: 16px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -616,7 +630,7 @@ html, body {
   color: #fff;
   font-size: 20px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
