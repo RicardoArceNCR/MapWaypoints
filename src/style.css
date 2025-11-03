@@ -1,7 +1,45 @@
 /* ========================================================= */
 /* MAPA INTERACTIVO MULTI-FASE - Estilos completos */
 /* ========================================================= */
+/* ========================================================= */
+/* FUENTES LOCALES */
+/* ========================================================= */
 
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/inter-v12-latin-regular.woff2') format('woff2'),
+       url('/assets/fonts/inter-v12-latin-regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/assets/fonts/inter-v12-latin-500.woff2') format('woff2'),
+       url('/assets/fonts/inter-v12-latin-500.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/assets/fonts/inter-v12-latin-600.woff2') format('woff2'),
+       url('/assets/fonts/inter-v12-latin-600.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/inter-v12-latin-700.woff2') format('woff2'),
+       url('/assets/fonts/inter-v12-latin-700.woff') format('woff');
+}
 [hidden] { display: none !important; }
 
 :root {
@@ -110,6 +148,8 @@ html, body {
 /* Mobile: filtro de fases flotante arriba */
 @media (max-width: 899px) {
   .phase-filter {
+    backdrop-filter: none; /* Eliminar en mobile */
+    background: rgba(0, 0, 0, 0.85); /* Fondo más sólido */
     display: flex;
     padding: 10px 8px;
     gap: 6px;
@@ -133,7 +173,7 @@ html, body {
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease;
   position: relative;
   overflow: hidden;
 }
@@ -189,12 +229,12 @@ html, body {
   border: none;
   border-radius: 12px;
   background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(12px);
+  backdrop-filter: none;
   color: #fff;
   font-size: 24px;
   font-weight: 300;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
