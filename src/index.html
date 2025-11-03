@@ -174,6 +174,16 @@
   
   <!-- ⚠️ EDITOR VISUAL (Solo para desarrollo) -->
   <!-- 👇 ELIMINA ESTA LÍNEA EN PRODUCCIÓN -->
-  <script type="module" src="/editor.js"></script>
+  <script type="module">
+  // Solo cargar en desarrollo
+  const isDev = window.location.hostname === 'localhost' || 
+                window.location.hostname === '127.0.0.1' ||
+                window.location.search.includes('debug=true');
+  
+  if (isDev) {
+    console.log('🛠️ Modo desarrollo: cargando editor...');
+    import('./editor.js');
+  }
+</script>
 </body>
 </html>
