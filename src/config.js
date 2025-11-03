@@ -13,12 +13,12 @@ export const MAPS_CONFIG = {
     phase: 'fase1',
     mapImage: {
       mobile: {
-        src: '/assets/mapa-mobile.jpg',
+        src: '/assets/mapa-mobile.webp',
         logicalW: 2338,
         logicalH: 2779
       },
       desktop: {
-        src: '/assets/mapa-dektop.jpg',
+        src: '/assets/mapa-dektop.webp',
         logicalW: 2858,
         logicalH: 1761
       },
@@ -91,7 +91,7 @@ export const MAPS_CONFIG = {
           title: 'Llegada al Aeropuerto',
           
           // Imagen principal del evento
-          image: '/assets/mapa-1.jpg',
+          image: '/assets/mapa-1.webp',
           
           // Fecha y hora del evento
           datetime: {
@@ -175,7 +175,7 @@ export const MAPS_CONFIG = {
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: 'Encuentro en Zona Residencial',
           
-          image: '/assets/mapa-1.jpg',
+          image: '/assets/mapa-1.webp',
           
           datetime: {
             date: '16/06/2025',
@@ -351,7 +351,7 @@ export const MAPS_CONFIG = {
       3: [
         { 
           type: 'hotspot',
-          img: '/assets/mapa-1.jpg',
+          img: '/assets/mapa-1.webp',
           mobile: { 
             offsetX: -60, 
             offsetY: -80, 
@@ -467,12 +467,12 @@ export const MAPS_CONFIG = {
     phase: 'fase2',
     mapImage: {
       mobile: {
-        src: '/assets/mapa-mobile-2.jpg',
+        src: '/assets/mapa-mobile-2.webp',
         logicalW: 2338,
         logicalH: 2779
       },
       desktop: {
-        src: '/assets/mapa-dektop-2.jpg',
+        src: '/assets/mapa-dektop-2.webp',
         logicalW: 2858,
         logicalH: 1761
       },
@@ -545,7 +545,7 @@ export const MAPS_CONFIG = {
           title: 'Llegada al Aeropuerto',
           
           // Imagen principal del evento
-          image: '/assets/mapa-1.jpg',
+          image: '/assets/mapa-1.webp',
           
           // Fecha y hora del evento
           datetime: {
@@ -629,7 +629,7 @@ export const MAPS_CONFIG = {
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: 'Encuentro en Zona Residencial',
           
-          image: '/assets/mapa-1.jpg',
+          image: '/assets/mapa-1.webp',
           
           datetime: {
             date: '16/06/2025',
@@ -805,7 +805,7 @@ export const MAPS_CONFIG = {
       3: [
         { 
           type: 'hotspot',
-          img: '/assets/mapa-1.jpg',
+          img: '/assets/mapa-1.webp',
           mobile: { 
             offsetX: -60, 
             offsetY: -80, 
@@ -921,12 +921,12 @@ export const MAPS_CONFIG = {
     phase: 'fase3',
     mapImage: {
       mobile: {
-        src: '/assets/mapa-mobile-3.jpg',
+        src: '/assets/mapa-mobile-3.webp',
         logicalW: 2338,
         logicalH: 2779
       },
       desktop: {
-        src: '/assets/mapa-dektop-3.jpg',
+        src: '/assets/mapa-dektop-3.webp',
         logicalW: 2858,
         logicalH: 1761
       },
@@ -999,7 +999,7 @@ export const MAPS_CONFIG = {
           title: 'Llegada al Aeropuerto',
           
           // Imagen principal del evento
-          image: '/assets/mapa-1.jpg',
+          image: '/assets/mapa-1.webp',
           
           // Fecha y hora del evento
           datetime: {
@@ -1083,7 +1083,7 @@ export const MAPS_CONFIG = {
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: 'Encuentro en Zona Residencial',
           
-          image: '/assets/mapa-1.jpg',
+          image: '/assets/mapa-1.webp',
           
           datetime: {
             date: '16/06/2025',
@@ -1259,7 +1259,7 @@ export const MAPS_CONFIG = {
       3: [
         { 
           type: 'hotspot',
-          img: '/assets/mapa-1.jpg',
+          img: '/assets/mapa-1.webp',
           mobile: { 
             offsetX: -60, 
             offsetY: -80, 

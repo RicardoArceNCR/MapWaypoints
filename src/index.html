@@ -14,10 +14,42 @@
   <meta name="theme-color" content="#000000">
   <meta property="og:title" content="Mapa Interactivo Multi-Fase">
   <meta property="og:description" content="Descubre eventos, personas y conexiones en un recorrido visual impactante.">
-  <meta property="og:image" content="/assets/preview.jpg">
+  <meta property="og:image" content="/assets/preview.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tudominio.com">
   <meta name="twitter:card" content="summary_large_image"> -->
+
+  <style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Inter', sans-serif;
+  }
+
+  #mapa-canvas-wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  .loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+
+  canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>
+
 
 </head>
 <body>
