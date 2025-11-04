@@ -1035,3 +1035,37 @@ html, body {
   user-select: none;
   transition: transform 0.2s ease;
 }
+
+/* Mejor tactilidad para overlays */
+.overlay-wrap {
+  /* 🔍 Debug temporal: ver hitboxes */
+  /*outline: 1px dashed rgba(255,255,255,.25);*/
+  -webkit-tap-highlight-color: transparent;
+}
+
+.overlay-item {
+  pointer-events: none; /* el wrapper atiende el gesto */
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* --- Mobile UX tweaks: tactile feedback & slow-network degradation --- */
+/* Añade una micro-escala al presionar para dar feedback inmediato al dedo. */
+.overlay-wrap {
+  transition: transform 0.12s ease;
+}
+
+.overlay-wrap:active,
+.overlay-wrap.is-pressed {
+  transform: translate(-50%,-50%) scale(0.98) !important;
+}
+
+/* Si detectas una red lenta y añades `net-slow` al <body>, degradamos filtros costosos */
+body.net-slow .popup-backdrop,
+body.net-slow .popup-simple,
+body.net-slow .phase-filter,
+body.net-slow .drawer {
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}

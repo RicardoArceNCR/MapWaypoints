@@ -5,13 +5,17 @@
 
 export class OverlayLayer {
   constructor(rootEl) {
-    this.root = rootEl;                 // <div id="overlay-layer">
-    this.items = new Map();             // key -> { el, meta, worldX, worldY, ... }
-    this.frameLiveKeys = new Set();     // compactación por frame
+    this.root = rootEl;
+    this.items = new Map();
+    this.frameLiveKeys = new Set();
     this.lastDims = { w: 0, h: 0 };
     this.device = 'mobile';
 
-    this._onClick = this._onClick.bind(this);
+    // 🆕 Target táctil mínimo
+    this.touchTargetMin = window.matchMedia('(max-width: 899px)').matches ? 56 : 40;
+
+    this._onPointerDown = this._onPointerDown.bind(this);
+    this._onPointerUp = this._onPointerUp.bind(this);
   }
 
   resize(w, h) { this.lastDims = { w, h }; }
@@ -35,29 +39,54 @@ export class OverlayLayer {
   upsert(opt) {
     const {
       key, src, worldX, worldY,
-      rotationDeg = 0, lockWidthPx = 420,
+      rotationDeg = 0, lockWidthPx = 36,
       z = 0, meta = {}
     } = opt;
 
     let rec = this.items.get(key);
     if (!rec) {
-      const el = document.createElement('img');
-      el.className = 'overlay-item';
-      el.draggable = false;
-      el.decoding = 'async';
-      el.loading = 'lazy';
-      el.alt = meta?.title || '';
-      el.src = src;
+      // 🆕 wrapper + img (wrapper = hitbox)
+      const wrap = document.createElement('div');
+      wrap.className = 'overlay-wrap';
+      wrap.dataset.key = String(key);
+      wrap.style.position = 'absolute';
+      wrap.style.touchAction = 'manipulation';
+      wrap.style.userSelect = 'none';
 
-      el.dataset.key = String(key);
-      el.addEventListener('click', this._onClick);
+      const img = document.createElement('img');
+      img.className = 'overlay-item';
+      img.decoding = 'async';
+      img.loading = 'lazy';
+      img.draggable = false;
+      img.alt = ''; // 🖼️ Decorativa; evita texto si la imagen falla
+      img.src = src;
+      img.style.display = 'block';
+      img.style.pointerEvents = 'none'; // 👈 la interacción la toma el wrapper
 
-      rec = { el, meta, lockWidthPx, worldX, worldY, rotationDeg, z };
+      // ♿ Accesibilidad en el wrapper (no ensucia UI)
+      if (meta?.title) {
+        wrap.setAttribute('aria-label', meta.title);
+      }
+
+      // 🛟 Manejo de fallos de carga
+      img.onerror = () => {
+        // Oculta contenido visual fallido (evita ícono roto/texto)
+        img.style.visibility = 'hidden';
+        // Marca el wrapper para posible retry/logging
+        wrap.dataset.loadError = '1';
+      };
+
+      wrap.appendChild(img);
+      this.root.appendChild(wrap);
+
+      // 🆕 listeners pointer (evita ghost clicks y scroll-move)
+      wrap.addEventListener('pointerdown', this._onPointerDown, { passive: true });
+      wrap.addEventListener('pointerup', this._onPointerUp, { passive: true });
+
+      rec = { wrap, img, meta, lockWidthPx, worldX, worldY, rotationDeg, z, _pd:{x:0,y:0,t:0} };
       this.items.set(key, rec);
-      this.root.appendChild(el);
     }
 
-    // Actualiza state mínimo
     rec.meta = meta;
     rec.lockWidthPx = lockWidthPx;
     rec.worldX = worldX;
@@ -83,65 +112,111 @@ export class OverlayLayer {
     const vw = this.lastDims.w || canvasW;
     const vh = this.lastDims.h || canvasH;
 
+    // 🔍 Debug: loggear tamaños de hitbox cuando cambian
+    const debugLog = (rec) => {
+      if (rec._lastHitW !== rec.hitW || rec._lastHitH !== rec.hitH) {
+        console.log(
+          `🎯 Hitbox [${rec.key}]:`,
+          `${~~rec.hitW}×${~~rec.hitH}px`,
+          `(shape: ${rec.meta?.shape || 'rect'})`
+        );
+        rec._lastHitW = rec.hitW;
+        rec._lastHitH = rec.hitH;
+      }
+    };
+
     for (const [key, rec] of this.items) {
       const alive = this.frameLiveKeys.has(String(key));
       if (!alive) {
-        rec.el.removeEventListener('click', this._onClick);
-        rec.el.remove();
+        rec.wrap.removeEventListener('pointerdown', this._onPointerDown);
+        rec.wrap.removeEventListener('pointerup', this._onPointerUp);
+        rec.wrap.remove();
         this.items.delete(key);
         continue;
       }
 
       // world → screen
-      const { x, y } = this.worldToScreen(rec.worldX, rec.worldY, camera, canvasW, canvasH);
+      const sx = (rec.worldX - camera.x) * camera.z + (canvasW / 2);
+      const sy = (rec.worldY - camera.y) * camera.z + (canvasH / 2);
 
-      // Culling: si queda muy fuera, oculta (no destruye)
-      const off = (x < -500 || y < -500 || x > vw + 500 || y > vh + 500);
-      if (off) {
-        if (rec.el.style.display !== 'none') rec.el.style.display = 'none';
+      // culling
+      if (sx < -500 || sy < -500 || sx > vw + 500 || sy > vh + 500) {
+        rec.wrap.style.display = 'none';
         continue;
-      } else if (rec.el.style.display !== 'block') {
-        rec.el.style.display = 'block';
+      } else {
+        rec.wrap.style.display = 'block';
       }
 
-      // Layout: ancho fijo (px). Deja al navegador calcular el alto natural.
-      const targetW = `${rec.lockWidthPx}px`;
-      if (rec.el.style.width !== targetW) {
-        rec.el.style.width = targetW;
-        rec.el.style.height = 'auto';
-      }
+      // 🆕 hitbox: control preciso de dimensiones
+      const visualW = rec.lockWidthPx;
+      const visualH = Number(rec.meta?.visualH || visualW);
+      const hitSlop = Number(rec.meta?.hitSlop || 0);
+      
+      // 🎯 Modo compacto: usa tamaño visual exacto
+      const compact = !!rec.meta?.compact;
+      const minTap = compact ? 0 : Number(rec.meta?.minTap || this.touchTargetMin);
 
-      // Posición absoluta + transform para centrar y rotar
-      const style = rec.el.style;
-      if (style.position !== 'absolute') style.position = 'absolute';
+      // Calcula hitbox respetando modo compacto
+      const hitW = (compact ? visualW : Math.max(visualW, minTap)) + hitSlop * 2;
+      const hitH = (compact ? visualH : Math.max(visualH, minTap)) + hitSlop * 2;
 
-      // Evita escribir lo mismo en cada frame
-      const left = `${x}px`;
-      const top = `${y}px`;
-      if (style.left !== left) style.left = left;
-      if (style.top !== top) style.top = top;
+      const ws = rec.wrap.style;
+      if (ws.width  !== `${hitW}px`)  ws.width  = `${hitW}px`;
+      if (ws.height !== `${hitH}px`)  ws.height = `${hitH}px`;
+      if (ws.left   !== `${sx}px`)    ws.left   = `${sx}px`;
+      if (ws.top    !== `${sy}px`)    ws.top    = `${sy}px`;
+      if (ws.zIndex !== String(100 + (rec.z|0))) ws.zIndex = String(100 + (rec.z|0));
 
-      const zIndex = String(100 + (rec.z | 0));
-      if (style.zIndex !== zIndex) style.zIndex = zIndex;
+      // 🔍 Debug: log si el hitbox cambió
+      debugLog(rec);
 
+      // borde redondo para shape circle, esquinas suaves para rect
+      const shape = rec.meta?.shape === 'circle' ? '50%' : '8px';
+      if (ws.borderRadius !== shape) ws.borderRadius = shape;
+
+      // centrar + rotar
       const transform = `translate(-50%,-50%) rotate(${rec.rotationDeg}deg)`;
-      if (style.transform !== transform) {
-        style.transform = transform;
-        if (style.transformOrigin !== '50% 50%') style.transformOrigin = '50% 50%';
+      if (ws.transform !== transform) {
+        ws.transform = transform;
+        if (ws.transformOrigin !== '50% 50%') ws.transformOrigin = '50% 50%';
       }
+
+      // imagen centrada (mantén ancho/alto visuales)
+      const img = rec.img;
+      const im = img.style;
+      if (im.position !== 'absolute') im.position = 'absolute';
+      if (im.left !== '50%')  im.left = '50%';
+      if (im.top  !== '50%')  im.top  = '50%';
+      const imgTransform = `translate(-50%,-50%) rotate(0deg)`; // ya rota el wrapper
+      if (im.transform !== imgTransform) im.transform = imgTransform;
+      if (im.width  !== `${visualW}px`) im.width  = `${visualW}px`;
+      if (im.height !== `${visualH}px`) im.height = `${visualH}px`; // 🆕 antes 'auto'
     }
   }
 
-  _onClick(evt) {
-    const key = evt.currentTarget?.dataset?.key;
+  _onPointerDown(ev) {
+    const wrap = ev.currentTarget;
+    const key = wrap?.dataset?.key;
     if (!key) return;
-    // Reemite un CustomEvent para que la UI lo escuche en un solo sitio
-    this.root.dispatchEvent(new CustomEvent('overlay:click', {
-      bubbles: true,
-      detail: {
-        key,
-        record: this.items.get(key) || null
-      }
-    }));
+    const rec = this.items.get(key);
+    rec._pd = { x: ev.clientX, y: ev.clientY, t: performance.now() };
+  }
+
+  _onPointerUp(ev) {
+    const wrap = ev.currentTarget;
+    const key = wrap?.dataset?.key;
+    if (!key) return;
+    const rec = this.items.get(key);
+    const dx = Math.abs(ev.clientX - rec._pd.x);
+    const dy = Math.abs(ev.clientY - rec._pd.y);
+    const dt = performance.now() - rec._pd.t;
+
+    // 🆕 “fat-finger forgiveness”: solo click si no se arrastró
+    if (dx <= 8 && dy <= 8 && dt <= 500) {
+      this.root.dispatchEvent(new CustomEvent('overlay:click', {
+        bubbles: true,
+        detail: { key, record: rec }
+      }));
+    }
   }
 }
