@@ -25,6 +25,28 @@ function showError(message) {
 }
 window.showError = showError;
 
+// ===== Click Handler Optimizado para Mobile =====
+function initOverlayClickHandler() {
+  const overlayRoot = document.getElementById('overlay-layer');
+  if (!overlayRoot) {
+    console.warn('Overlay layer no encontrado');
+    return;
+  }
+
+  // Un solo listener en el root para todos los hotspots
+  overlayRoot.addEventListener('overlay:click', (ev) => {
+    const { record } = ev.detail;
+    
+    // Usa DetailedPopupManager para mostrar el popup
+    if (window.popupManager) {
+      window.popupManager.openPopup(record.meta.hotspot || record.meta);
+    }
+  });
+}
+
+// Inicializa el handler después del DOM load
+document.addEventListener('DOMContentLoaded', initOverlayClickHandler);
+
 
 // ===== Helpers de URL y logger (seguros) =====
 function parseUrlToggles() {
@@ -1017,15 +1039,48 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     // --- Overlay DOM (por frame) ---
     overlay.beginFrame();
 
-    // Ejemplo: un hotspot de prueba (borra esto cuando uses tus datos)
-    overlay.upsert({
-      key: 'hotspot-1',
-      src: '/img/hotspot.png',
-      worldX: 1234, worldY: -560,
-      rotationDeg: 0,
-      lockWidthPx: 64,
-      z: 10,
-      meta: { title: 'Hotspot 1' }
+    // Render icons/hotspots for current waypoint
+    const iconsForWaypoint = state.currentIcons[state.idx] || [];
+    iconsForWaypoint.forEach((icon, i) => {
+      // 🎯 Reglas de UX para shapes:
+      const isRoundByType = ['pin', 'marker', 'bubble', 'diana', 'dot'].includes(icon.type);
+      const isRoundByKind = ['pin', 'circle'].includes(icon.kind);
+      const shouldBeRound = isRoundByType || isRoundByKind || icon.shape === 'circle';
+
+      // 📏 Tamaños mínimos táctiles
+      const isCard = icon.type === 'card' || icon.type === 'label' || icon.type === 'pill';
+      const baseSize = icon.width || (GLOBAL_CONFIG.ICON_SIZE || 36);
+      const minTapSize = isCard ? 48 : 56; // cards pueden ser algo más pequeñas
+
+      overlay.upsert({
+        key: `${state.idx}:${i}`,
+        src: icon.img,
+        worldX: icon.x,
+        worldY: icon.y,
+        rotationDeg: icon.rotation || 0,
+        lockWidthPx: Math.max(baseSize, minTapSize),
+        z: icon.z || 2,
+        meta: {
+              // 🔑 Auto-detección inteligente de forma
+          shape: icon.shape || (shouldBeRound ? 'circle' : 'rect'),
+          
+          // 🎯 Control preciso del hitbox
+          compact: icon.compact ?? (!mapManager.isMobile && !isCard), // compacto en desktop excepto cards
+          
+          // 🧤 Margen extra según tipo
+          hitSlop: icon.hitSlop ?? (shouldBeRound ? 8 : 6),
+          
+          // 📏 Mínimo táctil según contexto (solo si no es compacto)
+          minTap: icon.minTap ?? minTapSize,
+          
+          // 📐 Alto visual independiente
+          visualH: isCard ? (icon.height || baseSize) : icon.height,
+
+          // lo que necesites para tus popups
+          title: icon.title,
+          hotspot: icon.hotspotData
+        }
+      });
     });
 
     // Dibuja el mapa y elementos

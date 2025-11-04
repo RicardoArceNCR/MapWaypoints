@@ -1038,9 +1038,8 @@ html, body {
 
 /* Mejor tactilidad para overlays */
 .overlay-wrap {
-  /* debug si quieres ver el área clickeable:
-  outline: 1px dashed rgba(255,255,255,.25);
-  */
+  /* 🔍 Debug temporal: ver hitboxes */
+  /*outline: 1px dashed rgba(255,255,255,.25);*/
   -webkit-tap-highlight-color: transparent;
 }
 

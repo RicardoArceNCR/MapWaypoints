@@ -58,10 +58,23 @@ export class OverlayLayer {
       img.decoding = 'async';
       img.loading = 'lazy';
       img.draggable = false;
-      img.alt = meta?.title || '';
+      img.alt = ''; // 🖼️ Decorativa; evita texto si la imagen falla
       img.src = src;
       img.style.display = 'block';
       img.style.pointerEvents = 'none'; // 👈 la interacción la toma el wrapper
+
+      // ♿ Accesibilidad en el wrapper (no ensucia UI)
+      if (meta?.title) {
+        wrap.setAttribute('aria-label', meta.title);
+      }
+
+      // 🛟 Manejo de fallos de carga
+      img.onerror = () => {
+        // Oculta contenido visual fallido (evita ícono roto/texto)
+        img.style.visibility = 'hidden';
+        // Marca el wrapper para posible retry/logging
+        wrap.dataset.loadError = '1';
+      };
 
       wrap.appendChild(img);
       this.root.appendChild(wrap);
@@ -99,6 +112,19 @@ export class OverlayLayer {
     const vw = this.lastDims.w || canvasW;
     const vh = this.lastDims.h || canvasH;
 
+    // 🔍 Debug: loggear tamaños de hitbox cuando cambian
+    const debugLog = (rec) => {
+      if (rec._lastHitW !== rec.hitW || rec._lastHitH !== rec.hitH) {
+        console.log(
+          `🎯 Hitbox [${rec.key}]:`,
+          `${~~rec.hitW}×${~~rec.hitH}px`,
+          `(shape: ${rec.meta?.shape || 'rect'})`
+        );
+        rec._lastHitW = rec.hitW;
+        rec._lastHitH = rec.hitH;
+      }
+    };
+
     for (const [key, rec] of this.items) {
       const alive = this.frameLiveKeys.has(String(key));
       if (!alive) {
@@ -121,20 +147,30 @@ export class OverlayLayer {
         rec.wrap.style.display = 'block';
       }
 
-      // 🆕 hitbox: visual vs táctil
+      // 🆕 hitbox: control preciso de dimensiones
       const visualW = rec.lockWidthPx;
+      const visualH = Number(rec.meta?.visualH || visualW);
       const hitSlop = Number(rec.meta?.hitSlop || 0);
-      const minTap = Number(rec.meta?.minTap || this.touchTargetMin);
-      const hitW = Math.max(visualW, minTap) + hitSlop * 2;
-      const hitH = hitW; // cuadrado por defecto; se puede extender si necesitas
+      
+      // 🎯 Modo compacto: usa tamaño visual exacto
+      const compact = !!rec.meta?.compact;
+      const minTap = compact ? 0 : Number(rec.meta?.minTap || this.touchTargetMin);
 
-      // tamaño del wrapper (hitbox)
+      // Calcula hitbox respetando modo compacto
+      const hitW = (compact ? visualW : Math.max(visualW, minTap)) + hitSlop * 2;
+      const hitH = (compact ? visualH : Math.max(visualH, minTap)) + hitSlop * 2;
+
       const ws = rec.wrap.style;
-      if (ws.width !== `${hitW}px`) ws.width = `${hitW}px`;
-      if (ws.height !== `${hitH}px`) ws.height = `${hitH}px`;
-      if (ws.left !== `${sx}px`) ws.left = `${sx}px`;
-      if (ws.top !== `${sy}px`) ws.top = `${sy}px`;
+      if (ws.width  !== `${hitW}px`)  ws.width  = `${hitW}px`;
+      if (ws.height !== `${hitH}px`)  ws.height = `${hitH}px`;
+      if (ws.left   !== `${sx}px`)    ws.left   = `${sx}px`;
+      if (ws.top    !== `${sy}px`)    ws.top    = `${sy}px`;
       if (ws.zIndex !== String(100 + (rec.z|0))) ws.zIndex = String(100 + (rec.z|0));
+
+      // 🔍 Debug: log si el hitbox cambió
+      debugLog(rec);
+
+      // borde redondo para shape circle, esquinas suaves para rect
       const shape = rec.meta?.shape === 'circle' ? '50%' : '8px';
       if (ws.borderRadius !== shape) ws.borderRadius = shape;
 
@@ -145,16 +181,16 @@ export class OverlayLayer {
         if (ws.transformOrigin !== '50% 50%') ws.transformOrigin = '50% 50%';
       }
 
-      // imagen visual centrada dentro del hitbox
+      // imagen centrada (mantén ancho/alto visuales)
       const img = rec.img;
       const im = img.style;
       if (im.position !== 'absolute') im.position = 'absolute';
-      if (im.left !== '50%') im.left = '50%';
-      if (im.top !== '50%') im.top = '50%';
+      if (im.left !== '50%')  im.left = '50%';
+      if (im.top  !== '50%')  im.top  = '50%';
       const imgTransform = `translate(-50%,-50%) rotate(0deg)`; // ya rota el wrapper
       if (im.transform !== imgTransform) im.transform = imgTransform;
-      if (im.width !== `${visualW}px`) im.width = `${visualW}px`;
-      if (im.height !== 'auto') im.height = 'auto';
+      if (im.width  !== `${visualW}px`) im.width  = `${visualW}px`;
+      if (im.height !== `${visualH}px`) im.height = `${visualH}px`; // 🆕 antes 'auto'
     }
   }
 
