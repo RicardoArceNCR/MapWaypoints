@@ -1439,7 +1439,7 @@ export const GLOBAL_CONFIG = {
   },
 
   RESPONSIVE_SIZING: {
-  mobile:  { lockItemWidthToScreenPx: true },  // activa ancho fijo en mobile
+  mobile:  { lockItemWidthToScreenPx: false },  // activa ancho fijo en mobile
   desktop: { lockItemWidthToScreenPx: false }  // desktop se mantiene igual
 },
 

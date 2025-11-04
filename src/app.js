@@ -50,6 +50,17 @@ appConfig.editorActive = !!appConfig.toggles.editor;
 window.appConfig = appConfig;
 // Backwards-compat: keep __EDITOR_ACTIVE__ in sync initially for other modules
 window.__EDITOR_ACTIVE__ = appConfig.editorActive;
+
+// Asegura estado inicial si el editor ya dejó huella global (p. ej., tras HMR/recarga)
+appConfig.editorActive = appConfig.editorActive || !!window.__EDITOR_ACTIVE__;
+
+// Escucha cambios de estado del editor (enviado por editor.js)
+window.addEventListener('editor:active', (e) => {
+  appConfig.editorActive = !!(e.detail && e.detail.active);
+  window.__EDITOR_ACTIVE__ = appConfig.editorActive;
+  // fuerza un redraw amable en capas relevantes
+  try { markDirty('camera','elements','debug','minimap'); } catch {}
+});
 const log = {
   info: (...a) => appConfig.toggles.debug && console.info('[info]', ...a),
   warn: (...a) => console.warn('[warn]', ...a),
@@ -255,7 +266,16 @@ let memoryMonitor = new MemoryMonitor();
   // DOM
   const wrap = document.getElementById('mapa-canvas-wrapper');
   const canvas = document.getElementById('mapa-canvas');
-  const ctx = canvas.getContext('2d', { alpha: false });
+  if (!canvas) {
+    showError('Canvas element #mapa-canvas not found in the DOM.');
+    return;
+  }
+
+  const ctx = canvas.getContext && canvas.getContext('2d', { alpha: false });
+  if (!ctx) {
+    showError('Unable to acquire 2D rendering context from #mapa-canvas.');
+    return;
+  }
 
   // Placeholder inicial para LCP
   function drawPlaceholder() {
@@ -270,7 +290,7 @@ let memoryMonitor = new MemoryMonitor();
   try { drawPlaceholder(); } catch (err) { /* no bloquear si canvas no está listo */ }
 
   const minimap = document.getElementById('minimap');
-  const mmCtx = minimap.getContext('2d');
+  const mmCtx = (minimap && minimap.getContext) ? minimap.getContext('2d') : null;
   const srLive = wrap.querySelector('.sr-live');
   const uiControls = document.querySelector('.ui');
 
@@ -916,6 +936,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
   function drawMinimap() {
     if (!state.mapImages || !mapManager.currentMap) return;
+    if (!mmCtx) return; // minimap canvas or 2D context not available
     const mapConfig = mapManager.currentMap.config.mapImage;
     const mmW = minimap.width, mmH = minimap.height;
     mmCtx.clearRect(0, 0, mmW, mmH);
