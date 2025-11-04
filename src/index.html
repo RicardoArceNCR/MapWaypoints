@@ -14,15 +14,7 @@
   <link rel="preload" href="/assets/mapa-mobile.webp"  as="image" type="image/webp" media="(max-width: 899px)">
   <link rel="preload" href="/assets/mapa-dektop.webp" as="image" type="image/webp" media="(min-width: 900px)">
 
-  <!-- <meta name="description" content="Mapa interactivo multi-fase con hotspots, eventos e información detallada.">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#000000">
-  <meta property="og:title" content="Mapa Interactivo Multi-Fase">
-  <meta property="og:description" content="Descubre eventos, personas y conexiones en un recorrido visual impactante.">
-  <meta property="og:image" content="/assets/preview.webp">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://tudominio.com">
-  <meta name="twitter:card" content="summary_large_image"> -->
+  
 
   <style>
   body, html {
@@ -81,6 +73,9 @@
 
     <!-- Backdrop del drawer -->
     <div class="drawer-backdrop" hidden></div>
+
+    <!-- Capa DOM para overlays -->
+    <div id="overlay-layer" class="overlay-root" aria-hidden="true"></div>
 
     <!-- Canvas principal -->
     <canvas id="mapa-canvas" width="1280" height="720" aria-label="Mapa interactivo"></canvas>
@@ -174,16 +169,26 @@
   
   <!-- ⚠️ EDITOR VISUAL (Solo para desarrollo) -->
   <!-- 👇 ELIMINA ESTA LÍNEA EN PRODUCCIÓN -->
-  <script type="module">
-  // Solo cargar en desarrollo
-  const isDev = window.location.hostname === 'localhost' || 
-                window.location.hostname === '127.0.0.1' ||
-                window.location.search.includes('debug=true');
-  
-  if (isDev) {
-    console.log('🛠️ Modo desarrollo: cargando editor...');
-    import('./editor.js');
-  }
+  <!-- Aplicación principal -->
+<script type="module" src="/app.js"></script>
+
+<!-- ⚠️ EDITOR VISUAL (Solo para desarrollo) -->
+<script>
+  (function () {
+    const host = window.location.hostname;
+    const isDev =
+      host === 'localhost' ||
+      host === '127.0.0.1' ||
+      window.location.search.includes('debug=true');
+
+    if (isDev) {
+      const s = document.createElement('script');
+      s.type = 'module';
+      s.src = '/editor.js';
+      document.currentScript.after(s);
+    }
+  })();
 </script>
+
 </body>
 </html>

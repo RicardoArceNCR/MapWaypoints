@@ -133,12 +133,18 @@ export class MapManager {
           
           fallbackImg.onerror = () => {
             console.warn('❌ No se pudo cargar imagen:', src);
+            if (typeof window !== 'undefined' && window.showError) {
+              try { window.showError('Error cargando imagen: ' + src); } catch {};
+            }
             reject(new Error(`Failed to load: ${src}`));
           };
           
           fallbackImg.src = src;
         } else {
-          console.warn('❌ No se pudo cargar imagen:', src); 
+          console.warn('❌ No se pudo cargar imagen:', src);
+          if (typeof window !== 'undefined' && window.showError) {
+            try { window.showError('Error cargando imagen: ' + src); } catch {};
+          }
           reject(e);
         }
       };
@@ -186,6 +192,9 @@ export class MapManager {
       
     } catch (error) {
       console.error('❌ Error cargando imagen del mapa:', error);
+      if (typeof window !== 'undefined' && window.showError) {
+        try { window.showError('Error cargando el mapa. Intenta recargar.'); } catch {};
+      }
       throw error;
     }
   }
@@ -203,13 +212,21 @@ export class MapManager {
     
     // ✨ OPTIMIZACIÓN: Pre-renderizar iconos pequeños
     const iconSize = GLOBAL_CONFIG.ICON_SIZE || 36;
-    const loadPromises = [...urls].map(url => 
-      this.loadImage(url, iconSize).catch(err => {
-        console.warn(`⚠️ Error precargando icono ${url}:`, err);
-      })
+    const loadPromises = [...urls].map(url =>
+      this.loadImage(url, iconSize)
+        .then(() => ({ ok: true, url }))
+        .catch(err => {
+          console.warn(`⚠️ Error precargando icono ${url}:`, err);
+          return { ok: false, url };
+        })
     );
-    
-    await Promise.allSettled(loadPromises);
+
+    const results = await Promise.all(loadPromises);
+    if (results.some(r => r && r.ok === false)) {
+      if (typeof window !== 'undefined' && window.showError) {
+        try { window.showError('Error precargando iconos. Algunos iconos pueden no mostrarse.'); } catch {};
+      }
+    }
   }
 
   // ========= ⚠️ MANTENER LÓGICA ORIGINAL - NO MODIFICAR =========
@@ -305,6 +322,11 @@ export class MapManager {
   }
 
   // ========= ⚠️ MANTENER LÓGICA ORIGINAL - NO MODIFICAR =========
+  /**
+   * Carga un mapa por ID, con optimizaciones para mobile/desktop.
+   * @param {string} mapId - ID del mapa a cargar.
+   * @returns {Promise<Object>} - Configuración del mapa cargado.
+   */
   async loadMap(mapId) {
     if (!MAPS_CONFIG[mapId]) {
       throw new Error(`❌ Mapa no encontrado: ${mapId}`);

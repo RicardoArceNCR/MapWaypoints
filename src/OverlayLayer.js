@@ -1,20 +1,21 @@
 // OverlayLayer.js
-// Capa screen-space para elementos con ancho fijo en px y rotación.
-// Mantiene interacciones y culling eficiente.
+// Capa screen-space para overlays DOM con ancho fijo en px y rotación.
+// Útil para hotspots clicables, rótulos, stickers que deben verse nítidos
+// sin importar el zoom del canvas.
 
 export class OverlayLayer {
   constructor(rootEl) {
-    this.root = rootEl;                             // <div id="overlay-layer">
-    this.items = new Map();                         // key -> dom + state
-    this.frameLiveKeys = new Set();                 // compactado por frame
+    this.root = rootEl;                 // <div id="overlay-layer">
+    this.items = new Map();             // key -> { el, meta, worldX, worldY, ... }
+    this.frameLiveKeys = new Set();     // compactación por frame
     this.lastDims = { w: 0, h: 0 };
     this.device = 'mobile';
+
     this._onClick = this._onClick.bind(this);
   }
 
   resize(w, h) { this.lastDims = { w, h }; }
-
-  setDevice(device) { this.device = device; }       // 'mobile' | 'desktop'
+  setDevice(device) { this.device = device; } // 'mobile' | 'desktop'
 
   beginFrame() {
     this.frameLiveKeys.clear();
@@ -25,16 +26,17 @@ export class OverlayLayer {
    * @param {Object} opt
    *  - key: id único (string|number)
    *  - src: ruta de la imagen
-   *  - worldX, worldY: coordenadas en "mundo" (mismo origen que tu canvas)
-   *  - rotationDeg: rotación en grados (mismo signo que en canvas)
+   *  - worldX, worldY: coords en sistema "mundo" del canvas
+   *  - rotationDeg: rotación en grados
    *  - lockWidthPx: ancho fijo en px de pantalla
    *  - z: (opcional) orden visual
-   *  - meta: objeto con info del hotspot para popup/drawer
+   *  - meta: (opcional) payload para popups, etc.
    */
   upsert(opt) {
     const {
-      key, src, worldX, worldY, rotationDeg = 0,
-      lockWidthPx = 420, z = 0, meta = {}
+      key, src, worldX, worldY,
+      rotationDeg = 0, lockWidthPx = 420,
+      z = 0, meta = {}
     } = opt;
 
     let rec = this.items.get(key);
@@ -66,10 +68,7 @@ export class OverlayLayer {
     this.frameLiveKeys.add(String(key));
   }
 
-  /**
-   * Convierte coordenadas world → screen (px DOM).
-   * Debes pasar el estado de cámara y el tamaño lógico del canvas (px DOM).
-   */
+  // world → screen (px DOM) con cámara del canvas
   worldToScreen(x, y, camera, canvasW, canvasH) {
     const sx = (x - camera.x) * camera.z + (canvasW / 2);
     const sy = (y - camera.y) * camera.z + (canvasH / 2);
@@ -77,17 +76,16 @@ export class OverlayLayer {
   }
 
   /**
-   * Aplica posición/rotación/escala final de todos los items vivos.
+   * Pinta posición/rotación/orden final de los items "vivos" del frame.
+   * Hace culling barato y evita reflujo innecesario.
    */
   endFrame(camera, canvasW, canvasH) {
-    // Culling y actualización por transform (sin layout thrash)
     const vw = this.lastDims.w || canvasW;
     const vh = this.lastDims.h || canvasH;
 
     for (const [key, rec] of this.items) {
       const alive = this.frameLiveKeys.has(String(key));
       if (!alive) {
-        // Remueve los que no fueron “tocados” este frame
         rec.el.removeEventListener('click', this._onClick);
         rec.el.remove();
         this.items.delete(key);
@@ -97,11 +95,53 @@ export class OverlayLayer {
       // world → screen
       const { x, y } = this.worldToScreen(rec.worldX, rec.worldY, camera, canvasW, canvasH);
 
-      // Culling: si queda muy fuera, lo ocultamos (no destruimos)
-      const offscreen = (x < -500 || y < -500 || x > vw + 500 || y > vh + 500);
-      rec.el.style.display = offscreen ? 'none' : 'block';
-      if (offscreen) continue;
+      // Culling: si queda muy fuera, oculta (no destruye)
+      const off = (x < -500 || y < -500 || x > vw + 500 || y > vh + 500);
+      if (off) {
+        if (rec.el.style.display !== 'none') rec.el.style.display = 'none';
+        continue;
+      } else if (rec.el.style.display !== 'block') {
+        rec.el.style.display = 'block';
+      }
 
-      // Layout: ancho fijo px; alto por proporción natural
-      // (deja al navegador calcular altura)
-      if (rec.el.style.width !== `${rec.lockWidthPx}px`)
+      // Layout: ancho fijo (px). Deja al navegador calcular el alto natural.
+      const targetW = `${rec.lockWidthPx}px`;
+      if (rec.el.style.width !== targetW) {
+        rec.el.style.width = targetW;
+        rec.el.style.height = 'auto';
+      }
+
+      // Posición absoluta + transform para centrar y rotar
+      const style = rec.el.style;
+      if (style.position !== 'absolute') style.position = 'absolute';
+
+      // Evita escribir lo mismo en cada frame
+      const left = `${x}px`;
+      const top = `${y}px`;
+      if (style.left !== left) style.left = left;
+      if (style.top !== top) style.top = top;
+
+      const zIndex = String(100 + (rec.z | 0));
+      if (style.zIndex !== zIndex) style.zIndex = zIndex;
+
+      const transform = `translate(-50%,-50%) rotate(${rec.rotationDeg}deg)`;
+      if (style.transform !== transform) {
+        style.transform = transform;
+        if (style.transformOrigin !== '50% 50%') style.transformOrigin = '50% 50%';
+      }
+    }
+  }
+
+  _onClick(evt) {
+    const key = evt.currentTarget?.dataset?.key;
+    if (!key) return;
+    // Reemite un CustomEvent para que la UI lo escuche en un solo sitio
+    this.root.dispatchEvent(new CustomEvent('overlay:click', {
+      bubbles: true,
+      detail: {
+        key,
+        record: this.items.get(key) || null
+      }
+    }));
+  }
+}

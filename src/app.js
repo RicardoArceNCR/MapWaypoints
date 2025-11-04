@@ -13,6 +13,18 @@ import { GLOBAL_CONFIG, MAPS_CONFIG } from './config.js';
 import { MapManager } from './MapManager.js';
 import { UIManager } from './UIManager.js';
 import { DetailedPopupManager } from './DetailedPopupManager.js';
+import { OverlayLayer } from './OverlayLayer.js';
+
+// Helper simple para mostrar errores al usuario
+function showError(message) {
+  try {
+    alert(message); // Simple y efectivo sin dependencias
+  } catch (e) {
+    console.warn('showError fallback:', message);
+  }
+}
+window.showError = showError;
+
 
 // ===== Helpers de URL y logger (seguros) =====
 function parseUrlToggles() {
@@ -23,13 +35,23 @@ function parseUrlToggles() {
     if (!Number.isNaN(n)) out.scale = Math.min(110, Math.max(80, n)) / 100; // 0.80–1.10
   }
   if (p.has('debug')) out.debug = p.get('debug') === '1';
-  if (p.has('editor')) window.__EDITOR_ACTIVE__ = p.get('editor') === '1';
+  if (p.has('editor')) out.editor = p.get('editor') === '1';
   return out;
 }
 
-const __TOGGLES__ = parseUrlToggles();
+// App-level config object (reduces globals)
+const appConfig = {
+  toggles: parseUrlToggles(),
+  editorActive: false,
+};
+// initialize editorActive from toggles if provided
+appConfig.editorActive = !!appConfig.toggles.editor;
+// expose a single global container (optional, for debugging/compat)
+window.appConfig = appConfig;
+// Backwards-compat: keep __EDITOR_ACTIVE__ in sync initially for other modules
+window.__EDITOR_ACTIVE__ = appConfig.editorActive;
 const log = {
-  info: (...a) => __TOGGLES__.debug && console.info('[info]', ...a),
+  info: (...a) => appConfig.toggles.debug && console.info('[info]', ...a),
   warn: (...a) => console.warn('[warn]', ...a),
   error: (...a) => console.error('[error]', ...a),
 };
@@ -39,7 +61,7 @@ function applyViewportCoverage() {
   const wrapper = document.getElementById('mapa-canvas-wrapper');
   if (!wrapper) return;
 
-  const coverage = __TOGGLES__.scale || 1.0; // default 100%
+  const coverage = appConfig.toggles.scale || 1.0; // default 100%
   const vw = Math.floor(window.innerWidth * coverage);
   const vh = Math.floor(window.innerHeight * coverage);
 
@@ -60,7 +82,7 @@ window.LayoutFill = window.LayoutFill || {
   set(pct = 100) {
     const scale = Math.min(110, Math.max(80, Number(pct))) / 100;
     // actualiza toggle y re-aplica
-    __TOGGLES__.scale = scale;
+  appConfig.toggles.scale = scale;
     applyViewportCoverage();
     // Si tienes rutinas de canvas DPR/redraw, invócalas aquí:
     try {
@@ -89,7 +111,7 @@ class WaypointSpatialIndex {
       const cellY = Math.floor(wp.y / this.cellSize);
       const key = `${cellX},${cellY}`;
       if (!this.grid.has(key)) this.grid.set(key, []);
-      this.grid.get(key).push({ ...wp, originalIndex: index });
+      this.grid.get(key).push({ wp, originalIndex: index });
       this.bounds.minX = Math.min(this.bounds.minX, wp.x);
       this.bounds.maxX = Math.max(this.bounds.maxX, wp.x);
       this.bounds.minY = Math.min(this.bounds.minY, wp.y);
@@ -234,6 +256,19 @@ let memoryMonitor = new MemoryMonitor();
   const wrap = document.getElementById('mapa-canvas-wrapper');
   const canvas = document.getElementById('mapa-canvas');
   const ctx = canvas.getContext('2d', { alpha: false });
+
+  // Placeholder inicial para LCP
+  function drawPlaceholder() {
+    ctx.fillStyle = '#000'; // Fondo negro simple (o usa una imagen low-res si prefieres)
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Opcional: carga una imagen low-res si la tienes (descomenta)
+    // const placeholderImg = new Image();
+    // placeholderImg.src = '/assets/low-res-map.jpg';
+    // placeholderImg.onload = () => ctx.drawImage(placeholderImg, 0, 0, canvas.width, canvas.height);
+  }
+  // Dibuja placeholder inmediatamente para mejorar LCP
+  try { drawPlaceholder(); } catch (err) { /* no bloquear si canvas no está listo */ }
+
   const minimap = document.getElementById('minimap');
   const mmCtx = minimap.getContext('2d');
   const srLive = wrap.querySelector('.sr-live');
@@ -241,6 +276,20 @@ let memoryMonitor = new MemoryMonitor();
 
   // Managers
   const mapManager = new MapManager();
+
+  // Overlay DOM
+  const overlay = new OverlayLayer(document.getElementById('overlay-layer'));
+  overlay.setDevice(mapManager.isMobile ? 'mobile' : 'desktop');
+  window.overlay = overlay; // útil para depurar
+
+  // Clicks centralizados de overlays
+  overlay.root.addEventListener('overlay:click', (e) => {
+    const { key, record } = e.detail;
+    // aquí puedes abrir tu popup/drawer si quieres
+    // popupManager?.open(record.meta);
+    console.log('[overlay click]', key, record?.meta);
+  });
+
   window.mapManager = mapManager;
   let uiManager;
   let popupManager;
@@ -290,7 +339,7 @@ let memoryMonitor = new MemoryMonitor();
   }
   function filterVisibleItems(items, sqrtZ) {
     if (!items || items.length === 0) return [];
-    if (window.__EDITOR_ACTIVE__) return items;
+    if (appConfig.editorActive) return items;
     const visible=[]; for (let i=0;i<items.length;i++){ if (isItemVisible(items[i], sqrtZ)) visible.push(items[i]); }
     return visible;
   }
@@ -432,6 +481,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       }
     } catch (err) {
       console.error('Error cargando mapa:', err);
+      if (typeof window !== 'undefined' && window.showError) {
+        try { window.showError('Error cargando el mapa. Intenta recargar.'); } catch {};
+      }
     } finally {
       uiManager.setLoading(false);
     }
@@ -548,7 +600,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const canvasLogicalW = canvas.width / dpr;
     const canvasLogicalH = canvas.height / dpr;
     const sqrtZ = getCachedSqrt(camera.z);
-    updateViewportBounds(canvasLogicalW, canvasLogicalH, window.__EDITOR_ACTIVE__ ? 600 : 200);
+  updateViewportBounds(canvasLogicalW, canvasLogicalH, appConfig.editorActive ? 600 : 200);
 
     ctx.save();
     ctx.translate(canvasLogicalW / 2, canvasLogicalH / 2);
@@ -901,13 +953,34 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const dpr = Math.min(DPR_MAX, window.devicePixelRatio || 1);
     const canvasLogicalW = canvas.width / dpr;
     const canvasLogicalH = canvas.height / dpr;
+
+    // --- Overlay DOM (por frame) ---
+    overlay.beginFrame();
+
+    // Ejemplo: un hotspot de prueba (borra esto cuando uses tus datos)
+    overlay.upsert({
+      key: 'hotspot-1',
+      src: '/img/hotspot.png',
+      worldX: 1234, worldY: -560,
+      rotationDeg: 0,
+      lockWidthPx: 64,
+      z: 10,
+      meta: { title: 'Hotspot 1' }
+    });
+
+    // Dibuja el mapa y elementos
     ctx.fillStyle = RENDER_CONSTANTS.BLACK_BG;
     ctx.fillRect(0, 0, canvasLogicalW, canvasLogicalH);
     drawMapAndMarkers();
     drawDebugOverlay();
     drawDialog();
     drawMinimap();
-    if (window.__EDITOR_ACTIVE__) window.dispatchEvent(new CustomEvent('editor:redraw'));
+    
+    // Eventos del editor si está activo
+  if (appConfig.editorActive) window.dispatchEvent(new CustomEvent('editor:redraw'));
+    
+    // Finaliza el frame del overlay con la cámara actual
+    overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
   }
 
   function typeNext(delta) {
@@ -969,7 +1042,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   });
 
   canvas.addEventListener('mousedown', (e) => {
-    if (window.__EDITOR_ACTIVE__) { console.log('🎨 Editor activo - evento bloqueado'); return; }
+  if (appConfig.editorActive) { console.log('🎨 Editor activo - evento bloqueado'); return; }
     const { x, y } = clientToMapCoords(e.clientX, e.clientY);
     const items = state.currentIcons[state.idx] || [];
     for (const item of items) {
@@ -1059,6 +1132,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       canvasW = BASE_W;
       canvasH = BASE_H;
     }
+
+    // Informa al overlay del tamaño visible
+    overlay.resize(canvasW, canvasH);
 
     // Ajustar por ratio del mapa en modos responsivos
     if (mapConfig.logicalW && mapConfig.logicalH) {
@@ -1154,7 +1230,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (GLOBAL_CONFIG.CAMERA_EFFECTS.transitionEnabled) updateTransition(ts);
 
     let breathOffsetY = 0, breathOffsetZ = 0;
-    if (GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled && !window.__EDITOR_ACTIVE__) {
+  if (GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled && !appConfig.editorActive) {
       const breath = Math.sin(ts * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingSpeed);
       breathOffsetY = breath * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingAmount;
       breathOffsetZ = breath * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingZAmount;
@@ -1162,7 +1238,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
 
     const prevCameraX = camera.x, prevCameraY = camera.y, prevCameraZ = camera.z;
-    if (window.__EDITOR_ACTIVE__) {
+  if (appConfig.editorActive) {
       camera.x = camTarget.x; camera.y = camTarget.y; camera.z = camTarget.z;
     } else {
       camera.x = lerp(camera.x, camTarget.x, EASE);
@@ -1217,30 +1293,18 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   
 
 })();
-// === Boot de cobertura y resize ===
-(function bootCoverageWhenReady() {
-  const start = () => {
-    applyViewportCoverage();
-    window.addEventListener('resize', applyViewportCoverage, { passive: true });
-  };
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start, { once: true });
-  } else {
-    start();
-  }
-})();
-// === Boot de cobertura y resize ===
-(function bootCoverageWhenReady() {
-  const start = () => {
-    applyViewportCoverage();
-    window.addEventListener('resize', applyViewportCoverage, { passive: true });
-  };
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start, { once: true });
-  } else {
-    start();
-  }
-})();
+  // === Boot de cobertura y resize ===
+  (function bootCoverageWhenReady() {
+    const start = () => {
+      applyViewportCoverage();
+      window.addEventListener('resize', applyViewportCoverage, { passive: true });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', start, { once: true });
+    } else {
+      start();
+    }
+  })();
 
 function safeMemory() {
   try {
@@ -1249,7 +1313,7 @@ function safeMemory() {
 }
 
 // Uso (solo log en debug)
-if (__TOGGLES__.debug) {
+if (appConfig.toggles.debug) {
   const mem = safeMemory();
   if (mem) log.info('Mem MB', Math.round(mem.usedJSHeapSize / 1048576));
 }
