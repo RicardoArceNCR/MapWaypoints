@@ -907,43 +907,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('toggle-rulers').addEventListener('click', () => {
       editor.showRulers = !editor.showRulers;
       const btn = document.getElementById('toggle-rulers');
-
-        // Waypoint edit mode UI
-        const btnWp = document.getElementById('toggle-wp-mode');
-        const btnWpSave = document.getElementById('save-wp');
-        const inX = document.getElementById('wp-x');
-        const inY = document.getElementById('wp-y');
-        const inZ = document.getElementById('wp-z');
-
-        if (btnWp) {
-          btnWp.addEventListener('click', () => {
-            editor.editWaypointMode = !editor.editWaypointMode;
-            btnWp.textContent = editor.editWaypointMode ? '✥ Editando Waypoint…' : '✥ Editar Waypoint';
-            btnWp.style.background = editor.editWaypointMode ? '#FFD700' : '#00BFFF';
-            if (editor.waypoint) {
-              inX.value = Math.round(editor.waypoint.x);
-              inY.value = Math.round(editor.waypoint.y);
-              inZ.value = Number(editor.waypoint.z || 1).toFixed(2);
-            }
-            editor.needsRedraw = true;
-            window.dispatchEvent(new CustomEvent('editor:redraw'));
-          });
-        }
-
-        if (btnWpSave) {
-          btnWpSave.addEventListener('click', () => {
-            if (!editor.waypoint) return;
-            const x = parseInt(inX.value) || editor.waypoint.x;
-            const y = parseInt(inY.value) || editor.waypoint.y;
-            const z = parseFloat(inZ.value) || editor.waypoint.z || 1;
-            saveWaypointPosition(x, y, z);
-          });
-        }
-          btn.textContent = `RULERS: ${editor.showRulers ? 'ON' : 'OFF'}`;
+      btn.textContent = `RULERS: ${editor.showRulers ? 'ON' : 'OFF'}`;
       btn.style.background = editor.showRulers ? '#FFD700' : '#333';
       editor.needsRedraw = true;
       window.dispatchEvent(new CustomEvent('editor:redraw'));
-    })
+    });
     // 🧭 Bind Waypoint controls (outside other handlers)
     (function bindWaypointControls(){
       const btnWp = document.getElementById('toggle-wp-mode');
@@ -1085,16 +1053,41 @@ document.addEventListener('DOMContentLoaded', () => {
     editor.active = !editor.active;
     window.__EDITOR_ACTIVE__ = editor.active;
 
+    // Notifica a app.js
+    window.dispatchEvent(new CustomEvent('editor:active', {
+      detail: { active: editor.active }
+    }));
+
     if (editor.active) {
       console.log('%c🎨 EDITOR ACTIVADO', 'color:#00FF00;font-size:16px;font-weight:bold');
       canvas.style.cursor = 'crosshair';
-      createUI();
+
+      try {
+        // UI avanzada
+        createUI();
+      } catch (err) {
+        console.error('Editor UI error, usando fallback:', err);
+        // UI mínima infalible
+        const fallback = document.createElement('div');
+        fallback.id = 'editor-lite';
+        fallback.style.cssText = `
+          position: fixed; top: 12px; left: 12px; z-index: 99999;
+          background: rgba(0,0,0,.85); color: #0f0; font: 12px/1.4 monospace;
+          padding: 10px 12px; border: 2px solid #0f0; border-radius: 8px;
+        `;
+        fallback.innerHTML = `
+          <div><strong>EDITOR (fallback)</strong></div>
+          <div>Presiona E para ocultar</div>
+        `;
+        document.body.appendChild(fallback);
+      }
+
       editor.needsRedraw = true;
     } else {
       console.log('%c⏹️  EDITOR DESACTIVADO', 'color:#FF6B6B;font-size:16px');
       canvas.style.cursor = 'default';
-      const ui = document.getElementById('editor-pro-ui');
-      if (ui) ui.remove();
+      document.getElementById('editor-pro-ui')?.remove?.();
+      document.getElementById('editor-lite')?.remove?.();
       editor.selectedItem = null;
     }
 
@@ -1591,4 +1584,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { capture: true });
 
   console.log('✅ Editor Pro Advanced cargado. Presiona "E"');
-});
+    // --- HMR: limpia y re-monta UI si estaba activo
+    if (import.meta.hot) {
+      import.meta.hot.dispose(() => {
+        try { document.getElementById('editor-pro-ui')?.remove?.(); } catch {}
+      });
+
+      import.meta.hot.accept(() => {
+        if (window.__EDITOR_ACTIVE__ && !document.getElementById('editor-pro-ui')) {
+          try { createUI(); } catch {}
+          window.dispatchEvent(new CustomEvent('editor:active', { detail: { active: true } }));
+        }
+      });
+    }
+
+  });

@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark light">
   <title>Mapa Interactivo Multi-Fase</title>
-  <link rel="preload" href="/assets/fonts/inter-v12-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/inter-v12-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/inter-v12-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/inter-v12-latin-600.woff2" as="font" type="font/woff2" crossorigin>
   <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"> -->
   <link rel="stylesheet" href="./style.css">
-  <link rel="preload" href="/assets/mapa-mobile.webp"  as="image" type="image/webp" media="(max-width: 899px)">
-  <link rel="preload" href="/assets/mapa-dektop.webp" as="image" type="image/webp" media="(min-width: 900px)">
+  <link rel="preload" href="../assets/mapa-mobile.webp"  as="image" type="image/webp" media="(max-width: 899px)">
+  <link rel="preload" href="../assets/mapa-dektop.webp" as="image" type="image/webp" media="(min-width: 900px)">
 
   
 
@@ -166,28 +166,9 @@
 
   <!-- Aplicación principal -->
   <script type="module" src="/app.js"></script>
-  
-  <!-- ⚠️ EDITOR VISUAL (Solo para desarrollo) -->
-  <!-- 👇 ELIMINA ESTA LÍNEA EN PRODUCCIÓN -->
-  <!-- Aplicación principal -->
-<script type="module" src="/app.js"></script>
 
-<!-- ⚠️ EDITOR VISUAL (Solo para desarrollo) -->
-<script>
-  (function () {
-    const host = window.location.hostname;
-    const isDev =
-      host === 'localhost' ||
-      host === '127.0.0.1' ||
-      window.location.search.includes('debug=true');
-
-    if (isDev) {
-      const s = document.createElement('script');
-      s.type = 'module';
-      s.src = '/editor.js';
-      document.currentScript.after(s);
-    }
-  })();
+  <!-- Editor (forzado durante depuración) -->
+  <script type="module" src="/editor.js"></script>
 </script>
 
 </body>
