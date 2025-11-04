@@ -84,7 +84,7 @@ export const MAPS_CONFIG = {
       0: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: 33, offsetY: 21, width: 290, height: 176, rotation: 6.5 },
+          mobile: { offsetX: 33, offsetY: 21, width: 290, height: 176, rotation: 0 },
           desktop: { offsetX: -482, offsetY: -55, width: 388, height: 230, rotation: -10 },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
@@ -169,7 +169,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 54, offsetY: 342, width: 221, height: 183, rotation: -8.2, radius: 0 },
+          mobile: { offsetX: 54, offsetY: 342, width: 221, height: 183, rotation: 0, radius: 0 },
           desktop: { offsetX: -115, offsetY: -101, width: 150, height: 156, rotation: 25 },
           
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
@@ -270,15 +270,15 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 281, offsetY: -176, width: 70, height: 70, rotation: 15, radius: 37 },
-          desktop: { offsetX: -1, offsetY: -96, width: 160, height: 160, radius: 10, rotation: -10 },
+          mobile: { offsetX: 281, offsetY: -176, width: 85, height: 85, rotation: 0, radius: 30 },
+          desktop: { offsetX: -1, offsetY: -96, width: 160, height: 160, rotation: -10, radius: 10  },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 300, offsetY: 540, width: 83, height: 83, radius: 30, rotation: 0 },
-          desktop: { offsetX: -1, offsetY: 142, width: 260, height: 160, radius: 10, rotation: 0 },
+          mobile: { offsetX: 300, offsetY: 540, width: 89, height: 89, rotation: 0, radius: 20},
+          desktop: { offsetX: -1, offsetY: 142, width: 260, height: 160, rotation: 0, radius: 10},
           title: 'Contexto Geográfico',
           body: 'Ubicación específica y detalles del entorno. Características del lugar que influyen en los acontecimientos.'
         }
@@ -357,14 +357,14 @@ export const MAPS_CONFIG = {
             offsetY: -80, 
             width: 720,
             height: 280,
-            rotation: 10 
+            rotation: 0 
           },
           desktop: { 
             offsetX: -90, 
             offsetY: -90, 
             width: 950,
             height: 900,
-            rotation: -15 
+            rotation: 0 
           },
           title: 'Mapa del Territorio',
           body: 'Vista detallada de la zona completa. Este mapa muestra todos los lugares visitados.'
@@ -538,7 +538,7 @@ export const MAPS_CONFIG = {
       0: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: 33, offsetY: 21, width: 290, height: 176, rotation: 6.5 },
+          mobile: { offsetX: 33, offsetY: 21, width: 290, height: 176, rotation: 0 },
           desktop: { offsetX: -482, offsetY: -55, width: 388, height: 230, rotation: -10 },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
