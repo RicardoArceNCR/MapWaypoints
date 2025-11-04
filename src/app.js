@@ -303,12 +303,51 @@ let memoryMonitor = new MemoryMonitor();
   window.overlay = overlay; // útil para depurar
 
   // Clicks centralizados de overlays
+  let lastOverlayClick = { time: 0, key: null };
   overlay.root.addEventListener('overlay:click', (e) => {
     const { key, record } = e.detail;
+    // marca el último click para evitar duplicados desde pointerup
+    lastOverlayClick = { time: performance.now(), key };
     // aquí puedes abrir tu popup/drawer si quieres
     // popupManager?.open(record.meta);
     console.log('[overlay click]', key, record?.meta);
   });
+
+  // Auto-snap fallback: si no hubo overlay:click, busca el overlay más cercano
+  overlay.root.addEventListener('pointerup', (ev) => {
+    const now = performance.now();
+    // si hubo un overlay:click recientemente, no hacemos snap
+    if (lastOverlayClick.time && now - lastOverlayClick.time < 250) return;
+
+    try {
+      const R = 24; // radio de perdón en px
+      const clientX = ev.clientX;
+      const clientY = ev.clientY;
+      let best = null;
+      let bestDist = Infinity;
+
+      for (const [k, rec] of overlay.items) {
+        if (!rec || !rec.wrap) continue;
+        if (rec.wrap.style.display === 'none') continue;
+        const rect = rec.wrap.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const d = Math.hypot(clientX - cx, clientY - cy);
+        if (d < bestDist) { bestDist = d; best = { key: k, rec, d }; }
+      }
+
+      if (best && best.d <= R) {
+        // dispara manualmente el evento para reutilizar el manejador existente
+        lastOverlayClick = { time: performance.now(), key: best.key };
+        overlay.root.dispatchEvent(new CustomEvent('overlay:click', {
+          bubbles: true,
+          detail: { key: best.key, record: best.rec }
+        }));
+      }
+    } catch (err) {
+      console.warn('overlay snap handler error', err);
+    }
+  }, { passive: true });
 
   window.mapManager = mapManager;
   let uiManager;
