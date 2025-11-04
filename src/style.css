@@ -75,6 +75,7 @@ html, body {
   /* JS ajusta width/height en cada resize */
 }
 
+
 /* ========= CONTENEDOR PRINCIPAL ========= */
 .novela {
   position: relative;
@@ -1016,4 +1017,20 @@ html, body {
   height: 100%;
   pointer-events: none;
   z-index: 33;
+}
+.overlay-root { position: absolute; inset: 0; pointer-events: none; }
+/* Overlay DOM en coordenadas de pantalla */
+.overlay-root { 
+  position: absolute; 
+  inset: 0; 
+  pointer-events: none;
+  z-index: 34; /* Por encima del canvas pero debajo del editor */
+}
+
+.overlay-root .overlay-item { 
+  position: absolute;
+  pointer-events: auto; 
+  will-change: transform;
+  user-select: none;
+  transition: transform 0.2s ease;
 }

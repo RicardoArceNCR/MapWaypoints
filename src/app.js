@@ -13,6 +13,8 @@ import { GLOBAL_CONFIG, MAPS_CONFIG } from './config.js';
 import { MapManager } from './MapManager.js';
 import { UIManager } from './UIManager.js';
 import { DetailedPopupManager } from './DetailedPopupManager.js';
+import { OverlayLayer } from './OverlayLayer.js';
+
 
 // ===== Helpers de URL y logger (seguros) =====
 function parseUrlToggles() {
@@ -89,7 +91,7 @@ class WaypointSpatialIndex {
       const cellY = Math.floor(wp.y / this.cellSize);
       const key = `${cellX},${cellY}`;
       if (!this.grid.has(key)) this.grid.set(key, []);
-      this.grid.get(key).push({ ...wp, originalIndex: index });
+      this.grid.get(key).push({ wp, originalIndex: index });
       this.bounds.minX = Math.min(this.bounds.minX, wp.x);
       this.bounds.maxX = Math.max(this.bounds.maxX, wp.x);
       this.bounds.minY = Math.min(this.bounds.minY, wp.y);
@@ -241,6 +243,20 @@ let memoryMonitor = new MemoryMonitor();
 
   // Managers
   const mapManager = new MapManager();
+
+  // Overlay DOM
+  const overlay = new OverlayLayer(document.getElementById('overlay-layer'));
+  overlay.setDevice(mapManager.isMobile ? 'mobile' : 'desktop');
+  window.overlay = overlay; // útil para depurar
+
+  // Clicks centralizados de overlays
+  overlay.root.addEventListener('overlay:click', (e) => {
+    const { key, record } = e.detail;
+    // aquí puedes abrir tu popup/drawer si quieres
+    // popupManager?.open(record.meta);
+    console.log('[overlay click]', key, record?.meta);
+  });
+
   window.mapManager = mapManager;
   let uiManager;
   let popupManager;
@@ -901,13 +917,34 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const dpr = Math.min(DPR_MAX, window.devicePixelRatio || 1);
     const canvasLogicalW = canvas.width / dpr;
     const canvasLogicalH = canvas.height / dpr;
+
+    // --- Overlay DOM (por frame) ---
+    overlay.beginFrame();
+
+    // Ejemplo: un hotspot de prueba (borra esto cuando uses tus datos)
+    overlay.upsert({
+      key: 'hotspot-1',
+      src: '/img/hotspot.png',
+      worldX: 1234, worldY: -560,
+      rotationDeg: 0,
+      lockWidthPx: 64,
+      z: 10,
+      meta: { title: 'Hotspot 1' }
+    });
+
+    // Dibuja el mapa y elementos
     ctx.fillStyle = RENDER_CONSTANTS.BLACK_BG;
     ctx.fillRect(0, 0, canvasLogicalW, canvasLogicalH);
     drawMapAndMarkers();
     drawDebugOverlay();
     drawDialog();
     drawMinimap();
+    
+    // Eventos del editor si está activo
     if (window.__EDITOR_ACTIVE__) window.dispatchEvent(new CustomEvent('editor:redraw'));
+    
+    // Finaliza el frame del overlay con la cámara actual
+    overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
   }
 
   function typeNext(delta) {
@@ -1059,6 +1096,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       canvasW = BASE_W;
       canvasH = BASE_H;
     }
+
+    // Informa al overlay del tamaño visible
+    overlay.resize(canvasW, canvasH);
 
     // Ajustar por ratio del mapa en modos responsivos
     if (mapConfig.logicalW && mapConfig.logicalH) {
