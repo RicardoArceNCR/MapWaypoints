@@ -126,6 +126,7 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
+  background: #000; /* Fallback si JS demora (mejora LCP) */
   image-rendering: auto;
   -ms-interpolation-mode: bicubic;
   display: block;
