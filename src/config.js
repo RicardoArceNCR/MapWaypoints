@@ -1481,6 +1481,19 @@ export const GLOBAL_CONFIG = {
     borderWidth: 1.5
   },
   
+  // ===== CANVAS HOTSPOTS & EDITOR =====
+  DRAW_HOTSPOTS_ON_CANVAS: true,     // Dibujar hotspots en canvas para referencia/editor
+  SYNC_OVERLAYS_WITH_EDITOR: true,   // Sincronización automática de overlays con el editor
+  
+  // Estilos para los hotspots en canvas
+  CANVAS_HOTSPOT_STYLES: {
+    fill: 'rgba(0, 209, 255, 0.1)',    // Color de relleno con transparencia
+    stroke: 'rgba(0, 209, 255, 0.5)',  // Color del borde
+    lineWidth: 1,                      // Grosor del borde
+    activeFill: 'rgba(0, 209, 255, 0.2)',   // Color al estar activo
+    activeStroke: 'rgba(255, 255, 255, 0.8)' // Borde al estar activo
+  },
+  
   WAYPOINT_OFFSET: {
     mobile: 0,
     desktop: 0

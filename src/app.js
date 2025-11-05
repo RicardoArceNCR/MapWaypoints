@@ -586,6 +586,39 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
   }
 
+  // ========= SYNC HOTSPOT DATA =========
+  function syncHotspotData(mapData) {
+    if (!mapData) return;
+    
+    // Initialize or update the shared hotspot data
+    if (!window.hotspotData) {
+      window.hotspotData = [];
+    }
+    
+    // Update hotspot data from the map data
+    if (mapData.hotspots && Array.isArray(mapData.hotspots)) {
+      mapData.hotspots.forEach((hotspot, index) => {
+        if (hotspot && hotspot.coords) {
+          // Preserve existing hotspot data if it exists
+          window.hotspotData[index] = {
+            ...hotspot,
+            coords: {
+              ...(window.hotspotData[index]?.coords || {}),
+              ...hotspot.coords
+            }
+          };
+        }
+      });
+    }
+    
+    // Notify that hotspot data has been updated
+    window.dispatchEvent(new CustomEvent('hotspotData:updated', {
+      detail: { hotspots: window.hotspotData }
+    }));
+    
+    return window.hotspotData;
+  }
+
   // ========= LOAD MAP =========
   async function loadMap(mapId) {
     uiManager.setLoading(true);
@@ -598,6 +631,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       state.currentWaypoints = mapData.waypoints;
       state.currentIcons = mapData.icons || {};
       state.mapImages = mapData.images;
+      
+      // Initialize and sync hotspot data
+      state.currentHotspots = syncHotspotData(mapData);
 
       if (GLOBAL_CONFIG.WAYPOINT_RENDERING.useSpatialIndex && state.currentWaypoints.length >= GLOBAL_CONFIG.WAYPOINT_RENDERING.spatialIndexThreshold) {
         waypointSpatialIndex = new WaypointSpatialIndex(state.currentWaypoints, GLOBAL_CONFIG.WAYPOINT_RENDERING.cellSize);
@@ -735,6 +771,87 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (line) lines.push(line);
     ctx.restore();
     return lines;
+  }
+
+  // ========= 🎯 HOTSPOT RENDERING =========
+  function drawHotspotsOnCanvas() {
+    if (!GLOBAL_CONFIG.DRAW_HOTSPOTS_ON_CANVAS || !window.hotspotData) return;
+    
+    const hotspots = window.hotspotData;
+    const dpr = Math.min(DPR_MAX, window.devicePixelRatio || 1);
+    const canvasLogicalW = canvas.width / dpr;
+    const canvasLogicalH = canvas.height / dpr;
+    
+    // Get current camera state
+    const cam = camera || { x: 0, y: 0, z: 1 };
+    const sqrtZ = Math.sqrt(cam.z);
+    
+    // Calculate viewport bounds for culling
+    const vw = canvasLogicalW / cam.z;
+    const vh = canvasLogicalH / cam.z;
+    const vx = cam.x - vw/2;
+    const vy = cam.y - vh/2;
+    
+    // Cache styles for better performance
+    const styles = GLOBAL_CONFIG.CANVAS_HOTSPOT_STYLES || {
+      fill: 'rgba(0, 209, 255, 0.1)',
+      stroke: 'rgba(0, 209, 255, 0.5)',
+      lineWidth: 1,
+      activeFill: 'rgba(0, 209, 255, 0.2)',
+      activeStroke: 'rgba(255, 255, 255, 0.8)'
+    };
+    
+    ctx.save();
+    
+    // Apply camera transform
+    ctx.setTransform(
+      dpr * cam.z, 0,
+      0, dpr * cam.z,
+      dpr * (-cam.x * cam.z + canvasLogicalW/2),
+      dpr * (-cam.y * cam.z + canvasLogicalH/2)
+    );
+    
+    // Draw each hotspot
+    hotspots.forEach((hs, index) => {
+      if (!hs || !hs.coords) return;
+      
+      const { xp, yp, width = 50, height = 50 } = hs.coords;
+      const x = xp * mapManager.currentMap?.config.mapImage.logicalW || 0;
+      const y = yp * mapManager.currentMap?.config.mapImage.logicalH || 0;
+      
+      // Simple viewport culling
+      if (x + width < vx || x > vx + vw || y + height < vy || y > vy + vh) {
+        return; // Skip off-screen hotspots
+      }
+      
+      const isActive = editorActive && editor?.selectedItem?.index === index;
+      
+      // Draw hotspot rectangle
+      ctx.beginPath();
+      ctx.rect(x, y, width, height);
+      
+      // Apply styles
+      ctx.fillStyle = isActive ? styles.activeFill : styles.fill;
+      ctx.strokeStyle = isActive ? styles.activeStroke : styles.stroke;
+      ctx.lineWidth = (isActive ? 2 : 1) / sqrtZ;
+      
+      // Draw
+      ctx.fill();
+      ctx.stroke();
+      
+      // Draw index label for debugging
+      if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+        ctx.save();
+        ctx.font = `${10 / sqrtZ}px Inter, sans-serif`;
+        ctx.fillStyle = '#fff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(index.toString(), x + width/2, y + height/2);
+        ctx.restore();
+      }
+    });
+    
+    ctx.restore();
   }
 
   function drawMapAndMarkers() {
@@ -1101,9 +1218,61 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     // --- Overlay DOM (por frame) ---
     overlay.beginFrame();
 
-    // Render icons/hotspots for current waypoint
+    // Render hotspots from window.hotspotData for editor sync
+    if (window.hotspotData && window.hotspotData.length > 0) {
+      window.hotspotData.forEach((hotspot, index) => {
+        if (!hotspot || !hotspot.coords) return;
+        
+        const { xp, yp, width = 50, height = 50 } = hotspot.coords;
+        const worldX = xp * (mapManager.currentMap?.config.mapImage.logicalW || 2858);
+        const worldY = yp * (mapManager.currentMap?.config.mapImage.logicalH || 2858);
+        
+        // Only render hotspots that are in the current viewport
+        const viewW = canvasLogicalW / camera.z;
+        const viewH = canvasLogicalH / camera.z;
+        const viewX = camera.x - viewW/2 - width/2;
+        const viewY = camera.y - viewH/2 - height/2;
+        
+        if (worldX + width < viewX || 
+            worldX > viewX + viewW + width || 
+            worldY + height < viewY || 
+            worldY > viewY + viewH + height) {
+          return; // Skip off-screen hotspots
+        }
+        
+        const isActive = appConfig.editorActive && editor?.selectedItem?.index === index;
+        const baseSize = width || (GLOBAL_CONFIG.ICON_SIZE || 36);
+        const minTapSize = 56; // Standard minimum touch target size
+        
+        overlay.upsert({
+          key: `hotspot_${index}`,
+          src: hotspot.src || '/default-icon.png',
+          worldX: worldX + width/2, // Center the hotspot
+          worldY: worldY + height/2,
+          rotationDeg: hotspot.rotation || 0,
+          lockWidthPx: Math.max(baseSize, minTapSize),
+          z: hotspot.z || 2,
+          meta: {
+            shape: 'rect',
+            compact: !mapManager.isMobile,
+            hitSlop: 6,
+            minTap: minTapSize,
+            visualH: height,
+            title: hotspot.title || `Hotspot ${index}`,
+            hotspot: hotspot,
+            isHotspot: true,
+            hotspotIndex: index
+          }
+        });
+      });
+    }
+    
+    // Render regular waypoint icons
     const iconsForWaypoint = state.currentIcons[state.idx] || [];
     iconsForWaypoint.forEach((icon, i) => {
+      // Skip if this is a hotspot (already handled)
+      if (icon.isHotspot) return;
+      
       // 🎯 Reglas de UX para shapes:
       const isRoundByType = ['pin', 'marker', 'bubble', 'diana', 'dot'].includes(icon.type);
       const isRoundByKind = ['pin', 'circle'].includes(icon.kind);
@@ -1115,7 +1284,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const minTapSize = isCard ? 48 : 56; // cards pueden ser algo más pequeñas
 
       overlay.upsert({
-        key: `${state.idx}:${i}`,
+        key: `waypoint_${state.idx}:${i}`,
         src: icon.img,
         worldX: icon.x,
         worldY: icon.y,
@@ -1123,7 +1292,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         lockWidthPx: Math.max(baseSize, minTapSize),
         z: icon.z || 2,
         meta: {
-              // 🔑 Auto-detección inteligente de forma
+          // 🔑 Auto-detección inteligente de forma
           shape: icon.shape || (shouldBeRound ? 'circle' : 'rect'),
           
           // 🎯 Control preciso del hitbox
@@ -1138,7 +1307,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           // 📐 Alto visual independiente
           visualH: isCard ? (icon.height || baseSize) : icon.height,
 
-          // lo que necesites para tus popups
+          // Metadata para popups
           title: icon.title,
           hotspot: icon.hotspotData
         }
@@ -1149,6 +1318,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     ctx.fillStyle = RENDER_CONSTANTS.BLACK_BG;
     ctx.fillRect(0, 0, canvasLogicalW, canvasLogicalH);
     drawMapAndMarkers();
+    drawHotspotsOnCanvas();
     drawDebugOverlay();
     drawDialog();
     drawMinimap();

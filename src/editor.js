@@ -63,29 +63,62 @@ document.addEventListener('DOMContentLoaded', () => {
   function saveState(action = 'edit') {
     if (!editor.selectedItem) return;
     
-    const state = {
-      action,
-      timestamp: Date.now(),
-      waypointIndex: editor.waypointIndex,
-      itemIndex: editor.selectedItem.index,
-      item: JSON.parse(JSON.stringify(editor.items[editor.selectedItem.index]))
-    };
+    // Update waypoint reference if this is a hotspot
+    if (window.hotspotData && editor.selectedItem.index !== undefined) {
+      const item = editor.items[editor.selectedItem.index];
+      if (item && (item.type === 'hotspot' || item.meta?.isHotspot)) {
+        const closestWaypoint = findClosestWaypoint(item, editor.waypoints || []);
+        if (closestWaypoint) {
+          window.hotspotData[editor.selectedItem.index] = {
+            ...window.hotspotData[editor.selectedItem.index],
+            waypointIndex: closestWaypoint.index
+          };
+          console.log(`%c🔗 Updated hotspot #${editor.selectedItem.index} to reference waypoint #${closestWaypoint.index}`, 'color:#00BFFF');
+        }
+      }
+    }
     
-    // Eliminar estados futuros si estamos en medio de la historia
+    // Limitar el historial a 50 acciones
     if (editor.historyIndex < editor.history.length - 1) {
       editor.history = editor.history.slice(0, editor.historyIndex + 1);
     }
     
-    editor.history.push(state);
+    editor.history.push({
+      action,
+      items: JSON.parse(JSON.stringify(editor.items)),
+      item: editor.selectedItem ? { ...editor.selectedItem.item } : null,
+      itemIndex: editor.selectedItem?.index
+    });
     
-    // Limitar tamaño de historia
-    if (editor.history.length > editor.maxHistory) {
-      editor.history.shift();
-    } else {
-      editor.historyIndex++;
+    editor.historyIndex = editor.history.length - 1;
+    updateHistoryUI();
+    
+    // Sincronizar con los datos globales de hotspots si está habilitado
+    if (window.GLOBAL_CONFIG?.SYNC_OVERLAYS_WITH_EDITOR && window.hotspotData) {
+      const editedItem = editor.selectedItem?.item;
+      if (editedItem && editedItem.index !== undefined) {
+        window.hotspotData[editedItem.index] = {
+          ...window.hotspotData[editedItem.index],
+          coords: {
+            ...window.hotspotData[editedItem.index]?.coords,
+            xp: editedItem.x,
+            yp: editedItem.y,
+            width: editedItem.width,
+            height: editedItem.height
+          }
+        };
+        
+        // Forzar actualización de la UI si es necesario
+        if (window.markDirty) {
+          window.markDirty('elements');
+        }
+      }
     }
     
-    updateHistoryUI();
+    // Notificar cambios
+    window.dispatchEvent(new CustomEvent('editor:change', {
+      detail: { action, items: editor.items }
+    }));
   }
 
   function undo() {
@@ -1464,6 +1497,21 @@ document.addEventListener('DOMContentLoaded', () => {
           }
 
           console.log(`%c📍 Item #${i}`, 'color:#00FF00;font-weight:bold');
+          
+          // Find and log closest waypoint for hotspots
+          if (item.type === 'hotspot' || item.meta?.isHotspot) {
+            const closestWaypoint = findClosestWaypoint(item, editor.waypoints || []);
+            if (closestWaypoint) {
+              console.log(`%c🔗 Closest Waypoint #${closestWaypoint.index}: ${closestWaypoint.label || 'Unlabeled'}`, 'color:#00BFFF');
+              
+              // If this is a hotspot, update its waypoint reference
+              if (window.hotspotData && window.hotspotData[editor.selectedItem.index]) {
+                window.hotspotData[editor.selectedItem.index].waypointIndex = closestWaypoint.index;
+                console.log(`%c🔗 Linked to Waypoint #${closestWaypoint.index}`, 'color:#00BFFF');
+              }
+            }
+          }
+          
           console.table({
             index: i,
             type: item.type || 'hotspot',
@@ -1472,7 +1520,8 @@ document.addEventListener('DOMContentLoaded', () => {
             size: `${Math.round(item.width)}×${Math.round(item.height)}`,
             rotation: `${item.rotation || 0}°`,
             zIndex: item.z || 0,
-            meta: item.meta ? '...' : 'none'
+            meta: item.meta ? '...' : 'none',
+            waypointIndex: item.waypointIndex !== undefined ? item.waypointIndex : 'none'
           });
           
           // Log detailed debug info
