@@ -257,6 +257,7 @@ function validateCanvasDimensions(width, height, isMobile) {
 // ••• VARIABLES GLOBALES
 let waypointSpatialIndex = null;
 let memoryMonitor = new MemoryMonitor();
+let overlayLayer = null;
 
 (() => {
   let { BASE_W, BASE_H } = GLOBAL_CONFIG;
@@ -1139,6 +1140,14 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     else if (state.idx > 0) { goToWaypoint(state.idx - 1); }
   }
 
+  // Initialize overlay layer
+  const overlayRoot = document.getElementById('overlay-layer');
+  if (overlayRoot) {
+    overlayLayer = new OverlayLayer(overlayRoot);
+  } else {
+    console.warn('Overlay root element not found. Overlay functionality will be disabled.');
+  }
+
   const popup = document.getElementById('popup');
   const popupBackdrop = document.getElementById('popup-backdrop');
   const popupTitle = document.getElementById('popup-title');
@@ -1320,11 +1329,19 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const now = performance.now();
     if (now - lastResize < RESIZE_THROTTLE) {
       clearTimeout(resizeTO);
-      resizeTO = setTimeout(() => { setCanvasDPR(); lastResize = performance.now(); }, RESIZE_DEBOUNCE);
+      resizeTO = setTimeout(() => { 
+        setCanvasDPR();
+        if (overlayLayer) overlayLayer.resize(window.innerWidth, window.innerHeight);
+        lastResize = performance.now(); 
+      }, RESIZE_DEBOUNCE);
       return;
     }
     clearTimeout(resizeTO);
-    resizeTO = setTimeout(() => { setCanvasDPR(); lastResize = performance.now(); }, RESIZE_DEBOUNCE);
+    resizeTO = setTimeout(() => { 
+      setCanvasDPR();
+      if (overlayLayer) overlayLayer.resize(window.innerWidth, window.innerHeight);
+      lastResize = performance.now(); 
+    }, RESIZE_DEBOUNCE);
   }, { passive: true });
 
   try {
@@ -1343,6 +1360,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (!loop.prev) loop.prev = ts;
     const delta = ts - loop.prev; loop.prev = ts;
     if (GLOBAL_CONFIG.CAMERA_EFFECTS.transitionEnabled) updateTransition(ts);
+    
+    // Update overlay layer at the start of each frame
+    if (overlayLayer) {
+      overlayLayer.beginFrame();
+    }
 
     let breathOffsetY = 0, breathOffsetZ = 0;
   if (GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled && !appConfig.editorActive) {
@@ -1368,7 +1390,16 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     else { dirtyFlags.cameraMoving = false; }
 
     typeNext(delta);
-    if (needsRedraw()) { draw(); clearDirtyFlags(); } else { performanceStats.skippedFrames++; }
+    if (needsRedraw()) { 
+      draw(); 
+      // Update overlay layer at the end of each frame
+      if (overlayLayer) {
+        overlayLayer.endFrame(camera, canvas.width, canvas.height);
+      }
+      clearDirtyFlags(); 
+    } else { 
+      performanceStats.skippedFrames++; 
+    }
     updatePerformanceStats(ts);
     if (running) rafId = requestAnimationFrame(loop);
   }

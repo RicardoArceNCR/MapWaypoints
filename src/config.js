@@ -85,7 +85,7 @@ export const MAPS_CONFIG = {
         { 
           type: 'hotspot',
           mobile: { offsetX: 33, offsetY: 21, width: 290, height: 176, rotation: 0 },
-          desktop: { offsetX: -482, offsetY: -55, width: 388, height: 230, rotation: -10 },
+          desktop: { offsetX: -582, offsetY: -55, width: 388, height: 230, rotation: -10 },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
           title: 'Llegada al Aeropuerto',
@@ -170,7 +170,7 @@ export const MAPS_CONFIG = {
         { 
           type: 'hotspot',
           mobile: { offsetX: 54, offsetY: 342, width: 221, height: 183, rotation: 0, radius: 0 },
-          desktop: { offsetX: -115, offsetY: -101, width: 150, height: 156, rotation: 25 },
+          desktop: { offsetX: -115, offsetY: -201, width: 150, height: 156, rotation: 25 },
           
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: 'Encuentro en Zona Residencial',
@@ -270,14 +270,14 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 281, offsetY: -176, width: 85, height: 85, rotation: 0, radius: 30 },
-          desktop: { offsetX: -1, offsetY: -96, width: 160, height: 160, rotation: -10, radius: 10  },
+          mobile: { offsetX: -81, offsetY: -176, width: 85, height: 85, rotation: 0, radius: 30 },
+          desktop: { offsetX: 190, offsetY: -160, width: 160, height: 160, rotation: -10, radius: 10  },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 300, offsetY: 540, width: 89, height: 89, rotation: 0, radius: 20},
+          mobile: { offsetX: -130, offsetY: 540, width: 89, height: 89, rotation: 0, radius: 20},
           desktop: { offsetX: -1, offsetY: 142, width: 260, height: 160, rotation: 0, radius: 10},
           title: 'Contexto Geográfico',
           body: 'Ubicación específica y detalles del entorno. Características del lugar que influyen en los acontecimientos.'
@@ -1376,6 +1376,25 @@ export const GLOBAL_CONFIG = {
   // Control de visibilidad SEPARADO
   SHOW_DIALOGS: false,   // Controla los cuadros de diálogo de texto
   SHOW_CONTROLS: true,  // Controla los botones de navegación (prev/next/progress)
+  
+  // ========= DEBUG Y VISUALIZACIÓN =========
+  DEBUG_HOTSPOTS: true,  // Activa marcos blancos de depuración (false en producción)
+  
+  // Estilos para iconos y hotspots
+  ICON_STYLES: {
+    showBackground: true,  // Fondo semi-transparente en debug (opcional)
+    backgroundColor: 'rgba(0, 209, 255, .18)',  // Fondo azul claro
+    borderColor: 'rgba(255,255,255,.55)',  // Color del marco blanco semi-transparente
+    borderWidth: 1.5,  // Grosor del marco
+    debugFill: 'rgba(255,0,0,0.12)'  // Fondo rojo sutil para hotspots en debug
+  },
+  
+  // Configuración de toque
+  TOUCH: {
+    mobileMin: 56,  // Tamaño mínimo en mobile para toque
+    desktopMin: 40,  // Tamaño mínimo en desktop
+    hitSlop: 8  // Margen invisible extra para clics
+  },
   
   // ========= EFECTOS DE CÁMARA =========
   CAMERA_EFFECTS: {
