@@ -1,7 +1,8 @@
 // OverlayLayer.js
 // Capa screen-space para overlays DOM con ancho fijo en px y rotación.
-// Útil para hotspots clicables, rótulos, stickers que deben verse nítidos
-// sin importar el zoom del canvas.
+// ========= 🎭 OVERLAY LAYER - GESTIÓN DE ELEMENTOS HTML SOBRE EL CANVAS =========
+// Características: Posicionamiento absoluto, escalado, rotación, culling, orden Z, eventos táctiles
+import { GLOBAL_CONFIG } from './config.js';
 
 export class OverlayLayer {
   constructor(rootEl) {
@@ -109,15 +110,25 @@ export class OverlayLayer {
    * @private
    */
   _debugLog(rec) {
-    if (!rec || !rec.hitW || !rec.hitH) return;
+    if (!rec || !rec.hitW || !rec.hitH || !GLOBAL_CONFIG.DEBUG_HOTSPOTS) return;
     
     if (rec._lastHitW !== rec.hitW || rec._lastHitH !== rec.hitH) {
       console.log(
-        `🎯 Hitbox [${rec.wrap?.dataset?.key || '?'}]:`,
+        `%c🎯 Hitbox [${rec.wrap?.dataset?.key || '?'}]:`,
+        'color: #4CAF50; font-weight: bold',
         `${~~rec.hitW}×${~~rec.hitH}px`,
         `(shape: ${rec.meta?.shape || 'rect'})`,
         `@ (${~~rec.worldX}, ${~~rec.worldY})`
       );
+      
+      // Actualizar etiqueta de debug si existe
+      if (rec.wrap) {
+        const debugLabel = rec.wrap.querySelector('.hs-debug-label');
+        if (debugLabel) {
+          debugLabel.textContent = `${rec.key || '?'}: ${~~rec.hitW}×${~~rec.hitH}px`;
+        }
+      }
+      
       rec._lastHitW = rec.hitW;
       rec._lastHitH = rec.hitH;
     }
@@ -156,14 +167,11 @@ export class OverlayLayer {
       // 🆕 hitbox: control preciso de dimensiones
       const visualW = rec.lockWidthPx;
       const visualH = Number(rec.meta?.visualH || visualW);
-      const hitSlop = Number(rec.meta?.hitSlop || window.GLOBAL_CONFIG?.TOUCH?.hitSlop || 0);
+      const hitSlop = Number(rec.meta?.hitSlop || GLOBAL_CONFIG.TOUCH.hitSlop);
       
       // 🎯 Modo compacto: usa tamaño visual exacto
       const compact = !!rec.meta?.compact;
-      const minTap = compact ? 0 : Number(rec.meta?.minTap || 
-        (this.device === 'mobile' ? 
-          (window.GLOBAL_CONFIG?.TOUCH?.mobileMin || 56) : 
-          (window.GLOBAL_CONFIG?.TOUCH?.desktopMin || 40)));
+      const minTap = compact ? 0 : Number(rec.meta?.minTap || GLOBAL_CONFIG.TOUCH.mobileMin);
 
       // Calcula hitbox respetando modo compacto
       const hitW = (compact ? visualW : Math.max(visualW, minTap)) + hitSlop * 2;
@@ -173,46 +181,34 @@ export class OverlayLayer {
       rec.hitW = hitW;
       rec.hitH = hitH;
       
-      // 🆕 Estilos de depuración condicionales
-      if (window.GLOBAL_CONFIG?.DEBUG_HOTSPOTS) {
-        const style = window.GLOBAL_CONFIG.ICON_STYLES || {};
-        rec.wrap.style.border = `${style.borderWidth || 1.5}px solid ${style.borderColor || 'rgba(255,255,255,0.55)'}`;
-        rec.wrap.style.background = style.debugFill || 'rgba(255,0,0,0.12)';
+      // Aplicar estilos al wrap
+      rec.wrap.style.width = `${visualW}px`;
+      rec.wrap.style.height = `${visualH}px`;
+      rec.wrap.style.transform = `translate(${sx}px, ${sy}px) rotate(${rec.rotationDeg}deg)`;
+      rec.wrap.style.zIndex = Math.round(1000 + (rec.z * 100) + (rec.worldY / 1000));
+      
+      // Aplicar estilos de debug si está habilitado
+      if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+        rec.wrap.style.border = `${GLOBAL_CONFIG.ICON_STYLES.borderWidth}px solid ${GLOBAL_CONFIG.ICON_STYLES.borderColor}`;
+        rec.wrap.style.background = GLOBAL_CONFIG.ICON_STYLES.debugFill || 'transparent';
         rec.wrap.style.borderRadius = (rec.meta?.shape === 'circle') ? '50%' : '8px';
         rec.wrap.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
         
-        // Log de depuración
-        if (window.GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
-          this._debugLog(rec);
+        // Añadir etiqueta de debug
+        if (!rec.wrap.dataset.debugAdded) {
+          rec.wrap.dataset.debugAdded = 'true';
+          const debugLabel = document.createElement('div');
+          debugLabel.className = 'hs-debug-label';
+          debugLabel.textContent = `${rec.key || '?'}: ${~~rec.hitW}×${~~rec.hitH}px`;
+          rec.wrap.appendChild(debugLabel);
         }
       } else {
         rec.wrap.style.border = 'none';
         rec.wrap.style.background = 'transparent';
         rec.wrap.style.boxShadow = 'none';
-        rec.wrap.style.borderRadius = (rec.meta?.shape === 'circle') ? '50%' : '0';
-      }
-
-      const ws = rec.wrap.style;
-      if (ws.width  !== `${hitW}px`)  ws.width  = `${hitW}px`;
-      if (ws.height !== `${hitH}px`)  ws.height = `${hitH}px`;
-      if (ws.left   !== `${sx}px`)    ws.left   = `${sx}px`;
-      if (ws.top    !== `${sy}px`)    ws.top    = `${sy}px`;
-      if (ws.zIndex !== String(100 + (rec.z|0))) ws.zIndex = String(100 + (rec.z|0));
-
-      // 🔍 Debug: log si el hitbox cambió
-      if (window.GLOBAL_CONFIG?.DEBUG_HOTSPOTS) {
-        this._debugLog(rec);
-      }
-
-      // borde redondo para shape circle, esquinas suaves para rect
-      const shape = rec.meta?.shape === 'circle' ? '50%' : '8px';
-      if (ws.borderRadius !== shape) ws.borderRadius = shape;
-
-      // centrar + rotar
-      const transform = `translate(-50%,-50%) rotate(${rec.rotationDeg}deg)`;
-      if (ws.transform !== transform) {
-        ws.transform = transform;
-        if (ws.transformOrigin !== '50% 50%') ws.transformOrigin = '50% 50%';
+        // Eliminar etiqueta de debug si existe
+        const debugLabel = rec.wrap.querySelector('.hs-debug-label');
+        if (debugLabel) debugLabel.remove();
       }
 
       // imagen centrada (mantén ancho/alto visuales)
