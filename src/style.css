@@ -1084,7 +1084,7 @@ body.net-slow .drawer {
 }
 
 .overlay-wrap:active {
-  transform: translate(-50%,-50%) scale(0.98) !important;  /* Efecto press */
+  transform: scale(0.98) !important;  /* Efecto press - translate(-50%,-50%) is now handled in JS */
 }
 
 .overlay-item {  /* Para imágenes dentro (si usas) */

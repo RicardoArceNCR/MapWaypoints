@@ -85,7 +85,7 @@ export const MAPS_CONFIG = {
         { 
           type: 'hotspot',
           mobile: { offsetX: 33, offsetY: 21, width: 290, height: 176, rotation: 0 },
-          desktop: { offsetX: -582, offsetY: -55, width: 388, height: 230, rotation: -10 },
+          desktop: { offsetX: -465, offsetY: -61, width: 388, height: 230, rotation: -10 },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
           title: 'Llegada al Aeropuerto',
@@ -170,7 +170,7 @@ export const MAPS_CONFIG = {
         { 
           type: 'hotspot',
           mobile: { offsetX: 54, offsetY: 342, width: 221, height: 183, rotation: 0, radius: 0 },
-          desktop: { offsetX: -115, offsetY: -201, width: 150, height: 156, rotation: 25 },
+          desktop: { offsetX: -115, offsetY: -101, width: 150, height: 156, rotation: 25 },
           
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: 'Encuentro en Zona Residencial',
@@ -271,7 +271,7 @@ export const MAPS_CONFIG = {
         { 
           type: 'hotspot',
           mobile: { offsetX: -81, offsetY: -176, width: 85, height: 85, rotation: 0, radius: 30 },
-          desktop: { offsetX: 190, offsetY: -160, width: 160, height: 160, rotation: -10, radius: 10  },
+          desktop: { offsetX: 233, offsetY: -61, width: 288, height: 185, rotation: 25, radius: 10  },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
         },

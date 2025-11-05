@@ -184,7 +184,7 @@ export class OverlayLayer {
       // Aplicar estilos al wrap
       rec.wrap.style.width = `${visualW}px`;
       rec.wrap.style.height = `${visualH}px`;
-      rec.wrap.style.transform = `translate(${sx}px, ${sy}px) rotate(${rec.rotationDeg}deg)`;
+      rec.wrap.style.transform = `translate(${sx}px, ${sy}px) translate(-50%,-50%) rotate(${rec.rotationDeg}deg)`;
       rec.wrap.style.zIndex = Math.round(1000 + (rec.z * 100) + (rec.worldY / 1000));
       
       // Aplicar estilos de debug si está habilitado
