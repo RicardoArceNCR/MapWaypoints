@@ -1331,6 +1331,15 @@ document.addEventListener('DOMContentLoaded', () => {
     e.stopImmediatePropagation();
     e.preventDefault();
 
+    // Clear previous debug highlights if any
+    if (editor.selectedItem) {
+      const prevItem = editor.items[editor.selectedItem.index];
+      if (prevItem && prevItem.wrap) {
+        prevItem.wrap.style.outline = '';
+        prevItem.wrap.style.outlineOffset = '';
+      }
+    }
+
     window.dispatchEvent(new CustomEvent('editor:getMapCoords', {
       detail: { clientX: e.clientX, clientY: e.clientY }
     }));
@@ -1403,16 +1412,42 @@ document.addEventListener('DOMContentLoaded', () => {
           const ox = Math.round(item.x - editor.waypoint.x);
           const oy = Math.round(item.y - editor.waypoint.y);
 
+          // Highlight selected item in the DOM for debugging
+          if (item.wrap) {
+            item.wrap.style.outline = '2px dashed #00FF00';
+            item.wrap.style.outlineOffset = '2px';
+          }
+
           console.log(`%c📍 Item #${i}`, 'color:#00FF00;font-weight:bold');
           console.table({
             index: i,
             type: item.type || 'hotspot',
-            offsetX: ox,
-            offsetY: oy,
-            width: Math.round(item.width),
-            height: Math.round(item.height),
-            rotation: item.rotation || 0
+            mapCoords: `(${Math.round(item.x)}, ${Math.round(item.y)})`,
+            offsetFromWaypoint: `(${ox}, ${oy})`,
+            size: `${Math.round(item.width)}×${Math.round(item.height)}`,
+            rotation: `${item.rotation || 0}°`,
+            zIndex: item.z || 0,
+            meta: item.meta ? '...' : 'none'
           });
+          
+          // Log detailed debug info
+          if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+            console.groupCollapsed('🔍 Detailed Hotspot Info');
+            console.log('🔹 Element:', item.wrap || 'No DOM element');
+            console.log('🔹 Bounding Box:', {
+              left: Math.round(item.x - item.width/2),
+              top: Math.round(item.y - item.height/2),
+              right: Math.round(item.x + item.width/2),
+              bottom: Math.round(item.y + item.height/2)
+            });
+            console.log('🔹 Style:', {
+              position: 'absolute',
+              width: `${item.width}px`,
+              height: `${item.height}px`,
+              transform: `translate(-50%, -50%) rotate(${item.rotation || 0}deg)`
+            });
+            console.groupEnd();
+          }
 
           updateInfo(`
             <b style="color:#00FF00;">Item #${i}</b><br>
@@ -1539,6 +1574,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function generateCode() {
+    if (!editor.selectedItem) {
+      console.log('%c⚠️ No item selected', 'color:#FFA500;font-weight:bold');
+      return;
+    }
+
     window.dispatchEvent(new CustomEvent('editor:getItemCode', {
       detail: {
         waypointIndex: editor.waypointIndex,
@@ -1549,8 +1589,44 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('editor:itemCodeResponse', function handler(ev) {
       window.removeEventListener('editor:itemCodeResponse', handler);
       const { code } = ev.detail;
+      
+      // Enhanced debug output with syntax highlighting
       console.log('%c✅ Código actualizado:', 'color:#00FF00;font-size:14px;font-weight:bold');
-      console.log(code);
+      
+      // Create a more readable output with syntax highlighting
+      const item = editor.items[editor.selectedItem.index];
+      console.groupCollapsed('%c📋 Item Details', 'font-weight:bold');
+      console.log('%cType:', 'color:#4CAF50;font-weight:bold', item.type || 'hotspot');
+      console.log('%cPosition:', 'color:#2196F3;font-weight:bold', 
+        `x: ${Math.round(item.x)}, y: ${Math.round(item.y)}`);
+      console.log('%cSize:', 'color:#9C27B0;font-weight:bold', 
+        `${Math.round(item.width)}×${Math.round(item.height)}`);
+      console.log('%cRotation:', 'color:#FF9800;font-weight:bold', 
+        `${item.rotation || 0}°`);
+      
+      // Show the generated code in a collapsible group
+      console.groupCollapsed('%cGenerated Code', 'font-weight:bold');
+      console.log(
+        '%c' + JSON.stringify(JSON.parse(code), null, 2)
+          .replace(/"([^"]+)":/g, '"%c$1%c":%c')
+          .replace(/([{,])/g, '%c$1')
+          .replace(/([}])/g, '%c$1%c'),
+        'color:inherit;',
+        'color:#9C27B0;', 'color:inherit;', 'color:inherit;', // Key
+        'color:#000;', // Punctuation
+        'color:#4CAF50;' // String value
+      );
+      console.groupEnd();
+      
+      console.groupEnd(); // End item details group
+      
+      // Copy to clipboard if possible
+      try {
+        navigator.clipboard.writeText(JSON.stringify(JSON.parse(code), null, 2));
+        console.log('%c📋 Copied to clipboard!', 'color:#4CAF50;font-weight:bold');
+      } catch (err) {
+        console.warn('Failed to copy to clipboard:', err);
+      }
     }, { once: true });
   }
 

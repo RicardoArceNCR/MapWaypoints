@@ -105,25 +105,31 @@ export class OverlayLayer {
   }
 
   /**
-   * Pinta posición/rotación/orden final de los items "vivos" del frame.
-   * Hace culling barato y evita reflujo innecesario.
+   * Logs debug information about hitbox sizes when they change
+   * @private
+   */
+  _debugLog(rec) {
+    if (!rec || !rec.hitW || !rec.hitH) return;
+    
+    if (rec._lastHitW !== rec.hitW || rec._lastHitH !== rec.hitH) {
+      console.log(
+        `🎯 Hitbox [${rec.wrap?.dataset?.key || '?'}]:`,
+        `${~~rec.hitW}×${~~rec.hitH}px`,
+        `(shape: ${rec.meta?.shape || 'rect'})`,
+        `@ (${~~rec.worldX}, ${~~rec.worldY})`
+      );
+      rec._lastHitW = rec.hitW;
+      rec._lastHitH = rec.hitH;
+    }
+  }
+
+  /**
+   * Paints the final position/rotation/order of "live" frame items.
+   * Performs cheap culling and avoids unnecessary reflow.
    */
   endFrame(camera, canvasW, canvasH) {
     const vw = this.lastDims.w || canvasW;
     const vh = this.lastDims.h || canvasH;
-
-    // 🔍 Debug: loggear tamaños de hitbox cuando cambian
-    const debugLog = (rec) => {
-      if (rec._lastHitW !== rec.hitW || rec._lastHitH !== rec.hitH) {
-        console.log(
-          `🎯 Hitbox [${rec.key}]:`,
-          `${~~rec.hitW}×${~~rec.hitH}px`,
-          `(shape: ${rec.meta?.shape || 'rect'})`
-        );
-        rec._lastHitW = rec.hitW;
-        rec._lastHitH = rec.hitH;
-      }
-    };
 
     for (const [key, rec] of this.items) {
       const alive = this.frameLiveKeys.has(String(key));
@@ -150,15 +156,41 @@ export class OverlayLayer {
       // 🆕 hitbox: control preciso de dimensiones
       const visualW = rec.lockWidthPx;
       const visualH = Number(rec.meta?.visualH || visualW);
-      const hitSlop = Number(rec.meta?.hitSlop || 0);
+      const hitSlop = Number(rec.meta?.hitSlop || window.GLOBAL_CONFIG?.TOUCH?.hitSlop || 0);
       
       // 🎯 Modo compacto: usa tamaño visual exacto
       const compact = !!rec.meta?.compact;
-      const minTap = compact ? 0 : Number(rec.meta?.minTap || this.touchTargetMin);
+      const minTap = compact ? 0 : Number(rec.meta?.minTap || 
+        (this.device === 'mobile' ? 
+          (window.GLOBAL_CONFIG?.TOUCH?.mobileMin || 56) : 
+          (window.GLOBAL_CONFIG?.TOUCH?.desktopMin || 40)));
 
       // Calcula hitbox respetando modo compacto
       const hitW = (compact ? visualW : Math.max(visualW, minTap)) + hitSlop * 2;
       const hitH = (compact ? visualH : Math.max(visualH, minTap)) + hitSlop * 2;
+      
+      // Guarda para debug
+      rec.hitW = hitW;
+      rec.hitH = hitH;
+      
+      // 🆕 Estilos de depuración condicionales
+      if (window.GLOBAL_CONFIG?.DEBUG_HOTSPOTS) {
+        const style = window.GLOBAL_CONFIG.ICON_STYLES || {};
+        rec.wrap.style.border = `${style.borderWidth || 1.5}px solid ${style.borderColor || 'rgba(255,255,255,0.55)'}`;
+        rec.wrap.style.background = style.debugFill || 'rgba(255,0,0,0.12)';
+        rec.wrap.style.borderRadius = (rec.meta?.shape === 'circle') ? '50%' : '8px';
+        rec.wrap.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+        
+        // Log de depuración
+        if (window.GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+          this._debugLog(rec);
+        }
+      } else {
+        rec.wrap.style.border = 'none';
+        rec.wrap.style.background = 'transparent';
+        rec.wrap.style.boxShadow = 'none';
+        rec.wrap.style.borderRadius = (rec.meta?.shape === 'circle') ? '50%' : '0';
+      }
 
       const ws = rec.wrap.style;
       if (ws.width  !== `${hitW}px`)  ws.width  = `${hitW}px`;
@@ -168,7 +200,9 @@ export class OverlayLayer {
       if (ws.zIndex !== String(100 + (rec.z|0))) ws.zIndex = String(100 + (rec.z|0));
 
       // 🔍 Debug: log si el hitbox cambió
-      debugLog(rec);
+      if (window.GLOBAL_CONFIG?.DEBUG_HOTSPOTS) {
+        this._debugLog(rec);
+      }
 
       // borde redondo para shape circle, esquinas suaves para rect
       const shape = rec.meta?.shape === 'circle' ? '50%' : '8px';

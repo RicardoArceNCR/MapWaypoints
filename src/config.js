@@ -1377,6 +1377,25 @@ export const GLOBAL_CONFIG = {
   SHOW_DIALOGS: false,   // Controla los cuadros de diálogo de texto
   SHOW_CONTROLS: true,  // Controla los botones de navegación (prev/next/progress)
   
+  // ========= DEBUG Y VISUALIZACIÓN =========
+  DEBUG_HOTSPOTS: true,  // Activa marcos blancos de depuración (false en producción)
+  
+  // Estilos para iconos y hotspots
+  ICON_STYLES: {
+    showBackground: true,  // Fondo semi-transparente en debug (opcional)
+    backgroundColor: 'rgba(0, 209, 255, .18)',  // Fondo azul claro
+    borderColor: 'rgba(255,255,255,.55)',  // Color del marco blanco semi-transparente
+    borderWidth: 1.5,  // Grosor del marco
+    debugFill: 'rgba(255,0,0,0.12)'  // Fondo rojo sutil para hotspots en debug
+  },
+  
+  // Configuración de toque
+  TOUCH: {
+    mobileMin: 56,  // Tamaño mínimo en mobile para toque
+    desktopMin: 40,  // Tamaño mínimo en desktop
+    hitSlop: 8  // Margen invisible extra para clics
+  },
+  
   // ========= EFECTOS DE CÁMARA =========
   CAMERA_EFFECTS: {
     // Movimiento sutil constante (breathing)
