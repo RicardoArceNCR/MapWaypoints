@@ -10,8 +10,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../assets/fonts/inter-v12-latin-regular.woff2') format('woff2'),
-       url('../assets/fonts/inter-v12-latin-regular.woff') format('woff');
+  src: url('/assets/fonts/inter-v20-latin-regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -19,8 +18,7 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('../assets/fonts/inter-v12-latin-500.woff2') format('woff2'),
-       url('../assets/fonts/inter-v12-latin-500.woff') format('woff');
+  src: url('/assets/fonts/inter-v20-latin-500.woff2') format('woff2');
 }
 
 @font-face {
@@ -28,8 +26,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('../assets/fonts/inter-v12-latin-600.woff2') format('woff2'),
-       url('../assets/fonts/inter-v12-latin-600.woff') format('woff');
+  src: url('/assets/fonts/inter-v20-latin-600.woff2') format('woff2');
 }
 
 @font-face {
@@ -37,8 +34,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('../assets/fonts/inter-v12-latin-700.woff2') format('woff2'),
-       url('../assets/fonts/inter-v12-latin-700.woff') format('woff');
+  src: url('/assets/fonts/inter-v20-latin-700.woff2') format('woff2');
 }
 [hidden] { display: none !important; }
 
@@ -1094,4 +1090,67 @@ body.net-slow .drawer {
 .overlay-item {  /* Para imágenes dentro (si usas) */
   pointer-events: none;
   display: block;
+}
+
+/* ===== DEBUG HOTSPOT STYLES ===== */
+/* Estilos mejorados para modo debug con mejor feedback visual en mobile */
+.overlay-wrap.debug-hotspot {
+  background: rgba(255, 0, 0, 0.15) !important;  /* Fondo semi-transparente para debug */
+  cursor: pointer;
+  z-index: 1000 !important;
+}
+
+/* Hover feedback para desktop */
+@media (hover: hover) {
+  .overlay-wrap.debug-hotspot:hover {
+    background: rgba(0, 255, 0, 0.2) !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px rgba(0, 255, 0, 0.6) !important;
+  }
+}
+
+/* Tap feedback para mobile/touch devices */
+@media (hover: none) {
+  .overlay-wrap.debug-hotspot:active {
+    background: rgba(0, 255, 0, 0.25) !important;
+    transform: scale(1.08) !important;
+    box-shadow: 0 0 0 2px white, 0 0 0 5px rgba(0, 255, 0, 0.7) !important;
+  }
+}
+
+/* Debug label styles */
+.hs-debug-label {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  white-space: nowrap;
+  pointer-events: none;
+  margin-bottom: 6px;
+  z-index: 1001;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Mobile adjustments for debug labels */
+@media (max-width: 768px) {
+  .hs-debug-label {
+    font-size: 10px;
+    padding: 3px 6px;
+    margin-bottom: 4px;
+  }
+}
+
+/* Ensure minimum touch target size on mobile */
+@media (hover: none) {
+  .overlay-wrap.debug-hotspot {
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
