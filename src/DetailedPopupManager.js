@@ -80,11 +80,11 @@ export class DetailedPopupManager {
   openSimplePopup(hotspot) {
     this.closeAll();
     
-    this.popupSimpleTitle.textContent = hotspot.title || '';
-    this.popupSimpleBody.textContent = hotspot.body || '';
+    if (this.popupSimpleTitle) this.popupSimpleTitle.textContent = hotspot.title || '';
+    if (this.popupSimpleBody) this.popupSimpleBody.textContent = hotspot.body || '';
     
-    this.popupSimple.hidden = false;
-    this.backdrop.hidden = false;
+    if (this.popupSimple) this.popupSimple.hidden = false;
+    if (this.backdrop) this.backdrop.hidden = false;
   }
   
   /**
@@ -95,73 +95,95 @@ export class DetailedPopupManager {
     this.currentHotspot = hotspot;
     
     // Título
-    this.popupDetailedTitle.textContent = hotspot.title || '';
+    if (this.popupDetailedTitle) {
+      this.popupDetailedTitle.textContent = hotspot.title || '';
+    }
     
     // Imagen
-    if (hotspot.image) {
-      this.popupDetailedImage.src = hotspot.image;
-      this.popupDetailedImage.alt = hotspot.title || '';
-      this.popupDetailedImage.parentElement.style.display = 'block';
-    } else {
-      this.popupDetailedImage.parentElement.style.display = 'none';
+    if (this.popupDetailedImage) {
+      if (hotspot.image) {
+        this.popupDetailedImage.src = hotspot.image;
+        this.popupDetailedImage.alt = hotspot.title || '';
+        if (this.popupDetailedImage.parentElement) {
+          this.popupDetailedImage.parentElement.style.display = 'block';
+        }
+      } else if (this.popupDetailedImage.parentElement) {
+        this.popupDetailedImage.parentElement.style.display = 'none';
+      }
     }
     
     // Fecha y hora
     if (hotspot.datetime) {
-      this.popupDetailedDate.textContent = hotspot.datetime.date || '';
-      this.popupDetailedTime.textContent = hotspot.datetime.time || '';
-      
-      // Aplicar color personalizado a la hora
-      if (hotspot.datetime.timeColor) {
-        this.popupDetailedTime.style.color = hotspot.datetime.timeColor;
+      if (this.popupDetailedDate) this.popupDetailedDate.textContent = hotspot.datetime.date || '';
+      if (this.popupDetailedTime) {
+        this.popupDetailedTime.textContent = hotspot.datetime.time || '';
+        
+        // Aplicar color personalizado a la hora
+        if (hotspot.datetime.timeColor) {
+          this.popupDetailedTime.style.color = hotspot.datetime.timeColor;
+        }
       }
     }
     
     // Ubicación
-    if (hotspot.location) {
-      this.popupDetailedLocation.textContent = hotspot.location;
-      this.popupDetailedLocation.style.display = 'block';
-    } else {
-      this.popupDetailedLocation.style.display = 'none';
+    if (this.popupDetailedLocation) {
+      if (hotspot.location) {
+        this.popupDetailedLocation.textContent = hotspot.location;
+        this.popupDetailedLocation.style.display = 'block';
+      } else {
+        this.popupDetailedLocation.style.display = 'none';
+      }
     }
     
     // Descripción
-    if (hotspot.description) {
-      this.popupDetailedDescription.textContent = hotspot.description;
-      this.popupDetailedDescription.style.display = 'block';
-    } else {
-      this.popupDetailedDescription.style.display = 'none';
+    if (this.popupDetailedDescription) {
+      if (hotspot.description) {
+        this.popupDetailedDescription.textContent = hotspot.description;
+        this.popupDetailedDescription.style.display = 'block';
+      } else {
+        this.popupDetailedDescription.style.display = 'none';
+      }
     }
     
     // Personas implicadas
-    if (hotspot.involved && hotspot.involved.length > 0) {
-      this.renderInvolved(hotspot.involved);
-      this.popupDetailedInvolvedSection.hidden = false;
-      
-      // Seleccionar automáticamente la persona resaltada o la primera
-      const highlighted = hotspot.involved.find(p => p.highlighted);
-      const firstPerson = hotspot.involved[0];
-      this.selectedPersonId = highlighted ? highlighted.id : firstPerson.id;
-      
-      // Actualizar echos para la persona seleccionada
-      this.updateEchos();
-    } else {
-      this.popupDetailedInvolvedSection.hidden = true;
-      this.popupDetailedEchosSection.hidden = true;
+    if (this.popupDetailedInvolvedSection) {
+      if (hotspot.involved && hotspot.involved.length > 0) {
+        this.renderInvolved(hotspot.involved);
+        this.popupDetailedInvolvedSection.hidden = false;
+        
+        // Seleccionar automáticamente la persona resaltada o la primera
+        const highlighted = hotspot.involved.find(p => p.highlighted);
+        const firstPerson = hotspot.involved[0];
+        this.selectedPersonId = highlighted ? highlighted.id : firstPerson.id;
+        
+        // Actualizar echos para la persona seleccionada
+        this.updateEchos();
+      } else {
+        this.popupDetailedInvolvedSection.hidden = true;
+        if (this.popupDetailedEchosSection) {
+          this.popupDetailedEchosSection.hidden = true;
+        }
+      }
     }
     
     // Mostrar popup
-    this.popupDetailed.hidden = false;
-    this.backdrop.hidden = false;
+    if (this.popupDetailed) this.popupDetailed.hidden = false;
+    if (this.backdrop) this.backdrop.hidden = false;
   }
   
   /**
    * Renderiza la lista de personas implicadas
    */
   renderInvolved(involved) {
+    if (!this.popupDetailedInvolved) return;
+    
     this.popupDetailedInvolved.innerHTML = '';
     
+    if (!Array.isArray(involved)) return;
+    
     involved.forEach(person => {
+      if (!person || !person.id) return;
+      
       const personEl = document.createElement('div');
       personEl.className = 'popup-detailed__person';
       personEl.dataset.personId = person.id;
@@ -171,16 +193,21 @@ export class DetailedPopupManager {
         personEl.classList.add('active');
       }
       
+      // Sanitize input to prevent XSS
+      const safeName = person.name ? String(person.name).replace(/[<>]/g, '') : '';
+      const safeRole = person.role ? String(person.role).replace(/[<>]/g, '') : '';
+      const safeAvatar = person.avatar ? String(person.avatar).replace(/[<>"]/g, '') : './assets/default.webp';
+      
       personEl.innerHTML = `
         <div class="popup-detailed__person-avatar-wrapper">
           <img 
-            src="${person.avatar || './assets/default.webp'}" 
-            alt="${person.name}"
+            src="${safeAvatar}" 
+            alt="${safeName}"
             class="popup-detailed__person-avatar"
           />
         </div>
-        <div class="popup-detailed__person-name">${person.name}</div>
-        ${person.role ? `<div class="popup-detailed__person-role">${person.role}</div>` : ''}
+        <div class="popup-detailed__person-name">${safeName}</div>
+        ${safeRole ? `<div class="popup-detailed__person-role">${safeRole}</div>` : ''}
       `;
       
       // Click para seleccionar persona
@@ -211,60 +238,78 @@ export class DetailedPopupManager {
    * Actualiza la sección de echos para la persona seleccionada
    */
   updateEchos() {
+    if (!this.popupDetailedEchosSection) return;
+    
+    // Hide echos section by default
+    this.popupDetailedEchosSection.hidden = true;
+    
     if (!this.currentHotspot || !this.currentHotspot.echos || !this.selectedPersonId) {
-      this.popupDetailedEchosSection.hidden = true;
       return;
     }
     
     const echos = this.currentHotspot.echos[this.selectedPersonId];
     
-    if (!echos || echos.length === 0) {
-      this.popupDetailedEchosSection.hidden = true;
+    if (!echos || !Array.isArray(echos) || echos.length === 0) {
       return;
     }
     
-    // Actualizar título de echos
-    const selectedPerson = this.currentHotspot.involved?.find(p => p.id === this.selectedPersonId);
-    if (selectedPerson) {
-      this.popupDetailedEchosTitle.textContent = `Echos de ${selectedPerson.name}:`;
-    } else {
-      this.popupDetailedEchosTitle.textContent = 'Echos:';
+    // Update echos title if element exists
+    if (this.popupDetailedEchosTitle) {
+      const selectedPerson = this.currentHotspot.involved?.find(p => p.id === this.selectedPersonId);
+      if (selectedPerson) {
+        // Sanitize name to prevent XSS
+        const safeName = String(selectedPerson.name || '').replace(/[<>]/g, '');
+        this.popupDetailedEchosTitle.textContent = `Echos de ${safeName}:`;
+      } else {
+        this.popupDetailedEchosTitle.textContent = 'Echos:';
+      }
     }
     
-    // Renderizar echos
-    this.popupDetailedEchos.innerHTML = '';
-    
-    echos.forEach(echo => {
-      const echoEl = document.createElement('div');
-      echoEl.className = 'popup-detailed__echo';
+    // Render echos if container exists
+    if (this.popupDetailedEchos) {
+      this.popupDetailedEchos.innerHTML = '';
       
-      echoEl.innerHTML = `
-        <div class="popup-detailed__echo-datetime">
-          <span class="popup-detailed__echo-date">${echo.datetime?.date || ''}</span>
-          <span class="popup-detailed__echo-time">${echo.datetime?.time || ''}</span>
-        </div>
-        <div class="popup-detailed__echo-description">${echo.description || ''}</div>
-      `;
+      echos.forEach(echo => {
+        if (!echo) return;
+        
+        const echoEl = document.createElement('div');
+        echoEl.className = 'popup-detailed__echo';
+        
+        // Sanitize all user-provided content
+        const safeDate = echo.datetime?.date ? String(echo.datetime.date).replace(/[<>]/g, '') : '';
+        const safeTime = echo.datetime?.time ? String(echo.datetime.time).replace(/[<>]/g, '') : '';
+        const safeDescription = echo.description ? String(echo.description).replace(/[<>]/g, '') : '';
+        
+        echoEl.innerHTML = `
+          <div class="popup-detailed__echo-datetime">
+            <span class="popup-detailed__echo-date">${safeDate}</span>
+            <span class="popup-detailed__echo-time">${safeTime}</span>
+          </div>
+          <div class="popup-detailed__echo-description">${safeDescription}</div>
+        `;
+        
+        this.popupDetailedEchos.appendChild(echoEl);
+      });
       
-      this.popupDetailedEchos.appendChild(echoEl);
-    });
-    
-    this.popupDetailedEchosSection.hidden = false;
+      this.popupDetailedEchosSection.hidden = false;
+    }
   }
   
   /**
    * Cierra todos los popups
    */
   closeAll() {
-    this.popupSimple.hidden = true;
-    this.popupDetailed.hidden = true;
-    this.backdrop.hidden = true;
+    if (this.popupSimple) this.popupSimple.hidden = true;
+    if (this.popupDetailed) this.popupDetailed.hidden = true;
+    if (this.backdrop) this.backdrop.hidden = true;
     
     this.currentHotspot = null;
     this.selectedPersonId = null;
     
-    // Reset estilos
-    this.popupDetailedTime.style.color = '';
+    // Reset styles if element exists
+    if (this.popupDetailedTime) {
+      this.popupDetailedTime.style.color = '';
+    }
   }
   
   /**

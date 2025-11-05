@@ -1067,29 +1067,42 @@ body.net-slow .drawer {
 }
 
 /* ===== OVERLAY STYLES ===== */
-.overlay-root {
+/* Capa DOM encima del canvas */
+#overlay-layer {
   position: absolute;
   inset: 0;
-  pointer-events: none;  /* Root no intercepta clics; hijos sí */
-  z-index: 34;  /* Sobre canvas, bajo UI/editor */
+  pointer-events: auto;  /* ✅ Importante: debe ser auto */
+  z-index: 34;          /* por encima del canvas */
 }
 
-.overlay-wrap {  /* Clase para wrappers de hotspots */
+/* Clase para desactivar temporalmente los overlays */
+#overlay-layer.overlays-off {
+  pointer-events: none;
+}
+
+/* Wrappers de los elementos overlay */
+.overlay-wrap {
   position: absolute;
-  touch-action: manipulation;
+  pointer-events: auto;     /* redundante, pero explícito */
+  touch-action: manipulation; /* quita delay de 300ms y gestos caros */
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  will-change: transform;  /* GPU acceleration */
+  will-change: transform;   /* perf: solo cuando realmente se mueven/rotan */
   transition: transform 0.12s ease;  /* Feedback táctil */
 }
 
-.overlay-wrap:active {
-  transform: translate(-50%,-50%) scale(0.98) !important;  /* Efecto press */
+/* Efecto de presión táctil */
+.overlay-wrap:active,
+.overlay-wrap.is-pressed {
+  transform: translate(-50%, -50%) scale(0.98) !important;
 }
 
-.overlay-item {  /* Para imágenes dentro (si usas) */
+/* Los elementos internos no deben capturar eventos */
+.overlay-item {
   pointer-events: none;
   display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /* ===== DEBUG HOTSPOT STYLES ===== */
@@ -1149,6 +1162,11 @@ body.net-slow .drawer {
 
 /* Ensure minimum touch target size on mobile */
 @media (hover: none) {
+  .overlay-wrap {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
   .overlay-wrap.debug-hotspot {
     min-width: 44px;
     min-height: 44px;

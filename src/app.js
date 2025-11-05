@@ -25,16 +25,6 @@ function showError(message) {
 }
 window.showError = showError;
 
-// ===== Toggle dinámico para popups =====
-window.togglePopupDisplay = (enable) => {
-  GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK = !!enable;
-  console.log(`[CONFIG] Popups on click: ${GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK ? 'enabled' : 'disabled'}`);
-  // Opcional: fuerza redraw si necesitas visuals actualizados
-  if (window.markDirty) {
-    window.markDirty('elements');  // Asumiendo tu dirty flag system
-  }
-};
-
 // ===== Click Handler Optimizado para Mobile =====
 function initOverlayClickHandler() {
   const overlayRoot = document.getElementById('overlay-layer');
@@ -68,7 +58,6 @@ function parseUrlToggles() {
   }
   if (p.has('debug')) out.debug = p.get('debug') === '1';
   if (p.has('editor')) out.editor = p.get('editor') === '1';
-  if (p.has('popups')) out.popups = p.get('popups') === '1';
   return out;
 }
 
@@ -86,12 +75,6 @@ window.__EDITOR_ACTIVE__ = appConfig.editorActive;
 
 // Asegura estado inicial si el editor ya dejó huella global (p. ej., tras HMR/recarga)
 appConfig.editorActive = appConfig.editorActive || !!window.__EDITOR_ACTIVE__;
-
-// Aplica toggle de popups desde URL si está presente
-if (appConfig.toggles.hasOwnProperty('popups')) {
-  GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK = !!appConfig.toggles.popups;
-  console.log(`[CONFIG] SHOW_POPUP_ON_CLICK set from URL: ${GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK}`);
-}
 
 // Escucha cambios de estado del editor (enviado por editor.js)
 window.addEventListener('editor:active', (e) => {
@@ -338,56 +321,59 @@ let overlayLayer = null;
   const mapManager = new MapManager();
 
   // Overlay DOM
-  const overlay = new OverlayLayer(document.getElementById('overlay-layer'));
-  overlay.setDevice(mapManager.isMobile ? 'mobile' : 'desktop');
-  window.overlay = overlay; // útil para depurar
+  overlayLayer = new OverlayLayer(document.getElementById('overlay-layer'));
+  overlayLayer.setDevice(mapManager.isMobile ? 'mobile' : 'desktop');
+  window.overlayLayer = overlayLayer; // útil para depurar
 
   // Clicks centralizados de overlays
   let lastOverlayClick = { time: 0, key: null };
-  overlay.root.addEventListener('overlay:click', (e) => {
-    const { key, record } = e.detail;
-    // marca el último click para evitar duplicados desde pointerup
-    lastOverlayClick = { time: performance.now(), key };
-    // aquí puedes abrir tu popup/drawer si quieres
-    // popupManager?.open(record.meta);
-    console.log('[overlay click]', key, record?.meta);
-  });
+  
+  if (overlayLayer && overlayLayer.root) {
+    overlayLayer.root.addEventListener('overlay:click', (e) => {
+      const { key, record } = e.detail;
+      // marca el último click para evitar duplicados desde pointerup
+      lastOverlayClick = { time: performance.now(), key };
+      // aquí puedes abrir tu popup/drawer si quieres
+      // popupManager?.open(record.meta);
+      console.log('[overlay click]', key, record?.meta);
+    });
 
-  // Auto-snap fallback: si no hubo overlay:click, busca el overlay más cercano
-  overlay.root.addEventListener('pointerup', (ev) => {
-    const now = performance.now();
-    // si hubo un overlay:click recientemente, no hacemos snap
-    if (lastOverlayClick.time && now - lastOverlayClick.time < 250) return;
+    // Auto-snap fallback: si no hubo overlay:click, busca el overlay más cercano
+    overlayLayer.root.addEventListener('pointerup', (ev) => {
+      const now = performance.now();
+      // si hubo un overlay:click recientemente, no hacemos snap
+      if (lastOverlayClick.time && now - lastOverlayClick.time < 250) return;
 
-    try {
-      const R = 24; // radio de perdón en px
-      const clientX = ev.clientX;
-      const clientY = ev.clientY;
-      let best = null;
-      let bestDist = Infinity;
+      try {
+        const R = 24;
+        const clientX = ev.clientX;
+        const clientY = ev.clientY;
+        let best = null;
+        let bestDist = Infinity;
 
-      for (const [k, rec] of overlay.items) {
-        if (!rec || !rec.wrap) continue;
-        if (rec.wrap.style.display === 'none') continue;
-        const rect = rec.wrap.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        const d = Math.hypot(clientX - cx, clientY - cy);
-        if (d < bestDist) { bestDist = d; best = { key: k, rec, d }; }
+        for (const [k, rec] of overlayLayer.items) {
+          if (!rec || !rec.wrap) continue;
+          if (rec.wrap.style.display === 'none') continue;
+          const rect = rec.wrap.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const d = Math.hypot(clientX - cx, clientY - cy);
+          if (d < bestDist) { bestDist = d; best = { key: k, rec, d }; }
+        }
+
+        if (best && best.d <= R) {
+          // dispara manualmente el evento para reutilizar el manejador existente
+          lastOverlayClick = { time: performance.now(), key: best.key };
+          overlayLayer.root.dispatchEvent(new CustomEvent('overlay:click', {
+            bubbles: true,
+            detail: { key: best.key, record: best.rec }
+          }));
+        }
+      } catch (err) {
+        console.warn('overlay snap handler error', err);
       }
-
-      if (best && best.d <= R) {
-        // dispara manualmente el evento para reutilizar el manejador existente
-        lastOverlayClick = { time: performance.now(), key: best.key };
-        overlay.root.dispatchEvent(new CustomEvent('overlay:click', {
-          bubbles: true,
-          detail: { key: best.key, record: best.rec }
-        }));
-      }
-    } catch (err) {
-      console.warn('overlay snap handler error', err);
-    }
-  }, { passive: true });
+    }, { passive: true });
+  }
 
   window.mapManager = mapManager;
   let uiManager;
@@ -404,7 +390,6 @@ let overlayLayer = null;
 
   const dirtyFlags = { camera:false, elements:false, dialog:false, minimap:false, debug:false, cameraMoving:false };
   function markDirty(...flags){ flags.forEach(f=>{ if (dirtyFlags.hasOwnProperty(f)) dirtyFlags[f]=true; }); }
-  window.markDirty = markDirty;  // Exponer para uso global (e.g., togglePopupDisplay)
   function clearDirtyFlags(){ Object.keys(dirtyFlags).forEach(k=> dirtyFlags[k]=false); }
   function needsRedraw(){
     return dirtyFlags.camera||dirtyFlags.elements||dirtyFlags.dialog||dirtyFlags.minimap||dirtyFlags.debug||dirtyFlags.cameraMoving||state.typing||transitionState.active||GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled;
@@ -446,49 +431,6 @@ let overlayLayer = null;
 
   // ========= COMUNICACIÓN CON EDITOR =========
   let editorActive = false;
-  
-  function toggleEditor(active) {
-    // Update editor active state
-    editorActive = active;
-    
-    // Dispatch event to notify other components
-    document.dispatchEvent(new CustomEvent('editor:active', { detail: { active } }));
-    
-    // 🆕 Disable overlay events
-    const overlayRoot = document.getElementById('overlay-layer');
-
-    if (overlayRoot) {
-      if (active) {
-        overlayRoot.style.setProperty('pointer-events', 'none', 'important');
-      } else {
-        overlayRoot.style.removeProperty('pointer-events');
-      }
-    } else {
-      // Fallback a individuales
-      const overlayWrappers = document.querySelectorAll('.overlay-wrap');
-      overlayWrappers.forEach(el => {
-        if (active) {
-          el.style.setProperty('pointer-events', 'none', 'important');
-        } else {
-          el.style.removeProperty('pointer-events');
-        }
-      });
-      if (overlayWrappers.length === 0) console.warn('No overlays found to disable');
-    }
-
-    // 🆕 Disable popups in editor
-    if (window.togglePopupDisplay) {
-      window.togglePopupDisplay(!active);
-    }
-
-    // Force redraw
-    if (window.markDirty) {
-      window.markDirty('elements');
-    }
-  }
-  
-  window.toggleEditor = toggleEditor;
-  
   window.addEventListener('editor:getMapCoords', (e) => {
     const { clientX, clientY } = e.detail;
     const coords = clientToMapCoords(clientX, clientY);
@@ -588,16 +530,26 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
   // ========= LOAD MAP =========
   async function loadMap(mapId) {
-    uiManager.setLoading(true);
     try {
-      if (GLOBAL_CONFIG.MEMORY_MANAGEMENT.logMemoryUsage) {
-        const beforeMem = memoryMonitor.sample();
+      if (uiManager) {
+        uiManager.setLoading(true);
+      }
+      
+      if (GLOBAL_CONFIG?.MEMORY_MANAGEMENT?.logMemoryUsage) {
+        const beforeMem = memoryMonitor?.sample();
         if (beforeMem) console.log('💾 Memoria antes:', beforeMem.usedMB.toFixed(2) + 'MB');
       }
+      
+      if (!mapManager) {
+        throw new Error('MapManager no está inicializado');
+      }
+      
       const mapData = await mapManager.loadMap(mapId);
-      state.currentWaypoints = mapData.waypoints;
+      
+      // Initialize state with proper null checks
+      state.currentWaypoints = Array.isArray(mapData.waypoints) ? mapData.waypoints : [];
       state.currentIcons = mapData.icons || {};
-      state.mapImages = mapData.images;
+      state.mapImages = mapData.images || {};
 
       if (GLOBAL_CONFIG.WAYPOINT_RENDERING.useSpatialIndex && state.currentWaypoints.length >= GLOBAL_CONFIG.WAYPOINT_RENDERING.spatialIndexThreshold) {
         waypointSpatialIndex = new WaypointSpatialIndex(state.currentWaypoints, GLOBAL_CONFIG.WAYPOINT_RENDERING.cellSize);
@@ -606,11 +558,18 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         waypointSpatialIndex = null;
       }
 
-      uiManager.updateProgress(state.currentWaypoints.length, 0);
-      uiManager.updateDrawer(state.currentWaypoints);
-      const phaseColor = mapManager.getCurrentPhaseColor();
-      const phaseColorRgb = mapManager.getCurrentPhaseColorRgb();
-      uiManager.updateThemeColor(phaseColor, phaseColorRgb);
+      // Update UI with error handling
+      try {
+        if (uiManager) {
+          uiManager.updateProgress(state.currentWaypoints.length, 0);
+          uiManager.updateDrawer(state.currentWaypoints);
+          const phaseColor = mapManager.getCurrentPhaseColor();
+          const phaseColorRgb = mapManager.getCurrentPhaseColorRgb();
+          uiManager.updateThemeColor(phaseColor, phaseColorRgb);
+        }
+      } catch (err) {
+        console.error('Error updating UI in loadMap:', err);
+      }
 
       setCanvasDPR();
       goToWaypoint(0);
@@ -639,9 +598,19 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   async function handleMapChange(mapId) { await loadMap(mapId); }
 
   function goToWaypoint(i) {
-    if (!state.currentWaypoints.length) return;
+    if (!state.currentWaypoints || !state.currentWaypoints.length) return;
     state.idx = i;
     state.lineIndex = 0;
+    
+    // Add null checks for UI updates
+    try {
+      if (uiManager) {
+        uiManager.updateProgress(state.currentWaypoints.length, i);
+        uiManager.updateDrawer(state.currentWaypoints);
+      }
+    } catch (err) {
+      console.error('UI update failed in goToWaypoint:', err);
+    }
     const wp = state.currentWaypoints[i];
 
     const isMobile = window.matchMedia('(max-width: 899px)').matches;
@@ -1099,7 +1068,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const canvasLogicalH = canvas.height / dpr;
 
     // --- Overlay DOM (por frame) ---
-    overlay.beginFrame();
+    if (overlayLayer) overlayLayer.beginFrame();
 
     // Render icons/hotspots for current waypoint
     const iconsForWaypoint = state.currentIcons[state.idx] || [];
@@ -1114,7 +1083,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const baseSize = icon.width || (GLOBAL_CONFIG.ICON_SIZE || 36);
       const minTapSize = isCard ? 48 : 56; // cards pueden ser algo más pequeñas
 
-      overlay.upsert({
+      if (overlayLayer) overlayLayer.upsert({
         key: `${state.idx}:${i}`,
         src: icon.img,
         worldX: icon.x,
@@ -1157,7 +1126,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   if (appConfig.editorActive) window.dispatchEvent(new CustomEvent('editor:redraw'));
     
     // Finaliza el frame del overlay con la cámara actual
-    overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
+    if (overlayLayer) overlayLayer.endFrame(camera, canvasLogicalW, canvasLogicalH);
   }
 
   function typeNext(delta) {
@@ -1319,7 +1288,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
 
     // Informa al overlay del tamaño visible
-    overlay.resize(canvasW, canvasH);
+    if (overlayLayer) overlayLayer.resize(canvasW, canvasH);
 
     // Ajustar por ratio del mapa en modos responsivos
     if (mapConfig.logicalW && mapConfig.logicalH) {
@@ -1485,8 +1454,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   (async function start() {
     // 🆕 Activamos el modo controlado por código
     document.querySelector('.novela')?.classList.add('full-bleed');
-    // Valor inicial: 100%
-    window.LayoutFill.set(100);
+    // Valor inicial: 100% (si existe LayoutFill)
+    if (window.LayoutFill?.set) window.LayoutFill.set(100);
 
     uiManager = new UIManager(mapManager, handlePhaseChange, handleMapChange);
     popupManager = new DetailedPopupManager();

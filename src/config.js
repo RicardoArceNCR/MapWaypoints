@@ -18,11 +18,11 @@ export const MAPS_CONFIG = {
         logicalH: 2779
       },
       desktop: {
-        src: '/assets/mapa-dektop.webp',
-        logicalW: 2858,
-        logicalH: 1761
+        src: '/assets/mapa-desktop.jpg',
+        logicalW: 0,  // Will be set automatically by useNaturalSize
+        logicalH: 0   // Will be set automatically by useNaturalSize
       },
-      useNaturalSize: false
+      useNaturalSize: true  // Use actual image dimensions
     },
     waypoints: [
       { 
@@ -472,7 +472,7 @@ export const MAPS_CONFIG = {
         logicalH: 2779
       },
       desktop: {
-        src: '/assets/mapa-dektop-2.webp',
+        src: '/assets/mapa-dektop-2.jpg',
         logicalW: 2858,
         logicalH: 1761
       },
@@ -926,7 +926,7 @@ export const MAPS_CONFIG = {
         logicalH: 2779
       },
       desktop: {
-        src: '/assets/mapa-dektop-3.webp',
+        src: '/assets/mapa-dektop-3.jpg',
         logicalW: 2858,
         logicalH: 1761
       },
@@ -1376,6 +1376,8 @@ export const GLOBAL_CONFIG = {
   // Control de visibilidad SEPARADO
   SHOW_DIALOGS: false,   // Controla los cuadros de diálogo de texto
   SHOW_CONTROLS: true,  // Controla los botones de navegación (prev/next/progress)
+  SHOW_POPUP_ON_CLICK: true,   // 👈 toggle global para habilitar/deshabilitar popups
+  DEBUG_HOTSPOTS: false,       // Desactivado para producción, activar con ?debug=1 si es necesario
   
   // ========= DEBUG Y VISUALIZACIÓN =========
     // DEBUG_HOTSPOTS: true, Activa marcos blancos de depuración (false en producción)
@@ -1393,8 +1395,18 @@ export const GLOBAL_CONFIG = {
   TOUCH: {
     mobileMin: 56,  // Tamaño mínimo en mobile para toque
     desktopMin: 40,  // Tamaño mínimo en desktop
-    hitSlop: 4  // Margen invisible extra para clics
+    hitSlop: 6      // Margen extra para clics (aumentado a 6px)
   },
+
+  // Configuración de interacción
+  INTERACTION: {
+    USE_OVERLAY_HITBOX: true,      // 👈 overlays dominan el click
+    DISABLE_CANVAS_HOTSPOTS: false  // 👈 habilita los hotspots del canvas
+  },
+
+  // Tamaños y breakpoints
+  MOBILE_BREAKPOINT: 900,  // Breakpoint para diseño responsive
+  ICON_SIZE: 36,           // Tamaño base de los iconos
   
   // ========= EFECTOS DE CÁMARA =========
   CAMERA_EFFECTS: {
@@ -1457,6 +1469,26 @@ export const GLOBAL_CONFIG = {
     aggressiveCulling: true           // Culling más agresivo
   },
 
+  // ========= 🆕 CONFIGURACIÓN DE ENTRADA =========
+  INPUT: {
+    // Deshabilitar clics en el canvas para mejor rendimiento
+    // Se activa automáticamente en conexiones lentas (2G/3G)
+    DISABLE_CANVAS_HOTSPOT_CLICKS: false,
+    
+    // Usar solo overlays para interacción en dispositivos táctiles
+    FORCE_OVERLAYS_ONLY: false,
+    
+    // Deshabilitar completamente los hotspots nativos del canvas
+    // Útil para probar solo el comportamiento de overlays HTML
+    DISABLE_NATIVE_HOTSPOT_INPUT: false,
+    
+    // Tamaño mínimo de área táctil
+    MIN_TOUCH_TARGET: {
+      width: 44,
+      height: 44
+    }
+  },
+
   RESPONSIVE_SIZING: {
   mobile:  { lockItemWidthToScreenPx: false },  // activa ancho fijo en mobile
   desktop: { lockItemWidthToScreenPx: false }  // desktop se mantiene igual
@@ -1464,7 +1496,7 @@ export const GLOBAL_CONFIG = {
 
   
   // ========= MODO DEBUG MEJORADO =========
-  DEBUG_HOTSPOTS: true,              // Visualizar áreas invisibles (hotspots)
+  DEBUG_HOTSPOTS: false,              // Desactivar visualización de áreas de depuración
   SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: true,           // Mostrar coordenadas en cada área

@@ -80,9 +80,8 @@ export class OverlayLayer {
       wrap.appendChild(img);
       this.root.appendChild(wrap);
 
-      // 🆕 listeners pointer (evita ghost clicks y scroll-move)
-      wrap.addEventListener('pointerdown', this._onPointerDown, { passive: true });
-      wrap.addEventListener('pointerup', this._onPointerUp, { passive: true });
+      // Initialize the overlay with robust event handling
+      this.attachOverlayHandlers(wrap, { key: String(key), record: { meta, worldX, worldY } });
 
       rec = { wrap, img, meta, lockWidthPx, worldX, worldY, rotationDeg, z, _pd:{x:0,y:0,t:0} };
       this.items.set(key, rec);
@@ -242,40 +241,139 @@ export class OverlayLayer {
     rec._pd = { x: ev.clientX, y: ev.clientY, t: performance.now() };
   }
 
-  _onPointerUp(ev) {
-    const wrap = ev.currentTarget;
-    const key = wrap?.dataset?.key;
-    if (!key) return;
-    const rec = this.items.get(key);
-    const dx = Math.abs(ev.clientX - rec._pd.x);
-    const dy = Math.abs(ev.clientY - rec._pd.y);
-    const dt = performance.now() - rec._pd.t;
+  /**
+   * Attaches robust event handlers to overlay elements
+   * @param {HTMLElement} el - The overlay element
+   * @param {Object} payload - The data to pass with the event
+   */
+  attachOverlayHandlers(el, payload) {
+    let sx = 0, sy = 0, moved = false;
+    const key = payload?.key;
 
-    // 🆕 "fat-finger forgiveness": solo click si no se arrastró
-    if (dx <= 8 && dy <= 8 && dt <= 500) {
-      // 🆕 Verifica toggle global antes de cualquier acción
+    const onDown = (ev) => {
+      // Capture pointerId on desktop to ensure we get the same 'up' event
+      if (el.setPointerCapture && ev.pointerId != null) {
+        try { el.setPointerCapture(ev.pointerId); } catch {}
+      }
+      sx = ev.clientX ?? (ev.touches?.[0]?.clientX || 0);
+      sy = ev.clientY ?? (ev.touches?.[0]?.clientY || 0);
+      moved = false;
+      
+      // Store pointer down data for legacy support
+      const rec = this.items.get(key);
+      if (rec) {
+        rec._pd = { x: sx, y: sy, t: performance.now() };
+      }
+    };
+
+    const onMove = (ev) => {
+      const cx = ev.clientX ?? (ev.touches?.[0]?.clientX || 0);
+      const cy = ev.clientY ?? (ev.touches?.[0]?.clientY || 0);
+      if (Math.abs(cx - sx) > 6 || Math.abs(cy - sy) > 6) {
+        moved = true; // "fat finger" threshold
+      }
+    };
+
+    const fire = () => {
+      // Check global toggle before any action
       if (!GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK) {
         console.log(`[INFO] Popup disabled via SHOW_POPUP_ON_CLICK for hotspot ${key}`);
-        return;  // Sale temprano si popups están desactivados
+        return;
       }
 
-      // 🆕 Prioriza modo debug como principal si activo
+      const rec = this.items.get(key);
+      if (!rec) return;
+
+      // Debug mode handling
       if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
         const hotspotData = rec.meta?.hotspot || rec.meta;
         
         if (!hotspotData) {
-          console.warn(`[DEBUG] No hay metadata para hotspot ${key}`);
-          return;  // 🆕 Salir si no hay metadata
+          console.warn(`[DEBUG] No metadata for hotspot ${key}`);
+          return;
         }
         
         if (window.popupManager) {
-          console.log(`[DEBUG] Abriendo popup directo para hotspot ${key}:`, hotspotData.title || 'Sin título');
-          window.popupManager.openPopup(hotspotData);  // Trigger directo (principal en debug)
+          console.log(`[DEBUG] Opening popup for hotspot ${key}:`, hotspotData.title || 'No title');
+          window.popupManager.openPopup(hotspotData);
         } else {
-          console.warn(`[DEBUG] No se puede abrir popup: popupManager no está disponible`);
+          console.warn(`[DEBUG] Cannot open popup: popupManager not available`);
         }
       } else {
-        // Fallback al evento original si no en debug
+        // Standard behavior - dispatch overlay:click event
+        this.root.dispatchEvent(new CustomEvent('overlay:click', {
+          bubbles: true,
+          detail: { key, record: rec }
+        }));
+      }
+    };
+
+    const onUp = (ev) => {
+      if (el.releasePointerCapture && ev.pointerId != null) {
+        try { el.releasePointerCapture(ev.pointerId); } catch {}
+      }
+      if (!moved) fire();
+    };
+
+    // Modern pointer events (desktop + modern mobile)
+    el.addEventListener('pointerdown', onDown, { passive: true });
+    el.addEventListener('pointermove', onMove, { passive: true });
+    el.addEventListener('pointerup', onUp, { passive: true });
+    el.addEventListener('pointercancel', onUp, { passive: true });
+
+    // Fallback for browsers without proper PointerEvents support
+    el.addEventListener('click', (e) => { fire(); }, { passive: true });
+
+    // Prevent underlying canvas from stealing the click
+    const stopPropagation = (e) => e.stopPropagation();
+    el.addEventListener('click', stopPropagation, { passive: true, capture: true });
+    el.addEventListener('pointerup', stopPropagation, { passive: true, capture: true });
+  }
+
+  _onPointerUp(ev) {
+    // This is now a fallback only for code that might still call it directly
+    const wrap = ev.currentTarget;
+    const key = wrap?.dataset?.key;
+    if (!key) return;
+    
+    // Use the new event system if possible
+    if (this.attachOverlayHandlers) {
+      return;
+    }
+    
+    // Legacy fallback
+    const rec = this.items.get(key);
+    if (!rec) return;
+    
+    const dx = Math.abs(ev.clientX - rec._pd.x);
+    const dy = Math.abs(ev.clientY - rec._pd.y);
+    const dt = performance.now() - rec._pd.t;
+
+    // "fat-finger forgiveness": only trigger if not dragged
+    if (dx <= 8 && dy <= 8 && dt <= 500) {
+      // Check global toggle before any action
+      if (!GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK) {
+        console.log(`[INFO] Popup disabled via SHOW_POPUP_ON_CLICK for hotspot ${key}`);
+        return;
+      }
+
+      // Debug mode handling
+      if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+        const hotspotData = rec.meta?.hotspot || rec.meta;
+        
+        if (!hotspotData) {
+          console.warn(`[DEBUG] No metadata for hotspot ${key}`);
+          return;
+        }
+        
+        if (window.popupManager) {
+          console.log(`[DEBUG] Opening popup for hotspot ${key}:`, hotspotData.title || 'No title');
+          window.popupManager.openPopup(hotspotData);
+        } else {
+          console.warn(`[DEBUG] Cannot open popup: popupManager not available`);
+        }
+      } else {
+        // Standard behavior - dispatch overlay:click event
         this.root.dispatchEvent(new CustomEvent('overlay:click', {
           bubbles: true,
           detail: { key, record: rec }
