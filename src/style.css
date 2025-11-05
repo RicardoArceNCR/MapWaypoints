@@ -1069,3 +1069,29 @@ body.net-slow .drawer {
   box-shadow: none !important;
   filter: none !important;
 }
+
+/* ===== OVERLAY STYLES ===== */
+.overlay-root {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;  /* Root no intercepta clics; hijos sí */
+  z-index: 34;  /* Sobre canvas, bajo UI/editor */
+}
+
+.overlay-wrap {  /* Clase para wrappers de hotspots */
+  position: absolute;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;  /* GPU acceleration */
+  transition: transform 0.12s ease;  /* Feedback táctil */
+}
+
+.overlay-wrap:active {
+  transform: translate(-50%,-50%) scale(0.98) !important;  /* Efecto press */
+}
+
+.overlay-item {  /* Para imágenes dentro (si usas) */
+  pointer-events: none;
+  display: block;
+}
