@@ -270,11 +270,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-<<<<<<< HEAD
           mobile: { offsetX: -81, offsetY: -176, width: 85, height: 85, rotation: 0, radius: 30 },
-=======
-          mobile: { offsetX: 281, offsetY: -176, width: 85, height: 85, rotation: 0, radius: 30 },
->>>>>>> 3787509 (style: movimiento de hotspots)
           desktop: { offsetX: 190, offsetY: -160, width: 160, height: 160, rotation: -10, radius: 10  },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
