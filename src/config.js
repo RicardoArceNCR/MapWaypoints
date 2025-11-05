@@ -270,14 +270,14 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 281, offsetY: -176, width: 85, height: 85, rotation: 0, radius: 30 },
+          mobile: { offsetX: -81, offsetY: -176, width: 85, height: 85, rotation: 0, radius: 30 },
           desktop: { offsetX: 190, offsetY: -160, width: 160, height: 160, rotation: -10, radius: 10  },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 300, offsetY: 540, width: 89, height: 89, rotation: 0, radius: 20},
+          mobile: { offsetX: -130, offsetY: 540, width: 89, height: 89, rotation: 0, radius: 20},
           desktop: { offsetX: -1, offsetY: 142, width: 260, height: 160, rotation: 0, radius: 10},
           title: 'Contexto Geográfico',
           body: 'Ubicación específica y detalles del entorno. Características del lugar que influyen en los acontecimientos.'
