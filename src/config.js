@@ -1378,14 +1378,14 @@ export const GLOBAL_CONFIG = {
   SHOW_CONTROLS: true,  // Controla los botones de navegación (prev/next/progress)
   
   // ========= DEBUG Y VISUALIZACIÓN =========
-  DEBUG_HOTSPOTS: true,  // Activa marcos blancos de depuración (false en producción)
+    // DEBUG_HOTSPOTS: true, Activa marcos blancos de depuración (false en producción)
   
   // Estilos para iconos y hotspots
   ICON_STYLES: {
     showBackground: true,  // Fondo semi-transparente en debug (opcional)
     backgroundColor: 'rgba(0, 209, 255, .18)',  // Fondo azul claro
     borderColor: 'rgba(255,255,255,.55)',  // Color del marco blanco semi-transparente
-    borderWidth: 1.5,  // Grosor del marco
+    borderWidth: 3,  // Grosor del marco (aumentado a 3px para mejor visibilidad en mobile)
     debugFill: 'rgba(255,0,0,0.12)'  // Fondo rojo sutil para hotspots en debug
   },
   
@@ -1393,7 +1393,7 @@ export const GLOBAL_CONFIG = {
   TOUCH: {
     mobileMin: 56,  // Tamaño mínimo en mobile para toque
     desktopMin: 40,  // Tamaño mínimo en desktop
-    hitSlop: 8  // Margen invisible extra para clics
+    hitSlop: 4  // Margen invisible extra para clics
   },
   
   // ========= EFECTOS DE CÁMARA =========
@@ -1465,6 +1465,7 @@ export const GLOBAL_CONFIG = {
   
   // ========= MODO DEBUG MEJORADO =========
   DEBUG_HOTSPOTS: true,              // Visualizar áreas invisibles (hotspots)
+  SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: true,           // Mostrar coordenadas en cada área
   DEBUG_SHOW_MINIMAP_MOBILE: true,   // Mostrar minimap en mobile

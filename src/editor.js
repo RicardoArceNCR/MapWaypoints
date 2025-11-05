@@ -1082,6 +1082,17 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(fallback);
       }
 
+      // Deshabilita interacción de overlays para facilitar selección en editor
+      try {
+        const overlayWrappers = document.querySelectorAll('.overlay-wrap');
+        overlayWrappers.forEach(el => {
+          el.style.setProperty('pointer-events', 'none', 'important');
+        });
+      } catch {}
+
+      // Desactiva popups mientras el editor está activo
+      try { if (window.togglePopupDisplay) window.togglePopupDisplay(false); } catch {}
+
       editor.needsRedraw = true;
     } else {
       console.log('%c⏹️  EDITOR DESACTIVADO', 'color:#FF6B6B;font-size:16px');
@@ -1089,6 +1100,17 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('editor-pro-ui')?.remove?.();
       document.getElementById('editor-lite')?.remove?.();
       editor.selectedItem = null;
+
+      // Restaura interacción de overlays al desactivar el editor
+      try {
+        const overlayWrappers = document.querySelectorAll('.overlay-wrap');
+        overlayWrappers.forEach(el => {
+          el.style.removeProperty('pointer-events');
+        });
+      } catch {}
+
+      // Reactiva popups cuando el editor está inactivo
+      try { if (window.togglePopupDisplay) window.togglePopupDisplay(true); } catch {}
     }
 
     window.dispatchEvent(new CustomEvent('editor:redraw'));
@@ -1322,14 +1344,35 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Mouse handlers (igual que antes)
-  canvas.addEventListener('mousedown', handleDown, { capture: true });
-  canvas.addEventListener('mousemove', handleMove, { capture: true });
+  if (canvas) {
+    canvas.addEventListener('mousedown', handleDown, { capture: true });
+    canvas.addEventListener('mousemove', handleMove, { capture: true });
+    canvas.addEventListener('mouseup', handleUp, { capture: true });
+    canvas.addEventListener('mouseleave', handleUp, { capture: true });
+  } else {
+    console.warn('Canvas not found - editor mouse listeners skipped');
+  }
   window.addEventListener('mouseup', handleUp, { capture: true });
 
   function handleDown(e) {
     if (!editor.active) return;
+    
+    // 🆕 Null guards
+    if (!e || !e.target) {
+      console.warn('handleDown: Invalid event target');
+      return;
+    }
+    
+    // 🆕 Si es debug y click en hotspot, permite popup en lugar de editar
+    if (GLOBAL_CONFIG.DEBUG_HOTSPOTS && e.target?.closest('.overlay-wrap')) {
+      console.log('[EDITOR] Click en debug hotspot - permitiendo popup');
+      return;  // No edites, deja que el overlay maneje el click
+    }
+    
     e.stopImmediatePropagation();
-    e.preventDefault();
+
+    // 🆕 Detecta eventos táctiles sintetizados
+    const isTouch = e?.isTouch === true || String(e.type).startsWith('touch');
 
     // Clear previous debug highlights if any
     if (editor.selectedItem) {
@@ -1395,8 +1438,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
+      let hit = false;
       for (let i = editor.items.length - 1; i >= 0; i--) {
         const item = editor.items[i];
+        if (!item) continue;  // 🆕 Skip null items
         ensureSize(item);
         const { width: dw, height: dh } = getDisplaySize(item);
         const hw = dw / 2;
@@ -1460,23 +1505,37 @@ document.addEventListener('DOMContentLoaded', () => {
           updatePropertiesPanel();
           editor.needsRedraw = true;
           window.dispatchEvent(new CustomEvent('editor:redraw'));
+          hit = true;
           return;
         }
       }
 
-      editor.selectedItem = null;
-      editor.mode = null;
-      canvas.style.cursor = 'crosshair';
-      updateInfo('No item selected');
-      updatePropertiesPanel();
-      editor.needsRedraw = true;
-      window.dispatchEvent(new CustomEvent('editor:redraw'));
+      if (!hit) {
+        editor.selectedItem = null;
+        editor.mode = null;
+        canvas.style.cursor = 'crosshair';
+        updateInfo('No item selected');
+        updatePropertiesPanel();
+        editor.needsRedraw = true;
+        window.dispatchEvent(new CustomEvent('editor:redraw'));
+      }
+
+      // 🆕 Solo bloquear comportamiento táctil si hubo hit
+      try { if (hit && isTouch && typeof e.preventDefault === 'function') e.preventDefault(); } catch {}
     }, { once: true });
   }
 
-  function handleMove(e) { if (!editor.active || !editor.mode) return;
+  function handleMove(e) { 
+    if (!editor.active || !editor.mode) return;
+    
+    // 🆕 Null guards
+    if (!e) {
+      console.warn('handleMove: Invalid event');
+      return;
+    }
+    
     e.stopImmediatePropagation();
-    e.preventDefault();
+    const isTouch = e?.isTouch === true || String(e.type).startsWith('touch');
 
     window.dispatchEvent(new CustomEvent('editor:getMapCoords', {
       detail: { clientX: e.clientX, clientY: e.clientY }
@@ -1558,6 +1617,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleUp(e) {
     if (!editor.active) return;
+    
+    // 🆕 Null guards
+    if (!e) {
+      console.warn('handleUp: Invalid event');
+      return;
+    }
+    
     e.stopImmediatePropagation();
     e.preventDefault();
 
@@ -1630,34 +1696,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { once: true });
   }
 
-  // Touch support
-  canvas.addEventListener('touchstart', (e) => {
-    if (!editor.active) return;
-    e.preventDefault();
-    const t = e.touches[0];
-    handleDown(new MouseEvent('mousedown', {
-      bubbles: true,
-      clientX: t.clientX,
-      clientY: t.clientY
-    }));
-  }, { capture: true, passive: false });
+  // Touch support with guards (passive to avoid interventions)
+  if (canvas) {
+    canvas.addEventListener('touchstart', (e) => {
+      if (!editor.active || !e.touches || e.touches.length === 0) return;
+      const t = e.touches[0];
+      if (!t) return;  // 🆕 Guard against empty touches
+      const syntheticEv = new MouseEvent('mousedown', {
+        bubbles: true,
+        clientX: t.clientX,
+        clientY: t.clientY
+      });
+      // Marca como evento táctil para manejo condicional
+      syntheticEv.isTouch = true;
+      handleDown(syntheticEv);
+    }, { capture: true, passive: true });
 
-  canvas.addEventListener('touchmove', (e) => {
-    if (!editor.active || !editor.selectedItem) return;
-    e.preventDefault();
-    const t = e.touches[0];
-    handleMove(new MouseEvent('mousemove', {
-      bubbles: true,
-      clientX: t.clientX,
-      clientY: t.clientY
-    }));
-  }, { capture: true, passive: false });
+    canvas.addEventListener('touchmove', (e) => {
+      if (!editor.active || !editor.selectedItem || !e.touches || e.touches.length === 0) return;
+      const t = e.touches[0];
+      if (!t) return;  // 🆕 Guard against empty touches
+      const syntheticEv = new MouseEvent('mousemove', {
+        bubbles: true,
+        clientX: t.clientX,
+        clientY: t.clientY
+      });
+      syntheticEv.isTouch = true;
+      handleMove(syntheticEv);
+    }, { capture: true, passive: true });
 
-  canvas.addEventListener('touchend', (e) => {
-    if (!editor.active) return;
-    e.preventDefault();
-    handleUp(new MouseEvent('mouseup', { bubbles: true }));
-  }, { capture: true });
+    canvas.addEventListener('touchend', (e) => {
+      if (!editor.active) return;
+      handleUp(new MouseEvent('mouseup', { bubbles: true }));
+    }, { capture: true, passive: true });
+  } else {
+    console.warn('Canvas not found - editor touch listeners skipped');
+  }
 
   console.log('✅ Editor Pro Advanced cargado. Presiona "E"');
     // --- HMR: limpia y re-monta UI si estaba activo

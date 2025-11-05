@@ -25,6 +25,16 @@ function showError(message) {
 }
 window.showError = showError;
 
+// ===== Toggle dinámico para popups =====
+window.togglePopupDisplay = (enable) => {
+  GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK = !!enable;
+  console.log(`[CONFIG] Popups on click: ${GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK ? 'enabled' : 'disabled'}`);
+  // Opcional: fuerza redraw si necesitas visuals actualizados
+  if (window.markDirty) {
+    window.markDirty('elements');  // Asumiendo tu dirty flag system
+  }
+};
+
 // ===== Click Handler Optimizado para Mobile =====
 function initOverlayClickHandler() {
   const overlayRoot = document.getElementById('overlay-layer');
@@ -58,6 +68,7 @@ function parseUrlToggles() {
   }
   if (p.has('debug')) out.debug = p.get('debug') === '1';
   if (p.has('editor')) out.editor = p.get('editor') === '1';
+  if (p.has('popups')) out.popups = p.get('popups') === '1';
   return out;
 }
 
@@ -75,6 +86,12 @@ window.__EDITOR_ACTIVE__ = appConfig.editorActive;
 
 // Asegura estado inicial si el editor ya dejó huella global (p. ej., tras HMR/recarga)
 appConfig.editorActive = appConfig.editorActive || !!window.__EDITOR_ACTIVE__;
+
+// Aplica toggle de popups desde URL si está presente
+if (appConfig.toggles.hasOwnProperty('popups')) {
+  GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK = !!appConfig.toggles.popups;
+  console.log(`[CONFIG] SHOW_POPUP_ON_CLICK set from URL: ${GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK}`);
+}
 
 // Escucha cambios de estado del editor (enviado por editor.js)
 window.addEventListener('editor:active', (e) => {
@@ -387,6 +404,7 @@ let overlayLayer = null;
 
   const dirtyFlags = { camera:false, elements:false, dialog:false, minimap:false, debug:false, cameraMoving:false };
   function markDirty(...flags){ flags.forEach(f=>{ if (dirtyFlags.hasOwnProperty(f)) dirtyFlags[f]=true; }); }
+  window.markDirty = markDirty;  // Exponer para uso global (e.g., togglePopupDisplay)
   function clearDirtyFlags(){ Object.keys(dirtyFlags).forEach(k=> dirtyFlags[k]=false); }
   function needsRedraw(){
     return dirtyFlags.camera||dirtyFlags.elements||dirtyFlags.dialog||dirtyFlags.minimap||dirtyFlags.debug||dirtyFlags.cameraMoving||state.typing||transitionState.active||GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled;
@@ -428,6 +446,49 @@ let overlayLayer = null;
 
   // ========= COMUNICACIÓN CON EDITOR =========
   let editorActive = false;
+  
+  function toggleEditor(active) {
+    // Update editor active state
+    editorActive = active;
+    
+    // Dispatch event to notify other components
+    document.dispatchEvent(new CustomEvent('editor:active', { detail: { active } }));
+    
+    // 🆕 Disable overlay events
+    const overlayRoot = document.getElementById('overlay-layer');
+
+    if (overlayRoot) {
+      if (active) {
+        overlayRoot.style.setProperty('pointer-events', 'none', 'important');
+      } else {
+        overlayRoot.style.removeProperty('pointer-events');
+      }
+    } else {
+      // Fallback a individuales
+      const overlayWrappers = document.querySelectorAll('.overlay-wrap');
+      overlayWrappers.forEach(el => {
+        if (active) {
+          el.style.setProperty('pointer-events', 'none', 'important');
+        } else {
+          el.style.removeProperty('pointer-events');
+        }
+      });
+      if (overlayWrappers.length === 0) console.warn('No overlays found to disable');
+    }
+
+    // 🆕 Disable popups in editor
+    if (window.togglePopupDisplay) {
+      window.togglePopupDisplay(!active);
+    }
+
+    // Force redraw
+    if (window.markDirty) {
+      window.markDirty('elements');
+    }
+  }
+  
+  window.toggleEditor = toggleEditor;
+  
   window.addEventListener('editor:getMapCoords', (e) => {
     const { clientX, clientY } = e.detail;
     const coords = clientToMapCoords(clientX, clientY);

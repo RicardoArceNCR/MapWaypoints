@@ -189,23 +189,33 @@ export class OverlayLayer {
       
       // Aplicar estilos de debug si está habilitado
       if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
-        rec.wrap.style.border = `${GLOBAL_CONFIG.ICON_STYLES.borderWidth}px solid ${GLOBAL_CONFIG.ICON_STYLES.borderColor}`;
-        rec.wrap.style.background = GLOBAL_CONFIG.ICON_STYLES.debugFill || 'transparent';
-        rec.wrap.style.borderRadius = (rec.meta?.shape === 'circle') ? '50%' : '8px';
-        rec.wrap.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+        // Añadir clase de debug para estilos CSS
+        rec.wrap.classList.add('debug-hotspot');
         
-        // Añadir etiqueta de debug
-        if (!rec.wrap.dataset.debugAdded) {
-          rec.wrap.dataset.debugAdded = 'true';
-          const debugLabel = document.createElement('div');
+        // Aplicar estilos inline para debug (border más grueso para mejor visibilidad)
+        const debugBorderWidth = 3; // Más grueso para mobile
+        rec.wrap.style.border = `${debugBorderWidth}px solid rgba(255, 0, 0, 0.8)`;
+        rec.wrap.style.background = 'rgba(255, 0, 0, 0.1)';
+        rec.wrap.style.borderRadius = (rec.meta?.shape === 'circle') ? '50%' : '8px';
+        rec.wrap.style.boxShadow = '0 0 0 1px white, 0 0 0 2px rgba(0,0,0,0.3)';
+        rec.wrap.style.transition = 'all 0.15s ease-out';
+        
+        // Añadir o actualizar etiqueta de debug
+        let debugLabel = rec.wrap.querySelector('.hs-debug-label');
+        if (!debugLabel) {
+          debugLabel = document.createElement('div');
           debugLabel.className = 'hs-debug-label';
-          debugLabel.textContent = `${rec.key || '?'}: ${~~rec.hitW}×${~~rec.hitH}px`;
           rec.wrap.appendChild(debugLabel);
         }
+        debugLabel.textContent = `${rec.key || '?'}: ${~~rec.hitW}×${~~rec.hitH}px`;
       } else {
+        // Limpiar estilos de debug
+        rec.wrap.classList.remove('debug-hotspot');
         rec.wrap.style.border = 'none';
         rec.wrap.style.background = 'transparent';
         rec.wrap.style.boxShadow = 'none';
+        rec.wrap.style.transition = '';
+        
         // Eliminar etiqueta de debug si existe
         const debugLabel = rec.wrap.querySelector('.hs-debug-label');
         if (debugLabel) debugLabel.remove();
@@ -241,12 +251,36 @@ export class OverlayLayer {
     const dy = Math.abs(ev.clientY - rec._pd.y);
     const dt = performance.now() - rec._pd.t;
 
-    // 🆕 “fat-finger forgiveness”: solo click si no se arrastró
+    // 🆕 "fat-finger forgiveness": solo click si no se arrastró
     if (dx <= 8 && dy <= 8 && dt <= 500) {
-      this.root.dispatchEvent(new CustomEvent('overlay:click', {
-        bubbles: true,
-        detail: { key, record: rec }
-      }));
+      // 🆕 Verifica toggle global antes de cualquier acción
+      if (!GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK) {
+        console.log(`[INFO] Popup disabled via SHOW_POPUP_ON_CLICK for hotspot ${key}`);
+        return;  // Sale temprano si popups están desactivados
+      }
+
+      // 🆕 Prioriza modo debug como principal si activo
+      if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+        const hotspotData = rec.meta?.hotspot || rec.meta;
+        
+        if (!hotspotData) {
+          console.warn(`[DEBUG] No hay metadata para hotspot ${key}`);
+          return;  // 🆕 Salir si no hay metadata
+        }
+        
+        if (window.popupManager) {
+          console.log(`[DEBUG] Abriendo popup directo para hotspot ${key}:`, hotspotData.title || 'Sin título');
+          window.popupManager.openPopup(hotspotData);  // Trigger directo (principal en debug)
+        } else {
+          console.warn(`[DEBUG] No se puede abrir popup: popupManager no está disponible`);
+        }
+      } else {
+        // Fallback al evento original si no en debug
+        this.root.dispatchEvent(new CustomEvent('overlay:click', {
+          bubbles: true,
+          detail: { key, record: rec }
+        }));
+      }
     }
   }
 }

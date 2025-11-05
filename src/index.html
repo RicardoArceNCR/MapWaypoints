@@ -4,9 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark light">
+  <!-- Content Security Policy: Configuración para desarrollo -->
+  <!-- 
+    DESARROLLO: Incluye 'unsafe-inline' y 'unsafe-eval' para Vite HMR y debugging
+    PRODUCCIÓN: Remover 'unsafe-eval' y minimizar 'unsafe-inline' usando nonces/hashes
+    
+    Directivas actuales:
+    - script-src: Permite módulos ES6 y eval para Vite dev server
+    - style-src: Permite estilos inline (componentes dinámicos)
+    - connect-src: Permite WebSocket para HMR (ws:/wss:)
+    - img-src: Permite data URIs y blobs para imágenes dinámicas
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; connect-src 'self' ws: wss:;">
   <title>Mapa Interactivo Multi-Fase</title>
-  <link rel="preload" href="../assets/fonts/inter-v12-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../assets/fonts/inter-v12-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-v20-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-v20-latin-600.woff2" as="font" type="font/woff2" crossorigin>
   <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"> -->
@@ -169,7 +181,6 @@
 
   <!-- Editor (forzado durante depuración) -->
   <script type="module" src="/editor.js"></script>
-</script>
 
 </body>
 </html>
