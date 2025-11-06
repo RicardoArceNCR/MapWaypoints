@@ -3,6 +3,7 @@
 // ========= 🎭 OVERLAY LAYER - GESTIÓN DE ELEMENTOS HTML SOBRE EL CANVAS =========
 // Características: Posicionamiento absoluto, escalado, rotación, culling, orden Z, eventos táctiles
 import { GLOBAL_CONFIG } from './config.js';
+import { Camera } from './Camera.js';
 
 export class OverlayLayer {
   constructor(rootEl) {
@@ -141,6 +142,12 @@ export class OverlayLayer {
   endFrame(camera, canvasW, canvasH) {
     const vw = this.lastDims.w || canvasW;
     const vh = this.lastDims.h || canvasH;
+    
+    // Get viewport bounds for culling if camera supports it
+    let viewportBounds = null;
+    if (camera.getWorldBounds) {
+      viewportBounds = camera.getWorldBounds();
+    }
 
     for (const [key, rec] of this.items) {
       const alive = this.frameLiveKeys.has(String(key));
@@ -152,12 +159,33 @@ export class OverlayLayer {
         continue;
       }
 
-      // world → screen
-      const sx = (rec.worldX - camera.x) * camera.z + (canvasW / 2);
-      const sy = (rec.worldY - camera.y) * camera.z + (canvasH / 2);
+      // Skip if outside viewport bounds (if camera supports it)
+      if (viewportBounds) {
+        const margin = 500 / camera.z; // Convert screen margin to world space
+        if (rec.worldX < viewportBounds.minX - margin ||
+            rec.worldX > viewportBounds.maxX + margin ||
+            rec.worldY < viewportBounds.minY - margin ||
+            rec.worldY > viewportBounds.maxY + margin) {
+          rec.wrap.style.display = 'none';
+          continue;
+        }
+      }
 
-      // culling
-      if (sx < -500 || sy < -500 || sx > vw + 500 || sy > vh + 500) {
+      // world → screen using camera's worldToCss method if available
+      let sx, sy;
+      if (camera.worldToCss) {
+        const screenPos = camera.worldToCss(rec.worldX, rec.worldY);
+        sx = screenPos.x;
+        sy = screenPos.y;
+      } else {
+        // Fallback to manual calculation
+        sx = (rec.worldX - camera.x) * camera.z + (canvasW / 2);
+        sy = (rec.worldY - camera.y) * camera.z + (canvasH / 2);
+      }
+
+      // Additional culling check (screen space)
+      const margin = 500; // pixels
+      if (sx < -margin || sy < -margin || sx > vw + margin || sy > vh + margin) {
         rec.wrap.style.display = 'none';
         continue;
       } else {
