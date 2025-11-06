@@ -1,6 +1,7 @@
 // ========= APLICACIÓN PRINCIPAL OPTIMIZADA =========
 import { computeFitRect } from './utils/fitRect.js';
 import { Camera } from './Camera.js';
+import { clientToMapCoords as utilClientToMapCoords, getEventMapPosition } from './utils/events.js';
 
 // 🚀 OPTIMIZACIONES IMPLEMENTADAS:
 // 1. Culling espacial con viewport frustum
@@ -902,7 +903,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
                   (canvasLogicalW / camera.z) + (margin * 2), 
                   (canvasLogicalH / camera.z) + (margin * 2) );
 
-    const mapImg = state.mapImages.highRes || state.mapImages.lowRes;
+    // Use smart image selection with preloading
+    const mapImg = selectMapImage(state, camera);
+    
     if (mapImg) {
       ctx.imageSmoothingEnabled = true;
       if (window.__fitRect) {
@@ -1223,7 +1226,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const mapConfig = mapManager.currentMap.config.mapImage;
     const mmW = minimap.width, mmH = minimap.height;
     mmCtx.clearRect(0, 0, mmW, mmH);
-    const mapImg = state.mapImages.highRes || state.mapImages.lowRes;
+    
+    // Use smart image selection with preloading
+    const mapImg = selectMapImage(state, camera);
     if (!mapImg) return;
 
     const rMap = mapImg.naturalWidth / mapImg.naturalHeight;
@@ -1303,7 +1308,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           meta: {
             shape: 'rect',
             compact: !mapManager.isMobile,
-            hitSlop: 6,
+            // Adjust hit slop based on zoom level - smaller when zoomed in, larger when zoomed out
+            hitSlop: Math.max(2, Math.min(12, 12 / Math.sqrt(camera.z))),
             minTap: minTapSize,
             visualH: height,
             title: hotspot.title || `Hotspot ${index}`,
@@ -1346,8 +1352,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           // 🎯 Control preciso del hitbox
           compact: icon.compact ?? (!mapManager.isMobile && !isCard), // compacto en desktop excepto cards
           
-          // 🧤 Margen extra según tipo
-          hitSlop: icon.hitSlop ?? (shouldBeRound ? 8 : 6),
+          // 🧤 Margen extra según tipo y zoom
+          hitSlop: icon.hitSlop ?? (shouldBeRound ? 
+            Math.max(2, Math.min(16, 16 / Math.sqrt(camera.z))) : // Larger hit slop for round elements
+            Math.max(2, Math.min(12, 12 / Math.sqrt(camera.z)))), // Smaller hit slop for rectangular elements
           
           // 📏 Mínimo táctil según contexto (solo si no es compacto)
           minTap: icon.minTap ?? minTapSize,
@@ -1442,9 +1450,14 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   });
 
   canvas.addEventListener('mousedown', (e) => {
-  if (appConfig.editorActive) { console.log('🎨 Editor activo - evento bloqueado'); return; }
-    const { x, y } = clientToMapCoords(e.clientX, e.clientY);
+    if (appConfig.editorActive) { 
+      console.log('🎨 Editor activo - evento bloqueado'); 
+      return; 
+    }
+    
+    const { x, y } = getEventMapPosition(e, canvas, window.__fitRect);
     const items = state.currentIcons[state.idx] || [];
+    
     for (const item of items) {
       const type = item.type || 'icon';
       const width = item.width || ICON_SIZE;
@@ -1452,15 +1465,24 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const sqrtZ = getCachedSqrt(camera.z);
       const displayWidth = width / sqrtZ;
       const displayHeight = height / sqrtZ;
+      
       let isHit = false;
       if (type === 'icon') {
-        const dx = x - item.x; const dy = y - item.y;
-        const clickRadius = ICON_R; isHit = (dx * dx + dy * dy) <= (clickRadius * clickRadius);
+        const dx = x - item.x;
+        const dy = y - item.y;
+        const clickRadius = ICON_R; 
+        isHit = (dx * dx + dy * dy) <= (clickRadius * clickRadius);
       } else if (type === 'hotspot' || type === 'image') {
-        const halfW = displayWidth * 0.5; const halfH = displayHeight * 0.5;
-        isHit = (x >= item.x - halfW && x <= item.x + halfW && y >= item.y - halfH && y <= item.y + halfH);
+        const halfW = displayWidth * 0.5; 
+        const halfH = displayHeight * 0.5;
+        isHit = (x >= item.x - halfW && x <= item.x + halfW && 
+                 y >= item.y - halfH && y <= item.y + halfH);
       }
-      if (isHit) { openPopup(item); return; }
+      
+      if (isHit) { 
+        openPopup(item); 
+        return; 
+      }
     }
     for (let i=0;i<state.currentWaypoints.length;i++){
       const wp = state.currentWaypoints[i];
@@ -1470,20 +1492,47 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     showFullLineOrNext();
   });
 
+  // Wrapper for backward compatibility
   function clientToMapCoords(cx, cy) {
-    if (!mapManager.currentMap) return { x: 0, y: 0 };
-    const rect = canvas.getBoundingClientRect();
-    const dpr = Math.min(DPR_MAX, window.devicePixelRatio || 1);
-    const canvasLogicalW = canvas.width / dpr;
-    const canvasLogicalH = canvas.height / dpr;
-    const px = (cx - rect.left) / rect.width * canvasLogicalW;
-    const py = (cy - rect.top) / rect.height * canvasLogicalH;
-    const mx = (px - canvasLogicalW/2) / camera.z + camera.x;
-    const my = (py - canvasLogicalH/2) / camera.z + camera.y;
-    return { x: mx, y: my };
+    const fakeEvent = { clientX: cx, clientY: cy };
+    const result = utilClientToMapCoords(fakeEvent, canvas, window.__fitRect);
+    return { x: result.mx, y: result.my };
   }
 
-  // ========= 🆕 CONTROL DE LLENADO DESDE CÓDIGO =========
+  // ========= 🖼️ SMART IMAGE RESOLUTION SWITCHING =========
+// Parámetros ajustables para el cambio de resolución
+const HIRES_Z_THRESHOLD = 1.2;      // Nivel de zoom para cambiar a alta resolución
+const PRELOAD_MARGIN = 0.1;         // Margen para precarga anticipada
+
+/**
+ * Selects the appropriate map image based on zoom level and preloads high-res when needed
+ * @param {Object} state - Application state
+ * @param {Camera} camera - Camera instance
+ * @returns {HTMLImageElement} The selected image (low or high res)
+ */
+function selectMapImage(state, camera) {
+  if (!state.mapImages) return null;
+
+  const wantHiRes = camera.z >= HIRES_Z_THRESHOLD;
+  const shouldPreloadHiRes = camera.z >= (HIRES_Z_THRESHOLD - PRELOAD_MARGIN);
+
+  // Always have fallbacks in case one of the images is missing
+  const low = state.mapImages.lowRes || state.mapImages.highRes;
+  const hi = state.mapImages.highRes || state.mapImages.lowRes;
+
+  // Preload high-res if we're getting close to the threshold
+  if (shouldPreloadHiRes && hi && !hi.complete && hi.src && !hi._preloadStarted) {
+    hi._preloadStarted = true;
+    // Start decoding without blocking the main thread
+    if (typeof hi.decode === 'function') {
+      hi.decode().catch(() => {});
+    }
+  }
+
+  return wantHiRes ? hi : low;
+}
+
+// ========= 🆕 CONTROL DE LLENADO DESDE CÓDIGO =========
   const rootEl  = document.documentElement;
   const bodyEl  = document.body;
   const shellEl = document.querySelector('.novela');

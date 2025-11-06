@@ -5,6 +5,9 @@
 import { GLOBAL_CONFIG } from './config.js';
 import { Camera } from './Camera.js';
 
+// Margen de culling en píxeles CSS (se ajusta según el zoom)
+const CULL_MARGIN_CSS = 320; // Ajustar según necesidad
+
 export class OverlayLayer {
   constructor(rootEl) {
     this.root = rootEl;
@@ -22,6 +25,43 @@ export class OverlayLayer {
 
   resize(w, h) { this.lastDims = { w, h }; }
   setDevice(device) { this.device = device; } // 'mobile' | 'desktop'
+
+  /**
+   * Calculates the tap target rectangle with zoom-aware hit slop
+   * @param {Object} meta - Item metadata including hitSlop and minTap
+   * @param {number} sx - Screen X position
+   * @param {number} sy - Screen Y position
+   * @param {number} zoom - Current camera zoom level
+   * @param {number} [width] - Optional visual width
+   * @param {number} [height] - Optional visual height
+   * @returns {Object} The tap target rectangle
+   */
+  _computeTapRect(meta, sx, sy, zoom, width, height) {
+    // Default to config values if not specified
+    const minTap = meta?.minTap ?? GLOBAL_CONFIG.TOUCH.mobileMin;
+    const baseSlop = meta?.hitSlop ?? GLOBAL_CONFIG.TOUCH.hitSlop;
+    
+    // Adjust slop based on zoom - smaller slop when zoomed in, larger when zoomed out
+    // But never go below 2px to ensure touch targets remain usable
+    const slop = Math.max(2, baseSlop / Math.max(1, zoom));
+    
+    // Use provided dimensions or fall back to minimum tap target size
+    const w = width !== undefined ? Math.max(minTap, width) : minTap;
+    const h = height !== undefined ? Math.max(minTap, height) : minTap;
+    
+    // Calculate tap rectangle centered on (sx, sy)
+    const halfW = (w / 2) + slop;
+    const halfH = (h / 2) + slop;
+    
+    return {
+      left: Math.round(sx - halfW),
+      top: Math.round(sy - halfH),
+      right: Math.round(sx + halfW),
+      bottom: Math.round(sy + halfH),
+      width: Math.round(w + slop * 2),
+      height: Math.round(h + slop * 2)
+    };
+  }
 
   beginFrame() {
     this.frameLiveKeys.clear();
@@ -182,10 +222,7 @@ export class OverlayLayer {
     const vh = this.lastDims.h || canvasH;
     
     // Obtener límites del viewport para culling si la cámara lo soporta
-    let viewportBounds = null;
-    if (camera.getWorldBounds) {
-      viewportBounds = camera.getWorldBounds();
-    }
+    const worldBounds = typeof camera.getWorldBounds === 'function' ? camera.getWorldBounds() : null;
 
     for (const [key, rec] of this.items) {
       const alive = this.frameLiveKeys.has(String(key));
@@ -197,48 +234,59 @@ export class OverlayLayer {
         continue;
       }
 
-      // Skip if outside viewport bounds (if camera supports it)
-      if (viewportBounds) {
-        const margin = 500 / camera.z; // Convert screen margin to world space
-        if (rec.worldX < viewportBounds.minX - margin ||
-            rec.worldX > viewportBounds.maxX + margin ||
-            rec.worldY < viewportBounds.minY - margin ||
-            rec.worldY > viewportBounds.maxY + margin) {
-          rec.wrap.style.display = 'none';
+      // Culling en espacio mundo primero (más barato que proyectar)
+      if (worldBounds) {
+        const { minX, minY, maxX, maxY } = worldBounds;
+        const x = rec.worldX; // pivot world del hotspot
+        const y = rec.worldY;
+        
+        // Ajusta el margen según el zoom (más pequeño cuando más zoom)
+        const margin = CULL_MARGIN_CSS / (camera?.z || 1);
+        
+        if (x < (minX - margin) ||
+            x > (maxX + margin) ||
+            y < (minY - margin) ||
+            y > (maxY + margin)) {
+          // Fuera de la vista: ocultar sin forzar layout
+          if (rec.wrap) rec.wrap.style.display = 'none';
           continue;
         }
       }
 
-      // world → screen using the fit rectangle for consistent projection
+      // Proyecta usando el MISMO fitRect
       const screenPos = this.worldToScreen(rec.worldX, rec.worldY, camera, canvasW, canvasH, fitRect);
       const sx = screenPos.x;
       const sy = screenPos.y;
 
-      // Additional culling check (screen space)
-      const margin = 500; // pixels
-      if (sx < -margin || sy < -margin || sx > vw + margin || sy > vh + margin) {
-        rec.wrap.style.display = 'none';
+      // Culling CSS adicional (por si algo falló en la proyección)
+      if (sx < -CULL_MARGIN_CSS || 
+          sy < -CULL_MARGIN_CSS || 
+          sx > (vw + CULL_MARGIN_CSS) || 
+          sy > (vh + CULL_MARGIN_CSS)) {
+        if (rec.wrap) rec.wrap.style.display = 'none';
         continue;
       } else {
         rec.wrap.style.display = 'block';
       }
 
-      // 🆕 hitbox: control preciso de dimensiones
+      // Calculate visual dimensions
       const visualW = rec.lockWidthPx;
       const visualH = Number(rec.meta?.visualH || visualW);
-      const hitSlop = Number(rec.meta?.hitSlop || GLOBAL_CONFIG.TOUCH.hitSlop);
       
-      // 🎯 Modo compacto: usa tamaño visual exacto
-      const compact = !!rec.meta?.compact;
-      const minTap = compact ? 0 : Number(rec.meta?.minTap || GLOBAL_CONFIG.TOUCH.mobileMin);
-
-      // Calcula hitbox respetando modo compacto
-      const hitW = (compact ? visualW : Math.max(visualW, minTap)) + hitSlop * 2;
-      const hitH = (compact ? visualH : Math.max(visualH, minTap)) + hitSlop * 2;
+      // Calculate tap target rectangle with zoom-aware hit slop
+      const tapRect = this._computeTapRect(
+        rec.meta,
+        sx,
+        sy,
+        camera.z,
+        visualW,
+        visualH
+      );
       
-      // Guarda para debug
-      rec.hitW = hitW;
-      rec.hitH = hitH;
+      // Store for debug and hit testing
+      rec.hitW = tapRect.width;
+      rec.hitH = tapRect.height;
+      rec.tapRect = tapRect;
       
       // Aplicar estilos al wrap
       rec.wrap.style.width = `${visualW}px`;
@@ -293,37 +341,10 @@ export class OverlayLayer {
     }
   }
 
-  _onPointerDown(ev) {
-    const wrap = ev.currentTarget;
-    const key = wrap?.dataset?.key;
-    if (!key) return;
-    const rec = this.items.get(key);
-    rec._pd = { x: ev.clientX, y: ev.clientY, t: performance.now() };
     
-    // Store the pointer down position in world coordinates for potential drag operations
-    if (window.__fitRect) {
-      const worldPos = this.screenToWorld(
-        ev.clientX, 
-        ev.clientY, 
-        window.cameraInstance, 
-        this.lastDims.w, 
-        this.lastDims.h, 
-        window.__fitRect
-      );
-      rec._pd.worldX = worldPos.x;
-      rec._pd.worldY = worldPos.y;
-    }
+    rec._lastHitW = rec.hitW;
+    rec._lastHitH = rec.hitH;
   }
-
-  _onPointerUp(ev) {
-    const wrap = ev.currentTarget;
-    const key = wrap?.dataset?.key;
-    if (!key) return;
-    const rec = this.items.get(key);
-    const dx = Math.abs(ev.clientX - rec._pd.x);
-    const dy = Math.abs(ev.clientY - rec._pd.y);
-    const dt = performance.now() - rec._pd.t;
-
     // 🆕 "fat-finger forgiveness": solo click si no se arrastró
     if (dx <= 8 && dy <= 8 && dt <= 500) {
       // 🆕 Verifica toggle global antes de cualquier acción
