@@ -99,11 +99,45 @@ export class OverlayLayer {
     this.frameLiveKeys.add(String(key));
   }
 
-  // world → screen (px DOM) con cámara del canvas
-  worldToScreen(x, y, camera, canvasW, canvasH) {
-    const sx = (x - camera.x) * camera.z + (canvasW / 2);
-    const sy = (y - camera.y) * camera.z + (canvasH / 2);
-    return { x: sx, y: sy };
+  // world → screen (px DOM) usando la cámara o fit rectangle
+  worldToScreen(x, y, camera, canvasW, canvasH, fitRect) {
+    // Primero intenta usar el método worldToCss de la cámara si está disponible
+    if (camera?.worldToCss) {
+      return camera.worldToCss(x, y);
+    }
+    
+    // Luego intenta usar el fit rectangle si está disponible
+    if (fitRect) {
+      const sx = fitRect.x + (x * fitRect.s);
+      const sy = fitRect.y + (y * fitRect.s);
+      return { x: sx, y: sy };
+    }
+    
+    // Fallback: proyección simple (no recomendado para producción)
+    const scale = camera?.z || 1;
+    const offsetX = (canvasW / 2) - (camera?.x * scale || 0);
+    const offsetY = (canvasH / 2) - (camera?.y * scale || 0);
+    return {
+      x: (x * scale) + offsetX,
+      y: (y * scale) + offsetY
+    };
+  }
+
+  // screen → world (para hit-testing)
+  screenToWorld(sx, sy, camera, canvasW, canvasH, fitRect) {
+    if (fitRect) {
+      // Usar el fit rectangle para la transformación inversa
+      const worldX = (sx - fitRect.x) / fitRect.s;
+      const worldY = (sy - fitRect.y) / fitRect.s;
+      return { x: worldX, y: worldY };
+    } else if (camera.cssToWorld) {
+      return camera.cssToWorld(sx, sy);
+    } else {
+      // Fallback implementation
+      const worldX = (sx - (canvasW / 2)) / camera.z + camera.x;
+      const worldY = (sy - (canvasH / 2)) / camera.z + camera.y;
+      return { x: worldX, y: worldY };
+    }
   }
 
   /**
@@ -136,14 +170,18 @@ export class OverlayLayer {
   }
 
   /**
-   * Paints the final position/rotation/order of "live" frame items.
-   * Performs cheap culling and avoids unnecessary reflow.
+   * Pinta la posición/rotación/orden final de los items "vivos" del frame.
+   * Hace culling barato y evita reflows innecesarios.
+   * @param {Object} camera - Instancia de la cámara
+   * @param {number} canvasW - Ancho del canvas en píxeles CSS
+   * @param {number} canvasH - Alto del canvas en píxeles CSS
+   * @param {Object} [fitRect] - Rectángulo de ajuste del mapa {x, y, w, h, s}
    */
-  endFrame(camera, canvasW, canvasH) {
+  endFrame(camera, canvasW, canvasH, fitRect) {
     const vw = this.lastDims.w || canvasW;
     const vh = this.lastDims.h || canvasH;
     
-    // Get viewport bounds for culling if camera supports it
+    // Obtener límites del viewport para culling si la cámara lo soporta
     let viewportBounds = null;
     if (camera.getWorldBounds) {
       viewportBounds = camera.getWorldBounds();
@@ -171,17 +209,10 @@ export class OverlayLayer {
         }
       }
 
-      // world → screen using camera's worldToCss method if available
-      let sx, sy;
-      if (camera.worldToCss) {
-        const screenPos = camera.worldToCss(rec.worldX, rec.worldY);
-        sx = screenPos.x;
-        sy = screenPos.y;
-      } else {
-        // Fallback to manual calculation
-        sx = (rec.worldX - camera.x) * camera.z + (canvasW / 2);
-        sy = (rec.worldY - camera.y) * camera.z + (canvasH / 2);
-      }
+      // world → screen using the fit rectangle for consistent projection
+      const screenPos = this.worldToScreen(rec.worldX, rec.worldY, camera, canvasW, canvasH, fitRect);
+      const sx = screenPos.x;
+      const sy = screenPos.y;
 
       // Additional culling check (screen space)
       const margin = 500; // pixels
@@ -268,6 +299,20 @@ export class OverlayLayer {
     if (!key) return;
     const rec = this.items.get(key);
     rec._pd = { x: ev.clientX, y: ev.clientY, t: performance.now() };
+    
+    // Store the pointer down position in world coordinates for potential drag operations
+    if (window.__fitRect) {
+      const worldPos = this.screenToWorld(
+        ev.clientX, 
+        ev.clientY, 
+        window.cameraInstance, 
+        this.lastDims.w, 
+        this.lastDims.h, 
+        window.__fitRect
+      );
+      rec._pd.worldX = worldPos.x;
+      rec._pd.worldY = worldPos.y;
+    }
   }
 
   _onPointerUp(ev) {
