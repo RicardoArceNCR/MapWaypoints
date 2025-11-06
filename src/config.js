@@ -27,7 +27,7 @@ export const MAPS_CONFIG = {
     waypoints: [
       { 
         mobile: { xp: 0.13, yp: 0.19, z: 0.30 },
-        desktop: { xp: 0.299, yp: 0.26, z: 0.88 },
+        desktop: { xp: 1.299, yp: 1.26, z: 1.88 },
         label: 'Inicio del Viaje', 
         lines: [
           'Aquí comienza la historia. Un punto de partida crucial que marca el inicio de esta aventura.',

@@ -434,15 +434,35 @@ export class MapManager {
   }
 
   // ========= ✨ OPTIMIZACIÓN: LIMPIAR CACHE AL RECARGAR =========
-  async reloadCurrentMap() {
+  async reloadCurrentMap(forceReload = false) {
     if (!this.currentMapId) return null;
     
-    console.log('🔄 Recargando mapa por cambio de viewport...');
+    console.log(`🔄 ${forceReload ? 'Forzando recarga' : 'Recargando'} mapa por cambio de viewport...`);
     
     // ✨ Limpiar cache de renderizado al cambiar viewport
     this.renderedCache.clear();
     
-    return await this.loadMap(this.currentMapId);
+    // Si no forzamos recarga, solo limpiamos la caché y recargamos el mapa actual
+    if (!forceReload) {
+      return await this.loadMap(this.currentMapId);
+    }
+    
+    // Para recarga forzada, guardamos la configuración actual
+    const currentMapId = this.currentMapId;
+    
+    // Forzamos una recarga completa del mapa
+    this.preloadedMaps.delete(currentMapId);
+    
+    // Cargamos el mapa de nuevo
+    const map = await this.loadMap(currentMapId);
+    
+    // Forzamos actualización de la cámara
+    if (window.camera && this.currentMap?.config?.mapImage) {
+      const { logicalW, logicalH } = this.currentMap.config.mapImage;
+      window.camera.fitBaseToViewport(logicalW, logicalH, 'contain');
+    }
+    
+    return map;
   }
 
   // ========= ✨ OPTIMIZACIÓN: GESTIÓN DE MEMORIA MEJORADA =========
@@ -464,6 +484,52 @@ export class MapManager {
     if (cleared > 0) {
       console.log(`🧹 Limpiados ${cleared} mapas de la memoria`);
     }
+  }
+
+  // ========= NORMALIZACIÓN DE DATOS =========
+  
+  /**
+   * Normaliza los waypoints para asegurar que tengan la estructura correcta
+   * @param {Array} waypoints - Array de waypoints a normalizar
+   * @returns {Array} Array de waypoints normalizados
+   */
+  normalizeWaypoints(waypoints = []) {
+    if (!Array.isArray(waypoints)) {
+      console.warn('normalizeWaypoints: Se esperaba un array de waypoints');
+      return [];
+    }
+    
+    return waypoints.map((wp, i) => ({
+      id: wp.id || `wp-${i}`,
+      x: Number.isFinite(wp.x) ? wp.x : 0,
+      y: Number.isFinite(wp.y) ? wp.y : 0,
+      title: wp.title || '',
+      description: wp.description || '',
+      ...wp // Mantener cualquier otra propiedad existente
+    }));
+  }
+  
+  /**
+   * Normaliza los íconos para asegurar que tengan la estructura correcta
+   * @param {Array} icons - Array de íconos a normalizar
+   * @returns {Array} Array de íconos normalizados
+   */
+  normalizeIcons(icons = []) {
+    if (!Array.isArray(icons)) {
+      console.warn('normalizeIcons: Se esperaba un array de íconos');
+      return [];
+    }
+    
+    return icons.map((icon, i) => ({
+      id: icon.id || `icon-${i}`,
+      x: Number.isFinite(icon.x) ? icon.x : 0,
+      y: Number.isFinite(icon.y) ? icon.y : 0,
+      type: icon.type || 'default',
+      src: icon.src || '',
+      width: Number.isFinite(icon.width) ? icon.width : 32,
+      height: Number.isFinite(icon.height) ? icon.height : 32,
+      ...icon // Mantener cualquier otra propiedad existente
+    }));
   }
 
   // ========= ✨ NUEVA FUNCIONALIDAD: ESTADÍSTICAS DE CACHÉ =========

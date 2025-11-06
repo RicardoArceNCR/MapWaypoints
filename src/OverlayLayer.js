@@ -139,27 +139,35 @@ export class OverlayLayer {
     this.frameLiveKeys.add(String(key));
   }
 
-  // world → screen (px DOM) usando la cámara o fit rectangle
-  worldToScreen(x, y, camera, canvasW, canvasH, fitRect) {
-    // Primero intenta usar el método worldToCss de la cámara si está disponible
-    if (camera?.worldToCss) {
-      return camera.worldToCss(x, y);
+  /**
+   * Converts world coordinates to screen coordinates, accounting for camera and fit rectangle
+   * @param {number} worldX - X coordinate in world space
+   * @param {number} worldY - Y coordinate in world space
+   * @param {Object} camera - Camera instance with worldToCss method
+   * @param {number} canvasW - Canvas width in CSS pixels
+   * @param {number} canvasH - Canvas height in CSS pixels
+   * @param {Object} [fitRect] - Optional fit rectangle {x, y, w, h, s} for non-filled viewports
+   * @returns {{x: number, y: number}} Screen coordinates in CSS pixels
+   */
+  worldToScreen(worldX, worldY, camera, canvasW, canvasH, fitRect) {
+    // Get base position from camera
+    const baseP = camera.worldToCss(worldX, worldY);
+    
+    // If we have a fitRect, adjust the coordinates to account for the map not filling the viewport
+    if (fitRect && fitRect.s) {
+      return {
+        x: fitRect.x + baseP.x * fitRect.s,
+        y: fitRect.y + baseP.y * fitRect.s
+      };
     }
     
-    // Luego intenta usar el fit rectangle si está disponible
-    if (fitRect) {
-      const sx = fitRect.x + (x * fitRect.s);
-      const sy = fitRect.y + (y * fitRect.s);
-      return { x: sx, y: sy };
-    }
-    
-    // Fallback: proyección simple (no recomendado para producción)
+    // Fallback: simple projection (not recommended for production)
     const scale = camera?.z || 1;
     const offsetX = (canvasW / 2) - (camera?.x * scale || 0);
     const offsetY = (canvasH / 2) - (camera?.y * scale || 0);
     return {
-      x: (x * scale) + offsetX,
-      y: (y * scale) + offsetY
+      x: (worldX * scale) + offsetX,
+      y: (worldY * scale) + offsetY
     };
   }
 
@@ -239,6 +247,11 @@ export class OverlayLayer {
       const p = this.worldToScreen(rec.worldX, rec.worldY, camera, cssW, cssH, fitRect);
       const sx = p.x;
       const sy = p.y;
+
+      // Debug: Log DOM overlay positions
+      if (GLOBAL_CONFIG.DEBUG_HOTSPOTS && rec.meta?.isHotspot) {
+        console.log(`[DEBUG] Overlay DOM: key=${rec.key || 'unknown'}, world=(${rec.worldX.toFixed(1)},${rec.worldY.toFixed(1)}), css=(${sx.toFixed(1)},${sy.toFixed(1)})`);
+      }
 
       // Tamaño visual con lockWidthPx (alto proporcional)
       const w = Math.max(1, rec.lockWidthPx);

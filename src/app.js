@@ -47,14 +47,50 @@ function initOverlayClickHandler() {
     return;
   }
 
-  // Un solo listener en el root para todos los hotspots
+  // Single listener on the root for all hotspots
   overlayRoot.addEventListener('overlay:click', (ev) => {
-    const { record } = ev.detail;
-    
-    // Usa DetailedPopupManager para mostrar el popup
-    if (window.popupManager) {
-      window.popupManager.openPopup(record.meta.hotspot || record.meta);
+    const { record, key } = ev.detail || {};
+    if (!record) {
+      console.warn('No record in overlay click event');
+      return;
     }
+    
+    // Get the hotspot data, supporting both direct meta and nested hotspot
+    const hotspotData = record.meta?.hotspot || record.meta;
+    
+    if (!hotspotData) {
+      console.warn(`No hotspot data found for key: ${key}`);
+      return;
+    }
+    
+    // Log for debugging
+    if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+      console.log(`[DEBUG] Overlay clicked:`, { 
+        key, 
+        position: { x: record.worldX, y: record.worldY },
+        meta: record.meta
+      });
+    }
+    
+    // Use DetailedPopupManager to show the popup if available
+    if (window.popupManager && typeof window.popupManager.openPopup === 'function') {
+      window.popupManager.openPopup(hotspotData);
+    } else if (GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK) {
+      // Fallback to default popup if popupManager is not available
+      console.warn('popupManager not available, using fallback popup');
+      // You might want to implement a fallback popup here if needed
+    }
+    
+    // Dispatch a custom event for other components to listen to
+    const event = new CustomEvent('hotspot:click', { 
+      detail: { 
+        key,
+        record,
+        hotspot: hotspotData,
+        position: { x: record.worldX, y: record.worldY }
+      } 
+    });
+    document.dispatchEvent(event);
   });
 }
 
@@ -99,9 +135,24 @@ if (appConfig.toggles.hasOwnProperty('popups')) {
 
 // Escucha cambios de estado del editor (enviado por editor.js)
 window.addEventListener('editor:active', (e) => {
+  const wasActive = appConfig.editorActive;
   appConfig.editorActive = !!(e.detail && e.detail.active);
   window.__EDITOR_ACTIVE__ = appConfig.editorActive;
-  // fuerza un redraw amable en capas relevantes
+  
+  // Force sync of all layers when editor state changes
+  if (appConfig.editorActive) {
+    markDirty('camera', 'elements', 'debug', 'minimap');
+    if (overlay && typeof overlay.beginFrame === 'function') {
+      overlay.beginFrame();
+    }
+    
+    // If this is a new activation, ensure waypoints are normalized
+    if (!wasActive && mapManager) {
+      mapManager.normalizeWaypoints();
+      mapManager.normalizeIcons();
+      markDirty('camera', 'elements');
+    }
+  }
   try { markDirty('camera','elements','debug','minimap'); } catch {}
 });
 const log = {
@@ -967,6 +1018,24 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     performanceStats.totalItems = items.length;
     performanceStats.culledItems = items.length - visibleItems.length;
 
+    // Debug: Log canvas hotspot positions
+    if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+      const fitRect = window.__fitRect || computeFitRect(
+        canvasLogicalW,
+        canvasLogicalH,
+        mapManager.currentMap.config.mapImage.logicalW,
+        mapManager.currentMap.config.mapImage.logicalH,
+        'contain'
+      );
+      
+      items.forEach(icon => {
+        if (icon.isHotspot) {
+          const p = camera.worldToCss(icon.x, icon.y, fitRect);
+          console.log(`[DEBUG] Hotspot canvas: key=${icon.key || 'unknown'}, world=(${icon.x.toFixed(1)},${icon.y.toFixed(1)}), css=(${p.x.toFixed(1)},${p.y.toFixed(1)})`);
+        }
+      });
+    }
+
     for (let i=0;i<visibleItems.length;i++){
       const item = visibleItems[i];
       const type = item.type || 'icon';
@@ -1658,18 +1727,38 @@ function selectMapImage(state, camera) {
   // Manejador de redimensionamiento optimizado
   window.addEventListener('resize', () => {
     const now = performance.now();
+    const wasMobile = mapManager.isMobile;
+    const isNowMobile = mapManager.checkIsMobile();
+    
+    // Check if mobile/desktop state changed
+    const deviceChanged = wasMobile !== isNowMobile;
+    mapManager.isMobile = isNowMobile;
+    
     if (now - lastResize < RESIZE_THROTTLE) {
       clearTimeout(resizeTO);
       resizeTO = setTimeout(() => {
         setCanvasDPR();
+        if (deviceChanged) {
+          // Force a full map reload on device change
+          mapManager.reloadCurrentMap(true).then(() => {
+            markDirty('camera', 'elements');
+          });
+        }
         lastResize = now;
       }, RESIZE_DEBOUNCE);
       return;
     }
     
-    resizeTO = setTimeout(() => {
+    resizeTO = setTimeout(async () => {
       setCanvasDPR();
       recalcFit(); // Recalculate fit on resize
+      
+      // If device changed, reload the map to apply mobile/desktop specific settings
+      if (deviceChanged) {
+        await mapManager.reloadCurrentMap(true);
+      }
+      
+      markDirty('camera', 'elements');
       lastResize = now;
     }, RESIZE_DEBOUNCE);
   }, { passive: true });
