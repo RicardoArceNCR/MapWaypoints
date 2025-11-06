@@ -650,6 +650,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       uiManager.updateThemeColor(phaseColor, phaseColorRgb);
 
       setCanvasDPR();
+      // Extra seguro: si por timing necesitas re-encajar una vez más
+      try {
+        const m = mapManager.currentMap?.config?.mapImage;
+        if (m) window.cameraInstance.fitBaseToViewport(m.logicalW, m.logicalH, 'contain');
+      } catch {}
       goToWaypoint(0);
       markDirty('camera', 'elements', 'dialog', 'minimap');
 
@@ -1496,6 +1501,22 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     
     // Informa al overlay del tamaño visible
     overlay.resize(canvasW, canvasH);
+
+    // === FIT UNIFORME mapa→viewport (no deforma imagen ni overlays) ===
+    try {
+      const mapConf = mapManager.currentMap?.config?.mapImage;
+      if (mapConf) {
+        // Usa el set adecuado según dispositivo (tú ya decides isMobile en MapManager)
+        const baseW = mapConf.logicalW;
+        const baseH = mapConf.logicalH;
+        if (Number.isFinite(baseW) && Number.isFinite(baseH)) {
+          // 'contain' evita deformación; si algún día quieres llenar siempre (recortando), usa 'cover'
+          window.cameraInstance.fitBaseToViewport(baseW, baseH, 'contain');
+        }
+      }
+    } catch (err) {
+      console.warn('fit-to-viewport error:', err);
+    }
 
     // Ajustar por ratio del mapa en modos responsivos
     if (mapConfig.logicalW && mapConfig.logicalH) {

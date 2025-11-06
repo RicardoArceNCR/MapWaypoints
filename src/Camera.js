@@ -82,4 +82,18 @@ export class Camera {
       maxY: this.y + halfH
     };
   }
+
+  // ✅ Ajusta posición/zoom para que un rectángulo base (mapa) quepa en el viewport
+  // mode: 'contain' (recomendado) o 'cover'
+  fitBaseToViewport(baseW, baseH, mode = 'contain') {
+    // viewportW/H ya están en CSS px (sin DPR); aquí decides la escala uniforme
+    const sx = this.viewportW / baseW;
+    const sy = this.viewportH / baseH;
+    const s  = (mode === 'cover') ? Math.max(sx, sy) : Math.min(sx, sy);
+
+    // Centra al medio del mapa y aplica zoom s
+    const cx = baseW  * 0.5;
+    const cy = baseH  * 0.5;
+    this.setPosition(cx, cy, s);
+  }
 }
