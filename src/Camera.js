@@ -88,7 +88,7 @@ export class Camera {
   // ✅ Ajusta posición/zoom para que un rectángulo base (mapa) quepa en el viewport
   // mode: 'contain' (recomendado) o 'cover'
   fitBaseToViewport(baseW, baseH, mode = 'contain') {
-    const { x, y, w, h, s } = computeFitRect(
+    const { x: _x, y: _y, w: _w, h: _h, s } = computeFitRect(
       this.viewportW,
       this.viewportH,
       baseW,

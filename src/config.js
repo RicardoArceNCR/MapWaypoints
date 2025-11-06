@@ -1372,7 +1372,40 @@ export const MAPS_CONFIG = {
 };
 
 // ========= CONFIG GLOBAL (OPTIMIZADO CON NUEVAS FUNCIONES) =========
-export const GLOBAL_CONFIG = {
+const GLOBAL_CONFIG = {
+  // Estilos para los waypoints
+  WAYPOINT_STYLES: {
+    active: {
+      fill: 'rgba(255, 100, 100, 0.8)',
+      stroke: 'rgba(255, 255, 255, 0.9)',
+      radius: 8,
+      glow: {
+        color: 'rgba(255, 100, 100, 0.4)',
+        size: 1.5
+      }
+    },
+    inactive: {
+      fill: 'rgba(100, 100, 255, 0.6)',
+      stroke: 'rgba(255, 255, 255, 0.7)',
+      radius: 6
+    },
+    line: {
+      color: 'rgba(255, 255, 255, 0.3)',
+      width: 2,
+      dash: [5, 5] // Sólido por defecto, usar [5, 5] para línea punteada
+    },
+    // Animación de transición entre waypoints
+    transition: {
+      duration: 1000, // ms
+      easing: 'easeInOutQuad'
+    }
+  },
+  // Configuración de renderizado de waypoints
+  WAYPOINT_RENDERING: {
+    enableCulling: true,
+    maxVisibleWaypoints: 50, // Máximo de waypoints a renderizar
+    cullingMargin: 1.5 // Margen adicional para culling (en pantallas)
+  },
   // Control de visibilidad SEPARADO
   SHOW_DIALOGS: false,   // Controla los cuadros de diálogo de texto
   SHOW_CONTROLS: true,  // Controla los botones de navegación (prev/next/progress)

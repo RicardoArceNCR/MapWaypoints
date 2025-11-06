@@ -1,3 +1,4 @@
+/* eslint-env browser */
 // ========= APLICACIÓN PRINCIPAL OPTIMIZADA =========
 import { computeFitRect } from './utils/fitRect.js';
 import { Camera } from './Camera.js';
@@ -670,14 +671,61 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   async function loadMap(mapId) {
     uiManager.setLoading(true);
     try {
-      if (GLOBAL_CONFIG.MEMORY_MANAGEMENT.logMemoryUsage) {
-        const beforeMem = memoryMonitor.sample();
-        if (beforeMem) console.log('💾 Memoria antes:', beforeMem.usedMB.toFixed(2) + 'MB');
+      // Clear existing overlays before loading new ones
+      if (overlayLayer) {
+        overlayLayer.clear();
       }
+
+      // Load the map data and update state
       const mapData = await mapManager.loadMap(mapId);
       state.currentWaypoints = mapData.waypoints;
       state.currentIcons = mapData.icons || {};
       state.mapImages = mapData.images;
+      
+      // Sync overlays with hotspots from the map data
+      if (mapData?.hotspots?.length > 0 && overlayLayer) {
+        mapData.hotspots.forEach((hs, index) => {
+          const device = mapManager.isMobile ? 'mobile' : 'desktop';
+          const viewportX = hs[device]?.xp || hs.x || 0;
+          const viewportY = hs[device]?.yp || hs.y || 0;
+          
+          // Convert viewport-relative to world coordinates
+          const worldX = viewportX * mapData.config.mapImage.logicalW;
+          const worldY = viewportY * mapData.config.mapImage.logicalH;
+          
+          overlayLayer.upsert({
+            key: hs.id || `hotspot-${index}`,
+            src: hs.icon || GLOBAL_CONFIG.DEFAULT_HOTSPOT_ICON,
+            worldX,
+            worldY,
+            rotationDeg: hs.rotation || 0,
+            lockWidthPx: hs.size || GLOBAL_CONFIG.ICON_SIZE,
+            zIndex: hs.zIndex || 1000 + index, // Ensure hotspots are above other elements
+            meta: {
+              ...hs,
+              isHotspot: true,
+              deviceType: device
+            }
+          });
+          
+          // Add small delay between creating hotspots for staggered animation
+          if (GLOBAL_CONFIG.ANIMATIONS.enableStagger) {
+            return new Promise(resolve => {
+              setTimeout(resolve, GLOBAL_CONFIG.ANIMATIONS.delayBetweenHotspots * index);
+            });
+          }
+        });
+        
+        // Force sync if in editor mode
+        if (appConfig.editorActive) {
+          overlayLayer.endFrame(camera, canvas.width, canvas.height, window.__fitRect);
+        }
+      }
+
+      if (GLOBAL_CONFIG.MEMORY_MANAGEMENT.logMemoryUsage) {
+        const beforeMem = memoryMonitor.sample();
+        if (beforeMem) console.log('💾 Memoria antes:', beforeMem.usedMB.toFixed(2) + 'MB');
+      }
       
       // Initialize and sync hotspot data
       state.currentHotspots = syncHotspotData(mapData);
@@ -934,7 +982,115 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     ctx.restore();
   }
 
-  function drawMapAndMarkers() {
+  /**
+ * Draws waypoints and their connecting lines
+ * @param {CanvasRenderingContext2D} ctx - Canvas context
+ * @param {Array} waypoints - Array of waypoints to draw
+ * @param {number} currentIndex - Index of the current active waypoint
+ * @param {Camera} camera - Camera instance for coordinate conversion
+ * @param {number} dpr - Device pixel ratio
+ */
+function drawWaypoints(ctx, waypoints, currentIndex, camera, dpr) {
+  if (!waypoints?.length) return;
+  
+  const activeStyle = GLOBAL_CONFIG.WAYPOINT_STYLES?.active || {
+    fill: 'rgba(255, 100, 100, 0.8)',
+    stroke: 'rgba(255, 255, 255, 0.9)',
+    radius: 8
+  };
+  
+  const inactiveStyle = GLOBAL_CONFIG.WAYPOINT_STYLES?.inactive || {
+    fill: 'rgba(100, 100, 255, 0.6)',
+    stroke: 'rgba(255, 255, 255, 0.7)',
+    radius: 6
+  };
+  
+  const lineStyle = GLOBAL_CONFIG.WAYPOINT_STYLES?.line || {
+    color: 'rgba(255, 255, 255, 0.3)',
+    width: 2,
+    dash: []
+  };
+  
+  ctx.save();
+  
+  // Draw connecting lines
+  if (waypoints.length > 1) {
+    ctx.beginPath();
+    ctx.strokeStyle = lineStyle.color;
+    ctx.lineWidth = lineStyle.width * dpr;
+    if (lineStyle.dash?.length) {
+      ctx.setLineDash(lineStyle.dash.map(d => d * dpr));
+    }
+    
+    // Draw path through all waypoints
+    waypoints.forEach((wp, i) => {
+      const { x, y } = camera.worldToCss(wp.x, wp.y);
+      const px = x * dpr;
+      const py = y * dpr;
+      
+      if (i === 0) {
+        ctx.moveTo(px, py);
+      } else {
+        // Add a small curve for smoother paths
+        const prev = waypoints[i - 1];
+        const prevPos = camera.worldToCss(prev.x, prev.y);
+        const cpx1 = (prevPos.x * dpr + px) / 2;
+        const cpy1 = prevPos.y * dpr;
+        const cpx2 = cpx1;
+        const cpy2 = py;
+        
+        ctx.bezierCurveTo(cpx1, cpy1, cpx2, cpy2, px, py);
+      }
+    });
+    
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  
+  // Draw waypoint markers
+  waypoints.forEach((wp, i) => {
+    const isActive = i === currentIndex;
+    const style = isActive ? activeStyle : inactiveStyle;
+    const { x, y } = camera.worldToCss(wp.x, wp.y);
+    const px = x * dpr;
+    const py = y * dpr;
+    const radius = style.radius * dpr * (isActive ? 1.2 : 1);
+    
+    // Draw outer circle (glow effect for active)
+    if (isActive) {
+      const gradient = ctx.createRadialGradient(px, py, 0, px, py, radius * 1.5);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      
+      ctx.beginPath();
+      ctx.fillStyle = gradient;
+      ctx.arc(px, py, radius * 1.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    
+    // Draw main circle
+    ctx.beginPath();
+    ctx.fillStyle = style.fill;
+    ctx.strokeStyle = style.stroke;
+    ctx.lineWidth = 2 * dpr;
+    ctx.arc(px, py, radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    
+    // Draw waypoint number/label
+    if (wp.label) {
+      ctx.fillStyle = 'white';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = `${Math.round(12 * dpr)}px sans-serif`;
+      ctx.fillText((i + 1).toString(), px, py);
+    }
+  });
+  
+  ctx.restore();
+}
+
+function drawMapAndMarkers() {
     if (!state.mapImages || !mapManager.currentMap) return;
     const dpr = Math.min(DPR_MAX, window.devicePixelRatio || 1);
     const canvasLogicalW = canvas.width / dpr;
@@ -997,21 +1153,62 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       waypointsToRender = state.currentWaypoints.map((wp,i)=> ({...wp, originalIndex:i}));
     }
 
-    waypointsToRender.forEach(wp => {
-      const i = wp.originalIndex !== undefined ? wp.originalIndex : state.currentWaypoints.indexOf(wp);
-      ctx.beginPath();
-      ctx.arc(wp.x, wp.y, MARKER_R, 0, RENDER_CONSTANTS.TWO_PI);
-      ctx.fillStyle = i === state.idx ? RENDER_CONSTANTS.ACTIVE_MARKER_FILL : RENDER_CONSTANTS.INACTIVE_MARKER_FILL;
-      ctx.fill();
-      ctx.lineWidth = RENDER_CONSTANTS.MARKER_STROKE_WIDTH;
-      ctx.strokeStyle = RENDER_CONSTANTS.MARKER_STROKE_COLOR;
-      ctx.stroke();
-    });
-
-    if (GLOBAL_CONFIG.PERFORMANCE?.logPerformanceStats) {
-      performanceStats.visibleWaypoints = waypointsToRender.length;
-      performanceStats.culledWaypoints = state.currentWaypoints.length - waypointsToRender.length;
+    // Draw waypoints with connections (replaces the old marker rendering)
+    if (state.currentWaypoints?.length > 0) {
+      // Convert waypoints to normalized format if needed
+      const normalizedWaypoints = mapManager.normalizeWaypoints(
+        state.currentWaypoints.map((wp, i) => {
+          // Calculate world coordinates based on viewport-relative positions
+          const device = mapManager.isMobile ? 'mobile' : 'desktop';
+          const viewportX = wp[device]?.xp || wp.x || 0;
+          const viewportY = wp[device]?.yp || wp.y || 0;
+          
+          // Convert viewport-relative to world coordinates
+          const worldX = viewportX * mapManager.currentMap.config.mapImage.logicalW;
+          const worldY = viewportY * mapManager.currentMap.config.mapImage.logicalH;
+          
+          return {
+            ...wp,
+            x: worldX,
+            y: worldY,
+            originalIndex: i,
+            // Preserve device-specific data
+            mobile: wp.mobile || { xp: 0, yp: 0, z: 1 },
+            desktop: wp.desktop || { xp: 0, yp: 0, z: 1 },
+            // Ensure we have a label for display
+            label: wp.label || `Punto ${i + 1}`
+          };
+        }),
+        mapManager.isMobile ? 'mobile' : 'desktop'
+      );
+      
+      // Filter waypoints based on viewport (culling)
+      const visibleWaypoints = normalizedWaypoints.filter(wp => {
+        const screenPos = camera.worldToCss(wp.x, wp.y);
+        const margin = 100; // pixels
+        return (
+          screenPos.x >= -margin &&
+          screenPos.x <= canvasLogicalW + margin &&
+          screenPos.y >= -margin &&
+          screenPos.y <= canvasLogicalH + margin
+        );
+      });
+      
+      // Update performance stats
+      if (GLOBAL_CONFIG.PERFORMANCE?.logPerformanceStats) {
+        performanceStats.visibleWaypoints = visibleWaypoints.length;
+        performanceStats.culledWaypoints = normalizedWaypoints.length - visibleWaypoints.length;
+      }
+      
+      // Draw waypoints and connections for visible waypoints only
+      if (visibleWaypoints.length > 0) {
+        ctx.save();
+        ctx.translate(-camera.x, -camera.y); // Adjust for camera position
+        drawWaypoints(ctx, visibleWaypoints, state.idx, camera, dpr);
+        ctx.restore();
+      }
     }
+
 
     const items = state.currentIcons[state.idx] || [];
     const visibleItems = filterVisibleItems(items, sqrtZ);

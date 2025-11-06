@@ -493,20 +493,44 @@ export class MapManager {
    * @param {Array} waypoints - Array de waypoints a normalizar
    * @returns {Array} Array de waypoints normalizados
    */
-  normalizeWaypoints(waypoints = []) {
+  /**
+   * Normaliza los waypoints y los ordena para un flujo visual óptimo
+   * @param {Array} waypoints - Array de waypoints a normalizar
+   * @param {string} [deviceType] - 'mobile' o 'desktop' (usa this.isMobile si no se especifica)
+   * @returns {Array} Array de waypoints normalizados y ordenados
+   */
+  normalizeWaypoints(waypoints = [], deviceType = this.isMobile ? 'mobile' : 'desktop') {
     if (!Array.isArray(waypoints)) {
       console.warn('normalizeWaypoints: Se esperaba un array de waypoints');
       return [];
     }
     
-    return waypoints.map((wp, i) => ({
-      id: wp.id || `wp-${i}`,
-      x: Number.isFinite(wp.x) ? wp.x : 0,
-      y: Number.isFinite(wp.y) ? wp.y : 0,
-      title: wp.title || '',
-      description: wp.description || '',
-      ...wp // Mantener cualquier otra propiedad existente
-    }));
+    // Normalizar cada waypoint
+    const normalized = waypoints.map((wp, i) => {
+      const deviceCoords = wp[deviceType] || {};
+      const defaultCoords = wp.mobile || wp.desktop || { xp: 0, yp: 0, z: 1 };
+      
+      return {
+        id: wp.id || `wp-${i}`,
+        x: Number.isFinite(wp.x) ? wp.x : defaultCoords.xp,
+        y: Number.isFinite(wp.y) ? wp.y : defaultCoords.yp,
+        z: Number.isFinite(wp.z) ? wp.z : (deviceCoords.z || defaultCoords.z || 1),
+        label: wp.label || '',
+        lines: Array.isArray(wp.lines) ? wp.lines : [],
+        meta: wp.meta || {},
+        // Mantener referencias a coordenadas específicas del dispositivo
+        mobile: wp.mobile || { xp: 0, yp: 0, z: 1 },
+        desktop: wp.desktop || { xp: 0, yp: 0, z: 1 },
+        ...wp // Mantener cualquier otra propiedad existente
+      };
+    });
+    
+    // Ordenar para flujo visual (de arriba a abajo por defecto)
+    return normalized.sort((a, b) => {
+      const aY = a[deviceType]?.yp || a.y || 0;
+      const bY = b[deviceType]?.yp || b.y || 0;
+      return aY - bY; // Orden ascendente (de arriba a abajo)
+    });
   }
   
   /**

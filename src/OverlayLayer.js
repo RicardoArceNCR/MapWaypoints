@@ -19,6 +19,10 @@ export class OverlayLayer {
     // 🆕 Target táctil mínimo
     this.touchTargetMin = window.matchMedia('(max-width: 899px)').matches ? 56 : 40;
 
+    this._pointerDown = false;
+    this._pointerDownTime = 0;
+    this._pointerDownPos = { x: 0, y: 0 };
+
     this._onPointerDown = this._onPointerDown.bind(this);
     this._onPointerUp = this._onPointerUp.bind(this);
   }
@@ -68,31 +72,40 @@ export class OverlayLayer {
   }
 
   /**
-   * Upsert de un item de overlay.
+   * Upsert de un item de overlay con soporte para animaciones y transiciones
    * @param {Object} opt
-   *  - key: id único (string|number)
-   *  - src: ruta de la imagen
-   *  - worldX, worldY: coords en sistema "mundo" del canvas
-   *  - rotationDeg: rotación en grados
-   *  - lockWidthPx: ancho fijo en px de pantalla
-   *  - z: (opcional) orden visual
-   *  - meta: (opcional) payload para popups, etc.
+   * @param {string|number} opt.key - Identificador único del overlay
+   * @param {string} opt.src - Ruta de la imagen o ícono
+   * @param {number} opt.worldX - Coordenada X en espacio mundo
+   * @param {number} opt.worldY - Coordenada Y en espacio mundo
+   * @param {number} [opt.rotationDeg=0] - Rotación en grados
+   * @param {number} [opt.lockWidthPx=32] - Ancho fijo en píxeles de pantalla
+   * @param {number} [opt.z=0] - Orden Z (profundidad)
+   * @param {Object} [opt.meta={}] - Metadatos adicionales
+   * @param {boolean} [opt.animate=true] - Habilita animaciones
+   * @param {string} [opt.animationType='fadeIn'] - Tipo de animación (fadeIn, slideUp, scaleIn)
    */
   upsert(opt) {
     const {
       key, src, worldX, worldY,
       rotationDeg = 0, lockWidthPx = 36,
-      z = 0, meta = {}
+      z = 0, meta = {}, animate = true, animationType = 'fadeIn'
     } = opt;
 
     let rec = this.items.get(key);
     if (!rec) {
       // 🆕 wrapper + img (wrapper = hitbox)
       const wrap = document.createElement('div');
-      wrap.className = 'overlay-wrap';
+      wrap.className = 'overlay-wrap' + (meta.isHotspot ? ' hotspot' : '');
       wrap.dataset.key = String(key);
       wrap.style.position = 'absolute';
       wrap.style.touchAction = 'manipulation';
+      wrap.style.willChange = 'transform, opacity';
+      
+      // Add debug class if in debug mode
+      if (GLOBAL_CONFIG.DEBUG_HOTSPOTS && meta.isHotspot) {
+        wrap.classList.add('debug-hotspot');
+      }
       wrap.style.userSelect = 'none';
 
       const img = document.createElement('img');
@@ -100,9 +113,55 @@ export class OverlayLayer {
       img.decoding = 'async';
       img.loading = 'lazy';
       img.draggable = false;
-      img.alt = ''; // 🖼️ Decorativa; evita texto si la imagen falla
+      img.alt = meta.alt || ''; // Usar alt de los metadatos si está disponible
       img.src = src;
       img.style.display = 'block';
+      
+      // Apply transitions based on animation type
+      const transitionProps = [];
+      const duration = GLOBAL_CONFIG.ANIMATIONS?.durationIn || 300;
+      const easing = GLOBAL_CONFIG.ANIMATIONS?.easingIn || 'ease-out';
+      
+      // Set initial styles based on animation type
+      switch(animationType) {
+        case 'fadeIn':
+          img.style.opacity = '0';
+          transitionProps.push(`opacity ${duration}ms ${easing}`);
+          break;
+        case 'scaleIn':
+          img.style.opacity = '0';
+          img.style.transform = 'scale(0.5)';
+          transitionProps.push(
+            `opacity ${duration}ms ${easing}`,
+            `transform ${duration}ms ${easing}`
+          );
+          break;
+        case 'slideUp':
+          img.style.opacity = '0';
+          img.style.transform = 'translateY(20px)';
+          transitionProps.push(
+            `opacity ${duration}ms ${easing}`,
+            `transform ${duration}ms ${easing}`
+          );
+          break;
+        default:
+          // No animation
+          break;
+      }
+      
+      // Apply transitions
+      if (animate && transitionProps.length > 0) {
+        img.style.transition = transitionProps.join(', ');
+        
+        // Trigger reflow to ensure the initial state is applied
+        void img.offsetWidth;
+        
+        // Animate in
+        requestAnimationFrame(() => {
+          img.style.opacity = '1';
+          img.style.transform = `rotate(${rotationDeg}deg)`;
+        });
+      }
       img.style.pointerEvents = 'none'; // 👈 la interacción la toma el wrapper
 
       // ♿ Accesibilidad en el wrapper (no ensucia UI)
@@ -311,39 +370,97 @@ export class OverlayLayer {
 
   // =================== Pointer Handlers ===================
 
-  _onPointerDown(ev) {
-    // Guardar posición inicial para filtrar "scroll vs tap"
-    const t = ev.timeStamp || performance.now();
-    const rec = this._getRecordFromEvent(ev);
-    if (rec) {
-      rec._pd = rec._pd || {};
-      rec._pd.x = ev.clientX;
-      rec._pd.y = ev.clientY;
-      rec._pd.t = t;
+  _onPointerDown(evt) {
+    this._pointerDown = true;
+    this._pointerDownTime = Date.now();
+    this._pointerDownPos = { x: evt.clientX, y: evt.clientY };
+    
+    // Add active class for visual feedback
+    const target = evt.target.closest('.overlay-wrap');
+    if (target) {
+      target.classList.add('active');
+      
+      // Clear active state after animation completes
+      setTimeout(() => {
+        if (target) target.classList.remove('active');
+      }, 300);
     }
   }
 
-  _onPointerUp(ev) {
-    const rec = this._getRecordFromEvent(ev);
-    if (!rec || !rec._pd) return;
-
-    const t = ev.timeStamp || performance.now();
-    const dx = Math.abs(ev.clientX - rec._pd.x);
-    const dy = Math.abs(ev.clientY - rec._pd.y);
-    const dt = t - rec._pd.t;
-
-    // Umbrales simples para considerar "tap"
-    const moved = dx > 6 || dy > 6;
-    const longPress = dt > 600;
-
-    if (!moved && !longPress) {
-      // Disparar evento delegado hacia el root (para popups)
-      const key = rec.wrap?.dataset?.key || '';
-      const detail = { key, record: rec };
-      this.root.dispatchEvent(new CustomEvent('overlay:click', { 
-        bubbles: true, 
-        detail 
-      }));
+  _onPointerUp(evt) {
+    if (!this._pointerDown) return;
+    
+    const now = Date.now();
+    const duration = now - this._pointerDownTime;
+    const isLongPress = duration > 500; // 500ms threshold for long press
+    
+    // Check if pointer moved too much
+    const dx = evt.clientX - this._pointerDownPos.x;
+    const dy = evt.clientY - this._pointerDownPos.y;
+    const moved = Math.sqrt(dx * dx + dy * dy) > 10; // 10px movement threshold
+    
+    // Reset state
+    this._pointerDown = false;
+    
+    // Find the closest overlay element
+    const target = evt.target.closest('.overlay-wrap');
+    if (!target) return;
+    
+    const key = target.dataset.key;
+    const rec = this.items.get(key);
+    if (!rec) return;
+    
+    // Handle long press (e.g., for debug info or context menu)
+    if (isLongPress && !moved) {
+      if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+        console.log('[DEBUG] Long press on hotspot:', {
+          key,
+          meta: rec.meta,
+          position: { x: rec.worldX, y: rec.worldY },
+          element: target
+        });
+      }
+      
+      // Dispatch long-press event
+      const longPressEvent = new CustomEvent('overlay:longpress', {
+        detail: {
+          key,
+          record: rec,
+          originalEvent: evt,
+          position: { x: evt.clientX, y: evt.clientY }
+        },
+        bubbles: true,
+        cancelable: true
+      });
+      
+      this.root.dispatchEvent(longPressEvent);
+      return;
+    }
+    
+    // Ignore if moved too much
+    if (moved) return;
+    
+    // Dispatch standard click event
+    const clickEvent = new CustomEvent('overlay:click', {
+      detail: {
+        key,
+        record: rec,
+        originalEvent: evt,
+        position: { x: evt.clientX, y: evt.clientY },
+        isLongPress: false
+      },
+      bubbles: true,
+      cancelable: true
+    });
+    
+    this.root.dispatchEvent(clickEvent);
+    
+    // Visual feedback
+    if (rec.meta?.isHotspot) {
+      target.classList.add('click-feedback');
+      setTimeout(() => {
+        target.classList.remove('click-feedback');
+      }, 300);
     }
   }
 
