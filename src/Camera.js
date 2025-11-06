@@ -1,15 +1,20 @@
 // Camera.js - Clase para manejar transformaciones world ↔ screen/CSS
 export class Camera {
-  constructor(initial = { x: 0, y: 0, z: 1, viewportW: 1280, viewportH: 720 }) {
+  constructor(initial = { x: 0, y: 0, z: 1, viewportW: 1280, viewportH: 720, worldW: 0, worldH: 0 }) {
     this.x = initial.x;  // Centro world X
     this.y = initial.y;  // Centro world Y
     this.z = initial.z;  // Zoom (scale)
     this.viewportW = initial.viewportW;  // CSS width (no DPR)
     this.viewportH = initial.viewportH;  // CSS height (no DPR)
+    this.worldW = initial.worldW || 0;   // Ancho del mundo (mapa)
+    this.worldH = initial.worldH || 0;   // Alto del mundo (mapa)
     this.rotation = 0;   // Futuro: rotación global (por ahora 0)
     this.M = null;       // Matriz world-to-css
     this.Minv = null;    // Inversa css-to-world
     this.dirty = true;   // Flag para re-cálculo
+    this.effectiveScale = 1; // Escala efectiva después de aplicar fillMode
+    this.offsetX = 0;    // Offset X para centrado
+    this.offsetY = 0;    // Offset Y para centrado
   }
 
   // Actualiza viewport (llamado en resize)
@@ -29,24 +34,78 @@ export class Camera {
     this.dirty = true;
   }
 
-  // Calcula matrices si dirty (pre-cálculo eficiente)
+  // Actualiza dimensiones del mundo (llamado en carga de mapa)
+  setWorldDims(w, h) {
+    if (this.worldW === w && this.worldH === h) return;
+    this.worldW = w;
+    this.worldH = h;
+    this.dirty = true;
+  }
+
+  // Actualiza matrices si dirty (pre-cálculo eficiente)
   updateMatrices() {
     if (!this.dirty) return;
     
-    // Matriz simple: translate to center + scale (zoom) + translate viewport/2
-    // M = [z, 0, viewportW/2 - x*z,  0, z, viewportH/2 - y*z,  0, 0, 1]
-    // Para simplicidad, usamos affine (sin full matrix lib)
+    let effectiveScale = this.z;
+    let offsetX = 0;
+    let offsetY = 0;
+    
+    // Obtener el modo de llenado de la configuración global
+    const fillMode = window.GLOBAL_CONFIG?.CAMERA?.fillMode || 'none';
+    
+    // Aplicar fillMode solo si tenemos dimensiones del mundo
+    if (fillMode !== 'none' && this.worldW > 0 && this.worldH > 0) {
+      const viewportAspect = this.viewportW / this.viewportH;
+      const worldAspect = this.worldW / this.worldH;
+      
+      if (fillMode === 'contain') {
+        // Escalar para que todo el mundo sea visible (sin recorte)
+        const scaleX = this.viewportW / this.worldW;
+        const scaleY = this.viewportH / this.worldH;
+        effectiveScale *= Math.min(scaleX, scaleY);
+        
+        // Centrar en el viewport
+        const scaledWorldW = this.worldW * effectiveScale;
+        const scaledWorldH = this.worldH * effectiveScale;
+        offsetX = (this.viewportW - scaledWorldW) / 2;
+        offsetY = (this.viewportH - scaledWorldH) / 2;
+      } 
+      else if (fillMode === 'cover') {
+        // Escalar para llenar todo el viewport (con recorte)
+        const scaleX = this.viewportW / this.worldW;
+        const scaleY = this.viewportH / this.worldH;
+        effectiveScale *= Math.max(scaleX, scaleY);
+        
+        // Centrar en el viewport
+        const scaledWorldW = this.worldW * effectiveScale;
+        const scaledWorldH = this.worldH * effectiveScale;
+        offsetX = (this.viewportW - scaledWorldW) / 2;
+        offsetY = (this.viewportH - scaledWorldH) / 2;
+      }
+      
+      // Centrar la cámara en el mundo si no está configurada
+      if (this.x === 0 && this.y === 0) {
+        this.x = this.worldW / 2;
+        this.y = this.worldH / 2;
+      }
+    }
+    
+    this.effectiveScale = effectiveScale;
+    this.offsetX = offsetX;
+    this.offsetY = offsetY;
+    
+    // Matriz de transformación world-to-css
     this.M = {
-      scale: this.z,
-      tx: this.viewportW / 2 - this.x * this.z,
-      ty: this.viewportH / 2 - this.y * this.z
+      scale: effectiveScale,
+      tx: this.viewportW / 2 - this.x * effectiveScale + offsetX,
+      ty: this.viewportH / 2 - this.y * effectiveScale + offsetY
     };
     
-    // Inversa aproximada (para css-to-world)
+    // Matriz inversa (css-to-world)
     this.Minv = {
-      scale: 1 / this.z,
-      tx: (this.x * this.z - this.viewportW / 2) / this.z,
-      ty: (this.y * this.z - this.viewportH / 2) / this.z
+      scale: 1 / effectiveScale,
+      tx: (this.x * effectiveScale - this.viewportW / 2 - offsetX) / effectiveScale,
+      ty: (this.y * effectiveScale - this.viewportH / 2 - offsetY) / effectiveScale
     };
     
     this.dirty = false;

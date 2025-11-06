@@ -166,6 +166,9 @@ export class OverlayLayer {
             rec.worldX > viewportBounds.maxX + margin ||
             rec.worldY < viewportBounds.minY - margin ||
             rec.worldY > viewportBounds.maxY + margin) {
+          if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+            console.log(`Culling hotspot ${key} out of bounds (${rec.worldX}, ${rec.worldY})`);
+          }
           rec.wrap.style.display = 'none';
           continue;
         }

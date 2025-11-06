@@ -1463,6 +1463,11 @@ export const GLOBAL_CONFIG = {
 },
 
   
+  // ========= CONFIGURACIÓN DE CÁMARA =========
+  CAMERA: {
+    fillMode: 'contain'  // Opciones: 'contain' (fit sin crop), 'cover' (fill con crop), 'none' (sin ajuste)
+  },
+
   // ========= MODO DEBUG MEJORADO =========
   DEBUG_HOTSPOTS: true,              // Visualizar áreas invisibles (hotspots)
   SHOW_POPUP_ON_CLICK: true,

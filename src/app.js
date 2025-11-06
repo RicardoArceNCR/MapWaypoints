@@ -629,6 +629,19 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         if (beforeMem) console.log('💾 Memoria antes:', beforeMem.usedMB.toFixed(2) + 'MB');
       }
       const mapData = await mapManager.loadMap(mapId);
+      
+      // Update camera with map dimensions for fill mode calculations
+      if (mapData.images && mapData.images.mapImage) {
+        const mapImage = mapData.images.mapImage;
+        const isMobile = window.innerWidth < 768; // Or use your mobile detection logic
+        const dims = isMobile ? mapImage.mobile : mapImage.desktop;
+        
+        if (dims && dims.logicalW && dims.logicalH) {
+          cameraInstance.setWorldDims(dims.logicalW, dims.logicalH);
+          console.log(`🌍 Camera world dimensions set to: ${dims.logicalW}x${dims.logicalH}`);
+        }
+      }
+      
       state.currentWaypoints = mapData.waypoints;
       state.currentIcons = mapData.icons || {};
       state.mapImages = mapData.images;
@@ -1320,6 +1333,26 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     ctx.fillRect(0, 0, canvasLogicalW, canvasLogicalH);
     drawMapAndMarkers();
     drawHotspotsOnCanvas();
+    
+    // Debug visualization for hotspots and overlays
+    if (GLOBAL_CONFIG.DEBUG_HOTSPOTS && (dirty.camera || dirty.elements)) {
+      const bounds = camera.getWorldBounds();
+      ctx.save();
+      ctx.strokeStyle = 'red';
+      ctx.lineWidth = 2 / camera.z;  // Escala para visibilidad
+      ctx.strokeRect(bounds.minX, bounds.minY, bounds.maxX - bounds.minX, bounds.maxY - bounds.minY);
+      ctx.restore();
+
+      // Opcional: Log comparación con un overlay sample
+      if (overlayLayer && overlayLayer.items && overlayLayer.items.size > 0) {
+        const sample = overlayLayer.items.values().next().value;
+        if (sample) {
+          const { x: cssX, y: cssY } = camera.worldToCss(sample.worldX, sample.worldY);
+          console.log(`Debug: Overlay at CSS(${cssX}, ${cssY}) vs World(${sample.worldX}, ${sample.worldY})`);
+        }
+      }
+    }
+    
     drawDebugOverlay();
     drawDialog();
     drawMinimap();
@@ -1471,6 +1504,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   // ========= 🎛️ FUNCIÓN COMPLETA DE CANVAS DPR (ajustada) =========
   function setCanvasDPR() {
     if (!mapManager.currentMap) return;
+    
+    // Update camera viewport to match canvas dimensions
+    if (window.cameraInstance) {
+      window.cameraInstance.setViewport(canvas.clientWidth, canvas.clientHeight);
+    }
 
     const mapConfig = mapManager.currentMap.config.mapImage;
     const isMobile  = mapManager.isMobile;
@@ -1666,13 +1704,15 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   drawerBackdrop.addEventListener('click', () => uiManager.closeDrawer());
 
   // ========= INICIO =========
-  // Initialize camera instance
+  // Initialize camera instance with viewport dimensions
   const cameraInstance = new Camera({ 
     x: 0, 
     y: 0, 
     z: 1, 
     viewportW: wrap.clientWidth, 
-    viewportH: wrap.clientHeight 
+    viewportH: wrap.clientHeight,
+    worldW: 0,  // Will be set when map loads
+    worldH: 0   // Will be set when map loads
   });
   window.cameraInstance = cameraInstance; // Make it globally available for debugging
 
