@@ -11,6 +11,7 @@
 
 import { GLOBAL_CONFIG, MAPS_CONFIG } from './config.js';
 import { MapManager } from './MapManager.js';
+import { Camera } from './Camera.js';
 import { UIManager } from './UIManager.js';
 import { DetailedPopupManager } from './DetailedPopupManager.js';
 import { OverlayLayer } from './OverlayLayer.js';
@@ -1488,6 +1489,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       canvasH = BASE_H;
     }
 
+    // Update camera viewport
+    if (window.cameraInstance) {
+      window.cameraInstance.setViewport(canvasW, canvasH);
+    }
+    
     // Informa al overlay del tamaño visible
     overlay.resize(canvasW, canvasH);
 
@@ -1561,15 +1567,23 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (now - lastResize < RESIZE_THROTTLE) {
       clearTimeout(resizeTO);
       resizeTO = setTimeout(() => { 
+        if (window.cameraInstance) {
+          window.cameraInstance.dirty = true;
+        }
         setCanvasDPR();
+        markDirty('camera');
         if (overlayLayer) overlayLayer.resize(window.innerWidth, window.innerHeight);
         lastResize = performance.now(); 
       }, RESIZE_DEBOUNCE);
       return;
     }
-    clearTimeout(resizeTO);
+    
     resizeTO = setTimeout(() => { 
+      if (window.cameraInstance) {
+        window.cameraInstance.dirty = true;
+      }
       setCanvasDPR();
+      markDirty('camera');
       if (overlayLayer) overlayLayer.resize(window.innerWidth, window.innerHeight);
       lastResize = performance.now(); 
     }, RESIZE_DEBOUNCE);
@@ -1652,6 +1666,16 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   drawerBackdrop.addEventListener('click', () => uiManager.closeDrawer());
 
   // ========= INICIO =========
+  // Initialize camera instance
+  const cameraInstance = new Camera({ 
+    x: 0, 
+    y: 0, 
+    z: 1, 
+    viewportW: wrap.clientWidth, 
+    viewportH: wrap.clientHeight 
+  });
+  window.cameraInstance = cameraInstance; // Make it globally available for debugging
+
   (async function start() {
     // 🆕 Activamos el modo controlado por código
     document.querySelector('.novela')?.classList.add('full-bleed');
