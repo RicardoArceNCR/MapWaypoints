@@ -141,4 +141,49 @@ export class Camera {
       maxY: this.y + halfH
     };
   }
+
+  /**
+   * Sets the viewport's fit rectangle for precise projection
+   * @param {Object} rect - The fitted rectangle {x, y, w, h, scale}
+   */
+  setViewportFitRect(rect) {
+    // rect: {x,y,w,h,scale} en px CSS del wrapper
+    this._fitRect = rect;
+    this.dirty = true; // Mark as dirty to force matrix update
+  }
+
+  /**
+   * Gets the current viewport fit rectangle
+   * @returns {Object} The fitted rectangle or a default one
+   */
+  getViewportFitRect() {
+    return this._fitRect || { x: 0, y: 0, w: this.viewportW, h: this.viewportH, scale: 1 };
+  }
+
+  /**
+   * Projects world coordinates to CSS pixels using the fit rectangle
+   * @param {number} wx - World X coordinate
+   * @param {number} wy - World Y coordinate
+   * @returns {{x: number, y: number}} CSS pixel coordinates
+   */
+  worldToCss(wx, wy) {
+    const fr = this.getViewportFitRect();
+    // Centro del mundo en la cámara
+    const sx = (wx - this.x) * this.z * fr.scale + (fr.x + fr.w / 2);
+    const sy = (wy - this.y) * this.z * fr.scale + (fr.y + fr.h / 2);
+    return { x: sx, y: sy };
+  }
+
+  /**
+   * Converts CSS pixel coordinates to world coordinates using the fit rectangle
+   * @param {number} sx - CSS X coordinate
+   * @param {number} sy - CSS Y coordinate
+   * @returns {{x: number, y: number}} World coordinates
+   */
+  cssToWorld(sx, sy) {
+    const fr = this.getViewportFitRect();
+    const wx = ((sx - (fr.x + fr.w / 2)) / (this.z * fr.scale)) + this.x;
+    const wy = ((sy - (fr.y + fr.h / 2)) / (this.z * fr.scale)) + this.y;
+    return { x: wx, y: wy };
+  }
 }
