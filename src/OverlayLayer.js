@@ -210,171 +210,139 @@ export class OverlayLayer {
   }
 
   /**
-   * Pinta la posición/rotación/orden final de los items "vivos" del frame.
-   * Hace culling barato y evita reflows innecesarios.
-   * @param {Object} camera - Instancia de la cámara
-   * @param {number} canvasW - Ancho del canvas en píxeles CSS
-   * @param {number} canvasH - Alto del canvas en píxeles CSS
-   * @param {Object} [fitRect] - Rectángulo de ajuste del mapa {x, y, w, h, s}
+   * Pinta/ubica los items vivos del frame (layout y culling en screen-space)
+   * Debe llamarse después de upsert(...), antes de limpiar los que no vivieron.
+   * @param {Camera} camera
+   * @param {number} cssW - ancho del viewport en px CSS
+   * @param {number} cssH - alto del viewport en px CSS
+   * @param {{x:number,y:number,w:number,h:number,s:number}} [fitRect] - rect de ajuste del mapa (contain/cover)
    */
-  endFrame(camera, canvasW, canvasH, fitRect) {
-    const vw = this.lastDims.w || canvasW;
-    const vh = this.lastDims.h || canvasH;
-    
-    // Obtener límites del viewport para culling si la cámara lo soporta
-    const worldBounds = typeof camera.getWorldBounds === 'function' ? camera.getWorldBounds() : null;
+  endFrame(camera, cssW, cssH, fitRect) {
+    this.resize(cssW, cssH);
 
-    for (const [key, rec] of this.items) {
-      const alive = this.frameLiveKeys.has(String(key));
-      if (!alive) {
-        rec.wrap.removeEventListener('pointerdown', this._onPointerDown);
-        rec.wrap.removeEventListener('pointerup', this._onPointerUp);
-        rec.wrap.remove();
-        this.items.delete(key);
-        continue;
+    // Orden z estable
+    const ordered = [];
+    this.items.forEach((rec, key) => {
+      if (this.frameLiveKeys.has(String(key))) {
+        rec.key = key; // para logs/depuración
+        ordered.push(rec);
       }
+    });
+    ordered.sort((a, b) => (a.z || 0) - (b.z || 0));
 
-      // Culling en espacio mundo primero (más barato que proyectar)
-      if (worldBounds) {
-        const { minX, minY, maxX, maxY } = worldBounds;
-        const x = rec.worldX; // pivot world del hotspot
-        const y = rec.worldY;
-        
-        // Ajusta el margen según el zoom (más pequeño cuando más zoom)
-        const margin = CULL_MARGIN_CSS / (camera?.z || 1);
-        
-        if (x < (minX - margin) ||
-            x > (maxX + margin) ||
-            y < (minY - margin) ||
-            y > (maxY + margin)) {
-          // Fuera de la vista: ocultar sin forzar layout
-          if (rec.wrap) rec.wrap.style.display = 'none';
-          continue;
-        }
-      }
+    // Bounds de culling en pantalla (px CSS)
+    const margin = CULL_MARGIN_CSS;
+    const left = -margin, top = -margin, right = cssW + margin, bottom = cssH + margin;
 
-      // Proyecta usando el MISMO fitRect
-      const screenPos = this.worldToScreen(rec.worldX, rec.worldY, camera, canvasW, canvasH, fitRect);
-      const sx = screenPos.x;
-      const sy = screenPos.y;
+    for (const rec of ordered) {
+      // world -> screen
+      const p = this.worldToScreen(rec.worldX, rec.worldY, camera, cssW, cssH, fitRect);
+      const sx = p.x;
+      const sy = p.y;
 
-      // Culling CSS adicional (por si algo falló en la proyección)
-      if (sx < -CULL_MARGIN_CSS || 
-          sy < -CULL_MARGIN_CSS || 
-          sx > (vw + CULL_MARGIN_CSS) || 
-          sy > (vh + CULL_MARGIN_CSS)) {
+      // Tamaño visual con lockWidthPx (alto proporcional)
+      const w = Math.max(1, rec.lockWidthPx);
+      const h = Math.max(1, rec.meta?.lockHeightPx || w); // Usa lockHeightPx si existe, si no usa ancho
+      rec.hitW = Math.max(this.touchTargetMin, w);
+      rec.hitH = Math.max(this.touchTargetMin, h);
+
+      // Culling en screen-space
+      if (sx + rec.hitW * 0.5 < left ||
+          sx - rec.hitW * 0.5 > right ||
+          sy + rec.hitH * 0.5 < top ||
+          sy - rec.hitH * 0.5 > bottom) {
+        // fuera: ocultar
         if (rec.wrap) rec.wrap.style.display = 'none';
         continue;
-      } else {
-        rec.wrap.style.display = 'block';
       }
 
-      // Calculate visual dimensions
-      const visualW = rec.lockWidthPx;
-      const visualH = Number(rec.meta?.visualH || visualW);
-      
-      // Calculate tap target rectangle with zoom-aware hit slop
-      const tapRect = this._computeTapRect(
-        rec.meta,
-        sx,
-        sy,
-        camera.z,
-        visualW,
-        visualH
-      );
-      
-      // Store for debug and hit testing
-      rec.hitW = tapRect.width;
-      rec.hitH = tapRect.height;
-      rec.tapRect = tapRect;
-      
-      // Aplicar estilos al wrap
-      rec.wrap.style.width = `${visualW}px`;
-      rec.wrap.style.height = `${visualH}px`;
-      rec.wrap.style.transform = `translate(${sx}px, ${sy}px) translate(-50%,-50%) rotate(${rec.rotationDeg}deg)`;
-      rec.wrap.style.zIndex = Math.round(1000 + (rec.z * 100) + (rec.worldY / 1000));
-      
-      // Aplicar estilos de debug si está habilitado
-      if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
-        // Añadir clase de debug para estilos CSS
-        rec.wrap.classList.add('debug-hotspot');
+      // Dentro: posicionar/rotar
+      if (rec.wrap) {
+        rec.wrap.style.display = '';
+        const x = Math.round(sx - rec.hitW * 0.5);
+        const y = Math.round(sy - rec.hitH * 0.5);
+
+        // layout
+        rec.wrap.style.left = x + 'px';
+        rec.wrap.style.top = y + 'px';
+        rec.wrap.style.width = Math.round(rec.hitW) + 'px';
+        rec.wrap.style.height = Math.round(rec.hitH) + 'px';
         
-        // Aplicar estilos inline para debug (border más grueso para mejor visibilidad)
-        const debugBorderWidth = 3; // Más grueso para mobile
-        rec.wrap.style.border = `${debugBorderWidth}px solid rgba(255, 0, 0, 0.8)`;
-        rec.wrap.style.background = 'rgba(255, 0, 0, 0.1)';
-        rec.wrap.style.borderRadius = (rec.meta?.shape === 'circle') ? '50%' : '8px';
-        rec.wrap.style.boxShadow = '0 0 0 1px white, 0 0 0 2px rgba(0,0,0,0.3)';
-        rec.wrap.style.transition = 'all 0.15s ease-out';
+        // rotación
+        const rot = rec.rotationDeg || 0;
+        rec.wrap.style.transform = rot ? `rotate(${rot}deg)` : '';
         
-        // Añadir o actualizar etiqueta de debug
-        let debugLabel = rec.wrap.querySelector('.hs-debug-label');
-        if (!debugLabel) {
-          debugLabel = document.createElement('div');
-          debugLabel.className = 'hs-debug-label';
-          rec.wrap.appendChild(debugLabel);
+        // imagen ocupa wrapper
+        if (rec.img) {
+          rec.img.style.width = '100%';
+          rec.img.style.height = '100%';
         }
-        debugLabel.textContent = `${rec.key || '?'}: ${~~rec.hitW}×${~~rec.hitH}px`;
-      } else {
-        // Limpiar estilos de debug
-        rec.wrap.classList.remove('debug-hotspot');
-        rec.wrap.style.border = 'none';
-        rec.wrap.style.background = 'transparent';
-        rec.wrap.style.boxShadow = 'none';
-        rec.wrap.style.transition = '';
-        
-        // Eliminar etiqueta de debug si existe
-        const debugLabel = rec.wrap.querySelector('.hs-debug-label');
-        if (debugLabel) debugLabel.remove();
-      }
 
-      // imagen centrada (mantén ancho/alto visuales)
-      const img = rec.img;
-      const im = img.style;
-      if (im.position !== 'absolute') im.position = 'absolute';
-      if (im.left !== '50%')  im.left = '50%';
-      if (im.top  !== '50%')  im.top  = '50%';
-      const imgTransform = `translate(-50%,-50%) rotate(0deg)`; // ya rota el wrapper
-      if (im.transform !== imgTransform) im.transform = imgTransform;
-      if (im.width  !== `${visualW}px`) im.width  = `${visualW}px`;
-      if (im.height !== `${visualH}px`) im.height = `${visualH}px`; // 🆕 antes 'auto'
+        // para debug
+        if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+          this._debugLog(rec);
+        }
+      }
+    }
+
+    // Remover items no "vivos" este frame
+    for (const [key, rec] of this.items) {
+      if (!this.frameLiveKeys.has(String(key))) {
+        if (rec?.wrap?.parentNode === this.root) {
+          this.root.removeChild(rec.wrap);
+        }
+        this.items.delete(key);
+      }
     }
   }
 
-    
-    rec._lastHitW = rec.hitW;
-    rec._lastHitH = rec.hitH;
-  }
-    // 🆕 "fat-finger forgiveness": solo click si no se arrastró
-    if (dx <= 8 && dy <= 8 && dt <= 500) {
-      // 🆕 Verifica toggle global antes de cualquier acción
-      if (!GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK) {
-        console.log(`[INFO] Popup disabled via SHOW_POPUP_ON_CLICK for hotspot ${key}`);
-        return;  // Sale temprano si popups están desactivados
-      }
+  // =================== Pointer Handlers ===================
 
-      // 🆕 Prioriza modo debug como principal si activo
-      if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
-        const hotspotData = rec.meta?.hotspot || rec.meta;
-        
-        if (!hotspotData) {
-          console.warn(`[DEBUG] No hay metadata para hotspot ${key}`);
-          return;  // 🆕 Salir si no hay metadata
-        }
-        
-        if (window.popupManager) {
-          console.log(`[DEBUG] Abriendo popup directo para hotspot ${key}:`, hotspotData.title || 'Sin título');
-          window.popupManager.openPopup(hotspotData);  // Trigger directo (principal en debug)
-        } else {
-          console.warn(`[DEBUG] No se puede abrir popup: popupManager no está disponible`);
-        }
-      } else {
-        // Fallback al evento original si no en debug
-        this.root.dispatchEvent(new CustomEvent('overlay:click', {
-          bubbles: true,
-          detail: { key, record: rec }
-        }));
-      }
+  _onPointerDown(ev) {
+    // Guardar posición inicial para filtrar "scroll vs tap"
+    const t = ev.timeStamp || performance.now();
+    const rec = this._getRecordFromEvent(ev);
+    if (rec) {
+      rec._pd = rec._pd || {};
+      rec._pd.x = ev.clientX;
+      rec._pd.y = ev.clientY;
+      rec._pd.t = t;
     }
+  }
+
+  _onPointerUp(ev) {
+    const rec = this._getRecordFromEvent(ev);
+    if (!rec || !rec._pd) return;
+
+    const t = ev.timeStamp || performance.now();
+    const dx = Math.abs(ev.clientX - rec._pd.x);
+    const dy = Math.abs(ev.clientY - rec._pd.y);
+    const dt = t - rec._pd.t;
+
+    // Umbrales simples para considerar "tap"
+    const moved = dx > 6 || dy > 6;
+    const longPress = dt > 600;
+
+    if (!moved && !longPress) {
+      // Disparar evento delegado hacia el root (para popups)
+      const key = rec.wrap?.dataset?.key || '';
+      const detail = { key, record: rec };
+      this.root.dispatchEvent(new CustomEvent('overlay:click', { 
+        bubbles: true, 
+        detail 
+      }));
+    }
+  }
+
+  _getRecordFromEvent(ev) {
+    let el = ev.currentTarget || ev.target;
+    // asegúrate de estar en .overlay-wrap
+    if (el && !el.classList.contains('overlay-wrap')) {
+      el = el.closest('.overlay-wrap');
+    }
+    if (!el) return null;
+
+    const key = el.dataset.key;
+    return this.items.get(key) || null;
   }
 }
