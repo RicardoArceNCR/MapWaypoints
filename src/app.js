@@ -83,6 +83,15 @@ const log = {
   error: (...a) => console.error('[error]', ...a),
 };
 
+// ===== UTILITY FUNCTIONS =====
+function debounce(fn, ms = 100) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), ms);
+  };
+}
+
 // ===== Ajuste de cobertura de viewport (sin CSS scale) =====
 function applyViewportCoverage() {
   const wrapper = document.getElementById('mapa-canvas-wrapper');
@@ -102,6 +111,14 @@ function applyViewportCoverage() {
   document.body.style.overflow = over ? 'hidden' : '';
 
   log.info('Viewport coverage →', Math.round(coverage * 100) + '%', { vw, vh });
+  
+  // 🆕 Fuerza sync: actualiza canvas y overlays inmediatamente
+  if (typeof setCanvasDPR === 'function') {
+    setCanvasDPR();  // Esto llama overlay.resize() con tamaños del wrapper
+  }
+  if (typeof markDirty === 'function') {
+    markDirty('camera', 'elements', 'minimap');  // Fuerza redraw en próximo frame
+  }
 }
 
 // API mínima por si prefieres controlarlo desde código
@@ -317,6 +334,40 @@ let memoryMonitor = new MemoryMonitor();
   const overlay = new OverlayLayer(document.getElementById('overlay-layer'));
   overlay.setDevice(mapManager.isMobile ? 'mobile' : 'desktop');
   window.overlay = overlay; // útil para depurar
+
+  // Sincronizar el device del overlay cuando cambie el breakpoint
+  mapManager.mediaQuery.addEventListener('change', (e) => {
+    const isMobile = e.matches;
+    overlay.setDevice(isMobile ? 'mobile' : 'desktop');
+    
+    // Re-normalizar ítems contra el waypoint con la rama correcta
+    const cfg = MAPS_CONFIG[mapManager.currentMapId];
+    if (cfg && mapManager.currentMap?.waypoints) {
+      const W = cfg.mapImage.logicalW, H = cfg.mapImage.logicalH;
+      const wps = mapManager.currentMap.waypoints;
+      const normalizedIcons = mapManager.normalizeIcons(cfg.icons || {}, W, H, wps);
+      // Actualiza el estado que renderizas
+      state.currentIcons = normalizedIcons;
+      markDirty('elements','debug');
+    }
+    
+    // Recalcular la relación de aspecto cuando cambia el breakpoint
+    if (mapManager.currentMap?.config?.mapImage) {
+      const mapConfig = mapManager.currentMap.config.mapImage;
+      const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
+      const canvasLogicalW = canvas.width / dpr;
+      const canvasLogicalH = canvas.height / dpr;
+      
+      // Escalas reales del encaje (world→pantalla) en cada eje
+      const scaleX = canvasLogicalW / mapConfig.logicalW;
+      const scaleY = canvasLogicalH / mapConfig.logicalH;
+      // Si el fondo está "aplastado" en Y (scaleY < scaleX), corregir overlays
+      overlay.setAspectFix(scaleY / scaleX);
+      
+      // Re-resize con tamaños lógicos vigentes
+      overlay.resize(canvasLogicalW, canvasLogicalH);
+    }
+  });
 
   // Clicks centralizados de overlays
   let lastOverlayClick = { time: 0, key: null };
@@ -626,6 +677,24 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
       setCanvasDPR();
       goToWaypoint(0);
+      
+      // Recalcular la relación de aspecto después de cargar un nuevo mapa
+      if (mapManager.currentMap?.config?.mapImage) {
+        const mapConfig = mapManager.currentMap.config.mapImage;
+        const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
+        const canvasLogicalW = canvas.width / dpr;
+        const canvasLogicalH = canvas.height / dpr;
+        
+        // Escalas reales del encaje (world→pantalla) en cada eje
+        const scaleX = canvasLogicalW / mapConfig.logicalW;
+        const scaleY = canvasLogicalH / mapConfig.logicalH;
+        // Si el fondo está "aplastado" en Y (scaleY < scaleX), corregir overlays
+        overlay.setAspectFix(scaleY / scaleX);
+        
+        // Re-resize con tamaños lógicos vigentes
+        overlay.resize(canvasLogicalW, canvasLogicalH);
+      }
+      
       markDirty('camera', 'elements', 'dialog', 'minimap');
 
       if (GLOBAL_CONFIG.MEMORY_MANAGEMENT.logMemoryUsage) {
@@ -770,7 +839,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     
     // Cache styles for better performance
     const styles = GLOBAL_CONFIG.CANVAS_HOTSPOT_STYLES || {
-      fill: 'rgba(0, 209, 255, 0.1)',
+      fill: 'rgba(132, 255, 0, 0.1)',
       stroke: 'rgba(0, 209, 255, 0.5)',
       lineWidth: 1,
       activeFill: 'rgba(0, 209, 255, 0.2)',
@@ -957,8 +1026,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       } else if (type === 'hotspot') {
         if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
           const radius = (item.radius || 0) / sqrtZ;
-          ctx.fillStyle = item.debugColor || 'rgba(255, 0, 0, 0.3)';
-          ctx.strokeStyle = 'rgba(255, 0, 0, 0.8)';
+          ctx.fillStyle = item.debugColor || 'rgba(40, 150, 229, 0.3)3)';
+          ctx.strokeStyle = 'rgba(9, 16, 51, 0.8)';
           ctx.lineWidth = 2 / sqrtZ;
           ctx.beginPath();
           const x = item.x - halfW;
@@ -1217,23 +1286,26 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         }
         
         const isActive = appConfig.editorActive && editor?.selectedItem?.index === index;
-        const baseSize = width || (GLOBAL_CONFIG.ICON_SIZE || 36);
+        const sizeW = (typeof width === 'number') ? width : (GLOBAL_CONFIG.ICON_SIZE || 36);
+        const sizeH = (typeof height === 'number') ? height : sizeW;
         const minTapSize = 56; // Standard minimum touch target size
+        const cx = worldX + (typeof width === 'number' ? width / 2 : 0);
+        const cy = worldY + (typeof height === 'number' ? height / 2 : 0);
         
         overlay.upsert({
           key: `hotspot_${index}`,
           src: hotspot.src || '/default-icon.png',
-          worldX: worldX + width/2, // Center the hotspot
-          worldY: worldY + height/2,
+          worldX: cx,
+          worldY: cy,
           rotationDeg: hotspot.rotation || 0,
-          lockWidthPx: Math.max(baseSize, minTapSize),
+          lockWidthPx: sizeW, // Usar el tamaño declarado, OverlayLayer aplicará el mínimo táctil
           z: hotspot.z || 2,
           meta: {
             shape: 'rect',
             compact: !mapManager.isMobile,
             hitSlop: 6,
             minTap: minTapSize,
-            visualH: height,
+            visualH: sizeH, // Usar sizeH que ya tiene el valor correcto basado en height o el valor por defecto
             title: hotspot.title || `Hotspot ${index}`,
             hotspot: hotspot,
             isHotspot: true,
@@ -1256,16 +1328,19 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
       // 📏 Tamaños mínimos táctiles
       const isCard = icon.type === 'card' || icon.type === 'label' || icon.type === 'pill';
-      const baseSize = icon.width || (GLOBAL_CONFIG.ICON_SIZE || 36);
+      const sizeW = (typeof icon.width === 'number') ? icon.width : (GLOBAL_CONFIG.ICON_SIZE || 36);
+      const sizeH = (typeof icon.height === 'number') ? icon.height : sizeW;
       const minTapSize = isCard ? 48 : 56; // cards pueden ser algo más pequeñas
+      const cx = icon.x + (typeof icon.width === 'number' ? icon.width / 2 : 0);
+      const cy = icon.y + (typeof icon.height === 'number' ? icon.height / 2 : 0);
 
       overlay.upsert({
         key: `waypoint_${state.idx}:${i}`,
         src: icon.img,
-        worldX: icon.x,
-        worldY: icon.y,
+        worldX: cx,
+        worldY: cy,
         rotationDeg: icon.rotation || 0,
-        lockWidthPx: Math.max(baseSize, minTapSize),
+        lockWidthPx: Math.max(sizeW, minTapSize),
         z: icon.z || 2,
         meta: {
           // 🔑 Auto-detección inteligente de forma
@@ -1300,10 +1375,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     drawMinimap();
     
     // Eventos del editor si está activo
-  if (appConfig.editorActive) window.dispatchEvent(new CustomEvent('editor:redraw'));
-    
-    // Finaliza el frame del overlay con la cámara actual
-    overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
+    if (appConfig.editorActive) window.dispatchEvent(new CustomEvent('editor:redraw'));
   }
 
   function typeNext(delta) {
@@ -1457,9 +1529,6 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       canvasH = BASE_H;
     }
 
-    // Informa al overlay del tamaño visible
-    overlay.resize(canvasW, canvasH);
-
     // Ajustar por ratio del mapa en modos responsivos
     if (mapConfig.logicalW && mapConfig.logicalH) {
       const mapRatio = mapConfig.logicalW / mapConfig.logicalH;
@@ -1505,7 +1574,36 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     DIALOG_BOX.w = (canvas.width / dpr) - 32;
 
-    markDirty('camera', 'elements', 'dialog', 'minimap');
+    // Asegurar que todos los estilos y dimensiones del canvas estén actualizados
+    // antes de notificar al overlay
+    requestAnimationFrame(() => {
+      // Obtener dimensiones finales después de aplicar estilos
+      const finalRect = canvas.getBoundingClientRect();
+      const finalW = Math.round(finalRect.width * (window.devicePixelRatio || 1));
+      const finalH = Math.round(finalRect.height * (window.devicePixelRatio || 1));
+      
+      // Asegurar que el overlay use las mismas dimensiones lógicas que el canvas
+      const canvasLogicalW = finalW / dpr;
+      const canvasLogicalH = finalH / dpr;
+      
+      // Calcular la relación de aspecto del mapa base
+      if (mapManager.currentMap?.config?.mapImage) {
+        const mapConfig = mapManager.currentMap.config.mapImage;
+        // Escalas reales del encaje (world→pantalla) en cada eje
+        const scaleX = canvasLogicalW / mapConfig.logicalW;
+        const scaleY = canvasLogicalH / mapConfig.logicalH;
+        // Si el fondo está "aplastado" en Y (scaleY < scaleX), corregir overlays
+        overlay.setAspectFix(scaleY / scaleX);
+      } else {
+        overlay.setAspectFix(1); // Sin corrección si no hay mapa cargado
+      }
+      
+      // Notificar al overlay con las dimensiones finales
+      overlay.resize(canvasLogicalW, canvasLogicalH);
+      
+      // Forzar actualización de la cámara y elementos
+      markDirty('camera', 'elements', 'dialog', 'minimap');
+    });
 
     if (GLOBAL_CONFIG.PERFORMANCE?.logPerformanceStats) {
       console.log('🖼️ Canvas configurado:', {
@@ -1549,11 +1647,38 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const ro = new ResizeObserver(() => {
         markDirty('camera','elements','minimap');
         const now = performance.now();
-        if (now - lastResize > RESIZE_THROTTLE) { setCanvasDPR(); lastResize = now; }
+        if (now - lastResize > RESIZE_THROTTLE) { 
+          setCanvasDPR();
+          lastResize = now; 
+        }
       });
       ro.observe(wrap);
     }
   } catch (err) { console.debug('ResizeObserver no disponible', err); }
+
+  // Visual Viewport handling for mobile browsers (keyboard show/hide, etc.)
+  if (window.visualViewport) {
+    visualViewport.addEventListener('resize', () => {
+      // Use requestAnimationFrame to ensure this runs in the next frame
+      requestAnimationFrame(() => {
+        const now = performance.now();
+        if (now - lastResize > RESIZE_THROTTLE) {
+          setCanvasDPR();
+          markDirty('camera', 'elements', 'minimap');
+          lastResize = now;
+        }
+      });
+    }, { passive: true });
+  }
+
+  // Handle device orientation changes with a small delay
+  window.addEventListener('orientationchange', () => {
+    // Small delay to ensure the viewport has updated
+    setTimeout(() => {
+      setCanvasDPR();
+      markDirty('camera', 'elements', 'minimap');
+    }, 200);
+  }, { passive: true });
 
   let rafId, running = true;
   function loop(ts) {
@@ -1590,10 +1715,22 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     typeNext(delta);
     if (needsRedraw()) { 
       draw(); 
-      // Update overlay at the end of each frame with CSS pixels
-      const cssW = canvas.clientWidth;
-      const cssH = canvas.clientHeight;
-      overlay.endFrame(camera, cssW, cssH);
+      // Finaliza el frame del overlay con la cámara actual (usando px lógicos)
+      const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
+      const canvasLogicalW = canvas.width / dpr;
+      const canvasLogicalH = canvas.height / dpr;
+
+      // Compensación de aspecto para deformar SOLO el overlay en Y (opcional por flag)
+      if (GLOBAL_CONFIG.OVERLAY_ALLOW_ANISO && overlay && overlay.setAspectFix) {
+        const baseAR = GLOBAL_CONFIG.BASE_W / GLOBAL_CONFIG.BASE_H;      // p.ej. 1920/1080
+        const currAR = canvasLogicalW / canvasLogicalH || baseAR;        // evita 0/NaN
+        const aspectFix = baseAR / currAR;                               // >1 encoge altura
+        overlay.setAspectFix(aspectFix);
+      } else if (overlay && overlay.setAspectFix) {
+        overlay.setAspectFix(1);
+      }
+
+      overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
       clearDirtyFlags(); 
     } else { 
       performanceStats.skippedFrames++; 
