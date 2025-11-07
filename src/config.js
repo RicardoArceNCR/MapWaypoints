@@ -1385,7 +1385,7 @@ export const GLOBAL_CONFIG = {
   },
   
   // ========= DEBUG Y VISUALIZACIÓN =========
-    // DEBUG_HOTSPOTS: true, Activa marcos blancos de depuración (false en producción)
+  DEBUG_HOTSPOTS: true,
   
   // Estilos para iconos y hotspots
   ICON_STYLES: {
