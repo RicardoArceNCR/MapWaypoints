@@ -11,7 +11,6 @@
 
 import { GLOBAL_CONFIG, MAPS_CONFIG } from './config.js';
 import { MapManager } from './MapManager.js';
-import { Camera } from './Camera.js';
 import { UIManager } from './UIManager.js';
 import { DetailedPopupManager } from './DetailedPopupManager.js';
 import { OverlayLayer } from './OverlayLayer.js';
@@ -626,11 +625,6 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       uiManager.updateThemeColor(phaseColor, phaseColorRgb);
 
       setCanvasDPR();
-      // Extra seguro: si por timing necesitas re-encajar una vez más
-      try {
-        const m = mapManager.currentMap?.config?.mapImage;
-        if (m) window.cameraInstance.fitBaseToViewport(m.logicalW, m.logicalH, 'contain');
-      } catch {}
       goToWaypoint(0);
       markDirty('camera', 'elements', 'dialog', 'minimap');
 
@@ -776,7 +770,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     
     // Cache styles for better performance
     const styles = GLOBAL_CONFIG.CANVAS_HOTSPOT_STYLES || {
-      fill: 'rgba(132, 255, 0, 0.1)',
+      fill: 'rgba(0, 209, 255, 0.1)',
       stroke: 'rgba(0, 209, 255, 0.5)',
       lineWidth: 1,
       activeFill: 'rgba(0, 209, 255, 0.2)',
@@ -963,8 +957,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       } else if (type === 'hotspot') {
         if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
           const radius = (item.radius || 0) / sqrtZ;
-          ctx.fillStyle = item.debugColor || 'rgba(40, 150, 229, 0.3)3)';
-          ctx.strokeStyle = 'rgba(9, 16, 51, 0.8)';
+          ctx.fillStyle = item.debugColor || 'rgba(255, 0, 0, 0.3)';
+          ctx.strokeStyle = 'rgba(255, 0, 0, 0.8)';
           ctx.lineWidth = 2 / sqrtZ;
           ctx.beginPath();
           const x = item.x - halfW;
@@ -1306,7 +1300,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     drawMinimap();
     
     // Eventos del editor si está activo
-    if (appConfig.editorActive) window.dispatchEvent(new CustomEvent('editor:redraw'));
+  if (appConfig.editorActive) window.dispatchEvent(new CustomEvent('editor:redraw'));
+    
+    // Finaliza el frame del overlay con la cámara actual
+    overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
   }
 
   function typeNext(delta) {
@@ -1460,29 +1457,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       canvasH = BASE_H;
     }
 
-    // Update camera viewport
-    if (window.cameraInstance) {
-      window.cameraInstance.setViewport(canvasW, canvasH);
-    }
-    
     // Informa al overlay del tamaño visible
     overlay.resize(canvasW, canvasH);
-
-    // === FIT UNIFORME mapa→viewport (no deforma imagen ni overlays) ===
-    try {
-      const mapConf = mapManager.currentMap?.config?.mapImage;
-      if (mapConf) {
-        // Usa el set adecuado según dispositivo (tú ya decides isMobile en MapManager)
-        const baseW = mapConf.logicalW;
-        const baseH = mapConf.logicalH;
-        if (Number.isFinite(baseW) && Number.isFinite(baseH)) {
-          // 'contain' evita deformación; si algún día quieres llenar siempre (recortando), usa 'cover'
-          window.cameraInstance.fitBaseToViewport(baseW, baseH, 'contain');
-        }
-      }
-    } catch (err) {
-      console.warn('fit-to-viewport error:', err);
-    }
 
     // Ajustar por ratio del mapa en modos responsivos
     if (mapConfig.logicalW && mapConfig.logicalH) {
@@ -1554,19 +1530,13 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (now - lastResize < RESIZE_THROTTLE) {
       clearTimeout(resizeTO);
       resizeTO = setTimeout(() => { 
-        if (window.cameraInstance) {
-          window.cameraInstance.dirty = true;
-        }
         setCanvasDPR();
         lastResize = performance.now(); 
       }, RESIZE_DEBOUNCE);
       return;
     }
-    
+    clearTimeout(resizeTO);
     resizeTO = setTimeout(() => { 
-      if (window.cameraInstance) {
-        window.cameraInstance.dirty = true;
-      }
       setCanvasDPR();
       lastResize = performance.now(); 
     }, RESIZE_DEBOUNCE);
@@ -1579,38 +1549,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const ro = new ResizeObserver(() => {
         markDirty('camera','elements','minimap');
         const now = performance.now();
-        if (now - lastResize > RESIZE_THROTTLE) { 
-          setCanvasDPR();
-          lastResize = now; 
-        }
+        if (now - lastResize > RESIZE_THROTTLE) { setCanvasDPR(); lastResize = now; }
       });
       ro.observe(wrap);
     }
   } catch (err) { console.debug('ResizeObserver no disponible', err); }
-
-  // Visual Viewport handling for mobile browsers (keyboard show/hide, etc.)
-  if (window.visualViewport) {
-    visualViewport.addEventListener('resize', () => {
-      // Use requestAnimationFrame to ensure this runs in the next frame
-      requestAnimationFrame(() => {
-        const now = performance.now();
-        if (now - lastResize > RESIZE_THROTTLE) {
-          setCanvasDPR();
-          markDirty('camera', 'elements', 'minimap');
-          lastResize = now;
-        }
-      });
-    }, { passive: true });
-  }
-
-  // Handle device orientation changes with a small delay
-  window.addEventListener('orientationchange', () => {
-    // Small delay to ensure the viewport has updated
-    setTimeout(() => {
-      setCanvasDPR();
-      markDirty('camera', 'elements', 'minimap');
-    }, 200);
-  }, { passive: true });
 
   let rafId, running = true;
   function loop(ts) {
@@ -1647,11 +1590,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     typeNext(delta);
     if (needsRedraw()) { 
       draw(); 
-      // Finaliza el frame del overlay con la cámara actual (usando px lógicos)
-      const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
-      const canvasLogicalW = canvas.width / dpr;
-      const canvasLogicalH = canvas.height / dpr;
-      overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
+      // Update overlay at the end of each frame with CSS pixels
+      const cssW = canvas.clientWidth;
+      const cssH = canvas.clientHeight;
+      overlay.endFrame(camera, cssW, cssH);
       clearDirtyFlags(); 
     } else { 
       performanceStats.skippedFrames++; 
@@ -1677,16 +1619,6 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   drawerBackdrop.addEventListener('click', () => uiManager.closeDrawer());
 
   // ========= INICIO =========
-  // Initialize camera instance
-  const cameraInstance = new Camera({ 
-    x: 0, 
-    y: 0, 
-    z: 1, 
-    viewportW: wrap.clientWidth, 
-    viewportH: wrap.clientHeight 
-  });
-  window.cameraInstance = cameraInstance; // Make it globally available for debugging
-
   (async function start() {
     // 🆕 Activamos el modo controlado por código
     document.querySelector('.novela')?.classList.add('full-bleed');
