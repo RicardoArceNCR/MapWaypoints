@@ -1549,7 +1549,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const ro = new ResizeObserver(() => {
         markDirty('camera','elements','minimap');
         const now = performance.now();
-        if (now - lastResize > RESIZE_THROTTLE) { setCanvasDPR(); lastResize = now; }
+        if (now - lastResize > RESIZE_THROTTLE) { 
+          setCanvasDPR(); 
+          const cssW = canvas.clientWidth, cssH = canvas.clientHeight;
+          overlay.resize(cssW, cssH);
+          lastResize = now; 
+        }
       });
       ro.observe(wrap);
     }
