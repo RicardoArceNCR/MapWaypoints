@@ -251,7 +251,6 @@ function validateCanvasDimensions(width, height, isMobile) {
 // ••• VARIABLES GLOBALES
 let waypointSpatialIndex = null;
 let memoryMonitor = new MemoryMonitor();
-let overlayLayer = null;
 
 (() => {
   let { BASE_W, BASE_H } = GLOBAL_CONFIG;
@@ -1348,13 +1347,6 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     else if (state.idx > 0) { goToWaypoint(state.idx - 1); }
   }
 
-  // Initialize overlay layer
-  const overlayRoot = document.getElementById('overlay-layer');
-  if (overlayRoot) {
-    overlayLayer = new OverlayLayer(overlayRoot);
-  } else {
-    console.warn('Overlay root element not found. Overlay functionality will be disabled.');
-  }
 
   const popup = document.getElementById('popup');
   const popupBackdrop = document.getElementById('popup-backdrop');
@@ -1533,13 +1525,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   const RESIZE_THROTTLE = 16; // ~60fps
   const RESIZE_DEBOUNCE = 150;
 
-  window.addEventListener('resize', () => {
+  function handleResize() {
     const now = performance.now();
     if (now - lastResize < RESIZE_THROTTLE) {
       clearTimeout(resizeTO);
       resizeTO = setTimeout(() => { 
         setCanvasDPR();
-        if (overlayLayer) overlayLayer.resize(window.innerWidth, window.innerHeight);
         lastResize = performance.now(); 
       }, RESIZE_DEBOUNCE);
       return;
@@ -1547,10 +1538,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     clearTimeout(resizeTO);
     resizeTO = setTimeout(() => { 
       setCanvasDPR();
-      if (overlayLayer) overlayLayer.resize(window.innerWidth, window.innerHeight);
       lastResize = performance.now(); 
     }, RESIZE_DEBOUNCE);
-  }, { passive: true });
+  }
+
+  window.addEventListener('resize', handleResize, { passive: true });
 
   try {
     if ('ResizeObserver' in window && wrap) {
@@ -1569,10 +1561,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const delta = ts - loop.prev; loop.prev = ts;
     if (GLOBAL_CONFIG.CAMERA_EFFECTS.transitionEnabled) updateTransition(ts);
     
-    // Update overlay layer at the start of each frame
-    if (overlayLayer) {
-      overlayLayer.beginFrame();
-    }
+    // Update overlay at the start of each frame
+    overlay.beginFrame();
 
     let breathOffsetY = 0, breathOffsetZ = 0;
   if (GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled && !appConfig.editorActive) {
@@ -1600,10 +1590,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     typeNext(delta);
     if (needsRedraw()) { 
       draw(); 
-      // Update overlay layer at the end of each frame
-      if (overlayLayer) {
-        overlayLayer.endFrame(camera, canvas.width, canvas.height);
-      }
+      // Update overlay at the end of each frame with CSS pixels
+      const cssW = canvas.clientWidth;
+      const cssH = canvas.clientHeight;
+      overlay.endFrame(camera, cssW, cssH);
       clearDirtyFlags(); 
     } else { 
       performanceStats.skippedFrames++; 
