@@ -770,7 +770,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     
     // Cache styles for better performance
     const styles = GLOBAL_CONFIG.CANVAS_HOTSPOT_STYLES || {
-      fill: 'rgba(0, 209, 255, 0.1)',
+      fill: 'rgba(132, 255, 0, 0.1)',
       stroke: 'rgba(0, 209, 255, 0.5)',
       lineWidth: 1,
       activeFill: 'rgba(0, 209, 255, 0.2)',
