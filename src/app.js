@@ -1590,10 +1590,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     typeNext(delta);
     if (needsRedraw()) { 
       draw(); 
-      // Update overlay at the end of each frame with CSS pixels
-      const cssW = canvas.clientWidth;
-      const cssH = canvas.clientHeight;
-      overlay.endFrame(camera, cssW, cssH);
+      // Finaliza el frame del overlay con la cámara actual (usando px lógicos)
+      const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
+      const canvasLogicalW = canvas.width / dpr;
+      const canvasLogicalH = canvas.height / dpr;
+      overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
       clearDirtyFlags(); 
     } else { 
       performanceStats.skippedFrames++; 
