@@ -10,6 +10,8 @@ export class Camera {
     this.M = null;       // Matriz world-to-css
     this.Minv = null;    // Inversa css-to-world
     this.dirty = true;   // Flag para re-cálculo
+    this.baseW = 0;      // Ancho base del arte
+    this.baseH = 0;      // Alto base del arte
   }
 
   // Actualiza viewport (llamado en resize)
@@ -18,6 +20,12 @@ export class Camera {
     this.viewportW = w;
     this.viewportH = h;
     this.dirty = true;
+  }
+
+  // Establece el tamaño base del arte (px del archivo base)
+  setBaseSize(baseW, baseH) {
+    this.baseW = baseW;
+    this.baseH = baseH;
   }
 
   // Actualiza posición/zoom (llamado en transiciones)
@@ -53,20 +61,24 @@ export class Camera {
   }
 
   // World to CSS (para overlays y dibujo canvas sin DPR)
-  worldToCss(worldX, worldY) {
+  worldToCss(wx, wy) {
     this.updateMatrices();
+    const cx = this.viewportW * 0.5;
+    const cy = this.viewportH * 0.5;
     return {
-      x: worldX * this.M.scale + this.M.tx,
-      y: worldY * this.M.scale + this.M.ty
+      x: cx + (wx - this.x) * this.z,
+      y: cy + (wy - this.y) * this.z
     };
   }
 
   // CSS to World (para input, e.g., clics)
-  cssToWorld(cssX, cssY) {
+  cssToWorld(px, py) {
     this.updateMatrices();
+    const cx = this.viewportW * 0.5;
+    const cy = this.viewportH * 0.5;
     return {
-      x: (cssX - this.M.tx) * this.Minv.scale,
-      y: (cssY - this.M.ty) * this.Minv.scale
+      x: this.x + (px - cx) / this.z,
+      y: this.y + (py - cy) / this.z
     };
   }
 
@@ -83,17 +95,18 @@ export class Camera {
     };
   }
 
-  // ✅ Ajusta posición/zoom para que un rectángulo base (mapa) quepa en el viewport
+  // Ajusta posición/zoom para que un rectángulo base (mapa) quepa en el viewport
   // mode: 'contain' (recomendado) o 'cover'
   fitBaseToViewport(baseW, baseH, mode = 'contain') {
-    // viewportW/H ya están en CSS px (sin DPR); aquí decides la escala uniforme
+    this.setBaseSize(baseW, baseH);
     const sx = this.viewportW / baseW;
     const sy = this.viewportH / baseH;
-    const s  = (mode === 'cover') ? Math.max(sx, sy) : Math.min(sx, sy);
-
-    // Centra al medio del mapa y aplica zoom s
-    const cx = baseW  * 0.5;
-    const cy = baseH  * 0.5;
-    this.setPosition(cx, cy, s);
+    const s = (mode === 'cover') ? Math.max(sx, sy) : Math.min(sx, sy);
+    
+    // Centra al medio del arte
+    this.x = baseW * 0.5;
+    this.y = baseH * 0.5;
+    this.z = s;
+    this.dirty = true;
   }
 }

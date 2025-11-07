@@ -275,7 +275,7 @@ function validateCanvasDimensions(width, height, isMobile) {
 // ••• VARIABLES GLOBALES
 let waypointSpatialIndex = null;
 let memoryMonitor = new MemoryMonitor();
-let overlayLayer = null;
+let overlay = null;  // Unified overlay instance
 
 (() => {
   let { BASE_W, BASE_H } = GLOBAL_CONFIG;
@@ -400,7 +400,19 @@ let overlayLayer = null;
     currentWaypoints: [], currentIcons: {}, mapImages: null, isFirstLoad: true
   };
 
-  const camera = { x: 0, y: 0, z: 1.0 };
+  // Get wrapper element for consistent CSS dimensions
+  const wrapper = document.getElementById('mapa-canvas-wrapper');
+  
+  // Initialize camera with proper viewport dimensions
+  const camera = new Camera({
+    x: 0,
+    y: 0,
+    z: 1.0,
+    viewportW: wrapper.clientWidth,
+    viewportH: wrapper.clientHeight
+  });
+  window.cameraInstance = camera; // For debugging
+  
   const camTarget = { x: 0, y: 0, z: 1.0 };
 
   const dirtyFlags = { camera:false, elements:false, dialog:false, minimap:false, debug:false, cameraMoving:false };
@@ -936,47 +948,14 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const height = Math.max(1, baseH);
       let displayWidth, displayHeight;
 
-      const lockByPolicy =
-        (mapManager.isMobile && GLOBAL_CONFIG.RESPONSIVE_SIZING?.mobile?.lockItemWidthToScreenPx) ||
-        (item.lockScreenSize && item.lockScreenSize.widthPx);
-
-      if (lockByPolicy) {
-        const targetCssW = item.lockScreenSize?.widthPx ?? width;
-        displayWidth = targetCssW / camera.z;
-        if (item.lockScreenSize?.keepAspect && item.img) {
-          const img = mapManager.getImage(item.img);
-          if (img && img.naturalWidth && img.naturalHeight) {
-            const aspect = img.naturalWidth / img.naturalHeight;
-            displayHeight = displayWidth / aspect;
-          } else {
-            displayHeight = (height / width) * displayWidth;
-          }
-        } else {
-          const targetCssH = item.lockScreenSize?.heightPx ?? height;
-          displayHeight = targetCssH / camera.z;
-        }
-      } else {
-        displayWidth = width / sqrtZ;
-        displayHeight = height / sqrtZ;
-      }
-
-      const halfW = displayWidth * 0.5;
-      const halfH = displayHeight * 0.5;
-      ctx.save();
-      if (item.rotation) {
-        ctx.translate(item.x, item.y);
-        ctx.rotate((item.rotation * Math.PI) / 180);
-        ctx.translate(-item.x, -item.y);
-      }
+      // TODO: reparar bloqueo por política de tamaño. Bloque temporalmente comentado porque se mezcló con dibujo.
+      // const lockByPolicy = (mapManager.isMobile && GLOBAL_CONFIG.RESPONSIVE_SIZING?.mobile?.lockItemWidthToScreenPx);
+      
+      // Draw icon
       if (type === 'icon') {
-        const img = mapManager.getImage(item.img);
-        if (GLOBAL_CONFIG.ICON_STYLES.showBackground) {
-          ctx.beginPath();
-          ctx.arc(item.x, item.y, ICON_R, 0, RENDER_CONSTANTS.TWO_PI);
-          ctx.fillStyle = GLOBAL_CONFIG.ICON_STYLES.backgroundColor;
-          ctx.fill();
+        if (img) {
+          ctx.drawImage(img, item.x - width/2, item.y - height/2, width, height);
         }
-        if (img) ctx.drawImage(img, item.x - halfW, item.y - halfH, displayWidth, displayHeight);
         if (GLOBAL_CONFIG.ICON_STYLES.showBackground) {
           ctx.beginPath();
           ctx.arc(item.x, item.y, ICON_R, 0, RENDER_CONSTANTS.TWO_PI);
@@ -1228,51 +1207,37 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (window.hotspotData && window.hotspotData.length > 0) {
       window.hotspotData.forEach((hotspot, index) => {
         if (!hotspot || !hotspot.coords) return;
-        
+
         const { xp, yp, width = 50, height = 50 } = hotspot.coords;
         const worldX = xp * (mapManager.currentMap?.config.mapImage.logicalW || 2858);
         const worldY = yp * (mapManager.currentMap?.config.mapImage.logicalH || 2858);
-        
-        // Only render hotspots that are in the current viewport
-        const viewW = canvasLogicalW / camera.z;
-        const viewH = canvasLogicalH / camera.z;
-        const viewX = camera.x - viewW/2 - width/2;
-        const viewY = camera.y - viewH/2 - height/2;
-        
-        if (worldX + width < viewX || 
-            worldX > viewX + viewW + width || 
-            worldY + height < viewY || 
-            worldY > viewY + viewH + height) {
-          return; // Skip off-screen hotspots
-        }
-        
-        const isActive = appConfig.editorActive && editor?.selectedItem?.index === index;
-        const baseSize = width || (GLOBAL_CONFIG.ICON_SIZE || 36);
-        const minTapSize = 56; // Standard minimum touch target size
-        
+
+        const minTapSize = 56;
+        const isMobile = mapManager.isMobile;
+
         overlay.upsert({
           key: `hotspot_${index}`,
           src: hotspot.src || '/default-icon.png',
-          worldX: worldX + width/2, // Center the hotspot
-          worldY: worldY + height/2,
+          worldX: worldX + width / 2,
+          worldY: worldY + height / 2,
           rotationDeg: hotspot.rotation || 0,
-          lockWidthPx: Math.max(baseSize, minTapSize),
+          lockWidthPx: Math.max(width || (GLOBAL_CONFIG.ICON_SIZE || 36), minTapSize),
           z: hotspot.z || 2,
           meta: {
             shape: 'rect',
-            compact: !mapManager.isMobile,
+            compact: !isMobile,
             hitSlop: 6,
             minTap: minTapSize,
             visualH: height,
             title: hotspot.title || `Hotspot ${index}`,
-            hotspot: hotspot,
+            hotspot,
             isHotspot: true,
             hotspotIndex: index
           }
         });
       });
     }
-    
+
     // Render regular waypoint icons
     const iconsForWaypoint = state.currentIcons[state.idx] || [];
     iconsForWaypoint.forEach((icon, i) => {
@@ -1332,8 +1297,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     // Eventos del editor si está activo
   if (appConfig.editorActive) window.dispatchEvent(new CustomEvent('editor:redraw'));
     
-    // Finaliza el frame del overlay con la cámara actual
-    overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
+    // Finaliza el frame del overlay con la cámara actual y dimensiones CSS del wrapper
+  overlay.endFrame(
+    camera,
+    (overlay.root?.clientWidth  || wrapper.clientWidth),
+    (overlay.root?.clientHeight || wrapper.clientHeight)
+  );
   }
 
   function typeNext(delta) {
@@ -1377,13 +1346,6 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     else if (state.idx > 0) { goToWaypoint(state.idx - 1); }
   }
 
-  // Initialize overlay layer
-  const overlayRoot = document.getElementById('overlay-layer');
-  if (overlayRoot) {
-    overlayLayer = new OverlayLayer(overlayRoot);
-  } else {
-    console.warn('Overlay root element not found. Overlay functionality will be disabled.');
-  }
 
   const popup = document.getElementById('popup');
   const popupBackdrop = document.getElementById('popup-backdrop');
@@ -1578,164 +1540,128 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
   }
 
-  // ========= RESIZE HANDLERS =========
-  let resizeTO; let lastResize = 0;
-  const RESIZE_THROTTLE = 16; // ~60fps
-  const RESIZE_DEBOUNCE = 150;
+// ========= RESIZE HANDLERS =========
+let resizeTO;
+const RESIZE_DEBOUNCE = 150;
 
-  window.addEventListener('resize', () => {
-    const now = performance.now();
-    if (now - lastResize < RESIZE_THROTTLE) {
-      clearTimeout(resizeTO);
-      resizeTO = setTimeout(() => { 
-        if (window.cameraInstance) {
-          window.cameraInstance.dirty = true;
-        }
-        setCanvasDPR();
-        markDirty('camera');
-        if (overlayLayer) overlayLayer.resize(window.innerWidth, window.innerHeight);
-        lastResize = performance.now(); 
-      }, RESIZE_DEBOUNCE);
-      return;
-    }
-    
-    resizeTO = setTimeout(() => { 
-      if (window.cameraInstance) {
-        window.cameraInstance.dirty = true;
-      }
-      setCanvasDPR();
-      markDirty('camera');
-      if (overlayLayer) overlayLayer.resize(window.innerWidth, window.innerHeight);
-      lastResize = performance.now(); 
-    }, RESIZE_DEBOUNCE);
-  }, { passive: true });
+function handleResize() {
+  if (!wrapper) return;
 
-  try {
-    if ('ResizeObserver' in window && wrap) {
-      const ro = new ResizeObserver(() => {
-        markDirty('camera','elements','minimap');
-        const now = performance.now();
-        if (now - lastResize > RESIZE_THROTTLE) { setCanvasDPR(); lastResize = now; }
-      });
-      ro.observe(wrap);
-    }
-  } catch (err) { console.debug('ResizeObserver no disponible', err); }
+  const cssW = wrapper.clientWidth;
+  const cssH = wrapper.clientHeight;
 
-  let rafId, running = true;
-  function loop(ts) {
-    if (!loop.prev) loop.prev = ts;
-    const delta = ts - loop.prev; loop.prev = ts;
-    if (GLOBAL_CONFIG.CAMERA_EFFECTS.transitionEnabled) updateTransition(ts);
-    
-    // Update overlay layer at the start of each frame
-    if (overlayLayer) {
-      overlayLayer.beginFrame();
-    }
+  // Update camera viewport
+  camera.setViewport(cssW, cssH);
 
-    let breathOffsetY = 0, breathOffsetZ = 0;
-  if (GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled && !appConfig.editorActive) {
-      const breath = Math.sin(ts * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingSpeed);
-      breathOffsetY = breath * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingAmount;
-      breathOffsetZ = breath * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingZAmount;
-      if (Math.abs(breathOffsetY) > 0.1 || Math.abs(breathOffsetZ) > 0.0001) markDirty('camera');
-    }
-
-    const prevCameraX = camera.x, prevCameraY = camera.y, prevCameraZ = camera.z;
-  if (appConfig.editorActive) {
-      camera.x = camTarget.x; camera.y = camTarget.y; camera.z = camTarget.z;
-    } else {
-      camera.x = lerp(camera.x, camTarget.x, EASE);
-      camera.y = lerp(camera.y, camTarget.y + breathOffsetY, EASE);
-      camera.z = lerp(camera.z, camTarget.z + breathOffsetZ, EASE);
-    }
-
-    const cameraDeltaX = Math.abs(camera.x - prevCameraX);
-    const cameraDeltaY = Math.abs(camera.y - prevCameraY);
-    const cameraDeltaZ = Math.abs(camera.z - prevCameraZ);
-    if (cameraDeltaX > 0.1 || cameraDeltaY > 0.1 || cameraDeltaZ > 0.001) { dirtyFlags.cameraMoving = true; markDirty('camera','minimap'); }
-    else { dirtyFlags.cameraMoving = false; }
-
-    typeNext(delta);
-    if (needsRedraw()) { 
-      draw(); 
-      // Update overlay layer at the end of each frame
-      if (overlayLayer) {
-        overlayLayer.endFrame(camera, canvas.width, canvas.height);
-      }
-      clearDirtyFlags(); 
-    } else { 
-      performanceStats.skippedFrames++; 
-    }
-    updatePerformanceStats(ts);
-    if (running) rafId = requestAnimationFrame(loop);
+  // Fit map to viewport if we have a current map
+  if (mapManager?.currentMap?.config?.mapImage) {
+    const m = mapManager.currentMap.config.mapImage;
+    camera.fitBaseToViewport(m.logicalW, m.logicalH, 'contain');
   }
 
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) { running = false; cancelAnimationFrame(rafId); }
-    else { running = true; loop.prev = 0; markDirty('camera','elements','dialog','minimap'); rafId = requestAnimationFrame(loop); }
-  });
+  // Update overlay
+  if (overlay) overlay.resize(cssW, cssH);
 
-  // ========= DRAWER =========
-  const hamburger = document.querySelector('.hamburger');
-  const drawerBackdrop = document.querySelector('.drawer-backdrop');
-  const drawerClose = document.getElementById('menu-puntos').querySelector('.drawer__close');
-  hamburger.addEventListener('click', () => {
-    const open = hamburger.getAttribute('aria-expanded') === 'true';
-    if (open) uiManager.closeDrawer(); else uiManager.openDrawer();
-  });
-  drawerClose.addEventListener('click', () => uiManager.closeDrawer());
-  drawerBackdrop.addEventListener('click', () => uiManager.closeDrawer());
+  // Update canvas DPR and mark for redraw
+  setCanvasDPR();
+  markDirty('camera');
+}
 
-  // ========= INICIO =========
-  // Initialize camera instance
-  const cameraInstance = new Camera({ 
-    x: 0, 
-    y: 0, 
-    z: 1, 
-    viewportW: wrap.clientWidth, 
-    viewportH: wrap.clientHeight 
-  });
-  window.cameraInstance = cameraInstance; // Make it globally available for debugging
+// Debounced resize handler
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTO);
+  resizeTO = setTimeout(handleResize, RESIZE_DEBOUNCE);
+}, { passive: true });
 
-  (async function start() {
-    // 🆕 Activamos el modo controlado por código
-    document.querySelector('.novela')?.classList.add('full-bleed');
-    // Valor inicial: 100%
-    window.LayoutFill.set(100);
+// ResizeObserver para el wrapper
+try {
+  if ('ResizeObserver' in window && wrapper) {
+    const ro = new ResizeObserver(entries => {
+      if (!entries.length) return;
+      const { width, height } = entries[0].contentRect;
+      if (width > 0 && height > 0) handleResize();
+    });
+    ro.observe(wrapper);
+  }
+} catch (e) {
+  console.warn('ResizeObserver not supported', e);
+}
 
-    uiManager = new UIManager(mapManager, handlePhaseChange, handleMapChange);
-    popupManager = new DetailedPopupManager();
-    const firstMap = mapManager.getCurrentPhaseMaps()[0];
-    if (firstMap) await loadMap(firstMap.id);
-    setCanvasDPR();
+// ========= MAIN LOOP =========
+let rafId;
+let running = true;
 
-    performanceStats.lastFpsUpdate = performance.now();
-    requestAnimationFrame(loop);
-  })();
-  
+function loop(ts) {
+  if (!loop.prev) loop.prev = ts;
+  const delta = ts - loop.prev;
+  loop.prev = ts;
 
-})();
-  // === Boot de cobertura y resize ===
-  (function bootCoverageWhenReady() {
-    const start = () => {
-      applyViewportCoverage();
-      window.addEventListener('resize', applyViewportCoverage, { passive: true });
-    };
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', start, { once: true });
-    } else {
-      start();
-    }
-  })();
+  // Transiciones de cámara y estados temporales
+  updateTransition(ts);
+  if (state.typing) typeNext(delta);
 
+  // Dibuja todo (canvas + overlays + debug)
+  draw();
+
+  // Estadísticas / memoria
+  updatePerformanceStats(ts);
+
+  if (running) rafId = requestAnimationFrame(loop);
+}
+
+// ========= STARTUP (fuera del loop) =========
+function start() {
+  // Asegurar wrapper con tamaño válido
+  if (wrapper && wrapper.clientWidth === 0) {
+    wrapper.style.width = '100%';
+    wrapper.style.height = '100%';
+  }
+
+  // UI y listeners
+  uiManager = new UIManager(mapManager, handlePhaseChange, handleMapChange);
+
+  // Cobertura del viewport (sin transform:scale)
+  const startCoverage = () => {
+    applyViewportCoverage();
+    window.addEventListener('resize', applyViewportCoverage, { passive: true });
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startCoverage, { once: true });
+  } else {
+    startCoverage();
+  }
+
+  // Full-bleed de la novela (opcional, sin romper geometría)
+  document.querySelector('.novela')?.classList.add('full-bleed');
+  window.LayoutFill.set(100); // 100%
+
+  // Canvas inicial + fit
+  setCanvasDPR();
+  handleResize();
+
+  // Cargar primer mapa
+  const firstMap = mapManager.getFirstMap();
+  if (firstMap) loadMap(firstMap);
+
+  // Arrancar bucle
+  performanceStats.lastFpsUpdate = performance.now();
+  requestAnimationFrame(loop);
+}
+
+// Utilidad segura (memoria)
 function safeMemory() {
   try {
     return (performance && performance.memory) ? performance.memory : null;
   } catch { return null; }
 }
 
-// Uso (solo log en debug)
+// Log inicial en debug
 if (appConfig.toggles.debug) {
   const mem = safeMemory();
   if (mem) log.info('Mem MB', Math.round(mem.usedJSHeapSize / 1048576));
 }
+
+// Lanzar app
+start();
+
+})(); // ← Cierra el IIFE (asegúrate de que solo exista **uno**)

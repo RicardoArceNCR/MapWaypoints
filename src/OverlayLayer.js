@@ -20,7 +20,14 @@ export class OverlayLayer {
     this._onPointerUp = this._onPointerUp.bind(this);
   }
 
-  resize(w, h) { this.lastDims = { w, h }; }
+  // Update viewport dimensions (idempotent, no CSS scale)
+  resize(cssW, cssH) {
+    this.lastDims = { w: cssW, h: cssH };  // Store for info/culling
+    if (this.root) {
+      this.root.style.width = cssW + 'px';
+      this.root.style.height = cssH + 'px';
+    }
+  }
   setDevice(device) { this.device = device; } // 'mobile' | 'desktop'
 
   beginFrame() {
@@ -99,12 +106,7 @@ export class OverlayLayer {
     this.frameLiveKeys.add(String(key));
   }
 
-  // world → screen (px DOM) con cámara del canvas
-  worldToScreen(x, y, camera, canvasW, canvasH) {
-    const sx = (x - camera.x) * camera.z + (canvasW / 2);
-    const sy = (y - camera.y) * camera.z + (canvasH / 2);
-    return { x: sx, y: sy };
-  }
+  // worldToScreen is no longer needed - using camera.worldToCss directly
 
   /**
    * Logs debug information about hitbox sizes when they change
@@ -139,10 +141,15 @@ export class OverlayLayer {
    * Paints the final position/rotation/order of "live" frame items.
    * Performs cheap culling and avoids unnecessary reflow.
    */
-  endFrame(camera, canvasW, canvasH) {
-    const vw = this.lastDims.w || canvasW;
-    const vh = this.lastDims.h || canvasH;
-    
+  endFrame(camera, cssW, cssH) {
+    // Sync dimensions if provided
+    if (cssW && cssH) {
+      this.resize(cssW, cssH);
+    } else {
+      cssW = this.lastDims.w;
+      cssH = this.lastDims.h;
+    }
+
     // Get viewport bounds for culling if camera supports it
     let viewportBounds = null;
     if (camera.getWorldBounds) {
@@ -150,6 +157,7 @@ export class OverlayLayer {
     }
 
     for (const [key, rec] of this.items) {
+      // Clean up dead items
       const alive = this.frameLiveKeys.has(String(key));
       if (!alive) {
         rec.wrap.removeEventListener('pointerdown', this._onPointerDown);
@@ -171,28 +179,10 @@ export class OverlayLayer {
         }
       }
 
-      // world → screen using camera's worldToCss method if available
-      let sx, sy;
-      if (camera.worldToCss) {
-        const screenPos = camera.worldToCss(rec.worldX, rec.worldY);
-        sx = screenPos.x;
-        sy = screenPos.y;
-      } else {
-        // Fallback to manual calculation
-        sx = (rec.worldX - camera.x) * camera.z + (canvasW / 2);
-        sy = (rec.worldY - camera.y) * camera.z + (canvasH / 2);
-      }
-
-      // Additional culling check (screen space)
-      const margin = 500; // pixels
-      if (sx < -margin || sy < -margin || sx > vw + margin || sy > vh + margin) {
-        rec.wrap.style.display = 'none';
-        continue;
-      } else {
-        rec.wrap.style.display = 'block';
-      }
-
-      // 🆕 hitbox: control preciso de dimensiones
+      // World to CSS using camera's projection
+      const screenPos = camera.worldToCss(rec.worldX, rec.worldY);
+      
+      // Calculate visual dimensions in CSS pixels
       const visualW = rec.lockWidthPx;
       const visualH = Number(rec.meta?.visualH || visualW);
       const hitSlop = Number(rec.meta?.hitSlop || GLOBAL_CONFIG.TOUCH.hitSlop);
@@ -210,10 +200,14 @@ export class OverlayLayer {
       rec.hitH = hitH;
       
       // Aplicar estilos al wrap
+      rec.wrap.style.position = 'absolute';
+      rec.wrap.style.left = `${screenPos.x - visualW * 0.5}px`;
+      rec.wrap.style.top = `${screenPos.y - visualH * 0.5}px`;
       rec.wrap.style.width = `${visualW}px`;
       rec.wrap.style.height = `${visualH}px`;
-      rec.wrap.style.transform = `translate(${sx}px, ${sy}px) translate(-50%,-50%) rotate(${rec.rotationDeg}deg)`;
+      rec.wrap.style.transform = `rotate(${rec.rotationDeg}deg)`;
       rec.wrap.style.zIndex = Math.round(1000 + (rec.z * 100) + (rec.worldY / 1000));
+      rec.wrap.style.display = 'block';
       
       // Aplicar estilos de debug si está habilitado
       if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
