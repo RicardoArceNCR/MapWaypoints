@@ -1300,10 +1300,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     drawMinimap();
     
     // Eventos del editor si está activo
-  if (appConfig.editorActive) window.dispatchEvent(new CustomEvent('editor:redraw'));
-    
-    // Finaliza el frame del overlay con la cámara actual
-    overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
+    if (appConfig.editorActive) window.dispatchEvent(new CustomEvent('editor:redraw'));
   }
 
   function typeNext(delta) {
@@ -1557,6 +1554,30 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       ro.observe(wrap);
     }
   } catch (err) { console.debug('ResizeObserver no disponible', err); }
+
+  // Visual Viewport handling for mobile browsers (keyboard show/hide, etc.)
+  if (window.visualViewport) {
+    visualViewport.addEventListener('resize', () => {
+      // Use requestAnimationFrame to ensure this runs in the next frame
+      requestAnimationFrame(() => {
+        const now = performance.now();
+        if (now - lastResize > RESIZE_THROTTLE) {
+          setCanvasDPR();
+          markDirty('camera', 'elements', 'minimap');
+          lastResize = now;
+        }
+      });
+    }, { passive: true });
+  }
+
+  // Handle device orientation changes with a small delay
+  window.addEventListener('orientationchange', () => {
+    // Small delay to ensure the viewport has updated
+    setTimeout(() => {
+      setCanvasDPR();
+      markDirty('camera', 'elements', 'minimap');
+    }, 200);
+  }, { passive: true });
 
   let rafId, running = true;
   function loop(ts) {
