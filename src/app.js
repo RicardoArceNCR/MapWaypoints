@@ -957,8 +957,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       } else if (type === 'hotspot') {
         if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
           const radius = (item.radius || 0) / sqrtZ;
-          ctx.fillStyle = item.debugColor || 'rgba(255, 0, 0, 0.3)';
-          ctx.strokeStyle = 'rgba(255, 0, 0, 0.8)';
+          ctx.fillStyle = item.debugColor || 'rgba(40, 150, 229, 0.3)3)';
+          ctx.strokeStyle = 'rgba(9, 16, 51, 0.8)';
           ctx.lineWidth = 2 / sqrtZ;
           ctx.beginPath();
           const x = item.x - halfW;

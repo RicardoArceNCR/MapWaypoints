@@ -1094,33 +1094,10 @@ body.net-slow .drawer {
 
 /* ===== DEBUG HOTSPOT STYLES ===== */
 /* Estilos mejorados para modo debug con mejor feedback visual en mobile */
-.overlay-wrap.debug-hotspot{
-  /* Vars con defaults (puedes sobreescribirlas desde JS) */
-  --hs-border: rgba(255, 251, 0, 0.85);
-  --hs-fill:   rgba(255,0,0,.12);
-  --hs-shadow: rgba(0,0,0,.35);
-
-  border: 3px solid var(--hs-border);
-  background: var(--hs-fill);
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px var(--hs-shadow);
-  border-radius: 8px;               /* 50% si es círculo (lo controlamos con clase) */
-  transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease, transform .12s ease;
+.overlay-wrap.debug-hotspot {
+  background: rgba(140, 0, 255, 0.15) !important;  /* Fondo semi-transparente para debug */
   cursor: pointer;
-}
-
-/* Forma circular cuando el meta.shape === 'circle' */
-.overlay-wrap.debug-hotspot.is-circle{ border-radius: 50%; }
-
-/* HOVER: resalta color para inspección rápida del estado */
-.overlay-wrap.debug-hotspot:hover{
-  --hs-border: #00E1FF;
-  --hs-fill:   rgba(0,225,255,.12);
-  --hs-shadow: rgba(0,225,255,.50);
-}
-
-/* PRESSED/ACTIVE: leve feedback táctil */
-.overlay-wrap.debug-hotspot.is-active{
-  transform: translate(-50%,-50%) scale(.98);
+  z-index: 1000 !important;
 }
 
 /* Hover feedback para desktop */
