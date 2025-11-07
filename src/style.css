@@ -1095,7 +1095,7 @@ body.net-slow .drawer {
 /* ===== DEBUG HOTSPOT STYLES ===== */
 /* Estilos mejorados para modo debug con mejor feedback visual en mobile */
 .overlay-wrap.debug-hotspot {
-  background: rgba(255, 0, 0, 0.15) !important;  /* Fondo semi-transparente para debug */
+  background: rgba(140, 0, 255, 0.15) !important;  /* Fondo semi-transparente para debug */
   cursor: pointer;
   z-index: 1000 !important;
 }
