@@ -11,6 +11,7 @@ export class OverlayLayer {
     this.frameLiveKeys = new Set();
     this.lastDims = { w: 0, h: 0 };
     this.device = 'mobile';
+    this.aspectFixY = 1; // 1 = sin corrección
 
     // 🆕 Target táctil mínimo
     this.touchTargetMin = window.matchMedia('(max-width: 899px)').matches ? 56 : 40;
@@ -21,6 +22,15 @@ export class OverlayLayer {
 
   resize(w, h) { this.lastDims = { w, h }; }
   setDevice(device) { this.device = device; } // 'mobile' | 'desktop'
+  
+  /**
+   * Establece el factor de corrección de relación de aspecto en Y
+   * @param {number} v - Factor de corrección (1 = sin corrección, >1 = comprimir verticalmente)
+   */
+  setAspectFix(v) {
+    const n = Number(v);
+    this.aspectFixY = Number.isFinite(n) && n > 0 ? n : 1;
+  }
 
   beginFrame() {
     this.frameLiveKeys.clear();
@@ -152,9 +162,11 @@ export class OverlayLayer {
         continue;
       }
 
-      // world → screen
+      // world → screen con corrección de aspecto en Y
       const sx = (rec.worldX - camera.x) * camera.z + (canvasW / 2);
-      const sy = (rec.worldY - camera.y) * camera.z + (canvasH / 2);
+      const sy0 = (rec.worldY - camera.y) * camera.z + (canvasH / 2);
+      // Aplicar corrección de aspecto solo en Y (centrado verticalmente)
+      const sy = (sy0 - canvasH/2) * this.aspectFixY + (canvasH/2);
 
       // culling
       if (sx < -500 || sy < -500 || sx > vw + 500 || sy > vh + 500) {
@@ -164,27 +176,42 @@ export class OverlayLayer {
         rec.wrap.style.display = 'block';
       }
 
-      // 🆕 hitbox: control preciso de dimensiones
+      // Mantener ancho fijo y escalar solo el alto
       const visualW = rec.lockWidthPx;
       const visualH = Number(rec.meta?.visualH || visualW);
-      const hitSlop = Number(rec.meta?.hitSlop || GLOBAL_CONFIG.TOUCH.hitSlop);
       
-      // 🎯 Modo compacto: usa tamaño visual exacto
+      // Aplicar factor de corrección de aspecto al alto
+      const aY = this.aspectFixY || 1;
+      const visualHScaled = visualH * aY;
+      
+      const hitSlop = Number(rec.meta?.hitSlop || GLOBAL_CONFIG.TOUCH.hitSlop);
       const compact = !!rec.meta?.compact;
       const minTap = compact ? 0 : Number(rec.meta?.minTap || GLOBAL_CONFIG.TOUCH.mobileMin);
 
-      // Calcula hitbox respetando modo compacto
+      // Usar el alto escalado para hitbox y dibujo
       const hitW = (compact ? visualW : Math.max(visualW, minTap)) + hitSlop * 2;
-      const hitH = (compact ? visualH : Math.max(visualH, minTap)) + hitSlop * 2;
+      const hitH = (compact ? visualHScaled : Math.max(visualHScaled, minTap)) + hitSlop * 2;
       
-      // Guarda para debug
+      // Guardar para debug
       rec.hitW = hitW;
       rec.hitH = hitH;
       
       // Aplicar estilos al wrap
       rec.wrap.style.width = `${visualW}px`;
-      rec.wrap.style.height = `${visualH}px`;
-      rec.wrap.style.transform = `translate(${sx}px, ${sy}px) translate(-50%,-50%) rotate(${rec.rotationDeg}deg)`;
+      rec.wrap.style.height = `${visualH}px`; // Usar altura original sin escalar
+      
+      // Aplicar escalado vertical usando transform para mantener hitbox correcto
+      const syScale = 1 / (this.aspectFixY || 1);
+      
+      // Aplicar ajustes finos por dispositivo
+      const tweak = GLOBAL_CONFIG.OVERLAY_TWEAK?.[this.device] || { dx: 0, dy: 0, scaleY: 1 };
+      const tx = sx + (tweak.dx || 0);
+      const ty = sy + (tweak.dy || 0);
+      const finalScaleY = syScale * (tweak.scaleY || 1);
+      
+      rec.wrap.style.transformOrigin = '50% 50%';
+      // Aplicar transformaciones en orden: translate → rotate → scaleY
+      rec.wrap.style.transform = `translate(${tx}px, ${ty}px) translate(-50%, -50%) rotate(${rec.rotationDeg}deg) scale(1, ${finalScaleY})`;
       rec.wrap.style.zIndex = Math.round(1000 + (rec.z * 100) + (rec.worldY / 1000));
       
       // Aplicar estilos de debug si está habilitado

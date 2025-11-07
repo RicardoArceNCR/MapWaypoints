@@ -1376,6 +1376,13 @@ export const GLOBAL_CONFIG = {
   // Control de visibilidad SEPARADO
   SHOW_DIALOGS: false,   // Controla los cuadros de diálogo de texto
   SHOW_CONTROLS: true,  // Controla los botones de navegación (prev/next/progress)
+  OVERLAY_ALLOW_ANISO: true,   // ✅ permite "aplastar" alto del overlay
+  
+  // Ajustes finos por dispositivo (offset en píxeles y escala)
+  OVERLAY_TWEAK: {
+    mobile:  { dy: 3, dx: 0, scaleY: 3.00 },  // Ajuste vertical para móvil
+    desktop: { dy:  3, dx: 0, scaleY: 3.00 }   // Sin ajuste en desktop por defecto
+  },
   
   // ========= DEBUG Y VISUALIZACIÓN =========
   DEBUG_HOTSPOTS: true,
