@@ -35,29 +35,6 @@ window.togglePopupDisplay = (enable) => {
   }
 };
 
-// ===== Click Handler Optimizado para Mobile =====
-function initOverlayClickHandler() {
-  const overlayRoot = document.getElementById('overlay-layer');
-  if (!overlayRoot) {
-    console.warn('Overlay layer no encontrado');
-    return;
-  }
-
-  // Un solo listener en el root para todos los hotspots
-  overlayRoot.addEventListener('overlay:click', (ev) => {
-    const { record } = ev.detail;
-    
-    // Usa DetailedPopupManager para mostrar el popup
-    if (window.popupManager) {
-      window.popupManager.openPopup(record.meta.hotspot || record.meta);
-    }
-  });
-}
-
-// Inicializa el handler después del DOM load
-document.addEventListener('DOMContentLoaded', initOverlayClickHandler);
-
-
 // ===== Helpers de URL y logger (seguros) =====
 function parseUrlToggles() {
   const p = new URLSearchParams(location.search);
