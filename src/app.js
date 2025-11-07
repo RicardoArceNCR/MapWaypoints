@@ -83,6 +83,15 @@ const log = {
   error: (...a) => console.error('[error]', ...a),
 };
 
+// ===== UTILITY FUNCTIONS =====
+function debounce(fn, ms = 100) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), ms);
+  };
+}
+
 // ===== Ajuste de cobertura de viewport (sin CSS scale) =====
 function applyViewportCoverage() {
   const wrapper = document.getElementById('mapa-canvas-wrapper');
@@ -102,6 +111,14 @@ function applyViewportCoverage() {
   document.body.style.overflow = over ? 'hidden' : '';
 
   log.info('Viewport coverage →', Math.round(coverage * 100) + '%', { vw, vh });
+  
+  // 🆕 Fuerza sync: actualiza canvas y overlays inmediatamente
+  if (typeof setCanvasDPR === 'function') {
+    setCanvasDPR();  // Esto llama overlay.resize() con tamaños del wrapper
+  }
+  if (typeof markDirty === 'function') {
+    markDirty('camera', 'elements', 'minimap');  // Fuerza redraw en próximo frame
+  }
 }
 
 // API mínima por si prefieres controlarlo desde código
