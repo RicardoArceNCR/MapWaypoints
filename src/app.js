@@ -11,6 +11,7 @@
 
 import { GLOBAL_CONFIG, MAPS_CONFIG } from './config.js';
 import { MapManager } from './MapManager.js';
+import { Camera } from './Camera.js';
 import { UIManager } from './UIManager.js';
 import { DetailedPopupManager } from './DetailedPopupManager.js';
 import { OverlayLayer } from './OverlayLayer.js';
@@ -625,6 +626,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       uiManager.updateThemeColor(phaseColor, phaseColorRgb);
 
       setCanvasDPR();
+      // Extra seguro: si por timing necesitas re-encajar una vez más
+      try {
+        const m = mapManager.currentMap?.config?.mapImage;
+        if (m) window.cameraInstance.fitBaseToViewport(m.logicalW, m.logicalH, 'contain');
+      } catch {}
       goToWaypoint(0);
       markDirty('camera', 'elements', 'dialog', 'minimap');
 
@@ -1454,8 +1460,29 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       canvasH = BASE_H;
     }
 
+    // Update camera viewport
+    if (window.cameraInstance) {
+      window.cameraInstance.setViewport(canvasW, canvasH);
+    }
+    
     // Informa al overlay del tamaño visible
     overlay.resize(canvasW, canvasH);
+
+    // === FIT UNIFORME mapa→viewport (no deforma imagen ni overlays) ===
+    try {
+      const mapConf = mapManager.currentMap?.config?.mapImage;
+      if (mapConf) {
+        // Usa el set adecuado según dispositivo (tú ya decides isMobile en MapManager)
+        const baseW = mapConf.logicalW;
+        const baseH = mapConf.logicalH;
+        if (Number.isFinite(baseW) && Number.isFinite(baseH)) {
+          // 'contain' evita deformación; si algún día quieres llenar siempre (recortando), usa 'cover'
+          window.cameraInstance.fitBaseToViewport(baseW, baseH, 'contain');
+        }
+      }
+    } catch (err) {
+      console.warn('fit-to-viewport error:', err);
+    }
 
     // Ajustar por ratio del mapa en modos responsivos
     if (mapConfig.logicalW && mapConfig.logicalH) {
@@ -1527,13 +1554,19 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (now - lastResize < RESIZE_THROTTLE) {
       clearTimeout(resizeTO);
       resizeTO = setTimeout(() => { 
+        if (window.cameraInstance) {
+          window.cameraInstance.dirty = true;
+        }
         setCanvasDPR();
         lastResize = performance.now(); 
       }, RESIZE_DEBOUNCE);
       return;
     }
-    clearTimeout(resizeTO);
+    
     resizeTO = setTimeout(() => { 
+      if (window.cameraInstance) {
+        window.cameraInstance.dirty = true;
+      }
       setCanvasDPR();
       lastResize = performance.now(); 
     }, RESIZE_DEBOUNCE);
@@ -1644,6 +1677,16 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   drawerBackdrop.addEventListener('click', () => uiManager.closeDrawer());
 
   // ========= INICIO =========
+  // Initialize camera instance
+  const cameraInstance = new Camera({ 
+    x: 0, 
+    y: 0, 
+    z: 1, 
+    viewportW: wrap.clientWidth, 
+    viewportH: wrap.clientHeight 
+  });
+  window.cameraInstance = cameraInstance; // Make it globally available for debugging
+
   (async function start() {
     // 🆕 Activamos el modo controlado por código
     document.querySelector('.novela')?.classList.add('full-bleed');
