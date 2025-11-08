@@ -15,6 +15,7 @@ import { Camera } from './Camera.js';
 import { UIManager } from './UIManager.js';
 import { DetailedPopupManager } from './DetailedPopupManager.js';
 import { OverlayLayer } from './OverlayLayer.js';
+import { FloatingWaypointButton } from './FloatingWaypointButton.js';
 
 // Helper simple para mostrar errores al usuario
 function showError(message) {
@@ -731,6 +732,62 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     startTyping();
     uiManager.updateProgress(state.currentWaypoints.length, i);
     markDirty('camera', 'elements', 'dialog', 'minimap');
+
+    // Update floating button for the current waypoint
+    if (window.floatingButton) {
+      const buttonConfig = getButtonConfigForWaypoint(state.idx, wp);
+      if (buttonConfig) {
+        window.floatingButton.update(state.idx, buttonConfig);
+      } else {
+        window.floatingButton.remove();
+      }
+    }
+  }
+
+  /**
+   * Configuración del botón flotante por waypoint
+   */
+  function getButtonConfigForWaypoint(index, waypoint) {
+    // Configuraciones por índice de waypoint
+    const configs = {
+      0: {
+        text: 'Ver Ubicación',
+        icon: '📍',
+        onClick: (idx) => {
+          if (window.popupManager) {
+            window.popupManager.openPopup({
+              title: waypoint.label || 'Ubicación',
+              content: waypoint.description || 'Información del punto'
+            });
+          }
+        }
+      },
+      1: {
+        text: 'Galería',
+        icon: '🖼️',
+        badge: { text: '3', color: '#2ecc71' },
+        onClick: (idx) => {
+          console.log('Abriendo galería');
+          // Aquí tu código de galería
+        }
+      },
+      2: {
+        text: 'Ver más',
+        icon: '💡',
+        onClick: (idx) => {
+          console.log('Mostrando información');
+        }
+      }
+    };
+
+    // Retornar configuración o default
+    return configs[index] || {
+      text: waypoint.label || 'Info',
+      icon: '💡',
+      onClick: (idx) => {
+        console.log('Click en waypoint', idx);
+      }
+    };
   }
 
   function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
@@ -1241,99 +1298,89 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     // --- Overlay DOM (por frame) ---
     overlay.beginFrame();
 
-    // Render hotspots from window.hotspotData for editor sync
+    // Render only the first hotspot from window.hotspotData
     if (window.hotspotData && window.hotspotData.length > 0) {
-      window.hotspotData.forEach((hotspot, index) => {
-        if (!hotspot || !hotspot.coords) return;
+      // Only process the first hotspot
+      const hotspot = window.hotspotData[0];
+      if (hotspot && hotspot.coords) {
+        const index = 0; // Only using first hotspot
+        const { xp, yp, wp, hp, width: fixedWidth, height: fixedHeight } = hotspot.coords;
         
-        // ✅ MEJORA 1: Soportar coordenadas normalizadas (wp/hp) y fijas (width/height)
-        const { 
-          xp, yp,                           // Posición normalizada (siempre presente)
-          wp, hp,                           // Tamaño normalizado (opcional, preferido)
-          width: fixedWidth,                // Tamaño fijo en píxeles (fallback)
-          height: fixedHeight 
-        } = hotspot.coords;
-        
-        // Obtener dimensiones lógicas del mapa
+        // Get map logical dimensions
         const mapW = mapManager.currentMap?.config.mapImage.logicalW || 2858;
         const mapH = mapManager.currentMap?.config.mapImage.logicalH || 2858;
         
-        // ✅ MEJORA 2: Calcular dimensiones en world space
-        // Si hay wp/hp (normalizado), usarlo. Si no, convertir width/height a normalizado.
+        // Calculate world dimensions
         let worldWidth, worldHeight;
         
         if (wp !== undefined && hp !== undefined) {
-          // Caso 1: Coordenadas normalizadas (recomendado)
+          // Normalized coordinates (preferred)
           worldWidth = wp * mapW;
           worldHeight = hp * mapH;
         } else if (fixedWidth !== undefined && fixedHeight !== undefined) {
-          // Caso 2: Tamaño fijo - convertir a world space manteniendo aspect ratio
+          // Fixed pixel size - convert to world space
           worldWidth = fixedWidth;
           worldHeight = fixedHeight;
         } else {
-          // Caso 3: Fallback a valor por defecto
+          // Fallback to default size
           worldWidth = 50;
           worldHeight = 50;
         }
         
-        // Posición absoluta en world space
+        // Absolute position in world space
         const worldX = xp * mapW;
         const worldY = yp * mapH;
         
-        // ✅ MEJORA 3: Culling con dimensiones correctas en world space
+        // Viewport culling
         const viewW = canvasLogicalW / camera.z;
         const viewH = canvasLogicalH / camera.z;
         const viewX = camera.x - viewW/2;
         const viewY = camera.y - viewH/2;
         
-        // Culling más preciso usando las dimensiones reales del hotspot
+        // Skip if off-screen
         const halfWorldW = worldWidth / 2;
         const halfWorldH = worldHeight / 2;
         
-        if (worldX + halfWorldW < viewX || 
-            worldX - halfWorldW > viewX + viewW || 
-            worldY + halfWorldH < viewY || 
-            worldY - halfWorldH > viewY + viewH) {
-          return; // Skip off-screen hotspots
+        if (!(worldX + halfWorldW < viewX || 
+              worldX - halfWorldW > viewX + viewW || 
+              worldY + halfWorldH < viewY || 
+              worldY - halfWorldH > viewY + viewH)) {
+          
+          // Calculate screen size based on current zoom
+          const screenWidth = worldWidth * camera.z;
+          const screenHeight = worldHeight * camera.z;
+          
+          // Apply minimum touch target size if needed
+          const minTapSize = mapManager.isMobile ? 56 : 48;
+          const finalWidth = Math.max(screenWidth, minTapSize);
+          const finalHeight = Math.max(screenHeight, minTapSize);
+          
+          // Selection state (for editor)
+          const isActive = appConfig.editorActive && editor?.selectedItem?.index === index;
+          
+          // Update the overlay with the hotspot
+          overlay.upsert({
+            key: `hotspot_${index}`,
+            src: hotspot.src || '/default-icon.png',
+            worldX: worldX,
+            worldY: worldY,
+            rotationDeg: hotspot.rotation || 0,
+            lockWidthPx: finalWidth,
+            z: hotspot.z || 2,
+            meta: {
+              shape: hotspot.shape || 'rect',
+              compact: !mapManager.isMobile,
+              hitSlop: 6,
+              minTap: minTapSize,
+              visualH: finalHeight,
+              title: hotspot.title || `Hotspot ${index}`,
+              hotspot: hotspot,
+              isHotspot: true,
+              hotspotIndex: index
+            }
+          });
         }
-        
-        // ✅ MEJORA 4: Calcular tamaño en pantalla basado en zoom actual
-        // Esto asegura que el hotspot escale proporcionalmente con el mapa
-        const screenWidth = worldWidth * camera.z;
-        const screenHeight = worldHeight * camera.z;
-        
-        // ✅ MEJORA 5: Aplicar mínimo táctil solo si es necesario
-        const minTapSize = mapManager.isMobile ? 56 : 48;
-        
-        // Usar el mayor entre el tamaño calculado y el mínimo táctil
-        const finalWidth = Math.max(screenWidth, minTapSize);
-        const finalHeight = Math.max(screenHeight, minTapSize);
-        
-        // Estado de selección (para editor)
-        const isActive = appConfig.editorActive && editor?.selectedItem?.index === index;
-        
-        // ✅ MEJORA 6: Upsert con dimensiones dinámicas
-        overlay.upsert({
-          key: `hotspot_${index}`,
-          src: hotspot.src || '/default-icon.png',
-          worldX: worldX,                   // Centro en world coords (ya centrado por config)
-          worldY: worldY,
-          rotationDeg: hotspot.rotation || 0,
-          lockWidthPx: finalWidth,          // ✅ Responde al zoom de cámara
-          z: hotspot.z || 2,
-          meta: {
-            shape: hotspot.shape || 'rect',
-            compact: !mapManager.isMobile,
-            hitSlop: 6,
-            minTap: minTapSize,
-            visualH: finalHeight,           // ✅ Mantiene aspect ratio correcto
-            title: hotspot.title || `Hotspot ${index}`,
-            hotspot: hotspot,
-            isHotspot: true,
-            hotspotIndex: index
-          }
-        });
-      });
+      }
     }
     
     // Render regular waypoint icons
@@ -1794,6 +1841,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     uiManager = new UIManager(mapManager, handlePhaseChange, handleMapChange);
     popupManager = new DetailedPopupManager();
+    
+    // Initialize floating waypoint button
+    const floatingButton = new FloatingWaypointButton();
+    window.floatingButton = floatingButton;
+    
     const firstMap = mapManager.getCurrentPhaseMaps()[0];
     if (firstMap) await loadMap(firstMap.id);
     setCanvasDPR();
