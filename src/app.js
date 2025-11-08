@@ -1610,9 +1610,14 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       canvas.style.transform = '';
     }
 
-    // 10. Actualizar viewport de la cámara con las dimensiones lógicas
+    // 10. Usar siempre las dimensiones lógicas del canvas para cámara y overlay
+    //     Esto asegura que la matriz de proyección world→css sea consistente
+    const viewW = canvasW;  // Usar canvasW en lugar de displayW
+    const viewH = canvasH;  // Usar canvasH en lugar de displayH
+    
+    // 11. Actualizar viewport de la cámara con las dimensiones lógicas del canvas
     if (window.cameraInstance) {
-      window.cameraInstance.setViewport(displayW, displayH);
+      window.cameraInstance.setViewport(viewW, viewH);
       
       // Ajustar la cámara para que el mapa quepa correctamente
       try {
@@ -1625,10 +1630,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       }
     }
     
-    // 11. Ahora que el canvas está configurado, actualizar el overlay
-    // con las dimensiones lógicas finales
+    // 12. Actualizar el overlay con las mismas dimensiones lógicas del canvas
+    //     Importante: esto debe ejecutarse DESPUÉS de actualizar el canvas y la cámara
     if (typeof overlay?.resize === 'function') {
-      overlay.resize(displayW, displayH);
+      overlay.resize(viewW, viewH);
     }
     
     // 12. Actualizar dimensiones del cuadro de diálogo
