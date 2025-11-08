@@ -1536,13 +1536,39 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     canvas.width = finalW;
     canvas.height = finalH;
 
-    // Estilos CSS: ocupar todo el wrapper en modos responsivos
-    if (isMobile || isFullBleed) {
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
+    // Calcular tamaño manteniendo el aspect ratio del mapa
+    if (mapConfig && (isMobile || isFullBleed)) {
+      const mapRatio = mapConfig.logicalW / mapConfig.logicalH;
+      const containerW = wrap.clientWidth;
+      const containerH = wrap.clientHeight;
+      const containerRatio = containerW / containerH;
+
+      let displayW, displayH;
+      if (containerRatio > mapRatio) {
+        // Contain por alto
+        displayH = containerH;
+        displayW = Math.round(displayH * mapRatio);
+      } else {
+        // Contain por ancho
+        displayW = containerW;
+        displayH = Math.round(displayW / mapRatio);
+      }
+
+      // Aplicar tamaño CSS final y centrar
+      canvas.style.width = displayW + 'px';
+      canvas.style.height = displayH + 'px';
+      canvas.style.position = 'absolute';
+      canvas.style.left = '50%';
+      canvas.style.top = '50%';
+      canvas.style.transform = 'translate(-50%, -50%)';
     } else {
+      // Modo escritorio sin full-bleed
       canvas.style.width = canvasW + 'px';
       canvas.style.height = canvasH + 'px';
+      canvas.style.position = '';
+      canvas.style.left = '';
+      canvas.style.top = '';
+      canvas.style.transform = '';
     }
 
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);

@@ -140,8 +140,17 @@ export class OverlayLayer {
    * Performs cheap culling and avoids unnecessary reflow.
    */
   endFrame(camera, canvasW, canvasH) {
-    const vw = this.lastDims.w || canvasW;
-    const vh = this.lastDims.h || canvasH;
+    if (!this.root) return;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    
+    // Calculate canvas offset from wrapper for letterboxing compensation
+    const canvasEl = document.getElementById('mapa-canvas'); // always use the real canvas
+    const canvasRect = canvasEl?.getBoundingClientRect();
+    const wrapperRect = this.root?.parentElement?.getBoundingClientRect();
+    
+    const offX = canvasRect && wrapperRect ? (canvasRect.left - wrapperRect.left) : 0;
+    const offY = canvasRect && wrapperRect ? (canvasRect.top - wrapperRect.top) : 0;
     
     // Get viewport bounds for culling if camera supports it
     let viewportBounds = null;
@@ -208,6 +217,10 @@ export class OverlayLayer {
       // Guarda para debug
       rec.hitW = hitW;
       rec.hitH = hitH;
+      
+      // Apply letterboxing compensation to screen coordinates
+      sx += offX;
+      sy += offY;
       
       // Aplicar estilos al wrap
       rec.wrap.style.width = `${visualW}px`;
