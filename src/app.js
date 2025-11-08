@@ -36,29 +36,6 @@ window.togglePopupDisplay = (enable) => {
   }
 };
 
-// ===== Click Handler Optimizado para Mobile =====
-function initOverlayClickHandler() {
-  const overlayRoot = document.getElementById('overlay-layer');
-  if (!overlayRoot) {
-    console.warn('Overlay layer no encontrado');
-    return;
-  }
-
-  // Un solo listener en el root para todos los hotspots
-  overlayRoot.addEventListener('overlay:click', (ev) => {
-    const { record } = ev.detail;
-    
-    // Usa DetailedPopupManager para mostrar el popup
-    if (window.popupManager) {
-      window.popupManager.openPopup(record.meta.hotspot || record.meta);
-    }
-  });
-}
-
-// Inicializa el handler después del DOM load
-document.addEventListener('DOMContentLoaded', initOverlayClickHandler);
-
-
 // ===== Helpers de URL y logger (seguros) =====
 function parseUrlToggles() {
   const p = new URLSearchParams(location.search);
@@ -275,7 +252,6 @@ function validateCanvasDimensions(width, height, isMobile) {
 // ••• VARIABLES GLOBALES
 let waypointSpatialIndex = null;
 let memoryMonitor = new MemoryMonitor();
-let overlayLayer = null;
 
 (() => {
   let { BASE_W, BASE_H } = GLOBAL_CONFIG;
@@ -800,7 +776,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     
     // Cache styles for better performance
     const styles = GLOBAL_CONFIG.CANVAS_HOTSPOT_STYLES || {
-      fill: 'rgba(0, 209, 255, 0.1)',
+      fill: 'rgba(132, 255, 0, 0.1)',
       stroke: 'rgba(0, 209, 255, 0.5)',
       lineWidth: 1,
       activeFill: 'rgba(0, 209, 255, 0.2)',
@@ -987,8 +963,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       } else if (type === 'hotspot') {
         if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
           const radius = (item.radius || 0) / sqrtZ;
-          ctx.fillStyle = item.debugColor || 'rgba(255, 0, 0, 0.3)';
-          ctx.strokeStyle = 'rgba(255, 0, 0, 0.8)';
+          ctx.fillStyle = item.debugColor || 'rgba(40, 150, 229, 0.3)3)';
+          ctx.strokeStyle = 'rgba(9, 16, 51, 0.8)';
           ctx.lineWidth = 2 / sqrtZ;
           ctx.beginPath();
           const x = item.x - halfW;
@@ -1330,10 +1306,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     drawMinimap();
     
     // Eventos del editor si está activo
-  if (appConfig.editorActive) window.dispatchEvent(new CustomEvent('editor:redraw'));
-    
-    // Finaliza el frame del overlay con la cámara actual
-    overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
+    if (appConfig.editorActive) window.dispatchEvent(new CustomEvent('editor:redraw'));
   }
 
   function typeNext(delta) {
@@ -1377,13 +1350,6 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     else if (state.idx > 0) { goToWaypoint(state.idx - 1); }
   }
 
-  // Initialize overlay layer
-  const overlayRoot = document.getElementById('overlay-layer');
-  if (overlayRoot) {
-    overlayLayer = new OverlayLayer(overlayRoot);
-  } else {
-    console.warn('Overlay root element not found. Overlay functionality will be disabled.');
-  }
 
   const popup = document.getElementById('popup');
   const popupBackdrop = document.getElementById('popup-backdrop');
@@ -1583,7 +1549,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   const RESIZE_THROTTLE = 16; // ~60fps
   const RESIZE_DEBOUNCE = 150;
 
-  window.addEventListener('resize', () => {
+  function handleResize() {
     const now = performance.now();
     if (now - lastResize < RESIZE_THROTTLE) {
       clearTimeout(resizeTO);
@@ -1592,8 +1558,6 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           window.cameraInstance.dirty = true;
         }
         setCanvasDPR();
-        markDirty('camera');
-        if (overlayLayer) overlayLayer.resize(window.innerWidth, window.innerHeight);
         lastResize = performance.now(); 
       }, RESIZE_DEBOUNCE);
       return;
@@ -1604,22 +1568,49 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         window.cameraInstance.dirty = true;
       }
       setCanvasDPR();
-      markDirty('camera');
-      if (overlayLayer) overlayLayer.resize(window.innerWidth, window.innerHeight);
       lastResize = performance.now(); 
     }, RESIZE_DEBOUNCE);
-  }, { passive: true });
+  }
+
+  window.addEventListener('resize', handleResize, { passive: true });
 
   try {
     if ('ResizeObserver' in window && wrap) {
       const ro = new ResizeObserver(() => {
         markDirty('camera','elements','minimap');
         const now = performance.now();
-        if (now - lastResize > RESIZE_THROTTLE) { setCanvasDPR(); lastResize = now; }
+        if (now - lastResize > RESIZE_THROTTLE) { 
+          setCanvasDPR();
+          lastResize = now; 
+        }
       });
       ro.observe(wrap);
     }
   } catch (err) { console.debug('ResizeObserver no disponible', err); }
+
+  // Visual Viewport handling for mobile browsers (keyboard show/hide, etc.)
+  if (window.visualViewport) {
+    visualViewport.addEventListener('resize', () => {
+      // Use requestAnimationFrame to ensure this runs in the next frame
+      requestAnimationFrame(() => {
+        const now = performance.now();
+        if (now - lastResize > RESIZE_THROTTLE) {
+          setCanvasDPR();
+          markDirty('camera', 'elements', 'minimap');
+          lastResize = now;
+        }
+      });
+    }, { passive: true });
+  }
+
+  // Handle device orientation changes with a small delay
+  window.addEventListener('orientationchange', () => {
+    // Small delay to ensure the viewport has updated
+    setTimeout(() => {
+      setCanvasDPR();
+      markDirty('camera', 'elements', 'minimap');
+    }, 200);
+  }, { passive: true });
 
   let rafId, running = true;
   function loop(ts) {
@@ -1627,10 +1618,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const delta = ts - loop.prev; loop.prev = ts;
     if (GLOBAL_CONFIG.CAMERA_EFFECTS.transitionEnabled) updateTransition(ts);
     
-    // Update overlay layer at the start of each frame
-    if (overlayLayer) {
-      overlayLayer.beginFrame();
-    }
+    // Update overlay at the start of each frame
+    overlay.beginFrame();
 
     let breathOffsetY = 0, breathOffsetZ = 0;
   if (GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled && !appConfig.editorActive) {
@@ -1658,10 +1647,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     typeNext(delta);
     if (needsRedraw()) { 
       draw(); 
-      // Update overlay layer at the end of each frame
-      if (overlayLayer) {
-        overlayLayer.endFrame(camera, canvas.width, canvas.height);
-      }
+      // Finaliza el frame del overlay con la cámara actual (usando px lógicos)
+      const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
+      const canvasLogicalW = canvas.width / dpr;
+      const canvasLogicalH = canvas.height / dpr;
+      overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
       clearDirtyFlags(); 
     } else { 
       performanceStats.skippedFrames++; 
