@@ -20,7 +20,11 @@ export class OverlayLayer {
     this._onPointerUp = this._onPointerUp.bind(this);
   }
 
-  resize(w, h) { this.lastDims = { w, h }; }
+  resize(w, h) { 
+    this.lastDims = { w, h }; 
+    this.logicalW = w;  // Store logical width
+    this.logicalH = h;  // Store logical height
+  }
   setDevice(device) { this.device = device; } // 'mobile' | 'desktop'
 
   beginFrame() {
