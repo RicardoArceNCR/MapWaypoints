@@ -1561,6 +1561,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       canvas.style.left = '50%';
       canvas.style.top = '50%';
       canvas.style.transform = 'translate(-50%, -50%)';
+      
+      // Sincronizar con el tamaño lógico visible del canvas
+      if (window.cameraInstance) {
+        window.cameraInstance.setViewport(displayW, displayH);
+      }
+      overlay.resize(displayW, displayH);
     } else {
       // Modo escritorio sin full-bleed
       canvas.style.width = canvasW + 'px';
@@ -1569,6 +1575,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       canvas.style.left = '';
       canvas.style.top = '';
       canvas.style.transform = '';
+      
+      // Sincronizar con el tamaño lógico visible del canvas
+      if (window.cameraInstance) {
+        window.cameraInstance.setViewport(canvasW, canvasH);
+      }
+      overlay.resize(canvasW, canvasH);
     }
 
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
