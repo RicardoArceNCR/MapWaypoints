@@ -5,6 +5,48 @@ export const PHASES = [
   { id: 'fase3', label: 'Fase 3', color: '#4ECDC4', maps: ['mapa_f3'] },
 ];
 
+// ========= CONFIGURACIÓN DE POPUPS POR WAYPOINT =========
+// Configuración de popups que se mostrarán en cada waypoint
+// Si un waypoint no está en el mapa, el botón no aparecerá
+export const WAYPOINT_POPUPS = {
+  0: {
+    title: 'Punto de inicio',
+    subtitle: 'Bienvenida y contexto',
+    image: '/assets/popups/inicio.webp',
+    buttonText: 'Empezar aquí',
+    icon: '🚀'
+  },
+  1: {
+    title: 'Zona de espera',
+    subtitle: 'Área de abordaje',
+    image: '/assets/popups/zona-espera.webp',
+    buttonText: 'Ver zona',
+    icon: '⏳'
+  },
+  2: {
+    title: 'Zona residencial',
+    subtitle: 'Encuentro con el conductor',
+    image: '/assets/popups/residencial.webp',
+    buttonText: 'Detalles',
+    icon: '🏠'
+  },
+  3: {
+    title: 'Parada intermedia',
+    subtitle: 'Ubicación clave',
+    image: '/assets/popups/parada.webp',
+    buttonText: 'Ver parada',
+    icon: '🅿️'
+  },
+  4: {
+    title: 'Destino final',
+    subtitle: 'Llegada al punto de interés',
+    image: '/assets/popups/destino.webp',
+    buttonText: 'Llegada',
+    icon: '🏁'
+  }
+  // Se pueden agregar más waypoints según sea necesario
+};
+
 // ========= MAPAS POR FASE =========
 export const MAPS_CONFIG = {
   mapa_f1: {

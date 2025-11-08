@@ -9,7 +9,7 @@
 // 7. Validación de dimensiones de canvas
 // 8. Spatial index para waypoints
 
-import { GLOBAL_CONFIG, MAPS_CONFIG } from './config.js';
+import { GLOBAL_CONFIG, MAPS_CONFIG, WAYPOINT_POPUPS } from './config.js';
 import { MapManager } from './MapManager.js';
 import { Camera } from './Camera.js';
 import { UIManager } from './UIManager.js';
@@ -748,44 +748,23 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
    * Configuración del botón flotante por waypoint
    */
   function getButtonConfigForWaypoint(index, waypoint) {
-    // Configuraciones por índice de waypoint
-    const configs = {
-      0: {
-        text: 'Ver Ubicación',
-        icon: '📍',
-        onClick: (idx) => {
-          if (window.popupManager) {
-            window.popupManager.openPopup({
-              title: waypoint.label || 'Ubicación',
-              content: waypoint.description || 'Información del punto'
-            });
-          }
-        }
-      },
-      1: {
-        text: 'Galería',
-        icon: '🖼️',
-        badge: { text: '3', color: '#2ecc71' },
-        onClick: (idx) => {
-          console.log('Abriendo galería');
-          // Aquí tu código de galería
-        }
-      },
-      2: {
-        text: 'Ver más',
-        icon: '💡',
-        onClick: (idx) => {
-          console.log('Mostrando información');
-        }
-      }
-    };
+    const meta = WAYPOINT_POPUPS?.[index];
+    if (!meta) return null;
 
-    // Retornar configuración o default
-    return configs[index] || {
-      text: waypoint.label || 'Info',
-      icon: '💡',
-      onClick: (idx) => {
-        console.log('Click en waypoint', idx);
+    const title = meta.title || waypoint?.label || `Waypoint #${index}`;
+    const subtitle = meta.subtitle || '';
+    const image = meta.image || null;
+
+    return {
+      text: meta.buttonText || 'Ver más',
+      icon: meta.icon || '🛈',
+      className: 'waypoint-floating-button info',
+      onClick: () => {
+        window.popupManager?.openPopup({
+          title,
+          description: subtitle,
+          image
+        });
       }
     };
   }
@@ -1841,6 +1820,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     uiManager = new UIManager(mapManager, handlePhaseChange, handleMapChange);
     popupManager = new DetailedPopupManager();
+    // Exponer para que FloatingWaypointButton pueda invocarlo en su onClick
+    window.popupManager = popupManager;
     
     // Initialize floating waypoint button
     const floatingButton = new FloatingWaypointButton();
