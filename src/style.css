@@ -1015,13 +1015,16 @@ html, body {
   pointer-events: none;
   z-index: 33;
 }
-.overlay-root { position: absolute; inset: 0; pointer-events: none; }
-/* Overlay DOM en coordenadas de pantalla */
-.overlay-root { 
-  position: absolute; 
-  inset: 0; 
-  pointer-events: none;
-  z-index: 34; /* Por encima del canvas pero debajo del editor */
+
+/* ===== OVERLAY STYLES ===== */
+.overlay-root {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;  /* Root doesn't intercept clicks; children do */
+  z-index: 34;  /* Above canvas but below editor/UI */
+  touch-action: none;
 }
 
 .overlay-root .overlay-item { 
@@ -1032,31 +1035,29 @@ html, body {
   transition: transform 0.2s ease;
 }
 
-/* Mejor tactilidad para overlays */
+/* Overlay wrap for hotspots */
 .overlay-wrap {
-  /* 🔍 Debug temporal: ver hitboxes */
-  /*outline: 1px dashed rgba(255,255,255,.25);*/
+  position: absolute;
+  touch-action: manipulation;
+  user-select: none;
   -webkit-tap-highlight-color: transparent;
+  will-change: transform;  /* GPU acceleration */
+  transition: transform 0.12s ease;  /* Tactile feedback */
 }
 
 .overlay-item {
-  pointer-events: none; /* el wrapper atiende el gesto */
+  pointer-events: none; /* wrapper handles the gesture */
   user-select: none;
   -webkit-user-drag: none;
 }
 
-/* --- Mobile UX tweaks: tactile feedback & slow-network degradation --- */
-/* Añade una micro-escala al presionar para dar feedback inmediato al dedo. */
-.overlay-wrap {
-  transition: transform 0.12s ease;
-}
-
+/* Mobile UX: tactile feedback */
 .overlay-wrap:active,
 .overlay-wrap.is-pressed {
-  transform: translate(-50%,-50%) scale(0.98) !important;
+  transform: translate(-50%, -50%) scale(0.98) !important;
 }
 
-/* Si detectas una red lenta y añades `net-slow` al <body>, degradamos filtros costosos */
+/* Network optimization for slow connections */
 body.net-slow .popup-backdrop,
 body.net-slow .popup-simple,
 body.net-slow .phase-filter,
@@ -1066,28 +1067,7 @@ body.net-slow .drawer {
   filter: none !important;
 }
 
-/* ===== OVERLAY STYLES ===== */
-.overlay-root {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;  /* Root no intercepta clics; hijos sí */
-  z-index: 34;  /* Sobre canvas, bajo UI/editor */
-}
-
-.overlay-wrap {  /* Clase para wrappers de hotspots */
-  position: absolute;
-  touch-action: manipulation;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  will-change: transform;  /* GPU acceleration */
-  transition: transform 0.12s ease;  /* Feedback táctil */
-}
-
-.overlay-wrap:active {
-  transform: scale(0.98) !important;  /* Efecto press - translate(-50%,-50%) is now handled in JS */
-}
-
-.overlay-item {  /* Para imágenes dentro (si usas) */
+.overlay-item {  /* For images inside (if used) */
   pointer-events: none;
   display: block;
 }
