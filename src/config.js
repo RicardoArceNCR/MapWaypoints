@@ -1429,6 +1429,23 @@ export const GLOBAL_CONFIG = {
     warnThreshold: 0.85       // Alertar cuando use >85% del límite
   },
   
+  // ========= 🛡️ GUARDIANES DE VIEWPORT =========
+  // RANGOS DE VIEWPORT DONDE BLOQUEAMOS/RECORTAMOS PARA NO DEFORMAR
+  VIEWPORT_GUARDS: {
+    desktop: {
+      // Si el ancho lógico cae por debajo de 1183 → forzamos contain+letterbox
+      clampBelowW: 1183,
+      // Corte duro (overflow hidden) si baja más de 900
+      hardCutBelowW: 900
+    },
+    mobile: {
+      // Si la altura lógica baja de 606 → congelamos a 606 y recortamos
+      minH: 606
+    }
+  },
+  // Relación de aspecto base del mapa (si tu base es 1280x720, ajusta)
+  BASE_ASPECT: 1280/720,
+  
   // ========= 🆕 OPTIMIZACIÓN DE WAYPOINTS =========
   WAYPOINT_RENDERING: {
     enableCulling: true,

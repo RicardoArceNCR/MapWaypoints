@@ -11,6 +11,7 @@
 
 import { GLOBAL_CONFIG, MAPS_CONFIG } from './config.js';
 import { MapManager } from './MapManager.js';
+import { Camera } from './Camera.js';
 import { UIManager } from './UIManager.js';
 import { DetailedPopupManager } from './DetailedPopupManager.js';
 import { OverlayLayer } from './OverlayLayer.js';
@@ -88,16 +89,57 @@ function applyViewportCoverage() {
   const wrapper = document.getElementById('mapa-canvas-wrapper');
   if (!wrapper) return;
 
-  const coverage = appConfig.toggles.scale || 1.0; // default 100%
-  const vw = Math.floor(window.innerWidth * coverage);
-  const vh = Math.floor(window.innerHeight * coverage);
+  const coverage = appConfig.toggles.scale || 1.0; // 100% por defecto
+  let vw = Math.floor(window.innerWidth  * coverage);
+  let vh = Math.floor(window.innerHeight * coverage);
+
+  const { VIEWPORT_GUARDS, BASE_ASPECT } = GLOBAL_CONFIG;
+  const isMobile = window.matchMedia('(max-width: 899px)').matches;
+
+  if (!isMobile) {
+    // Desktop: bandas problemáticas
+    if (vw < VIEWPORT_GUARDS.desktop.clampBelowW) {
+      // Mantener aspecto base (contain dentro del viewport), con letterbox
+      const targetW = vw;
+      const targetH = Math.round(targetW / BASE_ASPECT);
+      // Si nos pasamos de alto, rehacemos por alto
+      if (targetH > vh) {
+        const h2 = vh;
+        const w2 = Math.round(h2 * BASE_ASPECT);
+        vw = w2; vh = h2;
+      } else {
+        vw = targetW; vh = targetH;
+      }
+      // Si caemos por debajo del hard cut → recortamos (scroll off)
+      if (vw < VIEWPORT_GUARDS.desktop.hardCutBelowW) {
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+      }
+    } else {
+      // Banda "buena": sin restricciones extra
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+  } else {
+    // Mobile: evita deformación por altura ultra-baja
+    if (vh < VIEWPORT_GUARDS.mobile.minH) {
+      vh = VIEWPORT_GUARDS.mobile.minH; // congelamos alto visible
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+  }
 
   wrapper.style.width  = vw + 'px';
   wrapper.style.height = vh + 'px';
-
-  // fondo + overflow (si te pasas de 100%, evita scroll)
   document.body.style.background = '#000';
-  const over = coverage > 1.0;
+
+  log.info('Viewport coverage →', Math.round(coverage * 100) + '%', { vw, vh });
   document.documentElement.style.overflow = over ? 'hidden' : '';
   document.body.style.overflow = over ? 'hidden' : '';
 
@@ -625,6 +667,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       uiManager.updateThemeColor(phaseColor, phaseColorRgb);
 
       setCanvasDPR();
+      // Extra seguro: si por timing necesitas re-encajar una vez más
+      try {
+        const m = mapManager.currentMap?.config?.mapImage;
+        if (m) window.cameraInstance.fitBaseToViewport(m.logicalW, m.logicalH, 'contain');
+      } catch {}
       goToWaypoint(0);
       markDirty('camera', 'elements', 'dialog', 'minimap');
 
@@ -1484,89 +1531,65 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (!mapManager.currentMap) return;
 
     const mapConfig = mapManager.currentMap.config.mapImage;
-    const isMobile  = mapManager.isMobile;
-
-    const isFullBleed = shellEl?.classList.contains('full-bleed'); // 🆕
-    const rect = wrap.getBoundingClientRect();
-    let canvasW, canvasH;
-
-    // Antes: en desktop usábamos BASE_W/BASE_H → causaba barras.
-    // Ahora: si está full-bleed, usamos el tamaño real del wrapper (como en mobile).
-    if (isMobile || isFullBleed) {
-      canvasW = Math.round(rect.width);
-      canvasH = Math.max(Math.round(rect.height), CANVAS_MIN_HEIGHT);
-    } else {
-      canvasW = BASE_W;
-      canvasH = BASE_H;
-    }
-
-    // Informa al overlay del tamaño visible
-    overlay.resize(canvasW, canvasH);
+    const isMobile = mapManager.isMobile;
+    const isFullBleed = shellEl?.classList.contains('full-bleed');
+    
+    // Usamos el wrapper para obtener las dimensiones reales
+    const wrapper = document.getElementById('mapa-canvas-wrapper');
+    if (!wrapper) return;
+    
+    // Obtener dimensiones del contenedor
+    const rect = wrapper.getBoundingClientRect();
+    let canvasW = Math.round(rect.width);
+    let canvasH = Math.max(Math.round(rect.height), CANVAS_MIN_HEIGHT);
 
     // Ajustar por ratio del mapa en modos responsivos
-    if (mapConfig.logicalW && mapConfig.logicalH) {
+    let displayW = canvasW;
+    let displayH = canvasH;
+    
+    if (mapConfig?.logicalW && mapConfig?.logicalH) {
       const mapRatio = mapConfig.logicalW / mapConfig.logicalH;
       if (isMobile || isFullBleed) {
-        const byWidthH  = canvasW / mapRatio;
+        const byWidthH = canvasW / mapRatio;
         const byHeightW = canvasH * mapRatio;
+        
         if (byWidthH <= canvasH) {
-          canvasH = Math.max(byWidthH, CANVAS_MIN_HEIGHT);
+          displayH = Math.max(byWidthH, CANVAS_MIN_HEIGHT);
+          displayW = canvasW;
         } else {
-          canvasW = Math.max(byHeightW, 320);
+          displayW = Math.max(byHeightW, 320);
+          displayH = canvasH;
         }
       }
     }
 
+    // Validar dimensiones del canvas
     const validation = validateCanvasDimensions(canvasW, canvasH, isMobile);
     canvasW = validation.width;
     canvasH = validation.height;
 
+    // Calcular DPR
     let dpr = Math.min(DPR_MAX, window.devicePixelRatio || 1);
-    if (isMobile && GLOBAL_CONFIG.MOBILE_OPTIMIZATIONS.maxDPR) {
+    if (isMobile && GLOBAL_CONFIG.MOBILE_OPTIMIZATIONS?.maxDPR) {
       dpr = Math.min(dpr, GLOBAL_CONFIG.MOBILE_OPTIMIZATIONS.maxDPR);
     }
 
-    let finalW = Math.round(canvasW * dpr);
-    let finalH = Math.round(canvasH * dpr);
+    // Calcular dimensiones finales
+    const finalW = Math.round(canvasW * dpr);
+    const finalH = Math.round(canvasH * dpr);
 
-    const finalValidation = validateCanvasDimensions(finalW, finalH, isMobile);
-    finalW = finalValidation.width;
-    finalH = finalValidation.height;
-
+    // Aplicar dimensiones al canvas
     canvas.width = finalW;
     canvas.height = finalH;
-
-    // Calcular tamaño manteniendo el aspect ratio del mapa
-    if (mapConfig && (isMobile || isFullBleed)) {
-      const mapRatio = mapConfig.logicalW / mapConfig.logicalH;
-      const containerW = wrap.clientWidth;
-      const containerH = wrap.clientHeight;
-      const containerRatio = containerW / containerH;
-
-      let displayW, displayH;
-      if (containerRatio > mapRatio) {
-        // Contain por alto
-        displayH = containerH;
-        displayW = Math.round(displayH * mapRatio);
-      } else {
-        // Contain por ancho
-        displayW = containerW;
-        displayH = Math.round(displayW / mapRatio);
-      }
-
-      // Aplicar tamaño CSS final y centrar
+    
+    // Establecer estilos según el modo
+    if (isFullBleed) {
       canvas.style.width = displayW + 'px';
       canvas.style.height = displayH + 'px';
       canvas.style.position = 'absolute';
       canvas.style.left = '50%';
       canvas.style.top = '50%';
       canvas.style.transform = 'translate(-50%, -50%)';
-      
-      // Sincronizar con el tamaño lógico visible del canvas
-      if (window.cameraInstance) {
-        window.cameraInstance.setViewport(displayW, displayH);
-      }
-      overlay.resize(displayW, displayH);
     } else {
       // Modo escritorio sin full-bleed
       canvas.style.width = canvasW + 'px';
@@ -1575,27 +1598,46 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       canvas.style.left = '';
       canvas.style.top = '';
       canvas.style.transform = '';
-      
-      // Sincronizar con el tamaño lógico visible del canvas
-      if (window.cameraInstance) {
-        window.cameraInstance.setViewport(canvasW, canvasH);
-      }
-      overlay.resize(canvasW, canvasH);
     }
 
+    // Actualizar el viewport de la cámara
+    if (window.cameraInstance) {
+      window.cameraInstance.setViewport(displayW, displayH);
+      
+      // Ajustar la cámara para que el mapa quepa correctamente
+      try {
+        const m = mapManager.currentMap?.config?.mapImage;
+        if (m?.logicalW && m?.logicalH) {
+          window.cameraInstance.fitBaseToViewport(m.logicalW, m.logicalH, 'contain');
+        }
+      } catch (err) {
+        console.error('Error ajustando cámara:', err);
+      }
+    }
+    
+    // Actualizar el overlay con las mismas dimensiones lógicas
+    if (overlay?.resize) {
+      overlay.resize(displayW, displayH);
+    }
+
+    // Configurar transformación del contexto
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    
+    // Actualizar dimensiones del cuadro de diálogo
     DIALOG_BOX.w = (canvas.width / dpr) - 32;
 
+    // Forzar redibujado
     markDirty('camera', 'elements', 'dialog', 'minimap');
 
+    // Log de depuración si está habilitado
     if (GLOBAL_CONFIG.PERFORMANCE?.logPerformanceStats) {
       console.log('🖼️ Canvas configurado:', {
         logical: `${canvasW}×${canvasH}`,
         physical: `${finalW}×${finalH}`,
         dpr: dpr,
         pixels: (finalW * finalH).toLocaleString(),
-        memory: `~${finalValidation.estimatedMemoryMB.toFixed(2)}MB`,
-        adjusted: finalValidation.adjusted,
+        memory: `~${validation.estimatedMemoryMB?.toFixed(2) || 'N/A'}MB`,
+        adjusted: validation.adjusted || false,
         device: isMobile ? 'mobile' : (isFullBleed ? 'desktop/full-bleed' : 'desktop/card')
       });
     }
@@ -1611,13 +1653,19 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (now - lastResize < RESIZE_THROTTLE) {
       clearTimeout(resizeTO);
       resizeTO = setTimeout(() => { 
+        if (window.cameraInstance) {
+          window.cameraInstance.dirty = true;
+        }
         setCanvasDPR();
         lastResize = performance.now(); 
       }, RESIZE_DEBOUNCE);
       return;
     }
-    clearTimeout(resizeTO);
+    
     resizeTO = setTimeout(() => { 
+      if (window.cameraInstance) {
+        window.cameraInstance.dirty = true;
+      }
       setCanvasDPR();
       lastResize = performance.now(); 
     }, RESIZE_DEBOUNCE);
@@ -1728,6 +1776,16 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   drawerBackdrop.addEventListener('click', () => uiManager.closeDrawer());
 
   // ========= INICIO =========
+  // Initialize camera instance
+  const cameraInstance = new Camera({ 
+    x: 0, 
+    y: 0, 
+    z: 1, 
+    viewportW: wrap.clientWidth, 
+    viewportH: wrap.clientHeight 
+  });
+  window.cameraInstance = cameraInstance; // Make it globally available for debugging
+
   (async function start() {
     // 🆕 Activamos el modo controlado por código
     document.querySelector('.novela')?.classList.add('full-bleed');

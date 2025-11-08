@@ -2,6 +2,25 @@
 /* MAPA INTERACTIVO MULTI-FASE - Estilos completos */
 /* ========================================================= */
 /* ========================================================= */
+/* LAYOUT BASE */
+/* ========================================================= */
+.novela.full-bleed { 
+  position: relative; 
+  overflow: hidden; 
+  background: #000; 
+}
+
+#mapa-canvas-wrapper { 
+  position: relative; 
+  margin: 0 auto; 
+  overflow: hidden; 
+}
+
+#mapa-canvas { 
+  display: block; 
+}
+
+/* ========================================================= */
 /* FUENTES LOCALES */
 /* ========================================================= */
 
