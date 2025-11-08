@@ -1199,41 +1199,87 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       window.hotspotData.forEach((hotspot, index) => {
         if (!hotspot || !hotspot.coords) return;
         
-        const { xp, yp, width = 50, height = 50 } = hotspot.coords;
-        const worldX = xp * (mapManager.currentMap?.config.mapImage.logicalW || 2858);
-        const worldY = yp * (mapManager.currentMap?.config.mapImage.logicalH || 2858);
+        // ✅ MEJORA 1: Soportar coordenadas normalizadas (wp/hp) y fijas (width/height)
+        const { 
+          xp, yp,                           // Posición normalizada (siempre presente)
+          wp, hp,                           // Tamaño normalizado (opcional, preferido)
+          width: fixedWidth,                // Tamaño fijo en píxeles (fallback)
+          height: fixedHeight 
+        } = hotspot.coords;
         
-        // Only render hotspots that are in the current viewport
+        // Obtener dimensiones lógicas del mapa
+        const mapW = mapManager.currentMap?.config.mapImage.logicalW || 2858;
+        const mapH = mapManager.currentMap?.config.mapImage.logicalH || 2858;
+        
+        // ✅ MEJORA 2: Calcular dimensiones en world space
+        // Si hay wp/hp (normalizado), usarlo. Si no, convertir width/height a normalizado.
+        let worldWidth, worldHeight;
+        
+        if (wp !== undefined && hp !== undefined) {
+          // Caso 1: Coordenadas normalizadas (recomendado)
+          worldWidth = wp * mapW;
+          worldHeight = hp * mapH;
+        } else if (fixedWidth !== undefined && fixedHeight !== undefined) {
+          // Caso 2: Tamaño fijo - convertir a world space manteniendo aspect ratio
+          worldWidth = fixedWidth;
+          worldHeight = fixedHeight;
+        } else {
+          // Caso 3: Fallback a valor por defecto
+          worldWidth = 50;
+          worldHeight = 50;
+        }
+        
+        // Posición absoluta en world space
+        const worldX = xp * mapW;
+        const worldY = yp * mapH;
+        
+        // ✅ MEJORA 3: Culling con dimensiones correctas en world space
         const viewW = canvasLogicalW / camera.z;
         const viewH = canvasLogicalH / camera.z;
-        const viewX = camera.x - viewW/2 - width/2;
-        const viewY = camera.y - viewH/2 - height/2;
+        const viewX = camera.x - viewW/2;
+        const viewY = camera.y - viewH/2;
         
-        if (worldX + width < viewX || 
-            worldX > viewX + viewW + width || 
-            worldY + height < viewY || 
-            worldY > viewY + viewH + height) {
+        // Culling más preciso usando las dimensiones reales del hotspot
+        const halfWorldW = worldWidth / 2;
+        const halfWorldH = worldHeight / 2;
+        
+        if (worldX + halfWorldW < viewX || 
+            worldX - halfWorldW > viewX + viewW || 
+            worldY + halfWorldH < viewY || 
+            worldY - halfWorldH > viewY + viewH) {
           return; // Skip off-screen hotspots
         }
         
-        const isActive = appConfig.editorActive && editor?.selectedItem?.index === index;
-        const baseSize = width || (GLOBAL_CONFIG.ICON_SIZE || 36);
-        const minTapSize = 56; // Standard minimum touch target size
+        // ✅ MEJORA 4: Calcular tamaño en pantalla basado en zoom actual
+        // Esto asegura que el hotspot escale proporcionalmente con el mapa
+        const screenWidth = worldWidth * camera.z;
+        const screenHeight = worldHeight * camera.z;
         
+        // ✅ MEJORA 5: Aplicar mínimo táctil solo si es necesario
+        const minTapSize = mapManager.isMobile ? 56 : 48;
+        
+        // Usar el mayor entre el tamaño calculado y el mínimo táctil
+        const finalWidth = Math.max(screenWidth, minTapSize);
+        const finalHeight = Math.max(screenHeight, minTapSize);
+        
+        // Estado de selección (para editor)
+        const isActive = appConfig.editorActive && editor?.selectedItem?.index === index;
+        
+        // ✅ MEJORA 6: Upsert con dimensiones dinámicas
         overlay.upsert({
           key: `hotspot_${index}`,
           src: hotspot.src || '/default-icon.png',
-          worldX: worldX + width/2, // Center the hotspot
-          worldY: worldY + height/2,
+          worldX: worldX,                   // Centro en world coords (ya centrado por config)
+          worldY: worldY,
           rotationDeg: hotspot.rotation || 0,
-          lockWidthPx: Math.max(baseSize, minTapSize),
+          lockWidthPx: finalWidth,          // ✅ Responde al zoom de cámara
           z: hotspot.z || 2,
           meta: {
-            shape: 'rect',
+            shape: hotspot.shape || 'rect',
             compact: !mapManager.isMobile,
             hitSlop: 6,
             minTap: minTapSize,
-            visualH: height,
+            visualH: finalHeight,           // ✅ Mantiene aspect ratio correcto
             title: hotspot.title || `Hotspot ${index}`,
             hotspot: hotspot,
             isHotspot: true,
