@@ -1880,7 +1880,17 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     overlay.beginFrame();
 
     let breathOffsetY = 0, breathOffsetZ = 0;
-  if (GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled && !appConfig.editorActive) {
+
+    // 🔧 NUEVO: Condicional inteligente de breathing
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    const isTransitioning = transitionState.active;
+
+    const shouldBreathe = GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled &&
+                          !appConfig.editorActive &&
+                          (!isMobile || GLOBAL_CONFIG.CAMERA_EFFECTS.breathingMobileEnabled) &&
+                          (!isTransitioning || !GLOBAL_CONFIG.CAMERA_EFFECTS.disableBreathingDuringTransition);
+
+    if (shouldBreathe) {
       const breath = Math.sin(ts * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingSpeed);
       breathOffsetY = breath * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingAmount;
       breathOffsetZ = breath * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingZAmount;
