@@ -16,6 +16,31 @@
   overflow: hidden; 
 }
 
+/* ========================================================= */
+/* TOGGLES DE APLICACIÓN */
+/* ========================================================= */
+/* Overlays OFF de forma segura (no quita nodos) */
+[data-overlays="0"] #overlay-layer,
+[data-overlays="0"] .overlay-layer {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Silenciar tags que interfieren con hotspots cuando mute=1 */
+[data-mute="1"] a,
+[data-mute="1"] button,
+[data-mute="1"] .ui,
+[data-mute="1"] .floating,
+[data-mute="1"] .debug-controls {
+  pointer-events: none !important;
+}
+
+/* Si también quieres silenciar clics sobre la capa overlay cuando mute=1 */
+[data-mute="1"] #overlay-layer,
+[data-mute="1"] .overlay-layer {
+  pointer-events: none !important;
+}
+
 #mapa-canvas { 
   display: block; 
 }
