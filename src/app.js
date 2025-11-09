@@ -1614,77 +1614,139 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (['ArrowLeft', 'Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
   });
 
+  // ====== INTERACCIÓN CANVAS (tap seguro y long-press para avanzar) ======
+  let __pressTimer = null;
+  let __pressStart = 0;
+  let __pressMoved = false;
+  let __pressStartXY = {x:0,y:0};
+  const __LONG_PRESS_MS = 2000; // 2s para avanzar
+  const __MOVE_CANCEL_PX = 8;   // tolerancia de movimiento
+  let __lastOverlayTapAt = 0;
+
+  // Escucha cuando overlay lanza click para ignorar rebotes
+  overlay.root.addEventListener('overlay:click', () => {
+    __lastOverlayTapAt = performance.now();
+  }, { passive: true });
+
+  function __cancelPressTimer(){
+    if (__pressTimer){ 
+      clearTimeout(__pressTimer); 
+      __pressTimer = null; 
+    }
+  }
+  
+  function __startPressTimer() {
+    __cancelPressTimer();
+    __pressStart = performance.now();
+    __pressMoved = false;
+    __pressTimer = setTimeout(() => {
+      // Si pasaron 2s, avanzamos (sólo si no hubo movimiento ni overlay click cercano)
+      const now = performance.now();
+      const isMobile = window.matchMedia('(max-width: 899px)').matches;
+      if (isMobile && !__pressMoved && (now - __lastOverlayTapAt > 250)) {
+        showFullLineOrNext();
+      }
+      __cancelPressTimer();
+    }, __LONG_PRESS_MS);
+  }
+
+  // Usamos pointer events para cubrir mouse/touch/pen
+  canvas.addEventListener('pointerdown', (e) => {
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    if (!isMobile) return; // desktop conserva flujo actual de click
+    if (appConfig.editorActive) return;
+    if (e.target !== canvas) return;
+    __pressStartXY = { x: e.clientX, y: e.clientY };
+    __startPressTimer();
+  }, { passive: true });
+
+  canvas.addEventListener('pointermove', (e) => {
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    if (!isMobile || !__pressTimer) return;
+    const dx = e.clientX - __pressStartXY.x;
+    const dy = e.clientY - __pressStartXY.y;
+    if ((dx*dx + dy*dy) > (__MOVE_CANCEL_PX*__MOVE_CANCEL_PX)) {
+      __pressMoved = true;
+      __cancelPressTimer();
+    }
+  }, { passive: true });
+
+  canvas.addEventListener('pointerup', () => {
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    if (!isMobile) return;
+    __cancelPressTimer();
+  }, { passive: true });
+
+  // Mantener click/mousedown para desktop y para hits sobre hotspots
   canvas.addEventListener('mousedown', (e) => {
-  // 🔧 FIX 1: Ignorar clicks recientes en hotspots
-  if (window.__lastHotspotClickTime && 
-      performance.now() - window.__lastHotspotClickTime < 300) {
-    console.log('🚫 Click ignorado - hotspot clickeado recientemente');
-    return;
-  }
-  
-  // 🔧 FIX 2: Verificar que el click sea directamente en el canvas
-  if (e.target !== canvas) {
-    console.log('🚫 Click ignorado - origen no es el canvas');
-    return;
-  }
-  
-  if (appConfig.editorActive) { 
-    console.log('🎨 Editor activo - evento bloqueado'); 
-    return; 
-  }
-  
-  const { x, y } = clientToMapCoords(e.clientX, e.clientY);
-  const items = state.currentIcons[state.idx] || [];
-  
-  // Verificar clicks en items (código existente)
-  for (const item of items) {
-    const type = item.type || 'icon';
-    const width = item.width || ICON_SIZE;
-    const height = item.height || ICON_SIZE;
-    const sqrtZ = getCachedSqrt(camera.z);
-    const displayWidth = width / sqrtZ;
-    const displayHeight = height / sqrtZ;
-    let isHit = false;
-    
-    if (type === 'icon') {
-      const dx = x - item.x; 
-      const dy = y - item.y;
-      const clickRadius = ICON_R; 
-      isHit = (dx * dx + dy * dy) <= (clickRadius * clickRadius);
-    } else if (type === 'hotspot' || type === 'image') {
-      const halfW = displayWidth * 0.5; 
-      const halfH = displayHeight * 0.5;
-      isHit = (x >= item.x - halfW && x <= item.x + halfW && 
-               y >= item.y - halfH && y <= item.y + halfH);
+    // 🔧 FIX 1: Ignorar clicks recientes en hotspots
+    if (window.__lastHotspotClickTime && 
+        performance.now() - window.__lastHotspotClickTime < 300) {
+      console.log('🚫 Click ignorado - hotspot clickeado recientemente');
+      return;
     }
     
-    if (isHit) { 
-      openPopup(item); 
+    // 🔧 FIX 2: Verificar que el click sea directamente en el canvas
+    if (e.target !== canvas) {
+      console.log('🚫 Click ignorado - origen no es el canvas');
+      return;
+    }
+    
+    if (appConfig.editorActive) { 
+      console.log('🎨 Editor activo - evento bloqueado'); 
       return; 
     }
-  }
-  
-  // Verificar clicks en waypoints (código existente)
-  for (let i = 0; i < state.currentWaypoints.length; i++) {
-    const wp = state.currentWaypoints[i];
-    const dx = x - wp.x; 
-    const dy = y - wp.y;
-    if (dx * dx + dy * dy <= MARKER_R * MARKER_R) { 
-      goToWaypoint(i); 
-      return; 
+    
+    const { x, y } = clientToMapCoords(e.clientX, e.clientY);
+    const items = state.currentIcons[state.idx] || [];
+    
+    // Verificar clicks en items (código existente)
+    for (const item of items) {
+      const type = item.type || 'icon';
+      const width = item.width || ICON_SIZE;
+      const height = item.height || ICON_SIZE;
+      const sqrtZ = getCachedSqrt(camera.z);
+      const displayWidth = width / sqrtZ;
+      const displayHeight = height / sqrtZ;
+      let isHit = false;
+      
+      if (type === 'icon') {
+        const dx = x - item.x; 
+        const dy = y - item.y;
+        const clickRadius = ICON_R; 
+        isHit = (dx * dx + dy * dy) <= (clickRadius * clickRadius);
+      } else if (type === 'hotspot' || type === 'image') {
+        const halfW = displayWidth * 0.5; 
+        const halfH = displayHeight * 0.5;
+        isHit = (x >= item.x - halfW && x <= item.x + halfW && 
+                 y >= item.y - halfH && y <= item.y + halfH);
+      }
+      
+      if (isHit) { 
+        openPopup(item); 
+        return; 
+      }
     }
-  }
-  
-  // 🔧 FIX 3: Solo avanzar si NO estamos en waypoints problemáticos
-  const isMobile = window.matchMedia('(max-width: 899px)').matches;
-  const isProblematicWaypoint = isMobile && [1, 2].includes(state.idx);
-  
-  if (!isProblematicWaypoint) {
-    showFullLineOrNext();
-  } else {
-    console.log('⚠️ Click en área problemática ignorado');
-  }
-}, { passive: false });
+    
+    // Verificar clicks en waypoints (código existente)
+    for (let i = 0; i < state.currentWaypoints.length; i++) {
+      const wp = state.currentWaypoints[i];
+      const dx = x - wp.x; 
+      const dy = y - wp.y;
+      if (dx * dx + dy * dy <= MARKER_R * MARKER_R) { 
+        goToWaypoint(i); 
+        return; 
+      }
+    }
+    
+    // Desktop: permitir avanzar con click vacío; Mobile: NO (usa long-press)
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    if (!isMobile) { 
+      showFullLineOrNext(); 
+    } else { 
+      console.log('🛑 Tap simple en mobile no avanza. Usa long-press (2s).'); 
+    }
+  }, { passive: false });
 
   function clientToMapCoords(cx, cy) {
     if (!mapManager.currentMap) return { x: 0, y: 0 };
