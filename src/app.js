@@ -420,7 +420,8 @@ let memoryMonitor = new MemoryMonitor();
     if (lastOverlayClick.time && now - lastOverlayClick.time < 250) return;
 
     try {
-      const R = 24; // radio de perdón en px
+      const isMobile = window.matchMedia('(max-width: 899px)').matches;
+      const R = isMobile ? 0 : 24; // mobile: sin snap para evitar taps fantasma
       const clientX = ev.clientX;
       const clientY = ev.clientY;
       let best = null;
