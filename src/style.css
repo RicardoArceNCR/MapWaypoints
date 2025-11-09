@@ -1036,6 +1036,12 @@ html, body {
 }
 
 /* ===== OVERLAY STYLES ===== */
+/* Ocultar overlayers por clase en <body> (opcional) */
+body.overlays-hidden #overlay-layer {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 .overlay-root {
   position: absolute;
   inset: 0;

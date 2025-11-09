@@ -12,6 +12,7 @@ export class OverlayLayer {
     this.frameLiveKeys = new Set();
     this.lastDims = { w: 0, h: 0 };
     this.device = 'mobile';
+    this._visible = true; // New: visible/hidden state
 
     // 🆕 Target táctil mínimo
     this.touchTargetMin = window.matchMedia('(max-width: 899px)').matches ? 56 : 40;
@@ -23,8 +24,34 @@ export class OverlayLayer {
   resize(w, h) { this.lastDims = { w, h }; }
   setDevice(device) { this.device = device; } // 'mobile' | 'desktop'
 
+  /**
+   * Oculta/muestra toda la capa sin desmontar elementos
+   * @param {boolean} show - true para mostrar, false para ocultar
+   */
+  setVisible(show) {
+    this._visible = !!show;
+    if (!this.root) return;
+    if (this._visible) {
+      this.root.style.visibility = 'visible';
+      this.root.style.pointerEvents = '';     // respeta reglas existentes
+      this.root.removeAttribute('aria-hidden');
+    } else {
+      this.root.style.visibility = 'hidden';  // no participa en layout
+      this.root.style.pointerEvents = 'none'; // sin interacción
+      this.root.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  /**
+   * Verifica si la capa está visible
+   * @returns {boolean} true si la capa está visible
+   */
+  isVisible() { return !!this._visible; }
+
   beginFrame() {
     this.frameLiveKeys.clear();
+    // Si está oculto, no hagas trabajo de frame (pero mantiene estado)
+    if (!this._visible) return;
   }
 
   /**
