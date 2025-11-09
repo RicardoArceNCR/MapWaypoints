@@ -9,7 +9,7 @@
 // 7. Validación de dimensiones de canvas
 // 8. Spatial index para waypoints
 
-import { GLOBAL_CONFIG, MAPS_CONFIG, WAYPOINT_POPUPS } from './config.js';
+import { GLOBAL_CONFIG, MAPS_CONFIG } from './config.js';
 import { MapManager } from './MapManager.js';
 import { Camera } from './Camera.js';
 import { UIManager } from './UIManager.js';
@@ -748,23 +748,91 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
    * Configuración del botón flotante por waypoint
    */
   function getButtonConfigForWaypoint(index, waypoint) {
-    const meta = WAYPOINT_POPUPS?.[index];
-    if (!meta) return null;
+    // 1) Si el waypoint define botón propio, úsalo
+    if (waypoint && waypoint.button) {
+      const { text = (waypoint.label || 'Info'), icon = '💡', className, badge, style, popup } = waypoint.button;
+      return {
+        text, 
+        icon, 
+        className, 
+        badge, 
+        style,
+        onClick: () => {
+          if (!window.popupManager) return;
+          // Mapear "subtitle" a "description" para el popup detallado
+          const payload = popup ? {
+            title: popup.title || text,
+            image: popup.image,
+            description: popup.subtitle || popup.description || '',
+            // Campos opcionales que tu manager ya entiende:
+            datetime: popup.datetime,
+            location: popup.location
+          } : {
+            title: text,
+            description: waypoint.description || ''
+          };
+          window.popupManager.openPopup(payload);
+        }
+      };
+    }
 
-    const title = meta.title || waypoint?.label || `Waypoint #${index}`;
-    const subtitle = meta.subtitle || '';
-    const image = meta.image || null;
+    // 2) Fallbacks existentes por índice (tu lógica actual)
+    const configs = {
+      0: {
+        text: 'Ver Ubicación',
+        icon: '📍',
+        onClick: (idx) => {
+          if (window.popupManager) {
+            window.popupManager.openPopup({
+              title: waypoint.label || 'Ubicación',
+              // enviamos ambos campos por compatibilidad con openSimplePopup (body) y el uso previo (content)
+              content: waypoint.description || 'Información del punto',
+              body: waypoint.description || 'Información del punto'
+            });
+          }
+        }
+      },
+      1: {
+        text: 'Galería',
+        icon: '🖼️',
+        badge: { text: '3', color: '#2ecc71' },
+        onClick: (idx) => {
+          if (window.popupManager) {
+            window.popupManager.openPopup({
+              title: waypoint.label ? `Galería — ${waypoint.label}` : 'Galería',
+              content: 'Galería genérica de este punto. Luego puedes reemplazar este texto por la galería real.',
+              body: 'Galería genérica de este punto. Luego puedes reemplazar este texto por la galería real.'
+            });
+          }
+        }
+      },
+      2: {
+        text: 'Ver más',
+        icon: '💡',
+        onClick: (idx) => {
+          if (window.popupManager) {
+            window.popupManager.openPopup({
+              title: waypoint.label ? `Más información — ${waypoint.label}` : 'Más información',
+              content: 'Contenido genérico con detalles adicionales del waypoint. Cámbialo cuando tengas el texto final.',
+              body: 'Contenido genérico con detalles adicionales del waypoint. Cámbialo cuando tengas el texto final.'
+            });
+          }
+        }
+      }
+    };
 
-    return {
-      text: meta.buttonText || 'Ver más',
-      icon: meta.icon || '🛈',
-      className: 'waypoint-floating-button info',
-      onClick: () => {
-        window.popupManager?.openPopup({
-          title,
-          description: subtitle,
-          image
-        });
+    // Retornar configuración o default
+    return configs[index] || {
+      text: waypoint?.label ? `Info — ${waypoint.label}` : 'Info',
+      icon: '💡',
+      onClick: (idx) => {
+        if (window.popupManager) {
+          window.popupManager.openPopup({
+            title: waypoint?.label || 'Información',
+            content: 'Contenido genérico del waypoint. Puedes personalizarlo por índice o vía config.',
+            body: 'Contenido genérico del waypoint. Puedes personalizarlo por índice o vía config.'
+          });
+        }
       }
     };
   }
@@ -1820,8 +1888,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     uiManager = new UIManager(mapManager, handlePhaseChange, handleMapChange);
     popupManager = new DetailedPopupManager();
-    // Exponer para que FloatingWaypointButton pueda invocarlo en su onClick
-    window.popupManager = popupManager;
+    window.popupManager = popupManager; // Expose globally for button access
     
     // Initialize floating waypoint button
     const floatingButton = new FloatingWaypointButton();
