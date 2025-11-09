@@ -17,6 +17,27 @@ import { DetailedPopupManager } from './DetailedPopupManager.js';
 import { OverlayLayer } from './OverlayLayer.js';
 import { FloatingWaypointButton } from './FloatingWaypointButton.js';
 
+// ---- toggles seguros por atributo de body (no invasivos) ----
+const __qs = new URLSearchParams(location.search);
+const __getBool = (k) => __qs.get(k) === '1';
+
+// overlays: en prod => OFF por defecto si no hay query
+let __ov = null;
+if (__qs.has('overlays')) {
+  __ov = __getBool('overlays');
+} else if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PROD) {
+  __ov = false; // prod default OFF si no especificas
+}
+if (__ov !== null) {
+  document.body.dataset.overlays = __ov ? '1' : '0';
+}
+
+// mute: solo si lo piden
+if (__qs.has('mute')) {
+  document.body.dataset.mute = __getBool('mute') ? '1' : '0';
+}
+// --------------------------------------------------------------
+
 // Helper simple para mostrar errores al usuario
 function showError(message) {
   try {
