@@ -312,14 +312,14 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -81, offsetY: -176, width: 85, height: 85, rotation: 0, radius: 30 },
+          mobile: { offsetX: -81, offsetY: -290, width: 120, height: 120, rotation: 0, radius: 30 },
           desktop: { offsetX: 241, offsetY: -61, width: 397, height: 228, rotation: 25, radius: 10  },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -130, offsetY: 600, width: 120, height: 120, rotation: 0, radius: 20},
+          mobile: { offsetX: -130, offsetY: 650, width: 120, height: 120, rotation: 0, radius: 20},
           desktop: { offsetX: -111, offsetY: 143, width: 149, height: 153, rotation: 0, radius: 10},
           title: 'Contexto Geográfico',
           body: 'Ubicación específica y detalles del entorno. Características del lugar que influyen en los acontecimientos.'
@@ -328,21 +328,21 @@ export const MAPS_CONFIG = {
       1: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Evolución del Personaje',
           body: 'Cómo ha cambiado el protagonista desde el inicio. Nuevas perspectivas y aprendizajes adquiridos.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 60, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Nuevos Encuentros',
           body: 'Personas que aparecen en este punto central. Su papel en el desarrollo de los eventos.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: 80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Elementos Descubiertos',
           body: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.'
@@ -350,7 +350,7 @@ export const MAPS_CONFIG = {
         { 
           type: 'hotspot',
           img: './assets/icon-info.png',
-          mobile: { offsetX: 60, offsetY: 80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Zona Estratégica',
           body: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.'
