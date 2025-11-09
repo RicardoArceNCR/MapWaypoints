@@ -179,7 +179,10 @@ export class OverlayLayer {
 
       // Skip if outside viewport bounds (if camera supports it)
       if (viewportBounds) {
-        const margin = 500 / camera.z;
+        const isMobile = window.matchMedia('(max-width: 899px)').matches;
+        const baseMargin = isMobile ? 300 : 500; // ← Reducir en mobile
+        const zoomFactor = Math.max(0.5, Math.min(2, camera.z)); // ← Limitar
+        const margin = baseMargin / zoomFactor; // ← Ajustar según zoom
         if (rec.worldX < viewportBounds.minX - margin ||
             rec.worldX > viewportBounds.maxX + margin ||
             rec.worldY < viewportBounds.minY - margin ||

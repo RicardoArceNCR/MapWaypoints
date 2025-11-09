@@ -2046,3 +2046,30 @@ if (appConfig.toggles.debug) {
   const mem = safeMemory();
   if (mem) log.info('Mem MB', Math.round(mem.usedJSHeapSize / 1048576));
 }
+
+// 🔧 SISTEMA DE DEBUGGING TEMPORAL
+if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+  let clickLog = [];
+  const maxLogSize = 10;
+  
+  document.addEventListener('click', (e) => {
+    const entry = {
+      time: performance.now(),
+      target: e.target.tagName,
+      class: e.target.className,
+      waypoint: state?.idx,
+      coords: { x: e.clientX, y: e.clientY }
+    };
+    
+    clickLog.push(entry);
+    if (clickLog.length > maxLogSize) clickLog.shift();
+    
+    console.log('🖱️ Click detectado:', entry);
+    console.log('📊 Últimos clicks:', clickLog.map(c => 
+      `${c.target} @ wp${c.waypoint} [${c.coords.x},${c.coords.y}]` 
+    ));
+  }, true);
+  
+  console.log('%c🛡️ Sistema de monitoreo de clicks activado', 
+              'background: #4CAF50; color: white; padding: 4px;');
+}
