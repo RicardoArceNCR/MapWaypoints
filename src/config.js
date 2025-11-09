@@ -1523,7 +1523,7 @@ export const GLOBAL_CONFIG = {
 
   
   // ========= MODO DEBUG MEJORADO =========
-  DEBUG_HOTSPOTS: true,              // Visualizar áreas invisibles (hotspots)
+  DEBUG_HOTSPOTS: false,              // Visualizar áreas invisibles (hotspots)
   SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: true,           // Mostrar coordenadas en cada área
