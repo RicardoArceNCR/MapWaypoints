@@ -163,10 +163,6 @@ function applyViewportCoverage() {
   document.body.style.background = '#000';
 
   log.info('Viewport coverage →', Math.round(coverage * 100) + '%', { vw, vh });
-  document.documentElement.style.overflow = over ? 'hidden' : '';
-  document.body.style.overflow = over ? 'hidden' : '';
-
-  log.info('Viewport coverage →', Math.round(coverage * 100) + '%', { vw, vh });
 }
 
 // API mínima por si prefieres controlarlo desde código

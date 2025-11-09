@@ -126,7 +126,7 @@ export const MAPS_CONFIG = {
       0: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: 33, offsetY: 21, width: 290, height: 176, rotation: 0 },
+          mobile: { offsetX: 33, offsetY: -25, width: 290, height: 176, rotation: 0 },
           desktop: { offsetX: -464, offsetY: -55, width: 397, height: 218, rotation: -10 },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
@@ -312,7 +312,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -81, offsetY: -290, width: 120, height: 120, rotation: 0, radius: 30 },
+          mobile: { offsetX: -81, offsetY: -320, width: 120, height: 120, rotation: 0, radius: 30 },
           desktop: { offsetX: 241, offsetY: -61, width: 397, height: 228, rotation: 25, radius: 10  },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
@@ -328,7 +328,7 @@ export const MAPS_CONFIG = {
       1: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Evolución del Personaje',
           body: 'Cómo ha cambiado el protagonista desde el inicio. Nuevas perspectivas y aprendizajes adquiridos.'
@@ -1441,16 +1441,19 @@ export const GLOBAL_CONFIG = {
   // ========= EFECTOS DE CÁMARA =========
   CAMERA_EFFECTS: {
     // Movimiento sutil constante (breathing)
-    breathingEnabled: false,
+    breathingEnabled: true,
+    breathingMobileEnabled: false, // Deshabilitar breathing en mobile
     breathingAmount: 9.5,        // Píxeles de movimiento en Y
     breathingSpeed: 0.0009,      // Velocidad de oscilación (más bajo = más lento)
     breathingZAmount: 0.0009,    // Cambio sutil en zoom
+    
     
     // Transición cinemática entre waypoints
     transitionEnabled: true,
     transitionDuration: 1200,    // Milisegundos
     transitionZoomOut: 0.25,     // Cuánto hacer zoom out (0.25 = -25% del zoom actual)
     transitionEasing: 'ease-in-out', // 'linear', 'ease-in', 'ease-out', 'ease-in-out'
+    disableBreathingDuringTransition: true // Deshabilitar breathing durante transiciones
   },
   
   // ========= 🆕 LÍMITES DE CANVAS OPTIMIZADOS =========
@@ -1523,7 +1526,7 @@ export const GLOBAL_CONFIG = {
 
   
   // ========= MODO DEBUG MEJORADO =========
-  DEBUG_HOTSPOTS: false,              // Visualizar áreas invisibles (hotspots)
+  DEBUG_HOTSPOTS: true,              // Visualizar áreas invisibles (hotspots)
   SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: true,           // Mostrar coordenadas en cada área
