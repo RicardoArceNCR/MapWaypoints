@@ -86,7 +86,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -95,7 +95,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: -0.020 },
+        mobile: { xp: 0.82, yp: 0.800, z: 0.30 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -104,7 +104,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
@@ -113,7 +113,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.725, yp: 1.25, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [
@@ -540,7 +540,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -549,7 +549,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: -0.020 },
+        mobile: { xp: 0.82, yp: 0.800, z: 0.30 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -558,7 +558,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
@@ -567,7 +567,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.725, yp: 1.25, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [
@@ -994,7 +994,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -1003,7 +1003,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: -0.020 },
+        mobile: { xp: 0.82, yp: 0.800, z: 0.30 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -1012,7 +1012,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
@@ -1021,7 +1021,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.725, yp: 1.25, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [

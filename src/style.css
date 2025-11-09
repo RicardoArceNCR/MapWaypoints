@@ -1242,3 +1242,36 @@ body.net-slow .drawer {
     transition: opacity 0.1s ease;
   }
 }
+/* ========= 🔧 MOBILE FIXES - TOUCH PROTECTION ========= */
+
+.overlay-wrap {
+  touch-action: none !important; 
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+#mapa-canvas {
+  touch-action: pan-x pan-y pinch-zoom;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.overlay-wrap.debug-hotspot {
+  pointer-events: auto !important;
+}
+
+.overlay-wrap[style*="display: none"],
+.overlay-wrap[style*="pointer-events: none"] {
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+@media (max-width: 899px) {
+  .overlay-wrap:active {
+    opacity: 0.85;
+    transition: opacity 0.1s ease;
+  }
+}
