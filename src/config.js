@@ -1441,7 +1441,7 @@ export const GLOBAL_CONFIG = {
   // ========= EFECTOS DE CÁMARA =========
   CAMERA_EFFECTS: {
     // Movimiento sutil constante (breathing)
-    breathingEnabled: true,
+    breathingEnabled: false,
     breathingMobileEnabled: false, // Deshabilitar breathing en mobile
     breathingAmount: 9.5,        // Píxeles de movimiento en Y
     breathingSpeed: 0.0009,      // Velocidad de oscilación (más bajo = más lento)
