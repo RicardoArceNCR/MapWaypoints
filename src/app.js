@@ -1477,6 +1477,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     
     // Render regular waypoint icons
     const iconsForWaypoint = state.currentIcons[state.idx] || [];
+    const isMobile = mapManager.isMobile;
+
     iconsForWaypoint.forEach((icon, i) => {
       // Skip if this is a hotspot (already handled)
       if (icon.isHotspot) return;
@@ -1489,7 +1491,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       // 📏 Tamaños mínimos táctiles
       const isCard = icon.type === 'card' || icon.type === 'label' || icon.type === 'pill';
       const baseSize = icon.width || (GLOBAL_CONFIG.ICON_SIZE || 36);
-      const minTapSize = isCard ? 48 : 56; // cards pueden ser algo más pequeñas
+      const minTapSize = isMobile ? GLOBAL_CONFIG.TOUCH.mobileMin : 0; // Usar configuración global
 
       overlay.upsert({
         key: `waypoint_${state.idx}:${i}`,
@@ -1503,11 +1505,15 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           // 🔑 Auto-detección inteligente de forma
           shape: icon.shape || (shouldBeRound ? 'circle' : 'rect'),
           
-          // 🎯 Control preciso del hitbox
-          compact: icon.compact ?? (!mapManager.isMobile && !isCard), // compacto en desktop excepto cards
+          // 🎯 Control preciso del hitbox - Compacto en mobile para waypoints 1 y 2
+          compact: icon.compact ?? (
+            isMobile && [1, 2].includes(state.idx) ? true : (!isMobile && !isCard)
+          ),
           
-          // 🧤 Margen extra según tipo
-          hitSlop: icon.hitSlop ?? (shouldBeRound ? 8 : 6),
+          // 🧤 Margen reducido en waypoints problemáticos
+          hitSlop: icon.hitSlop ?? (
+            isMobile && [1, 2].includes(state.idx) ? 4 : (shouldBeRound ? 8 : 6)
+          ),
           
           // 📏 Mínimo táctil según contexto (solo si no es compacto)
           minTap: icon.minTap ?? minTapSize,
@@ -1517,10 +1523,22 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
           // Metadata para popups
           title: icon.title,
-          hotspot: icon.hotspotData
+          hotspot: icon.hotspotData,
+          
+          // ✅ NUEVO: Agregar índice de waypoint para culling
+          waypointIndex: state.idx
         }
       });
     });
+
+    // ✅ OPCIONAL: Agregar logging para verificar el fix
+    if (GLOBAL_CONFIG.DEBUG_HOTSPOTS && iconsForWaypoint.length > 0) {
+      console.log(
+        `%c🎯 Waypoint ${state.idx}: ${iconsForWaypoint.length} hotspots`,
+        'color: #2ecc71; font-weight: bold',
+        `(compact: ${isMobile && [1, 2].includes(state.idx)}, mobile: ${isMobile})` 
+      );
+    }
 
     // Dibuja el mapa y elementos
     ctx.fillStyle = RENDER_CONSTANTS.BLACK_BG;
@@ -1895,7 +1913,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
       const canvasLogicalW = canvas.width / dpr;
       const canvasLogicalH = canvas.height / dpr;
-      overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
+      overlay.endFrame(camera, canvasLogicalW, canvasLogicalH, state.idx);
       clearDirtyFlags(); 
     } else { 
       performanceStats.skippedFrames++; 
