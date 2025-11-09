@@ -1523,10 +1523,6 @@ export const GLOBAL_CONFIG = {
   desktop: { lockItemWidthToScreenPx: false }  // desktop se mantiene igual
 },
 
-  
-  // ========= MODO DEBUG MEJORADO =========
-  DEBUG_SHOW_WAYPOINT_LABELS: false, // Mostrar etiquetas de waypoints
-
   // Control de snap del overlay (radio de perdón)
   OVERLAY_SNAP_RADIUS: {
     mobile: 0,
@@ -1537,7 +1533,7 @@ export const GLOBAL_CONFIG = {
   DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: true,           // Mostrar coordenadas en cada área
   DEBUG_SHOW_MINIMAP_MOBILE: true,   // Mostrar minimap en mobile
-  DEBUG_SHOW_WAYPOINT_LABELS: true,  // Mostrar números en waypoints
+  DEBUG_SHOW_WAYPOINT_LABELS: false,  // Mostrar números en waypoints
   DEBUG_SHOW_MEMORY_STATS: true,     // 🆕 Mostrar uso de memoria
   DEBUG_SHOW_WAYPOINT_HUD: true,
   
