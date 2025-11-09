@@ -752,7 +752,23 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const hasWP = !!(GLOBAL_CONFIG && GLOBAL_CONFIG.WAYPOINT_OFFSET);
     const defaultOffset = isMobile ? (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.mobile : 0)
                                   : (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.desktop : 0);
-    const offsetValue = (wp.yOffset !== null && wp.yOffset !== undefined) ? wp.yOffset : defaultOffset;
+    let offsetValue = (wp.yOffset !== null && wp.yOffset !== undefined) ? wp.yOffset : defaultOffset;
+
+    // ── Overflow → desplazamiento vertical adicional (en unidades del mapa)
+    try {
+      // Tomamos las dimensiones lógicas del mapa actual
+      const logicalCfg = mapManager?.currentMap?.config?.mapImage || mapManager?.currentMap?.config || {};
+      const logicalH = Number(logicalCfg.logicalH) || 0;
+      // Selecciona overflow por vista (mobile/desktop), preservado en MapManager.normalizeWaypoints
+      const ov = wp?._overflow ? (isMobile ? wp._overflow.mobile : wp._overflow.desktop) : null;
+      if (ov && logicalH) {
+        // Solo vertical (Y). Si quieres paneo lateral, podrías aplicar ov.x * logicalW a X.
+        offsetValue += (Number(ov.y) || 0) * logicalH;
+      }
+    } catch (e) {
+      // Silencioso en caso de mapas sin logicalH (no rompe)
+    }
+
     const yOffset = offsetValue / (wp.z || 1.6);
 
     const newTargetX = wp.x;
