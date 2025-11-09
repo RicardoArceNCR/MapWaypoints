@@ -294,7 +294,9 @@ export class OverlayLayer {
     if (dx <= 8 && dy <= 8 && dt <= 500) {
       // ✅ FIX CRÍTICO: Detener propagación para evitar que el click llegue al canvas
       ev.stopPropagation();
+      ev.stopImmediatePropagation(); // ← AÑADIR ESTA LÍNEA
       ev.preventDefault();
+      window.__lastHotspotClickTime = performance.now();
 
       if (!GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK) {
         console.log(`[INFO] Popup disabled via SHOW_POPUP_ON_CLICK for hotspot ${key}`);

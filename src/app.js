@@ -1615,33 +1615,76 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   });
 
   canvas.addEventListener('mousedown', (e) => {
-  if (appConfig.editorActive) { console.log('🎨 Editor activo - evento bloqueado'); return; }
-    const { x, y } = clientToMapCoords(e.clientX, e.clientY);
-    const items = state.currentIcons[state.idx] || [];
-    for (const item of items) {
-      const type = item.type || 'icon';
-      const width = item.width || ICON_SIZE;
-      const height = item.height || ICON_SIZE;
-      const sqrtZ = getCachedSqrt(camera.z);
-      const displayWidth = width / sqrtZ;
-      const displayHeight = height / sqrtZ;
-      let isHit = false;
-      if (type === 'icon') {
-        const dx = x - item.x; const dy = y - item.y;
-        const clickRadius = ICON_R; isHit = (dx * dx + dy * dy) <= (clickRadius * clickRadius);
-      } else if (type === 'hotspot' || type === 'image') {
-        const halfW = displayWidth * 0.5; const halfH = displayHeight * 0.5;
-        isHit = (x >= item.x - halfW && x <= item.x + halfW && y >= item.y - halfH && y <= item.y + halfH);
-      }
-      if (isHit) { openPopup(item); return; }
+  // 🔧 FIX 1: Ignorar clicks recientes en hotspots
+  if (window.__lastHotspotClickTime && 
+      performance.now() - window.__lastHotspotClickTime < 300) {
+    console.log('🚫 Click ignorado - hotspot clickeado recientemente');
+    return;
+  }
+  
+  // 🔧 FIX 2: Verificar que el click sea directamente en el canvas
+  if (e.target !== canvas) {
+    console.log('🚫 Click ignorado - origen no es el canvas');
+    return;
+  }
+  
+  if (appConfig.editorActive) { 
+    console.log('🎨 Editor activo - evento bloqueado'); 
+    return; 
+  }
+  
+  const { x, y } = clientToMapCoords(e.clientX, e.clientY);
+  const items = state.currentIcons[state.idx] || [];
+  
+  // Verificar clicks en items (código existente)
+  for (const item of items) {
+    const type = item.type || 'icon';
+    const width = item.width || ICON_SIZE;
+    const height = item.height || ICON_SIZE;
+    const sqrtZ = getCachedSqrt(camera.z);
+    const displayWidth = width / sqrtZ;
+    const displayHeight = height / sqrtZ;
+    let isHit = false;
+    
+    if (type === 'icon') {
+      const dx = x - item.x; 
+      const dy = y - item.y;
+      const clickRadius = ICON_R; 
+      isHit = (dx * dx + dy * dy) <= (clickRadius * clickRadius);
+    } else if (type === 'hotspot' || type === 'image') {
+      const halfW = displayWidth * 0.5; 
+      const halfH = displayHeight * 0.5;
+      isHit = (x >= item.x - halfW && x <= item.x + halfW && 
+               y >= item.y - halfH && y <= item.y + halfH);
     }
-    for (let i=0;i<state.currentWaypoints.length;i++){
-      const wp = state.currentWaypoints[i];
-      const dx = x - wp.x; const dy = y - wp.y;
-      if (dx * dx + dy * dy <= MARKER_R * MARKER_R) { goToWaypoint(i); return; }
+    
+    if (isHit) { 
+      openPopup(item); 
+      return; 
     }
+  }
+  
+  // Verificar clicks en waypoints (código existente)
+  for (let i = 0; i < state.currentWaypoints.length; i++) {
+    const wp = state.currentWaypoints[i];
+    const dx = x - wp.x; 
+    const dy = y - wp.y;
+    if (dx * dx + dy * dy <= MARKER_R * MARKER_R) { 
+      goToWaypoint(i); 
+      return; 
+    }
+  }
+  
+  // 🔧 FIX 3: Solo avanzar si NO estamos en waypoints problemáticos
+  const isMobile = window.matchMedia('(max-width: 899px)').matches;
+  const isProblematicWaypoint = isMobile && [1, 2].includes(state.idx);
+  
+  if (!isProblematicWaypoint) {
     showFullLineOrNext();
-  });
+  } else {
+    console.log('⚠️ Click en área problemática ignorado');
+  }
+}, { passive: false });
 
   function clientToMapCoords(cx, cy) {
     if (!mapManager.currentMap) return { x: 0, y: 0 };
