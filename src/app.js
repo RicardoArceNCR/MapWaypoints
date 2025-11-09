@@ -48,6 +48,7 @@ function parseUrlToggles() {
   if (p.has('debug')) out.debug = p.get('debug') === '1';
   if (p.has('editor')) out.editor = p.get('editor') === '1';
   if (p.has('popups')) out.popups = p.get('popups') === '1';
+  if (p.has('overlays')) out.overlays = p.get('overlays') === '1';
   return out;
 }
 
@@ -360,6 +361,29 @@ let memoryMonitor = new MemoryMonitor();
   const overlay = new OverlayLayer(document.getElementById('overlay-layer'));
   overlay.setDevice(mapManager.isMobile ? 'mobile' : 'desktop');
   window.overlay = overlay; // útil para depurar
+
+  // ====== CONTROL GLOBAL DE OVERLAYS ======
+  function setOverlaysVisible(show = true) {
+    try {
+      overlay?.setVisible(!!show);
+      document.body.classList.toggle('overlays-hidden', !show); // por si usas la clase opcional
+      // Si ocultas/muestras, fuerza un pass de elementos
+      window.markDirty?.('elements', 'minimap');
+    } catch {}
+  }
+  function toggleOverlays() {
+    setOverlaysVisible(!overlay?.isVisible?.());
+  }
+  // Exponer API pública
+  window.setOverlaysVisible = setOverlaysVisible;
+  window.toggleOverlays = toggleOverlays;
+
+  // Estado inicial desde URL (?overlays=0/1) — por defecto visible
+  if (Object.prototype.hasOwnProperty.call(appConfig.toggles, 'overlays')) {
+    setOverlaysVisible(!!appConfig.toggles.overlays);
+  } else {
+    setOverlaysVisible(true);
+  }
 
   // Clicks centralizados de overlays
   let lastOverlayClick = { time: 0, key: null };
@@ -1544,6 +1568,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   document.querySelector('.btn.next').addEventListener('click', showFullLineOrNext);
   document.querySelector('.btn.prev').addEventListener('click', prev);
   window.addEventListener('keydown', (e) => {
+    // Ctrl+O / Cmd+O to toggle overlays
+    if (e.key.toLowerCase() === 'o' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault(); 
+      toggleOverlays(); 
+      return;
+    }
     if (e.key === 'Escape' && !popup.hidden) { closePopup(); return; }
     if (['ArrowRight', 'Enter', ' '].includes(e.key)) { e.preventDefault(); showFullLineOrNext(); }
     if (['ArrowLeft', 'Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
