@@ -1420,7 +1420,6 @@ export const GLOBAL_CONFIG = {
   SHOW_CONTROLS: true,  // Controla los botones de navegación (prev/next/progress)
   
   // ========= DEBUG Y VISUALIZACIÓN =========
-  DEBUG_HOTSPOTS: false,
   
   // Estilos para iconos y hotspots
   ICON_STYLES: {
@@ -1526,6 +1525,13 @@ export const GLOBAL_CONFIG = {
 
   
   // ========= MODO DEBUG MEJORADO =========
+  DEBUG_SHOW_WAYPOINT_LABELS: false, // Mostrar etiquetas de waypoints
+
+  // Control de snap del overlay (radio de perdón)
+  OVERLAY_SNAP_RADIUS: {
+    mobile: 0,
+    desktop: 24
+  },
   DEBUG_HOTSPOTS: true,              // Visualizar áreas invisibles (hotspots)
   SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%

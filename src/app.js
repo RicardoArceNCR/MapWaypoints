@@ -21,12 +21,14 @@ import { FloatingWaypointButton } from './FloatingWaypointButton.js';
 const __qs = new URLSearchParams(location.search);
 const __getBool = (k) => __qs.get(k) === '1';
 
-// overlays: en prod => OFF por defecto si no hay query
+// overlays: en prod o mobile => OFF por defecto si no hay query
 let __ov = null;
 if (__qs.has('overlays')) {
   __ov = __getBool('overlays');
 } else if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PROD) {
   __ov = false; // prod default OFF si no especificas
+} else if (window.matchMedia && window.matchMedia('(max-width: 899px)').matches) {
+  __ov = false; // mobile default OFF para evitar interferencias
 }
 if (__ov !== null) {
   document.body.dataset.overlays = __ov ? '1' : '0';
