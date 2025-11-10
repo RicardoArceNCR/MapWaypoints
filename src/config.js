@@ -1896,9 +1896,9 @@ export const GLOBAL_CONFIG = {
   
   // Configuración de toque
   TOUCH: {
-    mobileMin: 32,  // Tamaño mínimo en mobile para toque
+    mobileMin: 0,  // Tamaño mínimo en mobile para toque
     desktopMin: 40,  // Tamaño mínimo en desktop
-    hitSlop: 6  // Margen invisible extra para clics
+    hitSlop: 0  // Margen invisible extra para clics
   },
   
   // ========= EFECTOS DE CÁMARA =========
