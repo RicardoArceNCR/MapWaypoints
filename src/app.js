@@ -16,6 +16,7 @@ import { UIManager } from './UIManager.js';
 import { DetailedPopupManager } from './DetailedPopupManager.js';
 import { OverlayLayer } from './OverlayLayer.js';
 import { FloatingWaypointButton } from './FloatingWaypointButton.js';
+import { HotspotManager } from './HotspotManager.js';
 
 // ---- toggles seguros por atributo de body (no invasivos) ----
 const __qs = new URLSearchParams(location.search);
@@ -380,6 +381,9 @@ let memoryMonitor = new MemoryMonitor();
   const overlay = new OverlayLayer(document.getElementById('overlay-layer'));
   overlay.setDevice(mapManager.isMobile ? 'mobile' : 'desktop');
   window.overlay = overlay; // útil para depurar
+  
+  // HotspotManager se inicializará después de crear la cámara
+  let hotspotManager = null;
 
   // ====== CONTROL GLOBAL DE OVERLAYS ======
   function setOverlaysVisible(show = true) {
@@ -472,6 +476,10 @@ let memoryMonitor = new MemoryMonitor();
 
   const camera = { x: 0, y: 0, z: 1.0 };
   const camTarget = { x: 0, y: 0, z: 1.0 };
+
+  // Inicializar HotspotManager ahora que la cámara existe
+  hotspotManager = new HotspotManager(camera, overlay, window.popupManager);
+  window.hotspotManager = hotspotManager; // para depuración
 
   const dirtyFlags = { camera:false, elements:false, dialog:false, minimap:false, debug:false, cameraMoving:false };
   function markDirty(...flags){ flags.forEach(f=>{ if (dirtyFlags.hasOwnProperty(f)) dirtyFlags[f]=true; }); }
@@ -1415,8 +1423,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const canvasLogicalW = canvas.width / dpr;
     const canvasLogicalH = canvas.height / dpr;
 
-    // --- Overlay DOM (por frame) ---
-    overlay.beginFrame();
+    // --- Hotspot Management (por frame) ---
+    if (hotspotManager) {
+      hotspotManager.beginFrame();
+    } else if (overlay) {
+      overlay.beginFrame();
+    }
 
     // Render only the first hotspot from window.hotspotData
     if (window.hotspotData && window.hotspotData.length > 0) {
@@ -1481,8 +1493,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           // Selection state (for editor)
           const isActive = appConfig.editorActive && editor?.selectedItem?.index === index;
           
-          // Update the overlay with the hotspot
-          overlay.upsert({
+          // Update the hotspot manager with the hotspot
+          hotspotManager.upsert({
             key: `hotspot_${index}`,
             src: hotspot.src || '/default-icon.png',
             worldX: worldX,
@@ -1526,7 +1538,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const baseSize = icon.width || (GLOBAL_CONFIG.ICON_SIZE || 36);
       const minTapSize = isMobile ? GLOBAL_CONFIG.TOUCH.mobileMin : 0; // Usar configuración global
 
-      overlay.upsert({
+      // Usar hotspotManager si está disponible, sino usar overlay
+      const manager = hotspotManager || overlay;
+      manager.upsert({
         key: `waypoint_${state.idx}:${i}`,
         src: icon.img,
         worldX: icon.x,
@@ -1573,11 +1587,25 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       );
     }
 
+    // Finalize hotspot frame
+    // Actualizar overlays/hotspots al final del frame
+    if (hotspotManager) {
+      hotspotManager.endFrame(camera, canvasLogicalW, canvasLogicalH, state.idx);
+    } else if (overlay) {
+      overlay.endFrame(camera, canvasLogicalW, canvasLogicalH, state.idx);
+    }
+    
     // Dibuja el mapa y elementos
     ctx.fillStyle = RENDER_CONSTANTS.BLACK_BG;
     ctx.fillRect(0, 0, canvasLogicalW, canvasLogicalH);
     drawMapAndMarkers();
     drawHotspotsOnCanvas();
+    
+    // Debug visualization if enabled
+    if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+      hotspotManager.drawDebug(ctx);
+    }
+    
     drawDebugOverlay();
     drawDialog();
     drawMinimap();
@@ -2045,7 +2073,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (GLOBAL_CONFIG.CAMERA_EFFECTS.transitionEnabled) updateTransition(ts);
     
     // Update overlay at the start of each frame
-    overlay.beginFrame();
+    if (hotspotManager) {
+      hotspotManager.beginFrame();
+    } else if (overlay) {
+      overlay.beginFrame();
+    }
 
     let breathOffsetY = 0, breathOffsetZ = 0;
 
@@ -2087,7 +2119,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
       const canvasLogicalW = canvas.width / dpr;
       const canvasLogicalH = canvas.height / dpr;
-      overlay.endFrame(camera, canvasLogicalW, canvasLogicalH, state.idx);
+      if (hotspotManager) {
+        hotspotManager.endFrame(camera, canvasLogicalW, canvasLogicalH, state.idx);
+      } else if (overlay) {
+        overlay.endFrame(camera, canvasLogicalW, canvasLogicalH, state.idx);
+      }
       clearDirtyFlags(); 
     } else { 
       performanceStats.skippedFrames++; 
