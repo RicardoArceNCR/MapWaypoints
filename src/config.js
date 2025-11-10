@@ -441,7 +441,7 @@ export const MAPS_CONFIG = {
                 description: 'Se mantiene en las inmediaciones durante todo el evento documentado.'
               }
             ]
-          }
+          },
           
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#2 Encuentro en Zona Residencial',
@@ -638,7 +638,7 @@ export const MAPS_CONFIG = {
                 description: 'Se mantiene en las inmediaciones durante todo el evento documentado.'
               }
             ]
-          }
+          },
           
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#3 Encuentro en Zona Residencial',
@@ -764,7 +764,7 @@ export const MAPS_CONFIG = {
             person3: [
               { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
             ]
-          }
+          },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
           image: '/assets/mapa-1.webp',
@@ -820,7 +820,7 @@ export const MAPS_CONFIG = {
             person7: [
               { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
             ]
-          }
+          },
           // Detallado clonado del icons[0][1]
           title: '#4 Encuentro en Zona Residencial',
           image: '/assets/mapa-1.webp',
@@ -862,7 +862,7 @@ export const MAPS_CONFIG = {
           location: '—',
           description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
           involved: [],
-          echos: {}
+          echos: {},
           image: '/assets/mapa-1.webp',
           datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
           location: '—',
@@ -880,7 +880,7 @@ export const MAPS_CONFIG = {
           location: '—',
           description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
           involved: [],
-          echos: {}
+          echos: {},
           image: '/assets/mapa-1.webp',
           datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
           location: '—',
@@ -917,7 +917,7 @@ export const MAPS_CONFIG = {
             person3: [
               { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
             ]
-          }
+          },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
           image: '/assets/mapa-1.webp',
@@ -974,7 +974,7 @@ export const MAPS_CONFIG = {
             person7: [
               { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
             ]
-          }
+          },
           // Detallado clonado del icons[0][1]
           title: '#5 Encuentro en Zona Residencial',
           image: '/assets/mapa-1.webp',
@@ -1016,7 +1016,7 @@ export const MAPS_CONFIG = {
           location: '—',
           description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
           involved: [],
-          echos: {}
+          echos: {},
           // Detallado adaptado desde el contenido existente
           title: 'Elementos Descubiertos',
           image: '/assets/mapa-1.webp',
@@ -1037,7 +1037,7 @@ export const MAPS_CONFIG = {
           location: '—',
           description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
           involved: [],
-          echos: {}
+          echos: {},
           title: 'Zona Estratégica',
           image: '/assets/mapa-1.webp',
           datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
@@ -1074,7 +1074,7 @@ export const MAPS_CONFIG = {
             person3: [
               { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
             ]
-          }
+          },
           mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           // Detallado clonado del icons[0][0]
@@ -1133,7 +1133,7 @@ export const MAPS_CONFIG = {
             person7: [
               { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
             ]
-          }
+          },
           // Detallado clonado del icons[0][1]
           title: '#6 Encuentro en Zona Residencial',
           image: '/assets/mapa-1.webp',
@@ -1174,7 +1174,7 @@ export const MAPS_CONFIG = {
           location: '—',
           description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
           involved: [],
-          echos: {}
+          echos: {},
           mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           // Detallado adaptado desde el contenido existente
@@ -1196,7 +1196,7 @@ export const MAPS_CONFIG = {
           location: '—',
           description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
           involved: [],
-          echos: {}
+          echos: {},
           mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Zona Estratégica',
@@ -1293,7 +1293,7 @@ export const MAPS_CONFIG = {
           location: '—',
           description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
           involved: [],
-          echos: {}
+          echos: {},
           type: 'hotspot',
           mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
@@ -1465,7 +1465,7 @@ export const MAPS_CONFIG = {
           location: '—',
           description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
           involved: [],
-          echos: {}
+          echos: {},
           type: 'hotspot',
           mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
@@ -2487,10 +2487,9 @@ export const GLOBAL_CONFIG = {
   
   // Configuración de toque
   TOUCH: {
-    mobileMin: 32,  // Tamaño mínimo en mobile para toque
     mobileMin: 0,  // Tamaño mínimo en mobile para toque
     desktopMin: 40,  // Tamaño mínimo en desktop
-    hitSlop: 6  // Margen invisible extra para clics
+    hitSlop: 6,  // Margen invisible extra para clics
     hitSlop: 0  // Margen invisible extra para clics
   },
   
@@ -2585,7 +2584,7 @@ export const GLOBAL_CONFIG = {
     mobile: 0,
     desktop: 24
   },
-  DEBUG_HOTSPOTS: false,              // Visualizar áreas invisibles (hotspots)
+  DEBUG_HOTSPOTS: true,              // Visualizar áreas invisibles (hotspots)
   SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: true,           // Mostrar coordenadas en cada área
