@@ -1540,12 +1540,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           
           // 🎯 Control preciso del hitbox - Compacto en mobile para waypoints 1 y 2
           compact: icon.compact ?? (
-            isMobile && [1, 2].includes(state.idx) ? true : (!isMobile && !isCard)
+            isMobile && [0, 1].includes(state.idx) ? true : (!isMobile && !isCard)
           ),
           
           // 🧤 Margen reducido en waypoints problemáticos
           hitSlop: icon.hitSlop ?? (
-            isMobile && [1, 2].includes(state.idx) ? 4 : (shouldBeRound ? 8 : 6)
+            isMobile && [0, 1].includes(state.idx) ? 4 : (shouldBeRound ? 8 : 6)
           ),
           
           // 📏 Mínimo táctil según contexto (solo si no es compacto)
