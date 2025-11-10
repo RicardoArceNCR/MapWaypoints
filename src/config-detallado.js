@@ -111,8 +111,8 @@ export const MAPS_CONFIG = {
     // - `label` y `lines` se muestran en el HUD/diálogo (si SHOW_DIALOGS está activo).
     waypoints: [
       { 
-        mobile:  { xp: 0.13, yp: 0.23, z: 0.30 }, // coords normalizadas 0..1 sobre la imagen base móvil
-        desktop: { xp: 0.299, yp: 0.26, z: 0.88 },// coords normalizadas 0..1 sobre la imagen base desktop
+        mobile:  { xp: 0.13, yp: 0.23, z: 0.90 }, // coords normalizadas 0..1 sobre la imagen base móvil
+        desktop: { xp: 0.299, yp: 0.26, z: 0.80 },// coords normalizadas 0..1 sobre la imagen base desktop
         label: 'Inicio del Viaje',
         lines: [
           'Aquí comienza la historia. Un punto de partida crucial que marca el inicio de esta aventura.',
@@ -120,7 +120,7 @@ export const MAPS_CONFIG = {
         ]
       },
       { 
-        mobile:  { xp: 0.47, yp: 0.23, z: 0.30 },
+        mobile:  { xp: 0.47, yp: 0.23, z: 0.90 },
         desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
         label: 'Punto Central',
         lines: [
@@ -129,7 +129,7 @@ export const MAPS_CONFIG = {
         ]
       },
       { 
-        mobile:  { xp: 0.80, yp: 0.23, z: 0.30 },
+        mobile:  { xp: 0.80, yp: 0.23, z: 0.90 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante',
         lines: [
@@ -138,7 +138,7 @@ export const MAPS_CONFIG = {
         ]
       },
       { 
-        mobile:  { xp: 0.13, yp: 0.70, z: 0.30 },
+        mobile:  { xp: 0.13, yp: 0.70, z: 0.90 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante',
         lines: [
@@ -147,7 +147,7 @@ export const MAPS_CONFIG = {
         ]
       },
       { 
-        mobile:  { xp: 0.47, yp: 0.70, z: 0.30 },
+        mobile:  { xp: 0.47, yp: 0.70, z: 0.90 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 }, // Nota: yp>1 se verá solo si permites desplazamiento/letterbox
         label: 'Momento Culminanteeeee',
         lines: [
@@ -396,9 +396,9 @@ export const GLOBAL_CONFIG = {
 
   // Zona de toque
   TOUCH: {
-    mobileMin: 56,     // ancho/alto mínimo para accesibilidad en mobile
+    mobileMin: 44,     // ancho/alto mínimo para accesibilidad en mobile
     desktopMin: 40,
-    hitSlop: 4         // margen invisible para facilitar el click
+    hitSlop: 2         // margen invisible para facilitar el click
   },
 
   // Efectos de cámara (transición entre waypoints y “breathing”)
