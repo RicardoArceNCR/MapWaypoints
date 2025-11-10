@@ -104,9 +104,11 @@ export class OverlayLayer {
       this.root.appendChild(wrap);
 
       // Only add event listeners for interactive elements
-      if (!isNonInteractive) {
-        wrap.addEventListener('pointerdown', this._onPointerDown, { passive: true });
-        wrap.addEventListener('pointerup', this._onPointerUp, { passive: true });
+      if (!isNonInteractive && !wrap.__listenersAttached) {
+        // 🔧 En mobile necesitamos poder llamar preventDefault()
+        wrap.addEventListener('pointerdown', this._onPointerDown, { passive: false });
+        wrap.addEventListener('pointerup', this._onPointerUp, { passive: false });
+        wrap.__listenersAttached = true;
       }
 
       rec = { wrap, img, meta, lockWidthPx, worldX, worldY, rotationDeg, z, _pd:{x:0,y:0,t:0} };
@@ -127,11 +129,13 @@ export class OverlayLayer {
         rec.wrap.classList.remove('overlay-noninteractive');
         rec.wrap.removeAttribute('aria-hidden');
         
-        // Add event listeners if not already present
-        if (!rec._hasListeners) {
-          rec.wrap.addEventListener('pointerdown', this._onPointerDown, { passive: true });
-          rec.wrap.addEventListener('pointerup', this._onPointerUp, { passive: true });
+        // Add event listeners if not already present and element is interactive
+        if (!rec._hasListeners && rec.wrap.style.pointerEvents !== 'none') {
+          // 🔧 En mobile necesitamos poder llamar preventDefault()
+          rec.wrap.addEventListener('pointerdown', this._onPointerDown, { passive: false });
+          rec.wrap.addEventListener('pointerup', this._onPointerUp, { passive: false });
           rec._hasListeners = true;
+          rec.wrap.__listenersAttached = true;
         }
       }
     }
@@ -326,49 +330,56 @@ export class OverlayLayer {
   }
 
   /**
-   * 🔧 MODIFICADO: Event bubbling eliminado, stopPropagation agregado
+   * 🔧 MODIFICADO: Mejorado con manejo de eventos táctiles y prevención de propagación
    */
   _onPointerUp(ev) {
-    const wrap = ev.currentTarget;
-    const key = wrap?.dataset?.key;
-    if (!key) return;
+    if (!this._visible) return;
+    
+    const now = performance.now();
+    const key = ev.currentTarget?.dataset?.key;
+    if (!key || !this.items.has(key)) return;
+    
     const rec = this.items.get(key);
-    const dx = Math.abs(ev.clientX - rec._pd.x);
-    const dy = Math.abs(ev.clientY - rec._pd.y);
-    const dt = performance.now() - rec._pd.t;
+    if (!rec || !rec._pd) return;
+    
+    const dx = Math.abs(rec._pd.x - ev.clientX);
+    const dy = Math.abs(rec._pd.y - ev.clientY);
+    const dt = now - rec._pd.t;
+    
+    // Reset para el próximo evento
+    rec._pd = { x: 0, y: 0, t: 0 };
 
     if (dx <= 8 && dy <= 8 && dt <= 500) {
-      // ✅ FIX CRÍTICO: Detener propagación para evitar que el click llegue al canvas
       ev.stopPropagation();
-      ev.stopImmediatePropagation(); // ← AÑADIR ESTA LÍNEA
+      ev.stopImmediatePropagation();
       ev.preventDefault();
-      window.__lastHotspotClickTime = performance.now();
+      window.__lastHotspotClickTime = now;
 
       if (!GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK) {
         console.log(`[INFO] Popup disabled via SHOW_POPUP_ON_CLICK for hotspot ${key}`);
-        return;
+        return; // ⛔️ no dejar que nada más se dispare
       }
 
       if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
-        const hotspotData = rec.meta?.hotspot || rec.meta;
-        
-        if (!hotspotData) {
-          console.warn(`[DEBUG] No hay metadata para hotspot ${key}`);
-          return;
-        }
+        const hotspotData = {
+          title: rec.meta?.title || `Hotspot ${key}`,
+          description: rec.meta?.description || 'No description available',
+          ...rec.meta
+        };
         
         if (window.popupManager) {
-          console.log(`[DEBUG] Abriendo popup directo para hotspot ${key}:`, hotspotData.title || 'Sin título');
+          console.log('[DEBUG] Abriendo popup para hotspot:', key, hotspotData);
           window.popupManager.openPopup(hotspotData);
+          return; // ⛔️ corta aquí también
         } else {
           console.warn(`[DEBUG] No se puede abrir popup: popupManager no está disponible`);
         }
       } else {
-        // ✅ FIX CRÍTICO: Cambiar bubbles a false
         this.root.dispatchEvent(new CustomEvent('overlay:click', {
-          bubbles: false,  // 🔧 ANTES: true (causaba el problema)
+          bubbles: false,
           detail: { key, record: rec }
         }));
+        return; // ⛔️ corte explícito
       }
     }
   }
