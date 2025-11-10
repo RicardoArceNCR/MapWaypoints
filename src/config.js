@@ -68,7 +68,7 @@ export const MAPS_CONFIG = {
     },
     waypoints: [
       { 
-        mobile: { xp: 0.13, yp: 0.19, z: 0.30 },
+        mobile: { xp: 0.13, yp: 0.23, z: 0.30 },
         desktop: { xp: 0.299, yp: 0.26, z: 0.88 },
         label: 'Inicio del Viaje', 
         lines: [
@@ -77,7 +77,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.50, yp: 0.25, z: 0.10 },
+        mobile: { xp: 0.47, yp: 0.23, z: 0.30 },
         desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
         label: 'Punto Central', 
         lines: [
@@ -86,7 +86,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.80, yp: 0.23, z: 0.30 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -95,7 +95,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: -0.020 },
+        mobile: { xp: 0.13, yp: 0.70, z: 0.30 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -104,7 +104,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.47, yp: 0.70, z: 0.30 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
@@ -113,7 +113,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.70, z: 0.30 },
         desktop: { xp: 0.725, yp: 1.25, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [
@@ -126,7 +126,7 @@ export const MAPS_CONFIG = {
       0: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: 33, offsetY: 21, width: 290, height: 176, rotation: 0 },
+          mobile: { offsetX: 33, offsetY: -25, width: 290, height: 176, rotation: 0 },
           desktop: { offsetX: -464, offsetY: -55, width: 397, height: 218, rotation: -10 },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
@@ -312,7 +312,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -81, offsetY: -290, width: 120, height: 120, rotation: 0, radius: 30 },
+          mobile: { offsetX: -81, offsetY: -320, width: 120, height: 120, rotation: 0, radius: 30 },
           desktop: { offsetX: 241, offsetY: -61, width: 397, height: 228, rotation: 25, radius: 10  },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
@@ -328,7 +328,7 @@ export const MAPS_CONFIG = {
       1: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Evolución del Personaje',
           body: 'Cómo ha cambiado el protagonista desde el inicio. Nuevas perspectivas y aprendizajes adquiridos.'
@@ -349,7 +349,6 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          img: './assets/icon-info.png',
           mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Zona Estratégica',
@@ -359,7 +358,6 @@ export const MAPS_CONFIG = {
       2: [
         { 
           type: 'hotspot',
-          img: './assets/icon-info.png',
           mobile: { offsetX: -60, offsetY: -80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Transformación Final',
@@ -367,7 +365,6 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          img: './assets/icon-info.png',
           mobile: { offsetX: 60, offsetY: -80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Testigos del Desenlace',
@@ -375,7 +372,6 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          img: './assets/icon-info.png',
           mobile: { offsetX: -60, offsetY: 80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Legado Material',
@@ -383,7 +379,6 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          img: './assets/icon-info.png',
           mobile: { offsetX: 60, offsetY: 80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Lugar del Destino',
@@ -404,8 +399,8 @@ export const MAPS_CONFIG = {
           desktop: { 
             offsetX: -90, 
             offsetY: -90, 
-            width: 950,
-            height: 900,
+            width: 150,
+            height: 100,
             rotation: 0 
           },
           title: 'Mapa del Territorio',
@@ -531,7 +526,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.50, yp: 0.25, z: 0.10 },
+        mobile: { xp: 0.50, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
         label: 'Punto Central', 
         lines: [
@@ -540,7 +535,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -549,7 +544,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: -0.020 },
+        mobile: { xp: 0.82, yp: 0.800, z: 0.30 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -558,7 +553,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
@@ -567,7 +562,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.725, yp: 1.25, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [
@@ -858,8 +853,8 @@ export const MAPS_CONFIG = {
           desktop: { 
             offsetX: -90, 
             offsetY: -90, 
-            width: 950,
-            height: 900,
+            width: 150,
+            height: 100,
             rotation: -15 
           },
           title: 'Mapa del Territorio',
@@ -985,7 +980,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.50, yp: 0.25, z: 0.10 },
+        mobile: { xp: 0.50, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
         label: 'Punto Central', 
         lines: [
@@ -994,7 +989,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -1003,7 +998,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: -0.020 },
+        mobile: { xp: 0.82, yp: 0.800, z: 0.30 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -1012,7 +1007,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
@@ -1021,7 +1016,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
         desktop: { xp: 0.725, yp: 1.25, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [
@@ -1305,15 +1300,15 @@ export const MAPS_CONFIG = {
           mobile: { 
             offsetX: -60, 
             offsetY: -80, 
-            width: 720,
+            width: 220,
             height: 280,
             rotation: 10 
           },
           desktop: { 
             offsetX: -90, 
             offsetY: -90, 
-            width: 950,
-            height: 900,
+            width: 150,
+            height: 100,
             rotation: -15 
           },
           title: 'Mapa del Territorio',
@@ -1345,32 +1340,32 @@ export const MAPS_CONFIG = {
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: -80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: -90, width: 36, height: 36, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Reflexión Final',
           body: 'El momento de entender todo lo vivido. Un espacio para procesar.'
         },
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: 60, offsetY: -80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: -90, width: 36, height: 36, rotation: 0 },
+          mobile: { offsetX: 60, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Testigos del Final',
           body: 'Quiénes presencian el momento culminante. Su rol en la conclusión.'
         },
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: 80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: 90, width: 36, height: 36, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: 80, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Símbolos del Cierre',
           body: 'Objetos que representan la conclusión. Su significado simbólico final.'
         },
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: 60, offsetY: 80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: 90, width: 36, height: 36, rotation: 0 },
+          mobile: { offsetX: 60, offsetY: 80, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Centro del Desenlace',
           body: 'El punto exacto donde todo converge y se resuelve.'
         }
@@ -1379,24 +1374,24 @@ export const MAPS_CONFIG = {
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: -80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: -90, width: 36, height: 36, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Después de Todo',
           body: 'Cómo termina el protagonista después de esta experiencia. Su estado final.'
         },
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: 60, offsetY: -80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: -90, width: 36, height: 36, rotation: 0 },
+          mobile: { offsetX: 60, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Vidas Transformadas',
           body: 'Cómo han cambiado todas las personas involucradas. El impacto duradero.'
         },
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: 80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: 90, width: 36, height: 36, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: 80, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Memoria Tangible',
           body: 'Lo que permanece físicamente como recordatorio de toda la historia.'
         },
@@ -1420,7 +1415,6 @@ export const GLOBAL_CONFIG = {
   SHOW_CONTROLS: true,  // Controla los botones de navegación (prev/next/progress)
   
   // ========= DEBUG Y VISUALIZACIÓN =========
-  DEBUG_HOTSPOTS: false,
   
   // Estilos para iconos y hotspots
   ICON_STYLES: {
@@ -1442,15 +1436,18 @@ export const GLOBAL_CONFIG = {
   CAMERA_EFFECTS: {
     // Movimiento sutil constante (breathing)
     breathingEnabled: false,
+    breathingMobileEnabled: false, // Deshabilitar breathing en mobile
     breathingAmount: 9.5,        // Píxeles de movimiento en Y
     breathingSpeed: 0.0009,      // Velocidad de oscilación (más bajo = más lento)
     breathingZAmount: 0.0009,    // Cambio sutil en zoom
+    
     
     // Transición cinemática entre waypoints
     transitionEnabled: true,
     transitionDuration: 1200,    // Milisegundos
     transitionZoomOut: 0.25,     // Cuánto hacer zoom out (0.25 = -25% del zoom actual)
     transitionEasing: 'ease-in-out', // 'linear', 'ease-in', 'ease-out', 'ease-in-out'
+    disableBreathingDuringTransition: true // Deshabilitar breathing durante transiciones
   },
   
   // ========= 🆕 LÍMITES DE CANVAS OPTIMIZADOS =========
@@ -1521,14 +1518,17 @@ export const GLOBAL_CONFIG = {
   desktop: { lockItemWidthToScreenPx: false }  // desktop se mantiene igual
 },
 
-  
-  // ========= MODO DEBUG MEJORADO =========
-  DEBUG_HOTSPOTS: false,              // Visualizar áreas invisibles (hotspots)
+  // Control de snap del overlay (radio de perdón)
+  OVERLAY_SNAP_RADIUS: {
+    mobile: 0,
+    desktop: 24
+  },
+  DEBUG_HOTSPOTS: true,              // Visualizar áreas invisibles (hotspots)
   SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: true,           // Mostrar coordenadas en cada área
   DEBUG_SHOW_MINIMAP_MOBILE: true,   // Mostrar minimap en mobile
-  DEBUG_SHOW_WAYPOINT_LABELS: true,  // Mostrar números en waypoints
+  DEBUG_SHOW_WAYPOINT_LABELS: false,  // Mostrar números en waypoints
   DEBUG_SHOW_MEMORY_STATS: true,     // 🆕 Mostrar uso de memoria
   DEBUG_SHOW_WAYPOINT_HUD: true,
   

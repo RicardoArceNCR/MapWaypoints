@@ -21,12 +21,14 @@ import { FloatingWaypointButton } from './FloatingWaypointButton.js';
 const __qs = new URLSearchParams(location.search);
 const __getBool = (k) => __qs.get(k) === '1';
 
-// overlays: en prod => OFF por defecto si no hay query
+// overlays: en prod o mobile => OFF por defecto si no hay query
 let __ov = null;
 if (__qs.has('overlays')) {
   __ov = __getBool('overlays');
 } else if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PROD) {
   __ov = false; // prod default OFF si no especificas
+} else if (window.matchMedia && window.matchMedia('(max-width: 899px)').matches) {
+  __ov = false; // mobile default OFF para evitar interferencias
 }
 if (__ov !== null) {
   document.body.dataset.overlays = __ov ? '1' : '0';
@@ -161,10 +163,6 @@ function applyViewportCoverage() {
   wrapper.style.width  = vw + 'px';
   wrapper.style.height = vh + 'px';
   document.body.style.background = '#000';
-
-  log.info('Viewport coverage →', Math.round(coverage * 100) + '%', { vw, vh });
-  document.documentElement.style.overflow = over ? 'hidden' : '';
-  document.body.style.overflow = over ? 'hidden' : '';
 
   log.info('Viewport coverage →', Math.round(coverage * 100) + '%', { vw, vh });
 }
@@ -424,7 +422,8 @@ let memoryMonitor = new MemoryMonitor();
     if (lastOverlayClick.time && now - lastOverlayClick.time < 250) return;
 
     try {
-      const R = 24; // radio de perdón en px
+      const isMobile = window.matchMedia('(max-width: 899px)').matches;
+      const R = isMobile ? 0 : 24; // mobile: sin snap para evitar taps fantasma
       const clientX = ev.clientX;
       const clientY = ev.clientY;
       let best = null;
@@ -753,7 +752,23 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const hasWP = !!(GLOBAL_CONFIG && GLOBAL_CONFIG.WAYPOINT_OFFSET);
     const defaultOffset = isMobile ? (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.mobile : 0)
                                   : (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.desktop : 0);
-    const offsetValue = (wp.yOffset !== null && wp.yOffset !== undefined) ? wp.yOffset : defaultOffset;
+    let offsetValue = (wp.yOffset !== null && wp.yOffset !== undefined) ? wp.yOffset : defaultOffset;
+
+    // ── Overflow → desplazamiento vertical adicional (en unidades del mapa)
+    try {
+      // Tomamos las dimensiones lógicas del mapa actual
+      const logicalCfg = mapManager?.currentMap?.config?.mapImage || mapManager?.currentMap?.config || {};
+      const logicalH = Number(logicalCfg.logicalH) || 0;
+      // Selecciona overflow por vista (mobile/desktop), preservado en MapManager.normalizeWaypoints
+      const ov = wp?._overflow ? (isMobile ? wp._overflow.mobile : wp._overflow.desktop) : null;
+      if (ov && logicalH) {
+        // Solo vertical (Y). Si quieres paneo lateral, podrías aplicar ov.x * logicalW a X.
+        offsetValue += (Number(ov.y) || 0) * logicalH;
+      }
+    } catch (e) {
+      // Silencioso en caso de mapas sin logicalH (no rompe)
+    }
+
     const yOffset = offsetValue / (wp.z || 1.6);
 
     const newTargetX = wp.x;
@@ -1477,6 +1492,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     
     // Render regular waypoint icons
     const iconsForWaypoint = state.currentIcons[state.idx] || [];
+    const isMobile = mapManager.isMobile;
+
     iconsForWaypoint.forEach((icon, i) => {
       // Skip if this is a hotspot (already handled)
       if (icon.isHotspot) return;
@@ -1489,7 +1506,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       // 📏 Tamaños mínimos táctiles
       const isCard = icon.type === 'card' || icon.type === 'label' || icon.type === 'pill';
       const baseSize = icon.width || (GLOBAL_CONFIG.ICON_SIZE || 36);
-      const minTapSize = isCard ? 48 : 56; // cards pueden ser algo más pequeñas
+      const minTapSize = isMobile ? GLOBAL_CONFIG.TOUCH.mobileMin : 0; // Usar configuración global
 
       overlay.upsert({
         key: `waypoint_${state.idx}:${i}`,
@@ -1503,11 +1520,15 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           // 🔑 Auto-detección inteligente de forma
           shape: icon.shape || (shouldBeRound ? 'circle' : 'rect'),
           
-          // 🎯 Control preciso del hitbox
-          compact: icon.compact ?? (!mapManager.isMobile && !isCard), // compacto en desktop excepto cards
+          // 🎯 Control preciso del hitbox - Compacto en mobile para waypoints 1 y 2
+          compact: icon.compact ?? (
+            isMobile && [1, 2].includes(state.idx) ? true : (!isMobile && !isCard)
+          ),
           
-          // 🧤 Margen extra según tipo
-          hitSlop: icon.hitSlop ?? (shouldBeRound ? 8 : 6),
+          // 🧤 Margen reducido en waypoints problemáticos
+          hitSlop: icon.hitSlop ?? (
+            isMobile && [1, 2].includes(state.idx) ? 4 : (shouldBeRound ? 8 : 6)
+          ),
           
           // 📏 Mínimo táctil según contexto (solo si no es compacto)
           minTap: icon.minTap ?? minTapSize,
@@ -1517,10 +1538,22 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
           // Metadata para popups
           title: icon.title,
-          hotspot: icon.hotspotData
+          hotspot: icon.hotspotData,
+          
+          // ✅ NUEVO: Agregar índice de waypoint para culling
+          waypointIndex: state.idx
         }
       });
     });
+
+    // ✅ OPCIONAL: Agregar logging para verificar el fix
+    if (GLOBAL_CONFIG.DEBUG_HOTSPOTS && iconsForWaypoint.length > 0) {
+      console.log(
+        `%c🎯 Waypoint ${state.idx}: ${iconsForWaypoint.length} hotspots`,
+        'color: #2ecc71; font-weight: bold',
+        `(compact: ${isMobile && [1, 2].includes(state.idx)}, mobile: ${isMobile})` 
+      );
+    }
 
     // Dibuja el mapa y elementos
     ctx.fillStyle = RENDER_CONSTANTS.BLACK_BG;
@@ -1600,10 +1633,93 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (['ArrowLeft', 'Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
   });
 
+  // ====== INTERACCIÓN CANVAS (tap seguro y long-press para avanzar) ======
+  let __pressTimer = null;
+  let __pressStart = 0;
+  let __pressMoved = false;
+  let __pressStartXY = {x:0,y:0};
+  const __LONG_PRESS_MS = 2000; // 2s para avanzar
+  const __MOVE_CANCEL_PX = 8;   // tolerancia de movimiento
+  let __lastOverlayTapAt = 0;
+
+  // Escucha cuando overlay lanza click para ignorar rebotes
+  overlay.root.addEventListener('overlay:click', () => {
+    __lastOverlayTapAt = performance.now();
+  }, { passive: true });
+
+  function __cancelPressTimer(){
+    if (__pressTimer){ 
+      clearTimeout(__pressTimer); 
+      __pressTimer = null; 
+    }
+  }
+  
+  function __startPressTimer() {
+    __cancelPressTimer();
+    __pressStart = performance.now();
+    __pressMoved = false;
+    __pressTimer = setTimeout(() => {
+      // Si pasaron 2s, avanzamos (sólo si no hubo movimiento ni overlay click cercano)
+      const now = performance.now();
+      const isMobile = window.matchMedia('(max-width: 899px)').matches;
+      if (isMobile && !__pressMoved && (now - __lastOverlayTapAt > 250)) {
+        showFullLineOrNext();
+      }
+      __cancelPressTimer();
+    }, __LONG_PRESS_MS);
+  }
+
+  // Usamos pointer events para cubrir mouse/touch/pen
+  canvas.addEventListener('pointerdown', (e) => {
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    if (!isMobile) return; // desktop conserva flujo actual de click
+    if (appConfig.editorActive) return;
+    if (e.target !== canvas) return;
+    __pressStartXY = { x: e.clientX, y: e.clientY };
+    __startPressTimer();
+  }, { passive: true });
+
+  canvas.addEventListener('pointermove', (e) => {
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    if (!isMobile || !__pressTimer) return;
+    const dx = e.clientX - __pressStartXY.x;
+    const dy = e.clientY - __pressStartXY.y;
+    if ((dx*dx + dy*dy) > (__MOVE_CANCEL_PX*__MOVE_CANCEL_PX)) {
+      __pressMoved = true;
+      __cancelPressTimer();
+    }
+  }, { passive: true });
+
+  canvas.addEventListener('pointerup', () => {
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    if (!isMobile) return;
+    __cancelPressTimer();
+  }, { passive: true });
+
+  // Mantener click/mousedown para desktop y para hits sobre hotspots
   canvas.addEventListener('mousedown', (e) => {
-  if (appConfig.editorActive) { console.log('🎨 Editor activo - evento bloqueado'); return; }
+    // 🔧 FIX 1: Ignorar clicks recientes en hotspots
+    if (window.__lastHotspotClickTime && 
+        performance.now() - window.__lastHotspotClickTime < 300) {
+      console.log('🚫 Click ignorado - hotspot clickeado recientemente');
+      return;
+    }
+    
+    // 🔧 FIX 2: Verificar que el click sea directamente en el canvas
+    if (e.target !== canvas) {
+      console.log('🚫 Click ignorado - origen no es el canvas');
+      return;
+    }
+    
+    if (appConfig.editorActive) { 
+      console.log('🎨 Editor activo - evento bloqueado'); 
+      return; 
+    }
+    
     const { x, y } = clientToMapCoords(e.clientX, e.clientY);
     const items = state.currentIcons[state.idx] || [];
+    
+    // Verificar clicks en items (código existente)
     for (const item of items) {
       const type = item.type || 'icon';
       const width = item.width || ICON_SIZE;
@@ -1612,22 +1728,44 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const displayWidth = width / sqrtZ;
       const displayHeight = height / sqrtZ;
       let isHit = false;
+      
       if (type === 'icon') {
-        const dx = x - item.x; const dy = y - item.y;
-        const clickRadius = ICON_R; isHit = (dx * dx + dy * dy) <= (clickRadius * clickRadius);
+        const dx = x - item.x; 
+        const dy = y - item.y;
+        const clickRadius = ICON_R; 
+        isHit = (dx * dx + dy * dy) <= (clickRadius * clickRadius);
       } else if (type === 'hotspot' || type === 'image') {
-        const halfW = displayWidth * 0.5; const halfH = displayHeight * 0.5;
-        isHit = (x >= item.x - halfW && x <= item.x + halfW && y >= item.y - halfH && y <= item.y + halfH);
+        const halfW = displayWidth * 0.5; 
+        const halfH = displayHeight * 0.5;
+        isHit = (x >= item.x - halfW && x <= item.x + halfW && 
+                 y >= item.y - halfH && y <= item.y + halfH);
       }
-      if (isHit) { openPopup(item); return; }
+      
+      if (isHit) { 
+        openPopup(item); 
+        return; 
+      }
     }
-    for (let i=0;i<state.currentWaypoints.length;i++){
+    
+    // Verificar clicks en waypoints (código existente)
+    for (let i = 0; i < state.currentWaypoints.length; i++) {
       const wp = state.currentWaypoints[i];
-      const dx = x - wp.x; const dy = y - wp.y;
-      if (dx * dx + dy * dy <= MARKER_R * MARKER_R) { goToWaypoint(i); return; }
+      const dx = x - wp.x; 
+      const dy = y - wp.y;
+      if (dx * dx + dy * dy <= MARKER_R * MARKER_R) { 
+        goToWaypoint(i); 
+        return; 
+      }
     }
-    showFullLineOrNext();
-  });
+    
+    // Desktop: permitir avanzar con click vacío; Mobile: NO (usa long-press)
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    if (!isMobile) { 
+      showFullLineOrNext(); 
+    } else { 
+      console.log('🛑 Tap simple en mobile no avanza. Usa long-press (2s).'); 
+    }
+  }, { passive: false });
 
   function clientToMapCoords(cx, cy) {
     if (!mapManager.currentMap) return { x: 0, y: 0 };
@@ -1866,7 +2004,17 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     overlay.beginFrame();
 
     let breathOffsetY = 0, breathOffsetZ = 0;
-  if (GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled && !appConfig.editorActive) {
+
+    // 🔧 NUEVO: Condicional inteligente de breathing
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    const isTransitioning = transitionState.active;
+
+    const shouldBreathe = GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled &&
+                          !appConfig.editorActive &&
+                          (!isMobile || GLOBAL_CONFIG.CAMERA_EFFECTS.breathingMobileEnabled) &&
+                          (!isTransitioning || !GLOBAL_CONFIG.CAMERA_EFFECTS.disableBreathingDuringTransition);
+
+    if (shouldBreathe) {
       const breath = Math.sin(ts * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingSpeed);
       breathOffsetY = breath * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingAmount;
       breathOffsetZ = breath * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingZAmount;
@@ -1895,7 +2043,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
       const canvasLogicalW = canvas.width / dpr;
       const canvasLogicalH = canvas.height / dpr;
-      overlay.endFrame(camera, canvasLogicalW, canvasLogicalH);
+      overlay.endFrame(camera, canvasLogicalW, canvasLogicalH, state.idx);
       clearDirtyFlags(); 
     } else { 
       performanceStats.skippedFrames++; 
@@ -1978,4 +2126,31 @@ function safeMemory() {
 if (appConfig.toggles.debug) {
   const mem = safeMemory();
   if (mem) log.info('Mem MB', Math.round(mem.usedJSHeapSize / 1048576));
+}
+
+// 🔧 SISTEMA DE DEBUGGING TEMPORAL
+if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+  let clickLog = [];
+  const maxLogSize = 10;
+  
+  document.addEventListener('click', (e) => {
+    const entry = {
+      time: performance.now(),
+      target: e.target.tagName,
+      class: e.target.className,
+      waypoint: state?.idx,
+      coords: { x: e.clientX, y: e.clientY }
+    };
+    
+    clickLog.push(entry);
+    if (clickLog.length > maxLogSize) clickLog.shift();
+    
+    console.log('🖱️ Click detectado:', entry);
+    console.log('📊 Últimos clicks:', clickLog.map(c => 
+      `${c.target} @ wp${c.waypoint} [${c.coords.x},${c.coords.y}]` 
+    ));
+  }, true);
+  
+  console.log('%c🛡️ Sistema de monitoreo de clicks activado', 
+              'background: #4CAF50; color: white; padding: 4px;');
 }

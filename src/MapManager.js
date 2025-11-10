@@ -484,3 +484,80 @@ export class MapManager {
     console.table(stats);
   }
 }
+
+// --- [SAFE WRAP] Clamp + overflow sin romper tu normalizeWaypoints actual ---
+(() => {
+  try {
+    // Evita doble parcheo en HMR
+    if (typeof MapManager === 'undefined') return;
+    if (MapManager.__overflowClampPatched) return;
+
+    const origNormalize = MapManager.prototype.normalizeWaypoints;
+    if (typeof origNormalize !== 'function') {
+      console.warn('[MapManager] normalizeWaypoints no encontrado; skip overflow patch.');
+      MapManager.__overflowClampPatched = true;
+      return;
+    }
+
+    const clamp01 = v => Math.max(0, Math.min(1, v));
+    const isFiniteNum = v => Number.isFinite(v);
+
+    MapManager.prototype.normalizeWaypoints = function (waypoints, W, H) {
+      // 1) Pre-clamp: clonar waypoints y ajustar xp/yp por vista SIN tocar fuente
+      const isMobile = !!this.isMobile;
+      const overflows = []; // guardamos overflow por índice y vista
+
+      const adjusted = (waypoints || []).map((wp, idx) => {
+        const clone = JSON.parse(JSON.stringify(wp || {}));
+        const m = (clone.mobile  ||= {});
+        const d = (clone.desktop ||= {});
+
+        // Valores originales (pueden venir fuera de rango o indefinidos)
+        const mox = isFiniteNum(m.xp) ? m.xp : 0.5;
+        const moy = isFiniteNum(m.yp) ? m.yp : 0.5;
+        const dox = isFiniteNum(d.xp) ? d.xp : 0.5;
+        const doy = isFiniteNum(d.yp) ? d.yp : 0.5;
+
+        const mcx = clamp01(mox), mcy = clamp01(moy);
+        const dcx = clamp01(dox), dcy = clamp01(doy);
+
+        // Guardar overflow normalizado (positivo si “se pasó” del borde)
+        const overflowMobile  = { x: mox - mcx, y: moy - mcy };
+        const overflowDesktop = { x: dox - dcx, y: doy - dcy };
+
+        // Reemplazar solo en el clon
+        m.xp = mcx; m.yp = mcy;
+        d.xp = dcx; d.yp = dcy;
+
+        overflows[idx] = { mobile: overflowMobile, desktop: overflowDesktop };
+
+        // Log en dev si hubo ajuste
+        if (overflowMobile.x || overflowMobile.y || overflowDesktop.x || overflowDesktop.y) {
+          try { if (!import.meta.env.PROD) {
+            console.warn(`⚠️ Waypoint ${idx}: clamp xp/yp aplicado`, { overflowMobile, overflowDesktop });
+          } } catch (_) {}
+        }
+        return clone;
+      });
+
+      // 2) Delegar en tu normalize original (usa el clon ya clampeado)
+      const out = origNormalize.call(this, adjusted, W, H);
+
+      // 3) Anexar _overflow al resultado para la vista actual (mobile/desktop)
+      if (Array.isArray(out)) {
+        for (let i = 0; i < out.length; i++) {
+          const ov = overflows[i] || { mobile: { x:0,y:0 }, desktop: { x:0,y:0 } };
+          // Mantener estructura móvil/desktop para posible cambio de breakpoint
+          out[i]._overflow = ov;
+        }
+      }
+
+      return out;
+    };
+
+    MapManager.__overflowClampPatched = true;
+    console.log('[MapManager] normalizeWaypoints envuelto con clamp+overflow (seguro).');
+  } catch (err) {
+    console.error('[MapManager] Error aplicando overflow clamp patch:', err);
+  }
+})();
