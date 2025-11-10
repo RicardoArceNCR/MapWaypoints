@@ -1896,9 +1896,9 @@ export const GLOBAL_CONFIG = {
   
   // Configuración de toque
   TOUCH: {
-    mobileMin: 0,  // Tamaño mínimo en mobile para toque
+    mobileMin: 32,  // Tamaño mínimo en mobile para toque
     desktopMin: 40,  // Tamaño mínimo en desktop
-    hitSlop: 0  // Margen invisible extra para clics
+    hitSlop: 6  // Margen invisible extra para clics
   },
   
   // ========= EFECTOS DE CÁMARA =========
@@ -1992,7 +1992,7 @@ export const GLOBAL_CONFIG = {
     mobile: 0,
     desktop: 24
   },
-  DEBUG_HOTSPOTS: true,              // Visualizar áreas invisibles (hotspots)
+  DEBUG_HOTSPOTS: false,              // Visualizar áreas invisibles (hotspots)
   SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: true,           // Mostrar coordenadas en cada área

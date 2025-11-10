@@ -300,11 +300,15 @@ export class OverlayLayer {
         debugLabel.textContent = `${rec.key || '?'}: ${~~rec.hitW}×${~~rec.hitH}px`;
       } else {
         rec.wrap.classList.remove('debug-hotspot');
-        rec.wrap.style.border = 'none';
-        rec.wrap.style.background = 'transparent';
-        rec.wrap.style.boxShadow = 'none';
+        // Limpia estilos de depuración
+        rec.wrap.style.border = '';
+        rec.wrap.style.background = '';
+        rec.wrap.style.borderRadius = '';
+        rec.wrap.style.boxShadow = '';
         rec.wrap.style.transition = '';
+        rec.wrap.style.outline = '';
         
+        // Elimina la etiqueta de depuración si existe
         const debugLabel = rec.wrap.querySelector('.hs-debug-label');
         if (debugLabel) debugLabel.remove();
       }
@@ -373,6 +377,7 @@ export class OverlayLayer {
           return; // ⛔️ corta aquí también
         } else {
           console.warn(`[DEBUG] No se puede abrir popup: popupManager no está disponible`);
+          return; // ⛔️ Prevenir propagación si no hay popupManager
         }
       } else {
         this.root.dispatchEvent(new CustomEvent('overlay:click', {
