@@ -324,7 +324,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -81, offsetY: -320, width: 120, height: 120, rotation: 0, radius: 30 },
+          mobile: { offsetX: -81, offsetY: -320, width: 120, height: 120, rotation: 0, radius: 20 },
           desktop: { offsetX: 241, offsetY: -61, width: 397, height: 228, rotation: 25, radius: 10  },
           
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
@@ -1230,7 +1230,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 281, offsetY: -176, width: 70, height: 70, rotation: 15, radius: 37 },
+          mobile: { offsetX: 281, offsetY: -176, width: 70, height: 70, rotation: 15, radius: 30 },
           desktop: { offsetX: -1, offsetY: -96, width: 160, height: 160, radius: 10, rotation: -10 },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
@@ -1684,7 +1684,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 281, offsetY: -176, width: 70, height: 70, rotation: 15, radius: 37 },
+          mobile: { offsetX: 281, offsetY: -176, width: 70, height: 70, rotation: 15, radius: 30 },
           desktop: { offsetX: -1, offsetY: -96, width: 160, height: 160, radius: 10, rotation: -10 },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
@@ -1896,9 +1896,9 @@ export const GLOBAL_CONFIG = {
   
   // Configuración de toque
   TOUCH: {
-    mobileMin: 56,  // Tamaño mínimo en mobile para toque
+    mobileMin: 0,  // Tamaño mínimo en mobile para toque
     desktopMin: 40,  // Tamaño mínimo en desktop
-    hitSlop: 4  // Margen invisible extra para clics
+    hitSlop: 0  // Margen invisible extra para clics
   },
   
   // ========= EFECTOS DE CÁMARA =========
