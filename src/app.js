@@ -1462,8 +1462,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           const screenWidth = worldWidth * camera.z;
           const screenHeight = worldHeight * camera.z;
           
-          // Apply minimum touch target size if needed
-          const minTapSize = mapManager.isMobile ? 56 : 48;
+          // Respeta config global
+          const minTapSize = mapManager.isMobile
+            ? GLOBAL_CONFIG.TOUCH.mobileMin
+            : GLOBAL_CONFIG.TOUCH.desktopMin;
           const finalWidth = Math.max(screenWidth, minTapSize);
           const finalHeight = Math.max(screenHeight, minTapSize);
           
@@ -1481,8 +1483,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
             z: hotspot.z || 2,
             meta: {
               shape: hotspot.shape || 'rect',
-              compact: !mapManager.isMobile,
-              hitSlop: 6,
+              // En mobile: "al ras" por defecto; si un hotspot necesita zona grande, podrá poner compact:false
+              compact: hotspot.compact ?? (mapManager.isMobile ? true : false),
+              hitSlop: GLOBAL_CONFIG.TOUCH.hitSlop,
               minTap: minTapSize,
               visualH: finalHeight,
               title: hotspot.title || `Hotspot ${index}`,

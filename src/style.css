@@ -1242,6 +1242,14 @@ body.net-slow .drawer {
     transition: opacity 0.1s ease;
   }
 }
+/* ========= 🔕 NON-INTERACTIVE OVERLAYS ========= */
+.overlay-noninteractive {
+  pointer-events: none !important;
+  /* Optional debug styling - uncomment to visualize non-interactive elements */
+  /* opacity: 0.9; */
+  /* outline: 1px dashed rgba(255, 0, 0, 0.3); */
+}
+
 /* ========= 🔧 MOBILE FIXES - TOUCH PROTECTION ========= */
 
 .overlay-wrap {
