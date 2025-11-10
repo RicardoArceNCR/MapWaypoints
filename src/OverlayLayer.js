@@ -215,13 +215,14 @@ export class OverlayLayer {
         continue;
       }
 
-      // ✅ NUEVO: Culling por waypoint
-      // Si tenemos un waypoint activo y el hotspot pertenece a otro waypoint, ocultarlo
-      if (activeWaypointIndex !== null && 
-          rec.meta?.waypointIndex !== undefined && 
-          rec.meta.waypointIndex !== activeWaypointIndex) {
+      // ✅ Culling por waypoint: Mostrar solo si es el waypoint activo o no hay waypoint definido
+      const shouldShow = (activeWaypointIndex === undefined) || 
+                        (rec.meta?.waypointIndex === undefined) || 
+                        (rec.meta.waypointIndex === activeWaypointIndex);
+      
+      if (!shouldShow) {
         rec.wrap.style.display = 'none';
-        rec.wrap.style.pointerEvents = 'none';  // 🔧 Deshabilitar completamente
+        rec.wrap.style.pointerEvents = 'none';
         continue;
       }
 
@@ -280,25 +281,37 @@ export class OverlayLayer {
       sx += offX;
       sy += offY;
       
-      // Use hitbox dimensions when not in compact mode
+      // Apply consistent sizing and positioning
       const useHitBox = !compact; // compact:true => al ras (mobile), compact:false => usar hitbox
       const boxW = useHitBox ? hitW : visualW;
       const boxH = useHitBox ? hitH : visualH;
       
+      // Set wrapper dimensions to match hitbox
       rec.wrap.style.width = `${boxW}px`;
       rec.wrap.style.height = `${boxH}px`;
-      rec.wrap.style.transform = `translate(${sx}px, ${sy}px) translate(-50%,-50%) rotate(${rec.rotationDeg}deg)`;
+      
+      // Ensure proper transform origin and positioning
+      rec.wrap.style.transformOrigin = 'center center';
+      rec.wrap.style.transform = `translate(${sx}px, ${sy}px) translate(-50%, -50%) rotate(${rec.rotationDeg}deg)`;
       rec.wrap.style.zIndex = Math.round(1000 + (rec.z * 100) + (rec.worldY / 1000));
       
       // Center the image within the hitbox, maintaining its visual size
       const hotspotImg = rec.img;
       if (hotspotImg) {
+        // Reset any previous transforms that might interfere
+        hotspotImg.style.transform = 'translate(-50%, -50%)';
+        
+        // Ensure image is properly positioned and sized
         hotspotImg.style.position = 'absolute';
         hotspotImg.style.left = '50%';
         hotspotImg.style.top = '50%';
-        hotspotImg.style.transform = 'translate(-50%, -50%)';
         hotspotImg.style.width = `${visualW}px`;
         hotspotImg.style.height = `${visualH}px`;
+        hotspotImg.style.pointerEvents = 'none'; // Ensure image doesn't block events
+        
+        // Ensure the image is visible and properly layered
+        hotspotImg.style.display = 'block';
+        hotspotImg.style.visibility = 'visible';
       }
       
       if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {

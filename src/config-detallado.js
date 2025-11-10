@@ -467,7 +467,7 @@ export const GLOBAL_CONFIG = {
   OVERLAY_SNAP_RADIUS: { mobile: 0, desktop: 24 },
 
   // Flags de depuración
-  DEBUG_HOTSPOTS: true,
+  DEBUG_HOTSPOTS: false,
   SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: true,
   DEBUG_SHOW_COORDS: true,
