@@ -163,7 +163,8 @@ export const MAPS_CONFIG = {
           desktop: { offsetX: -464, offsetY: -55, width: 397, height: 218, rotation: -10 },
           meta: {
             interactive: true,  // Hotspot interactivo
-            z: 100  // Z más alto que los labels
+            z: 100,  // Z más alto que los labels
+            waypointIndex: 0 
           },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
@@ -253,7 +254,8 @@ export const MAPS_CONFIG = {
           desktop: { offsetX: -115, offsetY: -101, width: 150, height: 156, rotation: 25 },
           meta: {
             interactive: true,  // Hotspot interactivo
-            z: 101  // Z más alto que los labels
+            z: 101,  // Z más alto que los labels
+            waypointIndex: 0 
           },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#1 Encuentro en Zona Residencial',
@@ -359,7 +361,8 @@ export const MAPS_CONFIG = {
           desktop: { offsetX: 241, offsetY: -61, width: 397, height: 228, rotation: 25, radius: 10  },
           meta: {
             interactive: true,  // Hotspot interactivo
-            z: 102  // Z más alto que los labels
+            z: 102,  // Z más alto que los labels
+            waypointIndex: 0 
           },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#2 Encuentro en Zona Residencial',
@@ -560,7 +563,8 @@ export const MAPS_CONFIG = {
           desktop: { offsetX: 0, offsetY: 0, width: 149, height: 153, rotation: 0, radius: 10},
           meta: {
             interactive: true,  // Hotspot interactivo
-            z: 103  // Z más alto que los labels
+            z: 103,  // Z más alto que los labels
+            waypointIndex: 0 
           },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#3 Encuentro en Zona Residencial',
