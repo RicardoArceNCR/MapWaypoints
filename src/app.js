@@ -420,10 +420,18 @@ let memoryMonitor = new MemoryMonitor();
     const now = performance.now();
     // si hubo un overlay:click recientemente, no hacemos snap
     if (lastOverlayClick.time && now - lastOverlayClick.time < 250) return;
+    
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    // En mobile NO hacer auto-snap (o al menos exigir estar muy cerca)
+    if (isMobile) {
+      return; // desactiva completamente en mobile
+      // O alternativa con umbral:
+      // const nearest = findNearestOverlay(ev); 
+      // if (!nearest || nearest.distancePx > 20) return;
+    }
 
     try {
-      const isMobile = window.matchMedia('(max-width: 899px)').matches;
-      const R = isMobile ? 0 : 24; // mobile: sin snap para evitar taps fantasma
+      const R = 24; // Radio de snap fijo para desktop
       const clientX = ev.clientX;
       const clientY = ev.clientY;
       let best = null;
@@ -1466,8 +1474,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           const minTapSize = mapManager.isMobile
             ? GLOBAL_CONFIG.TOUCH.mobileMin
             : GLOBAL_CONFIG.TOUCH.desktopMin;
-          const finalWidth = Math.max(screenWidth, minTapSize);
-          const finalHeight = Math.max(screenHeight, minTapSize);
+          const useCompact = hotspot.compact ?? (mapManager.isMobile ? true : false);
+          const visualW = useCompact ? screenWidth : Math.max(screenWidth, minTapSize);
+          const visualH = useCompact ? screenHeight : Math.max(screenHeight, minTapSize);
           
           // Selection state (for editor)
           const isActive = appConfig.editorActive && editor?.selectedItem?.index === index;
@@ -1479,15 +1488,15 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
             worldX: worldX,
             worldY: worldY,
             rotationDeg: hotspot.rotation || 0,
-            lockWidthPx: finalWidth,
+            lockWidthPx: visualW,
             z: hotspot.z || 2,
             meta: {
               shape: hotspot.shape || 'rect',
               // En mobile: "al ras" por defecto; si un hotspot necesita zona grande, podrá poner compact:false
-              compact: hotspot.compact ?? (mapManager.isMobile ? true : false),
-              hitSlop: GLOBAL_CONFIG.TOUCH.hitSlop,
-              minTap: minTapSize,
-              visualH: finalHeight,
+              compact: useCompact,
+              hitSlop: GLOBAL_CONFIG.TOUCH.hitSlop, // manténlo pequeño (0-4) en mobile
+              minTap: minTapSize,                   // se ignora si compact:true
+              visualH: visualH,
               title: hotspot.title || `Hotspot ${index}`,
               hotspot: hotspot,
               isHotspot: true,
