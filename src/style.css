@@ -1104,7 +1104,11 @@ body.overlays-hidden #overlay-layer {
 /* Mobile UX: tactile feedback */
 .overlay-wrap:active,
 .overlay-wrap.is-pressed {
-  transform: translate(-50%, -50%) scale(0.98) !important;
+  /* ✨ No alteres transform aquí: lo controla JS para alinear sprite y hitbox.
+     Cambia solo apariencia (feedback táctil) sin romper el área clicable. */
+  filter: brightness(0.95);
+  outline: 2px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 2px;
 }
 
 /* Network optimization for slow connections */

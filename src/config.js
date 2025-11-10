@@ -8,49 +8,49 @@ export const PHASES = [
 // ========= CONFIGURACIÓN DE POPUPS POR WAYPOINT =========
 // Configuración de popups que se mostrarán en cada waypoint
 // Si un waypoint no está en el mapa, el botón no aparecerá
-export const WAYPOINT_POPUPS = {
-  0: {
-    title: 'PopPup #1',
-    title: 'PopPup #1',
+export const WAYPOINT_POPUPS = [
+  {
+    id: 'wp1-p0',
+    title: 'Llegada al Aeropuerto',
     subtitle: 'Bienvenida y contexto',
     image: '/assets/popups/inicio.webp',
     buttonText: 'Empezar aquí',
     icon: '🚀'
   },
-  1: {
-    title: 'PopPup #2',
-    title: 'PopPup #2',
-    subtitle: 'Área de abordaje',
+  {
+    id: 'wp1-p1',
+    title: 'Área de Abordaje',
+    subtitle: 'Zona de espera y preparación',
     image: '/assets/popups/zona-espera.webp',
     buttonText: 'Ver zona',
     icon: '⏳'
   },
-  2: {
-    title: 'PopPup #3',
-    title: 'PopPup #3',
-    subtitle: 'Encuentro con el conductor',
+  {
+    id: 'wp1-p2',
+    title: 'Encuentro con el Conductor',
+    subtitle: 'Punto de reunión inicial',
     image: '/assets/popups/residencial.webp',
     buttonText: 'Detalles',
     icon: '🏠'
   },
-  3: {
-    title: 'PopPup #4',
-    title: 'PopPup #4',
-    subtitle: 'Ubicación clave',
+  {
+    id: 'wp1-p3',
+    title: 'Ubicación Clave',
+    subtitle: 'Punto de referencia importante',
     image: '/assets/popups/parada.webp',
     buttonText: 'Ver parada',
     icon: '🅿️'
   },
-  4: {
-    title: 'PopPup #5',
-    title: 'PopPup #5',
-    subtitle: 'Llegada al punto de interés',
+  {
+    id: 'wp1-p4',
+    title: 'Punto de Interés',
+    subtitle: 'Destino final',
     image: '/assets/popups/destino.webp',
     buttonText: 'Llegada',
     icon: '🏁'
   }
   // Se pueden agregar más waypoints según sea necesario
-};
+];
 
 // ========= MAPAS POR FASE =========
 export const MAPS_CONFIG = {
@@ -255,7 +255,7 @@ export const MAPS_CONFIG = {
           meta: {
             interactive: true,  // Hotspot interactivo
             z: 101,  // Z más alto que los labels
-            waypointIndex: 0 
+            waypointIndex: 1 
           },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#1 Encuentro en Zona Residencial',
@@ -362,7 +362,7 @@ export const MAPS_CONFIG = {
           meta: {
             interactive: true,  // Hotspot interactivo
             z: 102,  // Z más alto que los labels
-            waypointIndex: 0 
+            waypointIndex: 1 
           },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#2 Encuentro en Zona Residencial',
@@ -2509,10 +2509,12 @@ export const GLOBAL_CONFIG = {
   
   // Configuración de toque
   TOUCH: {
-    mobileMin: 0,  // Tamaño mínimo en mobile para toque
-    desktopMin: 40,  // Tamaño mínimo en desktop
-    hitSlop: 6,  // Margen invisible extra para clics
-    hitSlop: 0  // Margen invisible extra para clics
+    // Durante depuración mobile, sin inflado:
+    mobileMin: 0,
+    // Desktop mantiene accesibilidad:
+    desktopMin: 40,
+    // Borde adicional nulo (prueba entre 0 y 2 si hace falta):
+    hitSlop: 0
   },
   
   // ========= EFECTOS DE CÁMARA =========

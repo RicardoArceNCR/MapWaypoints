@@ -1096,7 +1096,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
 
     waypointsToRender.forEach(wp => {
-      // 🆕 Saltar si no estamos en modo debug Y no queremos mostrar labels
+      // Saltar si no estamos en modo debug Y no queremos mostrar labels
       if (!appConfig.toggles.debug && !GLOBAL_CONFIG.DEBUG_SHOW_WAYPOINT_LABELS) {
         return; // No dibujar el marcador
       }
@@ -1501,7 +1501,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
               hotspot: hotspot,
               isHotspot: true,
               hotspotIndex: index,
-              waypointIndex: state.idx  // 🆕 CRÍTICO: Marca el waypoint actual para culling
+              waypointIndex: state.idx  // CRÍTICO: Marca el waypoint actual para culling
             }
           });
         }
@@ -1516,12 +1516,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       // Skip if this is a hotspot (already handled)
       if (icon.isHotspot) return;
       
-      // 🎯 Reglas de UX para shapes:
+      // Reglas de UX para shapes:
       const isRoundByType = ['pin', 'marker', 'bubble', 'diana', 'dot'].includes(icon.type);
       const isRoundByKind = ['pin', 'circle'].includes(icon.kind);
       const shouldBeRound = isRoundByType || isRoundByKind || icon.shape === 'circle';
 
-      // 📏 Tamaños mínimos táctiles
+      // Tamaños mínimos táctiles
       const isCard = icon.type === 'card' || icon.type === 'label' || icon.type === 'pill';
       const baseSize = icon.width || (GLOBAL_CONFIG.ICON_SIZE || 36);
       const minTapSize = isMobile ? GLOBAL_CONFIG.TOUCH.mobileMin : 0; // Usar configuración global
@@ -1535,39 +1535,39 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         lockWidthPx: Math.max(baseSize, minTapSize),
         z: icon.z || 2,
         meta: {
-          // 🔑 Auto-detección inteligente de forma
+          // Auto-detección inteligente de forma
           shape: icon.shape || (shouldBeRound ? 'circle' : 'rect'),
           
-          // 🎯 Control preciso del hitbox - Compacto en mobile para waypoints 1 y 2
+          // Control preciso del hitbox - Compacto en mobile para waypoints 1 y 2
           compact: icon.compact ?? (
             isMobile && [0, 1].includes(state.idx) ? true : (!isMobile && !isCard)
           ),
           
-          // 🧤 Margen reducido en waypoints problemáticos
+          // Margen reducido en waypoints problemáticos
           hitSlop: icon.hitSlop ?? (
             isMobile && [0, 1].includes(state.idx) ? 4 : (shouldBeRound ? 8 : 6)
           ),
           
-          // 📏 Mínimo táctil según contexto (solo si no es compacto)
+          // Mínimo táctil según contexto (solo si no es compacto)
           minTap: icon.minTap ?? minTapSize,
           
-          // 📐 Alto visual independiente
+          // Alto visual independiente
           visualH: isCard ? (icon.height || baseSize) : icon.height,
 
           // Metadata para popups
           title: icon.title,
           hotspot: icon.hotspotData,
           
-          // ✅ NUEVO: Agregar índice de waypoint para culling
+          // Agregar índice de waypoint para culling
           waypointIndex: state.idx
         }
       });
     });
 
-    // ✅ OPCIONAL: Agregar logging para verificar el fix
+    // OPCIONAL: Agregar logging para verificar el fix
     if (GLOBAL_CONFIG.DEBUG_HOTSPOTS && iconsForWaypoint.length > 0) {
       console.log(
-        `%c🎯 Waypoint ${state.idx}: ${iconsForWaypoint.length} hotspots`,
+        `%c Waypoint ${state.idx}: ${iconsForWaypoint.length} hotspots`,
         'color: #2ecc71; font-weight: bold',
         `(compact: ${isMobile && [1, 2].includes(state.idx)}, mobile: ${isMobile})` 
       );
@@ -1716,21 +1716,21 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
   // Mantener click/mousedown para desktop y para hits sobre hotspots
   canvas.addEventListener('mousedown', (e) => {
-    // 🔧 FIX 1: Ignorar clicks recientes en hotspots
+    // FIX 1: Ignorar clicks recientes en hotspots
     if (window.__lastHotspotClickTime && 
         performance.now() - window.__lastHotspotClickTime < 300) {
-      console.log('🚫 Click ignorado - hotspot clickeado recientemente');
+      console.log(' Click ignorado - hotspot clickeado recientemente');
       return;
     }
     
-    // 🔧 FIX 2: Verificar que el click sea directamente en el canvas
+    // FIX 2: Verificar que el click sea directamente en el canvas
     if (e.target !== canvas) {
-      console.log('🚫 Click ignorado - origen no es el canvas');
+      console.log(' Click ignorado - origen no es el canvas');
       return;
     }
     
     if (appConfig.editorActive) { 
-      console.log('🎨 Editor activo - evento bloqueado'); 
+      console.log(' Editor activo - evento bloqueado'); 
       return; 
     }
     
@@ -1781,8 +1781,34 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (!isMobile) { 
       showFullLineOrNext(); 
     } else { 
-      console.log('🛑 Tap simple en mobile no avanza. Usa long-press (2s).'); 
+      console.log(' Tap simple en mobile no avanza. Usa long-press (2s).'); 
     }
+  }, { passive: false });
+
+  // Agregar tap cooldown y overlay hit detection
+  let __lastHotspotTapTS = 0;
+  const TAP_COOLDOWN_MS = 500; // anti-rebote tras abrir popup
+
+  window.addEventListener('overlay:hotspotTap', () => {
+    __lastHotspotTapTS = performance.now();
+  });
+
+  canvas.addEventListener('mousedown', (e) => {
+    // 1) Si hubo un hotspot recientemente, no avances
+    const now = performance.now();
+    if (now - __lastHotspotTapTS < TAP_COOLDOWN_MS) {
+      console.log(' Tap ignorado - cooldown de hotspot activo');
+      return;
+    }
+    
+    // 2) Si el punto cae sobre overlay, no avances
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    if (el && el.closest && el.closest('#overlay-layer')) {
+      console.log(' Tap ignorado - sobre overlay');
+      return;
+    }
+    
+    // Resto del código de click...
   }, { passive: false });
 
   function clientToMapCoords(cx, cy) {
@@ -1798,7 +1824,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     return { x: mx, y: my };
   }
 
-  // ========= 🆕 CONTROL DE LLENADO DESDE CÓDIGO =========
+  // ========= CONTROL DE LLENADO DESDE CÓDIGO =========
   const rootEl  = document.documentElement;
   const bodyEl  = document.body;
   const shellEl = document.querySelector('.novela');
@@ -1827,7 +1853,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
   };
 
-  // ========= 🎛️ FUNCIÓN COMPLETA DE CANVAS DPR (ajustada) =========
+  // ========= FUNCIÓN COMPLETA DE CANVAS DPR (ajustada) =========
   function setCanvasDPR() {
     if (!mapManager.currentMap) return;
 
@@ -1932,7 +1958,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     // Log de depuración si está habilitado
     if (GLOBAL_CONFIG.PERFORMANCE?.logPerformanceStats) {
-      console.log('🖼️ Canvas configurado:', {
+      console.log(' Canvas configurado:', {
         logical: `${canvasW}×${canvasH}`,
         physical: `${finalW}×${finalH}`,
         dpr: dpr,
@@ -2023,7 +2049,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     let breathOffsetY = 0, breathOffsetZ = 0;
 
-    // 🔧 NUEVO: Condicional inteligente de breathing
+    // Condicional inteligente de breathing
     const isMobile = window.matchMedia('(max-width: 899px)').matches;
     const isTransitioning = transitionState.active;
 
