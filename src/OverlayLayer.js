@@ -56,6 +56,9 @@ export class OverlayLayer {
     } = opt;
 
     let rec = this.items.get(key);
+    // Check if the overlay should be non-interactive
+    const isNonInteractive = meta?.interactive === false;
+    
     if (!rec) {
       const wrap = document.createElement('div');
       wrap.className = 'overlay-wrap';
@@ -63,6 +66,18 @@ export class OverlayLayer {
       wrap.style.position = 'absolute';
       wrap.style.touchAction = 'manipulation';
       wrap.style.userSelect = 'none';
+
+      // Apply non-interactive styles if needed
+      if (isNonInteractive) {
+        wrap.style.pointerEvents = 'none';
+        wrap.classList.add('overlay-noninteractive');
+        wrap.setAttribute('aria-hidden', 'true');
+        if (wrap.getAttribute('title')) wrap.removeAttribute('title');
+      } else {
+        wrap.style.pointerEvents = 'auto';
+        wrap.classList.remove('overlay-noninteractive');
+        wrap.removeAttribute('aria-hidden');
+      }
 
       const img = document.createElement('img');
       img.className = 'overlay-item';
@@ -74,8 +89,10 @@ export class OverlayLayer {
       img.style.display = 'block';
       img.style.pointerEvents = 'none';
 
-      if (meta?.title) {
+      if (meta?.title && !isNonInteractive) {
         wrap.setAttribute('aria-label', meta.title);
+      } else if (wrap.hasAttribute('aria-label')) {
+        wrap.removeAttribute('aria-label');
       }
 
       img.onerror = () => {
@@ -86,11 +103,37 @@ export class OverlayLayer {
       wrap.appendChild(img);
       this.root.appendChild(wrap);
 
-      wrap.addEventListener('pointerdown', this._onPointerDown, { passive: true });
-      wrap.addEventListener('pointerup', this._onPointerUp, { passive: true });
+      // Only add event listeners for interactive elements
+      if (!isNonInteractive) {
+        wrap.addEventListener('pointerdown', this._onPointerDown, { passive: true });
+        wrap.addEventListener('pointerup', this._onPointerUp, { passive: true });
+      }
 
       rec = { wrap, img, meta, lockWidthPx, worldX, worldY, rotationDeg, z, _pd:{x:0,y:0,t:0} };
       this.items.set(key, rec);
+    } else {
+      // Update interactivity for existing elements
+      if (isNonInteractive) {
+        rec.wrap.style.pointerEvents = 'none';
+        rec.wrap.classList.add('overlay-noninteractive');
+        rec.wrap.setAttribute('aria-hidden', 'true');
+        if (rec.wrap.hasAttribute('title')) rec.wrap.removeAttribute('title');
+        
+        // Remove event listeners if they exist
+        rec.wrap.removeEventListener('pointerdown', this._onPointerDown);
+        rec.wrap.removeEventListener('pointerup', this._onPointerUp);
+      } else {
+        rec.wrap.style.pointerEvents = 'auto';
+        rec.wrap.classList.remove('overlay-noninteractive');
+        rec.wrap.removeAttribute('aria-hidden');
+        
+        // Add event listeners if not already present
+        if (!rec._hasListeners) {
+          rec.wrap.addEventListener('pointerdown', this._onPointerDown, { passive: true });
+          rec.wrap.addEventListener('pointerup', this._onPointerUp, { passive: true });
+          rec._hasListeners = true;
+        }
+      }
     }
 
     rec.meta = meta;

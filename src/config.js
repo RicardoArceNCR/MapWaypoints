@@ -68,8 +68,15 @@ export const MAPS_CONFIG = {
     },
     waypoints: [
       { 
+        // Label decorativo - no interactivo
+        id: 'wp1-label',
+        type: 'label',
         mobile: { xp: 0.13, yp: 0.23, z: 0.30 },
         desktop: { xp: 0.299, yp: 0.26, z: 0.88 },
+        meta: {
+          interactive: false,  // No intercepta taps
+          z: 1  // Z bajo para que quede detrás de los hotspots
+        },
         label: 'Inicio del Viaje', 
         lines: [
           'Aquí comienza la historia. Un punto de partida crucial que marca el inicio de esta aventura.',
@@ -126,8 +133,13 @@ export const MAPS_CONFIG = {
       0: [
         { 
           type: 'hotspot',
+          id: 'wp1-hotspot-1',
           mobile: { offsetX: 33, offsetY: -25, width: 290, height: 176, rotation: 0 },
           desktop: { offsetX: -464, offsetY: -55, width: 397, height: 218, rotation: -10 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 2  // Z más alto que los labels
+          },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
           title: 'Llegada al Aeropuerto',
@@ -1980,14 +1992,14 @@ export const GLOBAL_CONFIG = {
     mobile: 0,
     desktop: 24
   },
-  DEBUG_HOTSPOTS: true,              // Visualizar áreas invisibles (hotspots)
+  DEBUG_HOTSPOTS: false,              // Visualizar áreas invisibles (hotspots)
   SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: true,           // Mostrar coordenadas en cada área
   DEBUG_SHOW_MINIMAP_MOBILE: false,   // Mostrar minimap en mobile
   DEBUG_SHOW_WAYPOINT_LABELS: false,  // Mostrar números en waypoints
   DEBUG_SHOW_MEMORY_STATS: true,     // 🆕 Mostrar uso de memoria
-  DEBUG_SHOW_WAYPOINT_HUD: true,
+  DEBUG_SHOW_WAYPOINT_HUD: false,
   
   // Estilos de iconos
   ICON_STYLES: {
