@@ -1088,6 +1088,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
 
     waypointsToRender.forEach(wp => {
+      // 🆕 Saltar si no estamos en modo debug Y no queremos mostrar labels
+      if (!appConfig.toggles.debug && !GLOBAL_CONFIG.DEBUG_SHOW_WAYPOINT_LABELS) {
+        return; // No dibujar el marcador
+      }
+      
       const i = wp.originalIndex !== undefined ? wp.originalIndex : state.currentWaypoints.indexOf(wp);
       ctx.beginPath();
       ctx.arc(wp.x, wp.y, MARKER_R, 0, RENDER_CONSTANTS.TWO_PI);
@@ -1483,7 +1488,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
               title: hotspot.title || `Hotspot ${index}`,
               hotspot: hotspot,
               isHotspot: true,
-              hotspotIndex: index
+              hotspotIndex: index,
+              waypointIndex: state.idx  // 🆕 CRÍTICO: Marca el waypoint actual para culling
             }
           });
         }
