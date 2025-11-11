@@ -250,7 +250,7 @@ export const MAPS_CONFIG = {
         { 
           type: 'hotspot',
           id: 'wp1-hotspot-2',
-          mobile: { offsetX: 62, offsetY: 250, width: 350, height: 230, rotation: 0, radius: 0 },
+          mobile: { offsetX: 62, offsetY: 250, width: 250, height: 210, rotation: 0, radius: 0 },
           desktop: { offsetX: -115, offsetY: -101, width: 150, height: 156, rotation: 25 },
           meta: {
             interactive: true,  // Hotspot interactivo
@@ -557,7 +557,7 @@ export const MAPS_CONFIG = {
         { 
           type: 'hotspot',
           id: 'wp1-hotspot-3',
-          mobile: { offsetX: -130, offsetY: 650, width: 120, height: 120, rotation: 0, radius: 20},
+          mobile: { offsetX: 80, offsetY: -220, width: 120, height: 120, rotation: 0, radius: 20},
           desktop: { offsetX: 0, offsetY: 0, width: 149, height: 153, rotation: 0, radius: 10},
           meta: {
             interactive: true,  // Hotspot interactivo
@@ -760,7 +760,7 @@ export const MAPS_CONFIG = {
       1: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
@@ -912,9 +912,8 @@ export const MAPS_CONFIG = {
       2: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
-          mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: -80, offsetY: -90, width: 136, height: 136, rotation: 0 },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
           image: '/assets/mapa-1.webp',
@@ -1070,7 +1069,7 @@ export const MAPS_CONFIG = {
       3: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
@@ -1095,7 +1094,7 @@ export const MAPS_CONFIG = {
               { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
             ]
           },
-          mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
@@ -1231,7 +1230,7 @@ export const MAPS_CONFIG = {
       4: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
@@ -1315,7 +1314,7 @@ export const MAPS_CONFIG = {
           involved: [],
           echos: {},
           type: 'hotspot',
-          mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
@@ -1403,7 +1402,7 @@ export const MAPS_CONFIG = {
       5: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
@@ -1487,7 +1486,7 @@ export const MAPS_CONFIG = {
           involved: [],
           echos: {},
           type: 'hotspot',
-          mobile: { offsetX: -100, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',

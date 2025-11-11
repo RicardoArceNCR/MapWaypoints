@@ -138,6 +138,19 @@ export class HotspotManager {
     ev.stopImmediatePropagation();
 
     if (!hs) return;             // ❗ Nada de "popup genérico" ni avanzar waypoint
+    
+    // 🧪 NUEVO (opcional): log de telemetría del toque
+    if (window.appConfig?.toggles?.hitlog) {
+      const world = this.canvasHitTest.screenToWorld(t.clientX, t.clientY);
+      console.table({
+        wp: this.activeWaypointIndex,
+        id: hs?.id,
+        title: hs?.data?.title || hs?.title,
+        screen: { x: t.clientX, y: t.clientY },
+        world
+      });
+    }
+    
     if (!this.popupManager) return;
     
     // Asegura API explícita por objeto

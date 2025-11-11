@@ -76,6 +76,9 @@ function parseUrlToggles() {
     if (!Number.isNaN(n)) out.scale = Math.min(110, Math.max(80, n)) / 100; // 0.80–1.10
   }
   if (p.has('debug')) out.debug = p.get('debug') === '1';
+  // Debug de hit-test (opcional)
+  if (p.has('hitdraw')) out.hitdraw = p.get('hitdraw') === '1';
+  if (p.has('hitlog')) out.hitlog = p.get('hitlog') === '1';
   if (p.has('editor')) out.editor = p.get('editor') === '1';
   if (p.has('popups')) out.popups = p.get('popups') === '1';
   if (p.has('overlays')) out.overlays = p.get('overlays') === '1';
@@ -1641,6 +1644,13 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     // Actualizar overlays/hotspots al final del frame
     if (hotspotManager) {
       hotspotManager.endFrame(camera, canvasLogicalW, canvasLogicalH, state.idx);
+      // 🔎 NUEVO: dibujo de hitboxes, inerte si no activas ?debug=1&hitdraw=1
+      if (appConfig.toggles?.debug && appConfig.toggles?.hitdraw && hotspotManager.canvasHitTest) {
+        hotspotManager.canvasHitTest.debug = true;
+        hotspotManager.canvasHitTest.drawDebug(ctx);
+      } else if (hotspotManager.canvasHitTest) {
+        hotspotManager.canvasHitTest.debug = false;
+      }
     } else if (overlay) {
       overlay.endFrame(camera, canvasLogicalW, canvasLogicalH, state.idx);
     }
