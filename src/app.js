@@ -680,36 +680,58 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   }
 
   // ========= SYNC HOTSPOT DATA =========
+  // ========= SYNC HOTSPOT DATA (desde icons→hotspots) =========
   function syncHotspotData(mapData) {
-    if (!mapData) return;
-    
-    // Initialize or update the shared hotspot data
-    if (!window.hotspotData) {
-      window.hotspotData = [];
-    }
-    
-    // Update hotspot data from the map data
-    if (mapData.hotspots && Array.isArray(mapData.hotspots)) {
-      mapData.hotspots.forEach((hotspot, index) => {
-        if (hotspot && hotspot.coords) {
-          // Merge estable y ordenado (evita undefined en coords)
-          window.hotspotData[index] = {
-            ...(window.hotspotData[index] || {}),
-            ...hotspot,
-            coords: {
-              ...(window.hotspotData[index]?.coords || {}),
-              ...(hotspot.coords || {})
-            }
-          };
-        }
+    if (!mapData) return [];
+
+    // Estructura global (no romper usos existentes)
+    if (!window.hotspotData) window.hotspotData = [];
+
+    const out = [];
+
+    // Recorre todos los waypoints y toma sólo icons tipo 'hotspot'
+    const iconsByWp = mapData.icons || {};
+    Object.keys(iconsByWp).forEach((wpIndexStr) => {
+      const wpIndex = Number(wpIndexStr);
+      const icons = iconsByWp[wpIndex] || [];
+      icons.forEach((icon, localIdx) => {
+        if (icon?.type !== 'hotspot') return;
+
+        // Adaptar a la forma que consume tu draw/hit-test
+        // worldX/worldY los obtienes en draw; aquí guardamos metadatos y tamaño "world"
+        const hs = {
+          id: icon.id || `wp${wpIndex}-hotspot-${localIdx}`,
+          title: icon.title || `Hotspot ${localIdx}`,
+          // "coords" en fracción del mapa NO es estrictamente necesario si calculas worldX/Y en draw.
+          // Lo dejamos nulo y usamos icon.x/icon.y al construir hotspotConfig en draw.
+          coords: null,
+          width: icon.width ?? null,
+          height: icon.height ?? null,
+          rotation: icon.rotation || 0,
+          shape: icon.shape, // opcional
+          z: icon.z || 2,
+          meta: {
+            waypointIndex: wpIndex,
+            isHotspot: true
+          },
+          // Para el popup
+          body: icon.body,
+          img: icon.img,
+          src: icon.img // mantiene compatibilidad
+        };
+
+        out.push(hs);
       });
-    }
-    
-    // Notify that hotspot data has been updated
+    });
+
+    // Actualiza la global con merge estable
+    // (mantenemos índices si existían; si no, simplemente reasignamos)
+    window.hotspotData = out;
+
     window.dispatchEvent(new CustomEvent('hotspotData:updated', {
       detail: { hotspots: window.hotspotData }
     }));
-    
+
     return window.hotspotData;
   }
 
@@ -1445,52 +1467,47 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       overlay.beginFrame();
     }
 
-    // Process all hotspots with waypoint filtering and viewport culling
-    const activeWp = state.idx;
+    // Process hotspots for the active waypoint using window.hotspotData
+    const activeWaypointIndex = state.idx;
     console.group('Processing hotspots');
-    console.log(`Active waypoint: ${activeWp}, Total hotspots: ${(window.hotspotData || []).length}`);
     
-    const hotspots = (window.hotspotData || []).filter(h => {
-      const matches = h?.coords && (h.meta?.waypointIndex === undefined || h.meta.waypointIndex === activeWp);
-      if (h?.id === 'wp1-hotspot-3') {
-        console.log(`[DEBUG] wp1-hotspot-3 - waypointIndex: ${h.meta?.waypointIndex}, matches: ${matches}`, h);
-      }
-      return matches;
-    });
-
-    console.log(`Visible hotspots (${hotspots.length}):`, hotspots.map(h => h.id || 'unknown'));
+    // Filter hotspots for current waypoint
+    const activeHotspots = (window.hotspotData || []).filter(hs => 
+      hs.meta?.waypointIndex === activeWaypointIndex
+    );
     
-    for (const [index, hotspot] of hotspots.entries()) {
-      if (hotspot.id === 'wp1-hotspot-3') {
+    console.log(`Active waypoint: ${activeWaypointIndex}, Hotspot count: ${activeHotspots.length}`);
+    
+    // Process each hotspot
+    activeHotspots.forEach((hotspot, index) => {
+      if (hotspot?.id === 'wp1-hotspot-3') {
         console.log('[DEBUG] Processing wp1-hotspot-3', { 
-          coords: hotspot.coords,
-          meta: hotspot.meta,
+          hotspot,
           index,
-          total: hotspots.length 
+          total: activeHotspots.length 
         });
       }
-      const { xp, yp, wp, hp, width: fixedWidth, height: fixedHeight } = hotspot.coords;
-
-      // Map logical dims
-      const mapW = mapManager.currentMap?.config.mapImage.logicalW || 2858;
-      const mapH = mapManager.currentMap?.config.mapImage.logicalH || 2858;
-
-      // World size
-      let worldWidth, worldHeight;
-      if (wp !== undefined && hp !== undefined) {
-        worldWidth = wp * mapW;
-        worldHeight = hp * mapH;
-      } else if (fixedWidth !== undefined && fixedHeight !== undefined) {
-        worldWidth = fixedWidth;
-        worldHeight = fixedHeight;
+      
+      // Get dimensions from hotspot data
+      const { width, height } = hotspot;
+      const worldWidth = width || 50;
+      const worldHeight = height || 50;
+      
+      // Get position from coords or xp/yp
+      let worldX, worldY;
+      if (hotspot.coords) {
+        worldX = hotspot.coords.x;
+        worldY = hotspot.coords.y;
+      } else if (hotspot.xp !== undefined && hotspot.yp !== undefined) {
+        const mapW = mapManager.currentMap?.config.mapImage.logicalW || 2858;
+        const mapH = mapManager.currentMap?.config.mapImage.logicalH || 2858;
+        worldX = hotspot.xp * mapW;
+        worldY = hotspot.yp * mapH;
       } else {
-        worldWidth = 50;
-        worldHeight = 50;
+        return; // Skip if no valid position data
       }
 
-      // World position
-      const worldX = xp * mapW;
-      const worldY = yp * mapH;
+      // worldX and worldY are already calculated above from hotspot.coords or hotspot.xp/yp
 
       // Viewport culling
       const dpr = Math.min(DPR_MAX, window.devicePixelRatio || 1);
@@ -1530,9 +1547,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           ]
         });
       }
-      if (!onScreen) continue;
+      if (!onScreen) return; // Skip this hotspot and continue with the next one
 
-      // Visual size (respeta compact/hitSlop/minTap)
+      // Calculate visual size (respects compact/hitSlop/minTap)
       const screenWidth = worldWidth * camera.z;
       const screenHeight = worldHeight * camera.z;
 
@@ -1540,20 +1557,21 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         ? GLOBAL_CONFIG.TOUCH.mobileMin
         : GLOBAL_CONFIG.TOUCH.desktopMin;
 
-      const useCompact = hotspot.compact ?? (mapManager.isMobile ? true : false);
+      const useCompact = hotspot.meta?.compact ?? (mapManager.isMobile ? true : false);
       const visualW = useCompact ? screenWidth : Math.max(screenWidth, minTapSize);
       const visualH = useCompact ? screenHeight : Math.max(screenHeight, minTapSize);
 
       const hotspotConfig = {
-        key: `hotspot_${index}`,
-        src: hotspot.src || '/default-icon.png',
+        key: `hotspot_${hotspot.id || index}`,
+        src: hotspot.src || hotspot.img || '/default-icon.png',
         worldX: worldX,
         worldY: worldY,
         rotationDeg: hotspot.rotation || 0,
         lockWidthPx: visualW,
         z: hotspot.z || 2,
         meta: {
-          shape: hotspot.shape || (shouldBeRound ? 'circle' : 'rect'),
+          ...(hotspot.meta || {}),
+          shape: hotspot.shape || (hotspot.meta?.shouldBeRound ? 'circle' : 'rect'),
           compact: useCompact,
           hitSlop: GLOBAL_CONFIG.TOUCH.hitSlop,
           minTap: minTapSize,
@@ -1562,7 +1580,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           hotspot: hotspot,
           isHotspot: true,
           hotspotIndex: index,
-          waypointIndex: state.idx,
+          waypointIndex: activeWaypointIndex,
         },
       };
 
@@ -1571,15 +1589,15 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       } else if (overlay) {
         overlay.upsert(hotspotConfig);
       }
-    }
+    }); // Properly close the forEach
     
-    // Render regular waypoint icons
-    const iconsForWaypoint = state.currentIcons[state.idx] || [];
+    // Render regular waypoint icons (non-hotspots)
+    const waypointIcons = state.currentIcons[state.idx] || [];
+    const nonHotspotIcons = waypointIcons.filter(icon => icon?.type !== 'hotspot');
     const isMobile = mapManager.isMobile;
 
-    iconsForWaypoint.forEach((icon, i) => {
-      // Skip if this is a hotspot (already handled)
-      if (icon.isHotspot) return;
+    nonHotspotIcons.forEach((icon, i) => {
+      // Non-hotspot icons only (already filtered above)
       
       // Reglas de UX para shapes:
       const isRoundByType = ['pin', 'marker', 'bubble', 'diana', 'dot'].includes(icon.type);
@@ -1632,9 +1650,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     });
 
     // OPCIONAL: Agregar logging para verificar el fix
-    if (GLOBAL_CONFIG.DEBUG_HOTSPOTS && iconsForWaypoint.length > 0) {
+    if (GLOBAL_CONFIG.DEBUG_HOTSPOTS && activeHotspots.length > 0) {
       console.log(
-        `%c Waypoint ${state.idx}: ${iconsForWaypoint.length} hotspots`,
+        `%c Waypoint ${state.idx}: ${activeHotspots.length} hotspots`,
         'color: #2ecc71; font-weight: bold',
         `(compact: ${isMobile && [1, 2].includes(state.idx)}, mobile: ${isMobile})` 
       );
