@@ -689,7 +689,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (mapData.hotspots && Array.isArray(mapData.hotspots)) {
       mapData.hotspots.forEach((hotspot, index) => {
         if (hotspot && hotspot.coords) {
-          // Preserve existing hotspot data if it exists
+          // Merge estable y ordenado (evita undefined en coords)
           window.hotspotData[index] = {
             ...(window.hotspotData[index] || {}),
             ...hotspot,

@@ -85,6 +85,8 @@ export class HotspotManager {
     this._onPointerDown = this.onPointerDown.bind(this);
     this._onPointerUp = this.onPointerUp.bind(this);
     this._onPointerMove = this.onPointerMove.bind(this);
+    // Cooldown anti-doble tap
+    this._tapCooldownMs = 500;
 
     this.canvas.addEventListener('pointerdown', this._onPointerDown, { passive: false });
     this.canvas.addEventListener('pointerup', this._onPointerUp, { passive: false });
@@ -105,61 +107,54 @@ export class HotspotManager {
     this.canvas.removeEventListener('pointermove', this._onPointerMove);
   }
 
+  // === Canvas input ===
   onPointerDown(ev) {
-    if (this.mode === 'dom') return;
+    // noop por ahora (si necesitas long-press, que NO dispare click al soltar)
+  }
 
-    this.pointerDownData = {
-      x: ev.clientX,
-      y: ev.clientY,
-      time: performance.now()
-    };
+  onPointerMove(_ev) {
+    // opcional: hover/debug
   }
 
   onPointerUp(ev) {
-    if (this.mode === 'dom') return;
-    if (!this.pointerDownData) return;
-
+    if (this.mode === 'dom') return; // canvas no decide en DOM
+    
     const now = performance.now();
-    const dx = Math.abs(ev.clientX - this.pointerDownData.x);
-    const dy = Math.abs(ev.clientY - this.pointerDownData.y);
-    const dt = now - this.pointerDownData.time;
-
-    // Reset para siguiente evento
-    this.pointerDownData = null;
-
-    // Verificar que fue un tap (no un drag)
-    if (dx > 10 || dy > 10 || dt > 500) return;
-
-    // Cooldown para evitar taps múltiples
-    if (now - this.lastTapTime < 300) return;
+    if (now - (this.lastTapTime || 0) < this._tapCooldownMs) {
+      ev.preventDefault(); 
+      ev.stopPropagation(); 
+      ev.stopImmediatePropagation();
+      return;
+    }
     this.lastTapTime = now;
 
-    // Hit test
-    const hotspot = this.canvasHitTest.hitTest(ev.clientX, ev.clientY);
-    
-    if (hotspot) {
-      // Hotspot encontrado - abrir popup
-      ev.preventDefault();
-      ev.stopPropagation();
-      
-      console.log('🎯 Hotspot hit (canvas):', hotspot.id);
-      
-      if (this.popupManager && hotspot.data) {
-        this.popupManager.openPopup({
-          title: hotspot.data.title || `Hotspot ${hotspot.id}`,
-          description: hotspot.data.description || 'Sin descripción',
-          ...hotspot.data
-        });
-      }
+    const t = ev.changedTouches?.[0] || ev;
+    const activeWp = this.activeWaypointIndex;
+    const hs = this.canvasHitTest.hitAt(t.clientX, t.clientY, activeWp);
 
-      // Notificar evento
-      window.dispatchEvent(new CustomEvent('hotspot:tap', { 
-        detail: { hotspot, mode: this.mode }
-      }));
-      
-      // Prevenir que se avance el waypoint
-      window.__lastHotspotClickTime = now;
+    // Siempre corta bubbling; canvas es la fuente de verdad en hybrid/canvas
+    ev.preventDefault(); 
+    ev.stopPropagation(); 
+    ev.stopImmediatePropagation();
+
+    if (!hs) return;             // ❗ Nada de "popup genérico" ni avanzar waypoint
+    if (!this.popupManager) return;
+    
+    // Asegura API explícita por objeto
+    if (typeof this.popupManager.openFromHotspot === 'function') {
+      this.popupManager.openFromHotspot(hs);
+      return;
     }
+    
+    // Fallback a API vieja si existe
+    if (typeof this.popupManager.openPopup === 'function') {
+      this.popupManager.openPopup(hs);
+    }
+
+    // Notificar evento
+    window.dispatchEvent(new CustomEvent('hotspot:tap', { 
+      detail: { hotspot: hs, mode: this.mode }
+    }));
   }
 
   onPointerMove(ev) {
@@ -229,6 +224,13 @@ export class HotspotManager {
   }
 
   beginFrame() {
+    // Update canvas hit test with current hotspots and active waypoint
+    if (this.mode !== 'dom') {  // Update for both 'canvas' and 'hybrid' modes
+      const hotspotList = Array.from(this.hotspots.values());
+      this.canvasHitTest.updateHotspots(hotspotList, this.activeWaypointIndex);
+    }
+    
+    // Update overlay layer if in DOM or hybrid mode
     if (this.mode !== 'canvas') {
       this.overlayLayer.beginFrame();
     }

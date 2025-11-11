@@ -2507,12 +2507,12 @@ export const GLOBAL_CONFIG = {
   
   // Configuración de toque
   TOUCH: {
-    // Durante depuración mobile, sin inflado:
-    mobileMin: 0,
-    // Desktop mantiene accesibilidad:
+    // Tamaño mínimo del área táctil para móviles (0-8px)
+    mobileMin: 4,
+    // Tamaño mínimo del área táctil para escritorio
     desktopMin: 40,
-    // Borde adicional nulo (prueba entre 0 y 2 si hace falta):
-    hitSlop: 0
+    // Borde adicional para mejorar la detección de toque (0-4px)
+    hitSlop: 2
   },
   
   // ========= EFECTOS DE CÁMARA =========

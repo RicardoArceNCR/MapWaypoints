@@ -7,6 +7,7 @@ export class CanvasHitTest {
     this.hotspots = [];
     this.activeWaypointIndex = null;
     this.debug = false;
+    this.canvas = null;
   }
 
   // Actualiza la lista de hotspots activos
@@ -15,83 +16,85 @@ export class CanvasHitTest {
     this.activeWaypointIndex = waypointIndex;
   }
 
-  // Convierte coordenadas de pantalla a mundo
+  _ensureCanvas() {
+    if (!this.canvas) this.canvas = document.getElementById('mapa-canvas');
+    return this.canvas;
+  }
+
+  // screen (CSS px) -> world, compensando DPR y bounding rect
   screenToWorld(screenX, screenY) {
-    const canvasEl = document.getElementById('mapa-canvas');
-    if (!canvasEl) return null;
-    
+    const canvasEl = this._ensureCanvas();
+    if (!canvasEl || !this.camera) return null;
     const rect = canvasEl.getBoundingClientRect();
-    const canvasX = screenX - rect.left;
-    const canvasY = screenY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const worldX = this.camera.x + (canvasX - centerX) / this.camera.z;
-    const worldY = this.camera.y + (canvasY - centerY) / this.camera.z;
-    
-    return { x: worldX, y: worldY };
+    // coords en CSS px relativos al canvas
+    const cssX = screenX - rect.left;
+    const cssY = screenY - rect.top;
+    // Usa la matriz de cámara ya implementada
+    return this.camera.cssToWorld(cssX, cssY);
   }
 
   // Convierte coordenadas de mundo a pantalla
   worldToScreen(worldX, worldY) {
-    const canvasEl = document.getElementById('mapa-canvas');
+    const canvasEl = this._ensureCanvas();
     if (!canvasEl) return null;
-    
-    const rect = canvasEl.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const screenX = centerX + (worldX - this.camera.x) * this.camera.z;
-    const screenY = centerY + (worldY - this.camera.y) * this.camera.z;
-    
-    return { x: screenX, y: screenY };
+    const css = this.camera.worldToCss(worldX, worldY);
+    return { x: css.x, y: css.y };
   }
 
   // Realiza el hit test en las coordenadas de pantalla
   hitTest(screenX, screenY) {
+    const hit = this.hitAt(screenX, screenY, this.activeWaypointIndex);
+    if (!hit) return null;
+    
+    return {
+      id: hit.id,
+      data: hit.data || {},
+      worldX: hit.worldX ?? hit.coords?.x,
+      worldY: hit.worldY ?? hit.coords?.y
+    };
+  }
+
+  // Nuevo: hitAt devuelve el HOTSPOT COMPLETO (no un wrapper genérico)
+  hitAt(screenX, screenY, activeWp) {
     if (!this.camera) return null;
 
-    // Convertir coordenadas de pantalla a mundo
     const worldPos = this.screenToWorld(screenX, screenY);
     if (!worldPos) return null;
 
-    // Buscar colisiones con los hotspots
-    for (const hotspot of this.hotspots) {
-      // Saltar hotspots de otros waypoints
-      if (hotspot.waypointIndex !== undefined && 
-          this.activeWaypointIndex !== null && 
-          hotspot.waypointIndex !== this.activeWaypointIndex) {
-        continue;
-      }
+    const items = (this.hotspots || []).filter(h => {
+      const wpIdx = h?.meta?.waypointIndex ?? h?.waypointIndex;
+      const targetWp = activeWp ?? this.activeWaypointIndex;
+      return h && (targetWp == null || wpIdx === targetWp);
+    });
 
-      // Verificar colisión según la forma
-      const dx = worldPos.x - hotspot.worldX;
-      const dy = worldPos.y - hotspot.worldY;
-      const halfW = hotspot.worldWidth / 2;
-      const halfH = hotspot.worldHeight / 2;
+    const hits = [];
+    for (const hs of items) {
+      const cx = hs.worldX ?? hs.coords?.x;
+      const cy = hs.worldY ?? hs.coords?.y;
+      if (cx == null || cy == null) continue;
+      const w  = hs.worldWidth ?? hs.w ?? hs.width ?? 48;
+      const h  = hs.worldHeight ?? hs.h ?? hs.height ?? 48;
+      const halfW = (w * 0.5);
+      const halfH = (h * 0.5);
+      const dx = worldPos.x - cx;
+      const dy = worldPos.y - cy;
+
+      const shape = hs.meta?.shape || hs.shape || 'rect';
       let hit = false;
-
-      if (hotspot.shape === 'circle') {
-        // Hit test circular
+      if (shape === 'circle') {
         const radius = Math.max(halfW, halfH);
         hit = (dx * dx + dy * dy) <= (radius * radius);
       } else {
-        // Hit test rectangular (por defecto)
         hit = Math.abs(dx) <= halfW && Math.abs(dy) <= halfH;
       }
 
-      if (hit) {
-        return {
-          id: hotspot.id,
-          data: hotspot.data || {},
-          worldX: hotspot.worldX,
-          worldY: hotspot.worldY
-        };
-      }
+      if (hit) hits.push(hs);
     }
 
-    return null;
+    if (!hits.length) return null;
+    // Prioriza por z/meta.size/radio si existe
+    hits.sort((a,b)=>((b.meta?.z||b.z||0) - (a.meta?.z||a.z||0)));
+    return hits[0];
   }
 
   // Obtener escala actual de la cámara
