@@ -8,49 +8,49 @@ export const PHASES = [
 // ========= CONFIGURACIÓN DE POPUPS POR WAYPOINT =========
 // Configuración de popups que se mostrarán en cada waypoint
 // Si un waypoint no está en el mapa, el botón no aparecerá
-export const WAYPOINT_POPUPS = {
-  0: {
-    title: 'PopPup #1',
-    title: 'PopPup #1',
+export const WAYPOINT_POPUPS = [
+  {
+    id: 'wp1-p0',
+    title: 'Llegada al Aeropuerto',
     subtitle: 'Bienvenida y contexto',
     image: '/assets/popups/inicio.webp',
     buttonText: 'Empezar aquí',
     icon: '🚀'
   },
-  1: {
-    title: 'PopPup #2',
-    title: 'PopPup #2',
-    subtitle: 'Área de abordaje',
+  {
+    id: 'wp1-p1',
+    title: 'Área de Abordaje',
+    subtitle: 'Zona de espera y preparación',
     image: '/assets/popups/zona-espera.webp',
     buttonText: 'Ver zona',
     icon: '⏳'
   },
-  2: {
-    title: 'PopPup #3',
-    title: 'PopPup #3',
-    subtitle: 'Encuentro con el conductor',
+  {
+    id: 'wp1-p2',
+    title: 'Encuentro con el Conductor',
+    subtitle: 'Punto de reunión inicial',
     image: '/assets/popups/residencial.webp',
     buttonText: 'Detalles',
     icon: '🏠'
   },
-  3: {
-    title: 'PopPup #4',
-    title: 'PopPup #4',
-    subtitle: 'Ubicación clave',
+  {
+    id: 'wp1-p3',
+    title: 'Ubicación Clave',
+    subtitle: 'Punto de referencia importante',
     image: '/assets/popups/parada.webp',
     buttonText: 'Ver parada',
     icon: '🅿️'
   },
-  4: {
-    title: 'PopPup #5',
-    title: 'PopPup #5',
-    subtitle: 'Llegada al punto de interés',
+  {
+    id: 'wp1-p4',
+    title: 'Punto de Interés',
+    subtitle: 'Destino final',
     image: '/assets/popups/destino.webp',
     buttonText: 'Llegada',
     icon: '🏁'
   }
   // Se pueden agregar más waypoints según sea necesario
-};
+];
 
 // ========= MAPAS POR FASE =========
 export const MAPS_CONFIG = {
@@ -76,15 +76,8 @@ export const MAPS_CONFIG = {
         // Label decorativo - no interactivo
         id: 'wp1-label',
         type: 'label',
-        // Label decorativo - no interactivo
-        id: 'wp1-label',
-        type: 'label',
-        mobile: { xp: 0.13, yp: 0.23, z: 0.30 },
+        mobile: { xp: 0.13, yp: 0.23, z: 0.90 },
         desktop: { xp: 0.299, yp: 0.26, z: 0.88 },
-        meta: {
-          interactive: false,  // No intercepta taps
-          z: 1  // Z bajo para que quede detrás de los hotspots
-        },
         meta: {
           interactive: false,  // No intercepta taps
           z: 1  // Z bajo para que quede detrás de los hotspots
@@ -96,8 +89,12 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.47, yp: 0.23, z: 0.30 },
+        mobile: { xp: 0.47, yp: 0.23, z: 0.90 },
         desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
+        meta: {
+          interactive: false,  // No intercepta taps
+          z: 2  // Z bajo para que quede detrás de los hotspots
+        },
         label: 'Punto Central', 
         lines: [
           'En el corazón del territorio encontramos este lugar estratégico.',
@@ -105,8 +102,12 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.80, yp: 0.23, z: 0.30 },
+        mobile: { xp: 0.80, yp: 0.23, z: 0.90 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
+        meta: {
+          interactive: false,  // No intercepta taps
+          z: 3  // Z bajo para que quede detrás de los hotspots
+        },
         label: 'Momento Culminante', 
         lines: [
           'Este es el punto donde todo cambia. Un momento decisivo en la narrativa.',
@@ -114,8 +115,12 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.13, yp: 0.70, z: 0.30 },
+        mobile: { xp: 0.13, yp: 0.70, z: 0.90 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
+        meta: {
+          interactive: false,  // No intercepta taps
+          z: 4  // Z bajo para que quede detrás de los hotspots
+        },
         label: 'Momento Culminante', 
         lines: [
           'Este es el punto donde todo cambia. Un momento decisivo en la narrativa.',
@@ -123,8 +128,12 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.47, yp: 0.70, z: 0.30 },
+        mobile: { xp: 0.47, yp: 0.70, z: 0.90 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
+        meta: {
+            interactive: false,  // Hotspot interactivo
+            z: 5  // Z más alto que los labels
+          },
         label: 'Momento Culminanteeeee', 
         lines: [
           'Este es el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.',
@@ -132,9 +141,12 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.70, z: 0.30 },
+        mobile: { xp: 0.82, yp: 0.70, z: 0.90 },
         desktop: { xp: 0.725, yp: 1, z: 0.91 },
-        desktop: { xp: 0.725, yp: 1, z: 0.91 },
+        meta: {
+            interactive: false,  // Hotspot interactivo
+            z: 6  // Z más alto que los labels
+          },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [
           'Este esu748484484884 el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.',
@@ -147,16 +159,12 @@ export const MAPS_CONFIG = {
         { 
           type: 'hotspot',
           id: 'wp1-hotspot-1',
-          id: 'wp1-hotspot-1',
           mobile: { offsetX: 33, offsetY: -25, width: 290, height: 176, rotation: 0 },
           desktop: { offsetX: -464, offsetY: -55, width: 397, height: 218, rotation: -10 },
           meta: {
             interactive: true,  // Hotspot interactivo
-            z: 2  // Z más alto que los labels
-          },
-          meta: {
-            interactive: true,  // Hotspot interactivo
-            z: 2  // Z más alto que los labels
+            z: 100,  // Z más alto que los labels
+            waypointIndex: 0 
           },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
@@ -241,13 +249,16 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 62, offsetY: 339, width: 350, height: 230, rotation: 0, radius: 0 },
+          id: 'wp1-hotspot-2',
+          mobile: { offsetX: 62, offsetY: 250, width: 350, height: 230, rotation: 0, radius: 0 },
           desktop: { offsetX: -115, offsetY: -101, width: 150, height: 156, rotation: 25 },
-          
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 101,  // Z más alto que los labels
+            waypointIndex: 1 
+          },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#1 Encuentro en Zona Residencial',
-          title: '#1 Encuentro en Zona Residencial',
-          
           image: '/assets/mapa-1.webp',
           
           datetime: {
@@ -343,10 +354,14 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -81, offsetY: -320, width: 120, height: 120, rotation: 0, radius: 20 },
-          mobile: { offsetX: -81, offsetY: -320, width: 120, height: 120, rotation: 0, radius: 20 },
+          id: 'wp1-hotspot-2a',
+          mobile: { offsetX: -81, offsetY: -250, width: 120, height: 120, rotation: 0, radius: 20 },
           desktop: { offsetX: 241, offsetY: -61, width: 397, height: 228, rotation: 25, radius: 10  },
-          
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 102,  // Z más alto que los labels
+            waypointIndex: 1 
+          },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#2 Encuentro en Zona Residencial',
           
@@ -541,9 +556,14 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
+          id: 'wp1-hotspot-3',
           mobile: { offsetX: -130, offsetY: 650, width: 120, height: 120, rotation: 0, radius: 20},
-          desktop: { offsetX: -111, offsetY: 143, width: 149, height: 153, rotation: 0, radius: 10},
-          
+          desktop: { offsetX: 0, offsetY: 0, width: 149, height: 153, rotation: 0, radius: 10},
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 103,  // Z más alto que los labels
+            waypointIndex: 2 
+          },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#3 Encuentro en Zona Residencial',
           
@@ -1573,7 +1593,7 @@ export const MAPS_CONFIG = {
     },
     waypoints: [
       { 
-        mobile: { xp: 0.13, yp: 0.19, z: 0.30 },
+        mobile: { xp: 0.13, yp: 0.19, z: 0.90 },
         desktop: { xp: 0.299, yp: 0.26, z: 0.88 },
         label: 'Inicio del Viaje', 
         lines: [
@@ -1582,7 +1602,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.50, yp: 0.25, z: 0.30 },
+        mobile: { xp: 0.50, yp: 0.25, z: 0.90 },
         desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
         label: 'Punto Central', 
         lines: [
@@ -1591,7 +1611,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -1600,7 +1620,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: 0.30 },
+        mobile: { xp: 0.82, yp: 0.800, z: 0.90 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -1609,7 +1629,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
@@ -1618,7 +1638,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
         desktop: { xp: 0.725, yp: 1, z: 0.91 },
         desktop: { xp: 0.725, yp: 1, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
@@ -2029,7 +2049,7 @@ export const MAPS_CONFIG = {
     },
     waypoints: [
       { 
-        mobile: { xp: 0.13, yp: 0.19, z: 0.30 },
+        mobile: { xp: 0.13, yp: 0.19, z:0.90 },
         desktop: { xp: 0.299, yp: 0.26, z: 0.88 },
         label: 'Inicio del Viaje', 
         lines: [
@@ -2038,7 +2058,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.50, yp: 0.25, z: 0.30 },
+        mobile: { xp: 0.50, yp: 0.25, z: 0.90 },
         desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
         label: 'Punto Central', 
         lines: [
@@ -2047,7 +2067,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -2056,7 +2076,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: 0.30 },
+        mobile: { xp: 0.82, yp: 0.800, z: 0.90 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -2065,7 +2085,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
@@ -2074,7 +2094,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.30 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
         desktop: { xp: 0.725, yp: 1, z: 0.91 },
         desktop: { xp: 0.725, yp: 1, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
@@ -2487,10 +2507,12 @@ export const GLOBAL_CONFIG = {
   
   // Configuración de toque
   TOUCH: {
-    mobileMin: 0,  // Tamaño mínimo en mobile para toque
-    desktopMin: 40,  // Tamaño mínimo en desktop
-    hitSlop: 6,  // Margen invisible extra para clics
-    hitSlop: 0  // Margen invisible extra para clics
+    // Tamaño mínimo del área táctil para móviles (0-8px)
+    mobileMin: 4,
+    // Tamaño mínimo del área táctil para escritorio
+    desktopMin: 40,
+    // Borde adicional para mejorar la detección de toque (0-4px)
+    hitSlop: 2
   },
   
   // ========= EFECTOS DE CÁMARA =========
