@@ -190,6 +190,10 @@ export class OverlayLayer {
    */
   endFrame(camera, canvasW, canvasH, activeWaypointIndex = null) {
     if (!this.root) return;
+    
+    // Debug: Log active waypoint and hotspot count
+    console.group('OverlayLayer.endFrame');
+    console.log(`Active waypoint: ${activeWaypointIndex}, Processing ${this.frameLiveKeys.size} items`);
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     
@@ -217,12 +221,18 @@ export class OverlayLayer {
 
       // ✅ NUEVO: Culling por waypoint
       // Si tenemos un waypoint activo y el hotspot pertenece a otro waypoint, ocultarlo
-      if (activeWaypointIndex !== null && 
-          rec.meta?.waypointIndex !== undefined && 
-          rec.meta.waypointIndex !== activeWaypointIndex) {
+      // Debug: Log waypoint index check
+      const waypointMatch = activeWaypointIndex === null || 
+                          rec.meta?.waypointIndex === undefined || 
+                          rec.meta.waypointIndex === activeWaypointIndex;
+      
+      if (!waypointMatch) {
+        console.log(`[CULLING] Hiding ${key} (waypoint ${rec.meta?.waypointIndex} != ${activeWaypointIndex})`);
         rec.wrap.style.display = 'none';
-        rec.wrap.style.pointerEvents = 'none';  // 🔧 Deshabilitar completamente
+        rec.wrap.style.pointerEvents = 'none';
         continue;
+      } else if (key.includes('wp1-hotspot-3')) {
+        console.log(`[DEBUG] wp1-hotspot-3 is visible (waypoint: ${rec.meta?.waypointIndex})`);
       }
 
       // Skip if outside viewport bounds (if camera supports it)
@@ -257,11 +267,16 @@ export class OverlayLayer {
         rec.wrap.style.display = 'none';
         continue;
       } else {
+        const wasHidden = rec.wrap.style.display === 'none';
         rec.wrap.style.display = 'block';
         rec.wrap.style.pointerEvents = 'auto';
-        // Orden estable por z (evita que labels/otros lo tapen sin querer):
         const z = Number.isFinite(rec.z) ? rec.z : 1;
-        rec.wrap.style.zIndex = String((z * 100) | 0);  
+        rec.wrap.style.zIndex = String((z * 100) | 0);
+        
+        // Debug: Log when a previously hidden hotspot becomes visible
+        if (wasHidden && key.includes('wp1-hotspot-3')) {
+          console.log(`[DEBUG] wp1-hotspot-3 is now visible at (${rec.worldX}, ${rec.worldY})`);
+        }
       }
 
       const visualW = rec.lockWidthPx;

@@ -1444,11 +1444,28 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     // Process all hotspots with waypoint filtering and viewport culling
     const activeWp = state.idx;
-    const hotspots = (window.hotspotData || []).filter(h => 
-      h?.coords && (h.meta?.waypointIndex === undefined || h.meta.waypointIndex === activeWp)
-    );
+    console.group('Processing hotspots');
+    console.log(`Active waypoint: ${activeWp}, Total hotspots: ${(window.hotspotData || []).length}`);
+    
+    const hotspots = (window.hotspotData || []).filter(h => {
+      const matches = h?.coords && (h.meta?.waypointIndex === undefined || h.meta.waypointIndex === activeWp);
+      if (h?.id === 'wp1-hotspot-3') {
+        console.log(`[DEBUG] wp1-hotspot-3 - waypointIndex: ${h.meta?.waypointIndex}, matches: ${matches}`, h);
+      }
+      return matches;
+    });
 
+    console.log(`Visible hotspots (${hotspots.length}):`, hotspots.map(h => h.id || 'unknown'));
+    
     for (const [index, hotspot] of hotspots.entries()) {
+      if (hotspot.id === 'wp1-hotspot-3') {
+        console.log('[DEBUG] Processing wp1-hotspot-3', { 
+          coords: hotspot.coords,
+          meta: hotspot.meta,
+          index,
+          total: hotspots.length 
+        });
+      }
       const { xp, yp, wp, hp, width: fixedWidth, height: fixedHeight } = hotspot.coords;
 
       // Map logical dims
@@ -1480,6 +1497,14 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const viewH = canvasLogicalH / camera.z;
       const viewX = camera.x - viewW / 2;
       const viewY = camera.y - viewH / 2;
+      
+      if (hotspot.id === 'wp1-hotspot-3') {
+        console.log('[DEBUG] wp1-hotspot-3 viewport check', {
+          worldX, worldY, worldWidth, worldHeight,
+          viewX, viewY, viewW, viewH,
+          camera: { x: camera.x, y: camera.y, z: camera.z }
+        });
+      }
 
       const halfW = worldWidth / 2;
       const halfH = worldHeight / 2;
@@ -1490,6 +1515,18 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         worldY + halfH < viewY ||
         worldY - halfH > viewY + viewH
       );
+      
+      if (hotspot.id === 'wp1-hotspot-3') {
+        console.log('[DEBUG] wp1-hotspot-3 visibility', {
+          onScreen,
+          conditions: [
+            `x + w < viewX: ${worldX + halfW} < ${viewX}`,
+            `x - w > viewX + viewW: ${worldX - halfW} > ${viewX + viewW}`,
+            `y + h < viewY: ${worldY + halfH} < ${viewY}`,
+            `y - h > viewY + viewH: ${worldY - halfH} > ${viewY + viewH}`
+          ]
+        });
+      }
       if (!onScreen) continue;
 
       // Visual size (respeta compact/hitSlop/minTap)
@@ -1513,7 +1550,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         lockWidthPx: visualW,
         z: hotspot.z || 2,
         meta: {
-          shape: hotspot.shape || 'rect',
+          shape: hotspot.shape || (shouldBeRound ? 'circle' : 'rect'),
           compact: useCompact,
           hitSlop: GLOBAL_CONFIG.TOUCH.hitSlop,
           minTap: minTapSize,
