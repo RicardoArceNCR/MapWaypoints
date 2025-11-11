@@ -259,8 +259,6 @@ export const MAPS_CONFIG = {
           },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#1 Encuentro en Zona Residencial',
-          title: '#1 Encuentro en Zona Residencial',
-          
           image: '/assets/mapa-1.webp',
           
           datetime: {
@@ -356,7 +354,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          id: 'wp1-hotspot-2',
+          id: 'wp1-hotspot-2a',
           mobile: { offsetX: -81, offsetY: -250, width: 120, height: 120, rotation: 0, radius: 20 },
           desktop: { offsetX: 241, offsetY: -61, width: 397, height: 228, rotation: 25, radius: 10  },
           meta: {
@@ -564,7 +562,7 @@ export const MAPS_CONFIG = {
           meta: {
             interactive: true,  // Hotspot interactivo
             z: 103,  // Z más alto que los labels
-            waypointIndex: 0 
+            waypointIndex: 2 
           },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#3 Encuentro en Zona Residencial',
