@@ -750,6 +750,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       
       // Initialize and sync hotspot data
       state.currentHotspots = syncHotspotData(mapData);
+      
+      // Initialize hotspots from config after loading map
+      const isMobile = window.matchMedia('(max-width: 899px)').matches;
+      if (hotspotManager) {
+        hotspotManager.ingestFromConfig(GLOBAL_CONFIG, isMobile);
+      }
 
       if (GLOBAL_CONFIG.WAYPOINT_RENDERING.useSpatialIndex && state.currentWaypoints.length >= GLOBAL_CONFIG.WAYPOINT_RENDERING.spatialIndexThreshold) {
         waypointSpatialIndex = new WaypointSpatialIndex(state.currentWaypoints, GLOBAL_CONFIG.WAYPOINT_RENDERING.cellSize);
@@ -845,6 +851,14 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     startTyping();
     uiManager.updateProgress(state.currentWaypoints.length, i);
     markDirty('camera', 'elements', 'dialog', 'minimap');
+    
+    // Update visible hotspots for the current waypoint
+    if (hotspotManager) {
+      const visibleHotspots = hotspotManager.getVisibleFor(state.idx);
+      if (hotspotManager.canvasHitTest) {
+        hotspotManager.canvasHitTest.setHotspots(visibleHotspots);
+      }
+    }
 
     // Update floating button for the current waypoint
     if (window.floatingButton) {

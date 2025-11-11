@@ -14,6 +14,7 @@ export class HotspotManager {
     this.mode = 'hybrid'; // Empieza híbrido para migración segura
     
     this.hotspots = new Map();
+    this.all = []; // Store all ingested hotspots
     this.canvas = null;
     this.isProcessing = false;
     this.lastTapTime = 0;
@@ -41,6 +42,47 @@ export class HotspotManager {
 
     // Exponer globalmente para debug
     window.hotspotManager = this;
+  }
+
+  /**
+   * Ingest hotspots from config, filtering by device type
+   * @param {Object} config - The configuration object containing WAYPOINTS
+   * @param {boolean} isMobile - Whether the current device is mobile
+   */
+  ingestFromConfig(config, isMobile) {
+    const wps = Array.isArray(config?.WAYPOINTS) ? config.WAYPOINTS : [];
+    this.all = [];
+    
+    wps.forEach((wp, i) => {
+      const node = isMobile ? wp?.mobile : wp?.desktop;
+      const list = Array.isArray(node?.hotspots) ? node.hotspots : [];
+      
+      // Normalize and ensure waypointIndex
+      list.forEach((h, idx) => {
+        if (!h) return;
+        this.all.push({
+          ...h,
+          index: idx,
+          waypointIndex: (h.waypointIndex ?? i),
+          // Defensive flags
+          enabled: (h.enabled !== false),
+          type: h.type || 'rect'
+        });
+      });
+    });
+    
+    console.log('[HotspotManager] total ingestado =', this.all.length);
+  }
+
+  /**
+   * Get visible hotspots for the active waypoint
+   * @param {number} activeWp - The active waypoint index
+   * @returns {Array} Array of visible hotspots
+   */
+  getVisibleFor(activeWp) {
+    const visibleHotspots = this.all.filter(h => h.enabled && h.waypointIndex === activeWp);
+    console.log('[HotspotManager] visibles para wp', activeWp, '→', visibleHotspots.length, visibleHotspots);
+    return visibleHotspots;
   }
 
   setMode(mode) {

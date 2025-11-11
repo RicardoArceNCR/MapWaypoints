@@ -10,9 +10,28 @@ export class CanvasHitTest {
     this.canvas = null;
   }
 
+  // Set hotspots with validation and logging
+  setHotspots(list) {
+    this.hotspots = Array.isArray(list) ? list : [];
+    if (this.hotspots.length === 0) {
+      console.warn('[CanvasHitTest] setHotspots received empty list. Check ingestFromConfig / waypointIndex.');
+    } else if (this.debug) {
+      console.log('[CanvasHitTest] active hotspots =', this.hotspots.length);
+    }
+  }
+
+  // Convert normalized coordinates to world coordinates
+  _normToWorld(h, mapW, mapH) {
+    const nx = (h.xp != null) ? h.xp * mapW : h.x;
+    const ny = (h.yp != null) ? h.yp * mapH : h.y;
+    const nw = (h.wpw != null) ? h.wpw * mapW : (h.width || 36);
+    const nh = (h.wph != null) ? h.wph * mapH : (h.height || 36);
+    return { x: nx, y: ny, w: nw, h: nh, rotation: h.rotation || 0, id: h.id, meta: h.meta };
+  }
+
   // Actualiza la lista de hotspots activos
   updateHotspots(hotspots, waypointIndex) {
-    this.hotspots = hotspots || [];
+    this.setHotspots(hotspots);
     this.activeWaypointIndex = waypointIndex;
   }
 
@@ -69,11 +88,20 @@ export class CanvasHitTest {
 
     const hits = [];
     for (const hs of items) {
-      const cx = hs.worldX ?? hs.coords?.x;
-      const cy = hs.worldY ?? hs.coords?.y;
+      // Get map dimensions for normalized coordinates
+      const mapW = hs.meta?.mapWidth || 1000; // Default fallback
+      const mapH = hs.meta?.mapHeight || 1000; // Default fallback
+      
+      // Convert to world coordinates using _normToWorld
+      const worldCoords = this._normToWorld({
+        xp: hs.xp, yp: hs.yp, x: hs.x, y: hs.y,
+        wpw: hs.wpw, wph: hs.wph, width: hs.width, height: hs.height,
+        rotation: hs.rotation, id: hs.id, meta: hs.meta
+      }, mapW, mapH);
+      
+      const { x: cx, y: cy, w, h } = worldCoords;
       if (cx == null || cy == null) continue;
-      const w  = hs.worldWidth ?? hs.w ?? hs.width ?? 48;
-      const h  = hs.worldHeight ?? hs.h ?? hs.height ?? 48;
+      
       const halfW = (w * 0.5);
       const halfH = (h * 0.5);
       const dx = worldPos.x - cx;
@@ -117,11 +145,22 @@ export class CanvasHitTest {
         continue;
       }
 
-      const screenPos = this.worldToScreen(hotspot.worldX, hotspot.worldY);
+      // Get map dimensions for normalized coordinates
+      const mapW = hotspot.meta?.mapWidth || 1000; // Default fallback
+      const mapH = hotspot.meta?.mapHeight || 1000; // Default fallback
+      
+      // Convert to world coordinates using _normToWorld
+      const worldCoords = this._normToWorld({
+        xp: hotspot.xp, yp: hotspot.yp, x: hotspot.x, y: hotspot.y,
+        wpw: hotspot.wpw, wph: hotspot.wph, width: hotspot.width, height: hotspot.height,
+        rotation: hotspot.rotation, id: hotspot.id, meta: hotspot.meta
+      }, mapW, mapH);
+
+      const screenPos = this.worldToScreen(worldCoords.x, worldCoords.y);
       if (!screenPos) continue;
 
-      const screenWidth = hotspot.worldWidth * this.camera.z;
-      const screenHeight = hotspot.worldHeight * this.camera.z;
+      const screenWidth = worldCoords.w * this.camera.z;
+      const screenHeight = worldCoords.h * this.camera.z;
 
       // Dibujar hitbox
       ctx.strokeStyle = 'rgba(0, 255, 100, 0.8)';
