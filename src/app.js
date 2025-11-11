@@ -22,17 +22,13 @@ import { HotspotManager } from './HotspotManager.js';
 const __qs = new URLSearchParams(location.search);
 const __getBool = (k) => __qs.get(k) === '1';
 
-// overlays: en prod o mobile => OFF por defecto si no hay query
-let __ov = null;
+// Overlays: ON by default, OFF only with ?overlays=0
 if (__qs.has('overlays')) {
-  __ov = __getBool('overlays');
-} else if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PROD) {
-  __ov = false; // prod default OFF si no especificas
-} else if (window.matchMedia && window.matchMedia('(max-width: 899px)').matches) {
-  __ov = false; // mobile default OFF para evitar interferencias
-}
-if (__ov !== null) {
-  document.body.dataset.overlays = __ov ? '1' : '0';
+  const isEnabled = __getBool('overlays');
+  document.body.dataset.overlays = isEnabled ? '1' : '0';
+} else {
+  // Default to ON if not specified
+  document.body.dataset.overlays = '1';
 }
 
 // mute: solo si lo piden
@@ -40,6 +36,16 @@ if (__qs.has('mute')) {
   document.body.dataset.mute = __getBool('mute') ? '1' : '0';
 }
 // --------------------------------------------------------------
+
+// Helper para leer parámetros de URL de forma segura
+function getQP(name, fallback = null) {
+  const url = new URL(window.location.href);
+  const v = url.searchParams.get(name);
+  if (v === null) return fallback;
+  if (v === "1" || v === "true") return true;
+  if (v === "0" || v === "false") return false;
+  return v;
+}
 
 // Helper simple para mostrar errores al usuario
 function showError(message) {
@@ -480,6 +486,11 @@ let memoryMonitor = new MemoryMonitor();
   // Inicializar HotspotManager ahora que la cámara existe
   hotspotManager = new HotspotManager(camera, overlay, window.popupManager);
   window.hotspotManager = hotspotManager; // para depuración
+  
+  // Establecer modo inicial desde URL o usar 'dom' por defecto
+  const hotspotMode = (getQP("hotspot_mode", "dom") || "dom").toLowerCase();
+  hotspotManager.setMode(hotspotMode);
+  console.log("[Hotspots] modo inicial ->", hotspotMode);
 
   const dirtyFlags = { camera:false, elements:false, dialog:false, minimap:false, debug:false, cameraMoving:false };
   function markDirty(...flags){ flags.forEach(f=>{ if (dirtyFlags.hasOwnProperty(f)) dirtyFlags[f]=true; }); }
@@ -680,10 +691,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         if (hotspot && hotspot.coords) {
           // Preserve existing hotspot data if it exists
           window.hotspotData[index] = {
+            ...(window.hotspotData[index] || {}),
             ...hotspot,
             coords: {
               ...(window.hotspotData[index]?.coords || {}),
-              ...hotspot.coords
+              ...(hotspot.coords || {})
             }
           };
         }
@@ -1430,93 +1442,94 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       overlay.beginFrame();
     }
 
-    // Render only the first hotspot from window.hotspotData
-    if (window.hotspotData && window.hotspotData.length > 0) {
-      // Only process the first hotspot
-      const hotspot = window.hotspotData[0];
-      if (hotspot && hotspot.coords) {
-        const index = 0; // Only using first hotspot
-        const { xp, yp, wp, hp, width: fixedWidth, height: fixedHeight } = hotspot.coords;
-        
-        // Get map logical dimensions
-        const mapW = mapManager.currentMap?.config.mapImage.logicalW || 2858;
-        const mapH = mapManager.currentMap?.config.mapImage.logicalH || 2858;
-        
-        // Calculate world dimensions
-        let worldWidth, worldHeight;
-        
-        if (wp !== undefined && hp !== undefined) {
-          // Normalized coordinates (preferred)
-          worldWidth = wp * mapW;
-          worldHeight = hp * mapH;
-        } else if (fixedWidth !== undefined && fixedHeight !== undefined) {
-          // Fixed pixel size - convert to world space
-          worldWidth = fixedWidth;
-          worldHeight = fixedHeight;
-        } else {
-          // Fallback to default size
-          worldWidth = 50;
-          worldHeight = 50;
-        }
-        
-        // Absolute position in world space
-        const worldX = xp * mapW;
-        const worldY = yp * mapH;
-        
-        // Viewport culling
-        const viewW = canvasLogicalW / camera.z;
-        const viewH = canvasLogicalH / camera.z;
-        const viewX = camera.x - viewW/2;
-        const viewY = camera.y - viewH/2;
-        
-        // Skip if off-screen
-        const halfWorldW = worldWidth / 2;
-        const halfWorldH = worldHeight / 2;
-        
-        if (!(worldX + halfWorldW < viewX || 
-              worldX - halfWorldW > viewX + viewW || 
-              worldY + halfWorldH < viewY || 
-              worldY - halfWorldH > viewY + viewH)) {
-          
-          // Calculate screen size based on current zoom
-          const screenWidth = worldWidth * camera.z;
-          const screenHeight = worldHeight * camera.z;
-          
-          // Respeta config global
-          const minTapSize = mapManager.isMobile
-            ? GLOBAL_CONFIG.TOUCH.mobileMin
-            : GLOBAL_CONFIG.TOUCH.desktopMin;
-          const useCompact = hotspot.compact ?? (mapManager.isMobile ? true : false);
-          const visualW = useCompact ? screenWidth : Math.max(screenWidth, minTapSize);
-          const visualH = useCompact ? screenHeight : Math.max(screenHeight, minTapSize);
-          
-          // Selection state (for editor)
-          const isActive = appConfig.editorActive && editor?.selectedItem?.index === index;
-          
-          // Update the hotspot manager with the hotspot
-          hotspotManager.upsert({
-            key: `hotspot_${index}`,
-            src: hotspot.src || '/default-icon.png',
-            worldX: worldX,
-            worldY: worldY,
-            rotationDeg: hotspot.rotation || 0,
-            lockWidthPx: visualW,
-            z: hotspot.z || 2,
-            meta: {
-              shape: hotspot.shape || 'rect',
-              // En mobile: "al ras" por defecto; si un hotspot necesita zona grande, podrá poner compact:false
-              compact: useCompact,
-              hitSlop: GLOBAL_CONFIG.TOUCH.hitSlop, // manténlo pequeño (0-4) en mobile
-              minTap: minTapSize,                   // se ignora si compact:true
-              visualH: visualH,
-              title: hotspot.title || `Hotspot ${index}`,
-              hotspot: hotspot,
-              isHotspot: true,
-              hotspotIndex: index,
-              waypointIndex: state.idx  // CRÍTICO: Marca el waypoint actual para culling
-            }
-          });
-        }
+    // Process all hotspots with waypoint filtering and viewport culling
+    const activeWp = state.idx;
+    const hotspots = (window.hotspotData || []).filter(h => 
+      h?.coords && (h.meta?.waypointIndex === undefined || h.meta.waypointIndex === activeWp)
+    );
+
+    for (const [index, hotspot] of hotspots.entries()) {
+      const { xp, yp, wp, hp, width: fixedWidth, height: fixedHeight } = hotspot.coords;
+
+      // Map logical dims
+      const mapW = mapManager.currentMap?.config.mapImage.logicalW || 2858;
+      const mapH = mapManager.currentMap?.config.mapImage.logicalH || 2858;
+
+      // World size
+      let worldWidth, worldHeight;
+      if (wp !== undefined && hp !== undefined) {
+        worldWidth = wp * mapW;
+        worldHeight = hp * mapH;
+      } else if (fixedWidth !== undefined && fixedHeight !== undefined) {
+        worldWidth = fixedWidth;
+        worldHeight = fixedHeight;
+      } else {
+        worldWidth = 50;
+        worldHeight = 50;
+      }
+
+      // World position
+      const worldX = xp * mapW;
+      const worldY = yp * mapH;
+
+      // Viewport culling
+      const dpr = Math.min(DPR_MAX, window.devicePixelRatio || 1);
+      const canvasLogicalW = canvas.width / dpr;
+      const canvasLogicalH = canvas.height / dpr;
+      const viewW = canvasLogicalW / camera.z;
+      const viewH = canvasLogicalH / camera.z;
+      const viewX = camera.x - viewW / 2;
+      const viewY = camera.y - viewH / 2;
+
+      const halfW = worldWidth / 2;
+      const halfH = worldHeight / 2;
+
+      const onScreen = !(
+        worldX + halfW < viewX ||
+        worldX - halfW > viewX + viewW ||
+        worldY + halfH < viewY ||
+        worldY - halfH > viewY + viewH
+      );
+      if (!onScreen) continue;
+
+      // Visual size (respeta compact/hitSlop/minTap)
+      const screenWidth = worldWidth * camera.z;
+      const screenHeight = worldHeight * camera.z;
+
+      const minTapSize = mapManager.isMobile
+        ? GLOBAL_CONFIG.TOUCH.mobileMin
+        : GLOBAL_CONFIG.TOUCH.desktopMin;
+
+      const useCompact = hotspot.compact ?? (mapManager.isMobile ? true : false);
+      const visualW = useCompact ? screenWidth : Math.max(screenWidth, minTapSize);
+      const visualH = useCompact ? screenHeight : Math.max(screenHeight, minTapSize);
+
+      const hotspotConfig = {
+        key: `hotspot_${index}`,
+        src: hotspot.src || '/default-icon.png',
+        worldX: worldX,
+        worldY: worldY,
+        rotationDeg: hotspot.rotation || 0,
+        lockWidthPx: visualW,
+        z: hotspot.z || 2,
+        meta: {
+          shape: hotspot.shape || 'rect',
+          compact: useCompact,
+          hitSlop: GLOBAL_CONFIG.TOUCH.hitSlop,
+          minTap: minTapSize,
+          visualH: visualH,
+          title: hotspot.title || `Hotspot ${index}`,
+          hotspot: hotspot,
+          isHotspot: true,
+          hotspotIndex: index,
+          waypointIndex: state.idx,
+        },
+      };
+
+      if (hotspotManager) {
+        hotspotManager.upsert(hotspotConfig);
+      } else if (overlay) {
+        overlay.upsert(hotspotConfig);
       }
     }
     
