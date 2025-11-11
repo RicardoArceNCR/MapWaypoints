@@ -493,6 +493,7 @@ let memoryMonitor = new MemoryMonitor();
   // Establecer modo inicial desde URL o usar 'dom' por defecto
   const hotspotMode = (getQP("hotspot_mode", "dom") || "dom").toLowerCase();
   hotspotManager.setMode(hotspotMode);
+  window.hotspotMode = hotspotMode; // Asegura que exista globalmente
   console.log("[Hotspots] modo inicial ->", hotspotMode);
 
   const dirtyFlags = { camera:false, elements:false, dialog:false, minimap:false, debug:false, cameraMoving:false };
@@ -1078,7 +1079,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         return; // Skip off-screen hotspots
       }
       
-      const isActive = editorActive && editor?.selectedItem?.index === index;
+      const isActive = appConfig.editorActive && window.editor?.selectedItem?.index === index;
       
       // Draw hotspot rectangle
       ctx.beginPath();
@@ -1796,15 +1797,18 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     __cancelPressTimer();
     __pressStart = performance.now();
     __pressMoved = false;
+    
+    // En móvil requerimos long-press para avanzar, en desktop no
+    const longPressOnly = window.matchMedia('(max-width: 899px)').matches;
+    
     __pressTimer = setTimeout(() => {
       // Si pasaron 2s, avanzamos (sólo si no hubo movimiento ni overlay click cercano)
       const now = performance.now();
-      const isMobile = window.matchMedia('(max-width: 899px)').matches;
-      if (isMobile && !__pressMoved && (now - __lastOverlayTapAt > 250)) {
+      if (!__pressMoved && (now - __lastOverlayTapAt > 250)) {
         showFullLineOrNext();
       }
       __cancelPressTimer();
-    }, __LONG_PRESS_MS);
+    }, longPressOnly ? __LONG_PRESS_MS : 0);
   }
 
   // Usamos pointer events para cubrir mouse/touch/pen
@@ -1896,40 +1900,38 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       }
     }
     
-    // Desktop: permitir avanzar con click vacío; Mobile: NO (usa long-press)
-    const isMobile = window.matchMedia('(max-width: 899px)').matches;
-    if (!isMobile) { 
-      showFullLineOrNext(); 
-    } else { 
-      console.log(' Tap simple en mobile no avanza. Usa long-press (2s).'); 
+    // --- Anti-rebote y anti-overlay primero ---
+    const now2 = performance.now();
+    if (now2 - __lastHotspotTapTS < TAP_COOLDOWN_MS) {
+      console.log('Tap ignorado - cooldown de hotspot activo');
+      return;
+    }
+    const el2 = document.elementFromPoint(e.clientX, e.clientY);
+    if (el2 && el2.closest && el2.closest('#overlay-layer')) {
+      console.log('Tap ignorado - sobre overlay');
+      return;
+    }
+
+    // Desktop: click vacío avanza; Mobile: sólo long-press (2s)
+    const isMobile2 = window.matchMedia('(max-width: 899px)').matches;
+
+    // Fuerza long-press en móvil (comportamiento que pediste):
+    const longPressOnly = isMobile2 ? true : false;
+
+    if (!isMobile2 || !longPressOnly) {
+      showFullLineOrNext();
+    } else {
+      console.log('Tap simple en mobile no avanza. Usa long-press (2s).');
     }
   }, { passive: false });
 
-  // Agregar tap cooldown y overlay hit detection
+  // Manejador de eventos para el cooldown de hotspots
   let __lastHotspotTapTS = 0;
   const TAP_COOLDOWN_MS = 500; // anti-rebote tras abrir popup
 
   window.addEventListener('overlay:hotspotTap', () => {
     __lastHotspotTapTS = performance.now();
   });
-
-  canvas.addEventListener('mousedown', (e) => {
-    // 1) Si hubo un hotspot recientemente, no avances
-    const now = performance.now();
-    if (now - __lastHotspotTapTS < TAP_COOLDOWN_MS) {
-      console.log(' Tap ignorado - cooldown de hotspot activo');
-      return;
-    }
-    
-    // 2) Si el punto cae sobre overlay, no avances
-    const el = document.elementFromPoint(e.clientX, e.clientY);
-    if (el && el.closest && el.closest('#overlay-layer')) {
-      console.log(' Tap ignorado - sobre overlay');
-      return;
-    }
-    
-    // Resto del código de click...
-  }, { passive: false });
 
   function clientToMapCoords(cx, cy) {
     if (!mapManager.currentMap) return { x: 0, y: 0 };
@@ -2225,8 +2227,17 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   }
 
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) { running = false; cancelAnimationFrame(rafId); }
-    else { running = true; loop.prev = 0; markDirty('camera','elements','dialog','minimap'); rafId = requestAnimationFrame(loop); }
+    const currentState = window.__map?.state || manager?.state;
+    if (document.hidden) { 
+      running = false; 
+      cancelAnimationFrame(rafId);
+      if (currentState) currentState.typing = false;
+    } else { 
+      running = true; 
+      loop.prev = 0; 
+      markDirty('camera','elements','dialog','minimap'); 
+      rafId = requestAnimationFrame(loop); 
+    }
   });
 
   // ========= DRAWER =========

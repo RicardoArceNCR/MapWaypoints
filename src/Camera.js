@@ -62,12 +62,23 @@ export class Camera {
   }
 
   // CSS to World (para input, e.g., clics)
-  cssToWorld(cssX, cssY) {
+  screenToWorld(sx, sy) {
     this.updateMatrices();
+    const m = this.Minv;
     return {
-      x: (cssX - this.M.tx) * this.Minv.scale,
-      y: (cssY - this.M.ty) * this.Minv.scale
+      x: sx * m.scale + m.tx,
+      y: sy * m.scale + m.ty
     };
+  }
+
+  // Alias for compatibility with hit-tester
+  cssToWorld(x, y) { 
+    return this.screenToWorld(x, y);
+  }
+
+  // Alias for compatibility with hit-tester
+  worldToCss(x, y) {
+    return this.worldToScreen(x, y);
   }
 
   // Bounds del viewport en world space (para culling)
