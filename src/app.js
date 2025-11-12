@@ -128,19 +128,30 @@ function applyViewportCoverage() {
   let vw = Math.floor(window.innerWidth  * coverage);
   let vh = Math.floor(window.innerHeight * coverage);
 
-  const { VIEWPORT_GUARDS, BASE_ASPECT } = GLOBAL_CONFIG;
+  // Calcular el aspecto actual del mapa
+  const currentAspect = (window.state && window.state.mapAspect) ||
+    (() => {
+      try {
+        const mi = window.mapManager?.currentMap?.config?.mapImage;
+        if (mi?.logicalW && mi?.logicalH) return mi.logicalW / mi.logicalH;
+      } catch {}
+      return GLOBAL_CONFIG.BASE_ASPECT; // fallback
+    })();
+
+  const { VIEWPORT_GUARDS } = GLOBAL_CONFIG;
+  const ASPECT = currentAspect;
   const isMobile = window.matchMedia('(max-width: 899px)').matches;
 
   if (!isMobile) {
     // Desktop: bandas problemáticas
     if (vw < VIEWPORT_GUARDS.desktop.clampBelowW) {
-      // Mantener aspecto base (contain dentro del viewport), con letterbox
+      // Mantener aspecto del mapa (contain dentro del viewport), con letterbox
       const targetW = vw;
-      const targetH = Math.round(targetW / BASE_ASPECT);
+      const targetH = Math.round(targetW / ASPECT);
       // Si nos pasamos de alto, rehacemos por alto
       if (targetH > vh) {
         const h2 = vh;
-        const w2 = Math.round(h2 * BASE_ASPECT);
+        const w2 = Math.round(h2 * ASPECT);
         vw = w2; vh = h2;
       } else {
         vw = targetW; vh = targetH;
@@ -772,11 +783,22 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       uiManager.updateThemeColor(phaseColor, phaseColorRgb);
 
       setCanvasDPR();
-      // Extra seguro: si por timing necesitas re-encajar una vez más
+      
+      // Asegurarse de que la cámara esté correctamente configurada
       try {
         const m = mapManager.currentMap?.config?.mapImage;
-        if (m) window.cameraInstance.fitBaseToViewport(m.logicalW, m.logicalH, 'contain');
-      } catch {}
+        if (m && window.cameraInstance) {
+          // Forzar un resize para asegurar que la cámara se ajuste correctamente
+          window.dispatchEvent(new Event('resize'));
+          // Esperar al siguiente frame para asegurar que el canvas tenga las dimensiones correctas
+          requestAnimationFrame(() => {
+            window.cameraInstance.fitBaseToViewport(m.logicalW, m.logicalH, 'contain');
+          });
+        }
+      } catch (e) {
+        console.error('Error ajustando cámara:', e);
+      }
+      
       goToWaypoint(0);
       markDirty('camera', 'elements', 'dialog', 'minimap');
 

@@ -172,13 +172,28 @@ export class MapManager {
     try {
       const img = await this.loadImage(imagePath);
       
-      // ⚠️ LÓGICA ORIGINAL INTACTA - NO TOCAR
-      if (imageConfig.useNaturalSize) {
-        mapConfig.mapImage.logicalW = img.naturalWidth;
-        mapConfig.mapImage.logicalH = img.naturalHeight;
-      } else {
-        mapConfig.mapImage.logicalW = config.logicalW || imageConfig.logicalW || img.naturalWidth;
-        mapConfig.mapImage.logicalH = config.logicalH || imageConfig.logicalH || img.naturalHeight;
+      // Usar siempre las dimensiones naturales de la imagen
+      const w = img.naturalWidth;
+      const h = img.naturalHeight;
+      
+      mapConfig.mapImage.logicalW = w;
+      mapConfig.mapImage.logicalH = h;
+      
+      // Actualizar el estado global si está disponible
+      if (window.state) {
+        window.state.mapWorldW = w;
+        window.state.mapWorldH = h;
+        window.state.mapAspect = w / h;
+      }
+      
+      // Configurar la cámara para hacer fit "contain"
+      if (window.cameraInstance) {
+        const canvas = document.getElementById('map-canvas');
+        if (canvas) {
+          const viewportW = canvas.clientWidth;
+          const viewportH = canvas.clientHeight;
+          window.cameraInstance.fitBaseToViewport(w, h, 'contain');
+        }
       }
 
       console.log(`✅ Dimensiones lógicas: ${mapConfig.mapImage.logicalW}x${mapConfig.mapImage.logicalH}`);

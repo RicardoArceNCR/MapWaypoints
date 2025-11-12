@@ -2564,8 +2564,8 @@ export const GLOBAL_CONFIG = {
       minH: 606
     }
   },
-  // Relación de aspecto base del mapa (si tu base es 1280x720, ajusta)
-  BASE_ASPECT: 1280/720,
+  // Relación de aspecto se calculará dinámicamente
+  BASE_ASPECT: null,
   
   // ========= 🆕 OPTIMIZACIÓN DE WAYPOINTS =========
   WAYPOINT_RENDERING: {
