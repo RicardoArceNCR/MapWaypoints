@@ -128,24 +128,18 @@ function applyViewportCoverage() {
   let vw = Math.floor(window.innerWidth  * coverage);
   let vh = Math.floor(window.innerHeight * coverage);
 
-  // Calcular el aspecto actual del mapa
-  const currentAspect = (window.state && window.state.mapAspect) ||
-    (() => {
-      try {
-        const mi = window.mapManager?.currentMap?.config?.mapImage;
-        if (mi?.logicalW && mi?.logicalH) return mi.logicalW / mi.logicalH;
-      } catch {}
-      return GLOBAL_CONFIG.BASE_ASPECT; // fallback
-    })();
-
   const { VIEWPORT_GUARDS } = GLOBAL_CONFIG;
-  const ASPECT = currentAspect;
+  
+  // Tomar el aspect del mapa activo si existe
+  const m = mapManager?.currentMap?.config?.mapImage;
+  const MAP_ASPECT = (m && m.logicalW && m.logicalH) ? (m.logicalW / m.logicalH) : null;
+  const ASPECT = MAP_ASPECT || (window.innerWidth / window.innerHeight); // fallback al aspect de la ventana
   const isMobile = window.matchMedia('(max-width: 899px)').matches;
 
   if (!isMobile) {
     // Desktop: bandas problemáticas
     if (vw < VIEWPORT_GUARDS.desktop.clampBelowW) {
-      // Mantener aspecto del mapa (contain dentro del viewport), con letterbox
+      // Mantener aspecto del mapa activo (contain con letterbox)
       const targetW = vw;
       const targetH = Math.round(targetW / ASPECT);
       // Si nos pasamos de alto, rehacemos por alto

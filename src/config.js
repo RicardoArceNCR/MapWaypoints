@@ -76,8 +76,8 @@ export const MAPS_CONFIG = {
         // Label decorativo - no interactivo
         id: 'wp1-label',
         type: 'label',
-        mobile: { xp: 0.13, yp: 0.23, z: 0.90 },
-        desktop: { xp: 0.299, yp: 0.26, z: 0.88 },
+        mobile: { xp: 0.13, yp: 0.23, z: 1 },
+        desktop: { xp: 0.299, yp: 0.26, z: 1 },
         meta: {
           interactive: false,  // No intercepta taps
           z: 1  // Z bajo para que quede detrás de los hotspots
@@ -89,8 +89,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.47, yp: 0.23, z: 0.90 },
-        desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
+        mobile: { xp: 0.47, yp: 0.23, z: 1 },
+        desktop: { xp: 0.750, yp: 0.25, z: 1 },
         meta: {
           interactive: false,  // No intercepta taps
           z: 2  // Z bajo para que quede detrás de los hotspots
@@ -102,8 +102,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.80, yp: 0.23, z: 0.90 },
-        desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
+        mobile: { xp: 0.80, yp: 0.23, z: 1 },
+        desktop: { xp: 0.26, yp: 0.75, z: 1 },
         meta: {
           interactive: false,  // No intercepta taps
           z: 3  // Z bajo para que quede detrás de los hotspots
@@ -115,8 +115,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.13, yp: 0.70, z: 0.90 },
-        desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
+        mobile: { xp: 0.13, yp: 0.70, z: 1 },
+        desktop: { xp: 0.750, yp: 0.75, z: 1 },
         meta: {
           interactive: false,  // No intercepta taps
           z: 4  // Z bajo para que quede detrás de los hotspots
@@ -128,8 +128,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.47, yp: 0.70, z: 0.90 },
-        desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
+        mobile: { xp: 0.47, yp: 0.70, z: 1 },
+        desktop: { xp: 0.26, yp: 1.20, z: 1 },
         meta: {
             interactive: false,  // Hotspot interactivo
             z: 5  // Z más alto que los labels
@@ -141,8 +141,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.70, z: 0.90 },
-        desktop: { xp: 0.725, yp: 1, z: 0.91 },
+        mobile: { xp: 0.82, yp: 0.70, z: 1 },
+        desktop: { xp: 0.725, yp: 1, z: 1 },
         meta: {
             interactive: false,  // Hotspot interactivo
             z: 6  // Z más alto que los labels
@@ -163,8 +163,7 @@ export const MAPS_CONFIG = {
           desktop: { offsetX: -464, offsetY: -55, width: 397, height: 218, rotation: -10 },
           meta: {
             interactive: true,  // Hotspot interactivo
-            z: 100,  // Z más alto que los labels
-            waypointIndex: 0 
+            z: 100  // Z más alto que los labels
           },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
@@ -254,8 +253,7 @@ export const MAPS_CONFIG = {
           desktop: { offsetX: -115, offsetY: -101, width: 150, height: 156, rotation: 25 },
           meta: {
             interactive: true,  // Hotspot interactivo
-            z: 101,  // Z más alto que los labels
-            waypointIndex: 1 
+            z: 101  // Z más alto que los labels
           },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#1 Encuentro en Zona Residencial',
@@ -354,13 +352,12 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          id: 'wp1-hotspot-2a',
+          id: 'wp1-hotspot-3',
           mobile: { offsetX: -81, offsetY: -250, width: 120, height: 120, rotation: 0, radius: 20 },
           desktop: { offsetX: 241, offsetY: -61, width: 397, height: 228, rotation: 25, radius: 10  },
           meta: {
             interactive: true,  // Hotspot interactivo
-            z: 102,  // Z más alto que los labels
-            waypointIndex: 1 
+            z: 102  // Z más alto que los labels
           },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#2 Encuentro en Zona Residencial',
@@ -556,13 +553,12 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          id: 'wp1-hotspot-3',
+          id: 'wp1-hotspot-4',
           mobile: { offsetX: 80, offsetY: -220, width: 120, height: 120, rotation: 0, radius: 20},
           desktop: { offsetX: 0, offsetY: 0, width: 149, height: 153, rotation: 0, radius: 10},
           meta: {
             interactive: true,  // Hotspot interactivo
-            z: 103,  // Z más alto que los labels
-            waypointIndex: 1 
+            z: 103  // Z más alto que los labels
           },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#3 Encuentro en Zona Residencial',
@@ -762,6 +758,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 104  // Z más alto que los labels
+          },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
           image: '/assets/mapa-1.webp',
@@ -813,6 +813,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 105  // Z más alto que los labels
+          },
           // Detallado clonado del icons[0][1]
           title: '#4 Encuentro en Zona Residencial',
           image: '/assets/mapa-1.webp',
@@ -874,7 +878,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          // Detallado adaptado desde el contenido existente
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 106  // Z más alto que los labels
+          },
           // Detallado adaptado desde el contenido existente
           title: 'Elementos Descubiertos',
           image: '/assets/mapa-1.webp',
@@ -894,6 +901,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 106  // Z más alto que los labels
+          },
           title: 'Zona Estratégica',
           image: '/assets/mapa-1.webp',
           datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
@@ -914,6 +925,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -80, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 106  // Z más alto que los labels
+          },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
           image: '/assets/mapa-1.webp',
@@ -963,9 +978,12 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
           mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 107  // Z más alto que los labels
+          },
           // Detallado clonado del icons[0][1]
           title: '#5 Encuentro en Zona Residencial',
           image: '/assets/mapa-1.webp',
@@ -1026,8 +1044,11 @@ export const MAPS_CONFIG = {
         { 
           type: 'hotspot',
           mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 108  // Z más alto que los labels
+          },
           // Detallado adaptado desde el contenido existente
           title: 'Elementos Descubiertos',
           image: '/assets/mapa-1.webp',
@@ -1048,8 +1069,11 @@ export const MAPS_CONFIG = {
         { 
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 109  // Z más alto que los labels
+          },
           title: 'Zona Estratégica',
           image: '/assets/mapa-1.webp',
           datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
@@ -1071,6 +1095,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 110  // Z más alto que los labels
+          },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
           image: '/assets/mapa-1.webp',
@@ -1123,8 +1151,11 @@ export const MAPS_CONFIG = {
         { 
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
-          mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 111  // Z más alto que los labels
+          },
           // Detallado clonado del icons[0][1]
           title: '#6 Encuentro en Zona Residencial',
           image: '/assets/mapa-1.webp',
@@ -1186,6 +1217,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 112  // Z más alto que los labels
+          },
           // Detallado adaptado desde el contenido existente
           title: 'Elementos Descubiertos',
           image: '/assets/mapa-1.webp',
@@ -1209,6 +1244,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 113  // Z más alto que los labels
+          },
           title: 'Zona Estratégica',
           image: '/assets/mapa-1.webp',
           datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
@@ -1232,6 +1271,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 114  // Z más alto que los labels
+          },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
           image: '/assets/mapa-1.webp',
@@ -1260,6 +1303,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 115  // Z más alto que los labels
+          },
           // Detallado clonado del icons[0][1]
           title: '#7 Encuentro en Zona Residencial',
           image: '/assets/mapa-1.webp',
@@ -1293,6 +1340,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 116  // Z más alto que los labels
+          },
           // Detallado adaptado desde el contenido existente
           title: 'Elementos Descubiertos',
           image: '/assets/mapa-1.webp',
@@ -1306,44 +1357,27 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          title: 'Zona Estratégica',
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 117  // Z más alto que los labels
+          },
+          // Detallado adaptado desde el contenido existente
+          title: 'Elementos Descubiertos',
           image: '/assets/mapa-1.webp',
           datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
           location: '—',
-          description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
+          description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
           involved: [],
-          echos: {},
-          type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][0]
-          title: 'Llegada al Aeropuerto',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: 'Aeropuerto Juan Santamaría (SJO), Alajuela.',
-          description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.',
-          involved: [
-            { id: 'person1', name: 'Persona #1', avatar: './assets/persona_1-1.png', role: 'Pasajero' },
-            { id: 'person2', name: 'Persona #2', avatar: './assets/persona_1-2.png', role: 'Conductor', highlighted: true },
-            { id: 'person3', name: 'Persona #3', avatar: './assets/persona_1-3.png', role: 'Testigo' }
-          ],
-          echos: {
-            person2: [
-              { datetime: { date: '15/06/2025', time: '12:07' }, description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas.' },
-              { datetime: { date: '15/06/2025', time: '14:30' }, description: 'Segunda interacción documentada con el conductor en zona residencial.' }
-            ],
-            person1: [
-              { datetime: { date: '15/06/2025', time: '11:45' }, description: 'Arribo del vuelo internacional desde Ciudad de México.' }
-            ],
-            person3: [
-              { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
-            ]
-          }
+          echos: {}
         },
         { 
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 118  // Z más alto que los labels
+          },
           // Detallado clonado del icons[0][1]
           title: '#7 Encuentro en Zona Residencial',
           image: '/assets/mapa-1.webp',
@@ -1377,6 +1411,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 119  // Z más alto que los labels
+          },
           // Detallado adaptado desde el contenido existente
           title: 'Elementos Descubiertos',
           image: '/assets/mapa-1.webp',
@@ -1390,6 +1428,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 120  // Z más alto que los labels
+          },
           title: 'Zona Estratégica',
           image: '/assets/mapa-1.webp',
           datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
@@ -1404,6 +1446,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 121  // Z más alto que los labels
+          },
           // Detallado clonado del icons[0][0]
           title: 'Llegada al Aeropuerto',
           image: '/assets/mapa-1.webp',
@@ -1432,6 +1478,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 122  // Z más alto que los labels
+          },
           // Detallado clonado del icons[0][1]
           title: 'Encuentro en Zona Residencial',
           image: '/assets/mapa-1.webp',
@@ -1465,6 +1515,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 123 // Z más alto que los labels
+          },
           // Detallado adaptado desde el contenido existente
           title: 'Elementos Descubiertos',
           image: '/assets/mapa-1.webp',
@@ -1478,6 +1532,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 124  // Z más alto que los labels
+          },
           title: 'Zona Estratégica',
           image: '/assets/mapa-1.webp',
           datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
@@ -1516,6 +1574,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 125  // Z más alto que los labels
+          },
           // Detallado clonado del icons[0][1]
           title: 'Encuentro en Zona Residencial',
           image: '/assets/mapa-1.webp',
@@ -1549,6 +1611,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 126  // Z más alto que los labels
+          },
           // Detallado adaptado desde el contenido existente
           title: 'Elementos Descubiertos',
           image: '/assets/mapa-1.webp',
@@ -1562,6 +1628,10 @@ export const MAPS_CONFIG = {
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          meta: {
+            interactive: true,  // Hotspot interactivo
+            z: 127  // Z más alto que los labels
+          },
           title: 'Zona Estratégica',
           image: '/assets/mapa-1.webp',
           datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
@@ -1592,7 +1662,7 @@ export const MAPS_CONFIG = {
     },
     waypoints: [
       { 
-        mobile: { xp: 0.13, yp: 0.19, z: 0.90 },
+        mobile: { xp: 0.13, yp: 0.19, z: 1 },
         desktop: { xp: 0.299, yp: 0.26, z: 0.88 },
         label: 'Inicio del Viaje', 
         lines: [
@@ -1601,7 +1671,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.50, yp: 0.25, z: 0.90 },
+        mobile: { xp: 0.50, yp: 0.25, z: 1 },
         desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
         label: 'Punto Central', 
         lines: [
@@ -1610,7 +1680,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
+        mobile: { xp: 0.82, yp: 0.25, z: 1 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -1619,7 +1689,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: 0.90 },
+        mobile: { xp: 0.82, yp: 0.800, z: 1 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -1628,7 +1698,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
+        mobile: { xp: 0.82, yp: 0.25, z: 1 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
@@ -1637,8 +1707,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
-        desktop: { xp: 0.725, yp: 1, z: 0.91 },
+        mobile: { xp: 0.82, yp: 0.25, z: 1 },
         desktop: { xp: 0.725, yp: 1, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [
