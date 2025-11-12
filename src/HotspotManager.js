@@ -229,17 +229,16 @@ export class HotspotManager {
     
     hotspots.forEach((hs, index) => {
       const processed = {
-        id: hs.id || hs.key || `wp${hs.meta?.waypointIndex ?? waypointIndex}-idx${index}`,
-        key: hs.key || hs.id || `wp${hs.meta?.waypointIndex ?? waypointIndex}-idx${index}`,
-        // usa world* si vienen, si no, las coords ya normalizadas (x,y)
-        worldX: hs.worldX ?? hs.x,
-        worldY: hs.worldY ?? hs.y,
-        // tamaño de hitbox: usa explícitos y si no, deriva de width/height/meta.visualH
-        worldWidth: hs.lockWidthPx ?? hs.width ?? 50,
-        worldHeight: hs.visualH ?? hs.height ?? hs.meta?.visualH ?? hs.width ?? 50,
+        id: hs.id || hs.key || `hotspot_${index}`,
+        // ⬇️ nombres que CanvasHitTest espera
+        x: hs.x ?? hs.worldX,
+        y: hs.y ?? hs.worldY,
+        width:  hs.width  ?? hs.worldWidth  ?? 50,
+        height: hs.height ?? hs.worldHeight ?? 50,
+        rotation: hs.rotation ?? hs.rotationDeg ?? 0,
         shape: hs.meta?.shape || hs.shape || 'rect',
-        waypointIndex: (hs.meta?.waypointIndex ?? waypointIndex),
-        data: { ...hs, ...hs.meta }, // deja todo disponible para el popup detallado
+        waypointIndex: hs.meta?.waypointIndex,
+        data: hs.meta || hs,  // payload para popup
         z: Number.isFinite(hs.z) ? hs.z : 1
       };
       
@@ -305,10 +304,12 @@ export class HotspotManager {
     if (options.meta?.isHotspot) {
       const hs = {
         key: options.key,
-        worldX: options.worldX,
-        worldY: options.worldY,
-        lockWidthPx: options.lockWidthPx,
-        visualH: options.meta?.visualH,
+        // ⬇️ mismos nombres que usaremos siempre
+        x: options.x ?? options.worldX,
+        y: options.y ?? options.worldY,
+        width:  options.width  ?? options.worldWidth,
+        height: options.height ?? options.worldHeight,
+        rotation: options.rotation ?? options.rotationDeg ?? 0,
         shape: options.meta?.shape,
         meta: options.meta,
         z: options.z

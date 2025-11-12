@@ -188,7 +188,7 @@ export class MapManager {
       
       // Configurar la cámara para hacer fit "contain"
       if (window.cameraInstance) {
-        const canvas = document.getElementById('map-canvas');
+        const canvas = document.getElementById('mapa-canvas');
         if (canvas) {
           const viewportW = canvas.clientWidth;
           const viewportH = canvas.clientHeight;
@@ -316,23 +316,28 @@ export class MapManager {
         // Forzamos key único, meta con waypointIndex e isHotspot
         const keyStr = icon.id || `wp${waypointIndex}-hs${idx}`;
 
+        // Base structure for all icons
         const base = {
-          ...icon,
-          key: keyStr,              // Clave única estable para canvas
-          id: keyStr,               // (por compatibilidad con otros módulos)
+          id: keyStr,
+          key: keyStr,
           type,
+          // World coordinates (center point)
           x, y,
-          width, height,
+          // Dimensions in world units
+          width: width ?? 50,
+          height: height ?? 50,
           rotation: config.rotation || 0,
-          // Meta mergeada y enriquecida (no pisamos lo existente)
-          meta: {
-            ...(icon.meta || {}),
-            waypointIndex: waypointIndex,    // Índice del waypoint padre
-            isHotspot: (type === 'hotspot'), // Si es un hotspot interactivo
-            interactive: icon.meta?.interactive ?? (type === 'hotspot'),
-            shape: icon.meta?.shape || (icon.radius ? 'circle' : 'rect'),
-            hitSlop: icon.meta?.hitSlop ?? 0, // Margen de click
-            visualH: icon.meta?.visualH ?? (height ?? width ?? 36) // Tamaño visual
+          // Store all popup data in the payload
+          payload: {
+            ...icon,
+            meta: {
+              ...(icon.meta || {}),
+              waypointIndex,
+              isHotspot: (type === 'hotspot'),
+              interactive: icon.meta?.interactive ?? (type === 'hotspot'),
+              shape: icon.meta?.shape || (icon.radius ? 'circle' : 'rect'),
+              hitSlop: icon.meta?.hitSlop ?? 0
+            }
           }
         };
 

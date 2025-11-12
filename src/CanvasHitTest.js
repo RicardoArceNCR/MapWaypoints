@@ -40,16 +40,25 @@ export class CanvasHitTest {
     return this.canvas;
   }
 
-  // screen (CSS px) -> world, compensando DPR y bounding rect
+  /**
+   * Convierte coordenadas de pantalla a coordenadas de mundo
+   * @param {number} screenX - Coordenada X del evento de puntero (clientX)
+   * @param {number} screenY - Coordenada Y del evento de puntero (clientY)
+   * @returns {{x: number, y: number}|null} Coordenadas en el espacio del mundo o null si hay error
+   */
   screenToWorld(screenX, screenY) {
     const canvasEl = this._ensureCanvas();
     if (!canvasEl || !this.camera) return null;
+    
+    // Obtener el rectángulo del canvas en la pantalla
     const rect = canvasEl.getBoundingClientRect();
-    // coords en CSS px relativos al canvas
+    
+    // Convertir a coordenadas CSS relativas al canvas (sin DPR)
     const cssX = screenX - rect.left;
     const cssY = screenY - rect.top;
-    // Usa la matriz de cámara ya implementada
-    return this.camera.cssToWorld(cssX, cssY);
+    
+    // Usar el método cssToWorld de la cámara con las dimensiones CSS del canvas
+    return this.camera.cssToWorld(cssX, cssY, rect.width, rect.height);
   }
 
   // Convierte coordenadas de mundo a pantalla

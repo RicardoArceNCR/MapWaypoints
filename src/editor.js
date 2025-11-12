@@ -543,25 +543,62 @@ document.addEventListener('DOMContentLoaded', () => {
       : { w: 2858, h: 1761 };
   }
 
-  // ========= 🎨 RENDERIZADO (MANTENIDO) =========
+  // ========= 🎨 RENDERIZADO CON DPI SCALING =========
   function drawEditor() {
     if (!editor.active || !editor.needsRedraw) return;
-
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
-    const cw = canvas.width / dpr;
-    const ch = canvas.height / dpr;
-
-    ctx.save();
-    ctx.translate(cw / 2, ch / 2);
-    ctx.scale(editor.camera.z, editor.camera.z);
-    ctx.translate(-editor.camera.x, -editor.camera.y);
-
-    if (editor.selectedItem) {
-      drawHandles();
-      drawInfo();
+    
+    // Get editor canvas and context
+    const editorCanvas = document.getElementById('editor-layer');
+    if (!editorCanvas) return;
+    
+    // Set up DPI scaling for the editor canvas
+    const rect = editorCanvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    
+    // Ensure canvas size matches display size with DPR
+    if (editorCanvas.width !== Math.round(rect.width * dpr) || 
+        editorCanvas.height !== Math.round(rect.height * dpr)) {
+      editorCanvas.width = Math.round(rect.width * dpr);
+      editorCanvas.height = Math.round(rect.height * dpr);
     }
-
-    ctx.restore();
+    
+    const ectx = editorCanvas.getContext('2d');
+    
+    // Clear the canvas
+    ectx.clearRect(0, 0, editorCanvas.width, editorCanvas.height);
+    
+    // Set up the transform to work in CSS pixels
+    ectx.save();
+    ectx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    
+    // Draw the selected item if any
+    if (editor.selectedItem) {
+      const item = editor.selectedItem.item;
+      if (item) {
+        // Convert world coordinates to CSS pixels
+        const { x: cx, y: cy } = window.camera.worldToCss(
+          item.x || 0, 
+          item.y || 0, 
+          rect.width, 
+          rect.height
+        );
+        
+        // Draw the dot at the converted position
+        ectx.beginPath();
+        ectx.arc(cx, cy, 6, 0, Math.PI * 2);
+        ectx.fillStyle = 'rgba(200, 255, 200, 0.9)';
+        ectx.strokeStyle = 'rgba(50, 80, 50, 0.8)';
+        ectx.lineWidth = 2;
+        ectx.fill();
+        ectx.stroke();
+        
+        // Draw additional handles and info if needed
+        drawHandles(ectx, cx, cy);
+        drawInfo(ectx, cx, cy);
+      }
+    }
+    
+    ectx.restore();
     editor.needsRedraw = false;
   }
 
@@ -592,131 +629,86 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function drawRulers() {
-    const item = editor.items[editor.selectedItem?.index];
+    const item = editor.selectedItem?.item;
     if (!item) return;
 
     const { h } = getMapSize();
     const cam = editor.camera;
 
-    ctx.strokeStyle = 'rgba(255, 200, 0, 0.6)';
-    ctx.lineWidth = 1.5 / cam.z;
-    ctx.setLineDash([8 / cam.z, 4 / cam.z]);
+    // Get editor canvas and context
+    const editorCanvas = document.getElementById('editor-layer');
+    if (!editorCanvas) return;
+    
+    const ectx = editorCanvas.getContext('2d');
+    const rect = editorCanvas.getBoundingClientRect();
+    
+    // Convert world coordinates to CSS pixels
+    const { x: cx, y: cy } = window.camera.worldToCss(
+      item.x || 0, 
+      item.y || 0, 
+      rect.width, 
+      rect.height
+    );
 
-    ctx.beginPath();
-    ctx.moveTo(item.x, 0);
-    ctx.lineTo(item.x, h);
-    ctx.stroke();
+    // Set up the transform to work in CSS pixels
+    ectx.save();
+    const dpr = window.devicePixelRatio || 1;
+    ectx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    ctx.beginPath();
-    ctx.moveTo(0, item.y);
-    ctx.lineTo(3000, item.y);
-    ctx.stroke();
+    // Draw vertical line
+    ectx.strokeStyle = 'rgba(255, 200, 0, 0.6)';
+    ectx.lineWidth = 1.5;
+    ectx.setLineDash([8, 4]);
+    
+    ectx.beginPath();
+    ectx.moveTo(cx, 0);
+    ectx.lineTo(cx, rect.height);
+    ectx.stroke();
 
-    ctx.setLineDash([]);
+    // Draw horizontal line
+    ectx.beginPath();
+    ectx.moveTo(0, cy);
+    ectx.lineTo(rect.width, cy);
+    ectx.stroke();
+    
+    ectx.restore();
   }
 
-  function drawHandles() {
-    const item = editor.items[editor.selectedItem.index];
+  function drawInfo(ectx, cx, cy) {
+    const item = editor.selectedItem.item;
     if (!item) return;
 
-    ensureSize(item);
-    const { width: dw, height: dh } = getDisplaySize(item);
-    const hw = dw / 2;
-    const hh = dh / 2;
-    const cam = editor.camera;
-
-    ctx.strokeStyle = '#00FF00';
-    ctx.lineWidth = 3 / cam.z;
-    ctx.setLineDash([10 / cam.z, 5 / cam.z]);
-
-    if (item.rotation) {
-      ctx.save();
-      ctx.translate(item.x, item.y);
-      ctx.rotate((item.rotation * Math.PI) / 180);
-      ctx.strokeRect(-hw, -hh, dw, dh);
-      ctx.restore();
-    } else {
-      ctx.strokeRect(item.x - hw, item.y - hh, dw, dh);
-    }
+    const size = getDisplaySize(item);
+    const text = `${item.type || 'item'} (${Math.round(item.x || 0)}, ${Math.round(item.y || 0)}) ${size.w}x${size.h}`;
     
-    ctx.setLineDash([]);
-
-    const hs = 14 / cam.z;
-    ctx.fillStyle = '#00FF00';
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 2 / cam.z;
+    ectx.font = '12px monospace';
+    const textWidth = ectx.measureText(text).width;
+    const padding = 4;
+    const textHeight = 16;
     
-    const corners = [
-      { x: item.x - hw, y: item.y - hh },
-      { x: item.x + hw, y: item.y - hh },
-      { x: item.x - hw, y: item.y + hh },
-      { x: item.x + hw, y: item.y + hh },
-    ];
+    // Calculate position for the info box (above the item)
+    const boxX = cx - textWidth/2 - padding;
+    const boxY = cy - size.h/2 - textHeight - padding*2;
     
-    corners.forEach(c => {
-      ctx.fillRect(c.x - hs/2, c.y - hs/2, hs, hs);
-      ctx.strokeRect(c.x - hs/2, c.y - hs/2, hs, hs);
-    });
-
-    const rotY = item.y - hh - 35 / cam.z;
-    ctx.beginPath();
-    ctx.arc(item.x, rotY, hs/2, 0, Math.PI * 2);
-    ctx.fillStyle = '#FFD700';
-    ctx.fill();
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 2 / cam.z;
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(item.x, item.y - hh);
-    ctx.lineTo(item.x, rotY);
-    ctx.strokeStyle = '#FFD700';
-    ctx.lineWidth = 2 / cam.z;
-    ctx.setLineDash([6 / cam.z, 4 / cam.z]);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    const cs = 8 / cam.z;
-    ctx.strokeStyle = '#FF00FF';
-    ctx.lineWidth = 2 / cam.z;
-    ctx.beginPath();
-    ctx.moveTo(item.x - cs, item.y);
-    ctx.lineTo(item.x + cs, item.y);
-    ctx.moveTo(item.x, item.y - cs);
-    ctx.lineTo(item.x, item.y + cs);
-    ctx.stroke();
+    // Draw background
+    ectx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+    ectx.fillRect(
+      boxX, 
+      boxY, 
+      textWidth + padding*2, 
+      textHeight + padding
+    );
+    
+    // Draw text
+    ectx.fillStyle = 'white';
+    ectx.textAlign = 'center';
+    ectx.textBaseline = 'top';
+    ectx.fillText(
+      text, 
+      cx, 
+      boxY + padding/2
+    );
   }
-
-  function drawInfo() {
-    const item = editor.items[editor.selectedItem.index];
-    if (!item || !editor.waypoint) return;
-
-    const cam = editor.camera;
-    const ox = Math.round(item.x - editor.waypoint.x);
-    const oy = Math.round(item.y - editor.waypoint.y);
-    
-    const { width: dw } = getDisplaySize(item);
-    const iy = item.y - dw/2 - 50 / cam.z;
-
-    const text = `(${ox}, ${oy}) | ${Math.round(item.width)}×${Math.round(item.height)} | ${item.rotation || 0}°`;
-    const fs = 14 / cam.z;
-    ctx.font = `bold ${fs}px monospace`;
-    const m = ctx.measureText(text);
-    const pad = 8 / cam.z;
-
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
-    ctx.fillRect(item.x - m.width/2 - pad, iy - fs - pad, m.width + pad*2, fs + pad*2);
-
-    ctx.strokeStyle = '#00FF00';
-    ctx.lineWidth = 2 / cam.z;
-    ctx.strokeRect(item.x - m.width/2 - pad, iy - fs - pad, m.width + pad*2, fs + pad*2);
-
-    ctx.fillStyle = '#00FF00';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-    ctx.fillText(text, item.x, iy - fs);
-  }
-
   // ========= 🎨 UI AVANZADA =========
   function createUI() {
     const ui = document.createElement('div');

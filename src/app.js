@@ -846,6 +846,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
 
     const yOffset = offsetValue / (wp.z || 1.6);
+    
+    // Store the active y-offset for rendering
+    state._activeYOffset = yOffset;
 
     const newTargetX = wp.x;
     const newTargetY = wp.y + yOffset;
@@ -1082,44 +1085,72 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       dpr * (-cam.y * cam.z + canvasLogicalH/2)
     );
     
+    // Get current waypoint center for relative positioning
+    const wpCenter = state.currentWaypoints[state.idx];
+    
     // Draw each hotspot
     hotspots.forEach((hs, index) => {
-      if (!hs || !hs.coords) return;
+      if (!hs) return;
       
-      const { xp, yp, width = 50, height = 50 } = hs.coords;
-      const x = xp * mapManager.currentMap?.config.mapImage.logicalW || 0;
-      const y = yp * mapManager.currentMap?.config.mapImage.logicalH || 0;
+      // Get source icon for this hotspot to read offset/size/rotation
+      const iconsOfWp = state.currentIcons[state.idx] || [];
+      const srcIcon = iconsOfWp.find(ic => ic?.id === hs.id);
       
-      // Simple viewport culling
-      if (x + width < vx || x > vx + vw || y + height < vy || y > vy + vh) {
+      let node = null;
+      if (srcIcon) {
+        const isMobile = window.matchMedia('(max-width: 899px)').matches;
+        node = isMobile ? (srcIcon.mobile || srcIcon) : (srcIcon.desktop || srcIcon);
+      }
+      
+      // Get dimensions from hotspot or source icon
+      let worldWidth = hs.width || (node?.width ?? 50);
+      let worldHeight = hs.height || (node?.height ?? 50);
+      let rotationDeg = hs.rotation || (node?.rotation || 0);
+      
+      // Calculate position: waypoint center + icon offsets
+      let x, y;
+      if (node && wpCenter) {
+        x = wpCenter.x + (node.offsetX || 0);
+        y = wpCenter.y + (node.offsetY || 0);
+      } else if (hs.coords) {
+        // Fallback to old coordinate system if no node/waypoint
+        const { xp, yp } = hs.coords;
+        x = xp * (mapManager.currentMap?.config.mapImage.logicalW || 2858);
+        y = yp * (mapManager.currentMap?.config.mapImage.logicalH || 2858);
+      } else {
+        return; // Skip if no valid position
+      }
+      
+      // Simple viewport culling with actual dimensions
+      if (x + worldWidth < vx || x > vx + vw || y + worldHeight < vy || y > vy + vh) {
         return; // Skip off-screen hotspots
       }
       
       const isActive = appConfig.editorActive && window.editor?.selectedItem?.index === index;
       
-      // Draw hotspot rectangle
+      // Draw hotspot rectangle with centered rotation
+      ctx.save();
+      ctx.translate(x, y);
+      if (rotationDeg) ctx.rotate(rotationDeg * Math.PI / 180);
+
+      // Draw rectangle centered at origin
       ctx.beginPath();
-      ctx.rect(x, y, width, height);
-      
-      // Apply styles
+      ctx.rect(-worldWidth/2, -worldHeight/2, worldWidth, worldHeight);
       ctx.fillStyle = isActive ? styles.activeFill : styles.fill;
       ctx.strokeStyle = isActive ? styles.activeStroke : styles.stroke;
       ctx.lineWidth = (isActive ? 2 : 1) / sqrtZ;
-      
-      // Draw
       ctx.fill();
       ctx.stroke();
-      
-      // Draw index label for debugging
+
+      // Debug label with offset information
       if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
-        ctx.save();
-        ctx.font = `${10 / sqrtZ}px Inter, sans-serif`;
-        ctx.fillStyle = '#fff';
+        ctx.font = `${14 / sqrtZ}px monospace`;
         ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(index.toString(), x + width/2, y + height/2);
-        ctx.restore();
+        ctx.fillStyle = '#000';
+        ctx.fillText(`#${index}: (${node?.offsetX ?? 0}, ${node?.offsetY ?? 0})`, 0, -(worldHeight/2) - (6 / sqrtZ));
       }
+
+      ctx.restore();
     });
     
     ctx.restore();
@@ -1178,9 +1209,15 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       }
       
       const i = wp.originalIndex !== undefined ? wp.originalIndex : state.currentWaypoints.indexOf(wp);
+      const isActive = i === state.idx;
+      
+      // Apply y-offset only to the active waypoint
+      const drawX = wp.x;
+      const drawY = isActive ? (wp.y + (state._activeYOffset || 0)) : wp.y;
+      
       ctx.beginPath();
-      ctx.arc(wp.x, wp.y, MARKER_R, 0, RENDER_CONSTANTS.TWO_PI);
-      ctx.fillStyle = i === state.idx ? RENDER_CONSTANTS.ACTIVE_MARKER_FILL : RENDER_CONSTANTS.INACTIVE_MARKER_FILL;
+      ctx.arc(drawX, drawY, MARKER_R, 0, RENDER_CONSTANTS.TWO_PI);
+      ctx.fillStyle = isActive ? RENDER_CONSTANTS.ACTIVE_MARKER_FILL : RENDER_CONSTANTS.INACTIVE_MARKER_FILL;
       ctx.fill();
       ctx.lineWidth = RENDER_CONSTANTS.MARKER_STROKE_WIDTH;
       ctx.strokeStyle = RENDER_CONSTANTS.MARKER_STROKE_COLOR;
@@ -1580,35 +1617,39 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       }
       if (!onScreen) return; // Skip this hotspot and continue with the next one
 
-      // Calculate visual size (respects compact/hitSlop/minTap)
-      const screenWidth = worldWidth * camera.z;
-      const screenHeight = worldHeight * camera.z;
+      // 1) Tamaño REAL de hitbox en mundo (tu caja roja):
+      const hitW_world = worldWidth;   // ← el mismo width del hotspot (mundo)
+      const hitH_world = worldHeight;  // ← el mismo height del hotspot (mundo)
 
       const minTapSize = mapManager.isMobile
         ? GLOBAL_CONFIG.TOUCH.mobileMin
         : GLOBAL_CONFIG.TOUCH.desktopMin;
 
       const useCompact = hotspot.meta?.compact ?? (mapManager.isMobile ? true : false);
-      const visualW = useCompact ? screenWidth : Math.max(screenWidth, minTapSize);
-      const visualH = useCompact ? screenHeight : Math.max(screenHeight, minTapSize);
+      
+      // 2) Tamaño SOLO VISUAL para overlays (en pantalla):
+      const visualW_px = useCompact ? (worldWidth * camera.z)
+                                  : Math.max(worldWidth * camera.z, minTapSize);
+      const visualH_px = useCompact ? (worldHeight * camera.z)
+                                  : Math.max(worldHeight * camera.z, minTapSize);
 
       const hotspotConfig = {
         key: `hotspot_${hotspot.id || index}`,
         src: hotspot.src || hotspot.img || '/default-icon.png',
-        worldX: worldX,
-        worldY: worldY,
-        rotationDeg: hotspot.rotation || 0,
-        lockWidthPx: visualW,
+        worldX,                             // centro
+        worldY,                             // centro
+        rotationDeg: hotspot.rotation || 0, // rotación en grados
+        lockWidthPx: visualW_px,            // tamaño visual (como ya hacías)
         z: hotspot.z || 2,
         meta: {
           ...(hotspot.meta || {}),
-          shape: hotspot.shape || (hotspot.meta?.shouldBeRound ? 'circle' : 'rect'),
+          shape: hotspot.shape || 'rect',
           compact: useCompact,
           hitSlop: GLOBAL_CONFIG.TOUCH.hitSlop,
-          minTap: minTapSize,
-          visualH: visualH,
-          title: hotspot.title || `Hotspot ${index}`,
-          hotspot: hotspot,
+          visualH: visualH_px,
+          // ¡importante para hit-test!
+          width: worldWidth,
+          height: worldHeight,
           isHotspot: true,
           hotspotIndex: index,
           waypointIndex: activeWaypointIndex,

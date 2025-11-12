@@ -52,33 +52,38 @@ export class Camera {
     this.dirty = false;
   }
 
-  // World to CSS (para overlays y dibujo canvas sin DPR)
-  worldToCss(worldX, worldY) {
-    this.updateMatrices();
-    return {
-      x: worldX * this.M.scale + this.M.tx,
-      y: worldY * this.M.scale + this.M.ty
-    };
+  // Convert world coordinates to CSS pixels using explicit canvas dimensions
+  // @param {number} x - World X coordinate
+  // @param {number} y - World Y coordinate
+  // @param {number} [canvasCssW=this.viewportW] - Canvas width in CSS pixels
+  // @param {number} [canvasCssH=this.viewportH] - Canvas height in CSS pixels
+  // @returns {{x: number, y: number}} CSS pixel coordinates relative to canvas
+  worldToCss(x, y, canvasCssW = this.viewportW, canvasCssH = this.viewportH) {
+    const sx = (x - this.x) * this.z + (canvasCssW * 0.5);
+    const sy = (y - this.y) * this.z + (canvasCssH * 0.5);
+    return { x: sx, y: sy };
   }
 
-  // CSS to World (para input, e.g., clics)
-  screenToWorld(sx, sy) {
-    this.updateMatrices();
-    const m = this.Minv;
-    return {
-      x: sx * m.scale + m.tx,
-      y: sy * m.scale + m.ty
-    };
+  // Convert CSS pixel coordinates to world coordinates using explicit canvas dimensions
+  // @param {number} sx - CSS X coordinate relative to canvas
+  // @param {number} sy - CSS Y coordinate relative to canvas
+  // @param {number} [canvasCssW=this.viewportW] - Canvas width in CSS pixels
+  // @param {number} [canvasCssH=this.viewportH] - Canvas height in CSS pixels
+  // @returns {{x: number, y: number}} World coordinates
+  cssToWorld(sx, sy, canvasCssW = this.viewportW, canvasCssH = this.viewportH) {
+    const wx = (sx - canvasCssW * 0.5) / this.z + this.x;
+    const wy = (sy - canvasCssH * 0.5) / this.z + this.y;
+    return { x: wx, y: wy };
   }
 
-  // Alias for compatibility with hit-tester
-  cssToWorld(x, y) { 
-    return this.screenToWorld(x, y);
+  // Alias for compatibility (uses viewport dimensions)
+  screenToWorld(sx, sy) { 
+    return this.cssToWorld(sx, sy, this.viewportW, this.viewportH); 
   }
-
-  // Alias for compatibility with hit-tester
-  worldToCss(x, y) {
-    return this.worldToScreen(x, y);
+  
+  // Alias for compatibility (uses viewport dimensions)
+  worldToScreen(x, y) { 
+    return this.worldToCss(x, y, this.viewportW, this.viewportH); 
   }
 
   // Bounds del viewport en world space (para culling)
