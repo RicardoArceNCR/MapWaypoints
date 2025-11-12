@@ -62,12 +62,12 @@ export const MAPS_CONFIG = {
       mobile: {
         src: '/assets/mapa-mobile.webp',
         logicalW: 2338,
-        logicalH: 2779
+        logicalH: 4132
       },
       desktop: {
         src: '/assets/mapa-dektop.webp',
         logicalW: 2858,
-        logicalH: 1761
+        logicalH: 2616
       },
       useNaturalSize: false
     },
@@ -562,7 +562,7 @@ export const MAPS_CONFIG = {
           meta: {
             interactive: true,  // Hotspot interactivo
             z: 103,  // Z más alto que los labels
-            waypointIndex: 2 
+            waypointIndex: 1 
           },
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
           title: '#3 Encuentro en Zona Residencial',
@@ -1581,12 +1581,12 @@ export const MAPS_CONFIG = {
       mobile: {
         src: '/assets/mapa-mobile-2.webp',
         logicalW: 2338,
-        logicalH: 2779
+        logicalH: 4132
       },
       desktop: {
         src: '/assets/mapa-dektop-2.webp',
         logicalW: 2858,
-        logicalH: 1761
+        logicalH: 2616
       },
       useNaturalSize: false
     },
@@ -2037,12 +2037,12 @@ export const MAPS_CONFIG = {
       mobile: {
         src: '/assets/mapa-mobile-3.webp',
         logicalW: 2338,
-        logicalH: 2779
+        logicalH: 4132
       },
       desktop: {
         src: '/assets/mapa-dektop-3.webp',
         logicalW: 2858,
-        logicalH: 1761
+        logicalH: 2616
       },
       useNaturalSize: false
     },
