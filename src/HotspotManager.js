@@ -229,18 +229,21 @@ export class HotspotManager {
     
     hotspots.forEach((hs, index) => {
       const processed = {
-        id: hs.key || `hotspot_${index}`,
-        worldX: hs.worldX || hs.x,
-        worldY: hs.worldY || hs.y,
-        worldWidth: hs.lockWidthPx || hs.width || 50,
-        worldHeight: hs.visualH || hs.height || 50,
+        id: hs.id || hs.key || `wp${hs.meta?.waypointIndex ?? waypointIndex}-idx${index}`,
+        key: hs.key || hs.id || `wp${hs.meta?.waypointIndex ?? waypointIndex}-idx${index}`,
+        // usa world* si vienen, si no, las coords ya normalizadas (x,y)
+        worldX: hs.worldX ?? hs.x,
+        worldY: hs.worldY ?? hs.y,
+        // tamaño de hitbox: usa explícitos y si no, deriva de width/height/meta.visualH
+        worldWidth: hs.lockWidthPx ?? hs.width ?? 50,
+        worldHeight: hs.visualH ?? hs.height ?? hs.meta?.visualH ?? hs.width ?? 50,
         shape: hs.meta?.shape || hs.shape || 'rect',
-        waypointIndex: hs.meta?.waypointIndex,
-        data: hs.meta || hs,
-        z: hs.z || 1
+        waypointIndex: (hs.meta?.waypointIndex ?? waypointIndex),
+        data: { ...hs, ...hs.meta }, // deja todo disponible para el popup detallado
+        z: Number.isFinite(hs.z) ? hs.z : 1
       };
       
-      this.hotspots.set(processed.id, processed);
+      this.hotspots.set(processed.key, processed);
       processedHotspots.push(processed);
     });
 

@@ -283,9 +283,9 @@ export class MapManager {
         return;
       }
 
-      normalized[key] = iconList.map(icon => {
+      normalized[key] = iconList.map((icon, idx) => {
         const config = this.isMobile ? icon.mobile : icon.desktop;
-        
+
         if (!config) {
           console.warn('⚠️ Icono sin configuración mobile/desktop:', icon);
           return icon;
@@ -302,7 +302,6 @@ export class MapManager {
           : (waypoint.y + (config.offsetY || 0));
 
         let width, height;
-        
         if (config.width !== undefined && config.height !== undefined) {
           width = config.width;
           height = config.height;
@@ -314,14 +313,27 @@ export class MapManager {
           height = null;
         }
 
+        // Forzamos key único, meta con waypointIndex e isHotspot
+        const keyStr = icon.id || `wp${waypointIndex}-hs${idx}`;
+
         const base = {
           ...icon,
+          key: keyStr,              // Clave única estable para canvas
+          id: keyStr,               // (por compatibilidad con otros módulos)
           type,
-          x,
-          y,
-          width,
-          height,
-          rotation: config.rotation || 0
+          x, y,
+          width, height,
+          rotation: config.rotation || 0,
+          // Meta mergeada y enriquecida (no pisamos lo existente)
+          meta: {
+            ...(icon.meta || {}),
+            waypointIndex: waypointIndex,    // Índice del waypoint padre
+            isHotspot: (type === 'hotspot'), // Si es un hotspot interactivo
+            interactive: icon.meta?.interactive ?? (type === 'hotspot'),
+            shape: icon.meta?.shape || (icon.radius ? 'circle' : 'rect'),
+            hitSlop: icon.meta?.hitSlop ?? 0, // Margen de click
+            visualH: icon.meta?.visualH ?? (height ?? width ?? 36) // Tamaño visual
+          }
         };
 
         if (type === 'hotspot') {

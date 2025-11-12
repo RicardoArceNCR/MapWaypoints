@@ -249,676 +249,201 @@ export const MAPS_CONFIG = {
         { 
           type: 'hotspot',
           id: 'wp1-hotspot-2',
-          mobile: { offsetX: 62, offsetY: 250, width: 250, height: 210, rotation: 0, radius: 0 },
+          mobile:  { offsetX: 62,  offsetY: 250, width: 250, height: 210, rotation: 0,  radius: 0 },
           desktop: { offsetX: -115, offsetY: -101, width: 150, height: 156, rotation: 25 },
-          meta: {
-            interactive: true,  // Hotspot interactivo
-            z: 101  // Z más alto que los labels
-          },
-          // ========= SEGUNDA ESTRUCTURA DETALLADA =========
+          meta: { interactive: true, z: 101 },
+
           title: '#1 Encuentro en Zona Residencial',
           image: '/assets/mapa-1.webp',
-          
-          datetime: {
-            date: '16/06/2025',
-            time: '18:45',
-            timeColor: '#FF4444'
-          },
-          
+
+          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
           location: 'Barrio Escalante, San José.',
-          
+
           description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          
+
           involved: [
-            {
-              id: 'person4',
-              name: 'Persona #4',
-              avatar: './assets/persona_1-4.png',
-              role: 'Contacto principal'
-            },
-            {
-              id: 'person5',
-              name: 'Persona #5',
-              avatar: './assets/persona_1-1.png',
-              role: 'Acompañante',
-              highlighted: true
-            },
-            {
-              id: 'person6',
-              name: 'Persona #6',
-              avatar: './assets/persona_1-2.png',
-              role: 'Tercero presente'
-            },
-            {
-              id: 'person7',
-              name: 'Persona #7',
-              avatar: './assets/persona_1-3.png',
-              role: 'Observador'
-            }
+            { id: 'person4', name: 'Persona #4', avatar: '/assets/persona_1-4.png', role: 'Contacto principal' },
+            { id: 'person5', name: 'Persona #5', avatar: '/assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
+            { id: 'person6', name: 'Persona #6', avatar: '/assets/persona_1-2.png', role: 'Tercero presente' },
+            { id: 'person7', name: 'Persona #7', avatar: '/assets/persona_1-3.png', role: 'Observador' }
           ],
-          
+
           echos: {
             person4: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:30'
-                },
-                description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:00'
-                },
-                description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.'
-              }
+              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
+              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
             ],
             person5: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:45'
-                },
-                description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:05'
-                },
-                description: 'Permanece en el lugar después de la salida del contacto principal.'
-              }
+              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
+              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
             ],
             person6: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:50'
-                },
-                description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.'
-              }
+              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
             ],
             person7: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:40'
-                },
-                description: 'Se mantiene en las inmediaciones durante todo el evento documentado.'
-              }
+              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
             ]
           }
         },
         { 
           type: 'hotspot',
           id: 'wp1-hotspot-3',
-          mobile: { offsetX: -81, offsetY: -250, width: 120, height: 120, rotation: 0, radius: 20 },
-          desktop: { offsetX: 241, offsetY: -61, width: 397, height: 228, rotation: 25, radius: 10  },
-          meta: {
-            interactive: true,  // Hotspot interactivo
-            z: 102  // Z más alto que los labels
-          },
-          // ========= SEGUNDA ESTRUCTURA DETALLADA =========
+          mobile:  { offsetX: -81, offsetY: -250, width: 120, height: 120, rotation: 0,  radius: 20 },
+          desktop: { offsetX: 241, offsetY: -61,  width: 397, height: 228, rotation: 25, radius: 10 },
+          meta: { interactive: true, z: 102 },
+
           title: '#2 Encuentro en Zona Residencial',
-          
           image: '/assets/mapa-1.webp',
-          
-          datetime: {
-            date: '16/06/2025',
-            time: '18:45',
-            timeColor: '#FF4444'
-          },
-          
+
+          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
           location: 'Barrio Escalante, San José.',
-          
+
           description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          
+
           involved: [
-            {
-              id: 'person4',
-              name: 'Persona #4',
-              avatar: './assets/persona_1-4.png',
-              role: 'Contacto principal'
-            },
-            {
-              id: 'person5',
-              name: 'Persona #5',
-              avatar: './assets/persona_1-1.png',
-              role: 'Acompañante',
-              highlighted: true
-            },
-            {
-              id: 'person6',
-              name: 'Persona #6',
-              avatar: './assets/persona_1-2.png',
-              role: 'Tercero presente'
-            },
-            {
-              id: 'person7',
-              name: 'Persona #7',
-              avatar: './assets/persona_1-3.png',
-              role: 'Observador'
-            }
+            { id: 'person4', name: 'Persona #4', avatar: '/assets/persona_1-4.png', role: 'Contacto principal' },
+            { id: 'person5', name: 'Persona #5', avatar: '/assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
+            { id: 'person6', name: 'Persona #6', avatar: '/assets/persona_1-2.png', role: 'Tercero presente' },
+            { id: 'person7', name: 'Persona #7', avatar: '/assets/persona_1-3.png', role: 'Observador' }
           ],
-          
+
           echos: {
             person4: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:30'
-                },
-                description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:00'
-                },
-                description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.'
-              }
+              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
+              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
             ],
             person5: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:45'
-                },
-                description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:05'
-                },
-                description: 'Permanece en el lugar después de la salida del contacto principal.'
-              }
+              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
+              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
             ],
             person6: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:50'
-                },
-                description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.'
-              }
+              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
             ],
             person7: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:40'
-                },
-                description: 'Se mantiene en las inmediaciones durante todo el evento documentado.'
-              }
-            ]
-          },
-          
-          // ========= SEGUNDA ESTRUCTURA DETALLADA =========
-          title: '#2 Encuentro en Zona Residencial',
-          
-          image: '/assets/mapa-1.webp',
-          
-          datetime: {
-            date: '16/06/2025',
-            time: '18:45',
-            timeColor: '#FF4444'
-          },
-          
-          location: 'Barrio Escalante, San José.',
-          
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          
-          involved: [
-            {
-              id: 'person4',
-              name: 'Persona #4',
-              avatar: './assets/persona_1-4.png',
-              role: 'Contacto principal'
-            },
-            {
-              id: 'person5',
-              name: 'Persona #5',
-              avatar: './assets/persona_1-1.png',
-              role: 'Acompañante',
-              highlighted: true
-            },
-            {
-              id: 'person6',
-              name: 'Persona #6',
-              avatar: './assets/persona_1-2.png',
-              role: 'Tercero presente'
-            },
-            {
-              id: 'person7',
-              name: 'Persona #7',
-              avatar: './assets/persona_1-3.png',
-              role: 'Observador'
-            }
-          ],
-          
-          echos: {
-            person4: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:30'
-                },
-                description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:00'
-                },
-                description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.'
-              }
-            ],
-            person5: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:45'
-                },
-                description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:05'
-                },
-                description: 'Permanece en el lugar después de la salida del contacto principal.'
-              }
-            ],
-            person6: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:50'
-                },
-                description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.'
-              }
-            ],
-            person7: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:40'
-                },
-                description: 'Se mantiene en las inmediaciones durante todo el evento documentado.'
-              }
+              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
             ]
           }
         },
         { 
           type: 'hotspot',
           id: 'wp1-hotspot-4',
-          mobile: { offsetX: 80, offsetY: -220, width: 120, height: 120, rotation: 0, radius: 20},
-          desktop: { offsetX: 0, offsetY: 0, width: 149, height: 153, rotation: 0, radius: 10},
-          meta: {
-            interactive: true,  // Hotspot interactivo
-            z: 103  // Z más alto que los labels
-          },
-          // ========= SEGUNDA ESTRUCTURA DETALLADA =========
+          mobile:  { offsetX: 80, offsetY: -220, width: 120, height: 120, rotation: 0,  radius: 20 },
+          desktop: { offsetX: 0,  offsetY: 0,   width: 149, height: 153, rotation: 0,  radius: 10 },
+          meta: { interactive: true, z: 103 },
+
           title: '#3 Encuentro en Zona Residencial',
-          
           image: '/assets/mapa-1.webp',
-          
-          datetime: {
-            date: '16/06/2025',
-            time: '18:45',
-            timeColor: '#FF4444'
-          },
-          
+
+          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
           location: 'Barrio Escalante, San José.',
-          
+
           description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          
+
           involved: [
-            {
-              id: 'person4',
-              name: 'Persona #4',
-              avatar: './assets/persona_1-4.png',
-              role: 'Contacto principal'
-            },
-            {
-              id: 'person5',
-              name: 'Persona #5',
-              avatar: './assets/persona_1-1.png',
-              role: 'Acompañante',
-              highlighted: true
-            },
-            {
-              id: 'person6',
-              name: 'Persona #6',
-              avatar: './assets/persona_1-2.png',
-              role: 'Tercero presente'
-            },
-            {
-              id: 'person7',
-              name: 'Persona #7',
-              avatar: './assets/persona_1-3.png',
-              role: 'Observador'
-            }
+            { id: 'person4', name: 'Persona #4', avatar: '/assets/persona_1-4.png', role: 'Contacto principal' },
+            { id: 'person5', name: 'Persona #5', avatar: '/assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
+            { id: 'person6', name: 'Persona #6', avatar: '/assets/persona_1-2.png', role: 'Tercero presente' },
+            { id: 'person7', name: 'Persona #7', avatar: '/assets/persona_1-3.png', role: 'Observador' }
           ],
-          
+
           echos: {
             person4: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:30'
-                },
-                description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:00'
-                },
-                description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.'
-              }
+              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
+              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
             ],
             person5: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:45'
-                },
-                description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:05'
-                },
-                description: 'Permanece en el lugar después de la salida del contacto principal.'
-              }
+              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
+              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
             ],
             person6: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:50'
-                },
-                description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.'
-              }
+              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
             ],
             person7: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:40'
-                },
-                description: 'Se mantiene en las inmediaciones durante todo el evento documentado.'
-              }
-            ]
-          },
-          
-          // ========= SEGUNDA ESTRUCTURA DETALLADA =========
-          title: '#3 Encuentro en Zona Residencial',
-          
-          image: '/assets/mapa-1.webp',
-          
-          datetime: {
-            date: '16/06/2025',
-            time: '18:45',
-            timeColor: '#FF4444'
-          },
-          
-          location: 'Barrio Escalante, San José.',
-          
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          
-          involved: [
-            {
-              id: 'person4',
-              name: 'Persona #4',
-              avatar: './assets/persona_1-4.png',
-              role: 'Contacto principal'
-            },
-            {
-              id: 'person5',
-              name: 'Persona #5',
-              avatar: './assets/persona_1-1.png',
-              role: 'Acompañante',
-              highlighted: true
-            },
-            {
-              id: 'person6',
-              name: 'Persona #6',
-              avatar: './assets/persona_1-2.png',
-              role: 'Tercero presente'
-            },
-            {
-              id: 'person7',
-              name: 'Persona #7',
-              avatar: './assets/persona_1-3.png',
-              role: 'Observador'
-            }
-          ],
-          
-          echos: {
-            person4: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:30'
-                },
-                description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:00'
-                },
-                description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.'
-              }
-            ],
-            person5: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:45'
-                },
-                description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:05'
-                },
-                description: 'Permanece en el lugar después de la salida del contacto principal.'
-              }
-            ],
-            person6: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:50'
-                },
-                description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.'
-              }
-            ],
-            person7: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:40'
-                },
-                description: 'Se mantiene en las inmediaciones durante todo el evento documentado.'
-              }
+              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
             ]
           }
         }
+
       ],
       1: [
-        { 
+        {
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          id: 'wp2-hotspot-1',
+          // Pega aquí TUS cajas actuales:
+          mobile:  { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          meta: {
-            interactive: true,  // Hotspot interactivo
-            z: 104  // Z más alto que los labels
-          },
-          // Detallado clonado del icons[0][0]
-          title: 'Llegada al Aeropuerto',
+          meta: { interactive: true, z: 100 },
+          title: 'Evento de wp2 #1',
           image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: 'Aeropuerto Juan Santamaría (SJO), Alajuela.',
-          description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.',
+          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
+          location: 'Ubicación por confirmar.',
+          description: 'Descripción pendiente (relleno).',
           involved: [
-            { id: 'person1', name: 'Persona #1', avatar: './assets/persona_1-1.png', role: 'Pasajero' },
-            { id: 'person2', name: 'Persona #2', avatar: './assets/persona_1-2.png', role: 'Conductor', highlighted: true },
-            { id: 'person3', name: 'Persona #3', avatar: './assets/persona_1-3.png', role: 'Testigo' }
+            { id: 'p1', name: 'Persona A', role: 'Participante', avatar: '/assets/persona_1-1.png' },
+            { id: 'p2', name: 'Persona B', role: 'Acompañante', avatar: '/assets/persona_1-2.png', highlighted: true }
           ],
           echos: {
-            person2: [
-              { datetime: { date: '15/06/2025', time: '12:07' }, description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas.' },
-              { datetime: { date: '15/06/2025', time: '14:30' }, description: 'Segunda interacción documentada con el conductor en zona residencial.' }
-            ],
-            person1: [
-              { datetime: { date: '15/06/2025', time: '11:45' }, description: 'Arribo del vuelo internacional desde Ciudad de México.' }
-            ],
-            person3: [
-              { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
-            ]
-          },
-          // Detallado clonado del icons[0][0]
-          title: 'Llegada al Aeropuerto',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: 'Aeropuerto Juan Santamaría (SJO), Alajuela.',
-          description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.',
-          involved: [
-            { id: 'person1', name: 'Persona #1', avatar: './assets/persona_1-1.png', role: 'Pasajero' },
-            { id: 'person2', name: 'Persona #2', avatar: './assets/persona_1-2.png', role: 'Conductor', highlighted: true },
-            { id: 'person3', name: 'Persona #3', avatar: './assets/persona_1-3.png', role: 'Testigo' }
-          ],
-          echos: {
-            person2: [
-              { datetime: { date: '15/06/2025', time: '12:07' }, description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas.' },
-              { datetime: { date: '15/06/2025', time: '14:30' }, description: 'Segunda interacción documentada con el conductor en zona residencial.' }
-            ],
-            person1: [
-              { datetime: { date: '15/06/2025', time: '11:45' }, description: 'Arribo del vuelo internacional desde Ciudad de México.' }
-            ],
-            person3: [
-              { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
-            ]
+            p1: [{ datetime: { date: '16/06/2025', time: '18:45' }, description: 'Evento relacionado (relleno).' }],
+            p2: [{ datetime: { date: '16/06/2025', time: '19:05' }, description: 'Seguimiento (relleno).' }]
           }
         },
-        { 
+        {
           type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          id: 'wp2-hotspot-2',
+          mobile:  { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          meta: {
-            interactive: true,  // Hotspot interactivo
-            z: 105  // Z más alto que los labels
-          },
-          // Detallado clonado del icons[0][1]
-          title: '#4 Encuentro en Zona Residencial',
+          meta: { interactive: true, z: 101 },
+          title: 'Evento de wp2 #2',
           image: '/assets/mapa-1.webp',
           datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
-          location: 'Barrio Escalante, San José.',
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
+          location: 'Ubicación por confirmar.',
+          description: 'Descripción pendiente (relleno).',
           involved: [
-            { id: 'person4', name: 'Persona #4', avatar: './assets/persona_1-4.png', role: 'Contacto principal' },
-            { id: 'person5', name: 'Persona #5', avatar: './assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
-            { id: 'person6', name: 'Persona #6', avatar: './assets/persona_1-2.png', role: 'Tercero presente' },
-            { id: 'person7', name: 'Persona #7', avatar: './assets/persona_1-3.png', role: 'Observador' }
+            { id: 'p1', name: 'Persona A', role: 'Participante', avatar: '/assets/persona_1-1.png' },
+            { id: 'p2', name: 'Persona B', role: 'Acompañante', avatar: '/assets/persona_1-2.png' }
           ],
           echos: {
-            person4: [
-              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
-              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
-            ],
-            person5: [
-              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
-              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
-            ],
-            person6: [
-              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
-            ],
-            person7: [
-              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
-            ]
-          },
-          // Detallado clonado del icons[0][1]
-          title: '#4 Encuentro en Zona Residencial',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
-          location: 'Barrio Escalante, San José.',
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          involved: [
-            { id: 'person4', name: 'Persona #4', avatar: './assets/persona_1-4.png', role: 'Contacto principal' },
-            { id: 'person5', name: 'Persona #5', avatar: './assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
-            { id: 'person6', name: 'Persona #6', avatar: './assets/persona_1-2.png', role: 'Tercero presente' },
-            { id: 'person7', name: 'Persona #7', avatar: './assets/persona_1-3.png', role: 'Observador' }
-          ],
-          echos: {
-            person4: [
-              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
-              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
-            ],
-            person5: [
-              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
-              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
-            ],
-            person6: [
-              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
-            ],
-            person7: [
-              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
-            ]
+            p1: [{ datetime: { date: '16/06/2025', time: '18:45' }, description: 'Evento relacionado (relleno).' }]
           }
         },
-        { 
+        {
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
+          id: 'wp2-hotspot-3',
+          mobile:  { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          meta: {
-            interactive: true,  // Hotspot interactivo
-            z: 106  // Z más alto que los labels
-          },
-          // Detallado adaptado desde el contenido existente
-          title: 'Elementos Descubiertos',
+          meta: { interactive: true, z: 102 },
+          title: 'Evento de wp2 #3',
           image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
-          involved: [],
-          echos: {},
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
-          involved: [],
-          echos: {}
+          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
+          location: 'Ubicación por confirmar.',
+          description: 'Descripción pendiente (relleno).',
+          involved: [
+            { id: 'p1', name: 'Persona A', role: 'Participante', avatar: '/assets/persona_1-1.png' },
+            { id: 'p2', name: 'Persona B', role: 'Acompañante', avatar: '/assets/persona_1-2.png' }
+          ],
+          echos: {
+            p2: [{ datetime: { date: '16/06/2025', time: '19:05' }, description: 'Seguimiento (relleno).' }]
+          }
         },
-        { 
+        {
           type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
+          id: 'wp2-hotspot-4',
+          mobile:  { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          meta: {
-            interactive: true,  // Hotspot interactivo
-            z: 106  // Z más alto que los labels
-          },
-          title: 'Zona Estratégica',
+          meta: { interactive: true, z: 103 },
+          title: 'Evento de wp2 #4',
           image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
-          involved: [],
-          echos: {},
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
-          involved: [],
-          echos: {}
-        }
+          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
+          location: 'Ubicación por confirmar.',
+          description: 'Descripción pendiente (relleno).',
+          involved: [
+            { id: 'p1', name: 'Persona A', role: 'Participante', avatar: '/assets/persona_1-1.png' },
+            { id: 'p2', name: 'Persona B', role: 'Acompañante', avatar: '/assets/persona_1-2.png' }
+          ],
+          echos: {
+            p1: [{ datetime: { date: '16/06/2025', time: '18:45' }, description: 'Evento relacionado (relleno).' }]
+          }
+        },
       ],
       2: [
         { 
@@ -2555,6 +2080,143 @@ export const MAPS_CONFIG = {
     }
   }
 };
+
+// === Normalizador de hotspots (IDs, schema, defaults, saneamiento) ===
+function fixAssetPath(p) {
+  if (!p || typeof p !== 'string') return p;
+  return p.startsWith('./assets/') ? p.replace('./assets/', '/assets/') : p;
+}
+
+// 🎯 Plantilla canónica basada en el 1er hotspot del primer waypoint
+const BASE_HOTSPOT_TEMPLATE = {
+  type: 'hotspot',
+  id: null, // se autogenera
+  title: 'Evento',
+  image: '/assets/mapa-1.webp',
+  datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
+  location: 'Ubicación por confirmar.',
+  description: 'Descripción pendiente (relleno).',
+  involved: [
+    { id: 'p1', name: 'Persona A', role: 'Participante', avatar: '/assets/persona_1-1.png' },
+    { id: 'p2', name: 'Persona B', role: 'Acompañante',  avatar: '/assets/persona_1-2.png' }
+  ],
+  echos: {
+    p1: [{ datetime: { date: '16/06/2025', time: '18:45' }, description: 'Evento relacionado (relleno).' }],
+    p2: [{ datetime: { date: '16/06/2025', time: '19:05' }, description: 'Seguimiento (relleno).' }]
+  },
+  meta: { interactive: true, z: 100 },
+
+  // ⚠️ Estos NO se inventan: se respetan tal cual vengan
+  mobile: null,
+  desktop: null
+};
+
+// merge profundo pero NO pisa mobile/desktop si existen
+function deepMergeBase(hs, base) {
+  const out = JSON.parse(JSON.stringify(base));
+  // Primero copia base
+  // Luego aplica hs, preservando mobile/desktop exactos
+  for (const k of Object.keys(hs || {})) {
+    if (k === 'mobile' || k === 'desktop') continue;
+    const v = hs[k];
+    if (v && typeof v === 'object' && !Array.isArray(v) && typeof out[k] === 'object' && !Array.isArray(out[k])) {
+      out[k] = { ...out[k], ...v };
+    } else {
+      out[k] = v;
+    }
+  }
+  // mobile/desktop se copian tal cual (no se "reparan" para no mover tus posiciones)
+  out.mobile = hs?.mobile ?? null;
+  out.desktop = hs?.desktop ?? null;
+  return out;
+}
+
+// sanea arrays de personas/echos y paths
+function sanitizeHotspot(hs) {
+  const fixPeople = (arr) =>
+    (Array.isArray(arr) ? arr : []).map(p => ({ ...p, avatar: fixAssetPath(p.avatar) }));
+
+  const fixEchos = (echos) => {
+    if (!echos || typeof echos !== 'object') return {};
+    const out = {};
+    Object.keys(echos).forEach(k => { out[k] = Array.isArray(echos[k]) ? echos[k] : []; });
+    return out;
+  };
+
+  hs.image = fixAssetPath(hs.image);
+  if (hs.img) hs.img = fixAssetPath(hs.img);
+  hs.involved = fixPeople(hs.involved);
+  hs.echos = fixEchos(hs.echos);
+  return hs;
+}
+
+function normalizeHotspotForWaypoint(hs, mapId, wpIdx, i) {
+  // 1) Aplica plantilla canónica
+  let h = deepMergeBase(hs, BASE_HOTSPOT_TEMPLATE);
+
+  // 2) ID/z/type/meta
+  h.id = h.id ?? `wp${wpIdx + 1}-hotspot-${i + 1}`;
+  h.type = 'hotspot';
+  h.meta = {
+    interactive: h?.meta?.interactive !== false,
+    z: (Number(h?.meta?.z) || 100) + i // escalerita por orden
+  };
+
+  // 3) Reglas mínimas de click para evitar "no abre"
+  //    (no tocamos posiciones ni rotación)
+  const ensureRect = (box) => {
+    if (!box) return null;
+    const w = Math.max(24, Number(box.width)  || 0);
+    const hgt = Math.max(24, Number(box.height) || 0);
+    const radius = Number.isFinite(box.radius) ? box.radius : 0;
+    return { ...box, width: w, height: hgt, radius };
+  };
+  h.mobile  = ensureRect(h.mobile);
+  h.desktop = ensureRect(h.desktop);
+
+  // 4) Sanitiza paths y colecciones
+  h = sanitizeHotspot(h);
+
+  return h;
+}
+
+function normalizeIconsBuckets(map) {
+  if (!map?.icons) return map;
+  const out = {};
+  Object.keys(map.icons).forEach(k => {
+    const wpIdx = Number(k);
+    const list = Array.isArray(map.icons[k]) ? map.icons[k] : [];
+    // 🧹 Filtra objetos claramente rotos (sin mobile y sin desktop)
+    const cleaned = list.filter(x => (x && (x.mobile || x.desktop)));
+    out[wpIdx] = cleaned.map((hs, i) => normalizeHotspotForWaypoint(hs, map.id || 'map', wpIdx, i));
+  });
+  return { ...map, icons: out };
+}
+
+// Aplica a TODOS los mapas definidos (f1, f2, f3)
+Object.keys(MAPS_CONFIG).forEach(key => {
+  MAPS_CONFIG[key] = normalizeIconsBuckets(MAPS_CONFIG[key]);
+});
+
+// --- PARCHE: asegura caja mínima si falta (para que no se filtren) ---
+(function ensureMinimalBoxesForAllMaps() {
+  const MIN = 24;
+  const safeRect = () => ({ offsetX: 0, offsetY: 0, width: MIN, height: MIN, rotation: 0, radius: 0 });
+
+  Object.values(MAPS_CONFIG).forEach(map => {
+    if (!map?.icons) return;
+    Object.keys(map.icons).forEach(k => {
+      map.icons[k] = (map.icons[k] || []).map(hs => {
+        // si NO tiene ni mobile ni desktop, colócale una caja mínima en mobile
+        if (!hs.mobile && !hs.desktop) {
+          hs = { ...hs, mobile: safeRect() };
+        }
+        // si existe la caja, respétala; tu normalizador ya la "ensancha" a >=24
+        return hs;
+      });
+    });
+  });
+})();
 
 // ========= CONFIG GLOBAL (OPTIMIZADO CON NUEVAS FUNCIONES) =========
 export const GLOBAL_CONFIG = {
