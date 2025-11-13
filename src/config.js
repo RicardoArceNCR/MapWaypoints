@@ -84,7 +84,7 @@ export const MAPS_CONFIG = {
       0: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: 33, offsetY: 21, width: 290, height: 176, rotation: 0 },
+          mobile: { offsetX: -43, offsetY: -131, width: 290, height: 176, rotation: 0 },
           desktop: { offsetX: -465, offsetY: -61, width: 388, height: 230, rotation: -10 },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
@@ -169,7 +169,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 54, offsetY: 342, width: 221, height: 183, rotation: 0, radius: 0 },
+          mobile: { offsetX: 54, offsetY: 162, width: 261, height: 183, rotation: 0, radius: 0 },
           desktop: { offsetX: -115, offsetY: -101, width: 150, height: 156, rotation: 25 },
           
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
@@ -270,14 +270,14 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -81, offsetY: -176, width: 85, height: 85, rotation: 0, radius: 30 },
+          mobile: { offsetX: 190, offsetY: -396, width: 105, height: 105, rotation: 0, radius: 10 },
           desktop: { offsetX: 233, offsetY: -61, width: 288, height: 185, rotation: 25, radius: 10  },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -130, offsetY: 540, width: 89, height: 89, rotation: 0, radius: 20},
+          mobile: { offsetX: -130, offsetY: 390, width: 119, height: 119, rotation: 0, radius: 20},
           desktop: { offsetX: -1, offsetY: 142, width: 260, height: 160, rotation: 0, radius: 10},
           title: 'Contexto Geográfico',
           body: 'Ubicación específica y detalles del entorno. Características del lugar que influyen en los acontecimientos.'
@@ -286,28 +286,27 @@ export const MAPS_CONFIG = {
       1: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -160, offsetY: -180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Evolución del Personaje',
           body: 'Cómo ha cambiado el protagonista desde el inicio. Nuevas perspectivas y aprendizajes adquiridos.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 60, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 160, offsetY: -180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Nuevos Encuentros',
           body: 'Personas que aparecen en este punto central. Su papel en el desarrollo de los eventos.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: 80, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -160, offsetY: 180, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: -160, offsetY: 190, width: 136, height: 136, rotation: 0 },
           title: 'Elementos Descubiertos',
           body: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.'
         },
         { 
           type: 'hotspot',
-          img: './assets/icon-info.png',
           mobile: { offsetX: 60, offsetY: 80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Zona Estratégica',
@@ -317,32 +316,28 @@ export const MAPS_CONFIG = {
       2: [
         { 
           type: 'hotspot',
-          img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -160, offsetY: -180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Transformación Final',
           body: 'El estado final del personaje. Cómo los acontecimientos han definido su destino.'
         },
         { 
           type: 'hotspot',
-          img: './assets/icon-info.png',
-          mobile: { offsetX: 60, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 160, offsetY: -180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Testigos del Desenlace',
           body: 'Quiénes están presentes en este momento crucial. Su reacción ante los eventos finales.'
         },
         { 
           type: 'hotspot',
-          img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: 80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Legado Material',
           body: 'Objetos que permanecen como testimonio. Evidencia física de todo lo ocurrido.'
         },
         { 
           type: 'hotspot',
-          img: './assets/icon-info.png',
-          mobile: { offsetX: 60, offsetY: 80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 160, offsetY: 80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Lugar del Destino',
           body: 'El significado final de esta ubicación. Por qué todo termina precisamente aquí.'
@@ -351,41 +346,28 @@ export const MAPS_CONFIG = {
       3: [
         { 
           type: 'hotspot',
-          img: '/assets/mapa-1.webp',
-          mobile: { 
-            offsetX: -60, 
-            offsetY: -80, 
-            width: 720,
-            height: 280,
-            rotation: 0 
-          },
-          desktop: { 
-            offsetX: -90, 
-            offsetY: -90, 
-            width: 950,
-            height: 900,
-            rotation: 0 
-          },
-          title: 'Mapa del Territorio',
-          body: 'Vista detallada de la zona completa. Este mapa muestra todos los lugares visitados.'
+          mobile: { offsetX: -160, offsetY: -180, width: 130, height: 130, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          title: 'Testigos del Desenlace cuando es de tipo mapa',
+          body: 'Quiénes están presentes en este momento crucial. su relacion y otras cosas'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 60, offsetY: -80, width: 130, height: 130, rotation: 0 },
+          mobile: { offsetX: 160, offsetY: -180, width: 130, height: 130, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Testigos del Desenlace',
           body: 'Quiénes están presentes en este momento crucial. Su reacción ante los eventos finales.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: 80, width: 100, height: 180, radius: 10 },
+          mobile: { offsetX: -160, offsetY: 80, width: 100, height: 180, radius: 10 },
           desktop: { offsetX: -90, offsetY: 90, width: 150, height: 120, radius: 10 },
           title: 'Legado Material',
           body: 'Objetos que permanecen como testimonio. Evidencia física de todo lo ocurrido.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 60, offsetY: 80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 160, offsetY: 80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 130, height: 90, rotation: 0 },
           title: 'Lugar del Destino',
           body: 'El significado final de esta ubicación. Por qué todo termina precisamente aquí.'
@@ -393,68 +375,60 @@ export const MAPS_CONFIG = {
       ],
       4: [
         { 
-          type: 'icon',
-          img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: -80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: -90, width: 36, height: 36, rotation: 0 },
+          type: 'hotspot',
+          mobile: { offsetX: -160, offsetY: -180, width: 130, height: 130, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Reflexión Final',
           body: 'El momento de entender todo lo vivido. Un espacio para procesar.'
         },
         { 
-          type: 'icon',
-          img: './assets/icon-info.png',
-          mobile: { offsetX: 60, offsetY: -80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: -90, width: 36, height: 36, rotation: 0 },
+          type: 'hotspot',
+          mobile: { offsetX: 160, offsetY: -180, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Testigos del Final',
           body: 'Quiénes presencian el momento culminante. Su rol en la conclusión.'
         },
         { 
-          type: 'icon',
-          img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: 80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: 90, width: 36, height: 36, rotation: 0 },
+          type: 'hotspot',
+          mobile: { offsetX: -160, offsetY: 180, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Símbolos del Cierre',
           body: 'Objetos que representan la conclusión. Su significado simbólico final.'
         },
         { 
-          type: 'icon',
-          img: './assets/icon-info.png',
-          mobile: { offsetX: 60, offsetY: 80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: 90, width: 36, height: 36, rotation: 0 },
+          type: 'hotspot',
+          mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Centro del Desenlace',
           body: 'El punto exacto donde todo converge y se resuelve.'
         }
       ],
       5: [
         { 
-          type: 'icon',
-          img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: -80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: -90, width: 36, height: 36, rotation: 0 },
+          type: 'hotspot',
+          mobile: { offsetX: -160, offsetY: -180, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Después de Todo',
           body: 'Cómo termina el protagonista después de esta experiencia. Su estado final.'
         },
         { 
-          type: 'icon',
-          img: './assets/icon-info.png',
-          mobile: { offsetX: 60, offsetY: -80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: -90, width: 36, height: 36, rotation: 0 },
+          type: 'hotspot',
+          mobile: { offsetX: 160, offsetY: -180, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Vidas Transformadas',
           body: 'Cómo han cambiado todas las personas involucradas. El impacto duradero.'
         },
         { 
-          type: 'icon',
-          img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: 80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: 90, width: 36, height: 36, rotation: 0 },
+          type: 'hotspot',
+          mobile: { offsetX: -160, offsetY: 180, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Memoria Tangible',
           body: 'Lo que permanece físicamente como recordatorio de toda la historia.'
         },
         { 
-          type: 'icon',
-          img: '/assets/icon-info.png',
-          mobile: { offsetX: 60, offsetY: 80, width: 36, height: 36, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: 90, width: 36, height: 36, rotation: 0 },
+          type: 'hotspot',
+          mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Lugar de Reflexión',
           body: 'El último lugar donde la historia se contempla. Un espacio para entender todo lo vivido.'
         }
