@@ -1,6 +1,7 @@
 {
   "name": "mapa119",
   "version": "1.0.0",
+  "engines": { "node": "20.x" },
   "description": "Mapa interactivo multiphase con hotspots y visualizaciones.",
   "main": "src/main.js",
   "author": "TuNombre",
