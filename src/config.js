@@ -1352,7 +1352,7 @@ export const GLOBAL_CONFIG = {
   SHOW_CONTROLS: true,  // Controla los botones de navegación (prev/next/progress)
   
   // ========= DEBUG Y VISUALIZACIÓN =========
-  DEBUG_HOTSPOTS: true,
+  // DEBUG_HOTSPOTS: true,
   
   // Estilos para iconos y hotspots
   ICON_STYLES: {
