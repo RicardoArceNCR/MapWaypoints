@@ -14,20 +14,20 @@ export const MAPS_CONFIG = {
     mapImage: {
       mobile: {
         src: '/assets/mapa-mobile.webp',
-        logicalW: 2338,
-        logicalH: 2779
+        logicalW: 2336,
+        logicalH: 4192
       },
       desktop: {
         src: '/assets/mapa-dektop.webp',
-        logicalW: 2858,
-        logicalH: 1761
+        logicalW: 4240,
+        logicalH: 2608
       },
       useNaturalSize: false
     },
     waypoints: [
       { 
-        mobile: { xp: 0.15, yp: 0.25, z: 0.30 },
-        desktop: { xp: 0.299, yp: 0.26, z: 0.88 },
+        mobile: { xp: 0.17, yp: 0.17, z: 0.50 },
+        desktop: { xp: 0.18, yp: 0.16, z: 0.88 },
         label: 'Inicio del Viaje', 
         lines: [
           'Aquí comienza la historia. Un punto de partida crucial que marca el inicio de esta aventura.',
@@ -35,8 +35,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.50, yp: 0.25, z: 0.10 },
-        desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
+        mobile: { xp: 0.50, yp: 0.17, z: 0.50 },
+        desktop: { xp: 0.51, yp: 0.16, z: 0.91 },
         label: 'Punto Central', 
         lines: [
           'En el corazón del territorio encontramos este lugar estratégico.',
@@ -44,8 +44,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
-        desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
+        mobile: { xp: 0.82, yp: 0.17, z: 0.50 },
+        desktop: { xp: 0.83, yp: 0.16, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
           'Este es el punto donde todo cambia. Un momento decisivo en la narrativa.',
@@ -53,8 +53,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: -0.020 },
-        desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
+        mobile: { xp: 0.17, yp: 0.50, z: 0.50 },
+        desktop: { xp: 0.18, yp: 0.50, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
           'Este es el punto donde todo cambia. Un momento decisivo en la narrativa.',
@@ -62,8 +62,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
-        desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
+        mobile: { xp: 0.51, yp: 0.50, z: 0.50 },
+        desktop: { xp: 0.51, yp: 0.50, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
           'Este es el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.',
@@ -71,8 +71,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
-        desktop: { xp: 0.725, yp: 1.25, z: 0.91 },
+        mobile: { xp: 0.84, yp: 0.50, z: 0.50 },
+        desktop: { xp: 0.83, yp: 0.50, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [
           'Este esu748484484884 el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.',
@@ -468,13 +468,13 @@ export const MAPS_CONFIG = {
     mapImage: {
       mobile: {
         src: '/assets/mapa-mobile-2.webp',
-        logicalW: 2338,
-        logicalH: 2779
+        logicalW: 2336,
+        logicalH: 4192
       },
       desktop: {
         src: '/assets/mapa-dektop-2.webp',
-        logicalW: 2858,
-        logicalH: 1761
+        logicalW: 4240,
+        logicalH: 2608
       },
       useNaturalSize: false
     },
@@ -922,13 +922,13 @@ export const MAPS_CONFIG = {
     mapImage: {
       mobile: {
         src: '/assets/mapa-mobile-3.webp',
-        logicalW: 2338,
-        logicalH: 2779
+        logicalW: 2336,
+        logicalH: 4192
       },
       desktop: {
         src: '/assets/mapa-dektop-3.webp',
-        logicalW: 2858,
-        logicalH: 1761
+        logicalW: 4240,
+        logicalH: 2608
       },
       useNaturalSize: false
     },
