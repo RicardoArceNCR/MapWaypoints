@@ -21,6 +21,31 @@
   overflow: hidden; 
 }
 
+/* ========================================================= */
+/* TOGGLES DE APLICACIÓN */
+/* ========================================================= */
+/* Overlays OFF de forma segura (no quita nodos) */
+[data-overlays="0"] #overlay-layer,
+[data-overlays="0"] .overlay-layer {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Silenciar tags que interfieren con hotspots cuando mute=1 */
+[data-mute="1"] a,
+[data-mute="1"] button,
+[data-mute="1"] .ui,
+[data-mute="1"] .floating,
+[data-mute="1"] .debug-controls {
+  pointer-events: none !important;
+}
+
+/* Si también quieres silenciar clics sobre la capa overlay cuando mute=1 */
+[data-mute="1"] #overlay-layer,
+[data-mute="1"] .overlay-layer {
+  pointer-events: none !important;
+}
+
 #mapa-canvas { 
   display: block; 
 }
@@ -1043,6 +1068,12 @@ html, body {
 }
 
 /* ===== OVERLAY STYLES ===== */
+/* Ocultar overlayers por clase en <body> (opcional) */
+body.overlays-hidden #overlay-layer {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 .overlay-root {
   position: absolute;
   inset: 0;
@@ -1080,7 +1111,11 @@ html, body {
 /* Mobile UX: tactile feedback */
 .overlay-wrap:active,
 .overlay-wrap.is-pressed {
-  transform: translate(-50%, -50%) scale(0.98) !important;
+  /* ✨ No alteres transform aquí: lo controla JS para alinear sprite y hitbox.
+     Cambia solo apariencia (feedback táctil) sin romper el área clicable. */
+  filter: brightness(0.95);
+  outline: 2px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 2px;
 }
 
 /* Network optimization for slow connections */
@@ -1181,5 +1216,81 @@ body.net-slow .drawer {
   .overlay-wrap.debug-hotspot {
     min-width: 44px;
     min-height: 44px;
+  }
+}
+
+/* 🔧 MOBILE FIXES - TOUCH PROTECTION */
+/* 🔧 MOBILE FIXES - TOUCH PROTECTION */
+
+.overlay-wrap {
+  touch-action: none !important; 
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+#mapa-canvas {
+  touch-action: pan-x pan-y pinch-zoom;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.overlay-wrap.debug-hotspot {
+  pointer-events: auto !important;
+}
+
+.overlay-wrap[style*="display: none"],
+.overlay-wrap[style*="pointer-events: none"] {
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+@media (max-width: 899px) {
+  .overlay-wrap:active {
+    opacity: 0.85;
+    transition: opacity 0.1s ease;
+  }
+}
+/* ========= 🔕 NON-INTERACTIVE OVERLAYS ========= */
+.overlay-noninteractive {
+  pointer-events: none !important;
+  /* Optional debug styling - uncomment to visualize non-interactive elements */
+  /* opacity: 0.9; */
+  /* outline: 1px dashed rgba(255, 0, 0, 0.3); */
+}
+
+/* ========= 🔧 MOBILE FIXES - TOUCH PROTECTION ========= */
+
+.overlay-wrap {
+  touch-action: none !important; 
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+#mapa-canvas {
+  touch-action: pan-x pan-y pinch-zoom;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.overlay-wrap.debug-hotspot {
+  pointer-events: auto !important;
+}
+
+.overlay-wrap[style*="display: none"],
+.overlay-wrap[style*="pointer-events: none"] {
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+@media (max-width: 899px) {
+  .overlay-wrap:active {
+    opacity: 0.85;
+    transition: opacity 0.1s ease;
   }
 }

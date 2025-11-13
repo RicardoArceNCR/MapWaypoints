@@ -56,13 +56,32 @@ export class DetailedPopupManager {
     return !!(
       hotspot.datetime ||
       hotspot.location ||
-      hotspot.description ||
       hotspot.involved ||
       hotspot.echos ||
       hotspot.image
     );
   }
-  
+
+  /**
+   * API explícita desde Canvas: recibe el objeto hotspot (world/coords/meta)
+   */
+  openFromHotspot(hs) {
+    if (!hs) return;
+    // Normaliza payload mínimo
+    const data = {
+      id:    hs.id || hs.key,
+      title: hs.title || hs.meta?.title || hs.text || '',
+      body:  hs.body  || hs.meta?.description || hs.description || '',
+      image: hs.image || hs.meta?.media || null,
+      datetime: hs.datetime,
+      location: hs.location,
+      involved: hs.involved,
+      echos:    hs.echos
+    };
+    // Reusa la ruta actual: decide si es detallado o simple
+    this.openPopup(data);
+  }
+
   /**
    * Abre el popup apropiado según el tipo de hotspot
    */
