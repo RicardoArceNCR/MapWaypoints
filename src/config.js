@@ -5,53 +5,6 @@ export const PHASES = [
   { id: 'fase3', label: 'Fase 3', color: '#4ECDC4', maps: ['mapa_f3'] },
 ];
 
-// ========= CONFIGURACIÓN DE POPUPS POR WAYPOINT =========
-// Configuración de popups que se mostrarán en cada waypoint
-// Si un waypoint no está en el mapa, el botón no aparecerá
-export const WAYPOINT_POPUPS = [
-  {
-    id: 'wp1-p0',
-    title: 'Llegada al Aeropuerto',
-    subtitle: 'Bienvenida y contexto',
-    image: '/assets/popups/inicio.webp',
-    buttonText: 'Empezar aquí',
-    icon: '🚀'
-  },
-  {
-    id: 'wp1-p1',
-    title: 'Área de Abordaje',
-    subtitle: 'Zona de espera y preparación',
-    image: '/assets/popups/zona-espera.webp',
-    buttonText: 'Ver zona',
-    icon: '⏳'
-  },
-  {
-    id: 'wp1-p2',
-    title: 'Encuentro con el Conductor',
-    subtitle: 'Punto de reunión inicial',
-    image: '/assets/popups/residencial.webp',
-    buttonText: 'Detalles',
-    icon: '🏠'
-  },
-  {
-    id: 'wp1-p3',
-    title: 'Ubicación Clave',
-    subtitle: 'Punto de referencia importante',
-    image: '/assets/popups/parada.webp',
-    buttonText: 'Ver parada',
-    icon: '🅿️'
-  },
-  {
-    id: 'wp1-p4',
-    title: 'Punto de Interés',
-    subtitle: 'Destino final',
-    image: '/assets/popups/destino.webp',
-    buttonText: 'Llegada',
-    icon: '🏁'
-  }
-  // Se pueden agregar más waypoints según sea necesario
-];
-
 // ========= MAPAS POR FASE =========
 export const MAPS_CONFIG = {
   mapa_f1: {
@@ -61,27 +14,20 @@ export const MAPS_CONFIG = {
     mapImage: {
       mobile: {
         src: '/assets/mapa-mobile.webp',
-        logicalW: 2338,
-        logicalH: 2779
+        logicalW: 2336,
+        logicalH: 4192
       },
       desktop: {
         src: '/assets/mapa-dektop.webp',
-        logicalW: 2858,
-        logicalH: 1761
+        logicalW: 4240,
+        logicalH: 2608
       },
       useNaturalSize: false
     },
     waypoints: [
       { 
-        // Label decorativo - no interactivo
-        id: 'wp1-label',
-        type: 'label',
-        mobile: { xp: 0.13, yp: 0.23, z: 0.90 },
-        desktop: { xp: 0.299, yp: 0.26, z: 0.88 },
-        meta: {
-          interactive: false,  // No intercepta taps
-          z: 1  // Z bajo para que quede detrás de los hotspots
-        },
+        mobile: { xp: 0.17, yp: 0.17, z: 0.50 },
+        desktop: { xp: 0.18, yp: 0.16, z: 0.88 },
         label: 'Inicio del Viaje', 
         lines: [
           'Aquí comienza la historia. Un punto de partida crucial que marca el inicio de esta aventura.',
@@ -89,12 +35,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.47, yp: 0.23, z: 0.90 },
-        desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
-        meta: {
-          interactive: false,  // No intercepta taps
-          z: 2  // Z bajo para que quede detrás de los hotspots
-        },
+        mobile: { xp: 0.50, yp: 0.17, z: 0.50 },
+        desktop: { xp: 0.51, yp: 0.16, z: 0.91 },
         label: 'Punto Central', 
         lines: [
           'En el corazón del territorio encontramos este lugar estratégico.',
@@ -102,12 +44,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.80, yp: 0.23, z: 0.90 },
-        desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
-        meta: {
-          interactive: false,  // No intercepta taps
-          z: 3  // Z bajo para que quede detrás de los hotspots
-        },
+        mobile: { xp: 0.82, yp: 0.17, z: 0.50 },
+        desktop: { xp: 0.83, yp: 0.16, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
           'Este es el punto donde todo cambia. Un momento decisivo en la narrativa.',
@@ -115,12 +53,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.13, yp: 0.70, z: 0.90 },
-        desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
-        meta: {
-          interactive: false,  // No intercepta taps
-          z: 4  // Z bajo para que quede detrás de los hotspots
-        },
+        mobile: { xp: 0.17, yp: 0.50, z: 0.50 },
+        desktop: { xp: 0.18, yp: 0.50, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
           'Este es el punto donde todo cambia. Un momento decisivo en la narrativa.',
@@ -128,12 +62,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.47, yp: 0.70, z: 0.90 },
-        desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
-        meta: {
-            interactive: false,  // Hotspot interactivo
-            z: 5  // Z más alto que los labels
-          },
+        mobile: { xp: 0.51, yp: 0.50, z: 0.50 },
+        desktop: { xp: 0.51, yp: 0.50, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
           'Este es el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.',
@@ -141,12 +71,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.70, z: 0.90 },
-        desktop: { xp: 0.725, yp: 1, z: 0.91 },
-        meta: {
-            interactive: false,  // Hotspot interactivo
-            z: 6  // Z más alto que los labels
-          },
+        mobile: { xp: 0.84, yp: 0.50, z: 0.50 },
+        desktop: { xp: 0.83, yp: 0.50, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [
           'Este esu748484484884 el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.',
@@ -158,14 +84,8 @@ export const MAPS_CONFIG = {
       0: [
         { 
           type: 'hotspot',
-          id: 'wp1-hotspot-1',
-          mobile: { offsetX: 33, offsetY: -25, width: 290, height: 176, rotation: 0 },
-          desktop: { offsetX: -464, offsetY: -55, width: 397, height: 218, rotation: -10 },
-          meta: {
-            interactive: true,  // Hotspot interactivo
-            z: 100,  // Z más alto que los labels
-            waypointIndex: 0 
-          },
+          mobile: { offsetX: -43, offsetY: -131, width: 290, height: 176, rotation: 0 },
+          desktop: { offsetX: -465, offsetY: -61, width: 388, height: 230, rotation: -10 },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
           title: 'Llegada al Aeropuerto',
@@ -249,217 +169,11 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          id: 'wp1-hotspot-2',
-          mobile: { offsetX: 62, offsetY: 250, width: 250, height: 210, rotation: 0, radius: 0 },
+          mobile: { offsetX: 54, offsetY: 162, width: 261, height: 183, rotation: 0, radius: 0 },
           desktop: { offsetX: -115, offsetY: -101, width: 150, height: 156, rotation: 25 },
-          meta: {
-            interactive: true,  // Hotspot interactivo
-            z: 101,  // Z más alto que los labels
-            waypointIndex: 1 
-          },
-          // ========= SEGUNDA ESTRUCTURA DETALLADA =========
-          title: '#1 Encuentro en Zona Residencial',
-          image: '/assets/mapa-1.webp',
-          
-          datetime: {
-            date: '16/06/2025',
-            time: '18:45',
-            timeColor: '#FF4444'
-          },
-          
-          location: 'Barrio Escalante, San José.',
-          
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          
-          involved: [
-            {
-              id: 'person4',
-              name: 'Persona #4',
-              avatar: './assets/persona_1-4.png',
-              role: 'Contacto principal'
-            },
-            {
-              id: 'person5',
-              name: 'Persona #5',
-              avatar: './assets/persona_1-1.png',
-              role: 'Acompañante',
-              highlighted: true
-            },
-            {
-              id: 'person6',
-              name: 'Persona #6',
-              avatar: './assets/persona_1-2.png',
-              role: 'Tercero presente'
-            },
-            {
-              id: 'person7',
-              name: 'Persona #7',
-              avatar: './assets/persona_1-3.png',
-              role: 'Observador'
-            }
-          ],
-          
-          echos: {
-            person4: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:30'
-                },
-                description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:00'
-                },
-                description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.'
-              }
-            ],
-            person5: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:45'
-                },
-                description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:05'
-                },
-                description: 'Permanece en el lugar después de la salida del contacto principal.'
-              }
-            ],
-            person6: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:50'
-                },
-                description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.'
-              }
-            ],
-            person7: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:40'
-                },
-                description: 'Se mantiene en las inmediaciones durante todo el evento documentado.'
-              }
-            ]
-          }
-        },
-        { 
-          type: 'hotspot',
-          id: 'wp1-hotspot-2a',
-          mobile: { offsetX: -81, offsetY: -250, width: 120, height: 120, rotation: 0, radius: 20 },
-          desktop: { offsetX: 241, offsetY: -61, width: 397, height: 228, rotation: 25, radius: 10  },
-          meta: {
-            interactive: true,  // Hotspot interactivo
-            z: 102,  // Z más alto que los labels
-            waypointIndex: 1 
-          },
-          // ========= SEGUNDA ESTRUCTURA DETALLADA =========
-          title: '#2 Encuentro en Zona Residencial',
-          
-          image: '/assets/mapa-1.webp',
-          
-          datetime: {
-            date: '16/06/2025',
-            time: '18:45',
-            timeColor: '#FF4444'
-          },
-          
-          location: 'Barrio Escalante, San José.',
-          
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          
-          involved: [
-            {
-              id: 'person4',
-              name: 'Persona #4',
-              avatar: './assets/persona_1-4.png',
-              role: 'Contacto principal'
-            },
-            {
-              id: 'person5',
-              name: 'Persona #5',
-              avatar: './assets/persona_1-1.png',
-              role: 'Acompañante',
-              highlighted: true
-            },
-            {
-              id: 'person6',
-              name: 'Persona #6',
-              avatar: './assets/persona_1-2.png',
-              role: 'Tercero presente'
-            },
-            {
-              id: 'person7',
-              name: 'Persona #7',
-              avatar: './assets/persona_1-3.png',
-              role: 'Observador'
-            }
-          ],
-          
-          echos: {
-            person4: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:30'
-                },
-                description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:00'
-                },
-                description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.'
-              }
-            ],
-            person5: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:45'
-                },
-                description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:05'
-                },
-                description: 'Permanece en el lugar después de la salida del contacto principal.'
-              }
-            ],
-            person6: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:50'
-                },
-                description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.'
-              }
-            ],
-            person7: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:40'
-                },
-                description: 'Se mantiene en las inmediaciones durante todo el evento documentado.'
-              }
-            ]
-          },
           
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
-          title: '#2 Encuentro en Zona Residencial',
+          title: 'Encuentro en Zona Residencial',
           
           image: '/assets/mapa-1.webp',
           
@@ -556,1019 +270,167 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          id: 'wp1-hotspot-3',
-          mobile: { offsetX: 80, offsetY: -220, width: 120, height: 120, rotation: 0, radius: 20},
-          desktop: { offsetX: 0, offsetY: 0, width: 149, height: 153, rotation: 0, radius: 10},
-          meta: {
-            interactive: true,  // Hotspot interactivo
-            z: 103,  // Z más alto que los labels
-            waypointIndex: 2 
-          },
-          // ========= SEGUNDA ESTRUCTURA DETALLADA =========
-          title: '#3 Encuentro en Zona Residencial',
-          
-          image: '/assets/mapa-1.webp',
-          
-          datetime: {
-            date: '16/06/2025',
-            time: '18:45',
-            timeColor: '#FF4444'
-          },
-          
-          location: 'Barrio Escalante, San José.',
-          
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          
-          involved: [
-            {
-              id: 'person4',
-              name: 'Persona #4',
-              avatar: './assets/persona_1-4.png',
-              role: 'Contacto principal'
-            },
-            {
-              id: 'person5',
-              name: 'Persona #5',
-              avatar: './assets/persona_1-1.png',
-              role: 'Acompañante',
-              highlighted: true
-            },
-            {
-              id: 'person6',
-              name: 'Persona #6',
-              avatar: './assets/persona_1-2.png',
-              role: 'Tercero presente'
-            },
-            {
-              id: 'person7',
-              name: 'Persona #7',
-              avatar: './assets/persona_1-3.png',
-              role: 'Observador'
-            }
-          ],
-          
-          echos: {
-            person4: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:30'
-                },
-                description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:00'
-                },
-                description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.'
-              }
-            ],
-            person5: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:45'
-                },
-                description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:05'
-                },
-                description: 'Permanece en el lugar después de la salida del contacto principal.'
-              }
-            ],
-            person6: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:50'
-                },
-                description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.'
-              }
-            ],
-            person7: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:40'
-                },
-                description: 'Se mantiene en las inmediaciones durante todo el evento documentado.'
-              }
-            ]
-          },
-          
-          // ========= SEGUNDA ESTRUCTURA DETALLADA =========
-          title: '#3 Encuentro en Zona Residencial',
-          
-          image: '/assets/mapa-1.webp',
-          
-          datetime: {
-            date: '16/06/2025',
-            time: '18:45',
-            timeColor: '#FF4444'
-          },
-          
-          location: 'Barrio Escalante, San José.',
-          
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          
-          involved: [
-            {
-              id: 'person4',
-              name: 'Persona #4',
-              avatar: './assets/persona_1-4.png',
-              role: 'Contacto principal'
-            },
-            {
-              id: 'person5',
-              name: 'Persona #5',
-              avatar: './assets/persona_1-1.png',
-              role: 'Acompañante',
-              highlighted: true
-            },
-            {
-              id: 'person6',
-              name: 'Persona #6',
-              avatar: './assets/persona_1-2.png',
-              role: 'Tercero presente'
-            },
-            {
-              id: 'person7',
-              name: 'Persona #7',
-              avatar: './assets/persona_1-3.png',
-              role: 'Observador'
-            }
-          ],
-          
-          echos: {
-            person4: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:30'
-                },
-                description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:00'
-                },
-                description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.'
-              }
-            ],
-            person5: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:45'
-                },
-                description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.'
-              },
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '19:05'
-                },
-                description: 'Permanece en el lugar después de la salida del contacto principal.'
-              }
-            ],
-            person6: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:50'
-                },
-                description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.'
-              }
-            ],
-            person7: [
-              {
-                datetime: {
-                  date: '16/06/2025',
-                  time: '18:40'
-                },
-                description: 'Se mantiene en las inmediaciones durante todo el evento documentado.'
-              }
-            ]
-          }
+          mobile: { offsetX: 190, offsetY: -396, width: 105, height: 105, rotation: 0, radius: 10 },
+          desktop: { offsetX: 233, offsetY: -61, width: 288, height: 185, rotation: 25, radius: 10  },
+          title: 'Documento',
+          body: 'Un documento importante encontrado en esta ubicación.'
+        },
+        { 
+          type: 'hotspot',
+          mobile: { offsetX: -130, offsetY: 390, width: 119, height: 119, rotation: 0, radius: 20},
+          desktop: { offsetX: -1, offsetY: 142, width: 260, height: 160, rotation: 0, radius: 10},
+          title: 'Contexto Geográfico',
+          body: 'Ubicación específica y detalles del entorno. Características del lugar que influyen en los acontecimientos.'
         }
       ],
       1: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -160, offsetY: -180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][0]
-          title: 'Llegada al Aeropuerto',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: 'Aeropuerto Juan Santamaría (SJO), Alajuela.',
-          description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.',
-          involved: [
-            { id: 'person1', name: 'Persona #1', avatar: './assets/persona_1-1.png', role: 'Pasajero' },
-            { id: 'person2', name: 'Persona #2', avatar: './assets/persona_1-2.png', role: 'Conductor', highlighted: true },
-            { id: 'person3', name: 'Persona #3', avatar: './assets/persona_1-3.png', role: 'Testigo' }
-          ],
-          echos: {
-            person2: [
-              { datetime: { date: '15/06/2025', time: '12:07' }, description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas.' },
-              { datetime: { date: '15/06/2025', time: '14:30' }, description: 'Segunda interacción documentada con el conductor en zona residencial.' }
-            ],
-            person1: [
-              { datetime: { date: '15/06/2025', time: '11:45' }, description: 'Arribo del vuelo internacional desde Ciudad de México.' }
-            ],
-            person3: [
-              { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
-            ]
-          },
-          // Detallado clonado del icons[0][0]
-          title: 'Llegada al Aeropuerto',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: 'Aeropuerto Juan Santamaría (SJO), Alajuela.',
-          description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.',
-          involved: [
-            { id: 'person1', name: 'Persona #1', avatar: './assets/persona_1-1.png', role: 'Pasajero' },
-            { id: 'person2', name: 'Persona #2', avatar: './assets/persona_1-2.png', role: 'Conductor', highlighted: true },
-            { id: 'person3', name: 'Persona #3', avatar: './assets/persona_1-3.png', role: 'Testigo' }
-          ],
-          echos: {
-            person2: [
-              { datetime: { date: '15/06/2025', time: '12:07' }, description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas.' },
-              { datetime: { date: '15/06/2025', time: '14:30' }, description: 'Segunda interacción documentada con el conductor en zona residencial.' }
-            ],
-            person1: [
-              { datetime: { date: '15/06/2025', time: '11:45' }, description: 'Arribo del vuelo internacional desde Ciudad de México.' }
-            ],
-            person3: [
-              { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
-            ]
-          }
+          title: 'Evolución del Personaje',
+          body: 'Cómo ha cambiado el protagonista desde el inicio. Nuevas perspectivas y aprendizajes adquiridos.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 160, offsetY: -180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][1]
-          title: '#4 Encuentro en Zona Residencial',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
-          location: 'Barrio Escalante, San José.',
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          involved: [
-            { id: 'person4', name: 'Persona #4', avatar: './assets/persona_1-4.png', role: 'Contacto principal' },
-            { id: 'person5', name: 'Persona #5', avatar: './assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
-            { id: 'person6', name: 'Persona #6', avatar: './assets/persona_1-2.png', role: 'Tercero presente' },
-            { id: 'person7', name: 'Persona #7', avatar: './assets/persona_1-3.png', role: 'Observador' }
-          ],
-          echos: {
-            person4: [
-              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
-              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
-            ],
-            person5: [
-              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
-              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
-            ],
-            person6: [
-              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
-            ],
-            person7: [
-              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
-            ]
-          },
-          // Detallado clonado del icons[0][1]
-          title: '#4 Encuentro en Zona Residencial',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
-          location: 'Barrio Escalante, San José.',
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          involved: [
-            { id: 'person4', name: 'Persona #4', avatar: './assets/persona_1-4.png', role: 'Contacto principal' },
-            { id: 'person5', name: 'Persona #5', avatar: './assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
-            { id: 'person6', name: 'Persona #6', avatar: './assets/persona_1-2.png', role: 'Tercero presente' },
-            { id: 'person7', name: 'Persona #7', avatar: './assets/persona_1-3.png', role: 'Observador' }
-          ],
-          echos: {
-            person4: [
-              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
-              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
-            ],
-            person5: [
-              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
-              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
-            ],
-            person6: [
-              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
-            ],
-            person7: [
-              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
-            ]
-          }
+          title: 'Nuevos Encuentros',
+          body: 'Personas que aparecen en este punto central. Su papel en el desarrollo de los eventos.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          // Detallado adaptado desde el contenido existente
-          // Detallado adaptado desde el contenido existente
+          mobile: { offsetX: -160, offsetY: 180, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: -160, offsetY: 190, width: 136, height: 136, rotation: 0 },
           title: 'Elementos Descubiertos',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
-          involved: [],
-          echos: {},
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
-          involved: [],
-          echos: {}
+          body: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 60, offsetY: 80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
           title: 'Zona Estratégica',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
-          involved: [],
-          echos: {},
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
-          involved: [],
-          echos: {}
+          body: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.'
         }
       ],
       2: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -80, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][0]
-          title: 'Llegada al Aeropuerto',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: 'Aeropuerto Juan Santamaría (SJO), Alajuela.',
-          description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.',
-          involved: [
-            { id: 'person1', name: 'Persona #1', avatar: './assets/persona_1-1.png', role: 'Pasajero' },
-            { id: 'person2', name: 'Persona #2', avatar: './assets/persona_1-2.png', role: 'Conductor', highlighted: true },
-            { id: 'person3', name: 'Persona #3', avatar: './assets/persona_1-3.png', role: 'Testigo' }
-          ],
-          echos: {
-            person2: [
-              { datetime: { date: '15/06/2025', time: '12:07' }, description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas.' },
-              { datetime: { date: '15/06/2025', time: '14:30' }, description: 'Segunda interacción documentada con el conductor en zona residencial.' }
-            ],
-            person1: [
-              { datetime: { date: '15/06/2025', time: '11:45' }, description: 'Arribo del vuelo internacional desde Ciudad de México.' }
-            ],
-            person3: [
-              { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
-            ]
-          },
-          // Detallado clonado del icons[0][0]
-          title: 'Llegada al Aeropuerto',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: 'Aeropuerto Juan Santamaría (SJO), Alajuela.',
-          description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.',
-          involved: [
-            { id: 'person1', name: 'Persona #1', avatar: './assets/persona_1-1.png', role: 'Pasajero' },
-            { id: 'person2', name: 'Persona #2', avatar: './assets/persona_1-2.png', role: 'Conductor', highlighted: true },
-            { id: 'person3', name: 'Persona #3', avatar: './assets/persona_1-3.png', role: 'Testigo' }
-          ],
-          echos: {
-            person2: [
-              { datetime: { date: '15/06/2025', time: '12:07' }, description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas.' },
-              { datetime: { date: '15/06/2025', time: '14:30' }, description: 'Segunda interacción documentada con el conductor en zona residencial.' }
-            ],
-            person1: [
-              { datetime: { date: '15/06/2025', time: '11:45' }, description: 'Arribo del vuelo internacional desde Ciudad de México.' }
-            ],
-            person3: [
-              { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
-            ]
-          }
+          mobile: { offsetX: -160, offsetY: -180, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          title: 'Transformación Final',
+          body: 'El estado final del personaje. Cómo los acontecimientos han definido su destino.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
-          mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 160, offsetY: -180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][1]
-          title: '#5 Encuentro en Zona Residencial',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
-          location: 'Barrio Escalante, San José.',
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          involved: [
-            { id: 'person4', name: 'Persona #4', avatar: './assets/persona_1-4.png', role: 'Contacto principal' },
-            { id: 'person5', name: 'Persona #5', avatar: './assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
-            { id: 'person6', name: 'Persona #6', avatar: './assets/persona_1-2.png', role: 'Tercero presente' },
-            { id: 'person7', name: 'Persona #7', avatar: './assets/persona_1-3.png', role: 'Observador' }
-          ],
-          echos: {
-            person4: [
-              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
-              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
-            ],
-            person5: [
-              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
-              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
-            ],
-            person6: [
-              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
-            ],
-            person7: [
-              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
-            ]
-          },
-          // Detallado clonado del icons[0][1]
-          title: '#5 Encuentro en Zona Residencial',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
-          location: 'Barrio Escalante, San José.',
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          involved: [
-            { id: 'person4', name: 'Persona #4', avatar: './assets/persona_1-4.png', role: 'Contacto principal' },
-            { id: 'person5', name: 'Persona #5', avatar: './assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
-            { id: 'person6', name: 'Persona #6', avatar: './assets/persona_1-2.png', role: 'Tercero presente' },
-            { id: 'person7', name: 'Persona #7', avatar: './assets/persona_1-3.png', role: 'Observador' }
-          ],
-          echos: {
-            person4: [
-              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
-              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
-            ],
-            person5: [
-              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
-              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
-            ],
-            person6: [
-              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
-            ],
-            person7: [
-              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
-            ]
-          }
+          title: 'Testigos del Desenlace',
+          body: 'Quiénes están presentes en este momento crucial. Su reacción ante los eventos finales.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          // Detallado adaptado desde el contenido existente
-          title: 'Elementos Descubiertos',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
-          involved: [],
-          echos: {},
-          // Detallado adaptado desde el contenido existente
-          title: 'Elementos Descubiertos',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
-          involved: [],
-          echos: {}
+          title: 'Legado Material',
+          body: 'Objetos que permanecen como testimonio. Evidencia física de todo lo ocurrido.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 160, offsetY: 80, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          title: 'Zona Estratégica',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
-          involved: [],
-          echos: {},
-          title: 'Zona Estratégica',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
-          involved: [],
-          echos: {}
+          title: 'Lugar del Destino',
+          body: 'El significado final de esta ubicación. Por qué todo termina precisamente aquí.'
         }
       ],
       3: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -160, offsetY: -180, width: 130, height: 130, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][0]
-          title: 'Llegada al Aeropuerto',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: 'Aeropuerto Juan Santamaría (SJO), Alajuela.',
-          description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.',
-          involved: [
-            { id: 'person1', name: 'Persona #1', avatar: './assets/persona_1-1.png', role: 'Pasajero' },
-            { id: 'person2', name: 'Persona #2', avatar: './assets/persona_1-2.png', role: 'Conductor', highlighted: true },
-            { id: 'person3', name: 'Persona #3', avatar: './assets/persona_1-3.png', role: 'Testigo' }
-          ],
-          echos: {
-            person2: [
-              { datetime: { date: '15/06/2025', time: '12:07' }, description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas.' },
-              { datetime: { date: '15/06/2025', time: '14:30' }, description: 'Segunda interacción documentada con el conductor en zona residencial.' }
-            ],
-            person1: [
-              { datetime: { date: '15/06/2025', time: '11:45' }, description: 'Arribo del vuelo internacional desde Ciudad de México.' }
-            ],
-            person3: [
-              { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
-            ]
-          },
-          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][0]
-          title: 'Llegada al Aeropuerto',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: 'Aeropuerto Juan Santamaría (SJO), Alajuela.',
-          description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.',
-          involved: [
-            { id: 'person1', name: 'Persona #1', avatar: './assets/persona_1-1.png', role: 'Pasajero' },
-            { id: 'person2', name: 'Persona #2', avatar: './assets/persona_1-2.png', role: 'Conductor', highlighted: true },
-            { id: 'person3', name: 'Persona #3', avatar: './assets/persona_1-3.png', role: 'Testigo' }
-          ],
-          echos: {
-            person2: [
-              { datetime: { date: '15/06/2025', time: '12:07' }, description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas.' },
-              { datetime: { date: '15/06/2025', time: '14:30' }, description: 'Segunda interacción documentada con el conductor en zona residencial.' }
-            ],
-            person1: [
-              { datetime: { date: '15/06/2025', time: '11:45' }, description: 'Arribo del vuelo internacional desde Ciudad de México.' }
-            ],
-            person3: [
-              { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
-            ]
-          }
+          title: 'Testigos del Desenlace cuando es de tipo mapa',
+          body: 'Quiénes están presentes en este momento crucial. su relacion y otras cosas'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
-          mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 160, offsetY: -180, width: 130, height: 130, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][1]
-          title: '#6 Encuentro en Zona Residencial',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
-          location: 'Barrio Escalante, San José.',
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          involved: [
-            { id: 'person4', name: 'Persona #4', avatar: './assets/persona_1-4.png', role: 'Contacto principal' },
-            { id: 'person5', name: 'Persona #5', avatar: './assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
-            { id: 'person6', name: 'Persona #6', avatar: './assets/persona_1-2.png', role: 'Tercero presente' },
-            { id: 'person7', name: 'Persona #7', avatar: './assets/persona_1-3.png', role: 'Observador' }
-          ],
-          echos: {
-            person4: [
-              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
-              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
-            ],
-            person5: [
-              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
-              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
-            ],
-            person6: [
-              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
-            ],
-            person7: [
-              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
-            ]
-          },
-          // Detallado clonado del icons[0][1]
-          title: '#6 Encuentro en Zona Residencial',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
-          location: 'Barrio Escalante, San José.',
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          involved: [
-            { id: 'person4', name: 'Persona #4', avatar: './assets/persona_1-4.png', role: 'Contacto principal' },
-            { id: 'person5', name: 'Persona #5', avatar: './assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
-            { id: 'person6', name: 'Persona #6', avatar: './assets/persona_1-2.png', role: 'Tercero presente' },
-            { id: 'person7', name: 'Persona #7', avatar: './assets/persona_1-3.png', role: 'Observador' }
-          ],
-          echos: {
-            person4: [
-              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
-              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
-            ],
-            person5: [
-              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
-              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
-            ],
-            person6: [
-              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
-            ],
-            person7: [
-              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
-            ]
-          }
+          title: 'Testigos del Desenlace',
+          body: 'Quiénes están presentes en este momento crucial. Su reacción ante los eventos finales.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          // Detallado adaptado desde el contenido existente
-          title: 'Elementos Descubiertos',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
-          involved: [],
-          echos: {},
-          mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          // Detallado adaptado desde el contenido existente
-          title: 'Elementos Descubiertos',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
-          involved: [],
-          echos: {}
+          mobile: { offsetX: -160, offsetY: 80, width: 100, height: 180, radius: 10 },
+          desktop: { offsetX: -90, offsetY: 90, width: 150, height: 120, radius: 10 },
+          title: 'Legado Material',
+          body: 'Objetos que permanecen como testimonio. Evidencia física de todo lo ocurrido.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          title: 'Zona Estratégica',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
-          involved: [],
-          echos: {},
-          mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          title: 'Zona Estratégica',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
-          involved: [],
-          echos: {}
+          mobile: { offsetX: 160, offsetY: 80, width: 136, height: 136, rotation: 0 },
+          desktop: { offsetX: 90, offsetY: 90, width: 130, height: 90, rotation: 0 },
+          title: 'Lugar del Destino',
+          body: 'El significado final de esta ubicación. Por qué todo termina precisamente aquí.'
         }
       ],
       4: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -160, offsetY: -180, width: 130, height: 130, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][0]
-          title: 'Llegada al Aeropuerto',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: 'Aeropuerto Juan Santamaría (SJO), Alajuela.',
-          description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.',
-          involved: [
-            { id: 'person1', name: 'Persona #1', avatar: './assets/persona_1-1.png', role: 'Pasajero' },
-            { id: 'person2', name: 'Persona #2', avatar: './assets/persona_1-2.png', role: 'Conductor', highlighted: true },
-            { id: 'person3', name: 'Persona #3', avatar: './assets/persona_1-3.png', role: 'Testigo' }
-          ],
-          echos: {
-            person2: [
-              { datetime: { date: '15/06/2025', time: '12:07' }, description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas.' },
-              { datetime: { date: '15/06/2025', time: '14:30' }, description: 'Segunda interacción documentada con el conductor en zona residencial.' }
-            ],
-            person1: [
-              { datetime: { date: '15/06/2025', time: '11:45' }, description: 'Arribo del vuelo internacional desde Ciudad de México.' }
-            ],
-            person3: [
-              { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
-            ]
-          }
+          title: 'Reflexión Final',
+          body: 'El momento de entender todo lo vivido. Un espacio para procesar.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 160, offsetY: -180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][1]
-          title: '#7 Encuentro en Zona Residencial',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
-          location: 'Barrio Escalante, San José.',
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          involved: [
-            { id: 'person4', name: 'Persona #4', avatar: './assets/persona_1-4.png', role: 'Contacto principal' },
-            { id: 'person5', name: 'Persona #5', avatar: './assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
-            { id: 'person6', name: 'Persona #6', avatar: './assets/persona_1-2.png', role: 'Tercero presente' },
-            { id: 'person7', name: 'Persona #7', avatar: './assets/persona_1-3.png', role: 'Observador' }
-          ],
-          echos: {
-            person4: [
-              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
-              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
-            ],
-            person5: [
-              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
-              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
-            ],
-            person6: [
-              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
-            ],
-            person7: [
-              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
-            ]
-          }
+          title: 'Testigos del Final',
+          body: 'Quiénes presencian el momento culminante. Su rol en la conclusión.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          // Detallado adaptado desde el contenido existente
-          title: 'Elementos Descubiertos',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
-          involved: [],
-          echos: {}
+          title: 'Símbolos del Cierre',
+          body: 'Objetos que representan la conclusión. Su significado simbólico final.'
         },
         { 
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          title: 'Zona Estratégica',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
-          involved: [],
-          echos: {},
-          type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][0]
-          title: 'Llegada al Aeropuerto',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: 'Aeropuerto Juan Santamaría (SJO), Alajuela.',
-          description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.',
-          involved: [
-            { id: 'person1', name: 'Persona #1', avatar: './assets/persona_1-1.png', role: 'Pasajero' },
-            { id: 'person2', name: 'Persona #2', avatar: './assets/persona_1-2.png', role: 'Conductor', highlighted: true },
-            { id: 'person3', name: 'Persona #3', avatar: './assets/persona_1-3.png', role: 'Testigo' }
-          ],
-          echos: {
-            person2: [
-              { datetime: { date: '15/06/2025', time: '12:07' }, description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas.' },
-              { datetime: { date: '15/06/2025', time: '14:30' }, description: 'Segunda interacción documentada con el conductor en zona residencial.' }
-            ],
-            person1: [
-              { datetime: { date: '15/06/2025', time: '11:45' }, description: 'Arribo del vuelo internacional desde Ciudad de México.' }
-            ],
-            person3: [
-              { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
-            ]
-          }
-        },
-        { 
-          type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][1]
-          title: '#7 Encuentro en Zona Residencial',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
-          location: 'Barrio Escalante, San José.',
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          involved: [
-            { id: 'person4', name: 'Persona #4', avatar: './assets/persona_1-4.png', role: 'Contacto principal' },
-            { id: 'person5', name: 'Persona #5', avatar: './assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
-            { id: 'person6', name: 'Persona #6', avatar: './assets/persona_1-2.png', role: 'Tercero presente' },
-            { id: 'person7', name: 'Persona #7', avatar: './assets/persona_1-3.png', role: 'Observador' }
-          ],
-          echos: {
-            person4: [
-              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
-              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
-            ],
-            person5: [
-              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
-              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
-            ],
-            person6: [
-              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
-            ],
-            person7: [
-              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
-            ]
-          }
-        },
-        { 
-          type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          // Detallado adaptado desde el contenido existente
-          title: 'Elementos Descubiertos',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
-          involved: [],
-          echos: {}
-        },
-        { 
-          type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          title: 'Zona Estratégica',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
-          involved: [],
-          echos: {}
+          title: 'Centro del Desenlace',
+          body: 'El punto exacto donde todo converge y se resuelve.'
         }
       ],
       5: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -160, offsetY: -180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][0]
-          title: 'Llegada al Aeropuerto',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: 'Aeropuerto Juan Santamaría (SJO), Alajuela.',
-          description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.',
-          involved: [
-            { id: 'person1', name: 'Persona #1', avatar: './assets/persona_1-1.png', role: 'Pasajero' },
-            { id: 'person2', name: 'Persona #2', avatar: './assets/persona_1-2.png', role: 'Conductor', highlighted: true },
-            { id: 'person3', name: 'Persona #3', avatar: './assets/persona_1-3.png', role: 'Testigo' }
-          ],
-          echos: {
-            person2: [
-              { datetime: { date: '15/06/2025', time: '12:07' }, description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas.' },
-              { datetime: { date: '15/06/2025', time: '14:30' }, description: 'Segunda interacción documentada con el conductor en zona residencial.' }
-            ],
-            person1: [
-              { datetime: { date: '15/06/2025', time: '11:45' }, description: 'Arribo del vuelo internacional desde Ciudad de México.' }
-            ],
-            person3: [
-              { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
-            ]
-          }
+          title: 'Después de Todo',
+          body: 'Cómo termina el protagonista después de esta experiencia. Su estado final.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 160, offsetY: -180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][1]
-          title: 'Encuentro en Zona Residencial',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
-          location: 'Barrio Escalante, San José.',
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          involved: [
-            { id: 'person4', name: 'Persona #4', avatar: './assets/persona_1-4.png', role: 'Contacto principal' },
-            { id: 'person5', name: 'Persona #5', avatar: './assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
-            { id: 'person6', name: 'Persona #6', avatar: './assets/persona_1-2.png', role: 'Tercero presente' },
-            { id: 'person7', name: 'Persona #7', avatar: './assets/persona_1-3.png', role: 'Observador' }
-          ],
-          echos: {
-            person4: [
-              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
-              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
-            ],
-            person5: [
-              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
-              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
-            ],
-            person6: [
-              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
-            ],
-            person7: [
-              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
-            ]
-          }
+          title: 'Vidas Transformadas',
+          body: 'Cómo han cambiado todas las personas involucradas. El impacto duradero.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          // Detallado adaptado desde el contenido existente
-          title: 'Elementos Descubiertos',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
-          involved: [],
-          echos: {}
+          title: 'Memoria Tangible',
+          body: 'Lo que permanece físicamente como recordatorio de toda la historia.'
         },
         { 
           type: 'hotspot',
           mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
           desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          title: 'Zona Estratégica',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
-          involved: [],
-          echos: {},
-          type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: -100, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][0]
-          title: 'Llegada al Aeropuerto',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: 'Aeropuerto Juan Santamaría (SJO), Alajuela.',
-          description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.',
-          involved: [
-            { id: 'person1', name: 'Persona #1', avatar: './assets/persona_1-1.png', role: 'Pasajero' },
-            { id: 'person2', name: 'Persona #2', avatar: './assets/persona_1-2.png', role: 'Conductor', highlighted: true },
-            { id: 'person3', name: 'Persona #3', avatar: './assets/persona_1-3.png', role: 'Testigo' }
-          ],
-          echos: {
-            person2: [
-              { datetime: { date: '15/06/2025', time: '12:07' }, description: 'Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas.' },
-              { datetime: { date: '15/06/2025', time: '14:30' }, description: 'Segunda interacción documentada con el conductor en zona residencial.' }
-            ],
-            person1: [
-              { datetime: { date: '15/06/2025', time: '11:45' }, description: 'Arribo del vuelo internacional desde Ciudad de México.' }
-            ],
-            person3: [
-              { datetime: { date: '15/06/2025', time: '12:10' }, description: 'Observación del proceso de abordaje del taxi desde zona de espera.' }
-            ]
-          }
-        },
-        { 
-          type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: -80, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
-          // Detallado clonado del icons[0][1]
-          title: 'Encuentro en Zona Residencial',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '16/06/2025', time: '18:45', timeColor: '#FF4444' },
-          location: 'Barrio Escalante, San José.',
-          description: 'Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.',
-          involved: [
-            { id: 'person4', name: 'Persona #4', avatar: './assets/persona_1-4.png', role: 'Contacto principal' },
-            { id: 'person5', name: 'Persona #5', avatar: './assets/persona_1-1.png', role: 'Acompañante', highlighted: true },
-            { id: 'person6', name: 'Persona #6', avatar: './assets/persona_1-2.png', role: 'Tercero presente' },
-            { id: 'person7', name: 'Persona #7', avatar: './assets/persona_1-3.png', role: 'Observador' }
-          ],
-          echos: {
-            person4: [
-              { datetime: { date: '16/06/2025', time: '18:30' }, description: 'Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal.' },
-              { datetime: { date: '16/06/2025', time: '19:00' }, description: 'Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral.' }
-            ],
-            person5: [
-              { datetime: { date: '16/06/2025', time: '18:45' }, description: 'Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal.' },
-              { datetime: { date: '16/06/2025', time: '19:05' }, description: 'Permanece en el lugar después de la salida del contacto principal.' }
-            ],
-            person6: [
-              { datetime: { date: '16/06/2025', time: '18:50' }, description: 'Participa brevemente en la conversación. Duración aproximada: 3 minutos.' }
-            ],
-            person7: [
-              { datetime: { date: '16/06/2025', time: '18:40' }, description: 'Se mantiene en las inmediaciones durante todo el evento documentado.' }
-            ]
-          }
-        },
-        { 
-          type: 'hotspot',
-          mobile: { offsetX: -60, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          // Detallado adaptado desde el contenido existente
-          title: 'Elementos Descubiertos',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.',
-          involved: [],
-          echos: {}
-        },
-        { 
-          type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          title: 'Zona Estratégica',
-          image: '/assets/mapa-1.webp',
-          datetime: { date: '15/06/2025', time: '12:07', timeColor: '#FF4444' },
-          location: '—',
-          description: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.',
-          involved: [],
-          echos: {}
+          title: 'Lugar de Reflexión',
+          body: 'El último lugar donde la historia se contempla. Un espacio para entender todo lo vivido.'
         }
       ]
     }
@@ -1580,19 +442,19 @@ export const MAPS_CONFIG = {
     mapImage: {
       mobile: {
         src: '/assets/mapa-mobile-2.webp',
-        logicalW: 2338,
-        logicalH: 2779
+        logicalW: 2336,
+        logicalH: 4192
       },
       desktop: {
         src: '/assets/mapa-dektop-2.webp',
-        logicalW: 2858,
-        logicalH: 1761
+        logicalW: 4240,
+        logicalH: 2608
       },
       useNaturalSize: false
     },
     waypoints: [
       { 
-        mobile: { xp: 0.13, yp: 0.19, z: 0.90 },
+        mobile: { xp: 0.13, yp: 0.19, z: 0.30 },
         desktop: { xp: 0.299, yp: 0.26, z: 0.88 },
         label: 'Inicio del Viaje', 
         lines: [
@@ -1601,7 +463,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.50, yp: 0.25, z: 0.90 },
+        mobile: { xp: 0.50, yp: 0.25, z: 0.10 },
         desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
         label: 'Punto Central', 
         lines: [
@@ -1610,7 +472,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -1619,7 +481,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: 0.90 },
+        mobile: { xp: 0.82, yp: 0.800, z: -0.020 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -1628,7 +490,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
@@ -1637,9 +499,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
-        desktop: { xp: 0.725, yp: 1, z: 0.91 },
-        desktop: { xp: 0.725, yp: 1, z: 0.91 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        desktop: { xp: 0.725, yp: 1.25, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [
           'Este esu748484484884 el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.',
@@ -1837,8 +698,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 281, offsetY: -176, width: 70, height: 70, rotation: 15, radius: 30 },
-          mobile: { offsetX: 281, offsetY: -176, width: 70, height: 70, rotation: 15, radius: 30 },
+          mobile: { offsetX: 281, offsetY: -176, width: 70, height: 70, rotation: 15, radius: 37 },
           desktop: { offsetX: -1, offsetY: -96, width: 160, height: 160, radius: 10, rotation: -10 },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
@@ -1930,8 +790,8 @@ export const MAPS_CONFIG = {
           desktop: { 
             offsetX: -90, 
             offsetY: -90, 
-            width: 150,
-            height: 100,
+            width: 950,
+            height: 900,
             rotation: -15 
           },
           title: 'Mapa del Territorio',
@@ -2036,19 +896,19 @@ export const MAPS_CONFIG = {
     mapImage: {
       mobile: {
         src: '/assets/mapa-mobile-3.webp',
-        logicalW: 2338,
-        logicalH: 2779
+        logicalW: 2336,
+        logicalH: 4192
       },
       desktop: {
         src: '/assets/mapa-dektop-3.webp',
-        logicalW: 2858,
-        logicalH: 1761
+        logicalW: 4240,
+        logicalH: 2608
       },
       useNaturalSize: false
     },
     waypoints: [
       { 
-        mobile: { xp: 0.13, yp: 0.19, z:0.90 },
+        mobile: { xp: 0.13, yp: 0.19, z: 0.30 },
         desktop: { xp: 0.299, yp: 0.26, z: 0.88 },
         label: 'Inicio del Viaje', 
         lines: [
@@ -2057,7 +917,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.50, yp: 0.25, z: 0.90 },
+        mobile: { xp: 0.50, yp: 0.25, z: 0.10 },
         desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
         label: 'Punto Central', 
         lines: [
@@ -2066,7 +926,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -2075,7 +935,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: 0.90 },
+        mobile: { xp: 0.82, yp: 0.800, z: -0.020 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -2084,7 +944,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
@@ -2093,9 +953,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.90 },
-        desktop: { xp: 0.725, yp: 1, z: 0.91 },
-        desktop: { xp: 0.725, yp: 1, z: 0.91 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        desktop: { xp: 0.725, yp: 1.25, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [
           'Este esu748484484884 el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.',
@@ -2293,8 +1152,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 281, offsetY: -176, width: 70, height: 70, rotation: 15, radius: 30 },
-          mobile: { offsetX: 281, offsetY: -176, width: 70, height: 70, rotation: 15, radius: 30 },
+          mobile: { offsetX: 281, offsetY: -176, width: 70, height: 70, rotation: 15, radius: 37 },
           desktop: { offsetX: -1, offsetY: -96, width: 160, height: 160, radius: 10, rotation: -10 },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
@@ -2379,15 +1237,15 @@ export const MAPS_CONFIG = {
           mobile: { 
             offsetX: -60, 
             offsetY: -80, 
-            width: 220,
+            width: 720,
             height: 280,
             rotation: 10 
           },
           desktop: { 
             offsetX: -90, 
             offsetY: -90, 
-            width: 150,
-            height: 100,
+            width: 950,
+            height: 900,
             rotation: -15 
           },
           title: 'Mapa del Territorio',
@@ -2419,32 +1277,32 @@ export const MAPS_CONFIG = {
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: -80, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: -80, width: 36, height: 36, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: -90, width: 36, height: 36, rotation: 0 },
           title: 'Reflexión Final',
           body: 'El momento de entender todo lo vivido. Un espacio para procesar.'
         },
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: 60, offsetY: -80, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 60, offsetY: -80, width: 36, height: 36, rotation: 0 },
+          desktop: { offsetX: 90, offsetY: -90, width: 36, height: 36, rotation: 0 },
           title: 'Testigos del Final',
           body: 'Quiénes presencian el momento culminante. Su rol en la conclusión.'
         },
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: 80, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: 80, width: 36, height: 36, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: 90, width: 36, height: 36, rotation: 0 },
           title: 'Símbolos del Cierre',
           body: 'Objetos que representan la conclusión. Su significado simbólico final.'
         },
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: 60, offsetY: 80, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 60, offsetY: 80, width: 36, height: 36, rotation: 0 },
+          desktop: { offsetX: 90, offsetY: 90, width: 36, height: 36, rotation: 0 },
           title: 'Centro del Desenlace',
           body: 'El punto exacto donde todo converge y se resuelve.'
         }
@@ -2453,24 +1311,24 @@ export const MAPS_CONFIG = {
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: -80, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: -80, width: 36, height: 36, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: -90, width: 36, height: 36, rotation: 0 },
           title: 'Después de Todo',
           body: 'Cómo termina el protagonista después de esta experiencia. Su estado final.'
         },
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: 60, offsetY: -80, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: 60, offsetY: -80, width: 36, height: 36, rotation: 0 },
+          desktop: { offsetX: 90, offsetY: -90, width: 36, height: 36, rotation: 0 },
           title: 'Vidas Transformadas',
           body: 'Cómo han cambiado todas las personas involucradas. El impacto duradero.'
         },
         { 
           type: 'icon',
           img: './assets/icon-info.png',
-          mobile: { offsetX: -60, offsetY: 80, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -90, offsetY: 90, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -60, offsetY: 80, width: 36, height: 36, rotation: 0 },
+          desktop: { offsetX: -90, offsetY: 90, width: 36, height: 36, rotation: 0 },
           title: 'Memoria Tangible',
           body: 'Lo que permanece físicamente como recordatorio de toda la historia.'
         },
@@ -2494,6 +1352,7 @@ export const GLOBAL_CONFIG = {
   SHOW_CONTROLS: true,  // Controla los botones de navegación (prev/next/progress)
   
   // ========= DEBUG Y VISUALIZACIÓN =========
+  DEBUG_HOTSPOTS: true,
   
   // Estilos para iconos y hotspots
   ICON_STYLES: {
@@ -2506,30 +1365,24 @@ export const GLOBAL_CONFIG = {
   
   // Configuración de toque
   TOUCH: {
-    // Tamaño mínimo del área táctil para móviles (0-8px)
-    mobileMin: 4,
-    // Tamaño mínimo del área táctil para escritorio
-    desktopMin: 40,
-    // Borde adicional para mejorar la detección de toque (0-4px)
-    hitSlop: 2
+    mobileMin: 56,  // Tamaño mínimo en mobile para toque
+    desktopMin: 40,  // Tamaño mínimo en desktop
+    hitSlop: 4  // Margen invisible extra para clics
   },
   
   // ========= EFECTOS DE CÁMARA =========
   CAMERA_EFFECTS: {
     // Movimiento sutil constante (breathing)
     breathingEnabled: false,
-    breathingMobileEnabled: false, // Deshabilitar breathing en mobile
     breathingAmount: 9.5,        // Píxeles de movimiento en Y
     breathingSpeed: 0.0009,      // Velocidad de oscilación (más bajo = más lento)
     breathingZAmount: 0.0009,    // Cambio sutil en zoom
-    
     
     // Transición cinemática entre waypoints
     transitionEnabled: true,
     transitionDuration: 1200,    // Milisegundos
     transitionZoomOut: 0.25,     // Cuánto hacer zoom out (0.25 = -25% del zoom actual)
     transitionEasing: 'ease-in-out', // 'linear', 'ease-in', 'ease-out', 'ease-in-out'
-    disableBreathingDuringTransition: true // Deshabilitar breathing durante transiciones
   },
   
   // ========= 🆕 LÍMITES DE CANVAS OPTIMIZADOS =========
@@ -2600,21 +1453,16 @@ export const GLOBAL_CONFIG = {
   desktop: { lockItemWidthToScreenPx: false }  // desktop se mantiene igual
 },
 
-  // Control de snap del overlay (radio de perdón)
-  OVERLAY_SNAP_RADIUS: {
-    mobile: 0,
-    desktop: 24
-  },
+  
+  // ========= MODO DEBUG MEJORADO =========
   DEBUG_HOTSPOTS: true,              // Visualizar áreas invisibles (hotspots)
   SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: true,           // Mostrar coordenadas en cada área
-  DEBUG_SHOW_MINIMAP_MOBILE: false,   // Mostrar minimap en mobile
-  DEBUG_SHOW_MINIMAP_MOBILE: false,   // Mostrar minimap en mobile
-  DEBUG_SHOW_WAYPOINT_LABELS: false,  // Mostrar números en waypoints
+  DEBUG_SHOW_MINIMAP_MOBILE: true,   // Mostrar minimap en mobile
+  DEBUG_SHOW_WAYPOINT_LABELS: true,  // Mostrar números en waypoints
   DEBUG_SHOW_MEMORY_STATS: true,     // 🆕 Mostrar uso de memoria
-  DEBUG_SHOW_WAYPOINT_HUD: false,
-  DEBUG_SHOW_WAYPOINT_HUD: false,
+  DEBUG_SHOW_WAYPOINT_HUD: true,
   
   // Estilos de iconos
   ICON_STYLES: {

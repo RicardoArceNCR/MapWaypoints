@@ -1,11 +1,7 @@
-// OverlayLayer.js - VERSIÓN PARCHEADA CON FIXES MOBILE
+// OverlayLayer.js
+// Capa screen-space para overlays DOM con ancho fijo en px y rotación.
 // ========= 🎭 OVERLAY LAYER - GESTIÓN DE ELEMENTOS HTML SOBRE EL CANVAS =========
 // Características: Posicionamiento absoluto, escalado, rotación, culling, orden Z, eventos táctiles
-// 🔧 FIXES APLICADOS:
-// 1. Event bubbling eliminado (stopPropagation + bubbles: false)
-// 2. Waypoint-aware culling implementado
-// 3. pointer-events: none en hotspots ocultos
-
 import { GLOBAL_CONFIG } from './config.js';
 import { Camera } from './Camera.js';
 
@@ -16,39 +12,36 @@ export class OverlayLayer {
     this.frameLiveKeys = new Set();
     this.lastDims = { w: 0, h: 0 };
     this.device = 'mobile';
-    this._visible = true;
 
-    this.touchTargetMin = window.matchMedia('(max-width: 899px)').matches ? 30 : 40;
+    // 🆕 Target táctil mínimo
+    this.touchTargetMin = window.matchMedia('(max-width: 899px)').matches ? 56 : 40;
 
     this._onPointerDown = this._onPointerDown.bind(this);
     this._onPointerUp = this._onPointerUp.bind(this);
-    this._emitHotspotTap = this._emitHotspotTap.bind(this);
   }
 
-  resize(w, h) { this.lastDims = { w, h }; }
-  setDevice(device) { this.device = device; }
-
-  setVisible(show) {
-    this._visible = !!show;
-    if (!this.root) return;
-    if (this._visible) {
-      this.root.style.visibility = 'visible';
-      this.root.style.pointerEvents = '';
-      this.root.removeAttribute('aria-hidden');
-    } else {
-      this.root.style.visibility = 'hidden';
-      this.root.style.pointerEvents = 'none';
-      this.root.setAttribute('aria-hidden', 'true');
-    }
+  resize(w, h) { 
+    this.lastDims = { w, h }; 
+    this.logicalW = w;  // Store logical width
+    this.logicalH = h;  // Store logical height
   }
-
-  isVisible() { return !!this._visible; }
+  setDevice(device) { this.device = device; } // 'mobile' | 'desktop'
 
   beginFrame() {
     this.frameLiveKeys.clear();
-    if (!this._visible) return;
   }
 
+  /**
+   * Upsert de un item de overlay.
+   * @param {Object} opt
+   *  - key: id único (string|number)
+   *  - src: ruta de la imagen
+   *  - worldX, worldY: coords en sistema "mundo" del canvas
+   *  - rotationDeg: rotación en grados
+   *  - lockWidthPx: ancho fijo en px de pantalla
+   *  - z: (opcional) orden visual
+   *  - meta: (opcional) payload para popups, etc.
+   */
   upsert(opt) {
     const {
       key, src, worldX, worldY,
@@ -57,10 +50,8 @@ export class OverlayLayer {
     } = opt;
 
     let rec = this.items.get(key);
-    // Check if the overlay should be non-interactive
-    const isNonInteractive = meta?.interactive === false;
-    
     if (!rec) {
+      // 🆕 wrapper + img (wrapper = hitbox)
       const wrap = document.createElement('div');
       wrap.className = 'overlay-wrap';
       wrap.dataset.key = String(key);
@@ -68,77 +59,38 @@ export class OverlayLayer {
       wrap.style.touchAction = 'manipulation';
       wrap.style.userSelect = 'none';
 
-      // Apply non-interactive styles if needed
-      if (isNonInteractive) {
-        wrap.style.pointerEvents = 'none';
-        wrap.classList.add('overlay-noninteractive');
-        wrap.setAttribute('aria-hidden', 'true');
-        if (wrap.getAttribute('title')) wrap.removeAttribute('title');
-      } else {
-        wrap.style.pointerEvents = 'auto';
-        wrap.classList.remove('overlay-noninteractive');
-        wrap.removeAttribute('aria-hidden');
-      }
-
       const img = document.createElement('img');
       img.className = 'overlay-item';
       img.decoding = 'async';
       img.loading = 'lazy';
       img.draggable = false;
-      img.alt = '';
+      img.alt = ''; // 🖼️ Decorativa; evita texto si la imagen falla
       img.src = src;
       img.style.display = 'block';
-      img.style.pointerEvents = 'none';
+      img.style.pointerEvents = 'none'; // 👈 la interacción la toma el wrapper
 
-      if (meta?.title && !isNonInteractive) {
+      // ♿ Accesibilidad en el wrapper (no ensucia UI)
+      if (meta?.title) {
         wrap.setAttribute('aria-label', meta.title);
-      } else if (wrap.hasAttribute('aria-label')) {
-        wrap.removeAttribute('aria-label');
       }
 
+      // 🛟 Manejo de fallos de carga
       img.onerror = () => {
+        // Oculta contenido visual fallido (evita ícono roto/texto)
         img.style.visibility = 'hidden';
+        // Marca el wrapper para posible retry/logging
         wrap.dataset.loadError = '1';
       };
 
       wrap.appendChild(img);
       this.root.appendChild(wrap);
 
-      // Only add event listeners for interactive elements
-      if (!isNonInteractive && !wrap.__listenersAttached) {
-        // 🔧 En mobile necesitamos poder llamar preventDefault()
-        wrap.addEventListener('pointerdown', this._onPointerDown, { passive: false });
-        wrap.addEventListener('pointerup', this._onPointerUp, { passive: false });
-        wrap.__listenersAttached = true;
-      }
+      // 🆕 listeners pointer (evita ghost clicks y scroll-move)
+      wrap.addEventListener('pointerdown', this._onPointerDown, { passive: true });
+      wrap.addEventListener('pointerup', this._onPointerUp, { passive: true });
 
       rec = { wrap, img, meta, lockWidthPx, worldX, worldY, rotationDeg, z, _pd:{x:0,y:0,t:0} };
       this.items.set(key, rec);
-    } else {
-      // Update interactivity for existing elements
-      if (isNonInteractive) {
-        rec.wrap.style.pointerEvents = 'none';
-        rec.wrap.classList.add('overlay-noninteractive');
-        rec.wrap.setAttribute('aria-hidden', 'true');
-        if (rec.wrap.hasAttribute('title')) rec.wrap.removeAttribute('title');
-        
-        // Remove event listeners if they exist
-        rec.wrap.removeEventListener('pointerdown', this._onPointerDown);
-        rec.wrap.removeEventListener('pointerup', this._onPointerUp);
-      } else {
-        rec.wrap.style.pointerEvents = 'auto';
-        rec.wrap.classList.remove('overlay-noninteractive');
-        rec.wrap.removeAttribute('aria-hidden');
-        
-        // Add event listeners if not already present and element is interactive
-        if (!rec._hasListeners && rec.wrap.style.pointerEvents !== 'none') {
-          // 🔧 En mobile necesitamos poder llamar preventDefault()
-          rec.wrap.addEventListener('pointerdown', this._onPointerDown, { passive: false });
-          rec.wrap.addEventListener('pointerup', this._onPointerUp, { passive: false });
-          rec._hasListeners = true;
-          rec.wrap.__listenersAttached = true;
-        }
-      }
     }
 
     rec.meta = meta;
@@ -151,12 +103,17 @@ export class OverlayLayer {
     this.frameLiveKeys.add(String(key));
   }
 
+  // world → screen (px DOM) con cámara del canvas
   worldToScreen(x, y, camera, canvasW, canvasH) {
     const sx = (x - camera.x) * camera.z + (canvasW / 2);
     const sy = (y - camera.y) * camera.z + (canvasH / 2);
     return { x: sx, y: sy };
   }
 
+  /**
+   * Logs debug information about hitbox sizes when they change
+   * @private
+   */
   _debugLog(rec) {
     if (!rec || !rec.hitW || !rec.hitH || !GLOBAL_CONFIG.DEBUG_HOTSPOTS) return;
     
@@ -169,6 +126,7 @@ export class OverlayLayer {
         `@ (${~~rec.worldX}, ${~~rec.worldY})`
       );
       
+      // Actualizar etiqueta de debug si existe
       if (rec.wrap) {
         const debugLabel = rec.wrap.querySelector('.hs-debug-label');
         if (debugLabel) {
@@ -182,28 +140,23 @@ export class OverlayLayer {
   }
 
   /**
-   * 🔧 MODIFICADO: Ahora acepta activeWaypointIndex para culling por waypoint
-   * @param {Camera} camera - Instancia de cámara
-   * @param {number} canvasW - Ancho del canvas
-   * @param {number} canvasH - Alto del canvas
-   * @param {number|null} activeWaypointIndex - Índice del waypoint actual (null = sin filtro)
+   * Paints the final position/rotation/order of "live" frame items.
+   * Performs cheap culling and avoids unnecessary reflow.
    */
-  endFrame(camera, canvasW, canvasH, activeWaypointIndex = null) {
+  endFrame(camera, canvasW, canvasH) {
     if (!this.root) return;
-    
-    // Debug: Log active waypoint and hotspot count
-    console.group('OverlayLayer.endFrame');
-    console.log(`Active waypoint: ${activeWaypointIndex}, Processing ${this.frameLiveKeys.size} items`);
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     
-    const canvasEl = document.getElementById('mapa-canvas');
+    // Calculate canvas offset from wrapper for letterboxing compensation
+    const canvasEl = document.getElementById('mapa-canvas'); // always use the real canvas
     const canvasRect = canvasEl?.getBoundingClientRect();
     const wrapperRect = this.root?.parentElement?.getBoundingClientRect();
     
     const offX = canvasRect && wrapperRect ? (canvasRect.left - wrapperRect.left) : 0;
     const offY = canvasRect && wrapperRect ? (canvasRect.top - wrapperRect.top) : 0;
     
+    // Get viewport bounds for culling if camera supports it
     let viewportBounds = null;
     if (camera.getWorldBounds) {
       viewportBounds = camera.getWorldBounds();
@@ -219,28 +172,9 @@ export class OverlayLayer {
         continue;
       }
 
-      // ✅ NUEVO: Culling por waypoint
-      // Si tenemos un waypoint activo y el hotspot pertenece a otro waypoint, ocultarlo
-      // Debug: Log waypoint index check
-      const waypointMatch = activeWaypointIndex === null || 
-                          rec.meta?.waypointIndex === undefined || 
-                          rec.meta.waypointIndex === activeWaypointIndex;
-      
-      if (!waypointMatch) {
-        console.log(`[CULLING] Hiding ${key} (waypoint ${rec.meta?.waypointIndex} != ${activeWaypointIndex})`);
-        rec.wrap.style.display = 'none';
-        rec.wrap.style.pointerEvents = 'none';
-        continue;
-      } else if (key.includes('wp1-hotspot-3')) {
-        console.log(`[DEBUG] wp1-hotspot-3 is visible (waypoint: ${rec.meta?.waypointIndex})`);
-      }
-
       // Skip if outside viewport bounds (if camera supports it)
       if (viewportBounds) {
-        const isMobile = window.matchMedia('(max-width: 899px)').matches;
-        const baseMargin = isMobile ? 300 : 500; // ← Reducir en mobile
-        const zoomFactor = Math.max(0.5, Math.min(2, camera.z)); // ← Limitar
-        const margin = baseMargin / zoomFactor; // ← Ajustar según zoom
+        const margin = 500 / camera.z; // Convert screen margin to world space
         if (rec.worldX < viewportBounds.minX - margin ||
             rec.worldX > viewportBounds.maxX + margin ||
             rec.worldY < viewportBounds.minY - margin ||
@@ -257,75 +191,61 @@ export class OverlayLayer {
         sx = screenPos.x;
         sy = screenPos.y;
       } else {
+        // Fallback to manual calculation
         sx = (rec.worldX - camera.x) * camera.z + (canvasW / 2);
         sy = (rec.worldY - camera.y) * camera.z + (canvasH / 2);
       }
 
       // Additional culling check (screen space)
-      const margin = 500;
+      const margin = 500; // pixels
       if (sx < -margin || sy < -margin || sx > vw + margin || sy > vh + margin) {
         rec.wrap.style.display = 'none';
         continue;
       } else {
-        const wasHidden = rec.wrap.style.display === 'none';
         rec.wrap.style.display = 'block';
-        rec.wrap.style.pointerEvents = 'auto';
-        const z = Number.isFinite(rec.z) ? rec.z : 1;
-        rec.wrap.style.zIndex = String((z * 100) | 0);
-        
-        // Debug: Log when a previously hidden hotspot becomes visible
-        if (wasHidden && key.includes('wp1-hotspot-3')) {
-          console.log(`[DEBUG] wp1-hotspot-3 is now visible at (${rec.worldX}, ${rec.worldY})`);
-        }
       }
 
+      // 🆕 hitbox: control preciso de dimensiones
       const visualW = rec.lockWidthPx;
       const visualH = Number(rec.meta?.visualH || visualW);
       const hitSlop = Number(rec.meta?.hitSlop || GLOBAL_CONFIG.TOUCH.hitSlop);
       
+      // 🎯 Modo compacto: usa tamaño visual exacto
       const compact = !!rec.meta?.compact;
       const minTap = compact ? 0 : Number(rec.meta?.minTap || GLOBAL_CONFIG.TOUCH.mobileMin);
 
+      // Calcula hitbox respetando modo compacto
       const hitW = (compact ? visualW : Math.max(visualW, minTap)) + hitSlop * 2;
       const hitH = (compact ? visualH : Math.max(visualH, minTap)) + hitSlop * 2;
       
+      // Guarda para debug
       rec.hitW = hitW;
       rec.hitH = hitH;
       
+      // Apply letterboxing compensation to screen coordinates
       sx += offX;
       sy += offY;
       
-      // Use hitbox dimensions when not in compact mode
-      const useHitBox = !compact; // compact:true => al ras (mobile), compact:false => usar hitbox
-      const boxW = useHitBox ? hitW : visualW;
-      const boxH = useHitBox ? hitH : visualH;
-      
-      rec.wrap.style.width = `${boxW}px`;
-      rec.wrap.style.height = `${boxH}px`;
+      // Aplicar estilos al wrap
+      rec.wrap.style.width = `${visualW}px`;
+      rec.wrap.style.height = `${visualH}px`;
       rec.wrap.style.transform = `translate(${sx}px, ${sy}px) translate(-50%,-50%) rotate(${rec.rotationDeg}deg)`;
       rec.wrap.style.zIndex = Math.round(1000 + (rec.z * 100) + (rec.worldY / 1000));
       
-      // Center the image within the hitbox, maintaining its visual size
-      const hotspotImg = rec.img;
-      if (hotspotImg) {
-        hotspotImg.style.position = 'absolute';
-        hotspotImg.style.left = '50%';
-        hotspotImg.style.top = '50%';
-        hotspotImg.style.transform = 'translate(-50%, -50%)';
-        hotspotImg.style.width = `${visualW}px`;
-        hotspotImg.style.height = `${visualH}px`;
-      }
-      
+      // Aplicar estilos de debug si está habilitado
       if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+        // Añadir clase de debug para estilos CSS
         rec.wrap.classList.add('debug-hotspot');
         
-        const debugBorderWidth = 3;
+        // Aplicar estilos inline para debug (border más grueso para mejor visibilidad)
+        const debugBorderWidth = 3; // Más grueso para mobile
         rec.wrap.style.border = `${debugBorderWidth}px solid rgba(255, 0, 0, 0.8)`;
         rec.wrap.style.background = 'rgba(255, 0, 0, 0.1)';
         rec.wrap.style.borderRadius = (rec.meta?.shape === 'circle') ? '50%' : '8px';
         rec.wrap.style.boxShadow = '0 0 0 1px white, 0 0 0 2px rgba(0,0,0,0.3)';
         rec.wrap.style.transition = 'all 0.15s ease-out';
         
+        // Añadir o actualizar etiqueta de debug
         let debugLabel = rec.wrap.querySelector('.hs-debug-label');
         if (!debugLabel) {
           debugLabel = document.createElement('div');
@@ -334,29 +254,28 @@ export class OverlayLayer {
         }
         debugLabel.textContent = `${rec.key || '?'}: ${~~rec.hitW}×${~~rec.hitH}px`;
       } else {
+        // Limpiar estilos de debug
         rec.wrap.classList.remove('debug-hotspot');
-        // Limpia estilos de depuración
-        rec.wrap.style.border = '';
-        rec.wrap.style.background = '';
-        rec.wrap.style.borderRadius = '';
-        rec.wrap.style.boxShadow = '';
+        rec.wrap.style.border = 'none';
+        rec.wrap.style.background = 'transparent';
+        rec.wrap.style.boxShadow = 'none';
         rec.wrap.style.transition = '';
-        rec.wrap.style.outline = '';
         
-        // Elimina la etiqueta de depuración si existe
+        // Eliminar etiqueta de debug si existe
         const debugLabel = rec.wrap.querySelector('.hs-debug-label');
         if (debugLabel) debugLabel.remove();
       }
 
+      // imagen centrada (mantén ancho/alto visuales)
       const img = rec.img;
       const im = img.style;
       if (im.position !== 'absolute') im.position = 'absolute';
       if (im.left !== '50%')  im.left = '50%';
       if (im.top  !== '50%')  im.top  = '50%';
-      const imgTransform = `translate(-50%,-50%) rotate(0deg)`;
+      const imgTransform = `translate(-50%,-50%) rotate(0deg)`; // ya rota el wrapper
       if (im.transform !== imgTransform) im.transform = imgTransform;
       if (im.width  !== `${visualW}px`) im.width  = `${visualW}px`;
-      if (im.height !== `${visualH}px`) im.height = `${visualH}px`;
+      if (im.height !== `${visualH}px`) im.height = `${visualH}px`; // 🆕 antes 'auto'
     }
   }
 
@@ -368,70 +287,45 @@ export class OverlayLayer {
     rec._pd = { x: ev.clientX, y: ev.clientY, t: performance.now() };
   }
 
-  /**
-   * 🔧 MODIFICADO: Mejorado con manejo de eventos táctiles y prevención de propagación
-   */
-  // 🔔 Notifica que un hotspot consumió el tap (cooldown en app.js)
-  _emitHotspotTap() {
-    window.dispatchEvent(new CustomEvent('overlay:hotspotTap'));
-  }
-
   _onPointerUp(ev) {
-    if (!this._visible) return;
-    
-    const now = performance.now();
-    const key = ev.currentTarget?.dataset?.key;
-    if (!key || !this.items.has(key)) return;
-    
+    const wrap = ev.currentTarget;
+    const key = wrap?.dataset?.key;
+    if (!key) return;
     const rec = this.items.get(key);
-    if (!rec || !rec._pd) return;
-    
-    const dx = Math.abs(rec._pd.x - ev.clientX);
-    const dy = Math.abs(rec._pd.y - ev.clientY);
-    const dt = now - rec._pd.t;
-    
-    // Reset para el próximo evento
-    rec._pd = { x: 0, y: 0, t: 0 };
+    const dx = Math.abs(ev.clientX - rec._pd.x);
+    const dy = Math.abs(ev.clientY - rec._pd.y);
+    const dt = performance.now() - rec._pd.t;
 
+    // 🆕 "fat-finger forgiveness": solo click si no se arrastró
     if (dx <= 8 && dy <= 8 && dt <= 500) {
-      // Bloquea que el evento baje al canvas (evita "click en vacío" que avanza)
-      ev.preventDefault();
-      ev.stopImmediatePropagation();
-      ev.stopPropagation();
-      
-      window.__lastHotspotClickTime = now;
-
+      // 🆕 Verifica toggle global antes de cualquier acción
       if (!GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK) {
         console.log(`[INFO] Popup disabled via SHOW_POPUP_ON_CLICK for hotspot ${key}`);
-        this._emitHotspotTap();
-        return;
+        return;  // Sale temprano si popups están desactivados
       }
 
+      // 🆕 Prioriza modo debug como principal si activo
       if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
-        const hotspotData = {
-          title: rec.meta?.title || `Hotspot ${key}`,
-          description: rec.meta?.description || 'No description available',
-          ...rec.meta
-        };
+        const hotspotData = rec.meta?.hotspot || rec.meta;
+        
+        if (!hotspotData) {
+          console.warn(`[DEBUG] No hay metadata para hotspot ${key}`);
+          return;  // 🆕 Salir si no hay metadata
+        }
         
         if (window.popupManager) {
-          console.log('[DEBUG] Abriendo popup para hotspot:', key, hotspotData);
-          window.popupManager.openPopup(hotspotData);
+          console.log(`[DEBUG] Abriendo popup directo para hotspot ${key}:`, hotspotData.title || 'Sin título');
+          window.popupManager.openPopup(hotspotData);  // Trigger directo (principal en debug)
         } else {
           console.warn(`[DEBUG] No se puede abrir popup: popupManager no está disponible`);
         }
       } else {
+        // Fallback al evento original si no en debug
         this.root.dispatchEvent(new CustomEvent('overlay:click', {
-          bubbles: false,
+          bubbles: true,
           detail: { key, record: rec }
         }));
       }
-      
-      // 🔔 Avisa al mundo que un hotspot consumió el tap
-      this._emitHotspotTap();
-      
-      // ⛔️ CRÍTICO: no dejes que nada más se ejecute aquí
-      return;
     }
   }
 }
