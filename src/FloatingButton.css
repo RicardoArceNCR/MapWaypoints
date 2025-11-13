@@ -1,0 +1,294 @@
+/* ========= 🎯 BOTÓN FLOTANTE POR WAYPOINT ========= */
+/* Estilos para botones flotantes independientes del canvas */
+
+.waypoint-floating-button {
+  /* Posicionamiento */
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 9999;
+  
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  
+  /* Estilo visual */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  
+  /* Tipografía */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  
+  /* Sombras y efectos */
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4),
+              0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Prevenir comportamientos no deseados */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  
+  /* Optimizaciones de rendering */
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Hover state (solo en dispositivos con cursor) */
+@media (hover: hover) and (pointer: fine) {
+  .waypoint-floating-button:hover {
+    transform: translateY(-2px) translateZ(0);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5),
+                0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Active/Click state */
+.waypoint-floating-button:active,
+.waypoint-floating-button.clicked {
+  transform: translateY(0) scale(0.98) translateZ(0);
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3),
+              0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Focus state para accesibilidad */
+.waypoint-floating-button:focus {
+  outline: none;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4),
+              0 2px 8px rgba(0, 0, 0, 0.15),
+              0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+.waypoint-floating-button:focus-visible {
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4),
+              0 2px 8px rgba(0, 0, 0, 0.15),
+              0 0 0 3px rgba(102, 126, 234, 0.5);
+}
+
+/* Elementos internos del botón */
+.waypoint-floating-button .button-icon {
+  font-size: 16px;
+  line-height: 1;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.waypoint-floating-button .button-text {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Badge de notificación */
+.waypoint-floating-button .badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ff4757;
+  color: white;
+  border-radius: 10px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: 2px;
+  min-width: 18px;
+  height: 18px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Variantes de color del botón */
+.waypoint-floating-button.success {
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+}
+
+.waypoint-floating-button.warning {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+}
+
+.waypoint-floating-button.danger {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+.waypoint-floating-button.info {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+}
+
+.waypoint-floating-button.dark {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+/* ========= RESPONSIVE: MOBILE ========= */
+@media (max-width: 899px) {
+  .waypoint-floating-button {
+    top: 15px;
+    left: 15px;
+    padding: 10px 16px;
+    font-size: 13px;
+    border-radius: 10px;
+    
+    /* Mínimo táctil recomendado: 44x44px */
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .waypoint-floating-button .button-icon {
+    font-size: 15px;
+  }
+
+  .waypoint-floating-button .badge {
+    font-size: 10px;
+    padding: 2px 5px;
+    min-width: 16px;
+    height: 16px;
+  }
+}
+
+/* Mobile extra pequeño */
+@media (max-width: 375px) {
+  .waypoint-floating-button {
+    top: 12px;
+    left: 12px;
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  .waypoint-floating-button .button-icon {
+    font-size: 14px;
+  }
+}
+
+/* ========= SAFE AREAS: NOTCH iOS ========= */
+/* Respeta el notch de iPhone X y superiores */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .waypoint-floating-button {
+    top: calc(20px + env(safe-area-inset-top));
+    left: calc(20px + env(safe-area-inset-left));
+  }
+
+  @media (max-width: 899px) {
+    .waypoint-floating-button {
+      top: calc(15px + env(safe-area-inset-top));
+      left: calc(15px + env(safe-area-inset-left));
+    }
+  }
+}
+
+/* ========= ORIENTACIÓN LANDSCAPE EN MÓVIL ========= */
+@media (max-width: 899px) and (orientation: landscape) {
+  .waypoint-floating-button {
+    top: 10px;
+    left: calc(10px + env(safe-area-inset-left, 0px));
+    padding: 8px 14px;
+    font-size: 12px;
+    min-height: 36px;
+  }
+}
+
+/* ========= MODO OSCURO ========= */
+@media (prefers-color-scheme: dark) {
+  .waypoint-floating-button {
+    /* Ajustar sombras para modo oscuro */
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5),
+                0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .waypoint-floating-button:hover {
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6),
+                  0 3px 10px rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+/* ========= ANIMACIONES ========= */
+@keyframes button-pulse {
+  0%, 100% {
+    transform: scale(1) translateZ(0);
+  }
+  50% {
+    transform: scale(1.05) translateZ(0);
+  }
+}
+
+/* Clase para animar el botón (llamada de atención) */
+.waypoint-floating-button.animate-pulse {
+  animation: button-pulse 1s ease-in-out infinite;
+}
+
+/* ========= ACCESIBILIDAD ========= */
+/* Reducir movimiento para usuarios con preferencias de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .waypoint-floating-button {
+    transition: none;
+  }
+
+  .waypoint-floating-button.animate-pulse {
+    animation: none;
+  }
+}
+
+/* Alto contraste */
+@media (prefers-contrast: high) {
+  .waypoint-floating-button {
+    border: 2px solid white;
+  }
+}
+
+/* ========= ESTADOS ESPECIALES ========= */
+/* Disabled state */
+.waypoint-floating-button:disabled,
+.waypoint-floating-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Loading state */
+.waypoint-floating-button.loading {
+  pointer-events: none;
+  position: relative;
+}
+
+.waypoint-floating-button.loading .button-text {
+  opacity: 0.5;
+}
+
+.waypoint-floating-button.loading::after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border: 2px solid white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: button-spin 0.6s linear infinite;
+}
+
+@keyframes button-spin {
+  to { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* ========= PRINT ========= */
+@media print {
+  .waypoint-floating-button {
+    display: none !important;
+  }
+}

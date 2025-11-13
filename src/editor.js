@@ -1506,7 +1506,10 @@ document.addEventListener('DOMContentLoaded', () => {
               
               // If this is a hotspot, update its waypoint reference
               if (window.hotspotData && window.hotspotData[editor.selectedItem.index]) {
-                window.hotspotData[editor.selectedItem.index].waypointIndex = closestWaypoint.index;
+                window.hotspotData[editor.selectedItem.index] = {
+                  ...(window.hotspotData[editor.selectedItem.index] || {}),
+                  waypointIndex: closestWaypoint.index
+                };
                 console.log(`%c🔗 Linked to Waypoint #${closestWaypoint.index}`, 'color:#00BFFF');
               }
             }
