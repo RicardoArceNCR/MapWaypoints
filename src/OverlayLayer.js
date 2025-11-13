@@ -25,24 +25,12 @@ export class OverlayLayer {
     this._emitHotspotTap = this._emitHotspotTap.bind(this);
   }
 
-  resize(w, h) { this.lastDims = { w, h }; }
-  setDevice(device) { this.device = device; }
-
-  setVisible(show) {
-    this._visible = !!show;
-    if (!this.root) return;
-    if (this._visible) {
-      this.root.style.visibility = 'visible';
-      this.root.style.pointerEvents = '';
-      this.root.removeAttribute('aria-hidden');
-    } else {
-      this.root.style.visibility = 'hidden';
-      this.root.style.pointerEvents = 'none';
-      this.root.setAttribute('aria-hidden', 'true');
-    }
+  resize(w, h) { 
+    this.lastDims = { w, h }; 
+    this.logicalW = w;  // Store logical width
+    this.logicalH = h;  // Store logical height
   }
-
-  isVisible() { return !!this._visible; }
+  setDevice(device) { this.device = device; } // 'mobile' | 'desktop'
 
   beginFrame() {
     this.frameLiveKeys.clear();

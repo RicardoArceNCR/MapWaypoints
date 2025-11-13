@@ -7,7 +7,12 @@
 .novela.full-bleed { 
   position: relative; 
   overflow: hidden; 
-  background: #000; 
+  background: #000;
+  transform: scale(var(--fill-scale));
+  transform-origin: top center;
+  will-change: transform;
+  width: 100%;
+  height: 100%;
 }
 
 #mapa-canvas-wrapper { 
@@ -142,8 +147,10 @@ html, body {
   /* 🆕 Modo de control por código: full-bleed + escala editable */
   .novela.full-bleed {
     width: 100vw;
-    height: calc(var(--fill-scale) * 100dvh); /* 100%, 98%, 101%, etc. */
-    aspect-ratio: auto;
+    height: 100dvh;
+    transform: scale(var(--fill-scale));
+    transform-origin: top center;
+    will-change: transform;
     margin: 0;
     border-radius: 0;
     box-shadow: none;

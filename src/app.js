@@ -1438,35 +1438,100 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const canvasLogicalW = canvas.width / dpr;
     const canvasLogicalH = canvas.height / dpr;
 
-    // --- Hotspot Management (por frame) ---
-    if (hotspotManager) {
-      hotspotManager.beginFrame();
-    } else if (overlay) {
-      overlay.beginFrame();
-    }
+    // --- Overlay DOM (por frame) ---
+    // Note: beginFrame() is called once at the start of the render loop
 
-    // Process all hotspots with waypoint filtering and viewport culling
-    const activeWp = state.idx;
-    console.group('Processing hotspots');
-    console.log(`Active waypoint: ${activeWp}, Total hotspots: ${(window.hotspotData || []).length}`);
-    
-    const hotspots = (window.hotspotData || []).filter(h => {
-      const matches = h?.coords && (h.meta?.waypointIndex === undefined || h.meta.waypointIndex === activeWp);
-      if (h?.id === 'wp1-hotspot-3') {
-        console.log(`[DEBUG] wp1-hotspot-3 - waypointIndex: ${h.meta?.waypointIndex}, matches: ${matches}`, h);
-      }
-      return matches;
-    });
+    // Render hotspots from window.hotspotData for editor sync
+    if (window.hotspotData && window.hotspotData.length > 0) {
+      window.hotspotData.forEach((hotspot, index) => {
+        if (!hotspot || !hotspot.coords) return;
+        const coords = hotspot.coords;
 
-    console.log(`Visible hotspots (${hotspots.length}):`, hotspots.map(h => h.id || 'unknown'));
-    
-    for (const [index, hotspot] of hotspots.entries()) {
-      if (hotspot.id === 'wp1-hotspot-3') {
-        console.log('[DEBUG] Processing wp1-hotspot-3', { 
-          coords: hotspot.coords,
-          meta: hotspot.meta,
-          index,
-          total: hotspots.length 
+        // 1) Always start from normalized coordinates (xp, yp, wp, hp).
+        //    If only fixed sizes (px) are provided, convert them to normalized in this frame.
+        const mapImgCfg = mapManager.currentMap?.config?.mapImage;
+        if (!mapImgCfg) return;
+        const { logicalW, logicalH } = mapImgCfg;
+
+        const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
+        const canvasLogicalW = canvas.width / dpr;
+        const canvasLogicalH = canvas.height / dpr;
+
+        // CSS pixels → world units per axis with zoom
+        const worldPerCssX = logicalW / (canvasLogicalW / camera.z);
+        const worldPerCssY = logicalH / (canvasLogicalH / camera.z);
+
+        let xp = coords.xp;
+        let yp = coords.yp;
+        let wp = coords.wp;
+        let hp = coords.hp;
+
+        // If fixed sizes in px are provided, convert them to normalized for this frame
+        if ((!wp || !hp) && (coords.width || coords.height)) {
+          if (!wp && coords.width)  wp = (coords.width  * worldPerCssX) / logicalW;
+          if (!hp && coords.height) hp = (coords.height * worldPerCssY) / logicalH;
+        }
+
+        // Safety fallback
+        if (!Number.isFinite(xp) || !Number.isFinite(yp)) return;
+        if (!Number.isFinite(wp) || !Number.isFinite(hp)) { wp = 0.05; hp = 0.05; } // reasonable minimum size
+
+        // 2) Convert normalized → world space (single source of truth)
+        const wx = xp * logicalW;
+        const wy = yp * logicalH;
+        const ww = wp * logicalW;
+        const wh = hp * logicalH;
+
+        // Culling with world dimensions
+        const viewW = canvasLogicalW / camera.z;
+        const viewH = canvasLogicalH / camera.z;
+        const viewX = camera.x - viewW/2;
+        const viewY = camera.y - viewH/2;
+        
+        const halfWorldW = ww / 2;
+        const halfWorldH = wh / 2;
+        
+        if (wx + halfWorldW < viewX || 
+            wx - halfWorldW > viewX + viewW || 
+            wy + halfWorldH < viewY || 
+            wy - halfWorldH > viewY + viewH) {
+          return; // Skip off-screen hotspots
+        }
+
+        // Calculate screen size based on current zoom
+        const screenWidth = ww * camera.z;
+        const screenHeight = wh * camera.z;
+        
+        // Apply minimum touch target size if needed
+        const minTapSize = mapManager.isMobile ? 56 : 48;
+        
+        // Use the larger of calculated size and minimum touch target
+        const finalWidth = Math.max(screenWidth, minTapSize);
+        const finalHeight = Math.max(screenHeight, minTapSize);
+        
+        // Selection state (for editor)
+        const isActive = appConfig.editorActive && editor?.selectedItem?.index === index;
+        
+        // 3) Always deliver world space to overlay (center anchor)
+        overlay.upsert({
+          key: `hotspot_${index}`,
+          src: hotspot.src || '/default-icon.png',
+          worldX: wx,  // Center in world coordinates
+          worldY: wy,
+          rotationDeg: coords.rotate || 0,
+          lockWidthPx: finalWidth,  // Responds to camera zoom
+          z: hotspot.z || 2,
+          meta: {
+            shape: hotspot.shape || 'rect',
+            compact: !mapManager.isMobile,
+            hitSlop: 6,
+            minTap: minTapSize,
+            visualH: finalHeight,  // Maintains correct aspect ratio
+            title: hotspot.title || `Hotspot ${index}`,
+            hotspot: hotspot,
+            isHotspot: true,
+            hotspotIndex: index
+          }
         });
       }
       const { xp, yp, wp, hp, width: fixedWidth, height: fixedHeight } = hotspot.coords;
@@ -1949,16 +2014,28 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const isMobile = mapManager.isMobile;
     const isFullBleed = shellEl?.classList.contains('full-bleed');
     
-    // Usamos el wrapper para obtener las dimensiones reales
+    // 1. Obtener el canvas y su contenedor
+    const canvas = document.getElementById('mapa-canvas');
     const wrapper = document.getElementById('mapa-canvas-wrapper');
-    if (!wrapper) return;
+    if (!canvas || !wrapper) return;
     
-    // Obtener dimensiones del contenedor
+    // 2. Obtener dimensiones del contenedor
     const rect = wrapper.getBoundingClientRect();
     let canvasW = Math.round(rect.width);
     let canvasH = Math.max(Math.round(rect.height), CANVAS_MIN_HEIGHT);
 
-    // Ajustar por ratio del mapa en modos responsivos
+    // 2.1 Aplicar fill scale basado en la relación de aspecto
+    const bucket = aspectBucket(canvasW, canvasH);
+    let fill = 1.00;
+    switch (bucket) {
+      case 'ultra-alto': fill = 1.02; break;
+      case 'alto':       fill = 1.00; break;
+      case 'medio':      fill = 0.99; break;
+      case 'ancho':      fill = 0.98; break;
+    }
+    applyFillScale(fill); // Ajusta el alto visible sin deformar el bitmap
+
+    // 3. Ajustar por ratio del mapa en modos responsivos
     let displayW = canvasW;
     let displayH = canvasH;
     
@@ -1978,44 +2055,42 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       }
     }
 
-    // Validar dimensiones del canvas
-    const validation = validateCanvasDimensions(canvasW, canvasH, isMobile);
-    canvasW = validation.width;
-    canvasH = validation.height;
-
-    // Calcular DPR
-    let dpr = Math.min(DPR_MAX, window.devicePixelRatio || 1);
-    if (isMobile && GLOBAL_CONFIG.MOBILE_OPTIMIZATIONS?.maxDPR) {
-      dpr = Math.min(dpr, GLOBAL_CONFIG.MOBILE_OPTIMIZATIONS.maxDPR);
-    }
-
-    // Calcular dimensiones finales
-    const finalW = Math.round(canvasW * dpr);
-    const finalH = Math.round(canvasH * dpr);
-
-    // Aplicar dimensiones al canvas
-    canvas.width = finalW;
-    canvas.height = finalH;
+    // 4. Calcular DPR y dimensiones físicas
+    const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
+    const finalW = Math.round(displayW * dpr);
+    const finalH = Math.round(displayH * dpr);
     
-    // Establecer estilos según el modo
-    if (isFullBleed) {
-      canvas.style.width = displayW + 'px';
-      canvas.style.height = displayH + 'px';
-      canvas.style.position = 'absolute';
-      canvas.style.left = '50%';
-      canvas.style.top = '50%';
-      canvas.style.transform = 'translate(-50%, -50%)';
-    } else {
-      // Modo escritorio sin full-bleed
-      canvas.style.width = canvasW + 'px';
-      canvas.style.height = canvasH + 'px';
-      canvas.style.position = '';
-      canvas.style.left = '';
-      canvas.style.top = '';
+    // 5. Validar dimensiones
+    const validation = validateCanvasDimensions(displayW, displayH, isMobile);
+    if (validation.adjusted) {
+      displayW = validation.width;
+      displayH = validation.height;
+    }
+    
+    // 6. Actualizar tamaño físico del canvas (device pixels)
+    if (canvas.width !== finalW || canvas.height !== finalH) {
+      canvas.width = finalW;
+      canvas.height = finalH;
+    }
+    
+    // 7. Aplicar estilos CSS (tamaño lógico)
+    if (canvas.style.width !== `${displayW}px` || canvas.style.height !== `${displayH}px`) {
+      canvas.style.width = `${displayW}px`;
+      canvas.style.height = `${displayH}px`;
+    }
+    
+    // 8. Configurar transformación del contexto
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    
+    // 9. Resetear estilos de transformación si existen
+    if (canvas.style.transform) {
       canvas.style.transform = '';
     }
 
-    // Actualizar el viewport de la cámara
+    // 10. Actualizar viewport de la cámara con las dimensiones lógicas
     if (window.cameraInstance) {
       window.cameraInstance.setViewport(displayW, displayH);
       
@@ -2030,32 +2105,46 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       }
     }
     
-    // Actualizar el overlay con las mismas dimensiones lógicas
-    if (overlay?.resize) {
+    // 11. Ahora que el canvas está configurado, actualizar el overlay
+    // con las dimensiones lógicas finales
+    if (typeof overlay?.resize === 'function') {
       overlay.resize(displayW, displayH);
     }
-
-    // Configurar transformación del contexto
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     
-    // Actualizar dimensiones del cuadro de diálogo
-    DIALOG_BOX.w = (canvas.width / dpr) - 32;
+    // 12. Actualizar dimensiones del cuadro de diálogo
+    if (DIALOG_BOX) {
+      DIALOG_BOX.w = displayW - 32; // Usar displayW en lugar de canvas.width/dpr
+    }
 
-    // Forzar redibujado
+    // 13. Forzar redibujado
     markDirty('camera', 'elements', 'dialog', 'minimap');
 
     // Log de depuración si está habilitado
     if (GLOBAL_CONFIG.PERFORMANCE?.logPerformanceStats) {
-      console.log(' Canvas configurado:', {
-        logical: `${canvasW}×${canvasH}`,
+      console.log('🖼️ Canvas configurado:', {
+        logical: `${displayW}×${displayH}`,
         physical: `${finalW}×${finalH}`,
         dpr: dpr,
         pixels: (finalW * finalH).toLocaleString(),
-        memory: `~${validation.estimatedMemoryMB?.toFixed(2) || 'N/A'}MB`,
-        adjusted: validation.adjusted || false,
-        device: isMobile ? 'mobile' : (isFullBleed ? 'desktop/full-bleed' : 'desktop/card')
+        memory: validation?.estimatedMemoryMB ? `~${validation.estimatedMemoryMB.toFixed(2)}MB` : 'N/A',
+        adjusted: validation?.adjusted || false,
+        device: isMobile ? 'mobile' : (isFullBleed ? 'desktop/full-bleed' : 'desktop/card'),
+        overlaySize: overlay ? 'updated' : 'no-overlay'
       });
     }
+  }
+
+  // ========= ASPECT RATIO UTILITIES =========
+  function aspectBucket(vw, vh) {
+    const a = vw / Math.max(1, vh);
+    if (a <= 0.55) return 'ultra-alto';
+    if (a <= 0.65) return 'alto';
+    if (a <= 0.75) return 'medio';
+    return 'ancho';
+  }
+
+  function applyFillScale(fill = 1.00) {
+    document.documentElement.style.setProperty('--fill-scale', String(fill));
   }
 
   // ========= RESIZE HANDLERS =========
@@ -2065,6 +2154,13 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
   function handleResize() {
     const now = performance.now();
+    
+    // Actualizar modo del dispositivo (mobile/desktop)
+    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    if (overlay?.setDevice) {
+      overlay.setDevice(isMobile ? 'mobile' : 'desktop');
+    }
+    
     if (now - lastResize < RESIZE_THROTTLE) {
       clearTimeout(resizeTO);
       resizeTO = setTimeout(() => { 
@@ -2175,14 +2271,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     typeNext(delta);
     if (needsRedraw()) { 
       draw(); 
-      // Finaliza el frame del overlay con la cámara actual (usando px lógicos)
-      const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
-      const canvasLogicalW = canvas.width / dpr;
-      const canvasLogicalH = canvas.height / dpr;
-      if (hotspotManager) {
-        hotspotManager.endFrame(camera, canvasLogicalW, canvasLogicalH, state.idx);
-      } else if (overlay) {
-        overlay.endFrame(camera, canvasLogicalW, canvasLogicalH, state.idx);
+      // Finaliza overlay con cámara global y viewport LÓGICO
+      if (overlay?.endFrame) {
+        const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
+        const logicalW = (parseInt(canvas.style.width, 10)) || (canvas.width / dpr);
+        const logicalH = (parseInt(canvas.style.height, 10)) || (canvas.height / dpr);
+        overlay.endFrame(window.cameraInstance, logicalW, logicalH);
       }
       clearDirtyFlags(); 
     } else { 
