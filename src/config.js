@@ -1410,7 +1410,7 @@ export const GLOBAL_CONFIG = {
       // Si el ancho lógico cae por debajo de 1183 → forzamos contain+letterbox
       clampBelowW: 1183,
       // Corte duro (overflow hidden) si baja más de 900
-      hardCutBelowW: 900
+      hardCutBelowW: 850
     },
     mobile: {
       // Si la altura lógica baja de 606 → congelamos a 606 y recortamos
@@ -1418,7 +1418,7 @@ export const GLOBAL_CONFIG = {
     }
   },
   // Relación de aspecto base del mapa (si tu base es 1280x720, ajusta)
-  BASE_ASPECT: 1280/720,
+  BASE_ASPECT: 4240/2608,
   
   // ========= 🆕 OPTIMIZACIÓN DE WAYPOINTS =========
   WAYPOINT_RENDERING: {
@@ -1504,7 +1504,7 @@ export const GLOBAL_CONFIG = {
   MARKER_R: 8,
   ICON_R: 18,
   ICON_SIZE: 36,
-  DPR_MAX: 1.5,
+  DPR_MAX: 1.6,
   
   MOBILE_BREAKPOINT: 900,
   CANVAS_MIN_HEIGHT: 720,
