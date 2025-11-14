@@ -115,7 +115,7 @@ export class OverlayLayer {
    * @private
    */
   _debugLog(rec) {
-    if (!rec || !rec.hitW || !rec.hitH || !GLOBAL_CONFIG.DEBUG_HOTSPOTS) return;
+    if (!rec || !rec.hitW || !rec.hitH || !GLOBAL_CONFIG.DEBUG_OVERLAY_WRAPS) return;
     
     if (rec._lastHitW !== rec.hitW || rec._lastHitH !== rec.hitH) {
       console.log(
@@ -232,20 +232,19 @@ export class OverlayLayer {
       rec.wrap.style.transform = `translate(${sx}px, ${sy}px) translate(-50%,-50%) rotate(${rec.rotationDeg}deg)`;
       rec.wrap.style.zIndex = Math.round(1000 + (rec.z * 100) + (rec.worldY / 1000));
       
-      // Aplicar estilos de debug si está habilitado
-      if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
-        // Añadir clase de debug para estilos CSS
+      // Nuevo flag solo para overlays DOM
+      const overlayDebug = GLOBAL_CONFIG.DEBUG_OVERLAY_WRAPS === true;
+
+      if (overlayDebug) {
         rec.wrap.classList.add('debug-hotspot');
-        
-        // Aplicar estilos inline para debug (border más grueso para mejor visibilidad)
-        const debugBorderWidth = 3; // Más grueso para mobile
+
+        const debugBorderWidth = 3;
         rec.wrap.style.border = `${debugBorderWidth}px solid rgba(255, 0, 0, 0.8)`;
         rec.wrap.style.background = 'rgba(255, 0, 0, 0.1)';
         rec.wrap.style.borderRadius = (rec.meta?.shape === 'circle') ? '50%' : '8px';
         rec.wrap.style.boxShadow = '0 0 0 1px white, 0 0 0 2px rgba(0,0,0,0.3)';
         rec.wrap.style.transition = 'all 0.15s ease-out';
-        
-        // Añadir o actualizar etiqueta de debug
+
         let debugLabel = rec.wrap.querySelector('.hs-debug-label');
         if (!debugLabel) {
           debugLabel = document.createElement('div');
@@ -254,14 +253,12 @@ export class OverlayLayer {
         }
         debugLabel.textContent = `${rec.key || '?'}: ${~~rec.hitW}×${~~rec.hitH}px`;
       } else {
-        // Limpiar estilos de debug
         rec.wrap.classList.remove('debug-hotspot');
         rec.wrap.style.border = 'none';
         rec.wrap.style.background = 'transparent';
         rec.wrap.style.boxShadow = 'none';
         rec.wrap.style.transition = '';
-        
-        // Eliminar etiqueta de debug si existe
+
         const debugLabel = rec.wrap.querySelector('.hs-debug-label');
         if (debugLabel) debugLabel.remove();
       }

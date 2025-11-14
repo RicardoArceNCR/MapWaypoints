@@ -71,6 +71,11 @@ if (appConfig.toggles.hasOwnProperty('popups')) {
   console.log(`[CONFIG] SHOW_POPUP_ON_CLICK set from URL: ${GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK}`);
 }
 
+if (appConfig.toggles.hasOwnProperty('debug')) {
+  GLOBAL_CONFIG.DEBUG_HOTSPOTS = !!appConfig.toggles.debug;
+  console.log('[CONFIG] DEBUG_HOTSPOTS from URL:', GLOBAL_CONFIG.DEBUG_HOTSPOTS);
+}
+
 // Escucha cambios de estado del editor (enviado por editor.js)
 window.addEventListener('editor:active', (e) => {
   appConfig.editorActive = !!(e.detail && e.detail.active);
