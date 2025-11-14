@@ -1394,10 +1394,10 @@ export const GLOBAL_CONFIG = {
       maxMemoryMB: 150
     },
     mobile: {
-      maxWidth: 2048,
-      maxHeight: 4500,        // ✅ Soporta 4000px altura
-      maxPixels: 8_000_000,   // ~2000×4000
-      maxMemoryMB: 100
+      maxWidth: 1600,
+      maxHeight: 3200,        // ✅ Soporta 4000px altura
+      maxPixels: 3_000_000,   // ~2000×4000
+      maxMemoryMB: 48
     },
     downscaleFactor: 0.8,
     warnThreshold: 0.85       // Alertar cuando use >85% del límite
@@ -1436,7 +1436,7 @@ export const GLOBAL_CONFIG = {
     autoCleanInactivePhases: true,    // Limpiar automáticamente
     unloadAfterPhaseChange: true,     // Liberar memoria al cambiar
     forceClearCache: true,            // Forzar limpieza de cache
-    logMemoryUsage: true              // Log de uso de memoria
+    logMemoryUsage: false              // Log de uso de memoria
   },
   
   // ========= 🆕 OPTIMIZACIONES MOBILE =========
@@ -1455,21 +1455,21 @@ export const GLOBAL_CONFIG = {
 
   
   // ========= MODO DEBUG MEJORADO =========
-  EDITOR_ENABLED: true,
+  EDITOR_ENABLED: false,
   // 🔴 Debug en CANVAS (los rectángulos que quieres conservar)
   DEBUG_HOTSPOTS: true,
 
   // 🟥 Debug de WRAPPERS DOM (cuadros rojos enormes que quieres eliminar)
   DEBUG_OVERLAY_WRAPS: false,
   
-  DRAW_HOTSPOTS_ON_CANVAS: true,     // Dibujar hotspots en canvas para referencia/editor
+  DRAW_HOTSPOTS_ON_CANVAS: false,     // Dibujar hotspots en canvas para referencia/editor
   SHOW_POPUP_ON_CLICK: true,
-  DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
-  DEBUG_SHOW_COORDS: true,           // Mostrar coordenadas en cada área
-  DEBUG_SHOW_MINIMAP_MOBILE: true,   // Mostrar minimap en mobile
-  DEBUG_SHOW_WAYPOINT_LABELS: true,  // Mostrar números en waypoints
-  DEBUG_SHOW_MEMORY_STATS: true,     // 🆕 Mostrar uso de memoria
-  DEBUG_SHOW_WAYPOINT_HUD: true,
+  DEBUG_SHOW_GRID: false,             // Mostrar cuadrícula de referencia cada 10%
+  DEBUG_SHOW_COORDS: false,           // Mostrar coordenadas en cada área
+  DEBUG_SHOW_MINIMAP_MOBILE: false,   // Mostrar minimap en mobile
+  DEBUG_SHOW_WAYPOINT_LABELS: false,  // Mostrar números en waypoints
+  DEBUG_SHOW_MEMORY_STATS: false,     // 🆕 Mostrar uso de memoria
+  DEBUG_SHOW_WAYPOINT_HUD: false,
   
   // Estilos de iconos
   ICON_STYLES: {
@@ -1480,8 +1480,8 @@ export const GLOBAL_CONFIG = {
   },
   
   // ===== CANVAS HOTSPOTS & EDITOR =====
-  DRAW_HOTSPOTS_ON_CANVAS: true,     // Dibujar hotspots en canvas para referencia/editor
-  SYNC_OVERLAYS_WITH_EDITOR: true,   // Sincronización automática de overlays con el editor
+  DRAW_HOTSPOTS_ON_CANVAS: false,     // Dibujar hotspots en canvas para referencia/editor
+  SYNC_OVERLAYS_WITH_EDITOR: false,   // Sincronización automática de overlays con el editor
   
   // Estilos para los hotspots en canvas
   CANVAS_HOTSPOT_STYLES: {
@@ -1504,7 +1504,7 @@ export const GLOBAL_CONFIG = {
   MARKER_R: 8,
   ICON_R: 18,
   ICON_SIZE: 36,
-  DPR_MAX: 2,
+  DPR_MAX: 1.5,
   
   MOBILE_BREAKPOINT: 900,
   CANVAS_MIN_HEIGHT: 720,
@@ -1540,8 +1540,8 @@ export const GLOBAL_CONFIG = {
     prefetchNextWaypoint: true,
     autoCleanOldMaps: true,
     preferWebP: true,
-    logPerformanceStats: true,
-    logMemoryStats: true          // 🆕 Log de memoria
+    logPerformanceStats: false,
+    logMemoryStats: false          // 🆕 Log de memoria
   },
 
   ICON_TRANSITION: {
