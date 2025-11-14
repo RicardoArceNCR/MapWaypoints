@@ -4,6 +4,14 @@
 /* ========================================================= */
 /* LAYOUT BASE */
 /* ========================================================= */
+#overlay-layer {
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+body.overlays-ready #overlay-layer {
+  opacity: 1;
+}
 .novela.full-bleed { 
   position: relative; 
   overflow: hidden; 
@@ -1089,7 +1097,7 @@ body.overlays-hidden #overlay-layer {
   pointer-events: auto; 
   will-change: transform;
   user-select: none;
-  transition: transform 0.2s ease;
+  transition: none;
 }
 
 /* Overlay wrap for hotspots */
@@ -1099,7 +1107,7 @@ body.overlays-hidden #overlay-layer {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   will-change: transform;  /* GPU acceleration */
-  transition: transform 0.12s ease;  /* Tactile feedback */
+  transition: none;  /* Tactile feedback */
 }
 
 .overlay-item {

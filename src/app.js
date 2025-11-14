@@ -1841,6 +1841,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     performanceStats.lastFpsUpdate = performance.now();
     requestAnimationFrame(loop);
+    document.body.classList.add('overlays-ready');
   })();
   
 

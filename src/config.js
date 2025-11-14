@@ -1380,7 +1380,7 @@ export const GLOBAL_CONFIG = {
     
     // Transición cinemática entre waypoints
     transitionEnabled: true,
-    transitionDuration: 1200,    // Milisegundos
+    transitionDuration: 900,    // Milisegundos
     transitionZoomOut: 0.25,     // Cuánto hacer zoom out (0.25 = -25% del zoom actual)
     transitionEasing: 'ease-in-out', // 'linear', 'ease-in', 'ease-out', 'ease-in-out'
   },
@@ -1500,7 +1500,7 @@ export const GLOBAL_CONFIG = {
   BASE_W: 1280,
   BASE_H: 720,
   TYPE_SPEED: 18,
-  EASE: 0.08,
+  EASE: 0.10,
   MARKER_R: 8,
   ICON_R: 18,
   ICON_SIZE: 36,
