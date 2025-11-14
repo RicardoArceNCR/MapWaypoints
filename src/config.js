@@ -1455,7 +1455,14 @@ export const GLOBAL_CONFIG = {
 
   
   // ========= MODO DEBUG MEJORADO =========
-  DEBUG_HOTSPOTS: true,              // Visualizar áreas invisibles (hotspots)
+  EDITOR_ENABLED: true,
+  // 🔴 Debug en CANVAS (los rectángulos que quieres conservar)
+  DEBUG_HOTSPOTS: true,
+
+  // 🟥 Debug de WRAPPERS DOM (cuadros rojos enormes que quieres eliminar)
+  DEBUG_OVERLAY_WRAPS: false,
+  
+  DRAW_HOTSPOTS_ON_CANVAS: true,     // Dibujar hotspots en canvas para referencia/editor
   SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: true,           // Mostrar coordenadas en cada área

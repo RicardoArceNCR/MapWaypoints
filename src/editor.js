@@ -3,7 +3,7 @@
 import { GLOBAL_CONFIG } from './config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (!GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
+  if (!GLOBAL_CONFIG.EDITOR_ENABLED) {
     console.log('🎨 Editor desactivado');
     return;
   }
