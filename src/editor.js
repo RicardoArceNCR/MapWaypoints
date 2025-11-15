@@ -1,10 +1,12 @@
 // ========= 🎨 EDITOR VISUAL AVANZADO - FULL FEATURED =========
-// Características: Undo/Redo, Duplicar, Copiar/Pegar, Presets, Multi-select
+// Versión modular para carga bajo demanda
+
 import { GLOBAL_CONFIG } from './config.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+export function initEditor() {
+  // Respeta el flag global
   if (!GLOBAL_CONFIG.EDITOR_ENABLED) {
-    console.log('🎨 Editor desactivado');
+    console.log('🎨 Editor desactivado (EDITOR_ENABLED = false)');
     return;
   }
 
@@ -18,8 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
   `);
 
   const canvas = document.getElementById('mapa-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+  const overlay = document.getElementById('editor-layer');
+  if (!canvas || !overlay) return;
+
+  const ctx = overlay.getContext('2d');
+  if (!ctx) return;
 
   // ========= ESTADO EXTENDIDO =========
   const editor = {
@@ -1799,5 +1804,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }
-
-  });
+} // ← cierra initEditor

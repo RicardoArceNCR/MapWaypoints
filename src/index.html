@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Mapa interactivo multi-fase que narra un viaje a través de puntos clave, con zooms, hotspots y contenido narrativo.">
   <meta name="color-scheme" content="dark light">
   <!-- Content Security Policy: Configuración para desarrollo -->
   <!-- 
@@ -62,12 +63,18 @@
 
 </head>
 <body>
-  <div id="mapa-canvas-wrapper" class="novela">
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+
+  <header class="top-bar" role="banner">
     <!-- Filtro de fases (Desktop) -->
-    <div class="phase-filter" id="phase-filter" role="tablist" aria-label="Filtro de fases"></div>
+    <div class="phase-filter" id="phase-filter" role="group" aria-label="Filtro de fases"></div>
     
     <!-- Selector de mapas -->
     <div class="map-selector-wrapper" id="map-selector"></div>
+  </header>
+
+  <main id="main-content" role="main" tabindex="-1">
+    <div id="mapa-canvas-wrapper" class="novela" data-phase="fase1">
 
     <!-- Botón hamburguesa (Mobile) -->
     <button class="hamburger" aria-label="Abrir menú" aria-controls="menu-puntos" aria-expanded="false">
@@ -175,12 +182,13 @@
     <!-- Screen reader live region -->
     <div class="sr-live" aria-live="polite"></div>
   </div>
+  </main>
 
-  <!-- Aplicación principal -->
+  <!-- Contenedor donde el editor se monta -->
+  <div id="editor-layer" aria-hidden="true"></div>
+
+  <!-- ÚNICO script de entrada -->
   <script type="module" src="/app.js"></script>
-
-  <!-- Editor (forzado durante depuración) -->
-  <script type="module" src="/editor.js"></script>
 
 </body>
 </html>

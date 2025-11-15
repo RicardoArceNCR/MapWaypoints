@@ -38,16 +38,35 @@ window.togglePopupDisplay = (enable) => {
 
 // ===== Helpers de URL y logger (seguros) =====
 function parseUrlToggles() {
-  const p = new URLSearchParams(location.search);
-  const out = {};
-  if (p.has('scale')) {
-    const n = Number(p.get('scale'));
-    if (!Number.isNaN(n)) out.scale = Math.min(110, Math.max(80, n)) / 100; // 0.80–1.10
+  const params = new URLSearchParams(location.search);
+  const toggles = {
+    scale: params.get('scale'),
+    debug: params.get('debug'),
+    editor: params.get('editor'),
+    popups: params.get('popups')
+  };
+
+  for (const key of Object.keys(toggles)) {
+    const val = toggles[key];
+    if (val == null) {
+      toggles[key] = undefined;
+      continue;
+    }
+    const lowered = String(val).toLowerCase();
+    toggles[key] =
+      lowered === '1' ||
+      lowered === 'true' ||
+      lowered === 'yes' ||
+      lowered === 'on';
   }
-  if (p.has('debug')) out.debug = p.get('debug') === '1';
-  if (p.has('editor')) out.editor = p.get('editor') === '1';
-  if (p.has('popups')) out.popups = p.get('popups') === '1';
-  return out;
+
+  // Handle scale separately to maintain the 0.80-1.10 range
+  if (toggles.scale !== undefined) {
+    const n = Number(toggles.scale);
+    toggles.scale = !Number.isNaN(n) ? Math.min(110, Math.max(80, n)) / 100 : undefined;
+  }
+
+  return toggles;
 }
 
 // App-level config object (reduces globals)
@@ -55,28 +74,35 @@ const appConfig = {
   toggles: parseUrlToggles(),
   editorActive: false,
 };
-// initialize editorActive from toggles if provided
-appConfig.editorActive = !!appConfig.toggles.editor;
-// expose a single global container (optional, for debugging/compat)
+// Expose config for debugging
 window.appConfig = appConfig;
-// Backwards-compat: keep __EDITOR_ACTIVE__ in sync initially for other modules
-window.__EDITOR_ACTIVE__ = appConfig.editorActive;
 
-// Si se pide editor por URL (?editor=1), habilita y carga el módulo bajo demanda
-if (appConfig.toggles.editor) {
-  try {
-    GLOBAL_CONFIG.EDITOR_ENABLED = true;
-  } catch (e) {
-    console.warn('No se pudo marcar EDITOR_ENABLED en GLOBAL_CONFIG', e);
-  }
-
-  import('./editor.js')
-    .then(() => console.log('🎨 Editor cargado bajo demanda (?editor=1)'))
-    .catch(err => console.error('Error cargando editor.js', err));
+// Manejo del toggle del editor desde la URL
+if (appConfig.toggles.hasOwnProperty('editor')) {
+  appConfig.editorActive = !!appConfig.toggles.editor;
+  window.__EDITOR_ACTIVE__ = appConfig.editorActive;
 }
 
-// Asegura estado inicial si el editor ya dejó huella global (p. ej., tras HMR/recarga)
-appConfig.editorActive = appConfig.editorActive || !!window.__EDITOR_ACTIVE__;
+// Si el editor está activo, habilitamos el flag global y cargamos el módulo
+if (appConfig.editorActive) {
+  GLOBAL_CONFIG.EDITOR_ENABLED = true;
+
+  import('./editor.js')
+    .then((mod) => {
+      console.log('🎨 Editor cargado bajo demanda (?editor=1)');
+
+      if (mod && typeof mod.initEditor === 'function') {
+        mod.initEditor(); // no pasa nada si en el futuro decides aceptarle argumentos
+      } else {
+        console.warn('[Editor] Módulo cargado pero sin initEditor exportado');
+      }
+    })
+    .catch((err) => {
+      console.error('[Editor] Error al cargar editor.js', err);
+    });
+} else {
+  GLOBAL_CONFIG.EDITOR_ENABLED = false;
+}
 
 // Aplica toggle de popups desde URL si está presente
 if (appConfig.toggles.hasOwnProperty('popups')) {
@@ -1844,6 +1870,27 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     uiManager = new UIManager(mapManager, handlePhaseChange, handleMapChange);
     popupManager = new DetailedPopupManager();
+    
+    // === Editor: carga bajo demanda con ?editor=1 ===
+    if (appConfig.editorActive) {
+      GLOBAL_CONFIG.EDITOR_ENABLED = true;
+
+      import('./editor.js')
+        .then((mod) => {
+          console.log('🎨 Editor cargado bajo demanda (?editor=1)');
+          mod.initEditor({
+            mapManager,
+            uiManager,
+            camera: cameraInstance,
+            appConfig,
+            rootElement: document.getElementById('editor-layer')
+          });
+        })
+        .catch((err) => {
+          console.error('[Editor] Error al cargar editor.js', err);
+        });
+    }
+
     const firstMap = mapManager.getCurrentPhaseMaps()[0];
     if (firstMap) await loadMap(firstMap.id);
     setCanvasDPR();
