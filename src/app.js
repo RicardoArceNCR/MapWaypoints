@@ -62,6 +62,19 @@ window.appConfig = appConfig;
 // Backwards-compat: keep __EDITOR_ACTIVE__ in sync initially for other modules
 window.__EDITOR_ACTIVE__ = appConfig.editorActive;
 
+// Si se pide editor por URL (?editor=1), habilita y carga el módulo bajo demanda
+if (appConfig.toggles.editor) {
+  try {
+    GLOBAL_CONFIG.EDITOR_ENABLED = true;
+  } catch (e) {
+    console.warn('No se pudo marcar EDITOR_ENABLED en GLOBAL_CONFIG', e);
+  }
+
+  import('./editor.js')
+    .then(() => console.log('🎨 Editor cargado bajo demanda (?editor=1)'))
+    .catch(err => console.error('Error cargando editor.js', err));
+}
+
 // Asegura estado inicial si el editor ya dejó huella global (p. ej., tras HMR/recarga)
 appConfig.editorActive = appConfig.editorActive || !!window.__EDITOR_ACTIVE__;
 
@@ -143,10 +156,6 @@ function applyViewportCoverage() {
   wrapper.style.width  = vw + 'px';
   wrapper.style.height = vh + 'px';
   document.body.style.background = '#000';
-
-  log.info('Viewport coverage →', Math.round(coverage * 100) + '%', { vw, vh });
-  document.documentElement.style.overflow = over ? 'hidden' : '';
-  document.body.style.overflow = over ? 'hidden' : '';
 
   log.info('Viewport coverage →', Math.round(coverage * 100) + '%', { vw, vh });
 }
