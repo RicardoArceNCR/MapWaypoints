@@ -1462,7 +1462,7 @@ export const GLOBAL_CONFIG = {
   // 🟥 Debug de WRAPPERS DOM (cuadros rojos enormes que quieres eliminar)
   DEBUG_OVERLAY_WRAPS: false,
   
-  DRAW_HOTSPOTS_ON_CANVAS: true,     // Dibujar hotspots en canvas para referencia/editor
+  DRAW_HOTSPOTS_ON_CANVAS: false,     // Dibujar hotspots en canvas para referencia/editor
   SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: false,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: false,           // Mostrar coordenadas en cada área
