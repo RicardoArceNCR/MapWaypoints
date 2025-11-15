@@ -15,6 +15,7 @@ export class UIManager {
     this.progressEl = document.querySelector('.progress');
     
     this.init();
+    this.setDrawerFocusEnabled(false); // 👈 NUEVO
   }
 
   init() {
@@ -145,6 +146,9 @@ export class UIManager {
         this.closeDrawer();
       });
     });
+    
+    const isOpen = this.drawer && this.drawer.classList.contains('drawer--open');
+    this.setDrawerFocusEnabled(!!isOpen);
   }
 
   openDrawer() {
@@ -152,6 +156,7 @@ export class UIManager {
     this.drawer.setAttribute('aria-hidden', 'false');
     document.querySelector('.hamburger').setAttribute('aria-expanded', 'true');
     document.querySelector('.drawer-backdrop').hidden = false;
+    this.setDrawerFocusEnabled(true);   // 👈 Habilita foco interno
   }
 
   closeDrawer() {
@@ -159,6 +164,7 @@ export class UIManager {
     this.drawer.setAttribute('aria-hidden', 'true');
     document.querySelector('.hamburger').setAttribute('aria-expanded', 'false');
     document.querySelector('.drawer-backdrop').hidden = true;
+    this.setDrawerFocusEnabled(false);  // 👈 Deshabilita foco interno
   }
 
   // ========= LOADING STATE =========
