@@ -101,6 +101,31 @@ export class UIManager {
     });
   }
 
+  // ========= ACCESIBILIDAD: FOCUS EN EL DRAWER =========
+  setDrawerFocusEnabled(enabled) {
+    if (!this.drawer) return;
+
+    const focusables = this.drawer.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]'
+    );
+
+    focusables.forEach(el => {
+      if (enabled) {
+        // Restaurar foco normal
+        if (el.hasAttribute('data-drawer-tab-lock')) {
+          el.removeAttribute('tabindex');
+          el.removeAttribute('data-drawer-tab-lock');
+        }
+      } else {
+        // Sacar del orden de tabulación mientras el drawer está oculto
+        if (!el.hasAttribute('data-drawer-tab-lock')) {
+          el.setAttribute('data-drawer-tab-lock', 'true');
+          el.setAttribute('tabindex', '-1');
+        }
+      }
+    });
+  }
+
   // ========= DRAWER/MENU =========
   updateDrawer(waypoints) {
     this.drawerList.innerHTML = waypoints.map((wp, i) => `
