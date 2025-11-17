@@ -170,12 +170,14 @@ function applyViewportCoverage() {
   } else {
     // Mobile: evita deformación por altura ultra-baja
     if (vh < VIEWPORT_GUARDS.mobile.minH) {
-      vh = VIEWPORT_GUARDS.mobile.minH; // congelamos alto visible
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
+      vh = VIEWPORT_GUARDS.mobile.minH; // congelamos alto lógico del mapa
+      // 👉 Permitimos scroll vertical para no cortar el canvas ni perder controles
+      document.documentElement.style.overflowY = 'auto';
+      document.body.style.overflowY = 'auto';
     } else {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
+      // 👉 En móviles con altura suficiente seguimos en modo "cine" sin scroll
+      document.documentElement.style.overflowY = 'hidden';
+      document.body.style.overflowY = 'hidden';
     }
   }
 

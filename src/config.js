@@ -1373,14 +1373,14 @@ export const GLOBAL_CONFIG = {
   // ========= EFECTOS DE CÁMARA =========
   CAMERA_EFFECTS: {
     // Movimiento sutil constante (breathing)
-    breathingEnabled: false,
-    breathingAmount: 9.5,        // Píxeles de movimiento en Y
-    breathingSpeed: 0.0009,      // Velocidad de oscilación (más bajo = más lento)
-    breathingZAmount: 0.0009,    // Cambio sutil en zoom
+    breathingEnabled: true,
+    breathingAmount: 15,        // Píxeles de movimiento en Y
+    breathingSpeed: 0.0011,      // Velocidad de oscilación (más bajo = más lento)
+    breathingZAmount: 0.0039,    // Cambio sutil en zoom
     
     // Transición cinemática entre waypoints
     transitionEnabled: true,
-    transitionDuration: 900,    // Milisegundos
+    transitionDuration: 1200,    // Milisegundos
     transitionZoomOut: 0.25,     // Cuánto hacer zoom out (0.25 = -25% del zoom actual)
     transitionEasing: 'ease-in-out', // 'linear', 'ease-in', 'ease-out', 'ease-in-out'
   },
