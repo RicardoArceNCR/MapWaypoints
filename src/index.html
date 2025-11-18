@@ -24,6 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"> -->
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./popup_styles.css">
   <link rel="preload" href="../assets/mapa-mobile.webp"  as="image" type="image/webp" media="(max-width: 899px)">
   <link rel="preload" href="../assets/mapa-dektop.webp" as="image" type="image/webp" media="(min-width: 900px)">
 
@@ -131,11 +132,15 @@
       <div id="popup-body"></div>
     </div>
 
-    <!-- Popup modal - Estructura detallada (nueva) -->
+    <!-- Popup modal - Estructura detallada mejorada -->
     <div id="popup-detailed" class="popup popup-detailed" role="dialog" aria-modal="true" aria-labelledby="popup-detailed-title" hidden>
+      <!-- Handle para arrastrar en móvil -->
+      <div class="popup-detailed__drag-handle" aria-hidden="true"></div>
+      
+      <!-- Botón de cerrar -->
       <button id="popup-detailed-close" class="popup-close" aria-label="Cerrar">×</button>
       
-      <!-- Imagen principal -->
+      <!-- Imagen principal con overlay -->
       <div class="popup-detailed__image-wrapper">
         <img 
           id="popup-detailed-image" 
@@ -146,7 +151,7 @@
         />
       </div>
       
-      <!-- Contenido principal -->
+      <!-- Contenido principal con scroll -->
       <div class="popup-detailed__content">
         <!-- Título -->
         <h3 id="popup-detailed-title" class="popup-detailed__title"></h3>
@@ -157,7 +162,7 @@
           <span id="popup-detailed-time" class="popup-detailed__time"></span>
         </div>
         
-        <!-- Ubicación -->
+        <!-- Ubicación con ícono -->
         <div id="popup-detailed-location" class="popup-detailed__location"></div>
         
         <!-- Descripción -->

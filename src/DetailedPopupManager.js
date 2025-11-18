@@ -1,5 +1,6 @@
-// ========= MÓDULO PARA POPUPS DETALLADOS =========
+// ========= MÓDULO PARA POPUPS DETALLADOS MEJORADO =========
 // Este módulo maneja la visualización de hotspots con estructura detallada
+// Versión mejorada con mejor soporte responsive y UX
 
 export class DetailedPopupManager {
   constructor() {
@@ -30,6 +31,13 @@ export class DetailedPopupManager {
     // Estado
     this.currentHotspot = null;
     this.selectedPersonId = null;
+    this.touchStartY = 0;
+    this.touchCurrentY = 0;
+    this.isDragging = false;
+    this.closeTimeout = null;          // 🆕 timeout para animación de cierre
+    
+    // Detectar si es dispositivo móvil (antes de listeners)
+    this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     
     // Event listeners
     this.initEventListeners();
@@ -39,13 +47,75 @@ export class DetailedPopupManager {
     // Cerrar popups
     this.popupSimpleClose?.addEventListener('click', () => this.closeAll());
     this.popupDetailedClose?.addEventListener('click', () => this.closeAll());
-    this.backdrop?.addEventListener('click', () => this.closeAll());
+    
+    // Cerrar solo si el click fue directamente en el fondo,
+    // no dentro de la tarjeta
+    this.backdrop?.addEventListener('click', (e) => {
+      if (e.target === this.backdrop) {
+        this.closeAll();
+      }
+    });
+    
+    // Evitar que los clicks dentro del popup lleguen al backdrop
+    this.popupSimple?.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+    this.popupDetailed?.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
     
     // Cerrar con Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && (!this.popupSimple.hidden || !this.popupDetailed.hidden)) {
         this.closeAll();
       }
+    });
+    
+    // Gesto de deslizar hacia abajo en mobile
+    if (this.isMobile && this.popupDetailed) {
+      this.initSwipeToClose();
+    }
+    
+    // Prevenir scroll del body cuando el popup está abierto
+    this.backdrop?.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+  }
+  
+  initSwipeToClose() {
+    const handle = this.popupDetailed.querySelector('.popup-detailed__drag-handle');
+    if (!handle) return;
+    
+    handle.addEventListener('touchstart', (e) => {
+      this.touchStartY = e.touches[0].clientY;
+      this.isDragging = true;
+      this.popupDetailed.style.transition = 'none';
+    });
+    
+    handle.addEventListener('touchmove', (e) => {
+      if (!this.isDragging) return;
+      
+      this.touchCurrentY = e.touches[0].clientY;
+      const deltaY = this.touchCurrentY - this.touchStartY;
+      
+      if (deltaY > 0) {
+        this.popupDetailed.style.transform = `translateY(${deltaY}px)`;
+      }
+    });
+    
+    handle.addEventListener('touchend', () => {
+      if (!this.isDragging) return;
+      
+      const deltaY = this.touchCurrentY - this.touchStartY;
+      this.popupDetailed.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+      
+      if (deltaY > 100) {
+        this.closeAll();
+      } else {
+        this.popupDetailed.style.transform = 'translateY(0)';
+      }
+      
+      this.isDragging = false;
+      this.touchStartY = 0;
+      this.touchCurrentY = 0;
     });
   }
   
@@ -86,6 +156,9 @@ export class DetailedPopupManager {
    * Abre el popup apropiado según el tipo de hotspot
    */
   openPopup(hotspot) {
+    // Prevenir scroll del body
+    document.body.style.overflow = 'hidden';
+    
     if (this.isDetailedHotspot(hotspot)) {
       this.openDetailedPopup(hotspot);
     } else {
@@ -97,35 +170,70 @@ export class DetailedPopupManager {
    * Abre el popup simple (estructura original)
    */
   openSimplePopup(hotspot) {
-    this.closeAll();
-    
+    // Cancelar cualquier cierre pendiente
+    if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout);
+      this.closeTimeout = null;
+    }
+
+    // Asegurar que el detallado está oculto
+    if (this.popupDetailed) {
+      this.popupDetailed.classList.remove('popup--visible');
+      this.popupDetailed.hidden = true;
+    }
+
     this.popupSimpleTitle.textContent = hotspot.title || '';
     this.popupSimpleBody.textContent = hotspot.body || '';
-    
-    this.popupSimple.hidden = false;
+
     this.backdrop.hidden = false;
+    this.popupSimple.hidden = false;
+
+    // Añadir clase para animación
+    requestAnimationFrame(() => {
+      this.popupSimple.classList.add('popup--visible');
+      this.backdrop.classList.add('popup-backdrop--visible');
+    });
   }
   
   /**
    * Abre el popup detallado (nueva estructura)
    */
   openDetailedPopup(hotspot) {
-    this.closeAll();
+    // Cancelar cualquier cierre pendiente
+    if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout);
+      this.closeTimeout = null;
+    }
+
+    // Asegurar que el simple está oculto
+    if (this.popupSimple) {
+      this.popupSimple.classList.remove('popup--visible');
+      this.popupSimple.hidden = true;
+    }
+
     this.currentHotspot = hotspot;
     
     // Título
     this.popupDetailedTitle.textContent = hotspot.title || '';
     
-    // Imagen
+    // Imagen con overlay gradient
     if (hotspot.image) {
       this.popupDetailedImage.src = hotspot.image;
       this.popupDetailedImage.alt = hotspot.title || '';
-      this.popupDetailedImage.parentElement.style.display = 'block';
+      const imageWrapper = this.popupDetailedImage.parentElement;
+      imageWrapper.style.display = 'block';
+      
+      // Añadir overlay gradient para mobile
+      if (!imageWrapper.querySelector('.popup-detailed__image-overlay')) {
+        const overlay = document.createElement('div');
+        overlay.className = 'popup-detailed__image-overlay';
+        imageWrapper.appendChild(overlay);
+      }
     } else {
       this.popupDetailedImage.parentElement.style.display = 'none';
     }
     
-    // Fecha y hora
+    // Fecha y hora con formato mejorado
     if (hotspot.datetime) {
       this.popupDetailedDate.textContent = hotspot.datetime.date || '';
       this.popupDetailedTime.textContent = hotspot.datetime.time || '';
@@ -134,12 +242,28 @@ export class DetailedPopupManager {
       if (hotspot.datetime.timeColor) {
         this.popupDetailedTime.style.color = hotspot.datetime.timeColor;
       }
+      
+      // Mostrar contenedor de datetime
+      const datetimeContainer = this.popupDetailedDate.parentElement;
+      if (datetimeContainer) {
+        datetimeContainer.style.display = 'flex';
+      }
+    } else {
+      const datetimeContainer = this.popupDetailedDate.parentElement;
+      if (datetimeContainer) {
+        datetimeContainer.style.display = 'none';
+      }
     }
     
-    // Ubicación
+    // Ubicación con ícono
     if (hotspot.location) {
-      this.popupDetailedLocation.textContent = hotspot.location;
-      this.popupDetailedLocation.style.display = 'block';
+      this.popupDetailedLocation.innerHTML = `
+        <svg class="popup-detailed__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+        </svg>
+        <span>${hotspot.location}</span>
+      `;
+      this.popupDetailedLocation.style.display = 'flex';
     } else {
       this.popupDetailedLocation.style.display = 'none';
     }
@@ -172,6 +296,18 @@ export class DetailedPopupManager {
     // Mostrar popup
     this.popupDetailed.hidden = false;
     this.backdrop.hidden = false;
+    
+    // Añadir clases para animación
+    requestAnimationFrame(() => {
+      this.popupDetailed.classList.add('popup--visible');
+      this.backdrop.classList.add('popup-backdrop--visible');
+    });
+    
+    // Resetear scroll del contenido
+    const content = this.popupDetailed.querySelector('.popup-detailed__content');
+    if (content) {
+      content.scrollTop = 0;
+    }
   }
   
   /**
@@ -196,10 +332,14 @@ export class DetailedPopupManager {
             src="${person.avatar || './assets/default.webp'}" 
             alt="${person.name}"
             class="popup-detailed__person-avatar"
+            loading="lazy"
           />
+          ${person.highlighted ? '<span class="popup-detailed__person-badge">★</span>' : ''}
         </div>
-        <div class="popup-detailed__person-name">${person.name}</div>
-        ${person.role ? `<div class="popup-detailed__person-role">${person.role}</div>` : ''}
+        <div class="popup-detailed__person-info">
+          <div class="popup-detailed__person-name">${person.name}</div>
+          ${person.role ? `<div class="popup-detailed__person-role">${person.role}</div>` : ''}
+        </div>
       `;
       
       // Click para seleccionar persona
@@ -217,9 +357,18 @@ export class DetailedPopupManager {
   selectPerson(personId) {
     this.selectedPersonId = personId;
     
-    // Actualizar clases activas
+    // Actualizar clases activas con animación
     this.popupDetailedInvolved.querySelectorAll('.popup-detailed__person').forEach(el => {
-      el.classList.toggle('active', el.dataset.personId === personId);
+      if (el.dataset.personId === personId) {
+        el.classList.add('active');
+        // Pequeña animación de pulso
+        el.classList.add('popup-detailed__person--pulse');
+        setTimeout(() => {
+          el.classList.remove('popup-detailed__person--pulse');
+        }, 300);
+      } else {
+        el.classList.remove('active');
+      }
     });
     
     // Actualizar echos
@@ -250,17 +399,20 @@ export class DetailedPopupManager {
       this.popupDetailedEchosTitle.textContent = 'Echos:';
     }
     
-    // Renderizar echos
+    // Renderizar echos con animación de entrada
     this.popupDetailedEchos.innerHTML = '';
     
-    echos.forEach(echo => {
+    echos.forEach((echo, index) => {
       const echoEl = document.createElement('div');
       echoEl.className = 'popup-detailed__echo';
+      echoEl.style.animationDelay = `${index * 0.05}s`;
       
       echoEl.innerHTML = `
-        <div class="popup-detailed__echo-datetime">
-          <span class="popup-detailed__echo-date">${echo.datetime?.date || ''}</span>
-          <span class="popup-detailed__echo-time">${echo.datetime?.time || ''}</span>
+        <div class="popup-detailed__echo-header">
+          <div class="popup-detailed__echo-datetime">
+            <span class="popup-detailed__echo-date">${echo.datetime?.date || ''}</span>
+            <span class="popup-detailed__echo-time">${echo.datetime?.time || ''}</span>
+          </div>
         </div>
         <div class="popup-detailed__echo-description">${echo.description || ''}</div>
       `;
@@ -275,15 +427,37 @@ export class DetailedPopupManager {
    * Cierra todos los popups
    */
   closeAll() {
-    this.popupSimple.hidden = true;
-    this.popupDetailed.hidden = true;
-    this.backdrop.hidden = true;
-    
-    this.currentHotspot = null;
-    this.selectedPersonId = null;
-    
-    // Reset estilos
-    this.popupDetailedTime.style.color = '';
+    // Cancelar timeout anterior si existe
+    if (this.closeTimeout) {
+      clearTimeout(this.closeTimeout);
+      this.closeTimeout = null;
+    }
+
+    // Quitar clases visibles para disparar animación
+    this.popupSimple.classList.remove('popup--visible');
+    this.popupDetailed.classList.remove('popup--visible');
+    this.backdrop.classList.remove('popup-backdrop--visible');
+
+    // Esperar a que termine la animación antes de ocultar
+    this.closeTimeout = setTimeout(() => {
+      this.popupSimple.hidden = true;
+      this.popupDetailed.hidden = true;
+      this.backdrop.hidden = true;
+      
+      // Resetear transform del popup detallado
+      if (this.popupDetailed) {
+        this.popupDetailed.style.transform = '';
+      }
+      
+      // Restaurar scroll del body
+      document.body.style.overflow = '';
+      
+      this.currentHotspot = null;
+      this.selectedPersonId = null;
+      this.popupDetailedTime.style.color = '';
+
+      this.closeTimeout = null;
+    }, 300);
   }
   
   /**
