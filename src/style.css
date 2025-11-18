@@ -483,25 +483,11 @@ html, body {
   backdrop-filter: blur(12px);
   border-radius: 50px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  /* 🆕 Que parezca "player" compacto y se adapte al ancho */
+  width: min(90vw, 520px);
 }
 
-/* Ajustar controles UI en mobile para que no tapen tanto */
-@media (max-width: 899px) {
-  .ui {
-    backdrop-filter: blur(6px); /* ⚡ Reducido de 12px a 6px */
-    bottom: 10px;
-    padding: 8px 14px;
-    gap: 10px;
-  }
-  .map-select {
-    backdrop-filter: blur(6px); /* Reducido en mobile */
-  }
-
-  .drawer {
-    backdrop-filter: blur(10px); /* Reducido de 20px a 10px */
-  }
-}
-
+/* Botones base */
 .btn {
   width: 44px;
   height: 44px;
@@ -515,14 +501,6 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-@media (max-width: 899px) {
-  .btn {
-    width: 36px;
-    height: 36px;
-    font-size: 14px;
-  }
 }
 
 .btn:hover {
@@ -539,8 +517,10 @@ html, body {
 /* ========= PROGRESO (DOTS) ========= */
 .progress {
   display: flex;
-  gap: 8px;
   align-items: center;
+  justify-content: space-between; /* 🆕 reparte los dots en todo el ancho */
+  flex: 1;                        /* 🆕 ocupa todo el espacio entre los botones */
+  gap: 0;                         /* el espacio lo maneja space-between */
 }
 
 .progress span {
@@ -548,25 +528,13 @@ html, body {
   height: 8px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, background 0.2s ease, width 0.2s ease, height 0.2s ease;
   cursor: pointer;
-}
-
-@media (max-width: 899px) {
-  .progress span {
-    width: 6px;
-    height: 6px;
-  }
-  
-  .progress span.active {
-    width: 10px;
-    height: 10px;
-  }
 }
 
 .progress span:hover {
   background: rgba(255, 255, 255, 0.6);
-  transform: scale(1.3);
+  transform: scale(1.2);
 }
 
 .progress span.active {
@@ -576,53 +544,90 @@ html, body {
   box-shadow: 0 0 12px var(--phase-color);
 }
 
-/* ========= MINIMAP ========= */
-#minimap {
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-  z-index: 25;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
-}
 
-/* Minimap más pequeño y reposicionado en mobile */
+
+
+
+/* ====== MOBILE: player compacto bajo las fases ====== */
+
+
+
+
 @media (max-width: 899px) {
-  #minimap {
-    width: 100px;
-    height: 60px;
-    bottom: 70px;
-    right: 12px;
-  }
-}
-
-@media (max-width: 520px) {
-  #minimap {
-    display: none;
-  }
-}
-
-
-
-
-@media (max-height: 700px) {
   .ui {
-    position: fixed; /* deja de depender del alto del canvas */
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
-    z-index: 40; /* un poco por encima del mapa y popups */
+    top: 72px;              /* justo debajo de las fases */
+    bottom: auto;           /* IMPORTANTE: desactivar bottom para que NO se estire */
+    padding: 6px 10px;
+    gap: 8px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    width: min(94vw, 480px);
+  }
+
+  .ui .btn {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    font-size: 13px;
+    border-width: 1.5px;
+  }
+
+  .ui .progress {
+    flex: 1;
+  }
+
+  /* Dots un poco más pequeños en mobile */
+  .progress span {
+    width: 6px;
+    height: 6px;
+  }
+
+  .map-select {
+    backdrop-filter: blur(6px); /* Reducido en mobile */
+  }
+
+  .drawer {
+    backdrop-filter: blur(10px); /* Reducido de 20px a 10px */
   }
 }
 
+/* 📱 Mobile con poca altura: aún más compacto pero mismo sitio */
+@media (max-width: 899px) and (max-height: 720px) {
+  .ui {
+    top: 60px;        /* se pega un poco más arriba */
+    padding: 4px 8px;
+    gap: 6px;
+  }
 
+  .progress {
+    gap: 3px;
+  }
 
+  /* Los dots se vuelven “líneas” tipo timeline */
+  .progress span {
+    height: 3px;
+    width: auto;
+    border-radius: 999px;
+  }
 
-/* ========= LOADING SPINNER ========= */
-.loading-spinner {
+  .progress span.active {
+    height: 5px;
+    box-shadow: 0 0 6px rgba(var(--phase-color-rgb), 0.8);
+  }
+}
+
+/* Mobile muy estrecho: botones un pelín más pequeños */
+@media (max-width: 520px) {
+  .ui .btn {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* ========= LOADING OVERLAY ========= */
+.loading-overlay {
   position: absolute;
   inset: 0;
   z-index: 60;
@@ -936,11 +941,5 @@ body.net-slow .drawer {
   .overlay-wrap:active {
     opacity: 0.85;
     transition: opacity 0.1s ease;
-  }
-}
-
-@media (max-width: 420px) and (max-height: 750px) {
-  .ui {
-    bottom: 60px; /* antes ~10px en mobile */
   }
 }

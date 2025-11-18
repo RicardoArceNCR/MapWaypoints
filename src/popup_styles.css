@@ -634,3 +634,13 @@
     color: black;
   }
 }
+
+@media (max-width: 768px) and (max-height: 720px) {
+  .popup-detailed {
+    max-height: calc(80vh - 24px);   /* antes ~95vh */
+  }
+
+  .popup-detailed__image-wrapper {
+    height: min(26vh, 160px);        /* cabecera más compacta */
+  }
+}
