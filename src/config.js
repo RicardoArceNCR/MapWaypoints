@@ -1349,7 +1349,7 @@ export const MAPS_CONFIG = {
 export const GLOBAL_CONFIG = {
   // Control de visibilidad SEPARADO
   SHOW_DIALOGS: false,   // Controla los cuadros de diálogo de texto
-  SHOW_CONTROLS: true,  // Controla los botones de navegación (prev/next/progress)
+  SHOW_CONTROLS: false,  // Controla los botones de navegación (prev/next/progress)
   
   // ========= DEBUG Y VISUALIZACIÓN =========
   // DEBUG_HOTSPOTS: true,
@@ -1464,7 +1464,7 @@ export const GLOBAL_CONFIG = {
   
   DRAW_HOTSPOTS_ON_CANVAS: false,     // Dibujar hotspots en canvas para referencia/editor
   SHOW_POPUP_ON_CLICK: true,
-  DEBUG_SHOW_GRID: false,             // Mostrar cuadrícula de referencia cada 10%
+  DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: false,           // Mostrar coordenadas en cada área
   DEBUG_SHOW_MINIMAP_MOBILE: false,   // Mostrar minimap en mobile
   DEBUG_SHOW_WAYPOINT_LABELS: false,  // Mostrar números en waypoints
