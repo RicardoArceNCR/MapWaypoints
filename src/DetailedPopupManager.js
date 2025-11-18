@@ -97,7 +97,7 @@ export class DetailedPopupManager {
       const deltaY = this.touchCurrentY - this.touchStartY;
       
       if (deltaY > 0) {
-        this.popupDetailed.style.transform = `translateY(${deltaY}px)`;
+        this.popupDetailed.style.transform = `translate(-50%, ${deltaY}px)`;
       }
     });
     
@@ -110,7 +110,7 @@ export class DetailedPopupManager {
       if (deltaY > 100) {
         this.closeAll();
       } else {
-        this.popupDetailed.style.transform = 'translateY(0)';
+        this.popupDetailed.style.transform = 'translate(-50%, 0)';
       }
       
       this.isDragging = false;

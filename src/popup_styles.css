@@ -116,10 +116,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.95);
-  width: calc(80% - 2 * var(--popup-padding));
+  width: calc(99% - 2 * var(--popup-padding));
   max-width: var(--popup-max-width);
   height: auto;
-  max-height: calc(80vh - 2 * var(--popup-padding));
+  max-height: calc(90vh - 2 * var(--popup-padding));
   background: var(--popup-bg);
   backdrop-filter: blur(30px);
   border: 1px solid var(--popup-border);
@@ -132,6 +132,20 @@
 
 .popup-detailed.popup--visible {
   transform: translate(-50%, -50%) scale(1);
+}
+
+.popup-detailed__drag-handle {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  right: 0;
+  height: 28px;           /* zona grande para tocar */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  touch-action: none;     /* el gesto es para el handle, no para scroll */
+  cursor: grab;
+  z-index: 2;
 }
 
 /* Mobile: Diseño tipo card flotante */
@@ -147,14 +161,21 @@
     transform: translate(-50%, 110%);
     
     /* Margen lateral: 16px por lado, y limitar ancho máximo */
-    width: min(100vw - 32px, 520px);
+    width: min(100vw - 30px, 520px);
     
     /* Dejar aire arriba: máximo 560px o bien 100vh - 100px */
-    max-height: min(560px, calc(100vh - 100px));
+    max-height: min(800px, calc(95vh - 30px));
     
     border-radius: var(--popup-radius-mobile);
     background: var(--popup-bg-mobile);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  }
+  .popup-detailed {
+    backdrop-filter: blur(16px); /* en vez de 30px */
+  }
+
+  .popup-backdrop--visible {
+    backdrop-filter: blur(4px); /* en vez de 8px */
   }
   
   .popup-detailed.popup--visible {
@@ -174,7 +195,7 @@
   }
 
   /* Handle para arrastrar hacia abajo (estilo sheet nativo) */
-  .popup-detailed::before {
+  .popup-detailed__drag-handle::before {
     content: '';
     position: absolute;
     top: 8px;
@@ -184,7 +205,7 @@
     height: 4px;
     background: rgba(255, 255, 255, 0.3);
     border-radius: 999px;
-    z-index: 11;
+    opacity: 0.9;
   }
 }
 
@@ -192,7 +213,7 @@
 .popup-detailed__image-wrapper {
   position: relative;
   width: 100%;
-  height: 320px;
+  height: min(32vh, 290px);
   background: linear-gradient(135deg, #1a1a1f 0%, #2a2a35 100%);
   overflow: hidden;
   flex-shrink: 0;
@@ -200,7 +221,7 @@
 
 @media (max-width: 768px) {
   .popup-detailed__image-wrapper {
-    height: 240px;
+    height: min(32vh, 190px);
     margin-top: 20px; /* Espacio para el handle */
   }
 }
@@ -377,14 +398,14 @@
 /* Grid de personas implicadas mejorado */
 .popup-detailed__involved {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   gap: 16px;
   margin-bottom: 24px;
 }
 
 @media (max-width: 480px) {
   .popup-detailed__involved {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(59px, 1fr));
     gap: 12px;
   }
 }
@@ -394,7 +415,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px;
+  padding: 0px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
