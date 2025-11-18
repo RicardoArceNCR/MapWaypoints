@@ -1501,33 +1501,75 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   });
 
   canvas.addEventListener('mousedown', (e) => {
-  if (appConfig.editorActive) { console.log('🎨 Editor activo - evento bloqueado'); return; }
-    const { x, y } = clientToMapCoords(e.clientX, e.clientY);
-    const items = state.currentIcons[state.idx] || [];
-    for (const item of items) {
-      const type = item.type || 'icon';
-      const width = item.width || ICON_SIZE;
-      const height = item.height || ICON_SIZE;
-      const sqrtZ = getCachedSqrt(camera.z);
-      const displayWidth = width / sqrtZ;
-      const displayHeight = height / sqrtZ;
-      let isHit = false;
-      if (type === 'icon') {
-        const dx = x - item.x; const dy = y - item.y;
-        const clickRadius = ICON_R; isHit = (dx * dx + dy * dy) <= (clickRadius * clickRadius);
-      } else if (type === 'hotspot' || type === 'image') {
-        const halfW = displayWidth * 0.5; const halfH = displayHeight * 0.5;
-        isHit = (x >= item.x - halfW && x <= item.x + halfW && y >= item.y - halfH && y <= item.y + halfH);
-      }
-      if (isHit) { openPopup(item); return; }
+  if (appConfig.editorActive) {
+    console.log('🎨 Editor activo - evento bloqueado');
+    return;
+  }
+
+  // Solo botón izquierdo (evita rarezas con click derecho o rueda)
+  if (e.button !== 0) return;
+
+  const { x, y } = clientToMapCoords(e.clientX, e.clientY);
+
+  // 1) Primero: probar iconos / hotspots
+  const items = state.currentIcons[state.idx] || [];
+  for (const item of items) {
+    const type = item.type || 'icon';
+    const width = item.width || ICON_SIZE;
+    const height = item.height || ICON_SIZE;
+    const sqrtZ = getCachedSqrt(camera.z);
+    const displayWidth = width / sqrtZ;
+    const displayHeight = height / sqrtZ;
+    let isHit = false;
+
+    if (type === 'icon') {
+      const dx = x - item.x;
+      const dy = y - item.y;
+      const clickRadius = ICON_R;
+      isHit = (dx * dx + dy * dy) <= (clickRadius * clickRadius);
+    } else if (type === 'hotspot' || type === 'image') {
+      const halfW = displayWidth * 0.5;
+      const halfH = displayHeight * 0.5;
+      isHit = (
+        x >= item.x - halfW && x <= item.x + halfW &&
+        y >= item.y - halfH && y <= item.y + halfH
+      );
     }
-    for (let i=0;i<state.currentWaypoints.length;i++){
-      const wp = state.currentWaypoints[i];
-      const dx = x - wp.x; const dy = y - wp.y;
-      if (dx * dx + dy * dy <= MARKER_R * MARKER_R) { goToWaypoint(i); return; }
+
+    if (isHit) {
+      openPopup(item);
+      return;
     }
+  }
+
+  // 2) Luego: probar click directo sobre waypoint
+  for (let i = 0; i < state.currentWaypoints.length; i++) {
+    const wp = state.currentWaypoints[i];
+    const dx = x - wp.x;
+    const dy = y - wp.y;
+    if (dx * dx + dy * dy <= MARKER_R * MARKER_R) {
+      goToWaypoint(i);
+      return;
+    }
+  }
+
+  // 3) Si no le diste a nada, usamos la posición horizontal del click
+  const rect = canvas.getBoundingClientRect();
+  const relX = (e.clientX - rect.left) / rect.width; // 0 = borde izq, 1 = borde der
+
+  if (relX < 0.33) {
+    // tercio izquierdo = retroceder
+    prev();
+  } else if (relX > 0.66) {
+    // tercio derecho = avanzar
     showFullLineOrNext();
-  });
+  } else {
+    // zona central: mantengo el comportamiento actual de "avanzar"
+    // si quieres que no haga nada, cambia esta línea por "return;"
+    showFullLineOrNext();
+  }
+});
+
 
   function clientToMapCoords(cx, cy) {
     if (!mapManager.currentMap) return { x: 0, y: 0 };
