@@ -1349,7 +1349,7 @@ export const MAPS_CONFIG = {
 export const GLOBAL_CONFIG = {
   // Control de visibilidad SEPARADO
   SHOW_DIALOGS: false,   // Controla los cuadros de diálogo de texto
-  SHOW_CONTROLS: false,  // Controla los botones de navegación (prev/next/progress)
+  SHOW_CONTROLS: true,  // Controla los botones de navegación (prev/next/progress)
   
   // ========= DEBUG Y VISUALIZACIÓN =========
   // DEBUG_HOTSPOTS: true,

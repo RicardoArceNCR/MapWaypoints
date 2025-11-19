@@ -262,7 +262,7 @@ html, body {
 /* ========= HAMBURGUESA (Mobile) ========= */
 .hamburger {
   position: absolute;
-  top: 16px;
+  top: 96px;
   right: 16px;
   z-index: 40;
   width: 48px;
@@ -360,7 +360,7 @@ html, body {
 /* ========= DRAWER/MENU ========= */
 .drawer {
   position: fixed;
-  top: 0;
+  top: 80px;
   right: -100%;
   width: min(85vw, 380px);
   height: 100vh;
@@ -484,13 +484,13 @@ html, body {
   border-radius: 50px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   /* 🆕 Que parezca "player" compacto y se adapte al ancho */
-  width: min(90vw, 520px);
+  width: min(90vw, 370px);
 }
 
 /* Botones base */
 .btn {
-  width: 44px;
-  height: 44px;
+  width: 77px;
+  height: 77px;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
@@ -555,23 +555,24 @@ html, body {
 
 @media (max-width: 899px) {
   .ui {
-    top: 72px;              /* justo debajo de las fases */
+    top: 50px;              /* justo debajo de las fases */
     bottom: auto;           /* IMPORTANTE: desactivar bottom para que NO se estire */
-    padding: 6px 10px;
-    gap: 8px;
+    padding: 1px 1px;
+    gap: 18px;
     border-radius: 999px;
     background: rgba(0, 0, 0, 0.78);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-    width: min(94vw, 480px);
+    width: min(94vw, 1190px);
+    max-height: 42px;
   }
 
   .ui .btn {
     width: 34px;
     height: 34px;
     flex: 0 0 34px;
-    font-size: 13px;
-    border-width: 1.5px;
+    font-size: 30px;
+    border-width: 0px;
   }
 
   .ui .progress {
@@ -580,8 +581,8 @@ html, body {
 
   /* Dots un poco más pequeños en mobile */
   .progress span {
-    width: 6px;
-    height: 6px;
+    width: 16px;
+    height: 16px;
   }
 
   .map-select {
@@ -596,7 +597,7 @@ html, body {
 /* 📱 Mobile con poca altura: aún más compacto pero mismo sitio */
 @media (max-width: 899px) and (max-height: 720px) {
   .ui {
-    top: 60px;        /* se pega un poco más arriba */
+    top: 37px;        /* se pega un poco más arriba */
     padding: 4px 8px;
     gap: 6px;
   }
@@ -618,13 +619,7 @@ html, body {
   }
 }
 
-/* Mobile muy estrecho: botones un pelín más pequeños */
-@media (max-width: 520px) {
-  .ui .btn {
-    width: 30px;
-    height: 30px;
-  }
-}
+
 
 /* ========= LOADING OVERLAY ========= */
 .loading-overlay {
