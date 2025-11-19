@@ -136,16 +136,16 @@
 
 .popup-detailed__drag-handle {
   position: absolute;
-  top: 4px;
+  top: 0;          /* pegado al borde superior del popup */
   left: 0;
   right: 0;
-  height: 28px;           /* zona grande para tocar */
+  height: 40px;    /* altura normal en desktop */
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  touch-action: none;     /* el gesto es para el handle, no para scroll */
+  touch-action: none;   /* el gesto es para el handle, no para scroll */
   cursor: grab;
-  z-index: 2;
+  z-index: 2;          /* por debajo del botón de cerrar (z-index:10) */
 }
 
 /* Mobile: Diseño tipo card flotante */
@@ -206,6 +206,9 @@
     background: rgba(255, 255, 255, 0.3);
     border-radius: 999px;
     opacity: 0.9;
+  }
+  .popup-detailed__drag-handle {
+    height: 160px;      /* cubre la barra + buena parte del mapa */
   }
 }
 
