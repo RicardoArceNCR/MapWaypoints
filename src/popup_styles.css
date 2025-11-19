@@ -152,20 +152,19 @@
 @media (max-width: 768px) {
   .popup-detailed {
     top: auto;
-    /* flotando abajo, respetando notch / safe-area */
     bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
     left: 50%;
     right: auto;
-    
+
     /* Animación de entrada desde abajo */
     transform: translate(-50%, 110%);
-    
-    /* Margen lateral: 16px por lado, y limitar ancho máximo */
+
+    /* Margen lateral y ancho máx */
     width: min(100vw - 30px, 520px);
-    
-    /* Dejar aire arriba: máximo 560px o bien 100vh - 100px */
-    max-height: min(800px, calc(95vh - 30px));
-    
+
+    /* 👉 Ocupa casi toda la altura disponible */
+    max-height: calc(94dvh - 24px);
+
     border-radius: var(--popup-radius-mobile);
     background: var(--popup-bg-mobile);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
@@ -208,7 +207,7 @@
     opacity: 0.9;
   }
   .popup-detailed__drag-handle {
-    height: 160px;      /* cubre la barra + buena parte del mapa */
+    height: 110px;      /* cubre la barra + buena parte del mapa */
   }
 }
 
@@ -216,7 +215,7 @@
 .popup-detailed__image-wrapper {
   position: relative;
   width: 100%;
-  height: min(32vh, 290px);
+  height: min(32vh, 590px);
   background: linear-gradient(135deg, #1a1a1f 0%, #2a2a35 100%);
   overflow: hidden;
   flex-shrink: 0;
@@ -640,7 +639,7 @@
 
 @media (max-width: 768px) and (max-height: 720px) {
   .popup-detailed {
-    max-height: calc(80vh - 24px);   /* antes ~95vh */
+    max-height: calc(90vh - 24px);   /* antes ~95vh */
   }
 
   .popup-detailed__image-wrapper {
