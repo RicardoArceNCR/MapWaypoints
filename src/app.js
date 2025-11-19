@@ -1241,7 +1241,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
   function drawMinimap() {
     // 👇 minimapa desactivado en mobile para ahorrar CPU/GPU
-    if (window.innerWidth < 900) return;
+    if (window.innerWidth < 600) return;
 
     if (!state.mapImages || !mapManager.currentMap) return;
     if (!mmCtx) return; // minimap canvas or 2D context not available

@@ -1408,13 +1408,13 @@ export const GLOBAL_CONFIG = {
   VIEWPORT_GUARDS: {
     desktop: {
       // Si el ancho lógico cae por debajo de 1183 → forzamos contain+letterbox
-      clampBelowW: 1183,
+      clampBelowW: 900,
       // Corte duro (overflow hidden) si baja más de 900
-      hardCutBelowW: 850
+      hardCutBelowW: 900
     },
     mobile: {
       // Si la altura lógica baja de 606 → congelamos a 606 y recortamos
-      minH: 606
+      minH: 900
     }
   },
   // Relación de aspecto base del mapa (si tu base es 1280x720, ajusta)
@@ -1506,8 +1506,8 @@ export const GLOBAL_CONFIG = {
   ICON_SIZE: 36,
   DPR_MAX: 1.6,
   
-  MOBILE_BREAKPOINT: 900,
-  CANVAS_MIN_HEIGHT: 720,
+  MOBILE_BREAKPOINT: 600,
+  CANVAS_MIN_HEIGHT: 920,
   
   DIALOG_BOX: {
     x: 16, 

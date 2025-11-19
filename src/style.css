@@ -357,6 +357,49 @@ html, body {
   color: #fff;
 }
 
+
+
+
+/* ========================================================= */
+/* ELEMENTOS FIJOS (ej. Minimap) */
+/* ========================================================= */
+#minimap {
+  position: fixed;                  /* Fijo en la pantalla, no se mueve con scroll */
+  bottom: 20px;  
+  top: 80%;                   /* Distancia desde abajo */
+  left: 20px;                       /* Distancia desde izquierda */
+  width: 200px;                     /* Ancho base (ajustable) */
+  height: 120px;                    /* Alto base */
+  z-index: 100;                     /* Por encima de canvas/overlays, pero debajo de popups (ajusta si necesitas) */
+  border: 1px solid rgba(255, 255, 255, 0.2);  /* Borde sutil para profesionalismo */
+  background: rgba(0, 0, 0, 0.5);   /* Fondo semi-transparente para no obstruir */
+  border-radius: 8px;               /* Esquinas redondeadas */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);  /* Sombra suave para profundidad */
+  transition: all 0.3s ease;        /* Transición suave en resize */
+}
+
+/* Responsive: Ajustes para móvil (basado en tus breakpoints ~899px) */
+@media (max-width: 899px) {
+  #minimap {
+    bottom: 10px;                   /* Menos espacio en móvil para no tapar controles */
+    left: 10px;
+    width: 150px;                   /* Reduce tamaño para pantallas pequeñas */
+    height: 90px;
+  }
+}
+
+/* Opcional: Hover para interacción (solo desktop) */
+@media (hover: hover) {
+  #minimap:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);  /* Efecto de elevación al hover */
+    transform: scale(1.05);                    /* Ligeramente más grande */
+  }
+}
+
+
+
+
+
 /* ========= DRAWER/MENU ========= */
 .drawer {
   position: fixed;
