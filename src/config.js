@@ -27,7 +27,7 @@ export const MAPS_CONFIG = {
     waypoints: [
       { 
         mobile: { xp: 0.17, yp: 0.17, z: 0.50 },
-        desktop: { xp: 0.18, yp: 0.16, z: 0.88 },
+        desktop: { xp: 0.18, yp: 0.21, z: 1 },
         label: 'Inicio del Viaje', 
         lines: [
           'Aquí comienza la historia. Un punto de partida crucial que marca el inicio de esta aventura.',
@@ -1414,7 +1414,7 @@ export const GLOBAL_CONFIG = {
     },
     mobile: {
       // Si la altura lógica baja de 606 → congelamos a 606 y recortamos
-      minH: 900
+      minH: 668
     }
   },
   // Relación de aspecto base del mapa (si tu base es 1280x720, ajusta)

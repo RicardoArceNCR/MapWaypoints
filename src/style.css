@@ -101,6 +101,12 @@ body.overlays-ready #overlay-layer {
 
   /* 🆕 Control de llenado vertical (1 = 100%, 0.98 = 98%, 1.01 = 101%) */
   --fill-scale: 1;
+    /* 🆕 Posiciones por defecto de navegación en mobile */
+  --nav-prev-left-mobile: 16px;   /* distancia al borde izquierdo */
+  --nav-prev-top-mobile: 50%;     /* altura: 50% = centro vertical */
+  --nav-next-right-mobile: 16px;  /* distancia al borde derecho */
+  --nav-next-top-mobile: 50%;     /* altura del botón siguiente */
+  --nav-progress-bottom-mobile: 20px; /* altura de la barrita de progreso */
 }
 
 * { box-sizing: border-box; }
@@ -532,8 +538,8 @@ html, body {
 
 /* Botones base */
 .btn {
-  width: 77px;
-  height: 77px;
+  width: 45px;
+  height: 45px;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
@@ -591,77 +597,80 @@ html, body {
 
 
 
-/* ====== MOBILE: player compacto bajo las fases ====== */
-
-
-
-
+/* ====== MOBILE: navegación flotante limpia ====== */
 @media (max-width: 899px) {
   .ui {
-    top: 50px;              /* justo debajo de las fases */
-    bottom: auto;           /* IMPORTANTE: desactivar bottom para que NO se estire */
-    padding: 1px 1px;
-    gap: 18px;
-    border-radius: 999px;
-    background: rgba(0, 0, 0, 0.78);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-    width: min(94vw, 1190px);
-    max-height: 42px;
+    position: fixed;
+    inset: 0;              /* ocupa todo el viewport */
+    z-index: 38;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: block;
+
+    /* ✅ reset de estilos de desktop */
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    transform: none;           /* <- quita el translateX(-50%) */
+    backdrop-filter: none;     /* <- quita el blur gigante */
+    pointer-events: none;      /* solo los hijos reciben clics */
   }
 
   .ui .btn {
-    width: 34px;
-    height: 34px;
-    flex: 0 0 34px;
-    font-size: 30px;
-    border-width: 0px;
+    position: fixed;
+    width: 260px;
+    height: 260px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.75);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+    pointer-events: auto; /* clicables otra vez */
+  }
+
+  .ui .btn.prev {
+    left: var(--nav-prev-left-mobile);
+    left: -220px;
+    top: var(--nav-prev-top-mobile);
+    transform: translateY(-50%);
+  }
+
+  .ui .btn.next {
+    right: var(--nav-next-right-mobile);
+    right: -220px;
+    top: var(--nav-next-top-mobile);
+    transform: translateY(-50%);
   }
 
   .ui .progress {
-    flex: 1;
-  }
-
-  /* Dots un poco más pequeños en mobile */
-  .progress span {
-    width: 16px;
-    height: 16px;
-  }
-
-  .map-select {
-    backdrop-filter: blur(6px); /* Reducido en mobile */
-  }
-
-  .drawer {
-    backdrop-filter: blur(10px); /* Reducido de 20px a 10px */
-  }
-}
-
-/* 📱 Mobile con poca altura: aún más compacto pero mismo sitio */
-@media (max-width: 899px) and (max-height: 720px) {
-  .ui {
-    top: 37px;        /* se pega un poco más arriba */
-    padding: 4px 8px;
-    gap: 6px;
-  }
-
-  .progress {
-    gap: 3px;
-  }
-
-  /* Los dots se vuelven “líneas” tipo timeline */
-  .progress span {
-    height: 3px;
-    width: auto;
+    position: fixed;
+    left: 50%;
+    bottom: var(--nav-progress-bottom-mobile);
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.7);
     border-radius: 999px;
+    pointer-events: auto;
   }
 
-  .progress span.active {
-    height: 5px;
+  .ui .progress span {
+    height: 3px;
+    width: 18px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.3);
+    transition: background 0.2s ease, height 0.2s ease, width 0.2s ease;
+  }
+
+  .ui .progress span.active {
+    background: var(--phase-color);
+    height: 4px;
+    width: 22px;
     box-shadow: 0 0 6px rgba(var(--phase-color-rgb), 0.8);
   }
 }
-
 
 
 /* ========= LOADING OVERLAY ========= */
