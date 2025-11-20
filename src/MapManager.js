@@ -116,7 +116,7 @@ export class MapManager {
       img.onerror = (e) => {
         // ✨ OPTIMIZACIÓN: Fallback automático si WebP falla
         if (optimizedSrc !== src) {
-          console.log(`⚠️ WebP no disponible, usando formato original: ${src}`);
+          console.warn(`⚠️ WebP no disponible, usando formato original: ${src}`);
           
           const fallbackImg = new Image();
           if (/^https?:\/\//i.test(src)) fallbackImg.crossOrigin = 'anonymous';
@@ -141,6 +141,37 @@ export class MapManager {
           
           fallbackImg.src = src;
         } else {
+          // 🆕 NUEVO: si src ya es .webp, intentamos un JPG hermano
+          const webpMatch = src.match(/^(.*)\.webp(\?.*)?$/i);
+          if (webpMatch) {
+            const jpgSrc = `${webpMatch[1]}.jpg${webpMatch[2] || ''}`;
+            console.warn(`⚠️ WebP directo falló, probando JPG: ${jpgSrc}`);
+            
+            const fallbackImg = new Image();
+            if (/^https?:\/\//i.test(jpgSrc)) fallbackImg.crossOrigin = 'anonymous';
+            try { fallbackImg.decoding = 'async'; } catch {}
+            if ('loading' in HTMLImageElement.prototype) {
+              try { fallbackImg.loading = 'eager'; } catch {}
+            }
+
+            fallbackImg.onload = () => {
+              // cacheamos usando la key original (src)
+              this.imageCache.set(src, fallbackImg);
+              resolve(fallbackImg);
+            };
+
+            fallbackImg.onerror = () => {
+              console.warn('❌ Tampoco se pudo cargar fallback JPG:', jpgSrc);
+              if (typeof window !== 'undefined' && window.showError) {
+                try { window.showError('Error cargando imagen: ' + jpgSrc); } catch {};
+              }
+              reject(new Error(`Failed to load: ${jpgSrc}`));
+            };
+
+            fallbackImg.src = jpgSrc;
+            return;
+          }
+
           console.warn('❌ No se pudo cargar imagen:', src);
           if (typeof window !== 'undefined' && window.showError) {
             try { window.showError('Error cargando imagen: ' + src); } catch {};
