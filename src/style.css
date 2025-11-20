@@ -106,7 +106,7 @@ body.overlays-ready #overlay-layer {
   --nav-prev-top-mobile: 50%;     /* altura: 50% = centro vertical */
   --nav-next-right-mobile: 16px;  /* distancia al borde derecho */
   --nav-next-top-mobile: 50%;     /* altura del botón siguiente */
-  --nav-progress-bottom-mobile: 20px; /* altura de la barrita de progreso */
+  --nav-progress-bottom-mobile: 94%; /* altura de la barrita de progreso */
 }
 
 * { box-sizing: border-box; }
@@ -203,7 +203,7 @@ html, body {
   z-index: 35;
   display: flex;
   gap: 8px;
-  padding: 12px;
+  padding: 10px;
   background: linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%);
   backdrop-filter: blur(8px);
 }
@@ -314,7 +314,7 @@ html, body {
     top: 80px;
   }
   .hamburger {
-    top: 40px;
+    top: 50px;
   }
 }
 
@@ -594,6 +594,13 @@ html, body {
 
 /* ====== MOBILE: navegación flotante limpia ====== */
 @media (max-width: 899px) {
+  .phase-filter {
+  z-index: 35;
+  gap: 8px;
+  padding: 10px;
+  background: linear-gradient(to bottom, #000, transparent);
+  backdrop-filter: none;
+}
   .ui {
     position: fixed;
     inset: 0;              /* ocupa todo el viewport */
@@ -641,7 +648,7 @@ html, body {
   .ui .progress {
     position: fixed;
     left: 50%;
-    bottom: var(--nav-progress-bottom-mobile);
+    bottom: 92%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -654,7 +661,7 @@ html, body {
 
   .ui .progress span {
     height: 3px;
-    width: 18px;
+    width: 120px;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.3);
     transition: background 0.2s ease, height 0.2s ease, width 0.2s ease;
@@ -663,7 +670,7 @@ html, body {
   .ui .progress span.active {
     background: var(--phase-color);
     height: 4px;
-    width: 22px;
+    width: 82px;
     box-shadow: 0 0 6px rgba(var(--phase-color-rgb), 0.8);
   }
 }
@@ -901,7 +908,37 @@ body.net-slow .drawer {
     padding: 3px 6px;
     margin-bottom: 4px;
   }
+   .ui .progress span {
+    width: 100px;
+  }
+
 }
+
+@media (max-width: 600px) {
+.ui .progress span {
+    width: 40px;
+  }
+
+  .ui .progress span.active {
+    width: 30px;
+  }
+}
+
+@media (max-width: 520px) {
+  .ui .progress {
+    bottom: 94%;
+  }
+.ui .progress span {
+    width: 40px;
+  }
+
+  .ui .progress span.active {
+    width: 30px;
+  }
+}
+
+
+
 
 /* Ensure minimum touch target size on mobile */
 @media (hover: none) {
