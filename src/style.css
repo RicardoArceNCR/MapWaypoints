@@ -937,9 +937,6 @@ body.net-slow .drawer {
   }
 }
 
-
-
-
 /* Ensure minimum touch target size on mobile */
 @media (hover: none) {
   .overlay-wrap.debug-hotspot {

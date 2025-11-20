@@ -13,12 +13,12 @@ export const MAPS_CONFIG = {
     phase: 'fase1',
     mapImage: {
       mobile: {
-        src: '/assets/mapa-mobile.webp?v=2025-11-20-1',
+        src: '/assets/mapa-mobile.webp?v=2025-11-20-2',
         logicalW: 2336,
         logicalH: 4192
       },
       desktop: {
-        src: '/assets/mapa-dektop.webp?v=2025-11-20-1',
+        src: '/assets/mapa-dektop.webp?v=2025-11-20-2',
         logicalW: 4240,
         logicalH: 2608
       },
