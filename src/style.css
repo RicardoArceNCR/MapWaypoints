@@ -617,11 +617,11 @@ html, body {
     width: 30px;
     height: 560px;
     border-radius: 0px;
-    background: rgba(78, 133, 134, 0.25);
-    border: 0px solid rgba(255, 255, 255, 0.45);
-    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.6);
+    background: none;
+    border: none;
+    box-shadow: none;
     pointer-events: auto; /* clicables otra vez */
-    filter: invert(1);
+    filter: opacity(0.5);
   }
 
   .ui .btn.prev {
