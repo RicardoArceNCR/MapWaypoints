@@ -138,7 +138,7 @@ function applyViewportCoverage() {
   let vh = Math.floor(window.innerHeight * coverage);
 
   const { VIEWPORT_GUARDS, BASE_ASPECT } = GLOBAL_CONFIG;
-  const isMobile = window.matchMedia('(max-width: 899px)').matches;
+  const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`).matches;
 
   if (!isMobile) {
     // Desktop: bandas problemáticas
@@ -338,7 +338,18 @@ let memoryMonitor = new MemoryMonitor();
 
 (() => {
   let { BASE_W, BASE_H } = GLOBAL_CONFIG;
-  const { TYPE_SPEED, EASE, MARKER_R, ICON_R, ICON_SIZE, DIALOG_BOX, DPR_MAX, CANVAS_MIN_HEIGHT } = GLOBAL_CONFIG;
+  const {
+    TYPE_SPEED,
+    EASE,
+    MARKER_R,
+    ICON_R,
+    ICON_SIZE,
+    DIALOG_BOX,
+    DPR_MAX,
+    CANVAS_MIN_HEIGHT,
+    MOBILE_BREAKPOINT,
+    CAM
+  } = GLOBAL_CONFIG;
 
   // ========= 🎯 PRE-CÁLCULO DE CONSTANTES =========
   const RENDER_CONSTANTS = Object.freeze({
@@ -745,7 +756,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     state.lineIndex = 0;
     const wp = state.currentWaypoints[i];
 
-    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`).matches;
     const hasWP = !!(GLOBAL_CONFIG && GLOBAL_CONFIG.WAYPOINT_OFFSET);
     const defaultOffset = isMobile ? (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.mobile : 0)
                                   : (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.desktop : 0);
@@ -802,7 +813,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       transitionState.active = false;
       const wp = state.currentWaypoints[state.idx];
       if (wp) {
-        const isMobile = window.matchMedia('(max-width: 899px)').matches;
+        const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`).matches;
         const hasWP = !!(GLOBAL_CONFIG && GLOBAL_CONFIG.WAYPOINT_OFFSET);
         const defaultOffset = isMobile ? (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.mobile : 0)
                                       : (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.desktop : 0);
@@ -1202,7 +1213,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const dpr = Math.min(DPR_MAX, window.devicePixelRatio || 1);
     const canvasLogicalW = canvas.width / dpr;
     const canvasLogicalH = canvas.height / dpr;
-    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`).matches;
     const dialogX = isMobile ? 0 : DIALOG_BOX.x;
     const dialogW = isMobile ? canvasLogicalW : DIALOG_BOX.w;
     const dialogH = isMobile ? 160 : DIALOG_BOX.h;
@@ -1763,7 +1774,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const now = performance.now();
     
     // Actualizar modo del dispositivo (mobile/desktop)
-    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`).matches;
     if (overlay?.setDevice) {
       overlay.setDevice(isMobile ? 'mobile' : 'desktop');
     }

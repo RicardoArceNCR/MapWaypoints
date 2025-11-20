@@ -1502,7 +1502,14 @@ export const GLOBAL_CONFIG = {
     minZ: 0.25, 
     maxZ: 3.2,
     defaultZMobile: 1.2, 
-    defaultZDesktop: 0.8
+    defaultZDesktop: 0.8,
+     // 🆕 Ajuste de cámara para pantallas pequeñas
+  smallViewport: {
+    enabled: true,
+    maxHeight: 720,   // px: debajo de esto consideramos pantalla "pequeña"
+    zScale: 0.9       // 90% del zoom original → se ve más mapa
+  }
+    
   },
 
   PERFORMANCE: {
