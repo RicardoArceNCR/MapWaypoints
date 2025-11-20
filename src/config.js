@@ -44,7 +44,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.17, z: 0.50 },
+        mobile: { xp: 0.84, yp: 0.19, z: 0.50 },
         desktop: { xp: 0.83, yp: 0.16, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -84,7 +84,7 @@ export const MAPS_CONFIG = {
       0: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -26, offsetY: -231, width: 470, height: 250, rotation: 9 },
+          mobile: { offsetX: -26, offsetY: -301, width: 370, height: 200, rotation: 9 },
           desktop: { offsetX: -465, offsetY: -61, width: 388, height: 230, rotation: -10 },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
@@ -169,7 +169,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -5, offsetY: 184, width: 490, height: 350, rotation: -9, radius: 0 },
+          mobile: { offsetX: -5, offsetY: 24, width: 400, height: 270, rotation: -9, radius: 0 },
           desktop: { offsetX: -115, offsetY: -101, width: 150, height: 156, rotation: 25 },
           
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
@@ -272,14 +272,14 @@ export const MAPS_CONFIG = {
       1: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -20, offsetY: -110, width: 346, height: 326, rotation: 6 },
+          mobile: { offsetX: -20, offsetY: -170, width: 306, height: 226, rotation: 6 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Evolución del Personaje',
           body: 'Cómo ha cambiado el protagonista desde el inicio. Nuevas perspectivas y aprendizajes adquiridos.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -15, offsetY: 278, width: 440, height: 236, rotation: -7 },
+          mobile: { offsetX: -15, offsetY: 88, width: 340, height: 206, rotation: -7 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Nuevos Encuentros',
           body: 'Personas que aparecen en este punto central. Su papel en el desarrollo de los eventos.'
