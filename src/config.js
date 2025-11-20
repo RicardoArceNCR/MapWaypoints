@@ -26,7 +26,7 @@ export const MAPS_CONFIG = {
     },
     waypoints: [
       { 
-        mobile: { xp: 0.17, yp: 0.17, z: 0.50 },
+        mobile: { xp: 0.17, yp: 0.21, z: 0.01 },
         desktop: { xp: 0.18, yp: 0.21, z: 1 },
         label: 'Inicio del Viaje', 
         lines: [
@@ -35,7 +35,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.50, yp: 0.17, z: 0.50 },
+        mobile: { xp: 0.50, yp: 0.21, z: 0.50 },
         desktop: { xp: 0.51, yp: 0.16, z: 0.91 },
         label: 'Punto Central', 
         lines: [
@@ -84,7 +84,7 @@ export const MAPS_CONFIG = {
       0: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -43, offsetY: -131, width: 290, height: 176, rotation: 0 },
+          mobile: { offsetX: -43, offsetY: -531, width: 290, height: 176, rotation: 0 },
           desktop: { offsetX: -465, offsetY: -61, width: 388, height: 230, rotation: -10 },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
@@ -169,7 +169,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 54, offsetY: 162, width: 261, height: 183, rotation: 0, radius: 0 },
+          mobile: { offsetX: 54, offsetY: -192, width: 261, height: 183, rotation: 0, radius: 0 },
           desktop: { offsetX: -115, offsetY: -101, width: 150, height: 156, rotation: 25 },
           
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
@@ -270,14 +270,14 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 190, offsetY: -396, width: 105, height: 105, rotation: 0, radius: 10 },
-          desktop: { offsetX: 233, offsetY: -61, width: 288, height: 185, rotation: 25, radius: 10  },
+          mobile: { offsetX: 190, offsetY: 26, width: 105, height: 105, rotation: 0, radius: 10 },
+          desktop: { offsetX: 293, offsetY: -201, width: 288, height: 185, rotation: 25, radius: 10  },
           title: 'Documento',
           body: 'Un documento importante encontrado en esta ubicación.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: -130, offsetY: 390, width: 119, height: 119, rotation: 0, radius: 20},
+          mobile: { offsetX: -130, offsetY: 100, width: 119, height: 119, rotation: 0, radius: 20},
           desktop: { offsetX: -1, offsetY: 142, width: 260, height: 160, rotation: 0, radius: 10},
           title: 'Contexto Geográfico',
           body: 'Ubicación específica y detalles del entorno. Características del lugar que influyen en los acontecimientos.'

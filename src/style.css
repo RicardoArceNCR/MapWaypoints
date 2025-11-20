@@ -268,7 +268,7 @@ html, body {
 /* ========= HAMBURGUESA (Mobile) ========= */
 .hamburger {
   position: absolute;
-  top: 96px;
+  top: 60px;
   right: 16px;
   z-index: 40;
   width: 48px;
@@ -288,12 +288,7 @@ html, body {
   justify-content: center;
 }
 
-/* Desktop: ocultar hamburguesa */
-@media (min-width: 900px) {
-  .hamburger {
-    display: none;
-  }
-}
+
 
 .hamburger:hover {
   background: rgba(0, 0, 0, 0.9);
@@ -317,6 +312,9 @@ html, body {
 @media (max-width: 899px) {
   .map-selector-wrapper {
     top: 80px;
+  }
+  .hamburger {
+    top: 40px;
   }
 }
 
@@ -386,11 +384,8 @@ html, body {
 
 /* Responsive: Ajustes para móvil (basado en tus breakpoints ~899px) */
 @media (max-width: 899px) {
-  #minimap {
-    bottom: 10px;                   /* Menos espacio en móvil para no tapar controles */
-    left: 10px;
-    width: 150px;                   /* Reduce tamaño para pantallas pequeñas */
-    height: 90px;
+   #minimap {
+    display: none;
   }
 }
 
@@ -619,25 +614,26 @@ html, body {
 
   .ui .btn {
     position: fixed;
-    width: 260px;
-    height: 260px;
-    border-radius: 999px;
-    background: rgba(0, 0, 0, 0.75);
-    border: 1.5px solid rgba(255, 255, 255, 0.35);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+    width: 30px;
+    height: 560px;
+    border-radius: 0px;
+    background: rgba(78, 133, 134, 0.25);
+    border: 0px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.6);
     pointer-events: auto; /* clicables otra vez */
+    filter: invert(1);
   }
 
   .ui .btn.prev {
     left: var(--nav-prev-left-mobile);
-    left: -220px;
+    left: 0px;
     top: var(--nav-prev-top-mobile);
     transform: translateY(-50%);
   }
 
   .ui .btn.next {
     right: var(--nav-next-right-mobile);
-    right: -220px;
+    right: 0px;
     top: var(--nav-next-top-mobile);
     transform: translateY(-50%);
   }
