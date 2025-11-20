@@ -26,7 +26,7 @@ export const MAPS_CONFIG = {
     },
     waypoints: [
       { 
-        mobile: { xp: 0.17, yp: 0.21, z: 0.01 },
+        mobile: { xp: 0.17, yp: 0.19, z: 0.1 },
         desktop: { xp: 0.18, yp: 0.21, z: 1 },
         label: 'Inicio del Viaje', 
         lines: [
@@ -35,7 +35,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.50, yp: 0.21, z: 0.50 },
+        mobile: { xp: 0.51, yp: 0.19, z: 0.1 },
         desktop: { xp: 0.51, yp: 0.16, z: 0.91 },
         label: 'Punto Central', 
         lines: [
@@ -84,7 +84,7 @@ export const MAPS_CONFIG = {
       0: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -43, offsetY: -531, width: 290, height: 176, rotation: 0 },
+          mobile: { offsetX: -26, offsetY: -231, width: 470, height: 250, rotation: 9 },
           desktop: { offsetX: -465, offsetY: -61, width: 388, height: 230, rotation: -10 },
           
           // ========= NUEVA ESTRUCTURA DETALLADA =========
@@ -169,7 +169,7 @@ export const MAPS_CONFIG = {
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 54, offsetY: -192, width: 261, height: 183, rotation: 0, radius: 0 },
+          mobile: { offsetX: -5, offsetY: 184, width: 490, height: 350, rotation: -9, radius: 0 },
           desktop: { offsetX: -115, offsetY: -101, width: 150, height: 156, rotation: 25 },
           
           // ========= SEGUNDA ESTRUCTURA DETALLADA =========
@@ -267,50 +267,22 @@ export const MAPS_CONFIG = {
               }
             ]
           }
-        },
-        { 
-          type: 'hotspot',
-          mobile: { offsetX: 190, offsetY: 26, width: 105, height: 105, rotation: 0, radius: 10 },
-          desktop: { offsetX: 293, offsetY: -201, width: 288, height: 185, rotation: 25, radius: 10  },
-          title: 'Documento',
-          body: 'Un documento importante encontrado en esta ubicación.'
-        },
-        { 
-          type: 'hotspot',
-          mobile: { offsetX: -130, offsetY: 100, width: 119, height: 119, rotation: 0, radius: 20},
-          desktop: { offsetX: -1, offsetY: 142, width: 260, height: 160, rotation: 0, radius: 10},
-          title: 'Contexto Geográfico',
-          body: 'Ubicación específica y detalles del entorno. Características del lugar que influyen en los acontecimientos.'
         }
       ],
       1: [
         { 
           type: 'hotspot',
-          mobile: { offsetX: -160, offsetY: -180, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -20, offsetY: -110, width: 346, height: 326, rotation: 6 },
           desktop: { offsetX: -90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Evolución del Personaje',
           body: 'Cómo ha cambiado el protagonista desde el inicio. Nuevas perspectivas y aprendizajes adquiridos.'
         },
         { 
           type: 'hotspot',
-          mobile: { offsetX: 160, offsetY: -180, width: 136, height: 136, rotation: 0 },
+          mobile: { offsetX: -15, offsetY: 278, width: 440, height: 236, rotation: -7 },
           desktop: { offsetX: 90, offsetY: -90, width: 136, height: 136, rotation: 0 },
           title: 'Nuevos Encuentros',
           body: 'Personas que aparecen en este punto central. Su papel en el desarrollo de los eventos.'
-        },
-        { 
-          type: 'hotspot',
-          mobile: { offsetX: -160, offsetY: 180, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: -160, offsetY: 190, width: 136, height: 136, rotation: 0 },
-          title: 'Elementos Descubiertos',
-          body: 'Nuevos objetos y recursos encontrados. Su utilidad y significado en esta etapa del viaje.'
-        },
-        { 
-          type: 'hotspot',
-          mobile: { offsetX: 60, offsetY: 80, width: 136, height: 136, rotation: 0 },
-          desktop: { offsetX: 90, offsetY: 90, width: 136, height: 136, rotation: 0 },
-          title: 'Zona Estratégica',
-          body: 'Importancia táctica de esta ubicación. Ventajas y desafíos que presenta el terreno.'
         }
       ],
       2: [
@@ -1374,9 +1346,9 @@ export const GLOBAL_CONFIG = {
   CAMERA_EFFECTS: {
     // Movimiento sutil constante (breathing)
     breathingEnabled: true,
-    breathingAmount: 15,        // Píxeles de movimiento en Y
+    breathingAmount: 11,        // Píxeles de movimiento en Y
     breathingSpeed: 0.0011,      // Velocidad de oscilación (más bajo = más lento)
-    breathingZAmount: 0.0039,    // Cambio sutil en zoom
+    breathingZAmount: 0.0030,    // Cambio sutil en zoom
     
     // Transición cinemática entre waypoints
     transitionEnabled: true,
