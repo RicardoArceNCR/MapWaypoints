@@ -36,6 +36,10 @@ window.togglePopupDisplay = (enable) => {
   }
 };
 
+function isMobileViewport() {
+  return window.matchMedia(`(max-width: ${GLOBAL_CONFIG.MOBILE_BREAKPOINT - 1}px)`).matches;
+}
+
 // ===== Helpers de URL y logger (seguros) =====
 function parseUrlToggles() {
   const params = new URLSearchParams(location.search);
@@ -138,7 +142,7 @@ function applyViewportCoverage() {
   let vh = Math.floor(window.innerHeight * coverage);
 
   const { VIEWPORT_GUARDS, BASE_ASPECT } = GLOBAL_CONFIG;
-  const isMobile = window.matchMedia('(max-width: 899px)').matches;
+  const isMobile = isMobileViewport();
 
   if (!isMobile) {
     // Desktop: bandas problemáticas
@@ -745,7 +749,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     state.lineIndex = 0;
     const wp = state.currentWaypoints[i];
 
-    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    const isMobile = isMobileViewport();
     const hasWP = !!(GLOBAL_CONFIG && GLOBAL_CONFIG.WAYPOINT_OFFSET);
     const defaultOffset = isMobile ? (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.mobile : 0)
                                   : (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.desktop : 0);
@@ -802,7 +806,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       transitionState.active = false;
       const wp = state.currentWaypoints[state.idx];
       if (wp) {
-        const isMobile = window.matchMedia('(max-width: 899px)').matches;
+        const isMobile = isMobileViewport();
         const hasWP = !!(GLOBAL_CONFIG && GLOBAL_CONFIG.WAYPOINT_OFFSET);
         const defaultOffset = isMobile ? (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.mobile : 0)
                                       : (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.desktop : 0);
@@ -1202,7 +1206,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const dpr = Math.min(DPR_MAX, window.devicePixelRatio || 1);
     const canvasLogicalW = canvas.width / dpr;
     const canvasLogicalH = canvas.height / dpr;
-    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    const isMobile = isMobileViewport();
     const dialogX = isMobile ? 0 : DIALOG_BOX.x;
     const dialogW = isMobile ? canvasLogicalW : DIALOG_BOX.w;
     const dialogH = isMobile ? 160 : DIALOG_BOX.h;
@@ -1763,7 +1767,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const now = performance.now();
     
     // Actualizar modo del dispositivo (mobile/desktop)
-    const isMobile = window.matchMedia('(max-width: 899px)').matches;
+    const isMobile = isMobileViewport();
     if (overlay?.setDevice) {
       overlay.setDevice(isMobile ? 'mobile' : 'desktop');
     }
