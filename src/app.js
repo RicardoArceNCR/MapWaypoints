@@ -178,10 +178,15 @@ function applyViewportCoverage() {
       // 👉 Permitimos scroll vertical para no cortar el canvas ni perder controles
       document.documentElement.style.overflowY = 'auto';
       document.body.style.overflowY = 'auto';
+      // 👉 Pero bloqueamos scroll horizontal
+      document.documentElement.style.overflowX = 'hidden';
+      document.body.style.overflowX = 'hidden';
     } else {
       // 👉 En móviles con altura suficiente seguimos en modo "cine" sin scroll
       document.documentElement.style.overflowY = 'hidden';
       document.body.style.overflowY = 'hidden';
+      document.documentElement.style.overflowX = 'hidden';
+      document.body.style.overflowX = 'hidden';
     }
   }
 
@@ -1665,18 +1670,18 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         }
       }
     }
-
-    // 4. Calcular DPR y dimensiones físicas
-    const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
-    const finalW = Math.round(displayW * dpr);
-    const finalH = Math.round(displayH * dpr);
-    
-    // 5. Validar dimensiones
+ 
+    // 4. Validar dimensiones
     const validation = validateCanvasDimensions(displayW, displayH, isMobile);
     if (validation.adjusted) {
       displayW = validation.width;
       displayH = validation.height;
     }
+
+    // 5. Calcular DPR y dimensiones físicas
+    const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
+    const finalW = Math.round(displayW * dpr);
+    const finalH = Math.round(displayH * dpr);
     
     // 6. Actualizar tamaño físico del canvas (device pixels)
     if (canvas.width !== finalW || canvas.height !== finalH) {

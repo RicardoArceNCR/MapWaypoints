@@ -14,7 +14,9 @@ export class OverlayLayer {
     this.device = 'mobile';
 
     // 🆕 Target táctil mínimo
-    this.touchTargetMin = window.matchMedia('(max-width: 899px)').matches ? 56 : 40;
+    this.touchTargetMin = window
+      .matchMedia(`(max-width: ${GLOBAL_CONFIG.MOBILE_BREAKPOINT - 1}px)`)
+      .matches ? 56 : 40;
 
     this._onPointerDown = this._onPointerDown.bind(this);
     this._onPointerUp = this._onPointerUp.bind(this);

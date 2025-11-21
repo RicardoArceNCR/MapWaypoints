@@ -45,7 +45,7 @@ export function initEditor() {
     gridSize: 10,
     needsRedraw: true,
     uiCollapsed: false,
-    isMobile: window.matchMedia('(max-width: 899px)').matches,
+    isMobile: window.matchMedia(`(max-width: ${GLOBAL_CONFIG.MOBILE_BREAKPOINT - 1}px)`).matches,
     
     
     // Waypoint edit mode
