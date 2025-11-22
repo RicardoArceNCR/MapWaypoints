@@ -26,8 +26,14 @@ export const MAPS_CONFIG = {
     },
     waypoints: [
       { 
-        mobile: { xp: 0.17, yp: 0.19, z: 0.1 },
+        mobile: { xp: 0.17, yp: 0.20, z: 0.56 },
         desktop: { xp: 0.18, yp: 0.21, z: 1 },
+  //       yOffset: {
+  //         short:   -920,   // pantallas muy bajas
+  //         medium:  -280,   // altura media
+  //         tall:    -120,   // móviles altos
+  //         default: -960    // fallback
+  // },
         label: 'Inicio del Viaje', 
         lines: [
           'Aquí comienza la historia. Un punto de partida crucial que marca el inicio de esta aventura.',
@@ -35,8 +41,8 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.51, yp: 0.19, z: 0.1 },
-        desktop: { xp: 0.51, yp: 0.16, z: 0.91 },
+        mobile: { xp: 0.51, yp: 0.20, z: 0.56 },
+        desktop: { xp: 0.51, yp: 0.16, z: 1 },
         label: 'Punto Central', 
         lines: [
           'En el corazón del territorio encontramos este lugar estratégico.',
@@ -44,7 +50,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.84, yp: 0.19, z: 0.50 },
+        mobile: { xp: 0.84, yp: 0.20, z: 0.56 },
         desktop: { xp: 0.83, yp: 0.16, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -426,7 +432,7 @@ export const MAPS_CONFIG = {
     },
     waypoints: [
       { 
-        mobile: { xp: 0.13, yp: 0.19, z: 0.30 },
+        mobile: { xp: 0.13, yp: 0.19, z: 0.50 },
         desktop: { xp: 0.299, yp: 0.26, z: 0.88 },
         label: 'Inicio del Viaje', 
         lines: [
@@ -435,7 +441,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.50, yp: 0.25, z: 0.10 },
+        mobile: { xp: 0.50, yp: 0.25, z: 0.50 },
         desktop: { xp: 0.750, yp: 0.25, z: 0.91 },
         label: 'Punto Central', 
         lines: [
@@ -444,7 +450,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.50 },
         desktop: { xp: 0.26, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -453,7 +459,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: -0.020 },
+        mobile: { xp: 0.82, yp: 0.800, z: 0.50 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -462,7 +468,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.50 },
         desktop: { xp: 0.26, yp: 1.20, z: 0.91 },
         label: 'Momento Culminanteeeee', 
         lines: [
@@ -471,7 +477,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.25, z: 0.010 },
+        mobile: { xp: 0.82, yp: 0.25, z: 0.50 },
         desktop: { xp: 0.725, yp: 1.25, z: 0.91 },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [
@@ -907,7 +913,7 @@ export const MAPS_CONFIG = {
         ] 
       },
       { 
-        mobile: { xp: 0.82, yp: 0.800, z: -0.020 },
+        mobile: { xp: 0.82, yp: 0.800, z: 0.91 },
         desktop: { xp: 0.750, yp: 0.75, z: 0.91 },
         label: 'Momento Culminante', 
         lines: [
@@ -1386,7 +1392,7 @@ export const GLOBAL_CONFIG = {
     },
     mobile: {
       // Si la altura lógica baja de 606 → congelamos a 606 y recortamos
-      minH: 668
+      minH: 636
     }
   },
   // Relación de aspecto base del mapa (si tu base es 1280x720, ajusta)

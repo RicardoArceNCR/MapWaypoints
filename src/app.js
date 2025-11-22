@@ -40,6 +40,17 @@ function isMobileViewport() {
   return window.matchMedia(`(max-width: ${GLOBAL_CONFIG.MOBILE_BREAKPOINT - 1}px)`).matches;
 }
 
+function getMobileHeightProfile() {
+  if (typeof window === 'undefined') return 'tall';
+
+  const h = window.innerHeight || window.screen?.height || 0;
+  if (!h) return 'tall';
+
+  if (h <= 640) return 'short';   // teléfonos bajitos
+  if (h <= 820) return 'medium';  // rango intermedio (tipo 596x903 de tu screenshot)
+  return 'tall';                  // teléfonos altos / phablets
+}
+
 // ===== Helpers de URL y logger (seguros) =====
 function parseUrlToggles() {
   const params = new URLSearchParams(location.search);
@@ -374,6 +385,16 @@ let memoryMonitor = new MemoryMonitor();
 
   // DOM
   const wrap = document.getElementById('mapa-canvas-wrapper');
+  
+  function getMobileHeightProfile() {
+    const h = (wrap && wrap.clientHeight) || window.innerHeight || 0;
+    if (!h) return 'default';
+
+    // Ajusta estos cortes a lo que veas en tus pruebas
+    if (h <= 600) return 'short';   // móviles muy bajos
+    if (h <= 740) return 'medium';  // la mayoría
+    return 'tall';                  // móviles "altos"
+  }
   const canvas = document.getElementById('mapa-canvas');
   if (!canvas) {
     showError('Canvas element #mapa-canvas not found in the DOM.');
@@ -750,24 +771,53 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
   function goToWaypoint(i) {
     if (!state.currentWaypoints.length) return;
+
     state.idx = i;
     state.lineIndex = 0;
     const wp = state.currentWaypoints[i];
+    if (!wp) return;
 
     const isMobile = isMobileViewport();
-    const hasWP = !!(GLOBAL_CONFIG && GLOBAL_CONFIG.WAYPOINT_OFFSET);
-    const defaultOffset = isMobile ? (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.mobile : 0)
-                                  : (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.desktop : 0);
-    const offsetValue = (wp.yOffset !== null && wp.yOffset !== undefined) ? wp.yOffset : defaultOffset;
-    const yOffset = offsetValue / (wp.z || 1.6);
+
+    // Offset vertical base (simple, sin perfiles raros)
+    const defaultOffset = isMobile
+      ? GLOBAL_CONFIG.WAYPOINT_OFFSET.mobile
+      : GLOBAL_CONFIG.WAYPOINT_OFFSET.desktop;
+
+    // Solo aceptamos yOffset numérico; si no hay, usamos el default
+    const offsetValue =
+      (typeof wp.yOffset === 'number')
+        ? wp.yOffset
+        : defaultOffset;
+
+    // Z base: lo que venga del waypoint, o el default global
+    const baseZ = wp.z || (isMobile
+      ? GLOBAL_CONFIG.CAM.defaultZMobile
+      : GLOBAL_CONFIG.CAM.defaultZDesktop);
+
+    // Clamp sencillo a los límites globales
+    const newTargetZ = clamp(
+      baseZ,
+      GLOBAL_CONFIG.CAM.minZ,
+      GLOBAL_CONFIG.CAM.maxZ
+    );
+
+    // Offset vertical normalizado por el zoom
+    const yOffset = offsetValue / newTargetZ;
 
     const newTargetX = wp.x;
     const newTargetY = wp.y + yOffset;
-    const newTargetZ = clamp(wp.z || 1.6, 0.6, 3.0);
 
+    // Posicionamiento inicial / transición cinemática
     if (state.isFirstLoad) {
-      camera.x = newTargetX; camera.y = newTargetY; camera.z = newTargetZ;
-      camTarget.x = newTargetX; camTarget.y = newTargetY; camTarget.z = newTargetZ;
+      camera.x = newTargetX;
+      camera.y = newTargetY;
+      camera.z = newTargetZ;
+
+      camTarget.x = newTargetX;
+      camTarget.y = newTargetY;
+      camTarget.z = newTargetZ;
+
       state.isFirstLoad = false;
     } else if (GLOBAL_CONFIG.CAMERA_EFFECTS.transitionEnabled) {
       transitionState.active = true;
@@ -778,7 +828,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       transitionState.targetPos = { x: newTargetX, y: newTargetY };
     }
 
-    camTarget.x = newTargetX; camTarget.y = newTargetY; camTarget.z = newTargetZ;
+    // Actualizar target aunque no haya transición
+    camTarget.x = newTargetX;
+    camTarget.y = newTargetY;
+    camTarget.z = newTargetZ;
+
     startTyping();
     uiManager.updateProgress(state.currentWaypoints.length, i);
     markDirty('camera', 'elements', 'dialog', 'minimap');
@@ -1708,17 +1762,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     // 10. Actualizar viewport de la cámara con las dimensiones lógicas
     if (window.cameraInstance) {
+      // Solo actualizamos el tamaño del viewport;
+      // NO tocamos x, y, z de la cámara aquí para no romper los waypoints.
       window.cameraInstance.setViewport(displayW, displayH);
-      
-      // Ajustar la cámara para que el mapa quepa correctamente
-      try {
-        const m = mapManager.currentMap?.config?.mapImage;
-        if (m?.logicalW && m?.logicalH) {
-          window.cameraInstance.fitBaseToViewport(m.logicalW, m.logicalH, 'contain');
-        }
-      } catch (err) {
-        console.error('Error ajustando cámara:', err);
-      }
     }
     
     // 11. Ahora que el canvas está configurado, actualizar el overlay
