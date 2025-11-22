@@ -648,15 +648,16 @@ html, body {
   .ui .progress {
     position: fixed;
     left: 50%;
-    bottom: 92%;
+    bottom: 93%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
     gap: 4px;
     padding: 6px 10px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 999px;
+    background: none;
+    border-radius: 0px;
     pointer-events: auto;
+    width: 100%;
   }
 
   .ui .progress span {
@@ -675,6 +676,13 @@ html, body {
   }
 }
 
+
+@media (max-width: 520px) {
+
+.ui .progress {
+    bottom: 94%;
+  }
+}
 
 /* ========= LOADING OVERLAY ========= */
 .loading-overlay {
@@ -914,28 +922,7 @@ body.net-slow .drawer {
 
 }
 
-@media (max-width: 600px) {
-.ui .progress span {
-    width: 40px;
-  }
 
-  .ui .progress span.active {
-    width: 30px;
-  }
-}
-
-@media (max-width: 520px) {
-  .ui .progress {
-    bottom: 94%;
-  }
-.ui .progress span {
-    width: 40px;
-  }
-
-  .ui .progress span.active {
-    width: 30px;
-  }
-}
 
 /* Ensure minimum touch target size on mobile */
 @media (hover: none) {

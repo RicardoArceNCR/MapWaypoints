@@ -28,6 +28,7 @@ export const MAPS_CONFIG = {
       { 
         mobile: { xp: 0.17, yp: 0.20, z: 0.56 },
         desktop: { xp: 0.18, yp: 0.21, z: 1 },
+        // yOffset: 5,
   //       yOffset: {
   //         short:   -920,   // pantallas muy bajas
   //         medium:  -280,   // altura media
@@ -1471,8 +1472,8 @@ export const GLOBAL_CONFIG = {
   },
   
   WAYPOINT_OFFSET: {
-    mobile: 0,
-    desktop: 0
+    mobile: -10,
+    desktop: -5
   },
 
   BASE_W: 1280,
