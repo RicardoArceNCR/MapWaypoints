@@ -679,33 +679,35 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   // ========= SYNC HOTSPOT DATA =========
   function syncHotspotData(mapData) {
     if (!mapData) return;
-    
-    // Initialize or update the shared hotspot data
+
+    // Inicializar o actualizar el arreglo compartido de hotspots
     if (!window.hotspotData) {
       window.hotspotData = [];
     }
-    
-    // Update hotspot data from the map data
+
+    // Actualizar hotspotData a partir del mapa
     if (mapData.hotspots && Array.isArray(mapData.hotspots)) {
       mapData.hotspots.forEach((hotspot, index) => {
         if (hotspot && hotspot.coords) {
-          // Preserve existing hotspot data if it exists
+          // Mezcla: datos nuevos + coords previas (si existían)
           window.hotspotData[index] = {
             ...hotspot,
             coords: {
               ...(window.hotspotData[index]?.coords || {}),
-              ...hotspot.coords
-            }
+              ...hotspot.coords,
+            },
           };
         }
       });
     }
-    
-    // Notify that hotspot data has been updated
-    window.dispatchEvent(new CustomEvent('hotspotData:updated', {
-      detail: { hotspots: window.hotspotData }
-    }));
-    
+
+    // Notificar que se actualizó la data de hotspots (para el editor, etc.)
+    window.dispatchEvent(
+      new CustomEvent('hotspotData:updated', {
+        detail: { hotspots: window.hotspotData },
+      })
+    );
+
     return window.hotspotData;
   }
 
@@ -767,7 +769,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     await loadMap(firstMapId);
     uiManager.updateMapSelector();
   }
-  async function handleMapChange(mapId) { await loadMap(mapId); }
+
+  async function handleMapChange(mapId) {
+    await loadMap(mapId);
+  }
 
   function goToWaypoint(i) {
     if (!state.currentWaypoints.length) return;
@@ -779,36 +784,50 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     const isMobile = isMobileViewport();
 
-    // Offset vertical base (simple, sin perfiles raros)
+    // 1) Offset vertical base global
     const defaultOffset = isMobile
       ? GLOBAL_CONFIG.WAYPOINT_OFFSET.mobile
       : GLOBAL_CONFIG.WAYPOINT_OFFSET.desktop;
 
-    // Solo aceptamos yOffset numérico; si no hay, usamos el default
-    const offsetValue =
-      (typeof wp.yOffset === 'number')
-        ? wp.yOffset
-        : defaultOffset;
+    let offsetValue = defaultOffset;
 
-    // Z base: lo que venga del waypoint, o el default global
+    // 2) Override opcional por waypoint (numérico u objeto por altura)
+    if (wp.yOffset !== null && wp.yOffset !== undefined) {
+      if (typeof wp.yOffset === 'number') {
+        // Comportamiento antiguo 1:1 (no rompes nada existente)
+        offsetValue = wp.yOffset;
+      } else if (isMobile && typeof wp.yOffset === 'object') {
+        const profile = getMobileHeightProfile(); // 'short' | 'medium' | 'tall' | 'default'
+        const cfg = wp.yOffset;
+
+        if (profile && typeof cfg[profile] === 'number') {
+          offsetValue = cfg[profile];
+        } else if (typeof cfg.default === 'number') {
+          offsetValue = cfg.default;
+        }
+        // Si tampoco hay default, se queda con defaultOffset
+      }
+    }
+
+    // 3) Z base: lo que venga del waypoint, o el default global
     const baseZ = wp.z || (isMobile
       ? GLOBAL_CONFIG.CAM.defaultZMobile
       : GLOBAL_CONFIG.CAM.defaultZDesktop);
 
-    // Clamp sencillo a los límites globales
+    // 4) Clamp sencillo a los límites globales
     const newTargetZ = clamp(
       baseZ,
       GLOBAL_CONFIG.CAM.minZ,
       GLOBAL_CONFIG.CAM.maxZ
     );
 
-    // Offset vertical normalizado por el zoom
+    // 5) Offset vertical normalizado por el zoom
     const yOffset = offsetValue / newTargetZ;
 
     const newTargetX = wp.x;
     const newTargetY = wp.y + yOffset;
 
-    // Posicionamiento inicial / transición cinemática
+    // 6) Posicionamiento inicial / transición cinemática
     if (state.isFirstLoad) {
       camera.x = newTargetX;
       camera.y = newTargetY;
@@ -828,7 +847,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       transitionState.targetPos = { x: newTargetX, y: newTargetY };
     }
 
-    // Actualizar target aunque no haya transición
+    // 7) Actualizar target aunque no haya transición
     camTarget.x = newTargetX;
     camTarget.y = newTargetY;
     camTarget.z = newTargetZ;
@@ -866,12 +885,45 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const wp = state.currentWaypoints[state.idx];
       if (wp) {
         const isMobile = isMobileViewport();
+
+        const viewportH = (typeof window !== 'undefined')
+          ? (window.innerHeight || window.screen?.height || 0)
+          : 0;
+        const isTallMobile = isMobile && viewportH >= 844;
+
         const hasWP = !!(GLOBAL_CONFIG && GLOBAL_CONFIG.WAYPOINT_OFFSET);
-        const defaultOffset = isMobile ? (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.mobile : 0)
-                                      : (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.desktop : 0);
-        const offsetValue = (wp.yOffset !== null && wp.yOffset !== undefined) ? wp.yOffset : defaultOffset;
-        const yOffset = offsetValue / (wp.z || 1.6);
-        camTarget.x = wp.x; camTarget.y = wp.y + yOffset; camTarget.z = transitionState.targetZ;
+        const defaultOffset = isMobile
+          ? (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.mobile : 0)
+          : (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.desktop : 0);
+
+        let offsetValue =
+          (typeof wp.yOffset === 'number')
+            ? wp.yOffset
+            : defaultOffset;
+
+        let baseZ = wp.z || (isMobile
+          ? GLOBAL_CONFIG.CAM.defaultZMobile
+          : GLOBAL_CONFIG.CAM.defaultZDesktop);
+
+        if (isTallMobile && wp.mobileTall) {
+          if (typeof wp.mobileTall.yOffset === 'number') {
+            offsetValue = wp.mobileTall.yOffset;
+          }
+          if (typeof wp.mobileTall.z === 'number') {
+            baseZ = wp.mobileTall.z;
+          }
+        }
+
+        const finalZ = clamp(
+          baseZ,
+          GLOBAL_CONFIG.CAM.minZ,
+          GLOBAL_CONFIG.CAM.maxZ
+        );
+
+        const yOffset = offsetValue / finalZ;
+        camTarget.x = wp.x;
+        camTarget.y = wp.y + yOffset;
+        camTarget.z = finalZ;
       }
     }
     markDirty('camera', 'elements', 'minimap');

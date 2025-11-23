@@ -28,13 +28,13 @@ export const MAPS_CONFIG = {
       { 
         mobile: { xp: 0.17, yp: 0.20, z: 0.56 },
         desktop: { xp: 0.18, yp: 0.21, z: 1 },
-        // yOffset: 5,
-  //       yOffset: {
-  //         short:   -920,   // pantallas muy bajas
-  //         medium:  -280,   // altura media
-  //         tall:    -120,   // móviles altos
-  //         default: -960    // fallback
-  // },
+        yOffset: {
+          default: -0,
+          tall:   -90,  // pantallas muy altas (por ejemplo iPhone alto)
+          medium: -10,  // medianas (puedes poner otro valor si quieres)
+          short:  30  // pantallas bajas
+        },
+    
         label: 'Inicio del Viaje', 
         lines: [
           'Aquí comienza la historia. Un punto de partida crucial que marca el inicio de esta aventura.',
@@ -44,6 +44,12 @@ export const MAPS_CONFIG = {
       { 
         mobile: { xp: 0.51, yp: 0.20, z: 0.56 },
         desktop: { xp: 0.51, yp: 0.16, z: 1 },
+        yOffset: {
+          default: -0,
+          tall:   -90,  // pantallas muy altas (por ejemplo iPhone alto)
+          medium: -10,  // medianas (puedes poner otro valor si quieres)
+          short:  30  // pantallas bajas
+        },
         label: 'Punto Central', 
         lines: [
           'En el corazón del territorio encontramos este lugar estratégico.',
@@ -53,6 +59,12 @@ export const MAPS_CONFIG = {
       { 
         mobile: { xp: 0.84, yp: 0.20, z: 0.54 },
         desktop: { xp: 0.83, yp: 0.16, z: 0.91 },
+        yOffset: {
+          default: -0,
+          tall:   -90,  // pantallas muy altas (por ejemplo iPhone alto)
+          medium: -10,  // medianas (puedes poner otro valor si quieres)
+          short:  30  // pantallas bajas
+        },
         label: 'Momento Culminante', 
         lines: [
           'Este es el punto donde todo cambia. Un momento decisivo en la narrativa.',
@@ -62,6 +74,12 @@ export const MAPS_CONFIG = {
       { 
         mobile: { xp: 0.17, yp: 0.54, z: 0.50 },
         desktop: { xp: 0.18, yp: 0.50, z: 0.91 },
+        yOffset: {
+          default: -0,
+          tall:   -90,  // pantallas muy altas (por ejemplo iPhone alto)
+          medium: -10,  // medianas (puedes poner otro valor si quieres)
+          short:  30  // pantallas bajas
+        },
         label: 'Momento Culminante', 
         lines: [
           'Este es el punto donde todo cambia. Un momento decisivo en la narrativa.',
@@ -71,6 +89,12 @@ export const MAPS_CONFIG = {
       { 
         mobile: { xp: 0.51, yp: 0.54, z: 0.50 },
         desktop: { xp: 0.51, yp: 0.50, z: 0.91 },
+        yOffset: {
+          default: -0,
+          tall:   -90,  // pantallas muy altas (por ejemplo iPhone alto)
+          medium: -10,  // medianas (puedes poner otro valor si quieres)
+          short:  30  // pantallas bajas
+        },
         label: 'Momento Culminanteeeee', 
         lines: [
           'Este es el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.',
@@ -80,6 +104,12 @@ export const MAPS_CONFIG = {
       { 
         mobile: { xp: 0.84, yp: 0.54, z: 0.50 },
         desktop: { xp: 0.83, yp: 0.50, z: 0.91 },
+        yOffset: {
+          default: -0,
+          tall:   -90,  // pantallas muy altas (por ejemplo iPhone alto)
+          medium: -10,  // medianas (puedes poner otro valor si quieres)
+          short:  30  // pantallas bajas
+        },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [
           'Este esu748484484884 el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.',
@@ -1336,10 +1366,10 @@ export const GLOBAL_CONFIG = {
   // Estilos para iconos y hotspots
   ICON_STYLES: {
     showBackground: true,  // Fondo semi-transparente en debug (opcional)
-    backgroundColor: 'rgba(0, 209, 255, .18)',  // Fondo azul claro
-    borderColor: 'rgba(255,255,255,.55)',  // Color del marco blanco semi-transparente
-    borderWidth: 3,  // Grosor del marco (aumentado a 3px para mejor visibilidad en mobile)
-    debugFill: 'rgba(255,0,0,0.12)'  // Fondo rojo sutil para hotspots en debug
+    backgroundColor: 'rgba(0, 209, 255, 0)',  // Fondo azul claro
+    borderColor: 'rgba(255, 255, 255, 1)',  // Color del marco blanco semi-transparente
+    borderWidth: 5,  // Grosor del marco (aumentado a 3px para mejor visibilidad en mobile)
+    debugFill: 'rgba(255,0,0,0)'  // Fondo rojo sutil para hotspots en debug
   },
   
   // Configuración de toque
@@ -1393,7 +1423,7 @@ export const GLOBAL_CONFIG = {
     },
     mobile: {
       // Si la altura lógica baja de 606 → congelamos a 606 y recortamos
-      minH: 636
+      minH: 0
     }
   },
   // Relación de aspecto base del mapa (si tu base es 1280x720, ajusta)
