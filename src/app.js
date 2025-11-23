@@ -896,23 +896,26 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           ? (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.mobile : 0)
           : (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.desktop : 0);
 
-        let offsetValue =
-          (typeof wp.yOffset === 'number')
-            ? wp.yOffset
-            : defaultOffset;
+        let offsetValue = defaultOffset;
 
-        let baseZ = wp.z || (isMobile
-          ? GLOBAL_CONFIG.CAM.defaultZMobile
-          : GLOBAL_CONFIG.CAM.defaultZDesktop);
+        if (wp.yOffset !== null && wp.yOffset !== undefined) {
+          if (typeof wp.yOffset === 'number') {
+            offsetValue = wp.yOffset;
+          } else if (isMobile && typeof wp.yOffset === 'object') {
+            const profile = getMobileHeightProfile();
+            const cfg = wp.yOffset;
 
-        if (isTallMobile && wp.mobileTall) {
-          if (typeof wp.mobileTall.yOffset === 'number') {
-            offsetValue = wp.mobileTall.yOffset;
-          }
-          if (typeof wp.mobileTall.z === 'number') {
-            baseZ = wp.mobileTall.z;
+            if (profile && typeof cfg[profile] === 'number') {
+              offsetValue = cfg[profile];
+            } else if (typeof cfg.default === 'number') {
+              offsetValue = cfg.default;
+            }
           }
         }
+
+        const baseZ = wp.z || (isMobile
+          ? GLOBAL_CONFIG.CAM.defaultZMobile
+          : GLOBAL_CONFIG.CAM.defaultZDesktop);
 
         const finalZ = clamp(
           baseZ,
