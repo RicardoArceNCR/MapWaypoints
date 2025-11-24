@@ -1381,17 +1381,30 @@ export const GLOBAL_CONFIG = {
   
   // ========= EFECTOS DE CÁMARA =========
   CAMERA_EFFECTS: {
-    // Movimiento sutil constante (breathing)
+    // Movimiento sutil constante (breathing) – DESKTOP (defaults)
     breathingEnabled: true,
     breathingAmount: 11,        // Píxeles de movimiento en Y
-    breathingSpeed: 0.0011,      // Velocidad de oscilación (más bajo = más lento)
-    breathingZAmount: 0.0030,    // Cambio sutil en zoom
-    
+    breathingSpeed: 0.0011,     // Velocidad de oscilación (más bajo = más lento)
+    breathingZAmount: 0.0030,   // Cambio sutil en zoom
+
+    // 🆕 Perfil específico para mobile
+    breathingMobileEnabled: true, // ponlo en false si quieres apagar breathing en mobile
+    breathingMobile: {
+      amount: 7,        // menos movimiento en Y para pantallas chicas
+      speed: 0.0010,    // puedes bajarlo aún más si quieres más "lento"
+      zAmount: 0.0020   // cambio de zoom más sutil
+    },
+
     // Transición cinemática entre waypoints
     transitionEnabled: true,
-    transitionDuration: 1100,    // Milisegundos
-    transitionZoomOut: 0.20,     // Cuánto hacer zoom out (0.25 = -25% del zoom actual)
+    transitionDuration: 1100,       // Desktop
+    // 🆕 Duración específica para mobile
+    transitionDurationMobile: 800,  // Mobile (ajusta al gusto)
+    transitionZoomOut: 0.20,        // Cuánto hacer zoom out (0.25 = -25% del zoom actual)
     transitionEasing: 'ease-in-out', // 'linear', 'ease-in', 'ease-out', 'ease-in-out'
+
+    // 🆕 Opcional: evitar breathing durante la transición
+    disableBreathingDuringTransition: true
   },
   
   // ========= 🆕 LÍMITES DE CANVAS OPTIMIZADOS =========

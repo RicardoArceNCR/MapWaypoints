@@ -497,7 +497,16 @@ let memoryMonitor = new MemoryMonitor();
   window.markDirty = markDirty;  // Exponer para uso global (e.g., togglePopupDisplay)
   function clearDirtyFlags(){ Object.keys(dirtyFlags).forEach(k=> dirtyFlags[k]=false); }
   function needsRedraw(){
-    return dirtyFlags.camera||dirtyFlags.elements||dirtyFlags.dialog||dirtyFlags.minimap||dirtyFlags.debug||dirtyFlags.cameraMoving||state.typing||transitionState.active||GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled;
+    return (
+      dirtyFlags.camera ||
+      dirtyFlags.elements ||
+      dirtyFlags.dialog ||
+      dirtyFlags.minimap ||
+      dirtyFlags.debug ||
+      dirtyFlags.cameraMoving ||
+      state.typing ||
+      transitionState.active
+    );
   }
 
   const transitionState = { active:false, startTime:0, duration:GLOBAL_CONFIG.CAMERA_EFFECTS.transitionDuration, startZ:1.0, targetZ:1.0, peakZOffset:GLOBAL_CONFIG.CAMERA_EFFECTS.transitionZoomOut, startPos:{x:0,y:0}, targetPos:{x:0,y:0} };
@@ -841,6 +850,15 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     } else if (GLOBAL_CONFIG.CAMERA_EFFECTS.transitionEnabled) {
       transitionState.active = true;
       transitionState.startTime = performance.now();
+
+      // 🆕 Duración según device
+      const effects = GLOBAL_CONFIG.CAMERA_EFFECTS;
+      const isMobile = isMobileViewport();
+      transitionState.duration =
+        isMobile && effects.transitionDurationMobile
+          ? effects.transitionDurationMobile
+          : effects.transitionDuration;
+
       transitionState.startZ = camera.z;
       transitionState.targetZ = newTargetZ;
       transitionState.startPos = { x: camera.x, y: camera.y };
@@ -1949,11 +1967,36 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     overlay.beginFrame();
 
     let breathOffsetY = 0, breathOffsetZ = 0;
-  if (GLOBAL_CONFIG.CAMERA_EFFECTS.breathingEnabled && !appConfig.editorActive) {
-      const breath = Math.sin(ts * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingSpeed);
-      breathOffsetY = breath * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingAmount;
-      breathOffsetZ = breath * GLOBAL_CONFIG.CAMERA_EFFECTS.breathingZAmount;
-      if (Math.abs(breathOffsetY) > 0.1 || Math.abs(breathOffsetZ) > 0.0001) markDirty('camera');
+    const effects = GLOBAL_CONFIG.CAMERA_EFFECTS;
+    const isMobile = isMobileViewport();
+
+    const breathingAllowed =
+      effects.breathingEnabled &&
+      (!isMobile || effects.breathingMobileEnabled !== false) &&
+      !appConfig.editorActive &&
+      (!effects.disableBreathingDuringTransition || !transitionState.active);
+
+    if (breathingAllowed) {
+      const breathCfg =
+        isMobile && effects.breathingMobile
+          ? effects.breathingMobile
+          : {
+              amount: effects.breathingAmount,
+              speed: effects.breathingSpeed,
+              zAmount: effects.breathingZAmount
+            };
+
+      const speed = breathCfg.speed ?? effects.breathingSpeed;
+      const amount = breathCfg.amount ?? effects.breathingAmount;
+      const zAmount = breathCfg.zAmount ?? effects.breathingZAmount;
+
+      const breath = Math.sin(ts * speed);
+      breathOffsetY = breath * amount;
+      breathOffsetZ = breath * zAmount;
+
+      if (Math.abs(breathOffsetY) > 0.1 || Math.abs(breathOffsetZ) > 0.0001) {
+        markDirty('camera');
+      }
     }
 
     const prevCameraX = camera.x, prevCameraY = camera.y, prevCameraZ = camera.z;
