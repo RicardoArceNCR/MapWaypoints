@@ -1791,25 +1791,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
     applyFillScale(fill); // Ajusta el alto visible sin deformar el bitmap
 
-    // 3. Ajustar por ratio del mapa en modos responsivos
+    // 3. Canvas siempre full wrapper: el recorte lo controla la cámara/waypoints
     let displayW = canvasW;
     let displayH = canvasH;
-    
-    if (mapConfig?.logicalW && mapConfig?.logicalH) {
-      const mapRatio = mapConfig.logicalW / mapConfig.logicalH;
-      if (isMobile || isFullBleed) {
-        const byWidthH = canvasW / mapRatio;
-        const byHeightW = canvasH * mapRatio;
-        
-        if (byWidthH <= canvasH) {
-          displayH = Math.max(byWidthH, CANVAS_MIN_HEIGHT);
-          displayW = canvasW;
-        } else {
-          displayW = Math.max(byHeightW, 320);
-          displayH = canvasH;
-        }
-      }
-    }
  
     // 4. Validar dimensiones
     const validation = validateCanvasDimensions(displayW, displayH, isMobile);
