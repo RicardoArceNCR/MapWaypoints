@@ -903,63 +903,42 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
   function updateTransition(ts) {
     if (!transitionState.active) return;
+
     const elapsed = ts - transitionState.startTime;
     const progress = Math.min(elapsed / transitionState.duration, 1);
     const eased = ease(progress);
+
+    // Zoom "cinemático"
     const zProgress = Math.sin(eased * Math.PI);
-    const zModifier = transitionState.startZ - (transitionState.startZ * transitionState.peakZOffset * zProgress);
-    const currentX = transitionState.startPos.x + (transitionState.targetPos.x - transitionState.startPos.x) * eased;
-    const currentY = transitionState.startPos.y + (transitionState.targetPos.y - transitionState.startPos.y) * eased;
-    camTarget.x = currentX; camTarget.y = currentY; camTarget.z = clamp(zModifier, 0.4, 3.0);
+    const zModifier =
+      transitionState.startZ -
+      (transitionState.startZ * transitionState.peakZOffset * zProgress);
+
+    // Interpolación de posición
+    const currentX =
+      transitionState.startPos.x +
+      (transitionState.targetPos.x - transitionState.startPos.x) * eased;
+    const currentY =
+      transitionState.startPos.y +
+      (transitionState.targetPos.y - transitionState.startPos.y) * eased;
+
+    // Durante la transición usamos el z "modificado"
+    camTarget.x = currentX;
+    camTarget.y = currentY;
+    camTarget.z = clamp(zModifier, 0.4, 3.0);
+
+    // Al terminar, confiamos 100% en el target que fijó goToWaypoint
     if (progress >= 1) {
       transitionState.active = false;
-      const wp = state.currentWaypoints[state.idx];
-      if (wp) {
-        const isMobile = isMobileViewport();
-
-        const viewportH = (typeof window !== 'undefined')
-          ? (window.innerHeight || window.screen?.height || 0)
-          : 0;
-        const isTallMobile = isMobile && viewportH >= 844;
-
-        const hasWP = !!(GLOBAL_CONFIG && GLOBAL_CONFIG.WAYPOINT_OFFSET);
-        const defaultOffset = isMobile
-          ? (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.mobile : 0)
-          : (hasWP ? GLOBAL_CONFIG.WAYPOINT_OFFSET.desktop : 0);
-
-        let offsetValue = defaultOffset;
-
-        if (wp.yOffset !== null && wp.yOffset !== undefined) {
-          if (typeof wp.yOffset === 'number') {
-            offsetValue = wp.yOffset;
-          } else if (isMobile && typeof wp.yOffset === 'object') {
-            const profile = getMobileHeightProfile();
-            const cfg = wp.yOffset;
-
-            if (profile && typeof cfg[profile] === 'number') {
-              offsetValue = cfg[profile];
-            } else if (typeof cfg.default === 'number') {
-              offsetValue = cfg.default;
-            }
-          }
-        }
-
-        const baseZ = wp.z || (isMobile
-          ? GLOBAL_CONFIG.CAM.defaultZMobile
-          : GLOBAL_CONFIG.CAM.defaultZDesktop);
-
-        const finalZ = clamp(
-          baseZ,
-          GLOBAL_CONFIG.CAM.minZ,
-          GLOBAL_CONFIG.CAM.maxZ
-        );
-
-        const yOffset = offsetValue / finalZ;
-        camTarget.x = wp.x;
-        camTarget.y = wp.y + yOffset;
-        camTarget.z = finalZ;
+      if (transitionState.targetPos) {
+        camTarget.x = transitionState.targetPos.x;
+        camTarget.y = transitionState.targetPos.y;
+      }
+      if (typeof transitionState.targetZ === 'number') {
+        camTarget.z = transitionState.targetZ;
       }
     }
+
     markDirty('camera', 'elements', 'minimap');
   }
 
