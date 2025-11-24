@@ -31,8 +31,14 @@ export const MAPS_CONFIG = {
         yOffset: {
           default: -0,
           tall:   -90,  // pantallas muy altas (por ejemplo iPhone alto)
-          medium: -10,  // medianas (puedes poner otro valor si quieres)
+          medium: -40,  // medianas (puedes poner otro valor si quieres)
           short:  30  // pantallas bajas
+        },
+        zMobileProfile: {
+          default: 0.56, // valor base
+          tall:    0.66, // pantallas muy altas, puedes alejar un poco
+          medium:  0.60, // intermedias
+          short:   0.52  // teléfonos bajitos: más zoom-out para ver más mapa
         },
     
         label: 'Inicio del Viaje', 
@@ -47,8 +53,14 @@ export const MAPS_CONFIG = {
         yOffset: {
           default: -0,
           tall:   -90,  // pantallas muy altas (por ejemplo iPhone alto)
-          medium: -10,  // medianas (puedes poner otro valor si quieres)
+          medium: -40,  // medianas (puedes poner otro valor si quieres)
           short:  30  // pantallas bajas
+        },
+        zMobileProfile: {
+          default: 0.56, // valor base
+          tall:    0.66, // pantallas muy altas, puedes alejar un poco
+          medium:  0.60, // intermedias
+          short:   0.52  // teléfonos bajitos: más zoom-out para ver más mapa
         },
         label: 'Punto Central', 
         lines: [
@@ -62,8 +74,14 @@ export const MAPS_CONFIG = {
         yOffset: {
           default: -0,
           tall:   -90,  // pantallas muy altas (por ejemplo iPhone alto)
-          medium: -10,  // medianas (puedes poner otro valor si quieres)
+          medium: -40,  // medianas (puedes poner otro valor si quieres)
           short:  30  // pantallas bajas
+        },
+        zMobileProfile: {
+          default: 0.56, // valor base
+          tall:    0.66, // pantallas muy altas, puedes alejar un poco
+          medium:  0.60, // intermedias
+          short:   0.52  // teléfonos bajitos: más zoom-out para ver más mapa
         },
         label: 'Momento Culminante', 
         lines: [
@@ -77,8 +95,14 @@ export const MAPS_CONFIG = {
         yOffset: {
           default: -0,
           tall:   -90,  // pantallas muy altas (por ejemplo iPhone alto)
-          medium: -10,  // medianas (puedes poner otro valor si quieres)
+          medium: -40,  // medianas (puedes poner otro valor si quieres)
           short:  30  // pantallas bajas
+        },
+        zMobileProfile: {
+          default: 0.56, // valor base
+          tall:    0.66, // pantallas muy altas, puedes alejar un poco
+          medium:  0.60, // intermedias
+          short:   0.52  // teléfonos bajitos: más zoom-out para ver más mapa
         },
         label: 'Momento Culminante', 
         lines: [
@@ -92,8 +116,14 @@ export const MAPS_CONFIG = {
         yOffset: {
           default: -0,
           tall:   -90,  // pantallas muy altas (por ejemplo iPhone alto)
-          medium: -10,  // medianas (puedes poner otro valor si quieres)
+          medium: -40,  // medianas (puedes poner otro valor si quieres)
           short:  30  // pantallas bajas
+        },
+        zMobileProfile: {
+          default: 0.56, // valor base
+          tall:    0.66, // pantallas muy altas, puedes alejar un poco
+          medium:  0.60, // intermedias
+          short:   0.52  // teléfonos bajitos: más zoom-out para ver más mapa
         },
         label: 'Momento Culminanteeeee', 
         lines: [
@@ -107,8 +137,14 @@ export const MAPS_CONFIG = {
         yOffset: {
           default: -0,
           tall:   -90,  // pantallas muy altas (por ejemplo iPhone alto)
-          medium: -10,  // medianas (puedes poner otro valor si quieres)
+          medium: -40,  // medianas (puedes poner otro valor si quieres)
           short:  30  // pantallas bajas
+        },
+        zMobileProfile: {
+          default: 0.56, // valor base
+          tall:    0.66, // pantallas muy altas, puedes alejar un poco
+          medium:  0.60, // intermedias
+          short:   0.52  // teléfonos bajitos: más zoom-out para ver más mapa
         },
         label: 'mmmmmMomento Culminanteeeee', 
         lines: [

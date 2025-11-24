@@ -26,7 +26,8 @@ body.overlays-ready #overlay-layer {
 #mapa-canvas-wrapper { 
   position: relative; 
   margin: 0 auto; 
-  overflow: hidden; 
+  overflow: hidden;
+  border: 8px solid blue; 
 }
 
 /* ========================================================= */
@@ -131,6 +132,7 @@ html, body {
   position: relative;
   margin: 0 auto;
   display: block;
+  border: 12px solid rgb(255, 233, 35); 
   /* JS ajusta width/height en cada resize */
 }
 

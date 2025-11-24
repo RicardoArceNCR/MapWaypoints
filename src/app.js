@@ -819,9 +819,22 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
 
     // 3) Z base: lo que venga del waypoint, o el default global
-    const baseZ = wp.z || (isMobile
+    let baseZ = wp.z || (isMobile
       ? GLOBAL_CONFIG.CAM.defaultZMobile
       : GLOBAL_CONFIG.CAM.defaultZDesktop);
+
+    // 3.1) Override opcional: perfil de Z solo para mobile según altura de pantalla
+    if (isMobile && wp.zMobileProfile && typeof wp.zMobileProfile === 'object') {
+      const profile = getMobileHeightProfile();  // 'short' | 'medium' | 'tall' | 'default'
+      const cfgZ = wp.zMobileProfile;
+
+      if (profile && typeof cfgZ[profile] === 'number') {
+        baseZ = cfgZ[profile];
+      } else if (typeof cfgZ.default === 'number') {
+        baseZ = cfgZ.default;
+      }
+      // Si no hay ni perfil ni default, se queda con baseZ tal cual.
+    }
 
     // 4) Clamp sencillo a los límites globales
     const newTargetZ = clamp(
