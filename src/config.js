@@ -26,13 +26,13 @@ export const MAPS_CONFIG = {
     },
     waypoints: [
       { 
-        mobile: { xp: 0.17, yp: 0.20, z: 0.56 },
+        mobile: { xp: 0.17, yp: 0.20, z: 0.90 },
         desktop: { xp: 0.18, yp: 0.21, z: 1 },
         yOffset: {
           default: -0,
           tall:   -90,  // pantallas muy altas (por ejemplo iPhone alto)
-          medium: -40,  // medianas (puedes poner otro valor si quieres)
-          short:  30  // pantallas bajas
+          medium: -5,  // medianas (puedes poner otro valor si quieres)
+          short:  40  // pantallas bajas
         },
         zMobileProfile: {
           default: 0.56, // valor base

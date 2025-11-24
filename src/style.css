@@ -650,7 +650,7 @@ html, body {
   .ui .progress {
     position: fixed;
     left: 50%;
-    bottom: 93%;
+    bottom: 2%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -679,12 +679,6 @@ html, body {
 }
 
 
-@media (max-width: 520px) {
-
-.ui .progress {
-    bottom: 94%;
-  }
-}
 
 /* ========= LOADING OVERLAY ========= */
 .loading-overlay {
@@ -920,6 +914,9 @@ body.net-slow .drawer {
   }
    .ui .progress span {
     width: 100px;
+  }
+    .ui .progress {
+    bottom: 5%;
   }
 
 }
