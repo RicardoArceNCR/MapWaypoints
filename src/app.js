@@ -204,7 +204,7 @@ function applyViewportCoverage() {
   }
 
   wrapper.style.width  = window.innerWidth + 'px';
-  wrapper.style.height = vh + 'px';
+  wrapper.style.height = window.innerHeight + 'px';
   document.body.style.background = '#000';
 
   // ── Comunicar dimensiones al iframe padre (modo embed) ──────────────────
