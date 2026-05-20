@@ -1,4 +1,5 @@
 .
+├── CLAUDE.md
 ├── CSP-PRODUCTION.md
 ├── dist
 │   ├── assets
@@ -119,10 +120,8 @@
 │   ├── popup_styles.css
 │   ├── style.css
 │   └── UIManager.js
-├── src-p1.txt
-├── src-p2.txt
 ├── test-iframe.html
 ├── vercel.json
 └── vite.config.js
 
-18 directories, 108 files
+18 directories, 107 files
