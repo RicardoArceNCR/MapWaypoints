@@ -23,11 +23,11 @@ body.overlays-ready #overlay-layer {
   height: 100%;
 }
 
-#mapa-canvas-wrapper { 
-  position: relative; 
-  margin: 0 auto; 
+#mapa-canvas-wrapper {
+  position: relative;
+  margin: 0 auto;
   overflow: hidden;
-  border: 8px solid blue; 
+  border: 8px solid blue;
 }
 
 /* ========================================================= */
@@ -127,12 +127,20 @@ html, body {
   background: #000; /* aire negro cuando no es 100% */
 }
 
+#main-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
 /* El contenedor del canvas: lo dimensionaremos por JS */
 #mapa-canvas-wrapper {
   position: relative;
   margin: 0 auto;
   display: block;
-  border: 12px solid rgb(255, 233, 35); 
+  border: 12px solid rgb(255, 233, 35);
   /* JS ajusta width/height en cada resize */
 }
 
