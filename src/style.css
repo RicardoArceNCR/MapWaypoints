@@ -146,7 +146,7 @@ html, body {
 .top-bar {
   position: fixed;
   top: auto;
-  bottom: 0;
+  bottom: 0px;
   left: 0;
   right: 0;
   z-index: 9999;
@@ -550,7 +550,7 @@ html, body {
 /* ========= CONTROLES UI (NAVEGACIÓN) ========= */
 .ui {
   position: absolute;
-  bottom: 24px;
+  bottom: 54px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 30;
