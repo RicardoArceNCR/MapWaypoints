@@ -370,15 +370,15 @@
       {
         "type": "hotspot",
         "mobile": {
-          "offsetX": -26,
-          "offsetY": -301,
+          "offsetX": -15,
+          "offsetY": -407,
           "width": 370,
           "height": 200,
           "rotation": 9
         },
         "desktop": {
-          "offsetX": -465,
-          "offsetY": -61,
+          "offsetX": -345,
+          "offsetY": -141,
           "width": 388,
           "height": 230,
           "rotation": -10
@@ -453,16 +453,16 @@
       {
         "type": "hotspot",
         "mobile": {
-          "offsetX": -5,
-          "offsetY": 24,
+          "offsetX": 4,
+          "offsetY": -87,
           "width": 400,
           "height": 270,
           "rotation": -9,
           "radius": 0
         },
         "desktop": {
-          "offsetX": -115,
-          "offsetY": -101,
+          "offsetX": -3,
+          "offsetY": -175,
           "width": 150,
           "height": 156,
           "rotation": 25
