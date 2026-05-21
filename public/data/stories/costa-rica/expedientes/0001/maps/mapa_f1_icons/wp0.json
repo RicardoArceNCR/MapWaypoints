@@ -143,12 +143,12 @@
       "radius": 20
     },
     "desktop": {
-      "offsetX": -9,
-      "offsetY": -180,
-      "width": 170,
-      "height": 170,
-      "rotation": 25,
-      "radius": 84
+      "offsetX": -11,
+    "offsetY": -234,
+    "width": 170,
+    "height": 170,
+    "rotation": 25,
+    "radius": 84
     },
     "title": "TODO — Título evento círculo inferior",
     "image": "/assets/mapa-1.webp",
