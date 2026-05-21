@@ -370,11 +370,11 @@
       {
         "type": "hotspot",
         "mobile": {
-          "offsetX": -15,
-          "offsetY": -407,
-          "width": 370,
+          "offsetX": -11,
+          "offsetY": -414,
+          "width": 390,
           "height": 200,
-          "rotation": 9
+          "rotation": 8
         },
         "desktop": {
           "offsetX": -361,
@@ -453,11 +453,11 @@
       {
         "type": "hotspot",
         "mobile": {
-          "offsetX": 4,
-          "offsetY": -87,
-          "width": 400,
-          "height": 270,
-          "rotation": -9,
+          "offsetX": 1,
+          "offsetY": -86,
+          "width": 404,
+          "height": 284,
+          "rotation": -8,
           "radius": 0
         },
         "desktop": {
@@ -602,15 +602,15 @@
       {
         "type": "hotspot",
         "mobile": {
-          "offsetX": -160,
-          "offsetY": -180,
+          "offsetX": -302,
+          "offsetY": -238,
           "width": 136,
           "height": 136,
           "rotation": 0
         },
         "desktop": {
-          "offsetX": -90,
-          "offsetY": -90,
+          "offsetX": -302,
+          "offsetY": -238,
           "width": 136,
           "height": 136,
           "rotation": 0
@@ -621,15 +621,15 @@
       {
         "type": "hotspot",
         "mobile": {
-          "offsetX": 160,
-          "offsetY": -180,
+          "offsetX": 332,
+          "offsetY": -305,
           "width": 136,
           "height": 136,
           "rotation": 0
         },
         "desktop": {
-          "offsetX": 90,
-          "offsetY": -90,
+          "offsetX": 332,
+          "offsetY": -305,
           "width": 136,
           "height": 136,
           "rotation": 0
@@ -640,15 +640,15 @@
       {
         "type": "hotspot",
         "mobile": {
-          "offsetX": -160,
-          "offsetY": 180,
+          "offsetX": 5,
+          "offsetY": -347,
           "width": 136,
           "height": 136,
           "rotation": 0
         },
         "desktop": {
-          "offsetX": -90,
-          "offsetY": 90,
+          "offsetX": 5,
+          "offsetY": -347,
           "width": 136,
           "height": 136,
           "rotation": 0
@@ -659,15 +659,15 @@
       {
         "type": "hotspot",
         "mobile": {
-          "offsetX": 160,
-          "offsetY": 80,
+          "offsetX": -6,
+          "offsetY": -106,
           "width": 136,
           "height": 136,
           "rotation": 0
         },
         "desktop": {
-          "offsetX": 90,
-          "offsetY": 90,
+          "offsetX": -6,
+          "offsetY": -106,
           "width": 136,
           "height": 136,
           "rotation": 0
