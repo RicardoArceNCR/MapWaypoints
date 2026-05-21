@@ -100,27 +100,6 @@ if (appConfig.toggles.hasOwnProperty('editor')) {
   window.__EDITOR_ACTIVE__ = appConfig.editorActive;
 }
 
-// Si el editor está activo, habilitamos el flag global y cargamos el módulo
-if (appConfig.editorActive) {
-  GLOBAL_CONFIG.EDITOR_ENABLED = true;
-
-  import('./editor.js')
-    .then((mod) => {
-      console.log('🎨 Editor cargado bajo demanda (?editor=1)');
-
-      if (mod && typeof mod.initEditor === 'function') {
-        mod.initEditor(); // no pasa nada si en el futuro decides aceptarle argumentos
-      } else {
-        console.warn('[Editor] Módulo cargado pero sin initEditor exportado');
-      }
-    })
-    .catch((err) => {
-      console.error('[Editor] Error al cargar editor.js', err);
-    });
-} else {
-  GLOBAL_CONFIG.EDITOR_ENABLED = false;
-}
-
 // Aplica toggle de popups desde URL si está presente
 if (appConfig.toggles.hasOwnProperty('popups')) {
   GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK = !!appConfig.toggles.popups;

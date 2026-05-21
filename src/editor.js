@@ -50,6 +50,7 @@ export function initEditor() {
     
     // Waypoint edit mode
     editWaypointMode: false,
+    isDragging: false,
 // 🆕 HISTORIA PARA UNDO/REDO
     history: [],
     historyIndex: -1,
@@ -68,20 +69,6 @@ export function initEditor() {
   function saveState(action = 'edit') {
     if (!editor.selectedItem) return;
     
-    // Update waypoint reference if this is a hotspot
-    if (window.hotspotData && editor.selectedItem.index !== undefined) {
-      const item = editor.items[editor.selectedItem.index];
-      if (item && (item.type === 'hotspot' || item.meta?.isHotspot)) {
-        const closestWaypoint = findClosestWaypoint(item, editor.waypoints || []);
-        if (closestWaypoint) {
-          window.hotspotData[editor.selectedItem.index] = {
-            ...window.hotspotData[editor.selectedItem.index],
-            waypointIndex: closestWaypoint.index
-          };
-          console.log(`%c🔗 Updated hotspot #${editor.selectedItem.index} to reference waypoint #${closestWaypoint.index}`, 'color:#00BFFF');
-        }
-      }
-    }
     
     // Limitar el historial a 50 acciones
     if (editor.historyIndex < editor.history.length - 1) {
@@ -1401,11 +1388,6 @@ export function initEditor() {
       return;
     }
     
-    // 🆕 Si es debug y click en hotspot, permite popup en lugar de editar
-    if (GLOBAL_CONFIG.DEBUG_HOTSPOTS && e.target?.closest('.overlay-wrap')) {
-      console.log('[EDITOR] Click en debug hotspot - permitiendo popup');
-      return;  // No edites, deja que el overlay maneje el click
-    }
     
     e.stopImmediatePropagation();
 
@@ -1421,12 +1403,17 @@ export function initEditor() {
       }
     }
 
+    editor.isDragging = true;
+
     window.dispatchEvent(new CustomEvent('editor:getMapCoords', {
       detail: { clientX: e.clientX, clientY: e.clientY }
     }));
 
     window.addEventListener('editor:mapCoordsResponse', function handler(ev) {
       window.removeEventListener('editor:mapCoordsResponse', handler);
+
+      if (!editor.isDragging) return;
+
       const { x, y } = ev.detail;
       const cam = editor.camera;
       const hs = 15 / cam.z;
@@ -1467,6 +1454,17 @@ export function initEditor() {
           }
 
           if (x >= item.x - hw && x <= item.x + hw && y >= item.y - hh && y <= item.y + hh) {
+            // Si ya estaba seleccionado este mismo item, deseleccionar
+            if (editor.selectedItem?.index === editor.items.indexOf(item)) {
+              editor.selectedItem = null;
+              editor.mode = null;
+              canvas.style.cursor = 'crosshair';
+              updateInfo('No item selected');
+              updatePropertiesPanel();
+              editor.needsRedraw = true;
+              window.dispatchEvent(new CustomEvent('editor:redraw'));
+              return;
+            }
             editor.mode = 'drag';
             editor.dragStart = { x, y };
             editor.itemStart = { ...item };
@@ -1503,22 +1501,6 @@ export function initEditor() {
 
           console.log(`%c📍 Item #${i}`, 'color:#00FF00;font-weight:bold');
           
-          // Find and log closest waypoint for hotspots
-          if (item.type === 'hotspot' || item.meta?.isHotspot) {
-            const closestWaypoint = findClosestWaypoint(item, editor.waypoints || []);
-            if (closestWaypoint) {
-              console.log(`%c🔗 Closest Waypoint #${closestWaypoint.index}: ${closestWaypoint.label || 'Unlabeled'}`, 'color:#00BFFF');
-              
-              // If this is a hotspot, update its waypoint reference
-              if (window.hotspotData && window.hotspotData[editor.selectedItem.index]) {
-                window.hotspotData[editor.selectedItem.index] = {
-                  ...(window.hotspotData[editor.selectedItem.index] || {}),
-                  waypointIndex: closestWaypoint.index
-                };
-                console.log(`%c🔗 Linked to Waypoint #${closestWaypoint.index}`, 'color:#00BFFF');
-              }
-            }
-          }
           
           console.table({
             index: i,
@@ -1600,6 +1582,8 @@ export function initEditor() {
 
     window.addEventListener('editor:mapCoordsResponse', function handler(ev) {
       window.removeEventListener('editor:mapCoordsResponse', handler);
+
+      if (!editor.mode) return;
 
       let { x, y } = ev.detail;
       if (editor.editWaypointMode && editor.mode === 'drag-wp' && editor.waypoint) {
@@ -1691,6 +1675,7 @@ export function initEditor() {
 
     editor.mode = null;
     editor.corner = null;
+    editor.isDragging = false;
     canvas.style.cursor = editor.active ? 'crosshair' : 'default';
     editor.needsRedraw = true;
     window.dispatchEvent(new CustomEvent('editor:redraw'));
@@ -1729,16 +1714,11 @@ export function initEditor() {
       
       // Show the generated code in a collapsible group
       console.groupCollapsed('%cGenerated Code', 'font-weight:bold');
-      console.log(
-        '%c' + JSON.stringify(JSON.parse(code), null, 2)
-          .replace(/"([^"]+)":/g, '"%c$1%c":%c')
-          .replace(/([{,])/g, '%c$1')
-          .replace(/([}])/g, '%c$1%c'),
-        'color:inherit;',
-        'color:#9C27B0;', 'color:inherit;', 'color:inherit;', // Key
-        'color:#000;', // Punctuation
-        'color:#4CAF50;' // String value
-      );
+      try {
+        console.log(JSON.parse(code));
+      } catch {
+        console.log(code);
+      }
       console.groupEnd();
       
       console.groupEnd(); // End item details group
