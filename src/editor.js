@@ -1454,20 +1454,10 @@ export function initEditor() {
           }
 
           if (x >= item.x - hw && x <= item.x + hw && y >= item.y - hh && y <= item.y + hh) {
-            // Si ya estaba seleccionado este mismo item, deseleccionar
-            if (editor.selectedItem?.index === editor.items.indexOf(item)) {
-              editor.selectedItem = null;
-              editor.mode = null;
-              canvas.style.cursor = 'crosshair';
-              updateInfo('No item selected');
-              updatePropertiesPanel();
-              editor.needsRedraw = true;
-              window.dispatchEvent(new CustomEvent('editor:redraw'));
-              return;
-            }
             editor.mode = 'drag';
             editor.dragStart = { x, y };
             editor.itemStart = { ...item };
+            editor.hasMoved = false;
             canvas.style.cursor = 'move';
             return;
           }
@@ -1610,6 +1600,7 @@ export function initEditor() {
         const dy = y - editor.dragStart.y;
         item.x = editor.itemStart.x + dx;
         item.y = editor.itemStart.y + dy;
+        editor.hasMoved = true;
       } else if (editor.mode === 'resize') {
         const dx = x - editor.dragStart.x;
         const dy = y - editor.dragStart.y;
@@ -1667,6 +1658,19 @@ export function initEditor() {
     
     e.stopImmediatePropagation();
     e.preventDefault();
+
+    // Si fue drag sin movimiento = click → deseleccionar
+    if (editor.mode === 'drag' && !editor.hasMoved && editor.selectedItem) {
+      editor.selectedItem = null;
+      editor.mode = null;
+      editor.isDragging = false;
+      canvas.style.cursor = 'crosshair';
+      updateInfo('No item selected');
+      updatePropertiesPanel();
+      editor.needsRedraw = true;
+      window.dispatchEvent(new CustomEvent('editor:redraw'));
+      return;
+    }
 
     if (editor.mode === 'drag-wp') { saveState('move-waypoint'); } else if (editor.selectedItem && editor.mode) {
       saveState(editor.mode);
