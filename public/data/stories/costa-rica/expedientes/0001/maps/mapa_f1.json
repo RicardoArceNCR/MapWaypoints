@@ -31,8 +31,8 @@
       },
       "yOffset": {
         "default": 0,
-        "tall": -90,
-        "medium": -18,
+        "tall": -190,
+        "medium": -33,
         "short": 30
       },
       "zMobileProfile": {
