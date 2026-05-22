@@ -63,6 +63,8 @@ export class OverlayLayer {
       z = 0, meta = {}
     } = opt;
 
+    if (!src || src === 'undefined') return;
+
     let rec = this.items.get(key);
     if (!rec) {
       // 🆕 wrapper + img (wrapper = hitbox)

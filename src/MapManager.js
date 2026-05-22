@@ -454,6 +454,7 @@ export class MapManager {
           y,
           width,
           height,
+          img: icon.img || icon.image || null,
           rotation: config.rotation || 0,
           _rawMobile: icon.mobile || {},
           _rawDesktop: icon.desktop || {}
