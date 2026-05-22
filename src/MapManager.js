@@ -341,6 +341,26 @@ export class MapManager {
       ? `/data/stories/${this.currentStoryId}/maps/${mapId}_icons`
       : `/data/maps/${mapId}_icons`;
 
+    // Intentar bundle icons.json primero (1 request vs N requests)
+    try {
+      const bundleUrl = `${baseUrl}/icons.json`;
+      const bundleRes = await fetch(bundleUrl);
+      if (bundleRes.ok) {
+        const bundle = await bundleRes.json();
+        const icons = {};
+        for (let i = 0; i < waypointCount; i++) {
+          const key = `wp${i}`;
+          if (bundle[key] && bundle[key].length > 0) {
+            icons[String(i)] = bundle[key];
+          }
+        }
+        console.log(`📂 Icons bundle: ${Object.keys(icons).length}/${waypointCount} waypoints con hotspots (${mapId})`);
+        return icons;
+      }
+    } catch (e) {
+      // Fallback a archivos individuales
+    }
+
     const fetches = Array.from({ length: waypointCount }, (_, i) =>
       fetch(`${baseUrl}/wp${i}.json`)
         .then(r => r.ok ? r.json() : [])
