@@ -12,9 +12,10 @@
 body.overlays-ready #overlay-layer {
   opacity: 1;
 }
-.novela.full-bleed { 
-  position: relative; 
-  overflow: hidden; 
+
+.novela.full-bleed {
+  position: relative;
+  overflow: hidden;
   background: #000;
   transform: scale(var(--fill-scale));
   transform-origin: top center;
@@ -55,8 +56,8 @@ body.overlays-ready #overlay-layer {
   pointer-events: none !important;
 }
 
-#mapa-canvas { 
-  display: block; 
+#mapa-canvas {
+  display: block;
 }
 
 /* ========================================================= */
@@ -94,7 +95,10 @@ body.overlays-ready #overlay-layer {
   font-display: swap;
   src: url('/assets/fonts/inter-v20-latin-700.woff2') format('woff2');
 }
-[hidden] { display: none !important; }
+
+[hidden] {
+  display: none !important;
+}
 
 :root {
   --phase-color: #1BC6EB;
@@ -102,29 +106,42 @@ body.overlays-ready #overlay-layer {
 
   /* 🆕 Control de llenado vertical (1 = 100%, 0.98 = 98%, 1.01 = 101%) */
   --fill-scale: 1;
-    /* 🆕 Posiciones por defecto de navegación en mobile */
-  --nav-prev-left-mobile: 16px;   /* distancia al borde izquierdo */
-  --nav-prev-top-mobile: 50%;     /* altura: 50% = centro vertical */
-  --nav-next-right-mobile: 16px;  /* distancia al borde derecho */
-  --nav-next-top-mobile: 50%;     /* altura del botón siguiente */
-  --nav-progress-bottom-mobile: 94%; /* altura de la barrita de progreso */
+  /* 🆕 Posiciones por defecto de navegación en mobile */
+  --nav-prev-left-mobile: 16px;
+  /* distancia al borde izquierdo */
+  --nav-prev-top-mobile: 50%;
+  /* altura: 50% = centro vertical */
+  --nav-next-right-mobile: 16px;
+  /* distancia al borde derecho */
+  --nav-next-top-mobile: 50%;
+  /* altura del botón siguiente */
+  --nav-progress-bottom-mobile: 94%;
+  /* altura de la barrita de progreso */
 }
 
-* { box-sizing: border-box; }
-body { 
-  margin: 0; 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
   font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   overflow: hidden;
-  background: #000; /* fondo negro para el espacio restante */
+  background: #000;
+  /* fondo negro para el espacio restante */
 }
 
 /* Utilitaria para bloquear scroll si decides permitir overflow en body */
-.overflow-lock { overflow: hidden !important; }
+.overflow-lock {
+  overflow: hidden !important;
+}
 
 /* === Base de viewport/fondo — seguro === */
-html, body {
+html,
+body {
   height: 100%;
-  background: #000; /* aire negro cuando no es 100% */
+  background: #000;
+  /* aire negro cuando no es 100% */
 }
 
 #main-content {
@@ -183,6 +200,7 @@ html, body {
 }
 
 @media (min-width: 900px) {
+
   /* Card 16:9 (modo clásico) */
   .novela {
     width: min(100vw, 1280px);
@@ -222,7 +240,8 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #000; /* Fallback si JS demora (mejora LCP) */
+  background: #000;
+  /* Fallback si JS demora (mejora LCP) */
   image-rendering: auto;
   -ms-interpolation-mode: bicubic;
   display: block;
@@ -240,7 +259,7 @@ html, body {
   justify-content: center;
   gap: 8px;
   padding: 10px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 100%);
   backdrop-filter: blur(8px);
 }
 
@@ -358,6 +377,7 @@ html, body {
   .map-selector-wrapper {
     top: 80px;
   }
+
   .hamburger {
     top: 50px;
   }
@@ -413,23 +433,34 @@ html, body {
 /* ELEMENTOS FIJOS (ej. Minimap) */
 /* ========================================================= */
 #minimap {
-  position: fixed;                  /* Fijo en la pantalla, no se mueve con scroll */
-  bottom: 20px;  
-  top: 80%;                   /* Distancia desde abajo */
-  left: 20px;                       /* Distancia desde izquierda */
-  width: 200px;                     /* Ancho base (ajustable) */
-  height: 120px;                    /* Alto base */
-  z-index: 100;                     /* Por encima de canvas/overlays, pero debajo de popups (ajusta si necesitas) */
-  border: 1px solid rgba(255, 255, 255, 0.2);  /* Borde sutil para profesionalismo */
-  background: rgba(0, 0, 0, 0.5);   /* Fondo semi-transparente para no obstruir */
-  border-radius: 8px;               /* Esquinas redondeadas */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);  /* Sombra suave para profundidad */
-  transition: all 0.3s ease;        /* Transición suave en resize */
+  position: fixed;
+  /* Fijo en la pantalla, no se mueve con scroll */
+  bottom: 20px;
+  top: 80%;
+  /* Distancia desde abajo */
+  left: 20px;
+  /* Distancia desde izquierda */
+  width: 200px;
+  /* Ancho base (ajustable) */
+  height: 120px;
+  /* Alto base */
+  z-index: 100;
+  /* Por encima de canvas/overlays, pero debajo de popups (ajusta si necesitas) */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Borde sutil para profesionalismo */
+  background: rgba(0, 0, 0, 0.5);
+  /* Fondo semi-transparente para no obstruir */
+  border-radius: 8px;
+  /* Esquinas redondeadas */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  /* Sombra suave para profundidad */
+  transition: all 0.3s ease;
+  /* Transición suave en resize */
 }
 
 /* Responsive: Ajustes para móvil (basado en tus breakpoints ~899px) */
 @media (max-width: 899px) {
-   #minimap {
+  #minimap {
     display: none;
   }
 }
@@ -437,8 +468,10 @@ html, body {
 /* Opcional: Hover para interacción (solo desktop) */
 @media (hover: hover) {
   #minimap:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);  /* Efecto de elevación al hover */
-    transform: scale(1.05);                    /* Ligeramente más grande */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    /* Efecto de elevación al hover */
+    transform: scale(1.05);
+    /* Ligeramente más grande */
   }
 }
 
@@ -452,7 +485,7 @@ html, body {
   top: 80px;
   right: -100%;
   width: min(85vw, 380px);
-  height: 100vh;
+  height: 100dvh;
   height: 100dvh;
   background: rgba(15, 15, 15, 0.98);
   backdrop-filter: blur(20px);
@@ -607,9 +640,12 @@ html, body {
 .progress {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 🆕 reparte los dots en todo el ancho */
-  flex: 1;                        /* 🆕 ocupa todo el espacio entre los botones */
-  gap: 0;                         /* el espacio lo maneja space-between */
+  justify-content: space-between;
+  /* 🆕 reparte los dots en todo el ancho */
+  flex: 1;
+  /* 🆕 ocupa todo el espacio entre los botones */
+  gap: 0;
+  /* el espacio lo maneja space-between */
 }
 
 .progress span {
@@ -640,15 +676,17 @@ html, body {
 /* ====== MOBILE: navegación flotante limpia ====== */
 @media (max-width: 899px) {
   .phase-filter {
-  z-index: 35;
-  gap: 8px;
-  padding: 10px;
-  background: linear-gradient(to bottom, #000, transparent);
-  backdrop-filter: none;
-}
+    z-index: 35;
+    gap: 8px;
+    padding: 10px;
+    background: linear-gradient(to bottom, #000, transparent);
+    backdrop-filter: none;
+  }
+
   .ui {
     position: fixed;
-    inset: 0;              /* ocupa todo el viewport */
+    inset: 0;
+    /* ocupa todo el viewport */
     z-index: 38;
     width: 100%;
     height: 100%;
@@ -659,9 +697,12 @@ html, body {
     background: transparent;
     box-shadow: none;
     border-radius: 0;
-    transform: none;           /* <- quita el translateX(-50%) */
-    backdrop-filter: none;     /* <- quita el blur gigante */
-    pointer-events: none;      /* solo los hijos reciben clics */
+    transform: none;
+    /* <- quita el translateX(-50%) */
+    backdrop-filter: none;
+    /* <- quita el blur gigante */
+    pointer-events: none;
+    /* solo los hijos reciben clics */
   }
 
   .ui .btn {
@@ -672,7 +713,8 @@ html, body {
     background: none;
     border: none;
     box-shadow: none;
-    pointer-events: auto; /* clicables otra vez */
+    pointer-events: auto;
+    /* clicables otra vez */
     filter: opacity(0.5);
   }
 
@@ -755,7 +797,9 @@ html, body {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-text {
@@ -825,14 +869,16 @@ body.overlays-hidden #overlay-layer {
   inset: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;  /* Root doesn't intercept clicks; children do */
-  z-index: 34;  /* Above canvas but below editor/UI */
+  pointer-events: none;
+  /* Root doesn't intercept clicks; children do */
+  z-index: 34;
+  /* Above canvas but below editor/UI */
   touch-action: none;
 }
 
-.overlay-root .overlay-item { 
+.overlay-root .overlay-item {
   position: absolute;
-  pointer-events: auto; 
+  pointer-events: auto;
   will-change: transform;
   user-select: none;
   transition: none;
@@ -844,12 +890,15 @@ body.overlays-hidden #overlay-layer {
   touch-action: manipulation;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  will-change: transform;  /* GPU acceleration */
-  transition: none;  /* Tactile feedback */
+  will-change: transform;
+  /* GPU acceleration */
+  transition: none;
+  /* Tactile feedback */
 }
 
 .overlay-item {
-  pointer-events: none; /* wrapper handles the gesture */
+  pointer-events: none;
+  /* wrapper handles the gesture */
   user-select: none;
   -webkit-user-drag: none;
 }
@@ -874,40 +923,44 @@ body.net-slow .drawer {
   filter: none !important;
 }
 
-.overlay-item {  /* For images inside (if used) */
+.overlay-item {
+  /* For images inside (if used) */
   pointer-events: none;
   display: block;
 }
 
 /* ===== DEBUG HOTSPOT STYLES ===== */
 /* Estilos mejorados para modo debug con mejor feedback visual en mobile */
-.overlay-wrap.debug-hotspot{
+.overlay-wrap.debug-hotspot {
   /* Vars con defaults (puedes sobreescribirlas desde JS) */
   --hs-border: rgba(255, 251, 0, 0.85);
-  --hs-fill:   rgba(255,0,0,.12);
-  --hs-shadow: rgba(0,0,0,.35);
+  --hs-fill: rgba(255, 0, 0, .12);
+  --hs-shadow: rgba(0, 0, 0, .35);
 
   border: 3px solid var(--hs-border);
   background: var(--hs-fill);
   box-shadow: 0 0 0 1px #fff, 0 0 0 2px var(--hs-shadow);
-  border-radius: 8px;               /* 50% si es círculo (lo controlamos con clase) */
+  border-radius: 8px;
+  /* 50% si es círculo (lo controlamos con clase) */
   transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease, transform .12s ease;
   cursor: pointer;
 }
 
 /* Forma circular cuando el meta.shape === 'circle' */
-.overlay-wrap.debug-hotspot.is-circle{ border-radius: 50%; }
+.overlay-wrap.debug-hotspot.is-circle {
+  border-radius: 50%;
+}
 
 /* HOVER: resalta color para inspección rápida del estado */
-.overlay-wrap.debug-hotspot:hover{
+.overlay-wrap.debug-hotspot:hover {
   --hs-border: #00E1FF;
-  --hs-fill:   rgba(0,225,255,.12);
-  --hs-shadow: rgba(0,225,255,.50);
+  --hs-fill: rgba(0, 225, 255, .12);
+  --hs-shadow: rgba(0, 225, 255, .50);
 }
 
 /* PRESSED/ACTIVE: leve feedback táctil */
-.overlay-wrap.debug-hotspot.is-active{
-  transform: translate(-50%,-50%) scale(.98);
+.overlay-wrap.debug-hotspot.is-active {
+  transform: translate(-50%, -50%) scale(.98);
 }
 
 /* Hover feedback para desktop */
@@ -955,10 +1008,12 @@ body.net-slow .drawer {
     padding: 3px 6px;
     margin-bottom: 4px;
   }
-   .ui .progress span {
+
+  .ui .progress span {
     width: 100px;
   }
-    .ui .progress {
+
+  .ui .progress {
     bottom: 5%;
   }
 
@@ -978,7 +1033,7 @@ body.net-slow .drawer {
 /* 🔧 MOBILE FIXES - TOUCH PROTECTION */
 
 .overlay-wrap {
-  touch-action: none !important; 
+  touch-action: none !important;
   -webkit-tap-highlight-color: transparent !important;
   -webkit-touch-callout: none !important;
   -webkit-user-select: none !important;
@@ -1008,6 +1063,7 @@ body.net-slow .drawer {
     transition: opacity 0.1s ease;
   }
 }
+
 /* ========= 🔕 NON-INTERACTIVE OVERLAYS ========= */
 .overlay-noninteractive {
   pointer-events: none !important;
@@ -1019,7 +1075,7 @@ body.net-slow .drawer {
 /* ========= 🔧 MOBILE FIXES - TOUCH PROTECTION ========= */
 
 .overlay-wrap {
-  touch-action: none !important; 
+  touch-action: none !important;
   -webkit-tap-highlight-color: transparent !important;
   -webkit-touch-callout: none !important;
   -webkit-user-select: none !important;
