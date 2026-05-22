@@ -43,7 +43,7 @@ Las dimensiones actuales:
 
 ### Coordenadas: tres sistemas distintos
 
-1. **World space** — píxeles del mapa completo (ej: `logicalW=4240, logicalH=3685`). Los waypoints usan `xp/yp` normalizados (0.0–1.0) que se multiplican por estas dimensiones.
+1. **World space** — píxeles del mapa completo (ej: `logicalW=1400, logicalH=3181`). Los waypoints usan `xp/yp` normalizados (0.0–1.0) que se multiplican por estas dimensiones.
 2. **CSS space** — píxeles lógicos del canvas en pantalla (sin DPR). La cámara opera aquí.
 3. **Device space** — píxeles físicos (`CSS × DPR`). El bitmap del canvas opera aquí.
 
@@ -52,6 +52,14 @@ Para convertir entre sistemas usa la cámara:
 camera.worldToCss(worldX, worldY)  // world → pantalla
 camera.cssToWorld(cssX, cssY)      // pantalla → world
 ```
+
+### drawImage usa logicalW/H, no el tamaño natural de la imagen
+
+```js
+ctx.drawImage(mapImg, 0, 0, logicalW, logicalH);
+```
+
+La imagen se escala al espacio lógico declarado en el JSON. La resolución física de la imagen es independiente — podés entregar imágenes livianas (x1, x2) sin mover waypoints, siempre que mantengan la proporción `logicalW:logicalH`.
 
 ### Los overlays DOM viven en `OverlayLayer.js`
 
@@ -89,10 +97,12 @@ const wx = waypoint.xp * mapConfig.logicalW;
 const wy = waypoint.yp * mapConfig.logicalH;
 ```
 
-Si cambias `logicalW/H` al actualizar una imagen, **todos los `xp/yp` deben recalcularse**:
+**`logicalW/H` es la fuente de verdad.** Si cambias `logicalW/H` y la nueva imagen no mantiene la misma proporción, recalculá los `xp/yp`:
 ```
 yp_nuevo = (yp_viejo × logicalH_viejo) / logicalH_nuevo
 ```
+
+Si la imagen nueva mantiene la proporción (caso normal), los waypoints quedan intactos.
 
 ### Hotspot offsets: son relativos al waypoint en px del mundo
 
@@ -102,7 +112,16 @@ const iconX = waypoint.x + icon.offsetX;
 const iconY = waypoint.y + icon.offsetY;
 ```
 
-No necesitan recalcularse al cambiar la imagen — solo los waypoints base cambian.
+No necesitan recalcularse al cambiar la imagen.
+
+### Bundle de hotspots: icons.json
+
+```
+maps/mapa_f1_icons/icons.json   ← bundle { "wp0": [...], "wp1": [...], ... }
+maps/mapa_f1_icons/wp0.json     ← fallback individual
+```
+
+`_loadSplitIcons()` intenta `icons.json` primero (1 HTTP request). Si falla, cae al loop de archivos individuales. **Al crear un nuevo mapa con hotspots, siempre crear el `icons.json` bundle.**
 
 ### Versionado de imágenes con query string
 
@@ -119,10 +138,12 @@ Cambiar la fecha fuerza al browser a no usar caché. **Siempre actualiza la vers
 "zMobileProfile": { "default": 0.56, "tall": 0.66, "medium": 0.60, "short": 0.52 }
 ```
 
-Perfiles en runtime:
+Perfiles en runtime (función `getMobileHeightProfile()`):
 - `short` → `clientHeight <= 640`
 - `medium` → `clientHeight <= 820`
-- `tall` → `clientHeight > 820`
+- `tall`   → `clientHeight > 820`
+
+**Importante:** `zMobileProfile` tiene prioridad sobre `mobile.z`. Si el zoom no responde al editar `z`, editá `zMobileProfile` para el perfil correcto.
 
 ---
 
@@ -140,6 +161,13 @@ getMobileHeightProfile()
 // → 'short'  si clientHeight <= 640
 // → 'medium' si clientHeight <= 820
 // → 'tall'   si clientHeight > 820
+```
+
+Para debuggear qué perfil está activo:
+```js
+// En consola del browser:
+const vh = window.innerHeight;
+console.log('vh:', vh, '→ profile:', vh <= 640 ? 'short' : vh <= 820 ? 'medium' : 'tall');
 ```
 
 ---
@@ -215,6 +243,8 @@ Si no hay historia (fallback default):
 | Importar librerías pesadas | El proyecto es vanilla JS intencional — sin dependencias de runtime |
 | Modificar `GLOBAL_CONFIG` en runtime | Leer de `appConfig.toggles` para flags de runtime |
 | Tocar `editor.js` para features de producción | Mantenerlo como herramienta de dev aislada |
+| Editar `mobile.z` para cambiar el zoom mobile | Editar `zMobileProfile` para el perfil de altura correcto |
+| Usar `img.naturalWidth/naturalHeight` en la imagen del mapa | La imagen puede ser `ImageBitmap` — usar helper `imgWidth(img)` |
 
 ---
 
@@ -249,14 +279,25 @@ git add . && git commit -m "descripción" && git push
 
 ## Estado del proyecto (Mayo 2026)
 
+- **Lighthouse 100** en rendimiento (Moto G Power, 4G lenta) — baseline establecido
 - Layout fullscreen estable: ancho y alto siempre `window.innerWidth/Height`
 - Multi-historia funcional via `?story=`
-- Editor visual funcional con undo/redo (50 pasos)
-- Multi-select en editor implementado
-- Primer expediente real (Costa Rica 0001) en progreso
-- Sistema de imágenes mobile optimizado:
-  - `drawImage` usa `logicalW/H` como destino — la imagen se escala al espacio lógico siempre
-  - `logicalW/H` es la fuente de verdad de coordenadas; la resolución física de la imagen es independiente
-  - Imagen mobile actual: `mapa-mobile.webp` (1400×3181px físicos, logicalW:1400, logicalH:3181)
+- Editor visual funcional con undo/redo (50 pasos), multi-select
+- Primer expediente real (Costa Rica 0001) en progreso — contenido real pendiente
+
+**Sistema de imágenes optimizado:**
+- `drawImage` usa `logicalW/H` como destino — imagen se escala al espacio lógico siempre
+- `logicalW/H` es la fuente de verdad; la resolución física es independiente
+- Imagen mobile actual: `mapa-mobile.webp` (1400×3181px físicos, logicalW:1400, logicalH:3181)
+- Decode de imagen fuera del main thread via `createImageBitmap()` — elimina ~2s de blocking
+- Fases 2 y 3 usan temporalmente la misma imagen mobile que fase 1
+
+**Sistema de hotspots optimizado:**
+- `icons.json` bundle: 12 requests → 1 request (~400ms de mejora en LCP)
+- Fallback automático a `wp*.json` individuales si no existe el bundle
+
+**CSS optimizado:**
+- `style.css` y `popup_styles.css` cargan non-blocking (`media="print"`)
+
 - WordPress embed via iframe probado localmente, pendiente fix en divergentes.com
 - `index.json` con catálogo inicial (1 historia registrada)

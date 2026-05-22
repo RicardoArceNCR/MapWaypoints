@@ -1,6 +1,7 @@
 # Mapa Interactivo Multi-Fase — Documentación Técnica
 
-> **Estado actual:** Producción-ready. Desplegado en Vercel. Integrado en WordPress vía iframe + plantilla PHP fullscreen.
+> **Estado actual:** Producción-ready. Desplegado en Vercel. Integrado en WordPress vía iframe.
+> **Lighthouse score:** 100 Rendimiento / 96 Accesibilidad / 100 Prácticas / 100 SEO (Mayo 2026, Moto G Power emulado, 4G lenta)
 
 ---
 
@@ -87,9 +88,9 @@ map-waypoints/
 ├── public/                       ← Archivos estáticos (Vite los copia a dist/ sin procesar)
 │   ├── assets/                   ← Imágenes, fuentes, GIFs
 │   │   ├── fonts/                ← Inter woff2 (self-hosted)
-│   │   ├── mapa-mobile.webp         ← Imagen mapa mobile (1400×3181px, logicalW:1400 logicalH:3181)
-│   │   ├── mapa-dektop-4x.webp      ← Imagen mapa desktop (4240×2608px)
-│   │   ├── fase-2-mapa-mobile-x4.webp  ← Fase 2 mobile
+│   │   ├── mapa-mobile.webp      ← Imagen mapa mobile (1400×3181px físicos, logicalW:1400 logicalH:3181)
+│   │   ├── mapa-dektop-4x.webp   ← Imagen mapa desktop (4240×3685px, logicalW:4240 logicalH:3685)
+│   │   ├── fase-2-mapa-mobile-x4.webp  ← Fase 2 mobile (compartida temporalmente con fase 1)
 │   │   ├── fase-2-mapa-dektop-4x.webp  ← Fase 2 desktop
 │   │   ├── fase-3-mapa-mobile-x4.webp  ← Fase 3 mobile
 │   │   ├── fase-3-mapa-dektop-4x.webp  ← Fase 3 desktop
@@ -110,7 +111,10 @@ map-waypoints/
 │                       └── maps/
 │                           ├── mapa_f1.json
 │                           ├── mapa_f2.json
-│                           └── mapa_f3.json
+│                           ├── mapa_f3.json
+│                           └── mapa_f1_icons/
+│                               ├── icons.json  ← Bundle de todos los hotspots (1 request)
+│                               └── wp*.json    ← Archivos individuales (fallback automático)
 │
 ├── dist/                         ← Build de producción (generado por npm run build)
 ├── vercel.json                   ← Headers HTTP para iframe y seguridad
@@ -167,6 +171,11 @@ Si no hay historia (fallback default):
 - `imageCache` — Map de imágenes cargadas por URL
 - `renderedCache` — Map de ImageBitmap pre-renderizados (OffscreenCanvas)
 - Detección automática de WebP con fallback a JPG
+- Usa `createImageBitmap()` para decodificar fuera del main thread (ver sección 14)
+
+**Bundle de hotspots:**
+- `_loadSplitIcons()` intenta `icons.json` primero (1 request)
+- Fallback automático a `wp0.json`, `wp1.json`... si no existe el bundle
 
 ### `Camera.js` — Sistema de cámara
 Maneja zoom, pan, transiciones cinematográficas entre waypoints y el efecto breathing.
@@ -240,13 +249,13 @@ Herramienta de desarrollo para posicionar hotspots y overlays visualmente. Se ca
   "mapImage": {
     "mobile": {
       "src": "/assets/mapa-mobile.webp?v=2026-05-21",
-      "logicalW": 2336,
-      "logicalH": 4192
+      "logicalW": 1400,
+      "logicalH": 3181
     },
     "desktop": {
-      "src": "/assets/mapa-dektop.webp?v=2026-05-21",
+      "src": "/assets/mapa-dektop-4x.webp?v=2026-05-20",
       "logicalW": 4240,
-      "logicalH": 2608
+      "logicalH": 3685
     },
     "useNaturalSize": false
   },
@@ -257,27 +266,23 @@ Herramienta de desarrollo para posicionar hotspots y overlays visualmente. Se ca
       "yOffset": { "default": 0, "tall": -90, "medium": -5, "short": 40 },
       "zMobileProfile": { "default": 0.56, "tall": 0.66, "medium": 0.60, "short": 0.52 },
       "label": "Inicio del Viaje",
-      "lines": ["Texto de la escena.", "Segunda línea opcional."],
-      "hotspots": [
-        {
-          "id": "hs1",
-          "type": "persona",
-          "offsetX": 120,
-          "offsetY": -80,
-          "popup": {
-            "title": "Nombre",
-            "image": "/assets/persona_1-1.gif",
-            "date": "2024-01-15",
-            "location": "San José, Costa Rica",
-            "description": "Descripción detallada.",
-            "personas": []
-          }
-        }
-      ]
+      "lines": ["Texto de la escena.", "Segunda línea opcional."]
     }
   ]
 }
 ```
+
+### `mapa_f1_icons/icons.json` — Bundle de hotspots (formato actual)
+
+```json
+{
+  "wp0": [ { "type": "hotspot", "mobile": {...}, "desktop": {...}, ... } ],
+  "wp1": [ ... ],
+  "wp11": [ ... ]
+}
+```
+
+`_loadSplitIcons()` intenta este archivo primero. Si no existe, carga `wp0.json`...`wpN.json` individualmente como fallback. **Al agregar un nuevo mapa con hotspots, crear el `icons.json` bundle.**
 
 ### `index.json` — Catálogo de historias
 
@@ -416,6 +421,21 @@ En `story.json`, agregar el ID al array `maps` de la fase y una entrada en `maps
 
 Crear el archivo del mapa nuevo copiando uno existente y editando imagen y waypoints. El selector de mapas en la UI aparece automáticamente cuando hay más de uno por fase.
 
+Si el mapa tiene hotspots, crear también el bundle:
+```bash
+# Crear icons.json combinando los wp*.json
+node -e "
+const fs = require('fs'), path = require('path');
+const dir = 'public/data/stories/.../maps/mapa_f1b_icons';
+const bundle = {};
+fs.readdirSync(dir).filter(f => f.match(/^wp\d+\.json$/)).forEach(f => {
+  const key = f.replace('.json','');
+  bundle[key] = JSON.parse(fs.readFileSync(path.join(dir,f)));
+});
+fs.writeFileSync(path.join(dir,'icons.json'), JSON.stringify(bundle,null,2));
+"
+```
+
 ---
 
 ## 12. Cambiar la imagen del mapa
@@ -441,38 +461,27 @@ El `?v=YYYY-MM-DD` fuerza al browser a no usar la versión cacheada.
 
 ### Paso 3 — Sobre los waypoints
 
-Los waypoints usan `xp/yp` normalizados (0.0–1.0). Si la nueva imagen mantiene
-la misma proporción que el logicalW/H declarado, **no hay que recalcular nada** —
-el sistema escala la imagen para llenar el espacio lógico exactamente.
+Los waypoints usan `xp/yp` normalizados (0.0–1.0). `drawImage` escala la imagen para llenar el espacio `logicalW/H` exactamente — **si la nueva imagen mantiene la misma proporción que el logicalW/H declarado, no hay que recalcular nada.**
 
-Solo recalculá si cambiás el logicalH a un valor diferente:
+Solo recalculá si cambiás el `logicalH` a un valor diferente:
 ```
 yp_nuevo = (yp_viejo × logicalH_viejo) / logicalH_nuevo
 ```
 
-Regla práctica: mantené siempre la proporción `logicalW:logicalH` al generar
-nuevas imágenes y los waypoints quedan intactos.
+Regla práctica: mantené siempre la proporción `logicalW:logicalH` al generar nuevas imágenes y los waypoints quedan intactos. Los `offsetX/offsetY` de los hotspots **no necesitan cambio** — son relativos al waypoint y se ajustan automáticamente.
 
 ### Paso 4 — Verificar `CANVAS_LIMITS` en `src/config.js`
 
-Límites actuales (calibrados para las imágenes 4x):
-
 ```js
 CANVAS_LIMITS: {
-  desktop: {
-    maxWidth: 4096,
-    maxHeight: 4096,
-    maxPixels: 16_000_000,
-    maxMemoryMB: 150
-  },
-  mobile: {
-    maxWidth: 2400,
-    maxHeight: 5400,
-    maxPixels: 13_000_000,
-    maxMemoryMB: 72
-  }
+  desktop: { maxWidth: 4096, maxHeight: 4096, maxPixels: 16_000_000, maxMemoryMB: 150 },
+  mobile:  { maxWidth: 2400, maxHeight: 5400, maxPixels: 13_000_000, maxMemoryMB: 72 }
 }
 ```
+
+### Nota sobre resolución física vs logicalW/H
+
+`logicalW/H` es la fuente de verdad del espacio de coordenadas. La imagen física puede ser cualquier resolución siempre que mantenga la proporción. El sistema escala la imagen al espacio lógico con `ctx.drawImage(img, 0, 0, logicalW, logicalH)`.
 
 ---
 
@@ -503,14 +512,12 @@ window.resize / ResizeObserver
 ### CSS crítico del layout
 
 ```css
-/* El wrapper siempre ocupa todo el viewport — JS sobreescribe con px exactos */
 #mapa-canvas-wrapper {
   position: relative;
   margin: 0 auto;
   display: block;
 }
 
-/* full-bleed: modo principal en producción */
 .novela.full-bleed {
   width: 100%;
   height: 100%;
@@ -527,22 +534,14 @@ window.resize / ResizeObserver
 }
 ```
 
-### Por qué el canvas escribe px fijos (y está bien)
-
-El elemento `<canvas>` requiere dimensiones absolutas para que el bitmap de dibujo coincida exactamente con el display size — de lo contrario hay distorsión. El JS calcula los px correctos en cada resize y los escribe via `style.width/height`. Esto es correcto e intencional, no un bug.
-
 ### Debug del layout
 
 ```js
-// En consola del browser:
 const w = document.getElementById('mapa-canvas-wrapper');
 console.log(w.getBoundingClientRect());
 console.log(getComputedStyle(w).margin);
 
-// Ver fill-scale actual:
 window.LayoutFill.get(); // → ej: 98.0
-
-// Cambiar fill-scale desde consola:
 window.LayoutFill.set(100); // 100 = sin reducción
 ```
 
@@ -550,8 +549,13 @@ window.LayoutFill.set(100); // 100 = sin reducción
 
 ## 14. Optimizaciones de performance implementadas
 
+> Baseline: **Lighthouse 100** (Rendimiento) en Moto G Power emulado, 4G lenta — Mayo 2026.
+
 | Optimización | Descripción |
 |---|---|
+| **createImageBitmap** | La imagen del mapa se decodifica fuera del main thread via `fetch() + createImageBitmap()`. Elimina ~2s de blocking. Fallback a `new Image()` si no hay soporte. |
+| **Bundle de hotspots** | `icons.json` combina todos los `wp*.json` en 1 request vs 12. Reduce la ruta crítica ~400–500ms. Fallback automático a archivos individuales. |
+| **CSS non-blocking** | `style.css` y `popup_styles.css` cargan con `media="print" onload="this.media='all'"`. Ahorra ~300ms de render-blocking. |
 | **Dirty flag system** | El canvas solo se redibuja cuando alguna capa está marcada como sucia. En reposo: 0 redraws/s. |
 | **Spatial index** | WaypointSpatialIndex con grid de celdas para culling O(1). Se activa con >15 waypoints. |
 | **Viewport culling** | Overlays y waypoints fuera del viewport no se renderizan. |
@@ -564,6 +568,7 @@ window.LayoutFill.set(100); // 100 = sin reducción
 | **Canvas size validation** | Valida y ajusta dimensiones del canvas según `CANVAS_LIMITS` en `config.js`. |
 | **Idle FPS throttling** | Cuando no hay animación activa, el loop corre a 30fps en vez de 60fps. |
 | **Editor bajo demanda** | `editor.js` solo se carga con `?editor=1`. No está en el bundle de producción. |
+| **logicalW/H como fuente de verdad** | `drawImage` escala la imagen al espacio lógico — la resolución física es independiente. Permite imágenes livianas sin mover waypoints. |
 
 ---
 
@@ -573,6 +578,7 @@ window.LayoutFill.set(100); // 100 = sin reducción
 - [ ] Contenido real del Expediente 0001 — reemplazar imágenes de prueba y datos de waypoints con el caso real
 - [ ] `thumb.webp` para el catálogo `index.json`
 - [ ] Resolver el colapso del iframe en WordPress online (divergentes.com) — guard de altura mínima en el listener
+- [ ] Generar imágenes mobile propias para fase 2 y fase 3 (actualmente usan la misma imagen que fase 1)
 
 ### Corto plazo
 - [ ] Plugin WordPress con shortcode `[mapa_interactivo story="..."]` y panel de ajustes
