@@ -38,7 +38,7 @@
       "zMobileProfile": {
         "default": 1,
         "tall": 1,
-        "medium": 0.85,
+        "medium": 0.77,
         "short": 0.90
       },
       "label": "Inicio del Viaje",
