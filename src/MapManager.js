@@ -455,9 +455,13 @@ export class MapManager {
     }
 
     const mapConfig = { ...MAPS_CONFIG[mapId] };
+    const waypointCount = (mapConfig.waypoints || []).length;
 
-    const images = await this.loadMapImages(mapConfig);
-    
+    const [images, iconsData] = await Promise.all([
+      this.loadMapImages(mapConfig),
+      this._loadSplitIcons(mapId, mapConfig, waypointCount)
+    ]);
+
     this.preloadIcons(mapConfig).catch(err => 
       console.warn('⚠️ Error precargando iconos:', err)
     );
@@ -465,8 +469,6 @@ export class MapManager {
     const W = mapConfig.mapImage.logicalW;
     const H = mapConfig.mapImage.logicalH;
     const normalizedWps = this.normalizeWaypoints(mapConfig.waypoints || [], W, H);
-
-    const iconsData = await this._loadSplitIcons(mapId, mapConfig, normalizedWps.length);
     const normalizedIcons = this.normalizeIcons(iconsData, W, H, normalizedWps);
 
     this.currentMapId = mapId;

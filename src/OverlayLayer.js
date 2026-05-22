@@ -18,14 +18,26 @@ export class OverlayLayer {
       .matchMedia(`(max-width: ${GLOBAL_CONFIG.MOBILE_BREAKPOINT - 1}px)`)
       .matches ? 56 : 40;
 
+    this._cachedOffX = 0;
+    this._cachedOffY = 0;
+
     this._onPointerDown = this._onPointerDown.bind(this);
     this._onPointerUp = this._onPointerUp.bind(this);
   }
 
-  resize(w, h) { 
-    this.lastDims = { w, h }; 
-    this.logicalW = w;  // Store logical width
-    this.logicalH = h;  // Store logical height
+  _recalcOffsets() {
+    const canvasEl = document.getElementById('mapa-canvas');
+    const canvasRect = canvasEl?.getBoundingClientRect();
+    const wrapperRect = this.root?.parentElement?.getBoundingClientRect();
+    this._cachedOffX = canvasRect && wrapperRect ? (canvasRect.left - wrapperRect.left) : 0;
+    this._cachedOffY = canvasRect && wrapperRect ? (canvasRect.top - wrapperRect.top) : 0;
+  }
+
+  resize(w, h) {
+    this.lastDims = { w, h };
+    this.logicalW = w;
+    this.logicalH = h;
+    this._recalcOffsets();
   }
   setDevice(device) { this.device = device; } // 'mobile' | 'desktop'
 
@@ -150,13 +162,8 @@ export class OverlayLayer {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     
-    // Calculate canvas offset from wrapper for letterboxing compensation
-    const canvasEl = document.getElementById('mapa-canvas'); // always use the real canvas
-    const canvasRect = canvasEl?.getBoundingClientRect();
-    const wrapperRect = this.root?.parentElement?.getBoundingClientRect();
-    
-    const offX = canvasRect && wrapperRect ? (canvasRect.left - wrapperRect.left) : 0;
-    const offY = canvasRect && wrapperRect ? (canvasRect.top - wrapperRect.top) : 0;
+    const offX = this._cachedOffX;
+    const offY = this._cachedOffY;
     
     // Get viewport bounds for culling if camera supports it
     let viewportBounds = null;

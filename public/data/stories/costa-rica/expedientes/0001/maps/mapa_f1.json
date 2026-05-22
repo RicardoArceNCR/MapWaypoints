@@ -32,14 +32,14 @@
       "yOffset": {
         "default": 0,
         "tall": -90,
-        "medium": -40,
+        "medium": -90,
         "short": 30
       },
       "zMobileProfile": {
         "default": 1,
         "tall": 1,
-        "medium": 0.90,
-        "short": 0.60
+        "medium": 1,
+        "short": 0.90
       },
       "label": "Inicio del Viaje",
       "lines": [
