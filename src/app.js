@@ -1427,7 +1427,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const mapImg = state.mapImages.highRes || state.mapImages.lowRes;
     if (!mapImg) return;
 
-    const rMap = mapImg.naturalWidth / mapImg.naturalHeight;
+    const imgW = mapImg.naturalWidth !== undefined ? mapImg.naturalWidth : mapImg.width;
+    const imgH = mapImg.naturalHeight !== undefined ? mapImg.naturalHeight : mapImg.height;
+    const rMap = imgW / imgH;
     const rMM = mmW / mmH;
     let dw, dh, dx, dy;
     if (rMap > rMM) { dw = mmW; dh = dw / rMap; dx = 0; dy = (mmH - dh) / 2; }

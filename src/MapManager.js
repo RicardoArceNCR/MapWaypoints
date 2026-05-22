@@ -229,6 +229,14 @@ export class MapManager {
     });
   }
 
+  // ========= IMAGE BITMAP (off-main-thread decode) =========
+  _naturalWidth(img) {
+    return img.naturalWidth !== undefined ? img.naturalWidth : img.width;
+  }
+  _naturalHeight(img) {
+    return img.naturalHeight !== undefined ? img.naturalHeight : img.height;
+  }
+
   // ========= ⚠️ MANTENER LÓGICA ORIGINAL - NO MODIFICAR =========
   async loadMapImages(mapConfig) {
     const imageConfig = mapConfig.mapImage;
@@ -246,20 +254,37 @@ export class MapManager {
     console.log(`🖼️ Cargando imagen ${this.isMobile ? 'mobile' : 'desktop'}:`, imagePath);
 
     try {
-      const img = await this.loadImage(imagePath);
-      
-      // ⚠️ LÓGICA ORIGINAL INTACTA - NO TOCAR
+      // Intentar createImageBitmap para decode fuera del main thread
+      let img;
+      try {
+        const optimizedPath = this.getOptimizedImagePath(imagePath);
+        const res = await fetch(optimizedPath);
+        if (res.ok) {
+          const blob = await res.blob();
+          if ('createImageBitmap' in window) {
+            img = await createImageBitmap(blob);
+          } else {
+            throw new Error('createImageBitmap no soportado');
+          }
+        } else {
+          throw new Error(`HTTP ${res.status}`);
+        }
+      } catch (e) {
+        // Fallback a Image() clásico
+        img = await this.loadImage(imagePath);
+      }
+
       if (imageConfig.useNaturalSize) {
-        mapConfig.mapImage.logicalW = img.naturalWidth;
-        mapConfig.mapImage.logicalH = img.naturalHeight;
+        mapConfig.mapImage.logicalW = this._naturalWidth(img);
+        mapConfig.mapImage.logicalH = this._naturalHeight(img);
       } else {
-        mapConfig.mapImage.logicalW = config.logicalW || imageConfig.logicalW || img.naturalWidth;
-        mapConfig.mapImage.logicalH = config.logicalH || imageConfig.logicalH || img.naturalHeight;
+        mapConfig.mapImage.logicalW = config.logicalW || imageConfig.logicalW || this._naturalWidth(img);
+        mapConfig.mapImage.logicalH = config.logicalH || imageConfig.logicalH || this._naturalHeight(img);
       }
 
       console.log(`✅ Dimensiones lógicas: ${mapConfig.mapImage.logicalW}x${mapConfig.mapImage.logicalH}`);
-      console.log(`   Imagen real: ${img.naturalWidth}x${img.naturalHeight}`);
-      
+      console.log(`   Imagen real: ${this._naturalWidth(img)}x${this._naturalHeight(img)}`);
+
       return { 
         lowRes: img,
         highRes: img,
