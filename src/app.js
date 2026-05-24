@@ -428,6 +428,11 @@ let memoryMonitor = new MemoryMonitor();
   const srLive = wrap.querySelector('.sr-live');
   const uiControls = document.querySelector('.ui');
 
+  // Waypoint info box refs
+  const _wib = document.getElementById('waypoint-info-box');
+  const _wibTitle = document.getElementById('waypoint-info-title');
+  const _wibDesc  = document.getElementById('waypoint-info-desc');
+
   // Managers
   const mapManager = new MapManager();
 
@@ -894,9 +899,26 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     camTarget.y = newTargetY;
     camTarget.z = newTargetZ;
 
-    startTyping();
+    updateWaypointInfoBox(wp);
     uiManager.updateProgress(state.currentWaypoints.length, i);
     markDirty('camera', 'elements', 'dialog', 'minimap');
+  }
+
+  // ========= 📌 WAYPOINT INFO BOX =========
+  function updateWaypointInfoBox(wp) {
+    if (!_wib) return;
+    const title = wp?.label || '';
+    const desc  = (wp?.lines && wp.lines[0]) || '';
+    if (!title && !desc) {
+      _wib.hidden = true;
+      _wib.classList.remove('visible');
+      return;
+    }
+    _wibTitle.textContent = title;
+    _wibDesc.textContent  = desc;
+    _wib.hidden = false;
+    _wib.offsetHeight; // force reflow
+    _wib.classList.add('visible');
   }
 
   function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }

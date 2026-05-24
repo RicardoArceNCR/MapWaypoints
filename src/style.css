@@ -1105,3 +1105,55 @@ body.net-slow .drawer {
     transition: opacity 0.1s ease;
   }
 }
+/* ========================================================= */
+/* WAYPOINT INFO BOX — Flota encima del canvas, sin empujar  */
+/* ========================================================= */
+.waypoint-info-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9990;
+  pointer-events: none;
+
+  background: rgba(10, 18, 26, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 14px 52px 14px 18px;
+
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.waypoint-info-box.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.waypoint-info-box__title {
+  margin: 0 0 4px;
+  font-size: clamp(13px, 1.5vw, 15px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.waypoint-info-box__desc {
+  margin: 0;
+  font-size: clamp(11px, 1.2vw, 13px);
+  color: rgba(255, 255, 255, 0.70);
+  line-height: 1.5;
+}
+
+/* Desktop: limitar ancho para no tapar todo el mapa */
+@media (min-width: 900px) {
+  .waypoint-info-box {
+    right: auto;
+    max-width: min(560px, 45%);
+    border-bottom: none;
+    border-radius: 0 0 12px 0;
+    padding-right: 24px;
+  }
+}

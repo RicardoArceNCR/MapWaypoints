@@ -20,8 +20,9 @@
 11. [Agregar un nuevo mapa a una historia](#11-agregar-un-nuevo-mapa-a-una-historia)
 12. [Cambiar la imagen del mapa](#12-cambiar-la-imagen-del-mapa)
 13. [Sistema de layout y viewport](#13-sistema-de-layout-y-viewport)
-14. [Optimizaciones de performance implementadas](#14-optimizaciones-de-performance-implementadas)
-15. [Pendientes y roadmap](#15-pendientes-y-roadmap)
+14. [Waypoint Info Box](#14-waypoint-info-box)
+15. [Optimizaciones de performance implementadas](#15-optimizaciones-de-performance-implementadas)
+16. [Pendientes y roadmap](#16-pendientes-y-roadmap)
 
 ---
 
@@ -553,7 +554,69 @@ window.LayoutFill.set(100); // 100 = sin reducción
 
 ---
 
-## 14. Optimizaciones de performance implementadas
+## 14. Waypoint Info Box
+
+Caja de texto flotante que se muestra sobre el canvas en la esquina superior izquierda al navegar entre waypoints. Muestra el título y la primera línea descriptiva del waypoint activo.
+
+### Cómo funciona
+
+- Es un `<div id="waypoint-info-box">` con `position: absolute; top: 0` dentro del `#mapa-canvas-wrapper` — flota encima del canvas sin afectar el layout (igual que los botones de fase abajo).
+- Se actualiza automáticamente en cada `goToWaypoint()`.
+- Lee `wp.label` como título y `wp.lines[0]` como descripción desde el JSON del mapa.
+- Si el waypoint no tiene ni `label` ni `lines`, la caja se oculta.
+
+### Personalizar el contenido por waypoint
+
+Editar directamente en el JSON del mapa correspondiente:
+
+```json
+{
+  "id": "wp_f1_col1",
+  "label": "Título del waypoint",
+  "lines": [
+    "Descripción que aparece en la caja flotante.",
+    "Segunda línea (usada en el sistema de diálogo interno, no en la caja)."
+  ]
+}
+```
+
+Los archivos a editar son `mapa_f1.json`, `mapa_f2.json` y `mapa_f3.json` dentro de la historia activa (`public/data/stories/{id}/maps/`). Los `TODO` actuales son placeholders listos para reemplazar.
+
+### Estructura HTML
+
+```html
+<!-- Dentro de #mapa-canvas-wrapper, antes de #overlay-layer -->
+<div id="waypoint-info-box" class="waypoint-info-box" aria-live="polite" hidden>
+  <h3 id="waypoint-info-title" class="waypoint-info-box__title"></h3>
+  <p  id="waypoint-info-desc"  class="waypoint-info-box__desc"></p>
+</div>
+```
+
+### Estilos clave
+
+```css
+.waypoint-info-box {
+  position: absolute; /* flota, no empuja */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9990;
+  pointer-events: none; /* no interfiere con clicks al mapa */
+  background: rgba(10, 18, 26, 0.85);
+  backdrop-filter: blur(12px);
+}
+
+/* Desktop: ancho limitado para no tapar el mapa */
+@media (min-width: 900px) {
+  .waypoint-info-box {
+    max-width: min(560px, 45%);
+  }
+}
+```
+
+---
+
+## 15. Optimizaciones de performance implementadas
 
 > Baseline: **Lighthouse 100** (Rendimiento) en Moto G Power emulado, 4G lenta — Mayo 2026.
 
@@ -582,15 +645,16 @@ window.LayoutFill.set(100); // 100 = sin reducción
 
 ---
 
-## 15. Pendientes y roadmap
+## 16. Pendientes y roadmap
 
 ### Pendiente inmediato
-- [ ] Contenido real del Expediente 0001 — reemplazar imágenes de prueba y datos de waypoints con el caso real
+- [ ] Contenido real del Expediente 0001 — reemplazar imágenes de prueba y datos de waypoints con el caso real (`label` y `lines` en los JSON de mapas)
 - [ ] `thumb.webp` para el catálogo `index.json`
 - [ ] Resolver el colapso del iframe en WordPress online (divergentes.com) — guard de altura mínima en el listener
 - [ ] Generar imágenes mobile propias para fase 2 y fase 3 (actualmente los 3 mapas usan `mapa-mobile.webp` — logicalW/H ya está unificado a 1400×3181, listo para el reemplazo)
 
 ### Corto plazo
+- [x] ~~Waypoint Info Box~~ — Caja flotante `position: absolute; top: 0` que muestra `label` y `lines[0]` del waypoint activo. Se actualiza en `goToWaypoint()`. No empuja el layout. (Mayo 2026)
 - [ ] Plugin WordPress con shortcode `[mapa_interactivo story="..."]` y panel de ajustes
 - [ ] LRU cache para imágenes (límite de ~30 entradas en `imageCache` — hoy crece ilimitado)
 - [x] ~~Virtualización de overlays DOM fuera de viewport~~ — Descartado: el culling screen-space existente ya oculta elementos fuera del viewport con precisión de 1px. Para el caso de uso actual (~20 overlays visibles máximo) no hay ganancia medible en implementar virtualización DOM. Si en el futuro un mapa tuviera >100 overlays simultáneos, re-evaluar.

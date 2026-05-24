@@ -83,7 +83,7 @@ Los hotspots e iconos son `<div>` posicionados sobre el canvas, **no** dibujados
 | `src/UIManager.js` | Fases, drawer, progreso, selector | UI chrome (no canvas) |
 | `src/DetailedPopupManager.js` | Popups modales con personas/fechas/hechos | Cambios en la UI de popups |
 | `src/editor.js` | Editor visual — solo carga con `?editor=1` | Herramienta de desarrollo |
-| `src/style.css` | Layout, `.novela`, `#mapa-canvas-wrapper` | Estilos visuales |
+| `src/style.css` | Layout, `.novela`, `#mapa-canvas-wrapper`, `.waypoint-info-box` | Estilos visuales |
 | `src/popup_styles.css` | Estilos de popups detallados | Estilos de popups |
 | `public/data/story.json` | Historia default (fallback sin `?story=`) | Datos de prueba |
 | `public/data/stories/*/story.json` | Historias reales | Contenido editorial |
@@ -260,6 +260,30 @@ Si no hay historia (fallback default):
 
 ---
 
+## Waypoint Info Box
+
+Caja de texto flotante que aparece en la esquina superior del canvas mostrando el título y descripción del waypoint activo. Se implementa como overlay DOM puro (`position: absolute`) dentro del `#mapa-canvas-wrapper`, igual que los demás overlays — **no empuja el layout**.
+
+**Elementos HTML** (en `src/index.html`):
+```html
+<div id="waypoint-info-box" class="waypoint-info-box" aria-live="polite" hidden>
+  <h3 id="waypoint-info-title" class="waypoint-info-box__title"></h3>
+  <p  id="waypoint-info-desc"  class="waypoint-info-box__desc"></p>
+</div>
+```
+
+**Lógica** (en `src/app.js`):
+- Las refs `_wib`, `_wibTitle`, `_wibDesc` se obtienen en el boot, junto a `srLive` y `uiControls`.
+- `updateWaypointInfoBox(wp)` se llama dentro de `goToWaypoint()` en cada cambio de waypoint.
+- Lee `wp.label` como título y `wp.lines[0]` como descripción — datos que ya existen en los JSON de mapas.
+- Si el waypoint no tiene ni `label` ni `lines`, la caja se oculta con `hidden`.
+
+**Personalizar el contenido:** editar `label` y `lines[0]` en los archivos `mapa_f1.json`, `mapa_f2.json`, `mapa_f3.json` de la historia correspondiente. Los `TODO` actuales son los placeholders.
+
+**CSS** (al final de `src/style.css`): `position: absolute; top: 0; left: 0` con `backdrop-filter: blur(12px)` y animación de entrada suave. En desktop se limita a `max-width: min(560px, 45%)` para no tapar el mapa.
+
+---
+
 ## Comandos útiles de desarrollo
 
 ```bash
@@ -313,6 +337,12 @@ git add . && git commit -m "descripción" && git push
 
 - WordPress embed via iframe probado localmente, pendiente fix en divergentes.com
 - `index.json` con catálogo inicial (1 historia registrada)
+
+**Waypoint Info Box (Mayo 2026):**
+- Caja flotante `position: absolute; top: 0` en `#mapa-canvas-wrapper` — no empuja el layout
+- Lee `wp.label` y `wp.lines[0]` de los JSON de mapas
+- Se actualiza en cada `goToWaypoint()` con animación de entrada suave
+- En desktop: ancho limitado a `min(560px, 45%)` para no tapar el mapa
 
 **Fixes de estabilidad aplicados (Mayo 2026):**
 - `_loadSplitIcons` catch ahora loguea warning si `icons.json` falla
