@@ -21,8 +21,8 @@
       "id": "wp_f1_col1",
       "mobile": {
         "xp": 0.172857,
-        "yp": 0.18862,
-        "z": 0.8
+        "yp": 0.165042,
+        "z": 1
       },
       "desktop": {
         "xp": 0.176887,
@@ -31,17 +31,17 @@
       },
       "yOffset": {
         "default": -100,
-        "tall": 40,
-        "medium": 0,
         "short": 30,
+        "medium": -60,
+        "tall": 40,
         "xtall": -230,
         "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1,
-        "tall": 1,
-        "medium": 0.8,
+        "default": 1.0,
         "short": 0.67,
+        "medium": 0.85,
+        "tall": 1.0,
         "xtall": 1.05,
         "tablet": 1.2
       },
@@ -55,7 +55,7 @@
       "id": "wp_f1_col2",
       "mobile": {
         "xp": 0.51,
-        "yp": 0.28293,
+        "yp": 0.165042,
         "z": 1
       },
       "desktop": {
@@ -65,19 +65,19 @@
       },
       "yOffset": {
         "default": -100,
-        "tall": -190,
-        "medium": -3,
         "short": 30,
+        "medium": -60,
+        "tall": -190,
         "xtall": -230,
-        "tablet": -100
+        "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1,
-        "tall": 1,
-        "medium": 0.7,
+        "default": 1.0,
         "short": 0.67,
+        "medium": 0.85,
+        "tall": 1.0,
         "xtall": 1.05,
-        "tablet": 0.9
+        "tablet": 1.2
       },
       "label": "Punto Central",
       "lines": [
@@ -99,19 +99,19 @@
       },
       "yOffset": {
         "default": -100,
-        "tall": -190,
-        "medium": -3,
         "short": 30,
+        "medium": -60,
+        "tall": -190,
         "xtall": -230,
-        "tablet": -100
+        "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1,
-        "tall": 1,
-        "medium": 0.7,
+        "default": 1.0,
         "short": 0.67,
+        "medium": 0.85,
+        "tall": 1.0,
         "xtall": 1.05,
-        "tablet": 0.9
+        "tablet": 1.2
       },
       "label": "Momento Culminante",
       "lines": [
@@ -133,17 +133,17 @@
       },
       "yOffset": {
         "default": -100,
-        "tall": -190,
-        "medium": -3,
         "short": 30,
+        "medium": -60,
+        "tall": -190,
         "xtall": -230,
-        "tablet": -100
+        "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1,
-        "tall": 1,
-        "medium": 0.7,
+        "default": 1.0,
         "short": 0.67,
+        "medium": 0.85,
+        "tall": 1.0,
         "xtall": 1.05,
         "tablet": 0.9
       },
@@ -167,17 +167,17 @@
       },
       "yOffset": {
         "default": -100,
-        "tall": -190,
-        "medium": -3,
         "short": 30,
+        "medium": -60,
+        "tall": -190,
         "xtall": -230,
-        "tablet": -100
+        "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1,
-        "tall": 1,
-        "medium": 0.7,
+        "default": 1.0,
         "short": 0.67,
+        "medium": 0.85,
+        "tall": 1.0,
         "xtall": 1.05,
         "tablet": 0.9
       },
@@ -201,17 +201,17 @@
       },
       "yOffset": {
         "default": -100,
-        "tall": -190,
-        "medium": -3,
         "short": 30,
+        "medium": -60,
+        "tall": -190,
         "xtall": -230,
-        "tablet": -100
+        "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1,
-        "tall": 1,
-        "medium": 0.7,
+        "default": 1.0,
         "short": 0.67,
+        "medium": 0.85,
+        "tall": 1.0,
         "xtall": 1.05,
         "tablet": 0.9
       },
@@ -235,17 +235,17 @@
       },
       "yOffset": {
         "default": -100,
-        "tall": -190,
-        "medium": -3,
         "short": 30,
+        "medium": -60,
+        "tall": -190,
         "xtall": -230,
-        "tablet": -100
+        "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1,
-        "tall": 1,
-        "medium": 0.7,
+        "default": 1.0,
         "short": 0.67,
+        "medium": 0.85,
+        "tall": 1.0,
         "xtall": 1.05,
         "tablet": 0.9
       },
@@ -269,17 +269,17 @@
       },
       "yOffset": {
         "default": -100,
-        "tall": -190,
-        "medium": -3,
         "short": 30,
+        "medium": -60,
+        "tall": -190,
         "xtall": -230,
-        "tablet": -100
+        "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1,
-        "tall": 1,
-        "medium": 0.7,
+        "default": 1.0,
         "short": 0.67,
+        "medium": 0.85,
+        "tall": 1.0,
         "xtall": 1.05,
         "tablet": 0.9
       },
@@ -303,17 +303,17 @@
       },
       "yOffset": {
         "default": -100,
-        "tall": -190,
-        "medium": -3,
         "short": 30,
+        "medium": -60,
+        "tall": -190,
         "xtall": -230,
-        "tablet": -100
+        "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1,
-        "tall": 1,
-        "medium": 0.7,
+        "default": 1.0,
         "short": 0.67,
+        "medium": 0.85,
+        "tall": 1.0,
         "xtall": 1.05,
         "tablet": 0.9
       },
@@ -337,17 +337,17 @@
       },
       "yOffset": {
         "default": -100,
-        "tall": -190,
-        "medium": -3,
         "short": 30,
+        "medium": -60,
+        "tall": -190,
         "xtall": -230,
-        "tablet": -100
+        "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1,
-        "tall": 1,
-        "medium": 0.7,
+        "default": 1.0,
         "short": 0.67,
+        "medium": 0.85,
+        "tall": 1.0,
         "xtall": 1.05,
         "tablet": 0.9
       },
@@ -371,17 +371,17 @@
       },
       "yOffset": {
         "default": -100,
-        "tall": -190,
-        "medium": -3,
         "short": 30,
+        "medium": -60,
+        "tall": -190,
         "xtall": -230,
-        "tablet": -100
+        "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1,
-        "tall": 1,
-        "medium": 0.7,
+        "default": 1.0,
         "short": 0.67,
+        "medium": 0.85,
+        "tall": 1.0,
         "xtall": 1.05,
         "tablet": 0.9
       },
@@ -405,17 +405,17 @@
       },
       "yOffset": {
         "default": -100,
-        "tall": -190,
-        "medium": -3,
         "short": 30,
+        "medium": -60,
+        "tall": -190,
         "xtall": -230,
-        "tablet": -100
+        "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1,
-        "tall": 1,
-        "medium": 0.7,
+        "default": 1.0,
         "short": 0.67,
+        "medium": 0.85,
+        "tall": 1.0,
         "xtall": 1.05,
         "tablet": 0.9
       },
