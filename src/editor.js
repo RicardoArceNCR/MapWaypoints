@@ -51,6 +51,7 @@ export function initEditor() {
     // Waypoint edit mode
     editWaypointMode: false,
     isDragging: false,
+    isPeeking: false,           // 👁 peek mode mobile activo
     waypointGhost: null,        // 👻 posición preview mientras se tipea en inputs
     _wpPreviewTimer: null,      // debounce timer para preview al main canvas
 // 🆕 HISTORIA PARA UNDO/REDO
@@ -446,6 +447,7 @@ export function initEditor() {
       };
 
       btn.onclick = () => {
+        exitPeekMode();
         editor.waypointIndex = index;
         
         // Disparar evento para cargar datos del waypoint
@@ -623,6 +625,123 @@ export function initEditor() {
     ctx.fillText(label, lx, ly);
 
     ctx.restore();
+  }
+
+  // ========= 👁 PEEK MODE MOBILE =========
+  function enterPeekMode() {
+    if (!editor.isMobile || editor.isPeeking || !editor.editWaypointMode) return;
+    editor.isPeeking = true;
+
+    const panel = document.getElementById('editor-pro-ui');
+    if (panel) panel.style.setProperty('pointer-events', 'none', 'important');
+
+    if (document.getElementById('wp-peek-hud')) return;
+
+    const hud = document.createElement('div');
+    hud.id = 'wp-peek-hud';
+    hud.style.cssText = `
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 10001;
+      background: rgba(0, 0, 0, 0.95); border-top: 2px solid #00BFFF;
+      padding: 10px 12px; font-family: monospace; font-size: 13px;
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    `;
+
+    const inX = document.getElementById('wp-x');
+    const inY = document.getElementById('wp-y');
+    const inZ = document.getElementById('wp-z');
+    const curX = inX ? inX.value : Math.round(editor.waypoint?.x ?? 0);
+    const curY = inY ? inY.value : Math.round(editor.waypoint?.y ?? 0);
+    const curZ = inZ ? inZ.value : Number(editor.waypoint?.z ?? 1).toFixed(2);
+
+    hud.innerHTML = `
+      <span style="color:#FFD700;font-weight:bold;white-space:nowrap;">📍#${editor.waypointIndex}</span>
+      <label style="color:#00BFFF;display:flex;align-items:center;gap:2px;flex:1;min-width:70px;">
+        X <input id="peek-x" type="number" value="${curX}" style="width:100%;padding:4px;background:#111;color:#0FF;border:1px solid #00BFFF;border-radius:4px;font-size:12px;">
+      </label>
+      <label style="color:#00BFFF;display:flex;align-items:center;gap:2px;flex:1;min-width:70px;">
+        Y <input id="peek-y" type="number" value="${curY}" style="width:100%;padding:4px;background:#111;color:#0FF;border:1px solid #00BFFF;border-radius:4px;font-size:12px;">
+      </label>
+      <label style="color:#00BFFF;display:flex;align-items:center;gap:2px;flex:1;min-width:60px;">
+        Z <input id="peek-z" type="number" step="0.01" value="${curZ}" style="width:100%;padding:4px;background:#111;color:#0FF;border:1px solid #00BFFF;border-radius:4px;font-size:12px;">
+      </label>
+      <button id="peek-save" style="padding:6px 10px;background:#00FF88;border:none;border-radius:6px;color:#000;font-weight:700;cursor:pointer;white-space:nowrap;">💾</button>
+      <button id="peek-close" style="padding:6px 10px;background:#FF4444;border:none;border-radius:6px;color:#fff;font-weight:700;cursor:pointer;white-space:nowrap;">✕</button>
+    `;
+
+    document.body.appendChild(hud);
+
+    const peekX = document.getElementById('peek-x');
+    const peekY = document.getElementById('peek-y');
+    const peekZ = document.getElementById('peek-z');
+
+    // Sincronizar HUD ← panel y activar ghost+preview
+    function syncPeekToPanel() {
+      if (!editor.waypoint) return;
+      const px = parseInt(peekX.value);
+      const py = parseInt(peekY.value);
+      const pz = parseFloat(peekZ.value) || 1;
+      if (!Number.isFinite(px) || !Number.isFinite(py)) return;
+
+      editor.waypoint.x = px;
+      editor.waypoint.y = py;
+      editor.waypoint.z = pz;
+
+      // Sincronizar inputs del panel
+      if (inX) inX.value = px;
+      if (inY) inY.value = py;
+      if (inZ) inZ.value = pz;
+
+      // Ghost
+      editor.waypointGhost = { x: px, y: py, z: pz };
+      editor.needsRedraw = true;
+      window.dispatchEvent(new CustomEvent('editor:redraw'));
+
+      // Preview debounced
+      clearTimeout(editor._wpPreviewTimer);
+      editor._wpPreviewTimer = setTimeout(() => {
+        const { w, h } = getMapSize();
+        const xp = Number(Math.max(0, Math.min(1, px / w)).toFixed(6));
+        const yp = Number(Math.max(0, Math.min(1, py / h)).toFixed(6));
+        window.dispatchEvent(new CustomEvent('editor:updateWaypoint', {
+          detail: {
+            waypointIndex: editor.waypointIndex,
+            device: 'mobile',
+            values: { xp, yp, z: Number(pz.toFixed(2)) },
+            _preview: true
+          }
+        }));
+      }, 200);
+    }
+
+    [peekX, peekY, peekZ].forEach(el => {
+      if (!el) return;
+      el.addEventListener('input', syncPeekToPanel);
+      el.addEventListener('focus', () => {
+        el.select();
+      });
+    });
+
+    document.getElementById('peek-save')?.addEventListener('click', () => {
+      if (!editor.waypoint) return;
+      const x = parseInt(peekX.value) || editor.waypoint.x;
+      const y = parseInt(peekY.value) || editor.waypoint.y;
+      const z = parseFloat(peekZ.value) || editor.waypoint.z || 1;
+      editor.waypointGhost = null;
+      clearTimeout(editor._wpPreviewTimer);
+      saveWaypointPosition(x, y, z);
+      exitPeekMode();
+    });
+
+    document.getElementById('peek-close')?.addEventListener('click', exitPeekMode);
+  }
+
+  function exitPeekMode() {
+    editor.isPeeking = false;
+    const hud = document.getElementById('wp-peek-hud');
+    if (hud) hud.remove();
+
+    const panel = document.getElementById('editor-pro-ui');
+    if (panel) panel.style.removeProperty('pointer-events');
   }
 
   function drawGrid() {
@@ -804,18 +923,34 @@ export function initEditor() {
         <div style="font-weight: bold; font-size: ${editor.isMobile ? '14px' : '16px'}; color: #FFD700;">
           🎨 EDITOR ADVANCED
         </div>
-        <button id="toggle-ui-collapse" style="
-          padding: 4px 10px;
-          background: #FFD700;
-          border: none;
-          border-radius: 6px;
-          cursor: pointer;
-          font-weight: bold;
-          font-size: 13px;
-          line-height: 1;
-        " title="Colapsar panel (C)">
-          ${editor.uiCollapsed ? '▲' : '▼'}
-        </button>
+        <div style="display:flex;gap:6px;">
+          ${editor.isMobile ? `
+          <button id="peek-toggle" style="
+            padding: 4px 8px;
+            background: #00BFFF;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            line-height: 1;
+          " title="Modo Peek (ver ghost en canvas)">
+            👁
+          </button>
+          ` : ''}
+          <button id="toggle-ui-collapse" style="
+            padding: 4px 10px;
+            background: #FFD700;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            line-height: 1;
+          " title="Colapsar panel (C)">
+            ${editor.uiCollapsed ? '▲' : '▼'}
+          </button>
+        </div>
       </div>
 
       <div id="editor-content" style="display: ${editor.uiCollapsed ? 'none' : 'block'};">
@@ -960,6 +1095,11 @@ export function initEditor() {
         border-color: #00FF00;
         box-shadow: 0 0 4px rgba(0, 255, 255, 0.5);
       }
+      #wp-peek-hud input:focus {
+        outline: none;
+        border-color: #00FF00 !important;
+        box-shadow: 0 0 6px rgba(0, 255, 255, 0.6);
+      }
     `;
     document.head.appendChild(style);
 
@@ -992,6 +1132,23 @@ export function initEditor() {
         }
       });
     }
+
+    document.getElementById('peek-toggle')?.addEventListener('click', () => {
+      if (editor.isPeeking) {
+        exitPeekMode();
+      } else {
+        editor.editWaypointMode = true;
+        const btn = document.getElementById('toggle-wp-mode');
+        if (btn) { btn.textContent = '✥ Editando Waypoint…'; btn.style.background = '#FFD700'; }
+        const inX = document.getElementById('wp-x');
+        if (editor.waypoint && inX) {
+          document.getElementById('wp-x').value = Math.round(editor.waypoint.x);
+          document.getElementById('wp-y').value = Math.round(editor.waypoint.y);
+          document.getElementById('wp-z').value = Number(editor.waypoint.z || 1).toFixed(2);
+        }
+        enterPeekMode();
+      }
+    });
 
     document.getElementById('toggle-grid').addEventListener('click', () => {
       editor.showGrid = !editor.showGrid;
@@ -1085,6 +1242,11 @@ export function initEditor() {
               }
             }));
           }, 200);
+        });
+
+        // Auto-peek mode en mobile al enfocar inputs de waypoint
+        el.addEventListener('focus', () => {
+          if (editor.isMobile) enterPeekMode();
         });
       });
     })();
@@ -1206,6 +1368,7 @@ export function initEditor() {
           editor.items = items;
           editor.camera = camera;
           editor.selectedItem = null;
+          exitPeekMode();
           editor.waypointGhost = null;
           clearTimeout(editor._wpPreviewTimer);
           editor.needsRedraw = true;
@@ -1263,6 +1426,7 @@ export function initEditor() {
       editor.needsRedraw = true;
     } else {
       console.log('%c⏹️  EDITOR DESACTIVADO', 'color:#FF6B6B;font-size:16px');
+      exitPeekMode();
       canvas.style.cursor = 'default';
       document.getElementById('editor-pro-ui')?.remove?.();
       document.getElementById('editor-lite')?.remove?.();
