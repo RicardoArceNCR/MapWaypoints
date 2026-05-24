@@ -32,13 +32,13 @@
       "yOffset": {
         "default": 0,
         "tall": -190,
-        "medium": -3,
+        "medium": -20,
         "short": 30
       },
       "zMobileProfile": {
-        "default": 1,
-        "tall": 1,
-        "medium": 0.7,
+        "default": 0.8,
+        "tall": 1.1,
+        "medium": 0.85,
         "short": 0.67
       },
       "label": "Inicio del Viaje",
@@ -67,7 +67,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "tall": 1,
+        "tall": 1.1,
         "medium": 0.7,
         "short": 0.67
       },
@@ -97,7 +97,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "tall": 1,
+        "tall": 1.1,
         "medium": 0.7,
         "short": 0.67
       },
@@ -127,7 +127,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "tall": 1,
+        "tall": 1.1,
         "medium": 0.7,
         "short": 0.67
       },
@@ -157,7 +157,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "tall": 1,
+        "tall": 1.1,
         "medium": 0.7,
         "short": 0.67
       },
@@ -187,7 +187,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "tall": 1,
+        "tall": 1.1,
         "medium": 0.7,
         "short": 0.67
       },
@@ -217,7 +217,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "tall": 1,
+        "tall": 1.1,
         "medium": 0.7,
         "short": 0.67
       },
@@ -247,7 +247,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "tall": 1,
+        "tall": 1.1,
         "medium": 0.7,
         "short": 0.67
       },
@@ -277,7 +277,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "tall": 1,
+        "tall": 1.1,
         "medium": 0.7,
         "short": 0.67
       },
@@ -307,7 +307,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "tall": 1,
+        "tall": 1.1,
         "medium": 0.7,
         "short": 0.67
       },
@@ -337,7 +337,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "tall": 1,
+        "tall": 1.1,
         "medium": 0.7,
         "short": 0.67
       },
@@ -367,7 +367,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "tall": 1,
+        "tall": 1.1,
         "medium": 0.7,
         "short": 0.67
       },
