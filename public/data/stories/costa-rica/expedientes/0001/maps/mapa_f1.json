@@ -31,7 +31,7 @@
       },
       "yOffset": {
         "default": 0,
-        "tall": -190,
+        "tall": -140,
         "medium": -3,
         "short": 30,
         "xtall": -230,
@@ -40,7 +40,7 @@
       "zMobileProfile": {
         "default": 1,
         "tall": 1,
-        "medium": 0.7,
+        "medium": 0.83,
         "short": 0.67,
         "xtall": 1.05,
         "tablet": 1.2
@@ -77,7 +77,7 @@
         "medium": 0.7,
         "short": 0.67,
         "xtall": 1.05,
-        "tablet": 0.9
+        "tablet": 1.2
       },
       "label": "Punto Central",
       "lines": [
