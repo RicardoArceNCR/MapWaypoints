@@ -32,7 +32,7 @@
       "yOffset": {
         "default": -100,
         "short": 30,
-        "medium": -60,
+        "medium": 0,
         "tall": 40,
         "xtall": -230,
         "tablet": -300
@@ -40,7 +40,7 @@
       "zMobileProfile": {
         "default": 1.0,
         "short": 0.67,
-        "medium": 0.85,
+        "medium": 0.97,
         "tall": 1.0,
         "xtall": 1.05,
         "tablet": 1.2
@@ -89,7 +89,7 @@
       "id": "wp_f1_col3",
       "mobile": {
         "xp": 0.84,
-        "yp": 0.28293,
+        "yp": 0.165042,
         "z": 1
       },
       "desktop": {
