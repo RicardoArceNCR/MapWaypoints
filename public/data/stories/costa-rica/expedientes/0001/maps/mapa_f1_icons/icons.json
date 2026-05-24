@@ -310,10 +310,10 @@
       "_note": "WP1-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -11,
-        "offsetY": -417,
-        "width": 392,
-        "height": 200,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
         "rotation": 9,
         "radius": 0
       },
@@ -397,10 +397,10 @@
       "_note": "WP1-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 1,
-        "offsetY": -86,
-        "width": 404,
-        "height": 284,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
         "rotation": -8,
         "radius": 0
       },
@@ -462,8 +462,8 @@
       "_note": "WP1-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 84,
-        "offsetY": 145,
+        "offsetX": -92,
+        "offsetY": 48,
         "width": 77,
         "height": 77,
         "rotation": -8,
@@ -527,11 +527,11 @@
       "_note": "WP1-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 224,
-        "offsetY": 107,
+        "offsetX": 20,
+        "offsetY": 37,
         "width": 77,
         "height": 77,
-        "rotation": 24,
+        "rotation": -24,
         "radius": 15
       },
       "desktop": {
@@ -616,10 +616,10 @@
       "_note": "WP2-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -11,
-        "offsetY": -417,
-        "width": 392,
-        "height": 200,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
         "rotation": 9,
         "radius": 0
       },
@@ -703,10 +703,10 @@
       "_note": "WP2-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 1,
-        "offsetY": -86,
-        "width": 404,
-        "height": 284,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
         "rotation": -8,
         "radius": 0
       },
@@ -768,8 +768,8 @@
       "_note": "WP2-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 84,
-        "offsetY": 145,
+        "offsetX": -92,
+        "offsetY": 48,
         "width": 77,
         "height": 77,
         "rotation": -8,
@@ -833,11 +833,11 @@
       "_note": "WP2-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 224,
-        "offsetY": 107,
+        "offsetX": 20,
+        "offsetY": 37,
         "width": 77,
         "height": 77,
-        "rotation": 24,
+        "rotation": -24,
         "radius": 15
       },
       "desktop": {
@@ -922,10 +922,10 @@
       "_note": "WP3-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -11,
-        "offsetY": -417,
-        "width": 392,
-        "height": 200,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
         "rotation": 9,
         "radius": 0
       },
@@ -1009,10 +1009,10 @@
       "_note": "WP3-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 1,
-        "offsetY": -86,
-        "width": 404,
-        "height": 284,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
         "rotation": -8,
         "radius": 0
       },
@@ -1074,8 +1074,8 @@
       "_note": "WP3-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 84,
-        "offsetY": 145,
+        "offsetX": -92,
+        "offsetY": 48,
         "width": 77,
         "height": 77,
         "rotation": -8,
@@ -1139,11 +1139,11 @@
       "_note": "WP3-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 224,
-        "offsetY": 107,
+        "offsetX": 20,
+        "offsetY": 37,
         "width": 77,
         "height": 77,
-        "rotation": 24,
+        "rotation": -24,
         "radius": 15
       },
       "desktop": {
@@ -1228,10 +1228,10 @@
       "_note": "WP4-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -11,
-        "offsetY": -417,
-        "width": 392,
-        "height": 200,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
         "rotation": 9,
         "radius": 0
       },
@@ -1315,10 +1315,10 @@
       "_note": "WP4-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 1,
-        "offsetY": -86,
-        "width": 404,
-        "height": 284,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
         "rotation": -8,
         "radius": 0
       },
@@ -1380,8 +1380,8 @@
       "_note": "WP4-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 84,
-        "offsetY": 145,
+        "offsetX": -92,
+        "offsetY": 48,
         "width": 77,
         "height": 77,
         "rotation": -8,
@@ -1445,11 +1445,11 @@
       "_note": "WP4-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 224,
-        "offsetY": 107,
+        "offsetX": 20,
+        "offsetY": 37,
         "width": 77,
         "height": 77,
-        "rotation": 24,
+        "rotation": -24,
         "radius": 15
       },
       "desktop": {
@@ -1534,10 +1534,10 @@
       "_note": "WP5-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -11,
-        "offsetY": -417,
-        "width": 392,
-        "height": 200,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
         "rotation": 9,
         "radius": 0
       },
@@ -1621,10 +1621,10 @@
       "_note": "WP5-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 1,
-        "offsetY": -86,
-        "width": 404,
-        "height": 284,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
         "rotation": -8,
         "radius": 0
       },
@@ -1686,8 +1686,8 @@
       "_note": "WP5-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 84,
-        "offsetY": 145,
+        "offsetX": -92,
+        "offsetY": 48,
         "width": 77,
         "height": 77,
         "rotation": -8,
@@ -1751,11 +1751,11 @@
       "_note": "WP5-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 224,
-        "offsetY": 107,
+        "offsetX": 20,
+        "offsetY": 37,
         "width": 77,
         "height": 77,
-        "rotation": 24,
+        "rotation": -24,
         "radius": 15
       },
       "desktop": {
@@ -1840,10 +1840,10 @@
       "_note": "WP6-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -11,
-        "offsetY": -417,
-        "width": 392,
-        "height": 200,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
         "rotation": 9,
         "radius": 0
       },
@@ -1927,10 +1927,10 @@
       "_note": "WP6-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 1,
-        "offsetY": -86,
-        "width": 404,
-        "height": 284,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
         "rotation": -8,
         "radius": 0
       },
@@ -1992,8 +1992,8 @@
       "_note": "WP6-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 84,
-        "offsetY": 145,
+        "offsetX": -92,
+        "offsetY": 48,
         "width": 77,
         "height": 77,
         "rotation": -8,
@@ -2057,11 +2057,11 @@
       "_note": "WP6-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 224,
-        "offsetY": 107,
+        "offsetX": 20,
+        "offsetY": 37,
         "width": 77,
         "height": 77,
-        "rotation": 24,
+        "rotation": -24,
         "radius": 15
       },
       "desktop": {
@@ -2146,10 +2146,10 @@
       "_note": "WP7-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -11,
-        "offsetY": -417,
-        "width": 392,
-        "height": 200,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
         "rotation": 9,
         "radius": 0
       },
@@ -2233,10 +2233,10 @@
       "_note": "WP7-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 1,
-        "offsetY": -86,
-        "width": 404,
-        "height": 284,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
         "rotation": -8,
         "radius": 0
       },
@@ -2298,8 +2298,8 @@
       "_note": "WP7-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 84,
-        "offsetY": 145,
+        "offsetX": -92,
+        "offsetY": 48,
         "width": 77,
         "height": 77,
         "rotation": -8,
@@ -2363,11 +2363,11 @@
       "_note": "WP7-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 224,
-        "offsetY": 107,
+        "offsetX": 20,
+        "offsetY": 37,
         "width": 77,
         "height": 77,
-        "rotation": 24,
+        "rotation": -24,
         "radius": 15
       },
       "desktop": {
@@ -2452,10 +2452,10 @@
       "_note": "WP8-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -11,
-        "offsetY": -417,
-        "width": 392,
-        "height": 200,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
         "rotation": 9,
         "radius": 0
       },
@@ -2539,10 +2539,10 @@
       "_note": "WP8-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 1,
-        "offsetY": -86,
-        "width": 404,
-        "height": 284,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
         "rotation": -8,
         "radius": 0
       },
@@ -2604,8 +2604,8 @@
       "_note": "WP8-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 84,
-        "offsetY": 145,
+        "offsetX": -92,
+        "offsetY": 48,
         "width": 77,
         "height": 77,
         "rotation": -8,
@@ -2669,11 +2669,11 @@
       "_note": "WP8-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 224,
-        "offsetY": 107,
+        "offsetX": 20,
+        "offsetY": 37,
         "width": 77,
         "height": 77,
-        "rotation": 24,
+        "rotation": -24,
         "radius": 15
       },
       "desktop": {
@@ -2758,10 +2758,10 @@
       "_note": "WP9-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -11,
-        "offsetY": -417,
-        "width": 392,
-        "height": 200,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
         "rotation": 9,
         "radius": 0
       },
@@ -2845,10 +2845,10 @@
       "_note": "WP9-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 1,
-        "offsetY": -86,
-        "width": 404,
-        "height": 284,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
         "rotation": -8,
         "radius": 0
       },
@@ -2910,8 +2910,8 @@
       "_note": "WP9-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 84,
-        "offsetY": 145,
+        "offsetX": -92,
+        "offsetY": 48,
         "width": 77,
         "height": 77,
         "rotation": -8,
@@ -2975,11 +2975,11 @@
       "_note": "WP9-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 224,
-        "offsetY": 107,
+        "offsetX": 20,
+        "offsetY": 37,
         "width": 77,
         "height": 77,
-        "rotation": 24,
+        "rotation": -24,
         "radius": 15
       },
       "desktop": {
@@ -3064,10 +3064,10 @@
       "_note": "WP10-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -11,
-        "offsetY": -417,
-        "width": 392,
-        "height": 200,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
         "rotation": 9,
         "radius": 0
       },
@@ -3151,10 +3151,10 @@
       "_note": "WP10-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 1,
-        "offsetY": -86,
-        "width": 404,
-        "height": 284,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
         "rotation": -8,
         "radius": 0
       },
@@ -3216,8 +3216,8 @@
       "_note": "WP10-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 84,
-        "offsetY": 145,
+        "offsetX": -92,
+        "offsetY": 48,
         "width": 77,
         "height": 77,
         "rotation": -8,
@@ -3281,11 +3281,11 @@
       "_note": "WP10-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 224,
-        "offsetY": 107,
+        "offsetX": 20,
+        "offsetY": 37,
         "width": 77,
         "height": 77,
-        "rotation": 24,
+        "rotation": -24,
         "radius": 15
       },
       "desktop": {
@@ -3370,10 +3370,10 @@
       "_note": "WP11-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -11,
-        "offsetY": -417,
-        "width": 392,
-        "height": 200,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
         "rotation": 9,
         "radius": 0
       },
@@ -3457,10 +3457,10 @@
       "_note": "WP11-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 1,
-        "offsetY": -86,
-        "width": 404,
-        "height": 284,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
         "rotation": -8,
         "radius": 0
       },
@@ -3522,8 +3522,8 @@
       "_note": "WP11-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 84,
-        "offsetY": 145,
+        "offsetX": -92,
+        "offsetY": 48,
         "width": 77,
         "height": 77,
         "rotation": -8,
@@ -3587,11 +3587,11 @@
       "_note": "WP11-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 224,
-        "offsetY": 107,
+        "offsetX": 20,
+        "offsetY": 37,
         "width": 77,
         "height": 77,
-        "rotation": 24,
+        "rotation": -24,
         "radius": 15
       },
       "desktop": {
