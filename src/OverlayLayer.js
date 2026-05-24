@@ -166,12 +166,6 @@ export class OverlayLayer {
     
     const offX = this._cachedOffX;
     const offY = this._cachedOffY;
-    
-    // Get viewport bounds for culling if camera supports it
-    let viewportBounds = null;
-    if (camera.getWorldBounds) {
-      viewportBounds = camera.getWorldBounds();
-    }
 
     for (const [key, rec] of this.items) {
       const alive = this.frameLiveKeys.has(String(key));
@@ -181,18 +175,6 @@ export class OverlayLayer {
         rec.wrap.remove();
         this.items.delete(key);
         continue;
-      }
-
-      // Skip if outside viewport bounds (if camera supports it)
-      if (viewportBounds) {
-        const margin = 500 / camera.z; // Convert screen margin to world space
-        if (rec.worldX < viewportBounds.minX - margin ||
-            rec.worldX > viewportBounds.maxX + margin ||
-            rec.worldY < viewportBounds.minY - margin ||
-            rec.worldY > viewportBounds.maxY + margin) {
-          rec.wrap.style.display = 'none';
-          continue;
-        }
       }
 
       // world → screen using camera's worldToCss method if available
@@ -292,6 +274,7 @@ export class OverlayLayer {
     const key = wrap?.dataset?.key;
     if (!key) return;
     const rec = this.items.get(key);
+    if (!rec) return;
     rec._pd = { x: ev.clientX, y: ev.clientY, t: performance.now() };
   }
 
@@ -300,6 +283,7 @@ export class OverlayLayer {
     const key = wrap?.dataset?.key;
     if (!key) return;
     const rec = this.items.get(key);
+    if (!rec || !rec._pd) return;
     const dx = Math.abs(ev.clientX - rec._pd.x);
     const dy = Math.abs(ev.clientY - rec._pd.y);
     const dt = performance.now() - rec._pd.t;

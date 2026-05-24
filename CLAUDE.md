@@ -65,6 +65,10 @@ La imagen se escala al espacio lógico declarado en el JSON. La resolución fís
 
 Los hotspots e iconos son `<div>` posicionados sobre el canvas, **no** dibujados en el canvas. Se actualizan cada frame en `overlay.endFrame(camera, canvasW, canvasH)`. Si un overlay no aparece, primero verifica que `overlay.upsert()` se esté llamando con `frameLiveKeys` correctos.
 
+**Culling:** El culling es exclusivamente screen-space (píxeles CSS). No hay culling world-space — se eliminó por duplicado. Si un overlay está fuera del viewport en coordenadas CSS, se oculta con `display: none`. Esto es suficiente para el caso de uso actual (~20 overlays simultáneos).
+
+**Handlers:** `_onPointerDown` y `_onPointerUp` tienen guards (`if (!rec) return`) para prevenir TypeError si un item se elimina del Map entre ambos eventos (p. ej. cambio rápido de waypoint).
+
 ---
 
 ## Archivos más importantes
@@ -301,3 +305,9 @@ git add . && git commit -m "descripción" && git push
 
 - WordPress embed via iframe probado localmente, pendiente fix en divergentes.com
 - `index.json` con catálogo inicial (1 historia registrada)
+
+**Fixes de estabilidad aplicados (Mayo 2026):**
+- `_loadSplitIcons` catch ahora loguea warning si `icons.json` falla
+- `_onPointerDown/_onPointerUp` con guard contra null pointer si el overlay se elimina entre eventos
+- `structuredClone` reemplazó `JSON.parse(JSON.stringify())` en normalización de waypoints
+- Culling world-space duplicado eliminado de `OverlayLayer.endFrame()` — solo screen-space

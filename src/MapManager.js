@@ -383,7 +383,7 @@ export class MapManager {
         return icons;
       }
     } catch (e) {
-      // Fallback a archivos individuales
+      console.warn(`⚠️ icons.json no disponible para ${mapId}, usando archivos individuales:`, e.message);
     }
 
     const fetches = Array.from({ length: waypointCount }, (_, i) =>
@@ -681,7 +681,7 @@ export class MapManager {
       const overflows = []; // guardamos overflow por índice y vista
 
       const adjusted = (waypoints || []).map((wp, idx) => {
-        const clone = JSON.parse(JSON.stringify(wp || {}));
+        const clone = structuredClone(wp || {});
         const m = (clone.mobile  ||= {});
         const d = (clone.desktop ||= {});
 

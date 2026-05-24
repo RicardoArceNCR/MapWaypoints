@@ -569,6 +569,10 @@ window.LayoutFill.set(100); // 100 = sin reducción
 | **Idle FPS throttling** | Cuando no hay animación activa, el loop corre a 30fps en vez de 60fps. |
 | **Editor bajo demanda** | `editor.js` solo se carga con `?editor=1`. No está en el bundle de producción. |
 | **logicalW/H como fuente de verdad** | `drawImage` escala la imagen al espacio lógico — la resolución física es independiente. Permite imágenes livianas sin mover waypoints. |
+| **structuredClone en vez de JSON.parse(JSON.stringify)** | `structuredClone()` es más rápido, preserva tipos y evita el overhead de serialización/parseo. Aplicado en `MapManager.js:684`. |
+| **Guard contra null pointer en overlays** | `_onPointerDown` y `_onPointerUp` en `OverlayLayer.js` ahora tienen guards contra items eliminados entre eventos. Previene TypeError en tappings rápidos. |
+| **Culling world-space duplicado eliminado** | `endFrame()` en `OverlayLayer.js` hacía dos culling checks (world-space y screen-space). El screen-space es suficiente y más preciso. Se eliminó el bloque world-space (~10 líneas). |
+| **Catch con warning en icons bundle** | `_loadSplitIcons()` ahora loguea un `console.warn` si `icons.json` falla. Antes tragaba el error en silencio. |
 
 ---
 
@@ -583,7 +587,7 @@ window.LayoutFill.set(100); // 100 = sin reducción
 ### Corto plazo
 - [ ] Plugin WordPress con shortcode `[mapa_interactivo story="..."]` y panel de ajustes
 - [ ] LRU cache para imágenes (límite de ~30 entradas en `imageCache` — hoy crece ilimitado)
-- [ ] Virtualización de overlays DOM fuera de viewport
+- [x] ~~Virtualización de overlays DOM fuera de viewport~~ — Descartado: el culling screen-space existente ya oculta elementos fuera del viewport con precisión de 1px. Para el caso de uso actual (~20 overlays visibles máximo) no hay ganancia medible en implementar virtualización DOM. Si en el futuro un mapa tuviera >100 overlays simultáneos, re-evaluar.
 
 ### Mediano plazo
 - [ ] Lobby — página que lee `index.json` y muestra tarjetas de historias (activar cuando haya 2+ historias)
