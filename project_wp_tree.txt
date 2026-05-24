@@ -4,7 +4,7 @@
 ├── dist
 │   ├── assets
 │   │   ├── default.gif
-│   │   ├── editor-ExEm5x4T.js
+│   │   ├── editor-Dopoq7EV.js
 │   │   ├── fase-2-mapa-dektop-4x.png
 │   │   ├── fase-2-mapa-dektop-4x.webp
 │   │   ├── fase-2-mapa-mobile-x4.png
@@ -20,8 +20,8 @@
 │   │   │   ├── inter-v20-latin-800.woff2
 │   │   │   └── inter-v20-latin-regular.woff2
 │   │   ├── icon-info.png
-│   │   ├── index-CUS2L-T-.js
-│   │   ├── index-DoIB1mek.css
+│   │   ├── index-1aCw4mnA.css
+│   │   ├── index-DFVWttXT.js
 │   │   ├── mapa-1.jpg
 │   │   ├── mapa-1.webp
 │   │   ├── mapa-11.webp
@@ -40,14 +40,19 @@
 │   │   ├── mapa-mobile-3.jpg
 │   │   ├── mapa-mobile-3.webp
 │   │   ├── mapa-mobile-x2.jpg
+│   │   ├── mapa-mobile-x2.png
+│   │   ├── mapa-mobile-x2.webp
 │   │   ├── mapa-mobile-x4.png
 │   │   ├── mapa-mobile-x4.webp
 │   │   ├── mapa-mobile.jpg
+│   │   ├── mapa-mobile.png
 │   │   ├── mapa-mobile.webp
 │   │   ├── persona_1-1.gif
 │   │   ├── persona_1-2.gif
 │   │   ├── persona_1-3.gif
-│   │   └── persona_1-4.gif
+│   │   ├── persona_1-4.gif
+│   │   ├── popup_styles-C6ieRHMM.css
+│   │   └── style-B6QewjEV.css
 │   ├── data
 │   │   ├── index.json
 │   │   ├── stories
@@ -62,6 +67,8 @@
 ├── mapas_icons.txt
 ├── package-lock.json
 ├── package.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
 ├── project_wp_tree.txt
 ├── public
 │   ├── assets
@@ -99,9 +106,12 @@
 │   │   ├── mapa-mobile-3.jpg
 │   │   ├── mapa-mobile-3.webp
 │   │   ├── mapa-mobile-x2.jpg
+│   │   ├── mapa-mobile-x2.png
+│   │   ├── mapa-mobile-x2.webp
 │   │   ├── mapa-mobile-x4.png
 │   │   ├── mapa-mobile-x4.webp
 │   │   ├── mapa-mobile.jpg
+│   │   ├── mapa-mobile.png
 │   │   ├── mapa-mobile.webp
 │   │   ├── persona_1-1.gif
 │   │   ├── persona_1-2.gif
@@ -132,4 +142,4 @@
 ├── vercel.json
 └── vite.config.js
 
-16 directories, 117 files
+16 directories, 127 files
