@@ -51,6 +51,8 @@ export function initEditor() {
     // Waypoint edit mode
     editWaypointMode: false,
     isDragging: false,
+    waypointGhost: null,        // 👻 posición preview mientras se tipea en inputs
+    _wpPreviewTimer: null,      // debounce timer para preview al main canvas
 // 🆕 HISTORIA PARA UNDO/REDO
     history: [],
     historyIndex: -1,
@@ -547,10 +549,18 @@ export function initEditor() {
     const cw = canvas.width / dpr;
     const ch = canvas.height / dpr;
 
+    // Limpiar overlay antes de redibujar
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     ctx.save();
     ctx.translate(cw / 2, ch / 2);
     ctx.scale(editor.camera.z, editor.camera.z);
     ctx.translate(-editor.camera.x, -editor.camera.y);
+
+    // 👻 Ghost: mostrar posición del waypoint mientras se editan los inputs
+    if (editor.waypointGhost) {
+      drawWaypointGhost(editor.waypointGhost);
+    }
 
     if (editor.selectedItem) {
       drawHandles();
@@ -559,6 +569,60 @@ export function initEditor() {
 
     ctx.restore();
     editor.needsRedraw = false;
+  }
+
+  // ========= 👻 GHOST MARKER DEL WAYPOINT =========
+  function drawWaypointGhost(ghost) {
+    const cam = editor.camera;
+    const r = 22 / cam.z;
+
+    ctx.save();
+
+    // Círculo exterior pulsante (anillo)
+    ctx.beginPath();
+    ctx.arc(ghost.x, ghost.y, r * 1.6, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(0, 220, 255, 0.5)';
+    ctx.lineWidth = 2 / cam.z;
+    ctx.setLineDash([6 / cam.z, 4 / cam.z]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Relleno semi-transparente
+    ctx.beginPath();
+    ctx.arc(ghost.x, ghost.y, r, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0, 191, 255, 0.25)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0, 191, 255, 0.9)';
+    ctx.lineWidth = 2.5 / cam.z;
+    ctx.stroke();
+
+    // Cruz central
+    const cs = 10 / cam.z;
+    ctx.strokeStyle = 'rgba(0, 255, 255, 0.9)';
+    ctx.lineWidth = 2 / cam.z;
+    ctx.beginPath();
+    ctx.moveTo(ghost.x - cs, ghost.y);
+    ctx.lineTo(ghost.x + cs, ghost.y);
+    ctx.moveTo(ghost.x, ghost.y - cs);
+    ctx.lineTo(ghost.x, ghost.y + cs);
+    ctx.stroke();
+
+    // Etiqueta "PREVIEW"
+    const fs = 11 / cam.z;
+    ctx.font = `bold ${fs}px monospace`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    const label = `PREVIEW (${Math.round(ghost.x)}, ${Math.round(ghost.y)})`;
+    const m = ctx.measureText(label);
+    const pad = 4 / cam.z;
+    const lx = ghost.x;
+    const ly = ghost.y - r * 1.8;
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+    ctx.fillRect(lx - m.width / 2 - pad, ly - fs - pad, m.width + pad * 2, fs + pad * 2);
+    ctx.fillStyle = 'rgba(0, 220, 255, 1)';
+    ctx.fillText(label, lx, ly);
+
+    ctx.restore();
   }
 
   function drawGrid() {
@@ -963,6 +1027,11 @@ export function initEditor() {
             inY.value = Math.round(editor.waypoint.y);
             inZ.value = Number(editor.waypoint.z || 1).toFixed(2);
           }
+          // Limpiar ghost al salir del modo edición
+          if (!editor.editWaypointMode) {
+            editor.waypointGhost = null;
+            clearTimeout(editor._wpPreviewTimer);
+          }
           editor.needsRedraw = true;
           window.dispatchEvent(new CustomEvent('editor:redraw'));
         });
@@ -973,11 +1042,52 @@ export function initEditor() {
           const x = parseInt(inX.value) || editor.waypoint.x;
           const y = parseInt(inY.value) || editor.waypoint.y;
           const z = parseFloat(inZ.value) || editor.waypoint.z || 1;
+          // Limpiar ghost y preview timer al guardar (la posición real persiste)
+          editor.waypointGhost = null;
+          clearTimeout(editor._wpPreviewTimer);
           saveWaypointPosition(x, y, z);
         });
       }
+
+      // 👻 INPUT LISTENERS: preview en tiempo real mientras se tipea
+      [inX, inY, inZ].forEach(el => {
+        if (!el) return;
+        el.addEventListener('input', () => {
+          if (!editor.waypoint) return;
+          const px = parseInt(inX.value);
+          const py = parseInt(inY.value);
+          const pz = parseFloat(inZ.value) || 1;
+          if (!Number.isFinite(px) || !Number.isFinite(py)) return;
+
+          // 1) Actualizar editor.waypoint local para que drawEditor use la nueva pos
+          editor.waypoint.x = px;
+          editor.waypoint.y = py;
+          editor.waypoint.z = pz;
+
+          // 2) Mostrar ghost marker en el overlay del editor
+          editor.waypointGhost = { x: px, y: py, z: pz };
+          editor.needsRedraw = true;
+          window.dispatchEvent(new CustomEvent('editor:redraw'));
+
+          // 3) Debounced preview al main canvas (200ms) — sin persistir en MAPS_CONFIG
+          clearTimeout(editor._wpPreviewTimer);
+          editor._wpPreviewTimer = setTimeout(() => {
+            const { w, h } = getMapSize();
+            const xp = Number(Math.max(0, Math.min(1, px / w)).toFixed(6));
+            const yp = Number(Math.max(0, Math.min(1, py / h)).toFixed(6));
+            const device = editor.isMobile ? 'mobile' : 'desktop';
+            window.dispatchEvent(new CustomEvent('editor:updateWaypoint', {
+              detail: {
+                waypointIndex: editor.waypointIndex,
+                device,
+                values: { xp, yp, z: Number(pz.toFixed(2)) },
+                _preview: true   // flag para que app.js sepa que es temporal
+              }
+            }));
+          }, 200);
+        });
+      });
     })();
-;
 
     document.getElementById('grid-size').addEventListener('input', (e) => {
       editor.gridSize = parseInt(e.target.value);
@@ -1089,18 +1199,20 @@ export function initEditor() {
     window.dispatchEvent(new CustomEvent('editor:getWaypointData', {
       detail: { waypointIndex: editor.waypointIndex }
     }));
-    window.addEventListener('editor:waypointDataResponse', function handler(ev) {
-      window.removeEventListener('editor:waypointDataResponse', handler);
-      const { waypoint, items, camera } = ev.detail;
-      editor.waypoint = waypoint;
-      editor.items = items;
-      editor.camera = camera;
-      editor.selectedItem = null;
-      editor.needsRedraw = true;
-      window.dispatchEvent(new CustomEvent('editor:redraw'));
-      updateInfo(`💾 Waypoint #${editor.waypointIndex} guardado — código en consola`);
-    }, { once: true });
-  }
+        window.addEventListener('editor:waypointDataResponse', function handler(ev) {
+          window.removeEventListener('editor:waypointDataResponse', handler);
+          const { waypoint, items, camera } = ev.detail;
+          editor.waypoint = waypoint;
+          editor.items = items;
+          editor.camera = camera;
+          editor.selectedItem = null;
+          editor.waypointGhost = null;
+          clearTimeout(editor._wpPreviewTimer);
+          editor.needsRedraw = true;
+          window.dispatchEvent(new CustomEvent('editor:redraw'));
+          updateInfo(`💾 Waypoint #${editor.waypointIndex} guardado — código en consola`);
+        }, { once: true });
+    }
 
 
   // ========= 🎮 CONTROLES =========
@@ -1346,6 +1458,8 @@ export function initEditor() {
           editor.items = items;
           editor.camera = camera;
           editor.selectedItem = null;
+          editor.waypointGhost = null;
+          clearTimeout(editor._wpPreviewTimer);
           
           updateInfo(`Waypoint #${index} cargado<br>${items.length} items`);
           updatePropertiesPanel();
