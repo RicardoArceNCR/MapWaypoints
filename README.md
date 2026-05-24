@@ -109,12 +109,18 @@ map-waypoints/
 │                   └── 0001/     ← Primera historia real
 │                       ├── story.json
 │                       └── maps/
-│                           ├── mapa_f1.json
-│                           ├── mapa_f2.json
-│                           ├── mapa_f3.json
-│                           └── mapa_f1_icons/
-│                               ├── icons.json  ← Bundle de todos los hotspots (1 request)
-│                               └── wp*.json    ← Archivos individuales (fallback automático)
+│                           ├── mapa_f1.json       ← Plantilla canónica (logicalW:1400, iconsDir:true)
+│                           ├── mapa_f2.json       ← Copia estructural de f1 (mismo logicalW/H mobile)
+│                           ├── mapa_f3.json       ← Copia estructural de f1 (mismo logicalW/H mobile)
+│                           ├── mapa_f1_icons/
+│                           │   ├── icons.json  ← Bundle de todos los hotspots (1 request)
+│                           │   └── wp*.json    ← Archivos individuales (fallback automático)
+│                           ├── mapa_f2_icons/
+│                           │   ├── icons.json  ← Bundle hotspots f2 (formato hotspot, no embebido)
+│                           │   └── wp*.json    ← Fallback individual
+│                           └── mapa_f3_icons/
+│                               ├── icons.json  ← Bundle hotspots f3
+│                               └── wp*.json    ← Fallback individual
 │
 ├── dist/                         ← Build de producción (generado por npm run build)
 ├── vercel.json                   ← Headers HTTP para iframe y seguridad
@@ -582,7 +588,7 @@ window.LayoutFill.set(100); // 100 = sin reducción
 - [ ] Contenido real del Expediente 0001 — reemplazar imágenes de prueba y datos de waypoints con el caso real
 - [ ] `thumb.webp` para el catálogo `index.json`
 - [ ] Resolver el colapso del iframe en WordPress online (divergentes.com) — guard de altura mínima en el listener
-- [ ] Generar imágenes mobile propias para fase 2 y fase 3 (actualmente usan la misma imagen que fase 1)
+- [ ] Generar imágenes mobile propias para fase 2 y fase 3 (actualmente los 3 mapas usan `mapa-mobile.webp` — logicalW/H ya está unificado a 1400×3181, listo para el reemplazo)
 
 ### Corto plazo
 - [ ] Plugin WordPress con shortcode `[mapa_interactivo story="..."]` y panel de ajustes
