@@ -32,7 +32,7 @@
       "yOffset": {
         "default": -100,
         "short": 10,
-        "medium": 20,
+        "medium": 0,
         "tall": 40,
         "xtall": -230,
         "tablet": -300
@@ -40,7 +40,7 @@
       "zMobileProfile": {
         "default": 1.0,
         "short": 0.9,
-        "medium": 0.97,
+        "medium": 0.95,
         "tall": 1.0,
         "xtall": 1.05,
         "tablet": 1.2
