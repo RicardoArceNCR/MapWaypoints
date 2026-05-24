@@ -138,16 +138,20 @@ Cambiar la fecha fuerza al browser a no usar caché. **Siempre actualiza la vers
 ### Perfiles mobile por altura de dispositivo
 
 ```json
-"yOffset": { "default": 0, "tall": -90, "medium": -5, "short": 40 },
-"zMobileProfile": { "default": 0.56, "tall": 0.66, "medium": 0.60, "short": 0.52 }
+"yOffset": { "default": 0, "tablet": -80, "xtall": -220, "tall": -160, "medium": -20, "short": 30 },
+"zMobileProfile": { "default": 0.8, "tablet": 0.9, "xtall": 1.1, "tall": 1.1, "medium": 0.85, "short": 0.67 }
 ```
 
 Perfiles en runtime (función `getMobileHeightProfile()`):
-- `short` → `clientHeight <= 640`
-- `medium` → `clientHeight <= 820`
-- `tall`   → `clientHeight > 820`
+- `tablet` → `clientWidth >= 600` (iPad Mini y similares en modo mobile — prioridad sobre altura)
+- `short`  → `clientHeight <= 600`
+- `medium` → `clientHeight <= 740`  — iPhone SE (667), Samsung S8+ (740)
+- `tall`   → `clientHeight <= 870`  — iPhone 12 Pro (844)
+- `xtall`  → `clientHeight > 870`   — iPhone XR (896), 14 Pro Max (932), Pixel 7 (915), S20 Ultra (915)
 
 **Importante:** `zMobileProfile` tiene prioridad sobre `mobile.z`. Si el zoom no responde al editar `z`, editá `zMobileProfile` para el perfil correcto.
+
+**Importante:** El perfil `tablet` se detecta por **ancho** (`clientWidth >= 600`), no por altura. Esto permite dar valores distintos al iPad Mini (768×1024) sin afectar iPhones altos que comparten rango de altura similar.
 
 ---
 
@@ -160,18 +164,22 @@ GLOBAL_CONFIG.MOBILE_BREAKPOINT = 900  // px
 // Detección en runtime
 isMobileViewport()  // → true si window.innerWidth < 900
 
-// Perfiles de altura mobile
+// Perfiles de altura/ancho mobile
 getMobileHeightProfile()
-// → 'short'  si clientHeight <= 640
-// → 'medium' si clientHeight <= 820
-// → 'tall'   si clientHeight > 820
+// → 'tablet' si clientWidth  >= 600              (iPad Mini, tablets en modo mobile)
+// → 'short'  si clientHeight <= 600
+// → 'medium' si clientHeight <= 740              (iPhone SE, Samsung S8+)
+// → 'tall'   si clientHeight <= 870              (iPhone 12 Pro)
+// → 'xtall'  si clientHeight >  870              (iPhone XR, 14 Pro Max, Pixel 7, S20 Ultra)
 ```
 
 Para debuggear qué perfil está activo:
 ```js
 // En consola del browser:
-const vh = window.innerHeight;
-console.log('vh:', vh, '→ profile:', vh <= 640 ? 'short' : vh <= 820 ? 'medium' : 'tall');
+const w = document.getElementById('mapa-canvas-wrapper').clientWidth || window.innerWidth;
+const h = document.getElementById('mapa-canvas-wrapper').clientHeight || window.innerHeight;
+const p = w >= 600 ? 'tablet' : h <= 600 ? 'short' : h <= 740 ? 'medium' : h <= 870 ? 'tall' : 'xtall';
+console.log(`w:${w} h:${h} → profile: ${p}`);
 ```
 
 ---

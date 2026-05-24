@@ -46,9 +46,14 @@ function getMobileHeightProfile() {
   const h = window.innerHeight || window.screen?.height || 0;
   if (!h) return 'tall';
 
-  if (h <= 640) return 'short';   // teléfonos bajitos
-  if (h <= 820) return 'medium';  // rango intermedio (tipo 596x903 de tu screenshot)
-  return 'tall';                  // teléfonos altos / phablets
+  // Tablet-mobile: viewport ancho en modo mobile (ej. iPad Mini 768px < breakpoint 900px)
+  const w = window.innerWidth || 0;
+  if (w >= 600) return 'tablet';
+
+  if (h <= 640) return 'short';    // teléfonos bajos
+  if (h <= 740) return 'medium';   // iPhone SE, Galaxy S8+
+  if (h <= 870) return 'tall';     // iPhone 12 Pro (844)
+  return 'xtall';                  // iPhone XR/14/Pixel/S20 (896-932)
 }
 
 // ===== Helpers de URL y logger (seguros) =====
@@ -385,10 +390,14 @@ let memoryMonitor = new MemoryMonitor();
     const h = (wrap && wrap.clientHeight) || window.innerHeight || 0;
     if (!h) return 'default';
 
-    // Ajusta estos cortes a lo que veas en tus pruebas
-    if (h <= 600) return 'short';   // móviles muy bajos
-    if (h <= 740) return 'medium';  // la mayoría
-    return 'tall';                  // móviles "altos"
+    // Tablet-mobile: viewport ancho en modo mobile (ej. iPad Mini 768px < breakpoint 900px)
+    const w = (wrap && wrap.clientWidth) || window.innerWidth || 0;
+    if (w >= 600) return 'tablet';
+
+    if (h <= 600) return 'short';    // móviles muy bajos
+    if (h <= 740) return 'medium';   // iPhone SE, Galaxy S8+
+    if (h <= 870) return 'tall';     // iPhone 12 Pro (844)
+    return 'xtall';                  // iPhone XR/14/Pixel/S20 (896+)
   }
   const canvas = document.getElementById('mapa-canvas');
   if (!canvas) {
