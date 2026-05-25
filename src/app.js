@@ -1780,35 +1780,63 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 });
 
   // ========= 👆 SWIPE HORIZONTAL — Mobile =========
+  // ========= 👆 SWIPE HORIZONTAL + VERTICAL — Mobile =========
   ;(function initSwipeNav() {
     let swipe = null;
+
+    // Extrae fila y columna del ID del waypoint (ej: "wp_f2_col3" → { row:2, col:3 })
+    function getGridPos(wp) {
+      const m = (wp?.id || '').match(/wp_f(\d+)_col(\d+)/);
+      return m ? { row: +m[1], col: +m[2] } : null;
+    }
+
+    // Navega a la misma columna en la fila anterior/siguiente.
+    // Si ese waypoint no existe (fila incompleta), no hace nada.
+    function goVertical(direction) { // direction: -1 = arriba, +1 = abajo
+      const wps = state.currentWaypoints;
+      if (!wps.length) return;
+      const current = getGridPos(wps[state.idx]);
+      if (!current) return;
+      const targetRow = current.row + direction;
+      const targetIdx = wps.findIndex(wp => {
+        const pos = getGridPos(wp);
+        return pos && pos.row === targetRow && pos.col === current.col;
+      });
+      if (targetIdx !== -1) goToWaypoint(targetIdx);
+    }
 
     wrap.addEventListener('pointerdown', (e) => {
       if (!isMobileViewport()) return;
       if (e.target.closest('#overlay-layer')) return;
       if (e.pointerType === 'mouse') return;
-      swipe = { x: e.clientX, y: e.clientY, t: performance.now(), valid: true };
-    }, { passive: true });
-
-    wrap.addEventListener('pointermove', (e) => {
-      if (!swipe?.valid) return;
-      const dx = Math.abs(e.clientX - swipe.x);
-      const dy = Math.abs(e.clientY - swipe.y);
-      if (dy > dx * 0.8 && dy > 10) swipe.valid = false;
+      swipe = { x: e.clientX, y: e.clientY, t: performance.now() };
     }, { passive: true });
 
     wrap.addEventListener('pointerup', (e) => {
-      if (!swipe?.valid) { swipe = null; return; }
+      if (!swipe) return;
       if (e.pointerType === 'mouse') { swipe = null; return; }
       const dx = e.clientX - swipe.x;
       const dy = e.clientY - swipe.y;
       const dt = performance.now() - swipe.t;
       swipe = null;
+
       if (dt > 400) return;
-      if (Math.abs(dx) < 40) return;
-      if (Math.abs(dy) > Math.abs(dx) * 0.8) return;
-      if (dx < 0) showFullLineOrNext();
-      else prev();
+
+      const absDx = Math.abs(dx);
+      const absDy = Math.abs(dy);
+
+      // Eje dominante: horizontal
+      if (absDx >= 40 && absDx > absDy * 1.2) {
+        if (dx < 0) showFullLineOrNext();
+        else prev();
+        return;
+      }
+
+      // Eje dominante: vertical
+      if (absDy >= 40 && absDy > absDx * 1.2) {
+        goVertical(dy < 0 ? -1 : 1);
+        return;
+      }
     }, { passive: true });
 
     wrap.addEventListener('pointercancel', () => { swipe = null; }, { passive: true });
