@@ -1808,6 +1808,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       if (!isMobileViewport()) return;
       if (e.target.closest('#overlay-layer')) return;
       if (e.pointerType === 'mouse') return;
+      if (document.body.classList.contains('popup-open')) return;
       swipe = { x: e.clientX, y: e.clientY, t: performance.now() };
     }, { passive: true });
 
