@@ -121,7 +121,7 @@ window.addEventListener('editor:active', (e) => {
   appConfig.editorActive = !!(e.detail && e.detail.active);
   window.__EDITOR_ACTIVE__ = appConfig.editorActive;
   // fuerza un redraw amable en capas relevantes
-  try { markDirty('camera','elements','debug','minimap'); } catch {}
+  try { markDirty('camera', 'elements', 'debug', 'minimap'); } catch { }
 });
 const log = {
   info: (...a) => appConfig.toggles.debug && console.info('[info]', ...a),
@@ -135,7 +135,7 @@ function applyViewportCoverage() {
   if (!wrapper) return;
 
   const coverage = appConfig.toggles.scale || 1.0; // 100% por defecto
-  let vw = Math.floor(window.innerWidth  * coverage);
+  let vw = Math.floor(window.innerWidth * coverage);
   let vh = Math.floor(window.innerHeight * coverage);
 
   const { VIEWPORT_GUARDS, BASE_ASPECT } = GLOBAL_CONFIG;
@@ -187,7 +187,7 @@ function applyViewportCoverage() {
     }
   }
 
-  wrapper.style.width  = window.innerWidth + 'px';
+  wrapper.style.width = window.innerWidth + 'px';
   wrapper.style.height = window.innerHeight + 'px';
   document.body.style.background = '#000';
 
@@ -195,10 +195,10 @@ function applyViewportCoverage() {
   if (window.parent !== window) {
     try {
       window.parent.postMessage({
-        type:   'mapa-resize',
+        type: 'mapa-resize',
         height: vh,
-        width:  vw,
-        ready:  true
+        width: vw,
+        ready: true
       }, '*');
     } catch (e) {
       // postMessage puede fallar en contextos muy restrictivos — ignorar
@@ -213,16 +213,16 @@ window.LayoutFill = window.LayoutFill || {
   set(pct = 100) {
     const scale = Math.min(110, Math.max(80, Number(pct))) / 100;
     // actualiza toggle y re-aplica
-  appConfig.toggles.scale = scale;
+    appConfig.toggles.scale = scale;
     applyViewportCoverage();
     // Si tienes rutinas de canvas DPR/redraw, invócalas aquí:
     try {
       window.requestAnimationFrame(() => {
         // Si existen estas funciones en tu app, llámalas sin romper:
         window.setCanvasDPR?.();
-        window.markDirty?.('camera','elements','dialog','minimap','debug');
+        window.markDirty?.('camera', 'elements', 'dialog', 'minimap', 'debug');
       });
-    } catch {}
+    } catch { }
   }
 };
 
@@ -321,8 +321,8 @@ class MemoryMonitor {
 
 // ========= 🔎 CANVAS VALIDATOR =========
 function validateCanvasDimensions(width, height, isMobile) {
-  const limits = isMobile 
-    ? GLOBAL_CONFIG.CANVAS_LIMITS.mobile 
+  const limits = isMobile
+    ? GLOBAL_CONFIG.CANVAS_LIMITS.mobile
     : GLOBAL_CONFIG.CANVAS_LIMITS.desktop;
   let adjusted = false;
   let warnings = [];
@@ -385,7 +385,7 @@ let memoryMonitor = new MemoryMonitor();
 
   // DOM
   const wrap = document.getElementById('mapa-canvas-wrapper');
-  
+
   function getMobileHeightProfile() {
     const h = (wrap && wrap.clientHeight) || window.innerHeight || 0;
     if (!h) return 'default';
@@ -431,7 +431,7 @@ let memoryMonitor = new MemoryMonitor();
   // Waypoint info box refs
   const _wib = document.getElementById('waypoint-info-box');
   const _wibTitle = document.getElementById('waypoint-info-title');
-  const _wibDesc  = document.getElementById('waypoint-info-desc');
+  const _wibDesc = document.getElementById('waypoint-info-desc');
 
   // Managers
   const mapManager = new MapManager();
@@ -487,6 +487,61 @@ let memoryMonitor = new MemoryMonitor();
     }
   }, { passive: true });
 
+  // ── helpers intro ──────────────────────────────
+  function showIntro({ title, subtitle }) {
+    const el = document.getElementById('story-intro');
+    const elTitle = document.getElementById('intro-title');
+    const elSub = document.getElementById('intro-subtitle');
+    const elBtn = document.getElementById('intro-btn');
+    if (!el) return;
+
+    // Limpiar clases previas para evitar fugas de estado
+    elTitle?.classList.remove('tw-done');
+    elSub?.classList.remove('is-visible');
+    elBtn?.classList.remove('is-visible', 'btn-ready');
+
+    elSub.textContent = subtitle || '';
+    el.hidden = false;
+
+    const CHAR_DELAY = 90;
+    const TW_START_DELAY = 1600; // espera a que el logo termine de entrar
+    const text = (title || '').replace(/\\n/g, '\n');
+    const totalTime = text.length * CHAR_DELAY; // tiempo exacto del typewriter
+
+    // Typewriter con retraso de inicio
+    let i = 0;
+    elTitle.textContent = '';
+    setTimeout(() => {
+      const interval = setInterval(() => {
+        if (i < text.length) {
+          elTitle.textContent += text[i];
+          i++;
+        } else {
+          clearInterval(interval);
+          elTitle.classList.add('tw-done');
+        }
+      }, CHAR_DELAY);
+    }, TW_START_DELAY);
+
+    // Subtítulo y botón entran DESPUÉS de que termina el typewriter (retraso inicial + duración del typewriter + retraso relativo)
+    setTimeout(() => elSub?.classList.add('is-visible'), TW_START_DELAY + totalTime + 300);
+    setTimeout(() => elBtn?.classList.add('is-visible'), TW_START_DELAY + totalTime + 900);
+    setTimeout(() => elBtn?.classList.add('btn-ready'), TW_START_DELAY + totalTime + 2000);
+  }
+
+  function waitForIntro() {
+    return new Promise((resolve) => {
+      const btn = document.getElementById('intro-btn');
+      const el = document.getElementById('story-intro');
+      if (!btn || !el) return resolve();
+      btn.addEventListener('click', () => {
+        el.classList.add('is-hiding');
+        setTimeout(() => { el.hidden = true; resolve(); }, 500);
+      }, { once: true });
+    });
+  }
+  // ───────────────────────────────────────────────
+
   window.mapManager = mapManager;
   let uiManager;
   let popupManager;
@@ -500,11 +555,11 @@ let memoryMonitor = new MemoryMonitor();
   const camera = { x: 0, y: 0, z: 1.0 };
   const camTarget = { x: 0, y: 0, z: 1.0 };
 
-  const dirtyFlags = { camera:false, elements:false, dialog:false, minimap:false, debug:false, cameraMoving:false };
-  function markDirty(...flags){ flags.forEach(f=>{ if (dirtyFlags.hasOwnProperty(f)) dirtyFlags[f]=true; }); }
+  const dirtyFlags = { camera: false, elements: false, dialog: false, minimap: false, debug: false, cameraMoving: false };
+  function markDirty(...flags) { flags.forEach(f => { if (dirtyFlags.hasOwnProperty(f)) dirtyFlags[f] = true; }); }
   window.markDirty = markDirty;  // Exponer para uso global (e.g., togglePopupDisplay)
-  function clearDirtyFlags(){ Object.keys(dirtyFlags).forEach(k=> dirtyFlags[k]=false); }
-  function needsRedraw(){
+  function clearDirtyFlags() { Object.keys(dirtyFlags).forEach(k => dirtyFlags[k] = false); }
+  function needsRedraw() {
     return (
       dirtyFlags.camera ||
       dirtyFlags.elements ||
@@ -517,9 +572,9 @@ let memoryMonitor = new MemoryMonitor();
     );
   }
 
-  const transitionState = { active:false, startTime:0, duration:GLOBAL_CONFIG.CAMERA_EFFECTS.transitionDuration, startZ:1.0, targetZ:1.0, peakZOffset:GLOBAL_CONFIG.CAMERA_EFFECTS.transitionZoomOut, startPos:{x:0,y:0}, targetPos:{x:0,y:0} };
+  const transitionState = { active: false, startTime: 0, duration: GLOBAL_CONFIG.CAMERA_EFFECTS.transitionDuration, startZ: 1.0, targetZ: 1.0, peakZOffset: GLOBAL_CONFIG.CAMERA_EFFECTS.transitionZoomOut, startPos: { x: 0, y: 0 }, targetPos: { x: 0, y: 0 } };
 
-  const viewportBoundsPool = { left:0, right:0, top:0, bottom:0 };
+  const viewportBoundsPool = { left: 0, right: 0, top: 0, bottom: 0 };
   function updateViewportBounds(canvasW, canvasH, margin = 200) {
     const halfW = canvasW / 2 / camera.z;
     const halfH = canvasH / 2 / camera.z;
@@ -530,7 +585,7 @@ let memoryMonitor = new MemoryMonitor();
   }
 
   function isItemVisible(item, sqrtZ) {
-    const safeNum = (v,f)=> (Number.isFinite(v)&&v>0)?v:f;
+    const safeNum = (v, f) => (Number.isFinite(v) && v > 0) ? v : f;
     const width = safeNum(item.width, ICON_SIZE);
     const height = safeNum(item.height, ICON_SIZE);
     const displayWidth = width / sqrtZ;
@@ -538,29 +593,29 @@ let memoryMonitor = new MemoryMonitor();
     const halfW = displayWidth * 0.5;
     const halfH = displayHeight * 0.5;
     return !(
-      item.x + halfW < viewportBoundsPool.left  ||
+      item.x + halfW < viewportBoundsPool.left ||
       item.x - halfW > viewportBoundsPool.right ||
-      item.y + halfH < viewportBoundsPool.top   ||
+      item.y + halfH < viewportBoundsPool.top ||
       item.y - halfH > viewportBoundsPool.bottom
     );
   }
   function filterVisibleItems(items, sqrtZ) {
     if (!items || items.length === 0) return [];
     if (appConfig.editorActive) return items;
-    const visible=[]; for (let i=0;i<items.length;i++){ if (isItemVisible(items[i], sqrtZ)) visible.push(items[i]); }
+    const visible = []; for (let i = 0; i < items.length; i++) { if (isItemVisible(items[i], sqrtZ)) visible.push(items[i]); }
     return visible;
   }
 
   // ========= COMUNICACIÓN CON EDITOR =========
   let editorActive = false;
-  
+
   function toggleEditor(active) {
     // Update editor active state
     editorActive = active;
-    
+
     // Dispatch event to notify other components
     document.dispatchEvent(new CustomEvent('editor:active', { detail: { active } }));
-    
+
     // 🆕 Disable overlay events
     const overlayRoot = document.getElementById('overlay-layer');
 
@@ -593,9 +648,9 @@ let memoryMonitor = new MemoryMonitor();
       window.markDirty('elements');
     }
   }
-  
+
   window.toggleEditor = toggleEditor;
-  
+
   window.addEventListener('editor:getMapCoords', (e) => {
     const { clientX, clientY } = e.detail;
     const coords = clientToMapCoords(clientX, clientY);
@@ -626,7 +681,7 @@ let memoryMonitor = new MemoryMonitor();
     if (waypointSpatialIndex && GLOBAL_CONFIG.WAYPOINT_RENDERING.useSpatialIndex) {
       waypointSpatialIndex = new WaypointSpatialIndex(state.currentWaypoints, GLOBAL_CONFIG.WAYPOINT_RENDERING.cellSize);
     }
-    markDirty('camera','elements','minimap');
+    markDirty('camera', 'elements', 'minimap');
   });
   addEventListener('editor:getWaypointCode', (e) => {
     const { waypointIndex, device } = e.detail;
@@ -669,7 +724,7 @@ let memoryMonitor = new MemoryMonitor();
   if (!GLOBAL_CONFIG.SHOW_CONTROLS) uiControls.style.display = 'none';
 
   // ========= PERFORMANCE MONITORING =========
-  let performanceStats = { frameCount:0, lastFpsUpdate:0, fps:60, skippedFrames:0, culledItems:0, totalItems:0, visibleWaypoints:0, culledWaypoints:0 };
+  let performanceStats = { frameCount: 0, lastFpsUpdate: 0, fps: 60, skippedFrames: 0, culledItems: 0, totalItems: 0, visibleWaypoints: 0, culledWaypoints: 0 };
   function updatePerformanceStats(ts) {
     performanceStats.frameCount++;
     memoryMonitor.sample();
@@ -747,7 +802,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       state.currentWaypoints = mapData.waypoints;
       state.currentIcons = mapData.icons || {};
       state.mapImages = mapData.images;
-      
+
       // Initialize and sync hotspot data
       state.currentHotspots = syncHotspotData(mapData);
 
@@ -769,7 +824,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       try {
         const m = mapManager.currentMap?.config?.mapImage;
         if (m) window.cameraInstance.fitBaseToViewport(m.logicalW, m.logicalH, 'contain');
-      } catch {}
+      } catch { }
       goToWaypoint(0);
       markDirty('camera', 'elements', 'dialog', 'minimap');
 
@@ -782,7 +837,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     } catch (err) {
       console.error('Error cargando mapa:', err);
       if (typeof window !== 'undefined' && window.showError) {
-        try { window.showError('Error cargando el mapa. Intenta recargar.'); } catch {};
+        try { window.showError('Error cargando el mapa. Intenta recargar.'); } catch { };
       }
     } finally {
       uiManager.setLoading(false);
@@ -907,24 +962,24 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   function updateWaypointInfoBox(wp) {
     if (!_wib) return;
     const title = wp?.label || '';
-    const desc  = (wp?.lines && wp.lines[0]) || '';
+    const desc = (wp?.lines && wp.lines[0]) || '';
     if (!title && !desc) {
       _wib.hidden = true;
       _wib.classList.remove('visible');
       return;
     }
     _wibTitle.textContent = title;
-    _wibDesc.textContent  = desc;
+    _wibDesc.textContent = desc;
     _wib.hidden = false;
     _wib.offsetHeight; // force reflow
     _wib.classList.add('visible');
   }
 
-  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
-  function lerp(a,b,t){ return a + (b - a) * t; }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
 
   function ease(t, type = GLOBAL_CONFIG.CAMERA_EFFECTS.transitionEasing) {
-    switch(type) {
+    switch (type) {
       case 'linear': return t;
       case 'ease-in': return t * t;
       case 'ease-out': return t * (2 - t);
@@ -974,7 +1029,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     markDirty('camera', 'elements', 'minimap');
   }
 
-  function roundRect(x,y,w,h,r){
+  function roundRect(x, y, w, h, r) {
     ctx.beginPath();
     ctx.moveTo(x + r, y);
     ctx.arcTo(x + w, y, x + w, y + h, r);
@@ -1001,22 +1056,22 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   // ========= 🎯 HOTSPOT RENDERING =========
   function drawHotspotsOnCanvas() {
     if (!GLOBAL_CONFIG.DRAW_HOTSPOTS_ON_CANVAS || !window.hotspotData) return;
-    
+
     const hotspots = window.hotspotData;
     const dpr = Math.min(DPR_MAX, window.devicePixelRatio || 1);
     const canvasLogicalW = canvas.width / dpr;
     const canvasLogicalH = canvas.height / dpr;
-    
+
     // Get current camera state
     const cam = camera || { x: 0, y: 0, z: 1 };
     const sqrtZ = Math.sqrt(cam.z);
-    
+
     // Calculate viewport bounds for culling
     const vw = canvasLogicalW / cam.z;
     const vh = canvasLogicalH / cam.z;
-    const vx = cam.x - vw/2;
-    const vy = cam.y - vh/2;
-    
+    const vx = cam.x - vw / 2;
+    const vy = cam.y - vh / 2;
+
     // Cache styles for better performance
     const styles = GLOBAL_CONFIG.CANVAS_HOTSPOT_STYLES || {
       fill: 'rgba(132, 255, 0, 0.1)',
@@ -1025,45 +1080,45 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       activeFill: 'rgba(0, 209, 255, 0.2)',
       activeStroke: 'rgba(255, 255, 255, 0.8)'
     };
-    
+
     ctx.save();
-    
+
     // Apply camera transform
     ctx.setTransform(
       dpr * cam.z, 0,
       0, dpr * cam.z,
-      dpr * (-cam.x * cam.z + canvasLogicalW/2),
-      dpr * (-cam.y * cam.z + canvasLogicalH/2)
+      dpr * (-cam.x * cam.z + canvasLogicalW / 2),
+      dpr * (-cam.y * cam.z + canvasLogicalH / 2)
     );
-    
+
     // Draw each hotspot
     hotspots.forEach((hs, index) => {
       if (!hs || !hs.coords) return;
-      
+
       const { xp, yp, width = 50, height = 50 } = hs.coords;
       const x = xp * mapManager.currentMap?.config.mapImage.logicalW || 0;
       const y = yp * mapManager.currentMap?.config.mapImage.logicalH || 0;
-      
+
       // Simple viewport culling
       if (x + width < vx || x > vx + vw || y + height < vy || y > vy + vh) {
         return; // Skip off-screen hotspots
       }
-      
+
       const isActive = editorActive && editor?.selectedItem?.index === index;
-      
+
       // Draw hotspot rectangle
       ctx.beginPath();
       ctx.rect(x, y, width, height);
-      
+
       // Apply styles
       ctx.fillStyle = isActive ? styles.activeFill : styles.fill;
       ctx.strokeStyle = isActive ? styles.activeStroke : styles.stroke;
       ctx.lineWidth = (isActive ? 2 : 1) / sqrtZ;
-      
+
       // Draw
       ctx.fill();
       ctx.stroke();
-      
+
       // Draw index label for debugging
       if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {
         ctx.save();
@@ -1071,11 +1126,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         ctx.fillStyle = '#fff';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(index.toString(), x + width/2, y + height/2);
+        ctx.fillText(index.toString(), x + width / 2, y + height / 2);
         ctx.restore();
       }
     });
-    
+
     ctx.restore();
   }
 
@@ -1085,7 +1140,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const canvasLogicalW = canvas.width / dpr;
     const canvasLogicalH = canvas.height / dpr;
     const sqrtZ = getCachedSqrt(camera.z);
-  updateViewportBounds(canvasLogicalW, canvasLogicalH, appConfig.editorActive ? 600 : 200);
+    updateViewportBounds(canvasLogicalW, canvasLogicalH, appConfig.editorActive ? 600 : 200);
 
     ctx.save();
     ctx.translate(canvasLogicalW / 2, canvasLogicalH / 2);
@@ -1094,10 +1149,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     ctx.fillStyle = RENDER_CONSTANTS.BLACK_BG;
     const margin = 100;
-    ctx.fillRect( camera.x - (canvasLogicalW / (2 * camera.z)) - margin, 
-                  camera.y - (canvasLogicalH / (2 * camera.z)) - margin, 
-                  (canvasLogicalW / camera.z) + (margin * 2), 
-                  (canvasLogicalH / camera.z) + (margin * 2) );
+    ctx.fillRect(camera.x - (canvasLogicalW / (2 * camera.z)) - margin,
+      camera.y - (canvasLogicalH / (2 * camera.z)) - margin,
+      (canvasLogicalW / camera.z) + (margin * 2),
+      (canvasLogicalH / camera.z) + (margin * 2));
 
     const mapImg = state.mapImages.highRes || state.mapImages.lowRes;
     if (mapImg) {
@@ -1116,14 +1171,14 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           wp.x - MARKER_R > viewportBoundsPool.right ||
           wp.y + MARKER_R < viewportBoundsPool.top ||
           wp.y - MARKER_R > viewportBoundsPool.bottom
-        )).map((wp,i)=> ({...wp, originalIndex:i}));
+        )).map((wp, i) => ({ ...wp, originalIndex: i }));
       }
       if (GLOBAL_CONFIG.WAYPOINT_RENDERING.maxVisibleWaypoints && waypointsToRender.length > GLOBAL_CONFIG.WAYPOINT_RENDERING.maxVisibleWaypoints) {
-        waypointsToRender.sort((a,b)=> Math.hypot(a.x - camera.x, a.y - camera.y) - Math.hypot(b.x - camera.x, b.y - camera.y));
+        waypointsToRender.sort((a, b) => Math.hypot(a.x - camera.x, a.y - camera.y) - Math.hypot(b.x - camera.x, b.y - camera.y));
         waypointsToRender = waypointsToRender.slice(0, GLOBAL_CONFIG.WAYPOINT_RENDERING.maxVisibleWaypoints);
       }
     } else {
-      waypointsToRender = state.currentWaypoints.map((wp,i)=> ({...wp, originalIndex:i}));
+      waypointsToRender = state.currentWaypoints.map((wp, i) => ({ ...wp, originalIndex: i }));
     }
 
     waypointsToRender.forEach(wp => {
@@ -1147,12 +1202,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     performanceStats.totalItems = items.length;
     performanceStats.culledItems = items.length - visibleItems.length;
 
-    for (let i=0;i<visibleItems.length;i++){
+    for (let i = 0; i < visibleItems.length; i++) {
       const item = visibleItems[i];
       const type = item.type || 'icon';
       const baseW = Number.isFinite(item.width) ? item.width : ICON_SIZE;
       const baseH = Number.isFinite(item.height) ? item.height : ICON_SIZE;
-      const width  = Math.max(1, baseW);
+      const width = Math.max(1, baseW);
       const height = Math.max(1, baseH);
       let displayWidth, displayHeight;
 
@@ -1324,7 +1379,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           const textW = metrics.width;
           const textH = 16 / sqrtZ;
           ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-          ctx.fillRect( item.x - textW / 2 - 4, item.y - textH - 8, textW + 8, textH + 4 );
+          ctx.fillRect(item.x - textW / 2 - 4, item.y - textH - 8, textW + 8, textH + 4);
           ctx.fillStyle = '#FFD700';
           ctx.fillText(text, item.x, item.y - 8);
         }
@@ -1349,13 +1404,13 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     // HUD de Waypoint
     if (GLOBAL_CONFIG.DEBUG_SHOW_WAYPOINT_HUD && state.currentWaypoints && state.currentWaypoints.length) {
       const device = mapManager.isMobile ? 'mobile' : 'desktop';
-      const mapId  = mapManager.currentMapId;
-      const cfg    = MAPS_CONFIG[mapId];
-      const pad   = 10 / sqrtZ;
-      const r     = 10 / sqrtZ;
+      const mapId = mapManager.currentMapId;
+      const cfg = MAPS_CONFIG[mapId];
+      const pad = 10 / sqrtZ;
+      const r = 10 / sqrtZ;
       const lineH = 18 / sqrtZ;
-      const boxW  = 260 / sqrtZ;
-      const boxH  = 86  / sqrtZ;
+      const boxW = 260 / sqrtZ;
+      const boxH = 86 / sqrtZ;
 
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
@@ -1372,18 +1427,18 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         let bx = wp.x + 16 / sqrtZ;
         let by = wp.y - (boxH + 16 / sqrtZ);
         if (bx + boxW > mapW) bx = mapW - boxW - 8 / sqrtZ;
-        if (by < 0)          by = wp.y + 16 / sqrtZ;
+        if (by < 0) by = wp.y + 16 / sqrtZ;
 
         ctx.beginPath();
         ctx.moveTo(bx + r, by);
-        ctx.arcTo(bx + boxW, by,          bx + boxW, by + boxH, r);
-        ctx.arcTo(bx + boxW, by + boxH,   bx,        by + boxH, r);
-        ctx.arcTo(bx,        by + boxH,   bx,        by,        r);
-        ctx.arcTo(bx,        by,          bx + boxW, by,        r);
+        ctx.arcTo(bx + boxW, by, bx + boxW, by + boxH, r);
+        ctx.arcTo(bx + boxW, by + boxH, bx, by + boxH, r);
+        ctx.arcTo(bx, by + boxH, bx, by, r);
+        ctx.arcTo(bx, by, bx + boxW, by, r);
         ctx.closePath();
-        ctx.fillStyle   = 'rgba(0,0,0,0.75)';
+        ctx.fillStyle = 'rgba(0,0,0,0.75)';
         ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-        ctx.lineWidth   = 1 / sqrtZ;
+        ctx.lineWidth = 1 / sqrtZ;
         ctx.fill(); ctx.stroke();
         let xText = bx + pad, yText = by + pad;
         ctx.fillStyle = '#B7FBFF';
@@ -1521,7 +1576,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
         // If fixed sizes in px are provided, convert them to normalized for this frame
         if ((!wp || !hp) && (coords.width || coords.height)) {
-          if (!wp && coords.width)  wp = (coords.width  * worldPerCssX) / logicalW;
+          if (!wp && coords.width) wp = (coords.width * worldPerCssX) / logicalW;
           if (!hp && coords.height) hp = (coords.height * worldPerCssY) / logicalH;
         }
 
@@ -1538,33 +1593,33 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         // Culling with world dimensions
         const viewW = canvasLogicalW / camera.z;
         const viewH = canvasLogicalH / camera.z;
-        const viewX = camera.x - viewW/2;
-        const viewY = camera.y - viewH/2;
-        
+        const viewX = camera.x - viewW / 2;
+        const viewY = camera.y - viewH / 2;
+
         const halfWorldW = ww / 2;
         const halfWorldH = wh / 2;
-        
-        if (wx + halfWorldW < viewX || 
-            wx - halfWorldW > viewX + viewW || 
-            wy + halfWorldH < viewY || 
-            wy - halfWorldH > viewY + viewH) {
+
+        if (wx + halfWorldW < viewX ||
+          wx - halfWorldW > viewX + viewW ||
+          wy + halfWorldH < viewY ||
+          wy - halfWorldH > viewY + viewH) {
           return; // Skip off-screen hotspots
         }
 
         // Calculate screen size based on current zoom
         const screenWidth = ww * camera.z;
         const screenHeight = wh * camera.z;
-        
+
         // Apply minimum touch target size if needed
         const minTapSize = mapManager.isMobile ? 56 : 48;
-        
+
         // Use the larger of calculated size and minimum touch target
         const finalWidth = Math.max(screenWidth, minTapSize);
         const finalHeight = Math.max(screenHeight, minTapSize);
-        
+
         // Selection state (for editor)
         const isActive = appConfig.editorActive && editor?.selectedItem?.index === index;
-        
+
         // 3) Always deliver world space to overlay (center anchor)
         overlay.upsert({
           key: `hotspot_${index}`,
@@ -1588,13 +1643,13 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         });
       });
     }
-    
+
     // Render regular waypoint icons
     const iconsForWaypoint = state.currentIcons[state.idx] || [];
     iconsForWaypoint.forEach((icon, i) => {
       // Skip if this is a hotspot (already handled)
       if (icon.isHotspot) return;
-      
+
       // 🎯 Reglas de UX para shapes:
       const isRoundByType = ['pin', 'marker', 'bubble', 'diana', 'dot'].includes(icon.type);
       const isRoundByKind = ['pin', 'circle'].includes(icon.kind);
@@ -1616,16 +1671,16 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         meta: {
           // 🔑 Auto-detección inteligente de forma
           shape: icon.shape || (shouldBeRound ? 'circle' : 'rect'),
-          
+
           // 🎯 Control preciso del hitbox
           compact: icon.compact ?? (!mapManager.isMobile && !isCard), // compacto en desktop excepto cards
-          
+
           // 🧤 Margen extra según tipo
           hitSlop: icon.hitSlop ?? (shouldBeRound ? 8 : 6),
-          
+
           // 📏 Mínimo táctil según contexto (solo si no es compacto)
           minTap: icon.minTap ?? minTapSize,
-          
+
           // 📐 Alto visual independiente
           visualH: isCard ? (icon.height || baseSize) : icon.height,
 
@@ -1644,7 +1699,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     drawDebugOverlay();
     drawDialog();
     drawMinimap();
-    
+
     // Eventos del editor si está activo
     if (appConfig.editorActive) window.dispatchEvent(new CustomEvent('editor:redraw'));
   }
@@ -1663,7 +1718,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
     if (hasTyped) markDirty('dialog');
   }
-  function startTyping(){ state.typing = true; state.typedText = ''; state.lastTick = 0; srLive.textContent = ''; markDirty('dialog'); }
+  function startTyping() { state.typing = true; state.typedText = ''; state.lastTick = 0; srLive.textContent = ''; markDirty('dialog'); }
 
   function showFullLineOrNext() {
     if (!state.currentWaypoints.length) return;
@@ -1709,78 +1764,78 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   });
 
   canvas.addEventListener('mousedown', (e) => {
-  if (appConfig.editorActive) {
-    console.log('🎨 Editor activo - evento bloqueado');
-    return;
-  }
-
-  // Solo botón izquierdo (evita rarezas con click derecho o rueda)
-  if (e.button !== 0) return;
-
-  const { x, y } = clientToMapCoords(e.clientX, e.clientY);
-
-  // 1) Primero: probar iconos / hotspots
-  const items = state.currentIcons[state.idx] || [];
-  for (const item of items) {
-    const type = item.type || 'icon';
-    const width = item.width || ICON_SIZE;
-    const height = item.height || ICON_SIZE;
-    const sqrtZ = getCachedSqrt(camera.z);
-    const displayWidth = width / sqrtZ;
-    const displayHeight = height / sqrtZ;
-    let isHit = false;
-
-    if (type === 'icon') {
-      const dx = x - item.x;
-      const dy = y - item.y;
-      const clickRadius = ICON_R;
-      isHit = (dx * dx + dy * dy) <= (clickRadius * clickRadius);
-    } else if (type === 'hotspot' || type === 'image') {
-      const halfW = displayWidth * 0.5;
-      const halfH = displayHeight * 0.5;
-      isHit = (
-        x >= item.x - halfW && x <= item.x + halfW &&
-        y >= item.y - halfH && y <= item.y + halfH
-      );
-    }
-
-    if (isHit) {
-      openPopup(item);
+    if (appConfig.editorActive) {
+      console.log('🎨 Editor activo - evento bloqueado');
       return;
     }
-  }
 
-  // 2) Luego: probar click directo sobre waypoint
-  for (let i = 0; i < state.currentWaypoints.length; i++) {
-    const wp = state.currentWaypoints[i];
-    const dx = x - wp.x;
-    const dy = y - wp.y;
-    if (dx * dx + dy * dy <= MARKER_R * MARKER_R) {
-      goToWaypoint(i);
-      return;
+    // Solo botón izquierdo (evita rarezas con click derecho o rueda)
+    if (e.button !== 0) return;
+
+    const { x, y } = clientToMapCoords(e.clientX, e.clientY);
+
+    // 1) Primero: probar iconos / hotspots
+    const items = state.currentIcons[state.idx] || [];
+    for (const item of items) {
+      const type = item.type || 'icon';
+      const width = item.width || ICON_SIZE;
+      const height = item.height || ICON_SIZE;
+      const sqrtZ = getCachedSqrt(camera.z);
+      const displayWidth = width / sqrtZ;
+      const displayHeight = height / sqrtZ;
+      let isHit = false;
+
+      if (type === 'icon') {
+        const dx = x - item.x;
+        const dy = y - item.y;
+        const clickRadius = ICON_R;
+        isHit = (dx * dx + dy * dy) <= (clickRadius * clickRadius);
+      } else if (type === 'hotspot' || type === 'image') {
+        const halfW = displayWidth * 0.5;
+        const halfH = displayHeight * 0.5;
+        isHit = (
+          x >= item.x - halfW && x <= item.x + halfW &&
+          y >= item.y - halfH && y <= item.y + halfH
+        );
+      }
+
+      if (isHit) {
+        openPopup(item);
+        return;
+      }
     }
-  }
 
-  // 3) Si no le diste a nada, usamos la posición horizontal del click
-  const rect = canvas.getBoundingClientRect();
-  const relX = (e.clientX - rect.left) / rect.width; // 0 = borde izq, 1 = borde der
+    // 2) Luego: probar click directo sobre waypoint
+    for (let i = 0; i < state.currentWaypoints.length; i++) {
+      const wp = state.currentWaypoints[i];
+      const dx = x - wp.x;
+      const dy = y - wp.y;
+      if (dx * dx + dy * dy <= MARKER_R * MARKER_R) {
+        goToWaypoint(i);
+        return;
+      }
+    }
 
-  if (relX < 0.33) {
-    // tercio izquierdo = retroceder
-    prev();
-  } else if (relX > 0.66) {
-    // tercio derecho = avanzar
-    showFullLineOrNext();
-  } else {
-    // zona central: mantengo el comportamiento actual de "avanzar"
-    // si quieres que no haga nada, cambia esta línea por "return;"
-    showFullLineOrNext();
-  }
-});
+    // 3) Si no le diste a nada, usamos la posición horizontal del click
+    const rect = canvas.getBoundingClientRect();
+    const relX = (e.clientX - rect.left) / rect.width; // 0 = borde izq, 1 = borde der
+
+    if (relX < 0.33) {
+      // tercio izquierdo = retroceder
+      prev();
+    } else if (relX > 0.66) {
+      // tercio derecho = avanzar
+      showFullLineOrNext();
+    } else {
+      // zona central: mantengo el comportamiento actual de "avanzar"
+      // si quieres que no haga nada, cambia esta línea por "return;"
+      showFullLineOrNext();
+    }
+  });
 
   // ========= 👆 SWIPE HORIZONTAL — Mobile =========
   // ========= 👆 SWIPE HORIZONTAL + VERTICAL — Mobile =========
-  ;(function initSwipeNav() {
+  ; (function initSwipeNav() {
     let swipe = null;
 
     // Extrae fila y columna del ID del waypoint (ej: "wp_f2_col3" → { row:2, col:3 })
@@ -1851,14 +1906,14 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const canvasLogicalH = canvas.height / dpr;
     const px = (cx - rect.left) / rect.width * canvasLogicalW;
     const py = (cy - rect.top) / rect.height * canvasLogicalH;
-    const mx = (px - canvasLogicalW/2) / camera.z + camera.x;
-    const my = (py - canvasLogicalH/2) / camera.z + camera.y;
+    const mx = (px - canvasLogicalW / 2) / camera.z + camera.x;
+    const my = (py - canvasLogicalH / 2) / camera.z + camera.y;
     return { x: mx, y: my };
   }
 
   // ========= 🆕 CONTROL DE LLENADO DESDE CÓDIGO =========
-  const rootEl  = document.documentElement;
-  const bodyEl  = document.body;
+  const rootEl = document.documentElement;
+  const bodyEl = document.body;
   const shellEl = document.querySelector('.novela');
 
   function applyFillScale(fill) {
@@ -1871,7 +1926,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     shellEl?.classList.add('full-bleed');
     // Recalcular canvas al cambiar tamaño
     setCanvasDPR();
-    markDirty('camera','elements','minimap','dialog');
+    markDirty('camera', 'elements', 'minimap', 'dialog');
   }
 
   window.LayoutFill = {
@@ -1892,12 +1947,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const mapConfig = mapManager.currentMap.config.mapImage;
     const isMobile = mapManager.isMobile;
     const isFullBleed = shellEl?.classList.contains('full-bleed');
-    
+
     // 1. Obtener el canvas y su contenedor
     const canvas = document.getElementById('mapa-canvas');
     const wrapper = document.getElementById('mapa-canvas-wrapper');
     if (!canvas || !wrapper) return;
-    
+
     // 2. Obtener dimensiones del contenedor
     const rect = wrapper.getBoundingClientRect();
     let canvasW = Math.round(rect.width);
@@ -1908,16 +1963,16 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     let fill = 1.00;
     switch (bucket) {
       case 'ultra-alto': fill = 1.02; break;
-      case 'alto':       fill = 1.00; break;
-      case 'medio':      fill = 0.99; break;
-      case 'ancho':      fill = 0.98; break;
+      case 'alto': fill = 1.00; break;
+      case 'medio': fill = 0.99; break;
+      case 'ancho': fill = 0.98; break;
     }
     applyFillScale(fill); // Ajusta el alto visible sin deformar el bitmap
 
     // 3. Canvas siempre full wrapper: el recorte lo controla la cámara/waypoints
     let displayW = canvasW;
     let displayH = canvasH;
- 
+
     // 4. Validar dimensiones
     const validation = validateCanvasDimensions(displayW, displayH, isMobile);
     if (validation.adjusted) {
@@ -1929,25 +1984,25 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
     const finalW = Math.round(displayW * dpr);
     const finalH = Math.round(displayH * dpr);
-    
+
     // 6. Actualizar tamaño físico del canvas (device pixels)
     if (canvas.width !== finalW || canvas.height !== finalH) {
       canvas.width = finalW;
       canvas.height = finalH;
     }
-    
+
     // 7. Aplicar estilos CSS (tamaño lógico)
     if (canvas.style.width !== `${displayW}px` || canvas.style.height !== `${displayH}px`) {
       canvas.style.width = `${displayW}px`;
       canvas.style.height = `${displayH}px`;
     }
-    
+
     // 8. Configurar transformación del contexto
     const ctx = canvas.getContext('2d');
     if (ctx) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
-    
+
     // 9. Resetear estilos de transformación si existen
     if (canvas.style.transform) {
       canvas.style.transform = '';
@@ -1959,13 +2014,13 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       // NO tocamos x, y, z de la cámara aquí para no romper los waypoints.
       window.cameraInstance.setViewport(displayW, displayH);
     }
-    
+
     // 11. Ahora que el canvas está configurado, actualizar el overlay
     // con las dimensiones lógicas finales
     if (typeof overlay?.resize === 'function') {
       overlay.resize(displayW, displayH);
     }
-    
+
     // 12. Actualizar dimensiones del cuadro de diálogo
     if (DIALOG_BOX) {
       DIALOG_BOX.w = displayW - 32; // Usar displayW en lugar de canvas.width/dpr
@@ -2009,31 +2064,31 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
   function handleResize() {
     const now = performance.now();
-    
+
     // Actualizar modo del dispositivo (mobile/desktop)
     const isMobile = isMobileViewport();
     if (overlay?.setDevice) {
       overlay.setDevice(isMobile ? 'mobile' : 'desktop');
     }
-    
+
     if (now - lastResize < RESIZE_THROTTLE) {
       clearTimeout(resizeTO);
-      resizeTO = setTimeout(() => { 
+      resizeTO = setTimeout(() => {
         if (window.cameraInstance) {
           window.cameraInstance.dirty = true;
         }
         setCanvasDPR();
-        lastResize = performance.now(); 
+        lastResize = performance.now();
       }, RESIZE_DEBOUNCE);
       return;
     }
-    
-    resizeTO = setTimeout(() => { 
+
+    resizeTO = setTimeout(() => {
       if (window.cameraInstance) {
         window.cameraInstance.dirty = true;
       }
       setCanvasDPR();
-      lastResize = performance.now(); 
+      lastResize = performance.now();
     }, RESIZE_DEBOUNCE);
   }
 
@@ -2042,11 +2097,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   try {
     if ('ResizeObserver' in window && wrap) {
       const ro = new ResizeObserver(() => {
-        markDirty('camera','elements','minimap');
+        markDirty('camera', 'elements', 'minimap');
         const now = performance.now();
-        if (now - lastResize > RESIZE_THROTTLE) { 
+        if (now - lastResize > RESIZE_THROTTLE) {
           setCanvasDPR();
-          lastResize = now; 
+          lastResize = now;
         }
       });
       ro.observe(wrap);
@@ -2085,7 +2140,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (!loop.prev) loop.prev = ts;
     const delta = ts - loop.prev; loop.prev = ts;
     if (GLOBAL_CONFIG.CAMERA_EFFECTS.transitionEnabled) updateTransition(ts);
-    
+
     // Update overlay at the start of each frame
     overlay.beginFrame();
 
@@ -2104,10 +2159,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         isMobile && effects.breathingMobile
           ? effects.breathingMobile
           : {
-              amount: effects.breathingAmount,
-              speed: effects.breathingSpeed,
-              zAmount: effects.breathingZAmount
-            };
+            amount: effects.breathingAmount,
+            speed: effects.breathingSpeed,
+            zAmount: effects.breathingZAmount
+          };
 
       const speed = breathCfg.speed ?? effects.breathingSpeed;
       const amount = breathCfg.amount ?? effects.breathingAmount;
@@ -2123,7 +2178,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
 
     const prevCameraX = camera.x, prevCameraY = camera.y, prevCameraZ = camera.z;
-  if (appConfig.editorActive) {
+    if (appConfig.editorActive) {
       camera.x = camTarget.x; camera.y = camTarget.y; camera.z = camTarget.z;
     } else {
       camera.x = lerp(camera.x, camTarget.x, EASE);
@@ -2134,12 +2189,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const cameraDeltaX = Math.abs(camera.x - prevCameraX);
     const cameraDeltaY = Math.abs(camera.y - prevCameraY);
     const cameraDeltaZ = Math.abs(camera.z - prevCameraZ);
-    if (cameraDeltaX > 0.1 || cameraDeltaY > 0.1 || cameraDeltaZ > 0.001) { dirtyFlags.cameraMoving = true; markDirty('camera','minimap'); }
+    if (cameraDeltaX > 0.1 || cameraDeltaY > 0.1 || cameraDeltaZ > 0.001) { dirtyFlags.cameraMoving = true; markDirty('camera', 'minimap'); }
     else { dirtyFlags.cameraMoving = false; }
 
     typeNext(delta);
-    if (needsRedraw()) { 
-      draw(); 
+    if (needsRedraw()) {
+      draw();
       // Finaliza overlay con cámara global y viewport LÓGICO
       if (overlay?.endFrame) {
         const dpr = Math.min(GLOBAL_CONFIG.DPR_MAX, window.devicePixelRatio || 1);
@@ -2147,9 +2202,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         const logicalH = (parseInt(canvas.style.height, 10)) || (canvas.height / dpr);
         overlay.endFrame(window.cameraInstance, logicalW, logicalH);
       }
-      clearDirtyFlags(); 
-    } else { 
-      performanceStats.skippedFrames++; 
+      clearDirtyFlags();
+    } else {
+      performanceStats.skippedFrames++;
     }
     updatePerformanceStats(ts);
     if (running) rafId = requestAnimationFrame(loop);
@@ -2157,7 +2212,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) { running = false; cancelAnimationFrame(rafId); }
-    else { running = true; loop.prev = 0; markDirty('camera','elements','dialog','minimap'); rafId = requestAnimationFrame(loop); }
+    else { running = true; loop.prev = 0; markDirty('camera', 'elements', 'dialog', 'minimap'); rafId = requestAnimationFrame(loop); }
   });
 
   // ========= DRAWER =========
@@ -2173,12 +2228,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
   // ========= INICIO =========
   // Initialize camera instance
-  const cameraInstance = new Camera({ 
-    x: 0, 
-    y: 0, 
-    z: 1, 
-    viewportW: wrap.clientWidth, 
-    viewportH: wrap.clientHeight 
+  const cameraInstance = new Camera({
+    x: 0,
+    y: 0,
+    z: 1,
+    viewportW: wrap.clientWidth,
+    viewportH: wrap.clientHeight
   });
   window.cameraInstance = cameraInstance; // Make it globally available for debugging
 
@@ -2191,8 +2246,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     // Soporte multi-historia via ?story=id
     const storyId = appConfig.toggles.story;
     const storyUrl = storyId
-    ? `/data/stories/${storyId}/story.json`
-    : '/data/story.json';
+      ? `/data/stories/${storyId}/story.json`
+      : '/data/story.json';
     await mapManager.loadStory(storyUrl);
 
     // 🆕 Actualizar título del documento si la story tiene título
@@ -2201,11 +2256,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         ? `Historia: ${appConfig.toggles.story}`
         : 'Mapa Interactivo';
       document.title = storyTitle;
-    } catch {}
+    } catch { }
 
     uiManager = new UIManager(mapManager, handlePhaseChange, handleMapChange);
     popupManager = new DetailedPopupManager();
-    
+
     // === Editor: carga bajo demanda con ?editor=1 ===
     if (appConfig.editorActive) {
       GLOBAL_CONFIG.EDITOR_ENABLED = true;
@@ -2227,28 +2282,40 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
 
     const firstMap = mapManager.getCurrentPhaseMaps()[0];
-    if (firstMap) await loadMap(firstMap.id);
+
+    // ── INTRO: mostrar si la story lo define ──
+    const rawStory = mapManager._lastLoadedStory;
+    if (rawStory?.intro) {
+      showIntro(rawStory.intro);
+      const mapLoadPromise = firstMap ? loadMap(firstMap.id) : Promise.resolve();
+      await waitForIntro();
+      await mapLoadPromise;
+    } else {
+      if (firstMap) await loadMap(firstMap.id);
+    }
+    // ─────────────────────────────────────────
+
     setCanvasDPR();
 
     performanceStats.lastFpsUpdate = performance.now();
     requestAnimationFrame(loop);
     document.body.classList.add('overlays-ready');
   })();
-  
+
 
 })();
-  // === Boot de cobertura y resize ===
-  (function bootCoverageWhenReady() {
-    const start = () => {
-      applyViewportCoverage();
-      window.addEventListener('resize', applyViewportCoverage, { passive: true });
-    };
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', start, { once: true });
-    } else {
-      start();
-    }
-  })();
+// === Boot de cobertura y resize ===
+(function bootCoverageWhenReady() {
+  const start = () => {
+    applyViewportCoverage();
+    window.addEventListener('resize', applyViewportCoverage, { passive: true });
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, { once: true });
+  } else {
+    start();
+  }
+})();
 
 function safeMemory() {
   try {

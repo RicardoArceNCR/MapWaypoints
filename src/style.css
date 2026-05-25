@@ -1171,3 +1171,271 @@ body.popup-open #waypoint-info-box {
   opacity: 0;
   pointer-events: none;
 }
+
+/* ========================================================= */
+/* INTRO SCREEN                                              */
+/* ========================================================= */
+
+/* Mientras el intro es visible, ocultar el header de fases */
+body:has(#story-intro:not([hidden])) .top-bar {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.story-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: opacity 0.7s ease;
+}
+
+.story-intro.is-hiding {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.story-intro__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  padding: 32px 24px;
+  max-width: 640px;
+}
+
+/* --- Entradas escalonadas lentas --- */
+.story-intro__subtitle,
+.story-intro__btn {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.story-intro__subtitle {
+  animation: none;
+}
+.story-intro__btn {
+  animation: none;
+}
+
+/* Clase que JS agrega cuando es momento */
+.story-intro__subtitle.is-visible {
+  animation: intro-rise 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.story-intro__btn.is-visible {
+  animation: intro-rise 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes intro-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Typewriter (solo desktop) --- */
+.story-intro__title {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  text-align: center;
+  display: block;
+  white-space: pre-line;
+  overflow: hidden;
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+/* cursor parpadeante — se agrega/quita por JS */
+.story-intro__title::after {
+  content: '|';
+  display: inline;
+  color: rgba(255, 255, 255, 0.7);
+  animation: tw-cursor 0.65s step-end infinite;
+  margin-left: 2px;
+}
+
+.story-intro__title.tw-done::after {
+  display: none;
+}
+
+@keyframes tw-cursor {
+  50% { opacity: 0; }
+}
+
+/* Mobile: revertir a fade-in normal */
+@media (max-width: 520px) {
+  .story-intro__title {
+    white-space: normal;
+    overflow: visible;
+    border-right: none;
+    width: auto;
+    animation: intro-rise 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+.story-intro__subtitle {
+  margin: 0;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+  max-width: 480px;
+}
+
+/* --- Botón con haz de luz giratorio --- */
+.story-intro__btn {
+  position: relative;
+  margin-top: 8px;
+  padding: 15px 48px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 100px;
+  background: transparent;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  overflow: hidden;
+  transition: border-color 0.3s ease, color 0.3s ease, transform 0.15s ease;
+}
+
+/* Haz de luz — gradiente cónico giratorio sobre el borde */
+.story-intro__btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 100px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 60%,
+    rgba(255, 255, 255, 0.55) 75%,
+    rgba(255, 255, 255, 0.9) 85%,
+    rgba(255, 255, 255, 0.55) 95%,
+    transparent 100%
+  );
+  animation: btn-sweep 2.8s linear 3.2s infinite;
+  opacity: 0;
+}
+
+/* El haz aparece cuando el botón ya está visible */
+.story-intro__btn.btn-ready::before {
+  opacity: 1;
+}
+
+/* Máscara interna para que el haz solo afecte el borde */
+.story-intro__btn::after {
+  content: '';
+  position: absolute;
+  inset: 1.5px;
+  border-radius: 100px;
+  background: #000;
+  z-index: 0;
+}
+
+.story-intro__btn span {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes btn-sweep {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.story-intro__btn:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.story-intro__btn:active {
+  transform: scale(0.97);
+}
+
+/* Logo */
+.story-intro__logo-wrap {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: intro-rise 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+.story-intro__logo-wrap a {
+  display: block;
+  line-height: 0;
+}
+
+.story-intro__logo {
+  height: 32px;
+  width: auto;
+  display: block;
+  /* Sin filter — respeta los colores originales del webp */
+  transition: opacity 0.2s ease;
+}
+
+.story-intro__logo:hover {
+  opacity: 0.7;
+}
+
+/* Copyright */
+.story-intro__copyright {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 700px;
+  margin: 0;
+  text-align: center;
+  font-size: 0.6rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  animation: intro-rise 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+  white-space: normal;
+}
+
+.story-intro__copyright a {
+  color: rgba(255, 255, 255, 0.35);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.story-intro__copyright a:hover {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* --- Accesibilidad --- */
+@media (prefers-reduced-motion: reduce) {
+  .story-intro__title,
+  .story-intro__subtitle,
+  .story-intro__btn,
+  .story-intro__logo-wrap,
+  .story-intro__copyright {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .story-intro__title {
+    white-space: normal;
+    overflow: visible;
+    border-right: none;
+    width: auto;
+  }
+  .story-intro { transition: none; }
+  .story-intro__btn::before { animation: none; }
+}

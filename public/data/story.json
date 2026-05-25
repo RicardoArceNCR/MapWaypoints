@@ -3,6 +3,10 @@
   "title": "Expediente 0001",
   "description": "Descripción breve del caso",
   "thumbnail": "/data/stories/costa-rica/expedientes/0001/thumb.webp",
+  "intro": {
+    "title": "ASÍ ASESINARON A\nROBERTO SAMCAM:",
+    "subtitle": "UN CRIMEN EN TRES FASES"
+  },
   "phases": [
     {
       "id": "fase1",

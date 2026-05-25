@@ -51,6 +51,7 @@ export class MapManager {
       Object.keys(MAPS_CONFIG).forEach((key) => delete MAPS_CONFIG[key]);
       Object.assign(MAPS_CONFIG, story.mapsIndex);
       this.currentStoryId = story.id || null;
+      this._lastLoadedStory = story;
 
       if (!this.currentPhase && PHASES.length) {
         this.currentPhase = PHASES[0].id;
