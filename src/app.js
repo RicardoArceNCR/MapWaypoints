@@ -2042,11 +2042,14 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
   // Handle device orientation changes with a small delay
   window.addEventListener('orientationchange', () => {
-    // Small delay to ensure the viewport has updated
+    // 350ms: iOS Safari necesita más tiempo que Android para estabilizar innerWidth/Height
     setTimeout(() => {
-      setCanvasDPR();
-      markDirty('camera', 'elements', 'minimap');
-    }, 200);
+      applyViewportCoverage();   // 1. wrapper toma dimensiones correctas
+      setCanvasDPR();            // 2. canvas lee del wrapper ya actualizado
+      // 3. reposicionar cámara al waypoint actual con el nuevo aspect ratio
+      if (state.currentWaypoints.length) goToWaypoint(state.idx);
+      markDirty('camera', 'elements', 'minimap', 'dialog');
+    }, 350);
   }, { passive: true });
 
   let rafId, running = true;
