@@ -1157,3 +1157,14 @@ body.net-slow .drawer {
     padding-right: 24px;
   }
 }
+/* ========================================================= */
+/* POPUP OPEN — Ocultar chrome de navegación en mobile       */
+/* ========================================================= */
+@media (max-width: 899px) {
+  body.popup-open .top-bar,
+  body.popup-open #waypoint-info-box {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+}

@@ -192,6 +192,7 @@ export class DetailedPopupManager {
     requestAnimationFrame(() => {
       this.popupSimple.classList.add('popup--visible');
       this.backdrop.classList.add('popup-backdrop--visible');
+      document.body.classList.add('popup-open');
     });
   }
   
@@ -301,6 +302,7 @@ export class DetailedPopupManager {
     requestAnimationFrame(() => {
       this.popupDetailed.classList.add('popup--visible');
       this.backdrop.classList.add('popup-backdrop--visible');
+      document.body.classList.add('popup-open');
     });
     
     // Resetear scroll del contenido
@@ -449,8 +451,9 @@ export class DetailedPopupManager {
         this.popupDetailed.style.transform = '';
       }
       
-      // Restaurar scroll del body
+      // Restaurar scroll del body + chrome navegación
       document.body.style.overflow = '';
+      document.body.classList.remove('popup-open');
       
       this.currentHotspot = null;
       this.selectedPersonId = null;
