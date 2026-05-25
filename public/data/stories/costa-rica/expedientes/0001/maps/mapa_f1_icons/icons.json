@@ -4,16 +4,16 @@
       "_note": "WP0-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
+        "offsetX": -19,
+        "offsetY": -243,
         "width": 260,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -200,
-        "offsetY": -130,
+        "offsetX": -369,
+        "offsetY": -99,
         "width": 420,
         "height": 239,
         "rotation": -10,
@@ -91,16 +91,16 @@
       "_note": "WP0-H1: Rectángulo secundario superior derecho",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -5,
-        "offsetY": -121,
+        "offsetX": -3,
+        "offsetY": -42,
         "width": 280,
         "height": 190,
         "rotation": -8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
+        "offsetX": 340,
+        "offsetY": -101,
         "width": 417,
         "height": 238,
         "rotation": 25,
@@ -156,8 +156,8 @@
       "_note": "WP0-H2: Círculo terciario inferior izquierdo",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -92,
-        "offsetY": 48,
+        "offsetX": -169,
+        "offsetY": -153,
         "width": 77,
         "height": 77,
         "rotation": -8,
@@ -165,7 +165,7 @@
       },
       "desktop": {
         "offsetX": -9,
-        "offsetY": -180,
+        "offsetY": -140,
         "width": 170,
         "height": 170,
         "rotation": 25,
@@ -221,16 +221,16 @@
       "_note": "WP0-H3: Círculo cuaternario inferior derecho",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 20,
-        "offsetY": 37,
+        "offsetX": 155,
+        "offsetY": -327,
         "width": 77,
         "height": 77,
         "rotation": -24,
         "radius": 15
       },
       "desktop": {
-        "offsetX": -9,
-        "offsetY": 61,
+        "offsetX": -10,
+        "offsetY": 100,
         "width": 166,
         "height": 166,
         "rotation": 24,
@@ -310,16 +310,16 @@
       "_note": "WP1-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -16,
+        "offsetY": -175,
+        "width": 230,
+        "height": 185,
+        "rotation": 10,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -200,
-        "offsetY": -130,
+        "offsetX": -351,
+        "offsetY": -106,
         "width": 420,
         "height": 239,
         "rotation": -10,
@@ -397,16 +397,16 @@
       "_note": "WP1-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -5,
-        "offsetY": -121,
+        "offsetX": -12,
+        "offsetY": 21,
         "width": 280,
         "height": 190,
         "rotation": -8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
+        "offsetX": 352,
+        "offsetY": -108,
         "width": 417,
         "height": 238,
         "rotation": 25,
@@ -462,16 +462,16 @@
       "_note": "WP1-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -92,
-        "offsetY": 48,
+        "offsetX": -164,
+        "offsetY": -292,
         "width": 77,
         "height": 77,
         "rotation": -8,
         "radius": 20
       },
       "desktop": {
-        "offsetX": -9,
-        "offsetY": -180,
+        "offsetX": 1,
+        "offsetY": -144,
         "width": 170,
         "height": 170,
         "rotation": 25,
@@ -527,16 +527,16 @@
       "_note": "WP1-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 20,
-        "offsetY": 37,
+        "offsetX": 146,
+        "offsetY": -304,
         "width": 77,
         "height": 77,
         "rotation": -24,
         "radius": 15
       },
       "desktop": {
-        "offsetX": -9,
-        "offsetY": 61,
+        "offsetX": 2,
+        "offsetY": 93,
         "width": 166,
         "height": 166,
         "rotation": 24,
@@ -624,8 +624,8 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -200,
-        "offsetY": -130,
+        "offsetX": -345,
+        "offsetY": -103,
         "width": 420,
         "height": 239,
         "rotation": -10,
@@ -711,8 +711,8 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
+        "offsetX": 357,
+        "offsetY": -102,
         "width": 417,
         "height": 238,
         "rotation": 25,
@@ -776,8 +776,8 @@
         "radius": 20
       },
       "desktop": {
-        "offsetX": -9,
-        "offsetY": -180,
+        "offsetX": 7,
+        "offsetY": -143,
         "width": 170,
         "height": 170,
         "rotation": 25,
@@ -833,16 +833,16 @@
       "_note": "WP2-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 20,
-        "offsetY": 37,
-        "width": 77,
+        "offsetX": 90,
+        "offsetY": 41,
+        "width": 118,
         "height": 77,
-        "rotation": -24,
+        "rotation": -14,
         "radius": 15
       },
       "desktop": {
-        "offsetX": -9,
-        "offsetY": 61,
+        "offsetX": 6,
+        "offsetY": 90,
         "width": 166,
         "height": 166,
         "rotation": 24,
