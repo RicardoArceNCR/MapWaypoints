@@ -493,22 +493,28 @@ let memoryMonitor = new MemoryMonitor();
     const elTitle = document.getElementById('intro-title');
     const elSub = document.getElementById('intro-subtitle');
     const elBtn = document.getElementById('intro-btn');
+    const elLogo = document.querySelector('.story-intro__logo-wrap');
+    const elCopy = document.querySelector('.story-intro__copyright');
     if (!el) return;
 
-    // Limpiar clases previas para evitar fugas de estado
+    // Reset clases por si se reutiliza
+    [elSub, elBtn, elLogo, elCopy].forEach(el =>
+      el?.classList.remove('is-visible', 'btn-ready')
+    );
     elTitle?.classList.remove('tw-done');
-    elSub?.classList.remove('is-visible');
-    elBtn?.classList.remove('is-visible', 'btn-ready');
 
     elSub.textContent = subtitle || '';
     el.hidden = false;
 
     const CHAR_DELAY = 90;
-    const TW_START_DELAY = 1600; // espera a que el logo termine de entrar
+    const TW_START_DELAY = 1600;
     const text = (title || '').replace(/\\n/g, '\n');
-    const totalTime = text.length * CHAR_DELAY; // tiempo exacto del typewriter
+    const totalTime = text.length * CHAR_DELAY;
 
-    // Typewriter con retraso de inicio
+    // 1. Logo entra primero
+    setTimeout(() => elLogo?.classList.add('is-visible'), 300);
+
+    // 2. Typewriter del título
     let i = 0;
     elTitle.textContent = '';
     setTimeout(() => {
@@ -523,10 +529,13 @@ let memoryMonitor = new MemoryMonitor();
       }, CHAR_DELAY);
     }, TW_START_DELAY);
 
-    // Subtítulo y botón entran DESPUÉS de que termina el typewriter (retraso inicial + duración del typewriter + retraso relativo)
+    // 3. Subtítulo — después del typewriter
     setTimeout(() => elSub?.classList.add('is-visible'), TW_START_DELAY + totalTime + 300);
+    // 4. Botón
     setTimeout(() => elBtn?.classList.add('is-visible'), TW_START_DELAY + totalTime + 900);
     setTimeout(() => elBtn?.classList.add('btn-ready'), TW_START_DELAY + totalTime + 2000);
+    // 5. Copyright — al final de todo
+    setTimeout(() => elCopy?.classList.add('is-visible'), TW_START_DELAY + totalTime + 1400);
   }
 
   function waitForIntro() {
