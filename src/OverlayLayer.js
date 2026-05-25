@@ -193,6 +193,8 @@ export class OverlayLayer {
       const margin = 500; // pixels
       if (sx < -margin || sy < -margin || sx > vw + margin || sy > vh + margin) {
         rec.wrap.style.display = 'none';
+        rec._screenX = null;
+        rec._screenY = null;
         continue;
       } else {
         rec.wrap.style.display = 'block';
@@ -218,7 +220,11 @@ export class OverlayLayer {
       // Apply letterboxing compensation to screen coordinates
       sx += offX;
       sy += offY;
-      
+
+      // Cachear posición de pantalla final (evita getBoundingClientRect en snap handler)
+      rec._screenX = sx;
+      rec._screenY = sy;
+
       // Aplicar estilos al wrap
       rec.wrap.style.width = `${visualW}px`;
       rec.wrap.style.height = `${visualH}px`;

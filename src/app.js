@@ -467,10 +467,9 @@ let memoryMonitor = new MemoryMonitor();
 
       for (const [k, rec] of overlay.items) {
         if (!rec || !rec.wrap) continue;
-        if (rec.wrap.style.display === 'none') continue;
-        const rect = rec.wrap.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
+        if (rec._screenX == null || rec._screenY == null) continue;
+        const cx = rec._screenX;
+        const cy = rec._screenY;
         const d = Math.hypot(clientX - cx, clientY - cy);
         if (d < bestDist) { bestDist = d; best = { key: k, rec, d }; }
       }
