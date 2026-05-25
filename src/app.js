@@ -1779,6 +1779,41 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   }
 });
 
+  // ========= 👆 SWIPE HORIZONTAL — Mobile =========
+  ;(function initSwipeNav() {
+    let swipe = null;
+
+    wrap.addEventListener('pointerdown', (e) => {
+      if (!isMobileViewport()) return;
+      if (e.target.closest('#overlay-layer')) return;
+      if (e.pointerType === 'mouse') return;
+      swipe = { x: e.clientX, y: e.clientY, t: performance.now(), valid: true };
+    }, { passive: true });
+
+    wrap.addEventListener('pointermove', (e) => {
+      if (!swipe?.valid) return;
+      const dx = Math.abs(e.clientX - swipe.x);
+      const dy = Math.abs(e.clientY - swipe.y);
+      if (dy > dx * 0.8 && dy > 10) swipe.valid = false;
+    }, { passive: true });
+
+    wrap.addEventListener('pointerup', (e) => {
+      if (!swipe?.valid) { swipe = null; return; }
+      if (e.pointerType === 'mouse') { swipe = null; return; }
+      const dx = e.clientX - swipe.x;
+      const dy = e.clientY - swipe.y;
+      const dt = performance.now() - swipe.t;
+      swipe = null;
+      if (dt > 400) return;
+      if (Math.abs(dx) < 40) return;
+      if (Math.abs(dy) > Math.abs(dx) * 0.8) return;
+      if (dx < 0) showFullLineOrNext();
+      else prev();
+    }, { passive: true });
+
+    wrap.addEventListener('pointercancel', () => { swipe = null; }, { passive: true });
+    wrap.addEventListener('pointerleave', () => { swipe = null; }, { passive: true });
+  })();
 
   function clientToMapCoords(cx, cy) {
     if (!mapManager.currentMap) return { x: 0, y: 0 };
