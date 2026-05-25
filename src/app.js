@@ -1804,58 +1804,15 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       if (targetIdx !== -1) goToWaypoint(targetIdx);
     }
 
-    // ── Pinch detection ──────────────────────────────────────────
-    const activePointers = new Map();
-    let pinchStartDist = null;
-    const PINCH_THRESHOLD = 40;
-
-    function getPinchDist() {
-      const pts = [...activePointers.values()];
-      if (pts.length < 2) return 0;
-      return Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y);
-    }
-
     wrap.addEventListener('pointerdown', (e) => {
       if (!isMobileViewport()) return;
+      if (e.target.closest('#overlay-layer')) return;
       if (e.pointerType === 'mouse') return;
       if (document.body.classList.contains('popup-open')) return;
-
-      activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-
-      if (activePointers.size === 2) {
-        pinchStartDist = getPinchDist();
-        swipe = null;
-        return;
-      }
-
-      if (activePointers.size === 1) {
-        if (e.target.closest('#overlay-layer')) return;
-        swipe = { x: e.clientX, y: e.clientY, t: performance.now() };
-      }
-    }, { passive: true });
-
-    wrap.addEventListener('pointermove', (e) => {
-      if (activePointers.has(e.pointerId)) {
-        activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      }
+      swipe = { x: e.clientX, y: e.clientY, t: performance.now() };
     }, { passive: true });
 
     wrap.addEventListener('pointerup', (e) => {
-      if (activePointers.size >= 2 && pinchStartDist !== null) {
-        const endDist = getPinchDist();
-        activePointers.delete(e.pointerId);
-        const delta = endDist - pinchStartDist;
-        pinchStartDist = null;
-        swipe = null;
-        if (delta > PINCH_THRESHOLD) {
-          uiManager.openDrawer();
-        }
-        return;
-      }
-
-      activePointers.delete(e.pointerId);
-      pinchStartDist = null;
-
       if (!swipe) return;
       if (e.pointerType === 'mouse') { swipe = null; return; }
       const dx = e.clientX - swipe.x;
@@ -1868,25 +1825,22 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const absDx = Math.abs(dx);
       const absDy = Math.abs(dy);
 
+      // Eje dominante: horizontal
       if (absDx >= 40 && absDx > absDy * 1.2) {
         if (dx < 0) showFullLineOrNext();
         else prev();
         return;
       }
 
+      // Eje dominante: vertical
       if (absDy >= 40 && absDy > absDx * 1.2) {
         goVertical(dy < 0 ? 1 : -1);
         return;
       }
     }, { passive: true });
 
-    function cleanPointer(e) {
-      activePointers.delete(e.pointerId);
-      if (activePointers.size < 2) pinchStartDist = null;
-      if (activePointers.size === 0) swipe = null;
-    }
-    wrap.addEventListener('pointercancel', cleanPointer, { passive: true });
-    wrap.addEventListener('pointerleave', cleanPointer, { passive: true });
+    wrap.addEventListener('pointercancel', () => { swipe = null; }, { passive: true });
+    wrap.addEventListener('pointerleave', () => { swipe = null; }, { passive: true });
   })();
 
   function clientToMapCoords(cx, cy) {
