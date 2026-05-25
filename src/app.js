@@ -1834,7 +1834,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
       // Eje dominante: vertical
       if (absDy >= 40 && absDy > absDx * 1.2) {
-        goVertical(dy < 0 ? -1 : 1);
+        goVertical(dy < 0 ? 1 : -1);
         return;
       }
     }, { passive: true });
