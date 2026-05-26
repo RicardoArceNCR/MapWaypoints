@@ -5,9 +5,9 @@
   "iconsDir": true,
   "mapImage": {
     "mobile": {
-      "src": "/assets/mapa-mobile.webp?v=2026-05-21",
+      "src": "/assets/mapa-mobile-2x.webp?v=2026-05-25",
       "logicalW": 1400,
-      "logicalH": 3181
+      "logicalH": 1789
     },
     "desktop": {
       "src": "/assets/mapa-dektop-2x.webp?v=2026-05-25",
@@ -21,7 +21,7 @@
       "id": "wp_f1_col1",
       "mobile": {
         "xp": 0.172857,
-        "yp": 0.165042,
+        "yp": 0.293459,
         "z": 1
       },
       "desktop": {
@@ -55,7 +55,7 @@
       "id": "wp_f1_col2",
       "mobile": {
         "xp": 0.51,
-        "yp": 0.165042,
+        "yp": 0.293459,
         "z": 1
       },
       "desktop": {
@@ -89,7 +89,7 @@
       "id": "wp_f1_col3",
       "mobile": {
         "xp": 0.830425,
-        "yp": 0.165042,
+        "yp": 0.293459,
         "z": 1
       },
       "desktop": {
@@ -123,7 +123,7 @@
       "id": "wp_f2_col1",
       "mobile": {
         "xp": 0.17,
-        "yp": 0.4262,
+        "yp": 0.757821,
         "z": 1
       },
       "desktop": {
@@ -157,7 +157,7 @@
       "id": "wp_f2_col2",
       "mobile": {
         "xp": 0.51,
-        "yp": 0.4262,
+        "yp": 0.757821,
         "z": 1
       },
       "desktop": {
@@ -191,7 +191,7 @@
       "id": "wp_f2_col3",
       "mobile": {
         "xp": 0.84,
-        "yp": 0.4262,
+        "yp": 0.757821,
         "z": 1
       },
       "desktop": {
