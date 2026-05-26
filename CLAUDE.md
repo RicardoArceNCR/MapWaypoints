@@ -75,7 +75,7 @@ Los hotspots e iconos son `<div>` posicionados sobre el canvas, **no** dibujados
 
 | Archivo | Qué hace | Cuándo tocarlo |
 |---|---|---|
-| `src/app.js` | Boot, loop RAF, resize, dirty flags | Layout, viewport, resize bugs |
+| `src/app.js` | Boot, loop RAF, resize, dirty flags, intro screen | Layout, viewport, resize bugs, intro |
 | `src/config.js` | `GLOBAL_CONFIG` — todos los parámetros técnicos | Ajustar límites, timeouts, breakpoints |
 | `src/MapManager.js` | Carga story.json, mapas, imágenes, caché | Agregar campos a JSON, cambiar rutas |
 | `src/Camera.js` | Zoom, pan, transiciones, breathing | Comportamiento de cámara |
@@ -83,11 +83,117 @@ Los hotspots e iconos son `<div>` posicionados sobre el canvas, **no** dibujados
 | `src/UIManager.js` | Fases, drawer, progreso, selector | UI chrome (no canvas) |
 | `src/DetailedPopupManager.js` | Popups modales con personas/fechas/hechos | Cambios en la UI de popups |
 | `src/editor.js` | Editor visual — solo carga con `?editor=1` | Herramienta de desarrollo |
-| `src/style.css` | Layout, `.novela`, `#mapa-canvas-wrapper`, `.waypoint-info-box` | Estilos visuales |
+| `src/style.css` | Layout, `.novela`, `#mapa-canvas-wrapper`, `.waypoint-info-box`, `.story-intro` | Estilos visuales |
 | `src/popup_styles.css` | Estilos de popups detallados | Estilos de popups |
 | `public/data/story.json` | Historia default (fallback sin `?story=`) | Datos de prueba |
-| `public/data/stories/*/story.json` | Historias reales | Contenido editorial |
+| `public/data/stories/*/story.json` | Historias reales — incluye campo `intro` opcional | Contenido editorial |
 | `public/data/index.json` | Catálogo de todas las historias | Registrar nueva historia |
+
+---
+
+## Pantalla de introducción (Intro Screen)
+
+Sistema de presentación que se muestra antes del mapa al cargar una historia. Es un overlay DOM (`position: fixed; z-index: 200`) encima de todo. El mapa se carga en paralelo mientras el usuario ve el intro — sin impacto en performance.
+
+### Activación
+
+Se activa automáticamente si el `story.json` de la historia tiene el campo `intro`:
+
+```json
+{
+  "intro": {
+    "title": "ASÍ ASESINARON A\nROBERTO SAMCAM:",
+    "subtitle": "UN CRIMEN EN TRES FASES"
+  }
+}
+```
+
+Si el campo `intro` no existe, la pantalla no aparece. Es completamente opcional por historia.
+
+### Secuencia de animación
+
+| Orden | Elemento | Momento |
+|---|---|---|
+| 1 | Logo Divergentes | 0.3s — fade+slide CSS |
+| 2 | Título (typewriter JS) | 1.6s — letra por letra |
+| 3 | Subtítulo | al terminar título + 300ms |
+| 4 | Botón "Empezar" | al terminar título + 900ms |
+| 5 | Copyright footer | al terminar título + 1400ms |
+
+### Estructura HTML (`src/index.html`)
+
+```html
+<div id="story-intro" class="story-intro" hidden aria-modal="true" role="dialog">
+  <div class="story-intro__logo-wrap">
+    <a href="https://www.divergentes.com/" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/logo-divergentes.webp" alt="Divergentes" class="story-intro__logo" />
+    </a>
+  </div>
+  <div class="story-intro__content">
+    <h1 id="intro-title"    class="story-intro__title"></h1>
+    <p  id="intro-subtitle" class="story-intro__subtitle"></p>
+    <button id="intro-btn"  class="story-intro__btn"><span>Empezar</span></button>
+  </div>
+  <p class="story-intro__copyright">© 2020 - 2026 DIVERGENTES...</p>
+</div>
+```
+
+### Lógica JS (`src/app.js`)
+
+Dos funciones principales:
+
+**`showIntro({ title, subtitle })`** — puebla el DOM, activa clases `.is-visible` en los elementos en el orden correcto via `setTimeout`. El typewriter JS escribe carácter por carácter con `CHAR_DELAY = 90ms`. Respeta `\n` en el título via `white-space: pre-line`.
+
+**`waitForIntro()`** — retorna una Promise que resuelve al click del botón "Empezar", con fade-out de 700ms antes de resolver.
+
+```js
+// Flujo en start():
+await mapManager.loadStory(storyUrl);
+const rawStory = mapManager._lastLoadedStory;
+if (rawStory?.intro) {
+  showIntro(rawStory.intro);
+  const mapLoadPromise = loadMap(firstMap.id); // carga en paralelo
+  await waitForIntro();
+  await mapLoadPromise; // si ya cargó, instantáneo
+}
+```
+
+### Clases CSS activadas por JS
+
+| Clase | Cuándo se agrega | Efecto |
+|---|---|---|
+| `.is-visible` | por `showIntro()` en cada elemento | dispara `transition` de entrada |
+| `.tw-done` | al terminar el typewriter | quita el cursor parpadeante |
+| `.btn-ready` | 2s después del botón | activa el haz de luz giratorio |
+| `.is-hiding` | al click de "Empezar" | fade-out de 700ms |
+
+### Ocultar el header de fases durante el intro
+
+```css
+body:has(#story-intro:not([hidden])) .top-bar {
+  visibility: hidden;
+  pointer-events: none;
+}
+```
+
+Selector CSS puro — cero JS. Se revierte automáticamente cuando el intro se oculta (`hidden`).
+
+### Ajustar velocidad del typewriter
+
+```js
+// En showIntro() en app.js:
+const CHAR_DELAY = 90;      // ms por carácter — subir = más lento
+const TW_START_DELAY = 1600; // ms — espera al logo antes de empezar
+```
+
+Subtítulo, botón y copyright se recalculan automáticamente en base a `text.length * CHAR_DELAY` — nunca se desincronizan aunque cambies el texto o la velocidad.
+
+### Performance
+
+- El `::before` del botón (haz de luz conic-gradient + rotate) corre en compositor GPU. No toca layout.
+- Animaciones de entrada usan solo `opacity` + `translateY` — propiedades compositor.
+- Logo y copyright usan `left:0; right:0; display:flex` para centrado — no usar `left:50%; transform:translateX(-50%)` porque el translateY de la animación lo sobreescribiría.
+- El div del intro tiene `hidden` por defecto — el browser no lo renderiza hasta que `showIntro()` lo activa.
 
 ---
 
@@ -257,6 +363,8 @@ Si no hay historia (fallback default):
 | Tocar `editor.js` para features de producción | Mantenerlo como herramienta de dev aislada |
 | Editar `mobile.z` para cambiar el zoom mobile | Editar `zMobileProfile` para el perfil de altura correcto |
 | Usar `img.naturalWidth/naturalHeight` en la imagen del mapa | La imagen puede ser `ImageBitmap` — usar helper `imgWidth(img)` |
+| Usar `left:50%; transform:translateX(-50%)` en elementos del intro con animación de entrada | Usar `left:0; right:0; display:flex; justify-content:center` — el translateY de la animación sobreescribe el translateX |
+| Hardcodear delays en CSS para el subtítulo/botón/copyright del intro | Los delays se calculan dinámicamente en JS: `TW_START_DELAY + text.length * CHAR_DELAY + offset` |
 
 ---
 
@@ -277,8 +385,6 @@ Caja de texto flotante que aparece en la esquina superior del canvas mostrando e
 - `updateWaypointInfoBox(wp)` se llama dentro de `goToWaypoint()` en cada cambio de waypoint.
 - Lee `wp.label` como título y `wp.lines[0]` como descripción — datos que ya existen en los JSON de mapas.
 - Si el waypoint no tiene ni `label` ni `lines`, la caja se oculta con `hidden`.
-
-**Personalizar el contenido:** editar `label` y `lines[0]` en los archivos `mapa_f1.json`, `mapa_f2.json`, `mapa_f3.json` de la historia correspondiente. Los `TODO` actuales son los placeholders.
 
 **CSS** (al final de `src/style.css`): `position: absolute; top: 0; left: 0` con `backdrop-filter: blur(12px)` y animación de entrada suave. En desktop se limita a `max-width: min(560px, 45%)` para no tapar el mapa.
 
@@ -321,12 +427,21 @@ git add . && git commit -m "descripción" && git push
 - Editor visual funcional con undo/redo (50 pasos), multi-select
 - Primer expediente real (Costa Rica 0001) en progreso — contenido real pendiente
 
+**Intro Screen (Mayo 2026):**
+- Pantalla de presentación con fondo negro antes del mapa
+- Logo Divergentes (webp con colores originales) con link a divergentes.com
+- Título con efecto typewriter JS (letra por letra, respeta `\n`, `white-space: pre-line`)
+- Subtítulo y botón con fade+slide CSS activado por JS tras el typewriter
+- Botón con haz de luz giratorio (`conic-gradient` + `rotate`, compositor GPU)
+- Copyright en footer con link a info@divergentes.com
+- Header de fases oculto con `body:has(#story-intro:not([hidden])) .top-bar` CSS puro
+- Mapa se carga en paralelo durante el intro — cero impacto en performance
+- Todos los delays sincronizados dinámicamente en JS — no hardcoded en CSS
+
 **Sistema de imágenes optimizado:**
 - `drawImage` usa `logicalW/H` como destino — imagen se escala al espacio lógico siempre
 - `logicalW/H` es la fuente de verdad; la resolución física es independiente
-- Imagen mobile actual: `mapa-mobile.webp` (1400×3181px físicos, logicalW:1400, logicalH:3181)
 - Decode de imagen fuera del main thread via `createImageBitmap()` — elimina ~2s de blocking
-- Fases 2 y 3 usan temporalmente la misma imagen mobile que fase 1
 
 **Sistema de hotspots optimizado:**
 - `icons.json` bundle: 12 requests → 1 request (~400ms de mejora en LCP)
@@ -335,14 +450,10 @@ git add . && git commit -m "descripción" && git push
 **CSS optimizado:**
 - `style.css` y `popup_styles.css` cargan non-blocking (`media="print"`)
 
-- WordPress embed via iframe probado localmente, pendiente fix en divergentes.com
-- `index.json` con catálogo inicial (1 historia registrada)
-
 **Waypoint Info Box (Mayo 2026):**
 - Caja flotante `position: absolute; top: 0` en `#mapa-canvas-wrapper` — no empuja el layout
 - Lee `wp.label` y `wp.lines[0]` de los JSON de mapas
 - Se actualiza en cada `goToWaypoint()` con animación de entrada suave
-- En desktop: ancho limitado a `min(560px, 45%)` para no tapar el mapa
 
 **Fixes de estabilidad aplicados (Mayo 2026):**
 - `_loadSplitIcons` catch ahora loguea warning si `icons.json` falla

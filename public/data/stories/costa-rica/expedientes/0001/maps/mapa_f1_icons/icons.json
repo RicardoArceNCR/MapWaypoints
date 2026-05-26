@@ -12,11 +12,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -369,
-        "offsetY": -99,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
         "radius": 0
       },
       "title": "TODO — Título evento principal",
@@ -99,11 +99,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 340,
-        "offsetY": -101,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
         "radius": 0
       },
       "title": "TODO — Título evento secundario",
@@ -151,158 +151,6 @@
         ]
       },
       "id": "hs_f1_w0_h1"
-    },
-    {
-      "_note": "WP0-H2: Círculo terciario inferior izquierdo",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -169,
-        "offsetY": -153,
-        "width": 77,
-        "height": 77,
-        "rotation": -8,
-        "radius": 20
-      },
-      "desktop": {
-        "offsetX": -9,
-        "offsetY": -140,
-        "width": 170,
-        "height": 170,
-        "rotation": 25,
-        "radius": 84
-      },
-      "title": "TODO — Título evento terciario",
-      "image": "/assets/TODO-wp0-h2.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento terciario.",
-      "involved": [
-        {
-          "id": "pf1w0h2a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w0h2b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w0h2a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w0h2b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w0_h2"
-    },
-    {
-      "_note": "WP0-H3: Círculo cuaternario inferior derecho",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 155,
-        "offsetY": -327,
-        "width": 77,
-        "height": 77,
-        "rotation": -24,
-        "radius": 15
-      },
-      "desktop": {
-        "offsetX": -10,
-        "offsetY": 100,
-        "width": 166,
-        "height": 166,
-        "rotation": 24,
-        "radius": 85
-      },
-      "title": "TODO — Título evento cuaternario",
-      "image": "/assets/TODO-wp0-h3.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento cuaternario.",
-      "involved": [
-        {
-          "id": "pf1w0h3a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w0h3b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w0h3c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w0h3a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w0h3b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w0h3c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w0_h3"
     }
   ],
   "wp1": [
@@ -318,11 +166,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -351,
-        "offsetY": -106,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -302,
+        "offsetY": 4,
+        "width": 477,
+        "height": 430,
+        "rotation": 2,
         "radius": 0
       },
       "title": "TODO — Título evento principal wp1",
@@ -405,11 +253,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 352,
-        "offsetY": -108,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 241,
+        "offsetY": 30,
+        "width": 520,
+        "height": 285,
+        "rotation": 0,
         "radius": 0
       },
       "title": "TODO — Título evento secundario wp1",
@@ -457,158 +305,6 @@
         ]
       },
       "id": "hs_f1_w1_h1"
-    },
-    {
-      "_note": "WP1-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -164,
-        "offsetY": -292,
-        "width": 77,
-        "height": 77,
-        "rotation": -8,
-        "radius": 20
-      },
-      "desktop": {
-        "offsetX": 1,
-        "offsetY": -144,
-        "width": 170,
-        "height": 170,
-        "rotation": 25,
-        "radius": 84
-      },
-      "title": "TODO — Título evento terciario wp1",
-      "image": "/assets/TODO-wp1-h2.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento terciario.",
-      "involved": [
-        {
-          "id": "pf1w1h2a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w1h2b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w1h2a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w1h2b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w1_h2"
-    },
-    {
-      "_note": "WP1-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 146,
-        "offsetY": -304,
-        "width": 77,
-        "height": 77,
-        "rotation": -24,
-        "radius": 15
-      },
-      "desktop": {
-        "offsetX": 2,
-        "offsetY": 93,
-        "width": 166,
-        "height": 166,
-        "rotation": 24,
-        "radius": 85
-      },
-      "title": "TODO — Título evento cuaternario wp1",
-      "image": "/assets/TODO-wp1-h3.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento cuaternario.",
-      "involved": [
-        {
-          "id": "pf1w1h3a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w1h3b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w1h3c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w1h3a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w1h3b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w1h3c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w1_h3"
     }
   ],
   "wp2": [
@@ -624,11 +320,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -345,
-        "offsetY": -103,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -260,
+        "offsetY": 4,
+        "width": 500,
+        "height": 377,
+        "rotation": -7,
         "radius": 0
       },
       "title": "TODO — Título evento principal wp2",
@@ -711,11 +407,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 357,
-        "offsetY": -102,
-        "width": 417,
+        "offsetX": 301,
+        "offsetY": -93,
+        "width": 460,
         "height": 238,
-        "rotation": 25,
+        "rotation": 0,
         "radius": 0
       },
       "title": "TODO — Título evento secundario wp2",
@@ -773,15 +469,15 @@
         "width": 77,
         "height": 77,
         "rotation": -8,
-        "radius": 20
+        "radius": 0
       },
       "desktop": {
-        "offsetX": 7,
-        "offsetY": -143,
-        "width": 170,
-        "height": 170,
-        "rotation": 25,
-        "radius": 84
+        "offsetX": 42,
+        "offsetY": 108,
+        "width": 196,
+        "height": 184,
+        "rotation": -9,
+        "radius": 0
       },
       "title": "TODO — Título evento terciario wp2",
       "image": "/assets/TODO-wp2-h2.webp",
@@ -838,15 +534,15 @@
         "width": 118,
         "height": 77,
         "rotation": -14,
-        "radius": 15
+        "radius": 0
       },
       "desktop": {
-        "offsetX": 6,
-        "offsetY": 90,
-        "width": 166,
-        "height": 166,
-        "rotation": 24,
-        "radius": 85
+        "offsetX": 399,
+        "offsetY": 113,
+        "width": 238,
+        "height": 145,
+        "rotation": -13,
+        "radius": 0
       },
       "title": "TODO — Título evento cuaternario wp2",
       "image": "/assets/TODO-wp2-h3.webp",
@@ -930,11 +626,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -200,
-        "offsetY": -130,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -240,
+        "offsetY": -32,
+        "width": 540,
+        "height": 392,
+        "rotation": 0,
         "radius": 0
       },
       "title": "TODO — Título evento principal wp3",
@@ -1017,11 +713,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 282,
+        "offsetY": -107,
+        "width": 394,
+        "height": 208,
+        "rotation": 1,
         "radius": 0
       },
       "title": "TODO — Título evento secundario wp3",
@@ -1082,12 +778,12 @@
         "radius": 20
       },
       "desktop": {
-        "offsetX": -9,
-        "offsetY": -180,
-        "width": 170,
-        "height": 170,
-        "rotation": 25,
-        "radius": 84
+        "offsetX": 109,
+        "offsetY": 78,
+        "width": 132,
+        "height": 141,
+        "rotation": -6,
+        "radius": 0
       },
       "title": "TODO — Título evento terciario wp3",
       "image": "/assets/TODO-wp3-h2.webp",
@@ -1144,15 +840,15 @@
         "width": 77,
         "height": 77,
         "rotation": -24,
-        "radius": 15
+        "radius": 0
       },
       "desktop": {
-        "offsetX": -9,
-        "offsetY": 61,
-        "width": 166,
-        "height": 166,
-        "rotation": 24,
-        "radius": 85
+        "offsetX": 368,
+        "offsetY": 92,
+        "width": 221,
+        "height": 144,
+        "rotation": 14,
+        "radius": 0
       },
       "title": "TODO — Título evento cuaternario wp3",
       "image": "/assets/TODO-wp3-h3.webp",

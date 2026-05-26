@@ -65,7 +65,8 @@ function parseUrlToggles() {
     editor: params.get('editor'),
     popups: params.get('popups'),
     embed: params.get('embed'),
-    story: params.get('story') ?? undefined
+    story: params.get('story') ?? undefined,
+    nointro: params.get('nointro') === '1'
   };
 
   for (const key of ['debug', 'editor', 'popups', 'embed']) {
@@ -2294,7 +2295,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     // ── INTRO: mostrar si la story lo define ──
     const rawStory = mapManager._lastLoadedStory;
-    if (rawStory?.intro) {
+    if (rawStory?.intro && !appConfig.toggles.nointro) {
       showIntro(rawStory.intro);
       const mapLoadPromise = firstMap ? loadMap(firstMap.id) : Promise.resolve();
       await waitForIntro();
