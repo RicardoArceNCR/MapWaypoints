@@ -1105,6 +1105,7 @@ body.net-slow .drawer {
     transition: opacity 0.1s ease;
   }
 }
+
 /* ========================================================= */
 /* WAYPOINT INFO BOX — Flota encima del canvas, sin empujar  */
 /* ========================================================= */
@@ -1116,7 +1117,7 @@ body.net-slow .drawer {
   z-index: 9990;
   pointer-events: none;
 
-  background: rgba(10, 18, 26, 0.85);
+  background: rgba(10, 18, 26, 0.215);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -1134,7 +1135,7 @@ body.net-slow .drawer {
 
 .waypoint-info-box__title {
   margin: 0 0 4px;
-  font-size: clamp(13px, 1.5vw, 15px);
+  font-size: clamp(23px, 2vw, 95px);
   font-weight: 700;
   color: #ffffff;
   line-height: 1.2;
@@ -1142,7 +1143,7 @@ body.net-slow .drawer {
 
 .waypoint-info-box__desc {
   margin: 0;
-  font-size: clamp(11px, 1.2vw, 13px);
+  font-size: clamp(16px, 1.2vw, 20px);
   color: rgba(255, 255, 255, 0.70);
   line-height: 1.5;
 }
@@ -1151,12 +1152,13 @@ body.net-slow .drawer {
 @media (min-width: 900px) {
   .waypoint-info-box {
     right: auto;
-    max-width: min(560px, 45%);
+    max-width: min(960px, 85%);
     border-bottom: none;
     border-radius: 0 0 12px 0;
     padding-right: 24px;
   }
 }
+
 /* ========================================================= */
 /* POPUP OPEN — Ocultar chrome de navegación                */
 /* ========================================================= */
@@ -1165,6 +1167,7 @@ body.net-slow .drawer {
 #waypoint-info-box {
   transition: opacity 0.2s ease;
 }
+
 body.popup-open .top-bar,
 body.popup-open .phase-filter,
 body.popup-open #waypoint-info-box {
@@ -1218,6 +1221,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 .story-intro__subtitle {
   animation: none;
 }
+
 .story-intro__btn {
   animation: none;
 }
@@ -1226,6 +1230,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 .story-intro__subtitle.is-visible {
   animation: intro-rise 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
 .story-intro__btn.is-visible {
   animation: intro-rise 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -1268,7 +1273,9 @@ body:has(#story-intro:not([hidden])) .top-bar {
 }
 
 @keyframes tw-cursor {
-  50% { opacity: 0; }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* Mobile: revertir a fade-in normal */
@@ -1317,14 +1324,12 @@ body:has(#story-intro:not([hidden])) .top-bar {
   position: absolute;
   inset: -2px;
   border-radius: 100px;
-  background: conic-gradient(
-    from 0deg,
-    transparent 60%,
-    rgba(255, 255, 255, 0.55) 75%,
-    rgba(255, 255, 255, 0.9) 85%,
-    rgba(255, 255, 255, 0.55) 95%,
-    transparent 100%
-  );
+  background: conic-gradient(from 0deg,
+      transparent 60%,
+      rgba(255, 255, 255, 0.55) 75%,
+      rgba(255, 255, 255, 0.9) 85%,
+      rgba(255, 255, 255, 0.55) 95%,
+      transparent 100%);
   animation: btn-sweep 2.8s linear 3.2s infinite;
   opacity: 0;
 }
@@ -1350,8 +1355,13 @@ body:has(#story-intro:not([hidden])) .top-bar {
 }
 
 @keyframes btn-sweep {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .story-intro__btn:hover {
@@ -1375,7 +1385,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .story-intro__logo-wrap.is-visible {
@@ -1415,7 +1425,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .story-intro__copyright.is-visible {
@@ -1435,6 +1445,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
 /* --- Accesibilidad --- */
 @media (prefers-reduced-motion: reduce) {
+
   .story-intro__title,
   .story-intro__subtitle,
   .story-intro__btn,
@@ -1445,17 +1456,25 @@ body:has(#story-intro:not([hidden])) .top-bar {
     opacity: 1;
     transform: none;
   }
+
   .story-intro__logo-wrap,
   .story-intro__copyright {
     opacity: 1;
     transform: none;
   }
+
   .story-intro__title {
     white-space: normal;
     overflow: visible;
     border-right: none;
     width: auto;
   }
-  .story-intro { transition: none; }
-  .story-intro__btn::before { animation: none; }
+
+  .story-intro {
+    transition: none;
+  }
+
+  .story-intro__btn::before {
+    animation: none;
+  }
 }
