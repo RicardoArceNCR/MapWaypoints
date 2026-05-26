@@ -21,7 +21,7 @@
       "id": "wp_f1_col1",
       "mobile": {
         "xp": 0.172857,
-        "yp": 0.165042,
+        "yp": 0.279485,
         "z": 1
       },
       "desktop": {
@@ -38,10 +38,10 @@
         "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1.0,
+        "default": 1,
         "short": 0.8,
-        "medium": 0.90,
-        "tall": 1.0,
+        "medium": 0.9,
+        "tall": 1,
         "xtall": 1.05,
         "tablet": 1.2
       },
@@ -55,7 +55,7 @@
       "id": "wp_f1_col2",
       "mobile": {
         "xp": 0.51,
-        "yp": 0.165042,
+        "yp": 0.275573,
         "z": 1
       },
       "desktop": {
@@ -72,10 +72,10 @@
         "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1.0,
+        "default": 1,
         "short": 0.8,
-        "medium": 0.90,
-        "tall": 1.0,
+        "medium": 0.9,
+        "tall": 1,
         "xtall": 1.05,
         "tablet": 1.2
       },
@@ -89,7 +89,7 @@
       "id": "wp_f1_col3",
       "mobile": {
         "xp": 0.830425,
-        "yp": 0.165042,
+        "yp": 0.281722,
         "z": 1
       },
       "desktop": {
@@ -106,10 +106,10 @@
         "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1.0,
+        "default": 1,
         "short": 0.8,
-        "medium": 0.90,
-        "tall": 1.0,
+        "medium": 0.9,
+        "tall": 1,
         "xtall": 1.05,
         "tablet": 1.2
       },
@@ -123,7 +123,7 @@
       "id": "wp_f2_col1",
       "mobile": {
         "xp": 0.17,
-        "yp": 0.4262,
+        "yp": 0.762436,
         "z": 1
       },
       "desktop": {
@@ -140,10 +140,10 @@
         "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1.0,
+        "default": 1,
         "short": 0.8,
-        "medium": 0.90,
-        "tall": 1.0,
+        "medium": 0.9,
+        "tall": 1,
         "xtall": 1.05,
         "tablet": 0.9
       },
@@ -157,7 +157,7 @@
       "id": "wp_f2_col2",
       "mobile": {
         "xp": 0.51,
-        "yp": 0.4262,
+        "yp": 0.763555,
         "z": 1
       },
       "desktop": {
@@ -174,10 +174,10 @@
         "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1.0,
+        "default": 1,
         "short": 0.8,
-        "medium": 0.90,
-        "tall": 1.0,
+        "medium": 0.9,
+        "tall": 1,
         "xtall": 1.05,
         "tablet": 0.9
       },
@@ -191,7 +191,7 @@
       "id": "wp_f2_col3",
       "mobile": {
         "xp": 0.84,
-        "yp": 0.4262,
+        "yp": 0.763555,
         "z": 1
       },
       "desktop": {
@@ -208,10 +208,10 @@
         "tablet": -300
       },
       "zMobileProfile": {
-        "default": 1.0,
+        "default": 1,
         "short": 0.8,
-        "medium": 0.90,
-        "tall": 1.0,
+        "medium": 0.9,
+        "tall": 1,
         "xtall": 1.05,
         "tablet": 0.9
       },
