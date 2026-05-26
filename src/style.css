@@ -1135,7 +1135,7 @@ body.net-slow .drawer {
 
 .waypoint-info-box__title {
   margin: 0 0 4px;
-  font-size: clamp(23px, 2vw, 95px);
+  font-size: clamp(15px, 2vw, 95px);
   font-weight: 700;
   color: #ffffff;
   line-height: 1.2;
@@ -1143,7 +1143,7 @@ body.net-slow .drawer {
 
 .waypoint-info-box__desc {
   margin: 0;
-  font-size: clamp(16px, 1.2vw, 20px);
+  font-size: clamp(12px, 1.2vw, 20px);
   color: rgba(255, 255, 255, 0.70);
   line-height: 1.5;
 }
