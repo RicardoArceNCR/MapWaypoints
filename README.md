@@ -468,14 +468,39 @@ El `?v=YYYY-MM-DD` fuerza al browser a no usar la versión cacheada.
 
 ### Paso 3 — Sobre los waypoints
 
-Los waypoints usan `xp/yp` normalizados (0.0–1.0). `drawImage` escala la imagen para llenar el espacio `logicalW/H` exactamente — **si la nueva imagen mantiene la misma proporción que el logicalW/H declarado, no hay que recalcular nada.**
+Los waypoints usan `xp/yp` normalizados (0.0–1.0). Si la nueva imagen mantiene
+el mismo `logicalH`, no hay que recalcular nada.
 
-Solo recalculá si cambiás el `logicalH` a un valor diferente:
+**Solo recalculá si cambiás el `logicalH`** (por ejemplo, al recortar el alto):
+
 ```
 yp_nuevo = (yp_viejo × logicalH_viejo) / logicalH_nuevo
 ```
 
-Regla práctica: mantené siempre la proporción `logicalW:logicalH` al generar nuevas imágenes y los waypoints quedan intactos. Los `offsetX/offsetY` de los hotspots **no necesitan cambio** — son relativos al waypoint y se ajustan automáticamente.
+Script Python para recalcular todos los waypoints de un mapa de una vez:
+
+```python
+python3 -c "
+old_h = 3685   # logicalH viejo
+new_h = 2050   # logicalH nuevo
+
+wps = [
+    ('wp_f1_col1', 0.135685),
+    ('wp_f1_col2', 0.133786),
+    # ... agregar todos los waypoints del mapa
+]
+
+for wp, yp_old in wps:
+    yp_new = round((yp_old * old_h) / new_h, 6)
+    print(f'{wp}: {yp_old} → {yp_new}')
+"
+```
+
+Reglas:
+- Solo cambia `yp` en el bloque `desktop` si recortaste la imagen desktop
+- Solo cambia `yp` en el bloque `mobile` si recortaste la imagen mobile
+- `xp`, `yOffset`, `zMobileProfile` y hotspot offsets **nunca cambian**
+- Al terminar, actualiza `logicalH` y el `?v=fecha` en el JSON del mapa
 
 ### Paso 4 — Verificar `CANVAS_LIMITS` en `src/config.js`
 
