@@ -88,6 +88,16 @@
       "id": "hs_f1_w0_h0"
     },
     {
+      "_note": "WP0-H0-B: Hotspot tipo B — informativo superpuesto al A",
+      "type": "hotspot",
+      "caption": "En esta foto se ve a Samcam entrando al aeropuerto Juan Santamaría. Llega acompañado por colegas opositores.",
+      "noPopup": true,
+      "mobile": { "offsetX": -19, "offsetY": -243, "width": 260, "height": 145, "rotation": 9, "radius": 0 },
+      "desktop": { "offsetX": -288, "offsetY": -37, "width": 520, "height": 367, "rotation": -1, "radius": 0 },
+      "title": "",
+      "image": "/assets/vacio.png"
+    },
+    {
       "_note": "WP0-H1: Rectángulo secundario superior derecho",
       "type": "hotspot",
       "mobile": {

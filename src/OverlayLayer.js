@@ -99,11 +99,33 @@ export class OverlayLayer {
       };
 
       wrap.appendChild(img);
+
+      // 💬 Caption badge — solo si meta.caption existe
+      if (meta?.caption) {
+        const caption = document.createElement('div');
+        caption.className = 'hs-caption';
+        caption.setAttribute('aria-hidden', 'true');
+        caption.innerHTML = `
+          <div class="hs-caption__badge">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <circle cx="7" cy="7" r="6.5" stroke="currentColor"/>
+              <rect x="6.5" y="5.5" width="1" height="5" rx=".5" fill="currentColor"/>
+              <circle cx="7" cy="3.5" r=".75" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="hs-caption__tooltip">${meta.caption}</div>
+        `;
+        wrap.appendChild(caption);
+        wrap.classList.add('has-caption');
+      }
+
       this.root.appendChild(wrap);
 
       // 🆕 listeners pointer (evita ghost clicks y scroll-move)
-      wrap.addEventListener('pointerdown', this._onPointerDown, { passive: true });
-      wrap.addEventListener('pointerup', this._onPointerUp, { passive: true });
+      if (!meta?.noPopup) {
+        wrap.addEventListener('pointerdown', this._onPointerDown, { passive: true });
+        wrap.addEventListener('pointerup', this._onPointerUp, { passive: true });
+      }
 
       rec = { wrap, img, meta, lockWidthPx, worldX, worldY, rotationDeg, z, _pd:{x:0,y:0,t:0} };
       this.items.set(key, rec);
@@ -301,6 +323,9 @@ export class OverlayLayer {
         console.log(`[INFO] Popup disabled via SHOW_POPUP_ON_CLICK for hotspot ${key}`);
         return;  // Sale temprano si popups están desactivados
       }
+
+      // 🆕 Hotspot informativo — no abre popup
+      if (rec.meta?.noPopup) return;
 
       // 🆕 Prioriza modo debug como principal si activo
       if (GLOBAL_CONFIG.DEBUG_HOTSPOTS) {

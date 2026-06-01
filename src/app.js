@@ -1648,7 +1648,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
             title: hotspot.title || `Hotspot ${index}`,
             hotspot: hotspot,
             isHotspot: true,
-            hotspotIndex: index
+            hotspotIndex: index,
+            caption: hotspot.caption || null,
+            noPopup: hotspot.noPopup || false
           }
         });
       });
@@ -1696,7 +1698,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
           // Metadata para popups
           title: icon.title,
-          hotspot: icon.hotspotData
+          hotspot: icon.hotspotData,
+          caption: icon.caption || null,
+          noPopup: icon.noPopup || false
         }
       });
     });
@@ -2201,6 +2205,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const cameraDeltaZ = Math.abs(camera.z - prevCameraZ);
     if (cameraDeltaX > 0.1 || cameraDeltaY > 0.1 || cameraDeltaZ > 0.001) { dirtyFlags.cameraMoving = true; markDirty('camera', 'minimap'); }
     else { dirtyFlags.cameraMoving = false; }
+
+    if (window.cameraInstance) {
+      window.cameraInstance.setPosition(camera.x, camera.y, camera.z);
+    }
 
     typeNext(delta);
     if (needsRedraw()) {

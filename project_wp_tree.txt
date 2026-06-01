@@ -4,7 +4,7 @@
 ├── dist
 │   ├── assets
 │   │   ├── default.gif
-│   │   ├── editor-DVnqKZr1.js
+│   │   ├── editor-id2tsmEo.js
 │   │   ├── fase-2-mapa-dektop-4x.png
 │   │   ├── fase-2-mapa-dektop-4x.webp
 │   │   ├── fase-2-mapa-mobile-x4.png
@@ -20,8 +20,9 @@
 │   │   │   ├── inter-v20-latin-800.woff2
 │   │   │   └── inter-v20-latin-regular.woff2
 │   │   ├── icon-info.png
-│   │   ├── index-BMsRTBM7.css
-│   │   ├── index-FvqNK4qq.js
+│   │   ├── index-CqEu_Tb6.js
+│   │   ├── index-Dp8gav3t.css
+│   │   ├── logo-divergentes.webp
 │   │   ├── mapa-1.jpg
 │   │   ├── mapa-1.webp
 │   │   ├── mapa-11.webp
@@ -30,6 +31,7 @@
 │   │   ├── mapa-dektop-3.jpg
 │   │   ├── mapa-dektop-3.webp
 │   │   ├── mapa-dektop-3x.jpg
+│   │   ├── mapa-dektop-4x.jpg
 │   │   ├── mapa-dektop-4x.png
 │   │   ├── mapa-dektop-4x.webp
 │   │   ├── mapa-dektop-copy.jpg
@@ -52,16 +54,14 @@
 │   │   ├── persona_1-3.gif
 │   │   ├── persona_1-4.gif
 │   │   ├── popup_styles-C6ieRHMM.css
-│   │   └── style-heDSZkdC.css
+│   │   └── style-Dsi_APJz.css
 │   ├── data
 │   │   ├── index.json
 │   │   ├── stories
 │   │   │   └── costa-rica
 │   │   │       └── expedientes
 │   │   └── story.json
-│   ├── index.html
-│   ├── mapa-mobile.jpg
-│   └── mapa-mobile.webp
+│   └── index.html
 ├── FONTS-GUIDE.md
 ├── generate_icons.py
 ├── mapas_icons.txt
@@ -88,14 +88,18 @@
 │   │   │   ├── inter-v20-latin-800.woff2
 │   │   │   └── inter-v20-latin-regular.woff2
 │   │   ├── icon-info.png
+│   │   ├── logo-divergentes.webp
 │   │   ├── mapa-1.jpg
 │   │   ├── mapa-1.webp
 │   │   ├── mapa-11.webp
 │   │   ├── mapa-dektop-2.jpg
 │   │   ├── mapa-dektop-2.webp
+│   │   ├── mapa-dektop-2x.jpg
+│   │   ├── mapa-dektop-2x.webp
 │   │   ├── mapa-dektop-3.jpg
 │   │   ├── mapa-dektop-3.webp
 │   │   ├── mapa-dektop-3x.jpg
+│   │   ├── mapa-dektop-4x.jpg
 │   │   ├── mapa-dektop-4x.png
 │   │   ├── mapa-dektop-4x.webp
 │   │   ├── mapa-dektop-copy.jpg
@@ -103,6 +107,8 @@
 │   │   ├── mapa-dektop.webp
 │   │   ├── mapa-mobile-2.jpg
 │   │   ├── mapa-mobile-2.webp
+│   │   ├── mapa-mobile-2x.jpg
+│   │   ├── mapa-mobile-2x.webp
 │   │   ├── mapa-mobile-3.jpg
 │   │   ├── mapa-mobile-3.webp
 │   │   ├── mapa-mobile-x2.jpg
@@ -117,14 +123,12 @@
 │   │   ├── persona_1-2.gif
 │   │   ├── persona_1-3.gif
 │   │   └── persona_1-4.gif
-│   ├── data
-│   │   ├── index.json
-│   │   ├── stories
-│   │   │   └── costa-rica
-│   │   │       └── expedientes
-│   │   └── story.json
-│   ├── mapa-mobile.jpg
-│   └── mapa-mobile.webp
+│   └── data
+│       ├── index.json
+│       ├── stories
+│       │   └── costa-rica
+│       │       └── expedientes
+│       └── story.json
 ├── README.md
 ├── src
 │   ├── app.js
@@ -142,4 +146,4 @@
 ├── vercel.json
 └── vite.config.js
 
-16 directories, 127 files
+16 directories, 131 files

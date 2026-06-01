@@ -1033,7 +1033,7 @@ body.net-slow .drawer {
 /* 🔧 MOBILE FIXES - TOUCH PROTECTION */
 
 .overlay-wrap {
-  touch-action: none !important;
+  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent !important;
   -webkit-touch-callout: none !important;
   -webkit-user-select: none !important;
@@ -1075,7 +1075,7 @@ body.net-slow .drawer {
 /* ========= 🔧 MOBILE FIXES - TOUCH PROTECTION ========= */
 
 .overlay-wrap {
-  touch-action: none !important;
+  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent !important;
   -webkit-touch-callout: none !important;
   -webkit-user-select: none !important;
@@ -1477,4 +1477,133 @@ body:has(#story-intro:not([hidden])) .top-bar {
   .story-intro__btn::before {
     animation: none;
   }
+}
+
+/* ========================================================= */
+/* HOTSPOT CAPTION — Badge ⓘ + tooltip en hover             */
+/* ========================================================= */
+
+.hs-caption {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: auto;
+  transform: translate(50%, -50%);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.hs-caption__badge {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(15, 20, 30, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.hs-caption__tooltip {
+  position: absolute;
+  top: 26px;
+  right: 0;
+  left: auto;
+  min-width: 180px;
+  max-width: 240px;
+  background: rgba(10, 14, 20, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+  white-space: normal;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.overlay-wrap:hover {
+  outline: none;
+}
+
+.overlay-wrap:hover::before {
+  content: '';
+}
+
+.overlay-wrap.has-caption {
+}
+
+.overlay-wrap.has-caption::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    90deg, rgba(255,255,255,0.7) 0px, rgba(255,255,255,0.7) 6px, transparent 6px, transparent 12px
+  ),
+  repeating-linear-gradient(
+    180deg, rgba(255,255,255,0.7) 0px, rgba(255,255,255,0.7) 6px, transparent 6px, transparent 12px
+  ),
+  repeating-linear-gradient(
+    90deg, rgba(255,255,255,0.7) 0px, rgba(255,255,255,0.7) 6px, transparent 6px, transparent 12px
+  ),
+  repeating-linear-gradient(
+    180deg, rgba(255,255,255,0.7) 0px, rgba(255,255,255,0.7) 6px, transparent 6px, transparent 12px
+  );
+  background-size: 12px 2px, 2px 12px, 12px 2px, 2px 12px;
+  background-position: 0 0, 100% 0, 0 100%, 0 0;
+  background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.overlay-wrap.has-caption:has(.hs-caption__badge:hover)::after {
+  opacity: 1;
+  animation: hs-dash-march 0.4s linear infinite;
+}
+
+.overlay-wrap.has-caption:has(.hs-caption__badge:hover) .hs-caption__tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes hs-dash-march {
+  0%   { background-position: 0 0, 100% 0, 0 100%, 0 0; }
+  100% { background-position: 12px 0, 100% 12px, -12px 100%, 0 -12px; }
+}
+
+@media (hover: none) {
+  .hs-caption__tooltip {
+    display: none;
+  }
+  .overlay-wrap.has-caption::after {
+    display: none;
+  }
+}
+
+/* Hotspot tipo B — informativo, sin imagen visible */
+.overlay-wrap.has-caption {
+  overflow: visible;
+  background: transparent !important;
+  pointer-events: none;
+}
+
+.overlay-wrap.has-caption img.overlay-item {
+  opacity: 0;
+}
+
+.overlay-wrap.has-caption .hs-caption__badge {
+  pointer-events: auto;
+  cursor: default;
 }
