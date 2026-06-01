@@ -12,22 +12,21 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
-        "width": 520,
-        "height": 367,
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
         "rotation": -1,
         "radius": 0
       },
-      "title": "TODO — Título evento principal",
-      "image": "/assets/TODO-wp0-h0.webp",
+      "title": "FASE 1: Samcam regresa a Costa Rica; se reúne con colegas opositores; sospechosos terminan de planificar el asesinato.",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
+        "date": "15/06/2025",
+        "time": "12:07",
         "timeColor": "#FF4444"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento principal.",
+      "location": "Aeropuerto Juan Santamaría (SJO), Alajuela.",
+     "description": "Hecho: Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.\n\nLa investigación analizó grabaciones de un evento público al que asistió el 16 de junio: el entierro de la ex presidenta nicaragüense Violeta Barrios Torres (Violeta Chamorro), en las cercanías del Santuario Nacional al Sagrado Corazón de Jesús. Aunque se investigó si este evento fue utilizado por los agresores para ubicarle, no se logró determinar información de interés en las grabaciones.",
       "involved": [
         {
           "id": "pf1w0h0a",
@@ -92,8 +91,22 @@
       "type": "hotspot",
       "caption": "En esta foto se ve a Samcam entrando al aeropuerto Juan Santamaría. Llega acompañado por colegas opositores.",
       "noPopup": true,
-      "mobile": { "offsetX": -19, "offsetY": -243, "width": 260, "height": 145, "rotation": 9, "radius": 0 },
-      "desktop": { "offsetX": -288, "offsetY": -37, "width": 520, "height": 367, "rotation": -1, "radius": 0 },
+      "mobile": {
+        "offsetX": -19,
+        "offsetY": -243,
+        "width": 260,
+        "height": 145,
+        "rotation": 9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
+        "radius": 0
+      },
       "title": "",
       "image": "/assets/vacio.png"
     },
@@ -118,6 +131,7 @@
       },
       "title": "TODO — Título evento secundario",
       "image": "/assets/TODO-wp0-h1.webp",
+      "noPopup": true,
       "datetime": {
         "date": "TODO — DD/MM/AAAA",
         "time": "TODO — HH:MM",
@@ -161,6 +175,30 @@
         ]
       },
       "id": "hs_f1_w0_h1"
+    },
+    {
+      "_note": "WP0-H1-B: Hotspot tipo B — informativo superpuesto al H1",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Mapa del Aeropuerto Juan Santamaría en Alajuela, Costa Rica. Se muestra la ruta de acceso principal.",
+      "title": "",
+      "mobile": {
+        "offsetX": -3,
+        "offsetY": -42,
+        "width": 280,
+        "height": 190,
+        "rotation": -8,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
+        "radius": 0
+      }
     }
   ],
   "wp1": [

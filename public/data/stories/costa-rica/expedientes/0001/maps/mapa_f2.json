@@ -5,14 +5,14 @@
   "iconsDir": true,
   "mapImage": {
     "mobile": {
-      "src": "/assets/mapa-mobile.webp?v=2026-05-21",
-      "logicalW": 1400,
-      "logicalH": 3181
+      "src": "/assets/F3-movil.webp?v=2026-05-21",
+      "logicalW": 1966,
+      "logicalH": 4123
     },
     "desktop": {
       "src": "/assets/fase-2-mapa-dektop-4x.webp?v=2026-05-20",
-      "logicalW": 4240,
-      "logicalH": 3685
+      "logicalW": 4243,
+      "logicalH": 2626
     },
     "useNaturalSize": false
   },

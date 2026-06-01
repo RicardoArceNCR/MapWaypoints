@@ -300,7 +300,7 @@
 /* Título con animación */
 .popup-detailed__title {
   margin: 0 0 20px 0;
-  color: var(--phase-color, #1BC6EB);
+  color: var(--phase-color, #f2f2f2);
   font-size: clamp(24px, 5vw, 32px);
   font-weight: 700;
   line-height: 1.2;

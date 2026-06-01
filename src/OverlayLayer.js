@@ -107,7 +107,7 @@ export class OverlayLayer {
         caption.setAttribute('aria-hidden', 'true');
         caption.innerHTML = `
           <div class="hs-caption__badge">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <circle cx="7" cy="7" r="6.5" stroke="currentColor"/>
               <rect x="6.5" y="5.5" width="1" height="5" rx=".5" fill="currentColor"/>
               <circle cx="7" cy="3.5" r=".75" fill="currentColor"/>
