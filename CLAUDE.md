@@ -63,11 +63,78 @@ La imagen se escala al espacio lógico declarado en el JSON. La resolución fís
 
 ### Los overlays DOM viven en `OverlayLayer.js`
 
-Los hotspots e iconos son `<div>` posicionados sobre el canvas, **no** dibujados en el canvas. Se actualizan cada frame en `overlay.endFrame(camera, canvasW, canvasH)`. Si un overlay no aparece, primero verifica que `overlay.upsert()` se esté llamando con `frameLiveKeys` correctos.
+Los hotspots e iconos son `<div>` posicionados sobre el canvas, **no** dibujados en el canvas. Las fotos de los hotspots son `<img>` dentro de `.overlay-wrap` divs — **no están pintadas en el canvas**. Se actualizan cada frame en `overlay.endFrame(camera, canvasW, canvasH)`. Si un overlay no aparece, primero verifica que `overlay.upsert()` se esté llamando con `frameLiveKeys` correctos.
 
 **Culling:** El culling es exclusivamente screen-space (píxeles CSS). No hay culling world-space — se eliminó por duplicado. Si un overlay está fuera del viewport en coordenadas CSS, se oculta con `display: none`. Esto es suficiente para el caso de uso actual (~20 overlays simultáneos).
 
 **Handlers:** `_onPointerDown` y `_onPointerUp` tienen guards (`if (!rec) return`) para prevenir TypeError si un item se elimina del Map entre ambos eventos (p. ej. cambio rápido de waypoint).
+
+### Dos objetos de cámara — CRÍTICO
+
+Existen dos objetos de cámara en el sistema y **deben estar sincronizados cada frame**:
+
+- `const camera = { x, y, z }` — objeto plain local en `app.js`. Recibe los offsets de breathing y lerp. Usado por el canvas para dibujar.
+- `window.cameraInstance` — instancia de la clase `Camera`. Pasado a `overlay.endFrame()` para posicionar overlays DOM.
+
+Sin sincronización, los overlays DOM quedan fijos en pantalla mientras el canvas se mueve con el breathing. El fix está en el RAF loop de `app.js`, después del bloque de lerp:
+
+```js
+// Después del bloque de breathing/lerp — sincronizar antes de endFrame()
+if (window.cameraInstance) {
+  window.cameraInstance.setPosition(camera.x, camera.y, camera.z);
+}
+```
+
+`Camera.setPosition()` tiene early-return si los valores no cambiaron — cero costo cuando la cámara está quieta.
+
+---
+
+## Sistema de hotspots — dos tipos
+
+### Tipo A — hotspot con imagen (abre popup)
+
+Overlay DOM con foto/imagen. Click abre popup detallado. Se posiciona con `offsetX/offsetY` relativo al waypoint en world space.
+
+```json
+{
+  "type": "hotspot",
+  "image": "/assets/foto.webp",
+  "title": "Título del popup",
+  "mobile":  { "offsetX": -10, "offsetY": -200, "width": 240, "height": 140, "rotation": 3 },
+  "desktop": { "offsetX": -200, "offsetY": -50,  "width": 480, "height": 280, "rotation": 2 }
+}
+```
+
+### Tipo B — hotspot informativo (badge ⓘ, sin popup, sin bloqueo de clicks)
+
+Overlay DOM invisible (`vacio.png`). No bloquea clicks al tipo A debajo. En hover sobre el badge ⓘ muestra borde dashed animado + tooltip descriptivo. Las coords deben ser **idénticas** al tipo A que etiqueta.
+
+```json
+{
+  "type": "hotspot",
+  "image": "/assets/vacio.png",
+  "noPopup": true,
+  "caption": "Descripción de lo que se ve en esta imagen.",
+  "mobile":  { "offsetX": -10, "offsetY": -200, "width": 240, "height": 140, "rotation": 3 },
+  "desktop": { "offsetX": -200, "offsetY": -50,  "width": 480, "height": 280, "rotation": 2 }
+}
+```
+
+**Reglas del tipo B:**
+- `image` siempre `/assets/vacio.png` — imagen 1×1px transparente. El sistema requiere un `src`.
+- `noPopup: true` — el wrap no registra listeners de pointer. No abre popup. No consume clicks.
+- `caption` — activa la creación del badge ⓘ y el tooltip en `OverlayLayer.upsert()`.
+- Coords **idénticas** al tipo A — mismo `offsetX/Y`, `width`, `height`, `rotation`.
+- El hover se activa **solo al pasar sobre el badge ⓘ** (22px en esquina), no sobre toda el área.
+- En mobile (`@media (hover: none)`) el tooltip y el borde dashed se desactivan automáticamente.
+- El par A+B va en el mismo array del waypoint en `icons.json`, A primero.
+
+**Cómo funciona internamente:**
+- `upsert()`: si `meta.noPopup === true`, no se agregan listeners `pointerdown/pointerup`.
+- `upsert()`: si `meta.caption` existe, se inyecta `.hs-caption` (badge + tooltip) como hijo del wrap.
+- CSS: `.overlay-wrap.has-caption` tiene `pointer-events: none`. Solo `.hs-caption__badge` tiene `pointer-events: auto`.
+- CSS: el hover usa `:has(.hs-caption__badge:hover)` para activar borde dashed y tooltip — cero JS.
+- CSS: `hs-dash-march` (@keyframes) solo corre cuando el cursor está sobre el badge — no consume GPU en reposo.
 
 ---
 
@@ -75,16 +142,17 @@ Los hotspots e iconos son `<div>` posicionados sobre el canvas, **no** dibujados
 
 | Archivo | Qué hace | Cuándo tocarlo |
 |---|---|---|
-| `src/app.js` | Boot, loop RAF, resize, dirty flags, intro screen | Layout, viewport, resize bugs, intro |
+| `src/app.js` | Boot, loop RAF, resize, dirty flags, intro screen, sync camera | Layout, viewport, resize bugs, intro, breathing |
 | `src/config.js` | `GLOBAL_CONFIG` — todos los parámetros técnicos | Ajustar límites, timeouts, breakpoints |
 | `src/MapManager.js` | Carga story.json, mapas, imágenes, caché | Agregar campos a JSON, cambiar rutas |
 | `src/Camera.js` | Zoom, pan, transiciones, breathing | Comportamiento de cámara |
-| `src/OverlayLayer.js` | Overlays DOM, culling, hit testing | Posicionamiento de hotspots |
+| `src/OverlayLayer.js` | Overlays DOM, culling, hit testing, caption badge | Posicionamiento de hotspots tipos A y B |
 | `src/UIManager.js` | Fases, drawer, progreso, selector | UI chrome (no canvas) |
 | `src/DetailedPopupManager.js` | Popups modales con personas/fechas/hechos | Cambios en la UI de popups |
 | `src/editor.js` | Editor visual — solo carga con `?editor=1` | Herramienta de desarrollo |
-| `src/style.css` | Layout, `.novela`, `#mapa-canvas-wrapper`, `.waypoint-info-box`, `.story-intro` | Estilos visuales |
+| `src/style.css` | Layout, overlays, `.hs-caption`, `.has-caption`, `hs-dash-march` | Estilos visuales, badge ⓘ |
 | `src/popup_styles.css` | Estilos de popups detallados | Estilos de popups |
+| `public/assets/vacio.png` | Imagen 1×1px transparente para hotspots tipo B | No tocar |
 | `public/data/story.json` | Historia default (fallback sin `?story=`) | Datos de prueba |
 | `public/data/stories/*/story.json` | Historias reales — incluye campo `intro` opcional | Contenido editorial |
 | `public/data/index.json` | Catálogo de todas las historias | Registrar nueva historia |
@@ -140,8 +208,6 @@ Si el campo `intro` no existe, la pantalla no aparece. Es completamente opcional
 
 ### Lógica JS (`src/app.js`)
 
-Dos funciones principales:
-
 **`showIntro({ title, subtitle })`** — puebla el DOM, activa clases `.is-visible` en los elementos en el orden correcto via `setTimeout`. El typewriter JS escribe carácter por carácter con `CHAR_DELAY = 90ms`. Respeta `\n` en el título via `white-space: pre-line`.
 
 **`waitForIntro()`** — retorna una Promise que resuelve al click del botón "Empezar", con fade-out de 700ms antes de resolver.
@@ -182,17 +248,17 @@ Selector CSS puro — cero JS. Se revierte automáticamente cuando el intro se o
 
 ```js
 // En showIntro() en app.js:
-const CHAR_DELAY = 90;      // ms por carácter — subir = más lento
+const CHAR_DELAY = 90;       // ms por carácter — subir = más lento
 const TW_START_DELAY = 1600; // ms — espera al logo antes de empezar
 ```
 
 Subtítulo, botón y copyright se recalculan automáticamente en base a `text.length * CHAR_DELAY` — nunca se desincronizan aunque cambies el texto o la velocidad.
 
-### Performance
+### Performance del intro
 
-- El `::before` del botón (haz de luz conic-gradient + rotate) corre en compositor GPU. No toca layout.
+- El `::before` del botón (haz de luz `conic-gradient` + `rotate`) corre en compositor GPU. No toca layout.
 - Animaciones de entrada usan solo `opacity` + `translateY` — propiedades compositor.
-- Logo y copyright usan `left:0; right:0; display:flex` para centrado — no usar `left:50%; transform:translateX(-50%)` porque el translateY de la animación lo sobreescribiría.
+- Logo y copyright usan `left:0; right:0; display:flex` para centrado — **no usar** `left:50%; transform:translateX(-50%)` porque el `translateY` de la animación lo sobreescribiría.
 - El div del intro tiene `hidden` por defecto — el browser no lo renderiza hasta que `showIntro()` lo activa.
 
 ---
@@ -249,15 +315,15 @@ Cambiar la fecha fuerza al browser a no usar caché. **Siempre actualiza la vers
 ```
 
 Perfiles en runtime (función `getMobileHeightProfile()`):
-- `tablet` → `clientWidth >= 600` (iPad Mini y similares en modo mobile — prioridad sobre altura)
+- `tablet` → `clientWidth >= 600` (iPad Mini y similares — prioridad sobre altura)
 - `short`  → `clientHeight <= 600`
-- `medium` → `clientHeight <= 740`  — iPhone SE (667), Samsung S8+ (740)
-- `tall`   → `clientHeight <= 870`  — iPhone 12 Pro (844)
-- `xtall`  → `clientHeight > 870`   — iPhone XR (896), 14 Pro Max (932), Pixel 7 (915), S20 Ultra (915)
+- `medium` → `clientHeight <= 740` — iPhone SE (667), Samsung S8+ (740)
+- `tall`   → `clientHeight <= 870` — iPhone 12 Pro (844)
+- `xtall`  → `clientHeight > 870`  — iPhone XR (896), 14 Pro Max (932), Pixel 7 (915), S20 Ultra (915)
 
 **Importante:** `zMobileProfile` tiene prioridad sobre `mobile.z`. Si el zoom no responde al editar `z`, editá `zMobileProfile` para el perfil correcto.
 
-**Importante:** El perfil `tablet` se detecta por **ancho** (`clientWidth >= 600`), no por altura. Esto permite dar valores distintos al iPad Mini (768×1024) sin afectar iPhones altos que comparten rango de altura similar.
+**Importante:** El perfil `tablet` se detecta por **ancho** (`clientWidth >= 600`), no por altura.
 
 ---
 
@@ -272,16 +338,15 @@ isMobileViewport()  // → true si window.innerWidth < 900
 
 // Perfiles de altura/ancho mobile
 getMobileHeightProfile()
-// → 'tablet' si clientWidth  >= 600              (iPad Mini, tablets en modo mobile)
+// → 'tablet' si clientWidth  >= 600
 // → 'short'  si clientHeight <= 600
-// → 'medium' si clientHeight <= 740              (iPhone SE, Samsung S8+)
-// → 'tall'   si clientHeight <= 870              (iPhone 12 Pro)
-// → 'xtall'  si clientHeight >  870              (iPhone XR, 14 Pro Max, Pixel 7, S20 Ultra)
+// → 'medium' si clientHeight <= 740
+// → 'tall'   si clientHeight <= 870
+// → 'xtall'  si clientHeight >  870
 ```
 
 Para debuggear qué perfil está activo:
 ```js
-// En consola del browser:
 const w = document.getElementById('mapa-canvas-wrapper').clientWidth || window.innerWidth;
 const h = document.getElementById('mapa-canvas-wrapper').clientHeight || window.innerHeight;
 const p = w >= 600 ? 'tablet' : h <= 600 ? 'short' : h <= 740 ? 'medium' : h <= 870 ? 'tall' : 'xtall';
@@ -300,6 +365,7 @@ appConfig.toggles.popups   // boolean — activa popups al clicar hotspots
 appConfig.toggles.overlays // boolean — activa overlays DOM
 appConfig.toggles.embed    // boolean — modo embed (sin chrome WordPress)
 appConfig.toggles.story    // string  — ID de la historia
+appConfig.toggles.nointro  // boolean — salta la pantalla de intro
 appConfig.toggles.scale    // number  — cobertura de viewport (legacy, afecta solo el alto)
 ```
 
@@ -365,6 +431,10 @@ Si no hay historia (fallback default):
 | Usar `img.naturalWidth/naturalHeight` en la imagen del mapa | La imagen puede ser `ImageBitmap` — usar helper `imgWidth(img)` |
 | Usar `left:50%; transform:translateX(-50%)` en elementos del intro con animación de entrada | Usar `left:0; right:0; display:flex; justify-content:center` — el translateY de la animación sobreescribe el translateX |
 | Hardcodear delays en CSS para el subtítulo/botón/copyright del intro | Los delays se calculan dinámicamente en JS: `TW_START_DELAY + text.length * CHAR_DELAY + offset` |
+| Asumir que las fotos de hotspots están en el canvas | Están en overlays DOM — `<img>` dentro de `.overlay-wrap` |
+| Poner `pointer-events: auto` en `.overlay-wrap.has-caption` | El tipo B debe ser `pointer-events: none` — solo el badge tiene `pointer-events: auto` |
+| Olvidar sincronizar `window.cameraInstance` con `camera` local | Agregar `cameraInstance.setPosition(camera.x, camera.y, camera.z)` después del lerp en el RAF loop |
+| Usar `:hover` en `.overlay-wrap.has-caption` para el badge ⓘ | Usar `:has(.hs-caption__badge:hover)` — el wrap tiene `pointer-events: none` |
 
 ---
 
@@ -381,9 +451,8 @@ Caja de texto flotante que aparece en la esquina superior del canvas mostrando e
 ```
 
 **Lógica** (en `src/app.js`):
-- Las refs `_wib`, `_wibTitle`, `_wibDesc` se obtienen en el boot, junto a `srLive` y `uiControls`.
 - `updateWaypointInfoBox(wp)` se llama dentro de `goToWaypoint()` en cada cambio de waypoint.
-- Lee `wp.label` como título y `wp.lines[0]` como descripción — datos que ya existen en los JSON de mapas.
+- Lee `wp.label` como título y `wp.lines[0]` como descripción.
 - Si el waypoint no tiene ni `label` ni `lines`, la caja se oculta con `hidden`.
 
 **CSS** (al final de `src/style.css`): `position: absolute; top: 0; left: 0` con `backdrop-filter: blur(12px)` y animación de entrada suave. En desktop se limita a `max-width: min(560px, 45%)` para no tapar el mapa.
@@ -396,12 +465,17 @@ Caja de texto flotante que aparece en la esquina superior del canvas mostrando e
 npm run dev      # localhost:5173
 
 # URLs de desarrollo más usadas:
-# Con debug:
-# http://localhost:5173/?story=costa-rica/expedientes/0001&debug=1&popups=1&overlays=1
+# Normal:
+http://localhost:5173/?story=costa-rica/expedientes/0001&nointro=1&popups=1
+
+# Con debug (overlays rojos):
+http://localhost:5173/?story=costa-rica/expedientes/0001&debug=1&popups=1&overlays=1
+
 # Con editor:
-# http://localhost:5173/?editor=1&debug=1&story=costa-rica/expedientes/0001
+http://localhost:5173/?editor=1&debug=1&story=costa-rica/expedientes/0001
+
 # Sin overlays (solo canvas):
-# http://localhost:5173/?story=costa-rica/expedientes/0001&popups=0&overlays=0&debug=1
+http://localhost:5173/?story=costa-rica/expedientes/0001&popups=0&overlays=0&debug=1
 
 npm run build    # Genera dist/
 npm run preview  # Preview del build en localhost:4173
@@ -419,7 +493,7 @@ git add . && git commit -m "descripción" && git push
 
 ---
 
-## Estado del proyecto (Mayo 2026)
+## Estado del proyecto (Junio 2026)
 
 - **Lighthouse 100** en rendimiento (Moto G Power, 4G lenta) — baseline establecido
 - Layout fullscreen estable: ancho y alto siempre `window.innerWidth/Height`
@@ -427,14 +501,22 @@ git add . && git commit -m "descripción" && git push
 - Editor visual funcional con undo/redo (50 pasos), multi-select
 - Primer expediente real (Costa Rica 0001) en progreso — contenido real pendiente
 
+**Sistema de hotspots informativos tipo B (Junio 2026):**
+- Overlay invisible (`vacio.png`) con badge ⓘ y tooltip descriptivo
+- Hover sobre el badge activa borde dashed animado (`hs-dash-march`) + tooltip
+- `pointer-events: none` en el wrap — no bloquea clicks al tipo A debajo
+- Activado via campos `caption` y `noPopup: true` en `icons.json`
+- CSS usa `:has(.hs-caption__badge:hover)` — cero JS en hover
+- Desactivado en mobile con `@media (hover: none)`
+
+**Fix de sincronización camera/breathing (Junio 2026):**
+- `window.cameraInstance.setPosition()` se llama cada frame después del lerp
+- Resuelve overlays DOM que no seguían el breathing de cámara
+
 **Intro Screen (Mayo 2026):**
 - Pantalla de presentación con fondo negro antes del mapa
-- Logo Divergentes (webp con colores originales) con link a divergentes.com
-- Título con efecto typewriter JS (letra por letra, respeta `\n`, `white-space: pre-line`)
-- Subtítulo y botón con fade+slide CSS activado por JS tras el typewriter
-- Botón con haz de luz giratorio (`conic-gradient` + `rotate`, compositor GPU)
-- Copyright en footer con link a info@divergentes.com
-- Header de fases oculto con `body:has(#story-intro:not([hidden])) .top-bar` CSS puro
+- Logo Divergentes con link a divergentes.com
+- Título con efecto typewriter JS, subtítulo y botón con fade+slide CSS
 - Mapa se carga en paralelo durante el intro — cero impacto en performance
 - Todos los delays sincronizados dinámicamente en JS — no hardcoded en CSS
 
