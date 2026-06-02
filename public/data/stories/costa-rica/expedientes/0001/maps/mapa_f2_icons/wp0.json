@@ -18,8 +18,8 @@
     "title": "Llegada al Aeropuerto",
     "image": "/assets/mapa-1.webp",
     "datetime": {
-      "date": "15/06/2025",
-      "time": "12:07",
+      "date": "16/06/2025",
+      "time": "(12:07 h)",
       "timeColor": "#FF4444"
     },
     "location": "Aeropuerto Juan Santamaría (SJO), Alajuela.",
@@ -49,10 +49,10 @@
       "person2": [
         {
           "datetime": {
-            "date": "15/06/2025",
-            "time": "12:07"
+            "date": "16/06/2025",
+            "time": "(12:07 h)"
           },
-          "description": "Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas."
+          "description": "La víctima regresó a Costa Rica."
         },
         {
           "datetime": {

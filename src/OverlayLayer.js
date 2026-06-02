@@ -117,6 +117,14 @@ export class OverlayLayer {
         `;
         wrap.appendChild(caption);
         wrap.classList.add('has-caption');
+
+        // 📱 Mobile: tap en badge toggle tooltip
+        if (window.matchMedia('(hover: none)').matches) {
+          caption.querySelector('.hs-caption__badge').addEventListener('click', (e) => {
+            e.stopPropagation();
+            caption.classList.toggle('is-open');
+          });
+        }
       }
 
       this.root.appendChild(wrap);

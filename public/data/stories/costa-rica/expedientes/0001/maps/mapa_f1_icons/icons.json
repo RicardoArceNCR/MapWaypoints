@@ -4,9 +4,9 @@
       "_note": "WP0-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -19,
-        "offsetY": -243,
-        "width": 260,
+        "offsetX": -12,
+        "offsetY": -216,
+        "width": 280,
         "height": 145,
         "rotation": 9,
         "radius": 0
@@ -19,14 +19,14 @@
         "rotation": -1,
         "radius": 0
       },
-      "title": "FASE 1: Samcam regresa a Costa Rica; se reúne con colegas opositores; sospechosos terminan de planificar el asesinato.",
+      "title": "La víctima regresó a Costa Rica.",
       "datetime": {
-        "date": "15/06/2025",
-        "time": "12:07",
+        "date": "16/06/2025",
+        "time": "(12:07 h)",
         "timeColor": "#FF4444"
       },
       "location": "Aeropuerto Juan Santamaría (SJO), Alajuela.",
-     "description": "Hecho: Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.\n\nLa investigación analizó grabaciones de un evento público al que asistió el 16 de junio: el entierro de la ex presidenta nicaragüense Violeta Barrios Torres (Violeta Chamorro), en las cercanías del Santuario Nacional al Sagrado Corazón de Jesús. Aunque se investigó si este evento fue utilizado por los agresores para ubicarle, no se logró determinar información de interés en las grabaciones.",
+     "description": "Hecho: Roberto Samcam Ruiz regresa a Costa Rica proveniente de México, por el Aeropuerto Juan Santamaría, después de una gira por varios países. Su reingreso ocurre apenas tres días antes de su asesinato. Utiliza un taxi formal para dirigirse a su vivienda, ubicada en Tibás.",
       "involved": [
         {
           "id": "pf1w0h0a",
@@ -92,9 +92,9 @@
       "caption": "En esta foto se ve a Samcam entrando al aeropuerto Juan Santamaría. Llega acompañado por colegas opositores.",
       "noPopup": true,
       "mobile": {
-        "offsetX": -19,
-        "offsetY": -243,
-        "width": 260,
+        "offsetX": -12,
+        "offsetY": -216,
+        "width": 280,
         "height": 145,
         "rotation": 9,
         "radius": 0
@@ -115,9 +115,9 @@
       "type": "hotspot",
       "mobile": {
         "offsetX": -3,
-        "offsetY": -42,
-        "width": 280,
-        "height": 190,
+        "offsetY": -17,
+        "width": 294,
+        "height": 204,
         "rotation": -8,
         "radius": 0
       },
@@ -185,9 +185,9 @@
       "title": "",
       "mobile": {
         "offsetX": -3,
-        "offsetY": -42,
-        "width": 280,
-        "height": 190,
+        "offsetY": -17,
+        "width": 294,
+        "height": 204,
         "rotation": -8,
         "radius": 0
       },
