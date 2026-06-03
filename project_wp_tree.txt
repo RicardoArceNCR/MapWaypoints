@@ -4,7 +4,8 @@
 ├── dist
 │   ├── assets
 │   │   ├── default.gif
-│   │   ├── editor-id2tsmEo.js
+│   │   ├── editor-wtir0iPg.js
+│   │   ├── F3-movil.webp
 │   │   ├── fase-2-mapa-dektop-4x.png
 │   │   ├── fase-2-mapa-dektop-4x.webp
 │   │   ├── fase-2-mapa-mobile-x4.png
@@ -20,14 +21,16 @@
 │   │   │   ├── inter-v20-latin-800.woff2
 │   │   │   └── inter-v20-latin-regular.woff2
 │   │   ├── icon-info.png
-│   │   ├── index-CqEu_Tb6.js
-│   │   ├── index-Dp8gav3t.css
+│   │   ├── index-Btm-BnB7.js
+│   │   ├── index-dxbyEwrt.css
 │   │   ├── logo-divergentes.webp
 │   │   ├── mapa-1.jpg
 │   │   ├── mapa-1.webp
 │   │   ├── mapa-11.webp
 │   │   ├── mapa-dektop-2.jpg
 │   │   ├── mapa-dektop-2.webp
+│   │   ├── mapa-dektop-2x.jpg
+│   │   ├── mapa-dektop-2x.webp
 │   │   ├── mapa-dektop-3.jpg
 │   │   ├── mapa-dektop-3.webp
 │   │   ├── mapa-dektop-3x.jpg
@@ -39,6 +42,8 @@
 │   │   ├── mapa-dektop.webp
 │   │   ├── mapa-mobile-2.jpg
 │   │   ├── mapa-mobile-2.webp
+│   │   ├── mapa-mobile-2x.jpg
+│   │   ├── mapa-mobile-2x.webp
 │   │   ├── mapa-mobile-3.jpg
 │   │   ├── mapa-mobile-3.webp
 │   │   ├── mapa-mobile-x2.jpg
@@ -53,8 +58,9 @@
 │   │   ├── persona_1-2.gif
 │   │   ├── persona_1-3.gif
 │   │   ├── persona_1-4.gif
-│   │   ├── popup_styles-C6ieRHMM.css
-│   │   └── style-Dsi_APJz.css
+│   │   ├── popup_styles-DlMJ99k7.css
+│   │   ├── style-BjLc5LeD.css
+│   │   └── vacio.png
 │   ├── data
 │   │   ├── index.json
 │   │   ├── stories
@@ -73,6 +79,7 @@
 ├── public
 │   ├── assets
 │   │   ├── default.gif
+│   │   ├── F3-movil.webp
 │   │   ├── fase-2-mapa-dektop-4x.png
 │   │   ├── fase-2-mapa-dektop-4x.webp
 │   │   ├── fase-2-mapa-mobile-x4.png
@@ -122,7 +129,8 @@
 │   │   ├── persona_1-1.gif
 │   │   ├── persona_1-2.gif
 │   │   ├── persona_1-3.gif
-│   │   └── persona_1-4.gif
+│   │   ├── persona_1-4.gif
+│   │   └── vacio.png
 │   └── data
 │       ├── index.json
 │       ├── stories
@@ -146,4 +154,4 @@
 ├── vercel.json
 └── vite.config.js
 
-16 directories, 131 files
+16 directories, 139 files

@@ -19,68 +19,52 @@
         "rotation": -1,
         "radius": 0
       },
-      "title": "La víctima regresó a Costa Rica.",
+      "title": "Samcam regresa a Costa Rica.",
       "datetime": {
         "date": "16/06/2025",
-        "time": "(12:07 h)",
-        "timeColor": "#FF4444"
+        "time": "12:07 h",
+        "timeColor": "#1BC6EB"
       },
-      "location": "Aeropuerto Juan Santamaría (SJO), Alajuela.",
-     "description": "Hecho: Roberto Samcam Ruiz regresa a Costa Rica proveniente de México, por el Aeropuerto Juan Santamaría, después de una gira por varios países. Su reingreso ocurre apenas tres días antes de su asesinato. Utiliza un taxi formal para dirigirse a su vivienda, ubicada en Tibás.",
+      "location": "Aeropuerto Juan Santamaría, Alajuela, Costa Rica",
+      "description": "Roberto Samcam Ruiz regresa de una gira por varios países, ingresando por el Aeropuerto Juan Santamaría. Toma un taxi formal hacia su vivienda en Tibás. Su reingreso ocurre exactamente tres días antes de su asesinato.",
       "involved": [
         {
-          "id": "pf1w0h0a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w0h0b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/avatar-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual",
           "highlighted": true
         },
         {
-          "id": "pf1w0h0c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/avatar-chaves-medina.webp",
+          "role": "Intermediario logístico"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor"
         }
       ],
       "echos": {
-        "pf1w0h0a": [
+        "robles_murillo": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "16/06/2025", "time": "—" },
+            "description": "Según fuentes confidenciales, Robles Murillo coordinó con 'la plana mayor del Ejército de Nicaragua' el seguimiento al retorno de Samcam al país. Es señalado como el cerebro que activó la célula tras confirmar el regreso de la víctima."
           }
         ],
-        "pf1w0h0b": [
+        "chaves_medina": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
+            "datetime": { "date": "16/06/2025", "time": "—" },
+            "description": "Como intermediario entre los autores intelectuales y la célula operativa en León XIII, Chaves Medina habría recibido la orden de iniciar las labores de ubicación de Samcam."
           }
         ],
-        "pf1w0h0c": [
+        "carvajal": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
+            "datetime": { "date": "16/06/2025", "time": "—" },
+            "description": "El futuro gatillero inicia el período de vigilancia preoperativa tras conocerse el regreso de Samcam a Costa Rica."
           }
         ]
       },
@@ -110,72 +94,7 @@
       "title": "",
       "image": "/assets/vacio.png"
     },
-    {
-      "_note": "WP0-H1: Rectángulo secundario superior derecho",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -3,
-        "offsetY": -17,
-        "width": 294,
-        "height": 204,
-        "rotation": -8,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 256,
-        "offsetY": 8,
-        "width": 512,
-        "height": 272,
-        "rotation": 0,
-        "radius": 0
-      },
-      "title": "TODO — Título evento secundario",
-      "image": "/assets/TODO-wp0-h1.webp",
-      "noPopup": true,
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento secundario.",
-      "involved": [
-        {
-          "id": "pf1w0h1a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w0h1b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w0h1a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w0h1b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w0_h1"
-    },
+    
     {
       "_note": "WP0-H1-B: Hotspot tipo B — informativo superpuesto al H1",
       "type": "hotspot",
@@ -221,69 +140,65 @@
         "rotation": 2,
         "radius": 0
       },
-      "title": "TODO — Título evento principal wp1",
+      "title": "Reunión final de coordinación del asesinato",
       "image": "/assets/TODO-wp1-h0.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
+        "date": "18/06/2025",
+        "time": "17:54 – 18:23 h",
         "timeColor": "#FF4444"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento principal.",
+      "location": "Estación de Servicio Delta, ingreso a León XIII, Tibás, San José",
+      "description": "El Duster BKK-190 se dirige a la Gasolinera Delta donde confluyen el Hyundai celeste 903056 y una motocicleta Freedom color rojo. Según información confidencial, el propósito era coordinar el asesinato, revisar los vehículos (al Duster le abren el capó) y el arma para 'afinar detalles de la planificación'.",
       "involved": [
         {
-          "id": "pf1w1h0a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w1h0b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/avatar-chaves-medina.webp",
+          "role": "Intermediario logístico",
           "highlighted": true
         },
         {
-          "id": "pf1w1h0c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor"
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/avatar-robles-salas.webp",
+          "role": "Conductor — vehículo de asalto"
+        },
+        {
+          "id": "orozco",
+          "name": "Luis Ricardo Orozco González",
+          "avatar": "/assets/avatar-orozco.webp",
+          "role": "Transportista de extracción"
         }
       ],
       "echos": {
-        "pf1w1h0a": [
+        "chaves_medina": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "18/06/2025", "time": "17:54 h" },
+            "description": "Coordina la reunión tripartita en la gasolinera. Como intermediario, asegura que todos los elementos —vehículos, arma y roles— estén listos para el día siguiente."
           }
         ],
-        "pf1w1h0b": [
+        "carvajal": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
+            "datetime": { "date": "18/06/2025", "time": "19:04 h" },
+            "description": "Tras la reunión, su dispositivo activa la radiobase 'León XIII', coincidente con el sector de residencia de los sospechosos, confirmando el regreso a la base."
           }
         ],
-        "pf1w1h0c": [
+        "robles_salas": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
+            "datetime": { "date": "18/06/2025", "time": "17:54 h" },
+            "description": "Llega al punto de reunión conduciendo el Renault Duster BKK-190. Participa en la revisión de vehículos y la asignación de roles para el ataque del día siguiente."
+          }
+        ],
+        "orozco": [
+          {
+            "datetime": { "date": "18/06/2025", "time": "16:17 h" },
+            "description": "Su Hyundai celeste (que había prestado a Chaves Medina) es captado en la reunión de coordinación en la gasolinera Delta. Orozco estaba siendo incorporado como transportista de extracción post-crimen."
           }
         ]
       },
@@ -308,47 +223,53 @@
         "rotation": 0,
         "radius": 0
       },
-      "title": "TODO — Título evento secundario wp1",
+      "title": "Los sicarios regresan a su base en León XIII",
       "image": "/assets/TODO-wp1-h1.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
+        "date": "18/06/2025",
+        "time": "19:04 h",
         "timeColor": "#FF4444"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento secundario.",
+      "location": "Sector León XIII, Tibás, San José",
+      "description": "Concluida la reunión de coordinación, los integrantes de la célula regresan al sector donde residen. El dispositivo de Carvajal activa la radiobase 'León XIII'. Todo está listo para el asesinato programado para la mañana siguiente.",
       "involved": [
         {
-          "id": "pf1w1h1a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
         },
         {
-          "id": "pf1w1h1b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/avatar-chaves-medina.webp",
+          "role": "Intermediario logístico"
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/avatar-robles-salas.webp",
+          "role": "Conductor — vehículo de asalto"
         }
       ],
       "echos": {
-        "pf1w1h1a": [
+        "carvajal": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "18/06/2025", "time": "19:04 h" },
+            "description": "Su celular (número 62329434) activa la radiobase 'León XIII' al regresar al barrio, confirmando su presencia en la base de la célula."
           }
         ],
-        "pf1w1h1b": [
+        "chaves_medina": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
+            "datetime": { "date": "18/06/2025", "time": "~19:00 h" },
+            "description": "Regresa a León XIII con el Hyundai celeste, cerrando las coordinaciones del día previo al crimen."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": { "date": "18/06/2025", "time": "~19:00 h" },
+            "description": "Regresa a su residencia en León XIII. Al día siguiente conducirá el Duster como vehículo de asalto."
           }
         ]
       },
@@ -375,69 +296,53 @@
         "rotation": -7,
         "radius": 0
       },
-      "title": "TODO — Título evento principal wp2",
+      "title": "Los sicarios salen a matar desde León XIII",
       "image": "/assets/TODO-wp2-h0.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
+        "date": "19/06/2025",
+        "time": "06:18 h",
         "timeColor": "#FF4444"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento principal.",
+      "location": "Sector León XIII, Tibás, San José",
+      "description": "El Renault Duster blanco (BKK-190) sale de León XIII con dirección a Moravia, conducido inicialmente por Danilo Chaves Medina. Minutos después, la motocicleta Freedom color rojo —conducida por Bryan Robles Salas— también parte del mismo sector.",
       "involved": [
         {
-          "id": "pf1w2h0a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w2h0b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/avatar-chaves-medina.webp",
+          "role": "Intermediario logístico",
           "highlighted": true
         },
         {
-          "id": "pf1w2h0c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/avatar-robles-salas.webp",
+          "role": "Conductor — vehículo de asalto"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor"
         }
       ],
       "echos": {
-        "pf1w2h0a": [
+        "chaves_medina": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "19/06/2025", "time": "06:18 h" },
+            "description": "Sale de León XIII al volante del Renault Duster BKK-190, con destino a Moravia para ejecutar el plan."
           }
         ],
-        "pf1w2h0b": [
+        "robles_salas": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
+            "datetime": { "date": "19/06/2025", "time": "06:29 h" },
+            "description": "Sale de León XIII conduciendo la motocicleta Freedom color rojo, once minutos después del Duster."
           }
         ],
-        "pf1w2h0c": [
+        "carvajal": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
+            "datetime": { "date": "19/06/2025", "time": "06:18 h" },
+            "description": "Sale como pasajero en el Duster. Viste un suéter gris que cambiará después del crimen."
           }
         ]
       },
@@ -462,47 +367,53 @@
         "rotation": 0,
         "radius": 0
       },
-      "title": "TODO — Título evento secundario wp2",
+      "title": "Cambio de roles: Carvajal sube a la motocicleta",
       "image": "/assets/TODO-wp2-h1.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
+        "date": "19/06/2025",
+        "time": "06:37 – 07:41 h",
         "timeColor": "#FF4444"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento secundario.",
+      "location": "Calle sin salida, Av. 65A, Moravia, San José",
+      "description": "Ambos vehículos hacen rondas y se reúnen en una calle sin salida. Se producen cambios de posición para evitar ser detectados. Carvajal (suéter gris) sube como pasajero en la motocicleta. A las 07:41 h se hace el último cambio: Robles Salas pasa a conducir el Duster (vehículo de asalto) y Chaves Medina pasa a la motocicleta (camisa color mostaza).",
       "involved": [
         {
-          "id": "pf1w2h1a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
         },
         {
-          "id": "pf1w2h1b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/avatar-robles-salas.webp",
+          "role": "Conductor — vehículo de asalto"
+        },
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/avatar-chaves-medina.webp",
+          "role": "Intermediario logístico"
         }
       ],
       "echos": {
-        "pf1w2h1a": [
+        "carvajal": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "19/06/2025", "time": "07:40 h" },
+            "description": "Su dispositivo (62329434) activa la radiobase 'Valla Moravia', confirmando su ubicación exacta en el sector del homicidio minutos antes del ataque."
           }
         ],
-        "pf1w2h1b": [
+        "robles_salas": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
+            "datetime": { "date": "19/06/2025", "time": "07:41 h" },
+            "description": "En el último cambio de roles asume la conducción del Renault Duster BKK-190, convirtiéndose en el conductor del vehículo de asalto."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "07:41 h" },
+            "description": "Pasa a conducir la motocicleta (con camisa color mostaza), alejándose del lugar del crimen por ruta separada hacia Tibás."
           }
         ]
       },
@@ -527,47 +438,53 @@
         "rotation": -9,
         "radius": 0
       },
-      "title": "TODO — Título evento terciario wp2",
+      "title": "SAMCAM ES ASESINADO en el Condominio Naples",
       "image": "/assets/TODO-wp2-h2.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
+        "date": "19/06/2025",
+        "time": "07:44 h",
+        "timeColor": "#FF0000"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento terciario.",
+      "location": "Condominio Naples, Moravia, San José",
+      "description": "El Renault Duster BKK-190 se estaciona frente al Condominio Naples. El pasajero delantero —Carvajal Fernández— desciende, ingresa al condominio, llama a Roberto Samcam por su nombre y le dispara al menos 8 veces con arma calibre .40. El sicario regresa corriendo al automóvil, que huye a gran velocidad.",
       "involved": [
         {
-          "id": "pf1w2h2a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
         },
         {
-          "id": "pf1w2h2b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/avatar-robles-salas.webp",
+          "role": "Conductor — vehículo de asalto"
+        },
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/avatar-chaves-medina.webp",
+          "role": "Intermediario logístico"
         }
       ],
       "echos": {
-        "pf1w2h2a": [
+        "carvajal": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "19/06/2025", "time": "07:44 h" },
+            "description": "Desciende del Duster, ingresa al Condominio Naples (segundo piso, sin vigilancia activa en ese momento), llama a Samcam por su nombre y le dispara al menos 8 veces con calibre .40. Regresa al vehículo."
           }
         ],
-        "pf1w2h2b": [
+        "robles_salas": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
+            "datetime": { "date": "19/06/2025", "time": "07:44 h" },
+            "description": "Estaciona el Renault Duster BKK-190 frente al condominio y espera al ejecutor. Segundos después del disparo huye a gran velocidad con Carvajal dentro."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "~07:44 h" },
+            "description": "Huye por ruta separada en la motocicleta hacia Tibás/León XIII. A las 07:52 h su dispositivo registra el ingreso al sector de León XIII."
           }
         ]
       },
@@ -592,69 +509,41 @@
         "rotation": -13,
         "radius": 0
       },
-      "title": "TODO — Título evento cuaternario wp2",
+      "title": "Inicio de la huida: el Duster rumbo a Coronado",
       "image": "/assets/TODO-wp2-h3.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
+        "date": "19/06/2025",
+        "time": "07:46 – 07:54 h",
         "timeColor": "#FF4444"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento cuaternario.",
+      "location": "Ruta Moravia → Cruce El Raicero → Trinidad de Moravia",
+      "description": "El Renault Duster (con Robles Salas y Carvajal) sigue una ruta hacia Coronado, pasando por Cruce El Raicero, Mall Don Pancho (07:53 h) y Trinidad de Moravia (07:54 h). Durante el trayecto Carvajal se cambia el suéter gris por una sudadera oscura con logo Fox.",
       "involved": [
         {
-          "id": "pf1w2h3a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w2h3b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/avatar-robles-salas.webp",
+          "role": "Conductor — vehículo de asalto",
           "highlighted": true
         },
         {
-          "id": "pf1w2h3c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor"
         }
       ],
       "echos": {
-        "pf1w2h3a": [
+        "robles_salas": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "19/06/2025", "time": "07:46 h" },
+            "description": "Conduce el Duster en la ruta de escape hacia Coronado. Cámaras de seguridad registran el vehículo pasando por el Cruce El Raicero, Mall Don Pancho (07:53 h) y Trinidad de Moravia (07:54 h)."
           }
         ],
-        "pf1w2h3b": [
+        "carvajal": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w2h3c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
+            "datetime": { "date": "19/06/2025", "time": "07:46 – 07:54 h" },
+            "description": "Su dispositivo (62329434) activa radiobases en tiempo y lugar coincidente con el movimiento del Duster, confirmando que era el pasajero-ejecutor. Se cambia el suéter gris por una sudadera oscura con logo Fox durante la huida."
           }
         ]
       },
@@ -681,69 +570,69 @@
         "rotation": 0,
         "radius": 0
       },
-      "title": "TODO — Título evento principal wp3",
+      "title": "Chaves Medina coordina la extracción: llamada clave",
       "image": "/assets/TODO-wp3-h0.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
+        "date": "19/06/2025",
+        "time": "08:10 h",
+        "timeColor": "#4ECDC4"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento principal.",
+      "location": "Sector León XIII, Tibás, San José",
+      "description": "Danilo Chaves Medina (72678193) llama a Luis Orozco González por 24 segundos. La OIJ infiere que esta llamada coordinó que Orozco se dirigiera a Coronado a recoger a los ejecutores. A las 08:15 h el Hyundai celeste sale de León XIII hacia la Ruta 32.",
       "involved": [
         {
-          "id": "pf1w3h0a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w3h0b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/avatar-chaves-medina.webp",
+          "role": "Intermediario logístico",
           "highlighted": true
         },
         {
-          "id": "pf1w3h0c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
+          "id": "orozco",
+          "name": "Luis Ricardo Orozco González",
+          "avatar": "/assets/avatar-orozco.webp",
+          "role": "Transportista de extracción"
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/avatar-robles-salas.webp",
+          "role": "Conductor — vehículo de asalto"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor"
         }
       ],
       "echos": {
-        "pf1w3h0a": [
+        "chaves_medina": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w3h0b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
+            "datetime": { "date": "19/06/2025", "time": "07:52 h" },
+            "description": "Llega a León XIII en motocicleta, completando su huida tras la ejecución."
           },
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
+            "datetime": { "date": "19/06/2025", "time": "08:10 h" },
+            "description": "Llama a Orozco González durante 24 segundos para coordinar la extracción de los ejecutores en Coronado. Esta llamada es la pieza que ata toda la cadena de complicidad."
           }
         ],
-        "pf1w3h0c": [
+        "orozco": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
+            "datetime": { "date": "19/06/2025", "time": "08:15 h" },
+            "description": "El Hyundai celeste (placa 903056) sale de León XIII rumbo a la Ruta 32, confirmando que se dirige a Coronado a recoger a los sicarios."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "08:21 h" },
+            "description": "Envía su ubicación GPS a Orozco, coincidente con donde el Duster fue abandonado en una calle sin salida en Dulce Nombre de Coronado. Mensajes: 'Corra xfa', 'Vueleeeee', 'Sáqueme de aquí'."
+          }
+        ],
+        "carvajal": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "08:34 h" },
+            "description": "Contacta directamente a Orozco, explicando que el celular de Robles se había apagado y solicitando ubicación en tiempo real."
           }
         ]
       },
@@ -768,47 +657,57 @@
         "rotation": 1,
         "radius": 0
       },
-      "title": "TODO — Título evento secundario wp3",
+      "title": "El Duster es abandonado — llega la extracción",
       "image": "/assets/TODO-wp3-h1.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
+        "date": "19/06/2025",
+        "time": "08:38 – 08:46 h",
+        "timeColor": "#4ECDC4"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento secundario.",
+      "location": "Calle sin salida, Dulce Nombre de Coronado, San José",
+      "description": "El dispositivo de Orozco registra su llegada al sitio exacto donde fue hallado el Duster BKK-190 abandonado cerca de Casa Kuakua. A las 08:46 h el Hyundai celeste se retira del lugar con Robles Salas y Carvajal a bordo. Las prendas del sicario (suéter gris y pantalón vino) quedan dentro del Duster.",
       "involved": [
         {
-          "id": "pf1w3h1a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
+          "id": "orozco",
+          "name": "Luis Ricardo Orozco González",
+          "avatar": "/assets/avatar-orozco.webp",
+          "role": "Transportista de extracción",
+          "highlighted": true
         },
         {
-          "id": "pf1w3h1b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/avatar-robles-salas.webp",
+          "role": "Conductor — vehículo de asalto"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor"
         }
       ],
       "echos": {
-        "pf1w3h1a": [
+        "orozco": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "19/06/2025", "time": "08:38 h" },
+            "description": "Su dispositivo registra la llegada al sitio exacto en Rodeo, Coronado, donde el OIJ encontraría el Duster abandonado."
+          },
+          {
+            "datetime": { "date": "19/06/2025", "time": "08:46 h" },
+            "description": "El Hyundai celeste (placa 903056) se retira del lugar con los dos ejecutores a bordo."
           }
         ],
-        "pf1w3h1b": [
+        "robles_salas": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
+            "datetime": { "date": "19/06/2025", "time": "08:21 h" },
+            "description": "Abandona el Renault Duster BKK-190 en la calle sin salida. Espera la llegada del Hyundai de extracción enviando mensajes desesperados a Orozco."
+          }
+        ],
+        "carvajal": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "08:38 h" },
+            "description": "Aborda el Hyundai celeste en el punto de extracción. Las prendas de vestir usadas durante el crimen (suéter gris y pantalón color vino) son encontradas por el OIJ dentro del Duster abandonado."
           }
         ]
       },
@@ -833,47 +732,53 @@
         "rotation": -6,
         "radius": 0
       },
-      "title": "TODO — Título evento terciario wp3",
+      "title": "Regreso a la base criminal en León XIII",
       "image": "/assets/TODO-wp3-h2.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
+        "date": "19/06/2025",
+        "time": "09:14 h",
+        "timeColor": "#4ECDC4"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento terciario.",
+      "location": "Sector León XIII, Tibás, San José",
+      "description": "Orozco y los ejecutores regresan al sector de León XIII. La ubicación registrada por el dispositivo de Orozco coincide con la vivienda de Carvajal Fernández, confirmando el destino final de la extracción.",
       "involved": [
         {
-          "id": "pf1w3h2a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
+          "id": "orozco",
+          "name": "Luis Ricardo Orozco González",
+          "avatar": "/assets/avatar-orozco.webp",
+          "role": "Transportista de extracción",
+          "highlighted": true
         },
         {
-          "id": "pf1w3h2b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor"
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/avatar-robles-salas.webp",
+          "role": "Conductor — vehículo de asalto"
         }
       ],
       "echos": {
-        "pf1w3h2a": [
+        "orozco": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "19/06/2025", "time": "09:14 h" },
+            "description": "Su dispositivo registra la llegada a León XIII, coincidiendo con la vivienda de Carvajal. Completa el traslado que le costará el doble de lo normal."
           }
         ],
-        "pf1w3h2b": [
+        "carvajal": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
+            "datetime": { "date": "19/06/2025", "time": "09:14 h" },
+            "description": "Llega a su vivienda en León XIII. Se mantendrá prófugo tras los allanamientos del 11 y 12 de septiembre de 2025. El OIJ continúa las diligencias para su detención."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "09:14 h" },
+            "description": "Llega a León XIII. Será detenido el 11 de septiembre de 2025 en el sector. Se le dicta prisión preventiva."
           }
         ]
       },
@@ -898,69 +803,53 @@
         "rotation": 14,
         "radius": 0
       },
-      "title": "TODO — Título evento cuaternario wp3",
+      "title": "Pago del 'servicio': depósito de Chacón Guillén a Orozco",
       "image": "/assets/TODO-wp3-h3.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
+        "date": "19/06/2025",
+        "time": "10:38 h",
         "timeColor": "#FF4444"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento cuaternario.",
+      "location": "León XIII, Tibás, San José (transferencia SINPE Móvil)",
+      "description": "Stephanie María Chacón Guillén (pareja de Chaves Medina) deposita ₡50.000 en dos tractos a la cuenta de Orozco González, con los conceptos 'Viaje' y 'Gasolina'. El monto es diez veces superior al costo normal del traslado, lo que la OIJ interpreta como la retribución por el riesgo asumido.",
       "involved": [
         {
-          "id": "pf1w3h3a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w3h3b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
+          "id": "chacon",
+          "name": "Stephanie María Chacón Guillén",
+          "avatar": "/assets/avatar-chacon.webp",
+          "role": "Facilitadora financiera",
           "highlighted": true
         },
         {
-          "id": "pf1w3h3c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
+          "id": "orozco",
+          "name": "Luis Ricardo Orozco González",
+          "avatar": "/assets/avatar-orozco.webp",
+          "role": "Transportista de extracción"
+        },
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/avatar-chaves-medina.webp",
+          "role": "Intermediario logístico"
         }
       ],
       "echos": {
-        "pf1w3h3a": [
+        "chacon": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "19/06/2025", "time": "10:38 h" },
+            "description": "Realiza dos depósitos vía SINPE Móvil a la cuenta de Orozco González por ₡50.000 totales, con los detalles 'Viaje' y 'Gasolina'. Es la pareja sentimental y madre de una hija de Danilo Chaves Medina. Enfrentará el proceso penal en libertad mientras se recopilan más indicios."
           }
         ],
-        "pf1w3h3b": [
+        "orozco": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
+            "datetime": { "date": "19/06/2025", "time": "10:38 h" },
+            "description": "Recibe el pago por el 'viaje'. El levantamiento de su secreto bancario por el OIJ documentará esta transferencia como evidencia del pago por participar en la logística del crimen."
           }
         ],
-        "pf1w3h3c": [
+        "chaves_medina": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
+            "datetime": { "date": "19/06/2025", "time": "10:38 h" },
+            "description": "Su pareja realiza el pago en su nombre, vinculándolo directamente a la cadena financiera del crimen. Al momento de su detención el 11 de septiembre en Cañas, Guanacaste, tenía ₡4 millones en efectivo."
           }
         ]
       },
@@ -987,69 +876,41 @@
         "rotation": -1,
         "radius": 0
       },
-      "title": "TODO — Título evento principal wp4",
+      "title": "Confirmación del éxito: '¿Como le fue?'",
       "image": "/assets/TODO-wp4-h0.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
+        "date": "19/06/2025",
+        "time": "16:50 h",
+        "timeColor": "#4ECDC4"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento principal.",
+      "location": "León XIII, Tibás, San José",
+      "description": "Luis Orozco pregunta a Bryan Robles por mensaje: '¿Como le fue?'. Robles responde que 'le fue bien' y pregunta si Orozco vio las noticias y si salió algo 'del carro' (el Duster abandonado). Este intercambio confirma la conciencia del crimen cometido.",
       "involved": [
         {
-          "id": "pf1w4h0a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w4h0b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/avatar-robles-salas.webp",
+          "role": "Conductor — vehículo de asalto",
           "highlighted": true
         },
         {
-          "id": "pf1w4h0c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
+          "id": "orozco",
+          "name": "Luis Ricardo Orozco González",
+          "avatar": "/assets/avatar-orozco.webp",
+          "role": "Transportista de extracción"
         }
       ],
       "echos": {
-        "pf1w4h0a": [
+        "robles_salas": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "19/06/2025", "time": "16:50 h" },
+            "description": "Responde el mensaje de Orozco confirmando que 'le fue bien', y pregunta si salió algo del carro en las noticias. Esta conversación, recuperada del celular de Orozco, es una de las evidencias más contundentes del caso."
           }
         ],
-        "pf1w4h0b": [
+        "orozco": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w4h0c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
+            "datetime": { "date": "19/06/2025", "time": "16:50 h" },
+            "description": "Inicia el intercambio preguntando '¿Como le fue?'. Su celular, analizado forensemente por el OIJ, contiene toda la cadena de comunicaciones que ata a la estructura criminal."
           }
         ]
       },
@@ -1074,47 +935,53 @@
         "rotation": -2,
         "radius": 0
       },
-      "title": "TODO — Título evento secundario wp4",
+      "title": "OIJ identifica vehículos y primeras fuentes confidenciales",
       "image": "/assets/TODO-wp4-h1.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
+        "date": "19/06/2025",
+        "time": "Día del crimen",
+        "timeColor": "#4ECDC4"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento secundario.",
+      "location": "OIJ — Sección de Homicidios, San José",
+      "description": "El OIJ inicia el rastreo de cámaras y recibe información confidencial (línea 800-8000-645) que identifica el Renault Duster blanco BKK-190 como el vehículo usado. Otra fuente nombra a 'Dani Chaves' (peluquero de León XIII), 'Bryan Robles' y 'Luis' (número 62329434) como implicados.",
       "involved": [
         {
-          "id": "pf1w4h1a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/avatar-chaves-medina.webp",
+          "role": "Intermediario logístico",
+          "highlighted": true
         },
         {
-          "id": "pf1w4h1b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor"
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/avatar-robles-salas.webp",
+          "role": "Conductor — vehículo de asalto"
         }
       ],
       "echos": {
-        "pf1w4h1a": [
+        "chaves_medina": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "19/06/2025", "time": "—" },
+            "description": "Es mencionado por nombre y apodo ('Dani Peluqueris') en la información confidencial recibida por el OIJ el mismo día del crimen."
           }
         ],
-        "pf1w4h1b": [
+        "carvajal": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
+            "datetime": { "date": "19/06/2025", "time": "—" },
+            "description": "Su número (62329434) es identificado por fuentes confidenciales como el del 'Luis' sicario. Este número también activó radiobases que lo ubican en la escena."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "—" },
+            "description": "Su nombre 'Bryan Robles' aparece en la información confidencial. Una foto de él con Orozco, oculta en el celular de Orozco, confirmará su vínculo con el transportista."
           }
         ]
       },
@@ -1139,47 +1006,29 @@
         "rotation": 0,
         "radius": 0
       },
-      "title": "TODO — Título evento terciario wp4",
+      "title": "OIJ identifica y aborda a Orozco González",
       "image": "/assets/TODO-wp4-h2.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
+        "date": "30/06/2025",
+        "time": "—",
+        "timeColor": "#4ECDC4"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento terciario.",
+      "location": "León XIII, Tibás, San José",
+      "description": "Investigadores del OIJ localizan y abordan al conductor del Hyundai celeste en León XIII. Identificado como Luis Ricardo Orozco González, taxista informal. Informado de sus derechos, reconoce haber recogido a dos personas en Coronado y trasladarlas a León XIII —un 'viaje raro'— por el cual fue pagado mediante SINPE Móvil.",
       "involved": [
         {
-          "id": "pf1w4h2a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w4h2b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
+          "id": "orozco",
+          "name": "Luis Ricardo Orozco González",
+          "avatar": "/assets/avatar-orozco.webp",
+          "role": "Transportista de extracción",
           "highlighted": true
         }
       ],
       "echos": {
-        "pf1w4h2a": [
+        "orozco": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w4h2b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
+            "datetime": { "date": "30/06/2025", "time": "—" },
+            "description": "Es abordado por el OIJ en León XIII. Confía que fue contactado para recoger a dos sujetos en Coronado y llevarlos a León XIII. Define el pago recibido como inusualmente alto para un viaje de esa distancia. Su celular será la pieza clave de toda la investigación."
           }
         ]
       },
@@ -1204,69 +1053,77 @@
         "rotation": -8,
         "radius": 0
       },
-      "title": "TODO — Título evento cuaternario wp4",
+      "title": "Análisis forense del celular de Orozco: la cadena queda expuesta",
       "image": "/assets/TODO-wp4-h3.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
+        "date": "Julio 2025",
+        "time": "—",
+        "timeColor": "#4ECDC4"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento cuaternario.",
+      "location": "Laboratorio Forense OIJ, San José",
+      "description": "El análisis forense del teléfono de Orozco confirma toda la coordinación: la llamada de Chaves Medina a las 08:10 h, los mensajes de urgencia de Robles Salas ('Corra xfa', 'Sáqueme de aquí'), el contacto de Carvajal con su número 62329434, y el pago posterior de Chacón Guillén.",
       "involved": [
         {
-          "id": "pf1w4h3a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w4h3b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/avatar-chaves-medina.webp",
+          "role": "Intermediario logístico",
           "highlighted": true
         },
         {
-          "id": "pf1w4h3c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/avatar-robles-salas.webp",
+          "role": "Conductor — vehículo de asalto"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor"
+        },
+        {
+          "id": "orozco",
+          "name": "Luis Ricardo Orozco González",
+          "avatar": "/assets/avatar-orozco.webp",
+          "role": "Transportista de extracción"
+        },
+        {
+          "id": "chacon",
+          "name": "Stephanie María Chacón Guillén",
+          "avatar": "/assets/avatar-chacon.webp",
+          "role": "Facilitadora financiera"
         }
       ],
       "echos": {
-        "pf1w4h3a": [
+        "chaves_medina": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "19/06/2025", "time": "08:10 h" },
+            "description": "La llamada de 24 segundos de Chaves a Orozco queda documentada en el análisis forense como la orden de extracción."
           }
         ],
-        "pf1w4h3b": [
+        "robles_salas": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
+            "datetime": { "date": "19/06/2025", "time": "08:21 h" },
+            "description": "Los mensajes de WhatsApp de Robles a Orozco —incluyendo 'Corra xfa', 'Vueleeeee', 'Sáqueme de aquí'— quedan recuperados del celular del transportista."
           }
         ],
-        "pf1w4h3c": [
+        "carvajal": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
+            "datetime": { "date": "19/06/2025", "time": "08:34 h" },
+            "description": "Su número 62329434 contacta a Orozco directamente, cerrando la triangulación que lo identifica como el ejecutor material."
+          }
+        ],
+        "orozco": [
+          {
+            "datetime": { "date": "30/06/2025", "time": "—" },
+            "description": "Su celular es la pieza forense central que conecta a toda la estructura: llamadas, WhatsApp, GPS y registros bancarios."
+          }
+        ],
+        "chacon": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "10:38 h" },
+            "description": "Los dos depósitos SINPE de ₡50.000 quedan documentados mediante el levantamiento del secreto bancario de Orozco."
           }
         ]
       },
@@ -1553,69 +1410,77 @@
         "rotation": -2,
         "radius": 0
       },
-      "title": "TODO — Título evento principal wp5",
+      "title": "Allanamientos en León XIII y Cañas — cuatro detenidos",
       "image": "/assets/TODO-wp5-h0.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
+        "date": "11/09/2025 – 12/09/2025",
+        "time": "—",
         "timeColor": "#FF4444"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento principal.",
+      "location": "León XIII (Tibás) y Cañas, Guanacaste",
+      "description": "Agentes del OIJ, con el director Randall Zúñiga y el fiscal general Carlo Díaz, ejecutan allanamientos en León XIII y Cañas. Resultado: cuatro de los cinco sospechosos directamente vinculados son detenidos. El fiscal Díaz enfatiza que la línea principal apunta a una orden 'aparentemente del Ejército nicaragüense'.",
       "involved": [
         {
-          "id": "pf1w5h0a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w5h0b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/avatar-chaves-medina.webp",
+          "role": "Intermediario logístico",
           "highlighted": true
         },
         {
-          "id": "pf1w5h0c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/avatar-robles-salas.webp",
+          "role": "Conductor — vehículo de asalto"
+        },
+        {
+          "id": "orozco",
+          "name": "Luis Ricardo Orozco González",
+          "avatar": "/assets/avatar-orozco.webp",
+          "role": "Transportista de extracción"
+        },
+        {
+          "id": "chacon",
+          "name": "Stephanie María Chacón Guillén",
+          "avatar": "/assets/avatar-chacon.webp",
+          "role": "Facilitadora financiera"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor"
         }
       ],
       "echos": {
-        "pf1w5h0a": [
+        "chaves_medina": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "11/09/2025", "time": "—" },
+            "description": "Detenido en Cañas, Guanacaste. Tenía en su poder ₡4 millones en efectivo al momento de la captura. Se le dicta prisión preventiva por 6 meses."
           }
         ],
-        "pf1w5h0b": [
+        "robles_salas": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
+            "datetime": { "date": "11/09/2025", "time": "—" },
+            "description": "Detenido en León XIII. Se le dicta prisión preventiva por 6 meses."
           }
         ],
-        "pf1w5h0c": [
+        "orozco": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
+            "datetime": { "date": "11/09/2025", "time": "—" },
+            "description": "Detenido en vía pública. Se le dicta prisión preventiva por 6 meses."
+          }
+        ],
+        "chacon": [
+          {
+            "datetime": { "date": "11/09/2025", "time": "—" },
+            "description": "Detenida en vía pública. Enfrentará el proceso penal en libertad mientras se recopilan más indicios."
+          }
+        ],
+        "carvajal": [
+          {
+            "datetime": { "date": "11/09/2025", "time": "—" },
+            "description": "No capturado en los allanamientos. Se mantiene prófugo. El OIJ continúa las diligencias para su detención."
           }
         ]
       },
@@ -1640,47 +1505,33 @@
         "rotation": 0,
         "radius": 0
       },
-      "title": "TODO — Título evento secundario wp5",
+      "title": "El presunto cerebro: Pablo Robles Murillo",
       "image": "/assets/TODO-wp5-h1.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
+        "date": "07/08/2025",
+        "time": "Última salida documentada",
         "timeColor": "#FF4444"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento secundario.",
+      "location": "Frontera Nicaragua – Costa Rica / Nicaragua",
+      "description": "Pablo Antonio Robles Murillo, señalado como el presunto cerebro del crimen, no está formalmente imputado. Registró numerosos movimientos migratorios entre Costa Rica y Nicaragua. Su último viaje documentado fue a Nicaragua el 7 de agosto de 2025; desde entonces no ha retornado por un puesto fronterizo oficial.",
       "involved": [
         {
-          "id": "pf1w5h1a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w5h1b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/avatar-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual",
           "highlighted": true
         }
       ],
       "echos": {
-        "pf1w5h1a": [
+        "robles_murillo": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w5h1b": [
+            "datetime": { "date": "10/05/2025", "time": "—" },
+            "description": "Viaja a Nicaragua antes del crimen. Regresa el 23 de julio de 2025."
+          },
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
+            "datetime": { "date": "07/08/2025", "time": "—" },
+            "description": "Sale nuevamente a Nicaragua. No retorna por ningún puesto fronterizo oficial. No está formalmente imputado pero es señalado por fuentes como el cerebro del complot, con vínculos al General Julio César Avilés y a estructuras de inteligencia del Ejército de Nicaragua."
           }
         ]
       },
@@ -1705,47 +1556,53 @@
         "rotation": 2,
         "radius": 0
       },
-      "title": "TODO — Título evento terciario wp5",
+      "title": "El caso sigue abierto — la impunidad persiste",
       "image": "/assets/TODO-wp5-h2.webp",
       "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
+        "date": "Septiembre 2025",
+        "time": "—",
+        "timeColor": "#4ECDC4"
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento terciario.",
+      "location": "San José, Costa Rica",
+      "description": "Tres sospechosos con prisión preventiva. El gatillero prófugo. El presunto cerebro sin imputar en Nicaragua. La investigación continúa abierta con el objetivo de identificar plenamente a los autores intelectuales y establecer el alcance de la represión transnacional.",
       "involved": [
         {
-          "id": "pf1w5h2a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/avatar-carvajal.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
         },
         {
-          "id": "pf1w5h2b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/avatar-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual"
+        },
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/avatar-chaves-medina.webp",
+          "role": "Intermediario logístico"
         }
       ],
       "echos": {
-        "pf1w5h2a": [
+        "carvajal": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
+            "datetime": { "date": "Septiembre 2025", "time": "—" },
+            "description": "Sigue prófugo. Es el único ejecutor material no capturado. El OIJ realiza diligencias activas para su detención."
           }
         ],
-        "pf1w5h2b": [
+        "robles_murillo": [
           {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
+            "datetime": { "date": "Septiembre 2025", "time": "—" },
+            "description": "Sin imputar formalmente. Fuera del país. Investigado como presunto autor intelectual con nexos a estructuras militares nicaragüenses."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": { "date": "Septiembre 2025", "time": "—" },
+            "description": "En prisión preventiva. Es el eslabón clave que conecta a los autores intelectuales con los ejecutores materiales."
           }
         ]
       },
