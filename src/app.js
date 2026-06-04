@@ -568,6 +568,7 @@ let memoryMonitor = new MemoryMonitor();
   const dirtyFlags = { camera: false, elements: false, dialog: false, minimap: false, debug: false, cameraMoving: false };
   function markDirty(...flags) { flags.forEach(f => { if (dirtyFlags.hasOwnProperty(f)) dirtyFlags[f] = true; }); }
   window.markDirty = markDirty;  // Exponer para uso global (e.g., togglePopupDisplay)
+  window.setCanvasDPR = () => setCanvasDPR(); // Exponer para cierre de popups
   function clearDirtyFlags() { Object.keys(dirtyFlags).forEach(k => dirtyFlags[k] = false); }
   function needsRedraw() {
     return (
@@ -2077,6 +2078,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   const RESIZE_DEBOUNCE = 150;
 
   function handleResize() {
+    // ⛔ Ignorar resizes mientras hay popup abierto (evita flash por scrollbar del body)
+    if (popupManager?.isOpen()) return;
+
     const now = performance.now();
 
     // Actualizar modo del dispositivo (mobile/desktop)
@@ -2111,6 +2115,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   try {
     if ('ResizeObserver' in window && wrap) {
       const ro = new ResizeObserver(() => {
+        // ⛔ Ignorar resizes mientras hay popup abierto (scrollbar del body cambia ancho)
+        if (popupManager?.isOpen()) return;
         markDirty('camera', 'elements', 'minimap');
         const now = performance.now();
         if (now - lastResize > RESIZE_THROTTLE) {
@@ -2127,6 +2133,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     visualViewport.addEventListener('resize', () => {
       // Use requestAnimationFrame to ensure this runs in the next frame
       requestAnimationFrame(() => {
+        // ⛔ Ignorar resizes mientras hay popup abierto (barra URL mobile sube/baja al scrollear)
+        if (popupManager?.isOpen()) return;
         const now = performance.now();
         if (now - lastResize > RESIZE_THROTTLE) {
           setCanvasDPR();
@@ -2166,6 +2174,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       effects.breathingEnabled &&
       (!isMobile || effects.breathingMobileEnabled !== false) &&
       !appConfig.editorActive &&
+      !popupManager?.isOpen() &&                                              // ⛔ pausa breathing con popup abierto
       (!effects.disableBreathingDuringTransition || !transitionState.active);
 
     if (breathingAllowed) {

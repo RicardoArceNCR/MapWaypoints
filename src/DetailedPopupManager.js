@@ -454,7 +454,11 @@ export class DetailedPopupManager {
       // Restaurar scroll del body + chrome navegación
       document.body.style.overflow = '';
       document.body.classList.remove('popup-open');
-      
+
+      // ✅ Recalcular canvas: la scrollbar del body volvió, el viewport puede haber cambiado
+      window.setCanvasDPR?.();
+      window.markDirty?.('camera', 'elements', 'minimap');
+
       this.currentHotspot = null;
       this.selectedPersonId = null;
       this.popupDetailedTime.style.color = '';
