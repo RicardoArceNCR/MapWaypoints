@@ -4,11 +4,11 @@
       "_note": "WP0-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -12,
-        "offsetY": -216,
+        "offsetX": -7,
+        "offsetY": -186,
         "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "height": 400,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -76,8 +76,8 @@
       "caption": "En esta foto se ve a Samcam entrando al aeropuerto Juan Santamaría. Llega acompañado por colegas opositores.",
       "noPopup": true,
       "mobile": {
-        "offsetX": -12,
-        "offsetY": -216,
+        "offsetX": -10,
+        "offsetY": -267,
         "width": 280,
         "height": 145,
         "rotation": 9,
@@ -103,11 +103,11 @@
       "caption": "Mapa del Aeropuerto Juan Santamaría en Alajuela, Costa Rica. Se muestra la ruta de acceso principal.",
       "title": "",
       "mobile": {
-        "offsetX": -3,
-        "offsetY": -17,
-        "width": 294,
-        "height": 204,
-        "rotation": -8,
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
         "radius": 0
       },
       "desktop": {
