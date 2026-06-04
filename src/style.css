@@ -379,7 +379,7 @@ body {
   }
 
   .hamburger {
-    top: 50px;
+    top: 91px;
   }
 }
 
@@ -1124,7 +1124,7 @@ body.net-slow .drawer {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 14px 52px 14px 18px;
+  padding: 14px 18px 14px 18px;
 
   opacity: 0;
   transform: translateY(-6px);
@@ -1643,7 +1643,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 /* medium — iPhone SE alto, Samsung S8+ */
 @media (min-height: 601px) and (max-height: 740px) {
   .waypoint-info-box__title { font-size: 1.3rem; }
-  .waypoint-info-box__desc  { font-size: 1rem; text-align: left;}
+  .waypoint-info-box__desc  { font-size: 1rem; }
 }
 
 /* tall — iPhone 12 Pro */

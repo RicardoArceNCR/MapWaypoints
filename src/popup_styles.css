@@ -299,8 +299,8 @@
 
 /* Título con animación */
 .popup-detailed__title {
-  margin: 0 0 20px 0;
-  color: var(--phase-color, #f2f2f2);
+  margin: 40px 0 20px 0;
+  color: var(--phase-color, #1BC6EB);
   font-size: clamp(24px, 5vw, 32px);
   font-weight: 700;
   line-height: 1.2;
@@ -406,18 +406,35 @@
   letter-spacing: 1px;
 }
 
-/* Grid de personas implicadas mejorado */
+/* Grid de implicados */
 .popup-detailed__involved {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(2, 1fr); /* fallback: 2 cols */
   gap: 16px;
   margin-bottom: 24px;
 }
 
-@media (max-width: 480px) {
+/* Desktop: 2–4 columnas según cantidad */
+@media (min-width: 769px) {
+  .popup-detailed__involved:has(.popup-detailed__person:nth-child(1):last-child) {
+    grid-template-columns: minmax(0, 280px);
+    justify-content: center;
+  }
+  .popup-detailed__involved:has(.popup-detailed__person:nth-child(3):last-child) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .popup-detailed__involved:has(.popup-detailed__person:nth-child(4)) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Mobile: hasta 3 columnas, gap más compacto */
+@media (max-width: 768px) {
   .popup-detailed__involved {
-    grid-template-columns: repeat(auto-fill, minmax(59px, 1fr));
-    gap: 12px;
+    gap: 10px;
+  }
+  .popup-detailed__involved:has(.popup-detailed__person:nth-child(3)) {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -426,7 +443,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0px;
+  padding: 12px 8px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
@@ -469,9 +486,9 @@
 /* Avatar wrapper mejorado */
 .popup-detailed__person-avatar-wrapper {
   position: relative;
-  width: 64px;
-  height: 64px;
-  margin-bottom: 8px;
+  width: clamp(48px, 12vw, 72px);
+  height: clamp(48px, 12vw, 72px);
+  margin: 0 auto 8px;
 }
 
 .popup-detailed__person-avatar {
@@ -514,26 +531,20 @@
 
 .popup-detailed__person-name {
   color: rgba(255, 255, 255, 0.95);
-  font-size: clamp(13px, 2vw, 14px);
+  font-size: clamp(11px, 1.5vw, 14px);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.3;
   margin-bottom: 4px;
-
-  /* Truncar texto largo */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .popup-detailed__person-role {
   color: rgba(255, 255, 255, 0.6);
-  font-size: clamp(11px, 1.5vw, 12px);
-  line-height: 1.2;
-
-  /* Truncar texto largo */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: clamp(10px, 1.2vw, 12px);
+  line-height: 1.3;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Echos mejorados */

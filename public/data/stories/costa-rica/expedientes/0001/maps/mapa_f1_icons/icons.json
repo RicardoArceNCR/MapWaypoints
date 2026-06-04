@@ -31,20 +31,20 @@
         {
           "id": "robles_murillo",
           "name": "Pablo Antonio Robles Murillo",
-          "avatar": "/assets/avatar-robles-murillo.webp",
+          "avatar": "/assets/pablo-anotonio-robles-murillo.webp",
           "role": "Presunto cerebro / Autor intelectual",
           "highlighted": true
         },
         {
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/avatar-chaves-medina.webp",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario logístico"
         },
         {
           "id": "carvajal",
           "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
           "role": "Gatillero / Ejecutor"
         }
       ],
