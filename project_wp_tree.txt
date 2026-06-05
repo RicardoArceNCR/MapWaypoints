@@ -78,6 +78,8 @@
 ├── project_wp_tree.txt
 ├── public
 │   ├── assets
+│   │   ├── bryan-steven-robles-salas.webp
+│   │   ├── danilo-jose-chavez-medina.webp
 │   │   ├── default.gif
 │   │   ├── F3-movil.webp
 │   │   ├── fase-2-mapa-dektop-4x.png
@@ -96,6 +98,8 @@
 │   │   │   └── inter-v20-latin-regular.woff2
 │   │   ├── icon-info.png
 │   │   ├── logo-divergentes.webp
+│   │   ├── luis-fernando-carvajal-fernandez.webp
+│   │   ├── luis-ricardo-orozco-gonzales.webp
 │   │   ├── mapa-1.jpg
 │   │   ├── mapa-1.webp
 │   │   ├── mapa-11.webp
@@ -126,6 +130,7 @@
 │   │   ├── mapa-mobile.jpg
 │   │   ├── mapa-mobile.png
 │   │   ├── mapa-mobile.webp
+│   │   ├── pablo-anotonio-robles-murillo.webp
 │   │   ├── persona_1-1.gif
 │   │   ├── persona_1-2.gif
 │   │   ├── persona_1-3.gif
@@ -154,4 +159,4 @@
 ├── vercel.json
 └── vite.config.js
 
-16 directories, 139 files
+16 directories, 144 files

@@ -433,6 +433,7 @@ let memoryMonitor = new MemoryMonitor();
   const _wib = document.getElementById('waypoint-info-box');
   const _wibTitle = document.getElementById('waypoint-info-title');
   const _wibDesc = document.getElementById('waypoint-info-desc');
+  const _wibBody = document.getElementById('waypoint-info-body');
 
   // Managers
   const mapManager = new MapManager();
@@ -973,14 +974,38 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   function updateWaypointInfoBox(wp) {
     if (!_wib) return;
     const title = wp?.label || '';
-    const desc = (wp?.lines && wp.lines[0]) || '';
+    const desc  = (wp?.lines && wp.lines[0]) || '';
+    const body  = (wp?.lines && wp.lines[1]) || '';
     if (!title && !desc) {
       _wib.hidden = true;
       _wib.classList.remove('visible');
       return;
     }
     _wibTitle.textContent = title;
-    _wibDesc.textContent = desc;
+    _wibDesc.textContent  = desc;
+    if (_wibBody) {
+      _wibBody.textContent = body;
+      _wibBody.hidden = !body;
+    }
+
+    // 🗓️ Fecha dinámica — primer hotspot principal del waypoint activo
+    const hotspots = state.currentIcons[state.idx] || [];
+    const mainHotspot = hotspots.find(h => !h.noPopup && h.datetime?.date);
+    let dateEl = _wib.querySelector('.waypoint-info-box__date');
+    if (mainHotspot?.datetime) {
+      const { date, time } = mainHotspot.datetime;
+      const dateStr = [date, time].filter(Boolean).join(' · ');
+      if (!dateEl) {
+        dateEl = document.createElement('p');
+        dateEl.className = 'waypoint-info-box__date';
+        _wib.insertBefore(dateEl, _wib.firstChild);
+      }
+      dateEl.textContent = dateStr;
+      dateEl.hidden = false;
+    } else if (dateEl) {
+      dateEl.hidden = true;
+    }
+
     _wib.hidden = false;
     _wib.offsetHeight; // force reflow
     _wib.classList.add('visible');

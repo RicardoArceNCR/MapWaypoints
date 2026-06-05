@@ -155,7 +155,7 @@ body {
 
 /* ── Puntos de progreso: subirlos sobre la barra de fases ─── */
 .progress {
-  bottom: 68px !important;
+  bottom: 68px;
   z-index: 10001;
 }
 
@@ -332,7 +332,7 @@ body {
 /* ========= HAMBURGUESA (Mobile) ========= */
 .hamburger {
   position: absolute;
-  top: 60px;
+  bottom: 100px;
   right: 16px;
   z-index: 40;
   width: 48px;
@@ -378,9 +378,6 @@ body {
     top: 80px;
   }
 
-  .hamburger {
-    top: 91px;
-  }
 }
 
 @media (max-width: 520px) {
@@ -733,18 +730,24 @@ body {
   }
 
   .ui .progress {
-    position: fixed;
+    position: absolute;
     left: 50%;
-    bottom: 2%;
+    bottom: 68px;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 6px 10px;
-    background: none;
-    border-radius: 0px;
-    pointer-events: auto;
+    padding: 0px; /* más espacio arriba */
+
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.95) 0%,
+      rgba(0, 0, 0, 0.75) 35%,
+      rgba(0, 0, 0, 0) 100%
+    );
+
     width: 100%;
+    pointer-events: auto;
   }
 
   .ui .progress span {
@@ -1014,7 +1017,7 @@ body.net-slow .drawer {
   }
 
   .ui .progress {
-    bottom: 5%;
+    bottom: 68px;
   }
 
 }
@@ -1149,6 +1152,43 @@ body.net-slow .drawer {
   font-size: clamp(12px, 1.2vw, 20px);
   color: rgba(255, 255, 255, 0.70);
   line-height: 1.5;
+}
+
+/* Fecha dinámica del hotspot — aparece arriba del título */
+.waypoint-info-box__date {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -22px;
+
+  /* Badge */
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px 3px 10px;
+  border-radius: 99px;
+
+  /* Color: celeste de fase como bg, texto oscuro */
+  background: var(--phase-color, #1BC6EB);
+  color: #0a121a;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  white-space: nowrap;
+
+  /* Sombra para separarlo del info-box */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* Tercer texto — descripción editorial, tamaño fijo 16px */
+.waypoint-info-box__body {
+  margin: 6px 0 0;
+  font-size: clamp(12px, 1vw + 8px, 16px);
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.55;
+  font-weight: 400;
 }
 
 /* Desktop: limitar ancho para no tapar todo el mapa */

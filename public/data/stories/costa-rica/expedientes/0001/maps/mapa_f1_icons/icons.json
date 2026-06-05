@@ -19,14 +19,14 @@
         "rotation": -1,
         "radius": 0
       },
-      "title": "Samcam regresa a Costa Rica.",
+      "title": "La víctima regresó a Costa Rica.",
       "datetime": {
         "date": "16/06/2025",
         "time": "12:07 h",
         "timeColor": "#1BC6EB"
       },
       "location": "Aeropuerto Juan Santamaría, Alajuela, Costa Rica",
-      "description": "Roberto Samcam Ruiz regresa de una gira por varios países, ingresando por el Aeropuerto Juan Santamaría. Toma un taxi formal hacia su vivienda en Tibás. Su reingreso ocurre exactamente tres días antes de su asesinato.",
+      "description": "Roberto Samcam Ruiz regresa a Costa Rica proveniente de México, por el Aeropuerto Juan Santamaría, después de una gira por varios países. Su reingreso ocurre apenas tres días antes de su asesinato. Utiliza un taxi formal para dirigirse a su vivienda, ubicada en Tibás.",
       "involved": [
         {
           "id": "robles_murillo",
@@ -51,19 +51,28 @@
       "echos": {
         "robles_murillo": [
           {
-            "datetime": { "date": "16/06/2025", "time": "—" },
+            "datetime": {
+              "date": "16/06/2025",
+              "time": "—"
+            },
             "description": "Según fuentes confidenciales, Robles Murillo coordinó con 'la plana mayor del Ejército de Nicaragua' el seguimiento al retorno de Samcam al país. Es señalado como el cerebro que activó la célula tras confirmar el regreso de la víctima."
           }
         ],
         "chaves_medina": [
           {
-            "datetime": { "date": "16/06/2025", "time": "—" },
+            "datetime": {
+              "date": "16/06/2025",
+              "time": "—"
+            },
             "description": "Como intermediario entre los autores intelectuales y la célula operativa en León XIII, Chaves Medina habría recibido la orden de iniciar las labores de ubicación de Samcam."
           }
         ],
         "carvajal": [
           {
-            "datetime": { "date": "16/06/2025", "time": "—" },
+            "datetime": {
+              "date": "16/06/2025",
+              "time": "—"
+            },
             "description": "El futuro gatillero inicia el período de vigilancia preoperativa tras conocerse el regreso de Samcam a Costa Rica."
           }
         ]
@@ -94,7 +103,6 @@
       "title": "",
       "image": "/assets/vacio.png"
     },
-    
     {
       "_note": "WP0-H1-B: Hotspot tipo B — informativo superpuesto al H1",
       "type": "hotspot",
@@ -122,3414 +130,879 @@
   ],
   "wp1": [
     {
-      "_note": "WP1-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
+      "_note": "WP1-H0: Rectángulo principal — copia exacta de layout wp0",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -16,
-        "offsetY": -175,
-        "width": 230,
-        "height": 185,
-        "rotation": 10,
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -302,
-        "offsetY": 4,
-        "width": 477,
-        "height": 430,
-        "rotation": 2,
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
         "radius": 0
       },
-      "title": "Reunión final de coordinación del asesinato",
+      "title": "Inicia la vigilancia final de los asesinos en un vehículo Hyundai",
       "image": "/assets/TODO-wp1-h0.webp",
       "datetime": {
         "date": "18/06/2025",
-        "time": "17:54 – 18:23 h",
+        "time": "16:17 h",
         "timeColor": "#FF4444"
       },
-      "location": "Estación de Servicio Delta, ingreso a León XIII, Tibás, San José",
-      "description": "El Duster BKK-190 se dirige a la Gasolinera Delta donde confluyen el Hyundai celeste 903056 y una motocicleta Freedom color rojo. Según información confidencial, el propósito era coordinar el asesinato, revisar los vehículos (al Duster le abren el capó) y el arma para 'afinar detalles de la planificación'.",
+      "location": "Ingreso a León XIII, Tibás, San José",
+      "description": "Se capta el vehículo Hyundai celeste (placa 903056), con características distintivas (puerta delantera del acompañante blanca), en el ingreso a León XIII. Este vehículo había sido entregado por su dueño, Luis Orozco, a Danilo José Chaves Medina (\"Dani Peluqueris\") esa mañana, aparentemente para trámites, y Danilo coordinaba su devolución.",
       "involved": [
+        {
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/pablo-anotonio-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual",
+          "highlighted": true
+        },
         {
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/avatar-chaves-medina.webp",
-          "role": "Intermediario logístico",
-          "highlighted": true
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario logístico"
         },
         {
           "id": "carvajal",
           "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
           "role": "Gatillero / Ejecutor"
-        },
-        {
-          "id": "robles_salas",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/avatar-robles-salas.webp",
-          "role": "Conductor — vehículo de asalto"
-        },
-        {
-          "id": "orozco",
-          "name": "Luis Ricardo Orozco González",
-          "avatar": "/assets/avatar-orozco.webp",
-          "role": "Transportista de extracción"
         }
       ],
       "echos": {
+        "robles_murillo": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
+            "description": "Desde la cadena de mando, Robles Murillo había ordenado el inicio de las vigilancia activa una vez confirmado el regreso de Samcam al país. El Hyundai es el primer vehículo visible de esa operación."
+          }
+        ],
         "chaves_medina": [
           {
-            "datetime": { "date": "18/06/2025", "time": "17:54 h" },
-            "description": "Coordina la reunión tripartita en la gasolinera. Como intermediario, asegura que todos los elementos —vehículos, arma y roles— estén listos para el día siguiente."
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "Mañana"
+            },
+            "description": "Recibe el Hyundai celeste 903056 de manos de su dueño, Luis Orozco, bajo el pretexto de realizar trámites. Coordina la devolución pero en su lugar lo incorpora al operativo."
+          },
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
+            "description": "Captado al volante del Hyundai celeste al ingresar a León XIII, diez minutos después de que Samcam llegó a su vivienda. Inicia la vigilancia estática del perímetro."
           }
         ],
         "carvajal": [
           {
-            "datetime": { "date": "18/06/2025", "time": "19:04 h" },
-            "description": "Tras la reunión, su dispositivo activa la radiobase 'León XIII', coincidente con el sector de residencia de los sospechosos, confirmando el regreso a la base."
-          }
-        ],
-        "robles_salas": [
-          {
-            "datetime": { "date": "18/06/2025", "time": "17:54 h" },
-            "description": "Llega al punto de reunión conduciendo el Renault Duster BKK-190. Participa en la revisión de vehículos y la asignación de roles para el ataque del día siguiente."
-          }
-        ],
-        "orozco": [
-          {
-            "datetime": { "date": "18/06/2025", "time": "16:17 h" },
-            "description": "Su Hyundai celeste (que había prestado a Chaves Medina) es captado en la reunión de coordinación en la gasolinera Delta. Orozco estaba siendo incorporado como transportista de extracción post-crimen."
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
+            "description": "Coordinado con Chaves Medina, inicia el seguimiento desde el sector de León XIII como parte de la fase final de inteligencia preoperativa antes del crimen."
           }
         ]
       },
       "id": "hs_f1_w1_h0"
     },
     {
-      "_note": "WP1-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
+      "_note": "WP1-H0-B: Tipo B — informativo superpuesto al H0 (foto Hyundai)",
       "type": "hotspot",
-      "mobile": {
-        "offsetX": -12,
-        "offsetY": 21,
-        "width": 280,
-        "height": 190,
-        "rotation": -8,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 241,
-        "offsetY": 30,
-        "width": 520,
-        "height": 285,
-        "rotation": 0,
-        "radius": 0
-      },
-      "title": "Los sicarios regresan a su base en León XIII",
-      "image": "/assets/TODO-wp1-h1.webp",
-      "datetime": {
-        "date": "18/06/2025",
-        "time": "19:04 h",
-        "timeColor": "#FF4444"
-      },
-      "location": "Sector León XIII, Tibás, San José",
-      "description": "Concluida la reunión de coordinación, los integrantes de la célula regresan al sector donde residen. El dispositivo de Carvajal activa la radiobase 'León XIII'. Todo está listo para el asesinato programado para la mañana siguiente.",
-      "involved": [
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "chaves_medina",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/avatar-chaves-medina.webp",
-          "role": "Intermediario logístico"
-        },
-        {
-          "id": "robles_salas",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/avatar-robles-salas.webp",
-          "role": "Conductor — vehículo de asalto"
-        }
-      ],
-      "echos": {
-        "carvajal": [
-          {
-            "datetime": { "date": "18/06/2025", "time": "19:04 h" },
-            "description": "Su celular (número 62329434) activa la radiobase 'León XIII' al regresar al barrio, confirmando su presencia en la base de la célula."
-          }
-        ],
-        "chaves_medina": [
-          {
-            "datetime": { "date": "18/06/2025", "time": "~19:00 h" },
-            "description": "Regresa a León XIII con el Hyundai celeste, cerrando las coordinaciones del día previo al crimen."
-          }
-        ],
-        "robles_salas": [
-          {
-            "datetime": { "date": "18/06/2025", "time": "~19:00 h" },
-            "description": "Regresa a su residencia en León XIII. Al día siguiente conducirá el Duster como vehículo de asalto."
-          }
-        ]
-      },
-      "id": "hs_f1_w1_h1"
-    }
-  ],
-  "wp2": [
-    {
-      "_note": "WP2-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Hyundai celeste placa 903056, identificado por la puerta delantera del acompañante de color blanco. Captado en cámara al ingreso de León XIII a las 16:17 h del 18 de junio de 2025.",
+      "title": "",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": -260,
-        "offsetY": 4,
-        "width": 500,
-        "height": 377,
-        "rotation": -7,
-        "radius": 0
-      },
-      "title": "Los sicarios salen a matar desde León XIII",
-      "image": "/assets/TODO-wp2-h0.webp",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "06:18 h",
-        "timeColor": "#FF4444"
-      },
-      "location": "Sector León XIII, Tibás, San José",
-      "description": "El Renault Duster blanco (BKK-190) sale de León XIII con dirección a Moravia, conducido inicialmente por Danilo Chaves Medina. Minutos después, la motocicleta Freedom color rojo —conducida por Bryan Robles Salas— también parte del mismo sector.",
-      "involved": [
-        {
-          "id": "chaves_medina",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/avatar-chaves-medina.webp",
-          "role": "Intermediario logístico",
-          "highlighted": true
-        },
-        {
-          "id": "robles_salas",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/avatar-robles-salas.webp",
-          "role": "Conductor — vehículo de asalto"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
-          "role": "Gatillero / Ejecutor"
-        }
-      ],
-      "echos": {
-        "chaves_medina": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "06:18 h" },
-            "description": "Sale de León XIII al volante del Renault Duster BKK-190, con destino a Moravia para ejecutar el plan."
-          }
-        ],
-        "robles_salas": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "06:29 h" },
-            "description": "Sale de León XIII conduciendo la motocicleta Freedom color rojo, once minutos después del Duster."
-          }
-        ],
-        "carvajal": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "06:18 h" },
-            "description": "Sale como pasajero en el Duster. Viste un suéter gris que cambiará después del crimen."
-          }
-        ]
-      },
-      "id": "hs_f1_w2_h0"
-    },
-    {
-      "_note": "WP2-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -5,
-        "offsetY": -121,
+        "offsetY": -267,
         "width": 280,
-        "height": 190,
-        "rotation": -8,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 301,
-        "offsetY": -93,
-        "width": 460,
-        "height": 238,
-        "rotation": 0,
-        "radius": 0
-      },
-      "title": "Cambio de roles: Carvajal sube a la motocicleta",
-      "image": "/assets/TODO-wp2-h1.webp",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "06:37 – 07:41 h",
-        "timeColor": "#FF4444"
-      },
-      "location": "Calle sin salida, Av. 65A, Moravia, San José",
-      "description": "Ambos vehículos hacen rondas y se reúnen en una calle sin salida. Se producen cambios de posición para evitar ser detectados. Carvajal (suéter gris) sube como pasajero en la motocicleta. A las 07:41 h se hace el último cambio: Robles Salas pasa a conducir el Duster (vehículo de asalto) y Chaves Medina pasa a la motocicleta (camisa color mostaza).",
-      "involved": [
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "robles_salas",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/avatar-robles-salas.webp",
-          "role": "Conductor — vehículo de asalto"
-        },
-        {
-          "id": "chaves_medina",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/avatar-chaves-medina.webp",
-          "role": "Intermediario logístico"
-        }
-      ],
-      "echos": {
-        "carvajal": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "07:40 h" },
-            "description": "Su dispositivo (62329434) activa la radiobase 'Valla Moravia', confirmando su ubicación exacta en el sector del homicidio minutos antes del ataque."
-          }
-        ],
-        "robles_salas": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "07:41 h" },
-            "description": "En el último cambio de roles asume la conducción del Renault Duster BKK-190, convirtiéndose en el conductor del vehículo de asalto."
-          }
-        ],
-        "chaves_medina": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "07:41 h" },
-            "description": "Pasa a conducir la motocicleta (con camisa color mostaza), alejándose del lugar del crimen por ruta separada hacia Tibás."
-          }
-        ]
-      },
-      "id": "hs_f1_w2_h1"
-    },
-    {
-      "_note": "WP2-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -92,
-        "offsetY": 48,
-        "width": 77,
-        "height": 77,
-        "rotation": -8,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 42,
-        "offsetY": 108,
-        "width": 196,
-        "height": 184,
-        "rotation": -9,
-        "radius": 0
-      },
-      "title": "SAMCAM ES ASESINADO en el Condominio Naples",
-      "image": "/assets/TODO-wp2-h2.webp",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "07:44 h",
-        "timeColor": "#FF0000"
-      },
-      "location": "Condominio Naples, Moravia, San José",
-      "description": "El Renault Duster BKK-190 se estaciona frente al Condominio Naples. El pasajero delantero —Carvajal Fernández— desciende, ingresa al condominio, llama a Roberto Samcam por su nombre y le dispara al menos 8 veces con arma calibre .40. El sicario regresa corriendo al automóvil, que huye a gran velocidad.",
-      "involved": [
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "robles_salas",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/avatar-robles-salas.webp",
-          "role": "Conductor — vehículo de asalto"
-        },
-        {
-          "id": "chaves_medina",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/avatar-chaves-medina.webp",
-          "role": "Intermediario logístico"
-        }
-      ],
-      "echos": {
-        "carvajal": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "07:44 h" },
-            "description": "Desciende del Duster, ingresa al Condominio Naples (segundo piso, sin vigilancia activa en ese momento), llama a Samcam por su nombre y le dispara al menos 8 veces con calibre .40. Regresa al vehículo."
-          }
-        ],
-        "robles_salas": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "07:44 h" },
-            "description": "Estaciona el Renault Duster BKK-190 frente al condominio y espera al ejecutor. Segundos después del disparo huye a gran velocidad con Carvajal dentro."
-          }
-        ],
-        "chaves_medina": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "~07:44 h" },
-            "description": "Huye por ruta separada en la motocicleta hacia Tibás/León XIII. A las 07:52 h su dispositivo registra el ingreso al sector de León XIII."
-          }
-        ]
-      },
-      "id": "hs_f1_w2_h2"
-    },
-    {
-      "_note": "WP2-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 90,
-        "offsetY": 41,
-        "width": 118,
-        "height": 77,
-        "rotation": -14,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 399,
-        "offsetY": 113,
-        "width": 238,
-        "height": 145,
-        "rotation": -13,
-        "radius": 0
-      },
-      "title": "Inicio de la huida: el Duster rumbo a Coronado",
-      "image": "/assets/TODO-wp2-h3.webp",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "07:46 – 07:54 h",
-        "timeColor": "#FF4444"
-      },
-      "location": "Ruta Moravia → Cruce El Raicero → Trinidad de Moravia",
-      "description": "El Renault Duster (con Robles Salas y Carvajal) sigue una ruta hacia Coronado, pasando por Cruce El Raicero, Mall Don Pancho (07:53 h) y Trinidad de Moravia (07:54 h). Durante el trayecto Carvajal se cambia el suéter gris por una sudadera oscura con logo Fox.",
-      "involved": [
-        {
-          "id": "robles_salas",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/avatar-robles-salas.webp",
-          "role": "Conductor — vehículo de asalto",
-          "highlighted": true
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
-          "role": "Gatillero / Ejecutor"
-        }
-      ],
-      "echos": {
-        "robles_salas": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "07:46 h" },
-            "description": "Conduce el Duster en la ruta de escape hacia Coronado. Cámaras de seguridad registran el vehículo pasando por el Cruce El Raicero, Mall Don Pancho (07:53 h) y Trinidad de Moravia (07:54 h)."
-          }
-        ],
-        "carvajal": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "07:46 – 07:54 h" },
-            "description": "Su dispositivo (62329434) activa radiobases en tiempo y lugar coincidente con el movimiento del Duster, confirmando que era el pasajero-ejecutor. Se cambia el suéter gris por una sudadera oscura con logo Fox durante la huida."
-          }
-        ]
-      },
-      "id": "hs_f1_w2_h3"
-    }
-  ],
-  "wp3": [
-    {
-      "_note": "WP3-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": -240,
-        "offsetY": -32,
-        "width": 540,
-        "height": 392,
-        "rotation": 0,
-        "radius": 0
-      },
-      "title": "Chaves Medina coordina la extracción: llamada clave",
-      "image": "/assets/TODO-wp3-h0.webp",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "08:10 h",
-        "timeColor": "#4ECDC4"
-      },
-      "location": "Sector León XIII, Tibás, San José",
-      "description": "Danilo Chaves Medina (72678193) llama a Luis Orozco González por 24 segundos. La OIJ infiere que esta llamada coordinó que Orozco se dirigiera a Coronado a recoger a los ejecutores. A las 08:15 h el Hyundai celeste sale de León XIII hacia la Ruta 32.",
-      "involved": [
-        {
-          "id": "chaves_medina",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/avatar-chaves-medina.webp",
-          "role": "Intermediario logístico",
-          "highlighted": true
-        },
-        {
-          "id": "orozco",
-          "name": "Luis Ricardo Orozco González",
-          "avatar": "/assets/avatar-orozco.webp",
-          "role": "Transportista de extracción"
-        },
-        {
-          "id": "robles_salas",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/avatar-robles-salas.webp",
-          "role": "Conductor — vehículo de asalto"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
-          "role": "Gatillero / Ejecutor"
-        }
-      ],
-      "echos": {
-        "chaves_medina": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "07:52 h" },
-            "description": "Llega a León XIII en motocicleta, completando su huida tras la ejecución."
-          },
-          {
-            "datetime": { "date": "19/06/2025", "time": "08:10 h" },
-            "description": "Llama a Orozco González durante 24 segundos para coordinar la extracción de los ejecutores en Coronado. Esta llamada es la pieza que ata toda la cadena de complicidad."
-          }
-        ],
-        "orozco": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "08:15 h" },
-            "description": "El Hyundai celeste (placa 903056) sale de León XIII rumbo a la Ruta 32, confirmando que se dirige a Coronado a recoger a los sicarios."
-          }
-        ],
-        "robles_salas": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "08:21 h" },
-            "description": "Envía su ubicación GPS a Orozco, coincidente con donde el Duster fue abandonado en una calle sin salida en Dulce Nombre de Coronado. Mensajes: 'Corra xfa', 'Vueleeeee', 'Sáqueme de aquí'."
-          }
-        ],
-        "carvajal": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "08:34 h" },
-            "description": "Contacta directamente a Orozco, explicando que el celular de Robles se había apagado y solicitando ubicación en tiempo real."
-          }
-        ]
-      },
-      "id": "hs_f1_w3_h0"
-    },
-    {
-      "_note": "WP3-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -5,
-        "offsetY": -121,
-        "width": 280,
-        "height": 190,
-        "rotation": -8,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 282,
-        "offsetY": -107,
-        "width": 394,
-        "height": 208,
-        "rotation": 1,
-        "radius": 0
-      },
-      "title": "El Duster es abandonado — llega la extracción",
-      "image": "/assets/TODO-wp3-h1.webp",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "08:38 – 08:46 h",
-        "timeColor": "#4ECDC4"
-      },
-      "location": "Calle sin salida, Dulce Nombre de Coronado, San José",
-      "description": "El dispositivo de Orozco registra su llegada al sitio exacto donde fue hallado el Duster BKK-190 abandonado cerca de Casa Kuakua. A las 08:46 h el Hyundai celeste se retira del lugar con Robles Salas y Carvajal a bordo. Las prendas del sicario (suéter gris y pantalón vino) quedan dentro del Duster.",
-      "involved": [
-        {
-          "id": "orozco",
-          "name": "Luis Ricardo Orozco González",
-          "avatar": "/assets/avatar-orozco.webp",
-          "role": "Transportista de extracción",
-          "highlighted": true
-        },
-        {
-          "id": "robles_salas",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/avatar-robles-salas.webp",
-          "role": "Conductor — vehículo de asalto"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
-          "role": "Gatillero / Ejecutor"
-        }
-      ],
-      "echos": {
-        "orozco": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "08:38 h" },
-            "description": "Su dispositivo registra la llegada al sitio exacto en Rodeo, Coronado, donde el OIJ encontraría el Duster abandonado."
-          },
-          {
-            "datetime": { "date": "19/06/2025", "time": "08:46 h" },
-            "description": "El Hyundai celeste (placa 903056) se retira del lugar con los dos ejecutores a bordo."
-          }
-        ],
-        "robles_salas": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "08:21 h" },
-            "description": "Abandona el Renault Duster BKK-190 en la calle sin salida. Espera la llegada del Hyundai de extracción enviando mensajes desesperados a Orozco."
-          }
-        ],
-        "carvajal": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "08:38 h" },
-            "description": "Aborda el Hyundai celeste en el punto de extracción. Las prendas de vestir usadas durante el crimen (suéter gris y pantalón color vino) son encontradas por el OIJ dentro del Duster abandonado."
-          }
-        ]
-      },
-      "id": "hs_f1_w3_h1"
-    },
-    {
-      "_note": "WP3-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -92,
-        "offsetY": 48,
-        "width": 77,
-        "height": 77,
-        "rotation": -8,
-        "radius": 20
-      },
-      "desktop": {
-        "offsetX": 109,
-        "offsetY": 78,
-        "width": 132,
-        "height": 141,
-        "rotation": -6,
-        "radius": 0
-      },
-      "title": "Regreso a la base criminal en León XIII",
-      "image": "/assets/TODO-wp3-h2.webp",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "09:14 h",
-        "timeColor": "#4ECDC4"
-      },
-      "location": "Sector León XIII, Tibás, San José",
-      "description": "Orozco y los ejecutores regresan al sector de León XIII. La ubicación registrada por el dispositivo de Orozco coincide con la vivienda de Carvajal Fernández, confirmando el destino final de la extracción.",
-      "involved": [
-        {
-          "id": "orozco",
-          "name": "Luis Ricardo Orozco González",
-          "avatar": "/assets/avatar-orozco.webp",
-          "role": "Transportista de extracción",
-          "highlighted": true
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
-          "role": "Gatillero / Ejecutor"
-        },
-        {
-          "id": "robles_salas",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/avatar-robles-salas.webp",
-          "role": "Conductor — vehículo de asalto"
-        }
-      ],
-      "echos": {
-        "orozco": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "09:14 h" },
-            "description": "Su dispositivo registra la llegada a León XIII, coincidiendo con la vivienda de Carvajal. Completa el traslado que le costará el doble de lo normal."
-          }
-        ],
-        "carvajal": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "09:14 h" },
-            "description": "Llega a su vivienda en León XIII. Se mantendrá prófugo tras los allanamientos del 11 y 12 de septiembre de 2025. El OIJ continúa las diligencias para su detención."
-          }
-        ],
-        "robles_salas": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "09:14 h" },
-            "description": "Llega a León XIII. Será detenido el 11 de septiembre de 2025 en el sector. Se le dicta prisión preventiva."
-          }
-        ]
-      },
-      "id": "hs_f1_w3_h2"
-    },
-    {
-      "_note": "WP3-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 20,
-        "offsetY": 37,
-        "width": 77,
-        "height": 77,
-        "rotation": -24,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 368,
-        "offsetY": 92,
-        "width": 221,
-        "height": 144,
-        "rotation": 14,
-        "radius": 0
-      },
-      "title": "Pago del 'servicio': depósito de Chacón Guillén a Orozco",
-      "image": "/assets/TODO-wp3-h3.webp",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "10:38 h",
-        "timeColor": "#FF4444"
-      },
-      "location": "León XIII, Tibás, San José (transferencia SINPE Móvil)",
-      "description": "Stephanie María Chacón Guillén (pareja de Chaves Medina) deposita ₡50.000 en dos tractos a la cuenta de Orozco González, con los conceptos 'Viaje' y 'Gasolina'. El monto es diez veces superior al costo normal del traslado, lo que la OIJ interpreta como la retribución por el riesgo asumido.",
-      "involved": [
-        {
-          "id": "chacon",
-          "name": "Stephanie María Chacón Guillén",
-          "avatar": "/assets/avatar-chacon.webp",
-          "role": "Facilitadora financiera",
-          "highlighted": true
-        },
-        {
-          "id": "orozco",
-          "name": "Luis Ricardo Orozco González",
-          "avatar": "/assets/avatar-orozco.webp",
-          "role": "Transportista de extracción"
-        },
-        {
-          "id": "chaves_medina",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/avatar-chaves-medina.webp",
-          "role": "Intermediario logístico"
-        }
-      ],
-      "echos": {
-        "chacon": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "10:38 h" },
-            "description": "Realiza dos depósitos vía SINPE Móvil a la cuenta de Orozco González por ₡50.000 totales, con los detalles 'Viaje' y 'Gasolina'. Es la pareja sentimental y madre de una hija de Danilo Chaves Medina. Enfrentará el proceso penal en libertad mientras se recopilan más indicios."
-          }
-        ],
-        "orozco": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "10:38 h" },
-            "description": "Recibe el pago por el 'viaje'. El levantamiento de su secreto bancario por el OIJ documentará esta transferencia como evidencia del pago por participar en la logística del crimen."
-          }
-        ],
-        "chaves_medina": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "10:38 h" },
-            "description": "Su pareja realiza el pago en su nombre, vinculándolo directamente a la cadena financiera del crimen. Al momento de su detención el 11 de septiembre en Cañas, Guanacaste, tenía ₡4 millones en efectivo."
-          }
-        ]
-      },
-      "id": "hs_f1_w3_h3"
-    }
-  ],
-  "wp4": [
-    {
-      "_note": "WP4-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
         "offsetX": -288,
-        "offsetY": -17,
-        "width": 452,
-        "height": 351,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
         "rotation": -1,
         "radius": 0
-      },
-      "title": "Confirmación del éxito: '¿Como le fue?'",
-      "image": "/assets/TODO-wp4-h0.webp",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "16:50 h",
-        "timeColor": "#4ECDC4"
-      },
-      "location": "León XIII, Tibás, San José",
-      "description": "Luis Orozco pregunta a Bryan Robles por mensaje: '¿Como le fue?'. Robles responde que 'le fue bien' y pregunta si Orozco vio las noticias y si salió algo 'del carro' (el Duster abandonado). Este intercambio confirma la conciencia del crimen cometido.",
-      "involved": [
-        {
-          "id": "robles_salas",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/avatar-robles-salas.webp",
-          "role": "Conductor — vehículo de asalto",
-          "highlighted": true
-        },
-        {
-          "id": "orozco",
-          "name": "Luis Ricardo Orozco González",
-          "avatar": "/assets/avatar-orozco.webp",
-          "role": "Transportista de extracción"
-        }
-      ],
-      "echos": {
-        "robles_salas": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "16:50 h" },
-            "description": "Responde el mensaje de Orozco confirmando que 'le fue bien', y pregunta si salió algo del carro en las noticias. Esta conversación, recuperada del celular de Orozco, es una de las evidencias más contundentes del caso."
-          }
-        ],
-        "orozco": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "16:50 h" },
-            "description": "Inicia el intercambio preguntando '¿Como le fue?'. Su celular, analizado forensemente por el OIJ, contiene toda la cadena de comunicaciones que ata a la estructura criminal."
-          }
-        ]
-      },
-      "id": "hs_f1_w4_h0"
+      }
     },
     {
-      "_note": "WP4-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
+      "_note": "WP1-H1-B: Tipo B — informativo secundario (mapa zona León XIII)",
       "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Sector León XIII, Tibás. El vehículo fue captado ingresando a esta zona diez minutos después del retorno de Samcam a su vivienda, confirmando que los sospechosos monitoreaban sus movimientos en tiempo real.",
+      "title": "",
       "mobile": {
-        "offsetX": -5,
-        "offsetY": -121,
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
+        "radius": 0
+      }
+    }
+  ],
+  "wp2": [
+    {
+      "_note": "wp2-H0: Principal — abre popup grande",
+      "type": "hotspot",
+      "image": "/assets/TODO-wp2-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
         "width": 280,
-        "height": 190,
-        "rotation": -8,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 163,
-        "offsetY": -99,
-        "width": 397,
-        "height": 205,
-        "rotation": -2,
-        "radius": 0
-      },
-      "title": "OIJ identifica vehículos y primeras fuentes confidenciales",
-      "image": "/assets/TODO-wp4-h1.webp",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "Día del crimen",
-        "timeColor": "#4ECDC4"
-      },
-      "location": "OIJ — Sección de Homicidios, San José",
-      "description": "El OIJ inicia el rastreo de cámaras y recibe información confidencial (línea 800-8000-645) que identifica el Renault Duster blanco BKK-190 como el vehículo usado. Otra fuente nombra a 'Dani Chaves' (peluquero de León XIII), 'Bryan Robles' y 'Luis' (número 62329434) como implicados.",
-      "involved": [
-        {
-          "id": "chaves_medina",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/avatar-chaves-medina.webp",
-          "role": "Intermediario logístico",
-          "highlighted": true
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
-          "role": "Gatillero / Ejecutor"
-        },
-        {
-          "id": "robles_salas",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/avatar-robles-salas.webp",
-          "role": "Conductor — vehículo de asalto"
-        }
-      ],
-      "echos": {
-        "chaves_medina": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "—" },
-            "description": "Es mencionado por nombre y apodo ('Dani Peluqueris') en la información confidencial recibida por el OIJ el mismo día del crimen."
-          }
-        ],
-        "carvajal": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "—" },
-            "description": "Su número (62329434) es identificado por fuentes confidenciales como el del 'Luis' sicario. Este número también activó radiobases que lo ubican en la escena."
-          }
-        ],
-        "robles_salas": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "—" },
-            "description": "Su nombre 'Bryan Robles' aparece en la información confidencial. Una foto de él con Orozco, oculta en el celular de Orozco, confirmará su vínculo con el transportista."
-          }
-        ]
-      },
-      "id": "hs_f1_w4_h1"
-    },
-    {
-      "_note": "WP4-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -92,
-        "offsetY": 48,
-        "width": 77,
-        "height": 77,
-        "rotation": -8,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 41,
-        "offsetY": 111,
-        "width": 103,
-        "height": 116,
-        "rotation": 0,
-        "radius": 0
-      },
-      "title": "OIJ identifica y aborda a Orozco González",
-      "image": "/assets/TODO-wp4-h2.webp",
-      "datetime": {
-        "date": "30/06/2025",
-        "time": "—",
-        "timeColor": "#4ECDC4"
-      },
-      "location": "León XIII, Tibás, San José",
-      "description": "Investigadores del OIJ localizan y abordan al conductor del Hyundai celeste en León XIII. Identificado como Luis Ricardo Orozco González, taxista informal. Informado de sus derechos, reconoce haber recogido a dos personas en Coronado y trasladarlas a León XIII —un 'viaje raro'— por el cual fue pagado mediante SINPE Móvil.",
-      "involved": [
-        {
-          "id": "orozco",
-          "name": "Luis Ricardo Orozco González",
-          "avatar": "/assets/avatar-orozco.webp",
-          "role": "Transportista de extracción",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "orozco": [
-          {
-            "datetime": { "date": "30/06/2025", "time": "—" },
-            "description": "Es abordado por el OIJ en León XIII. Confía que fue contactado para recoger a dos sujetos en Coronado y llevarlos a León XIII. Define el pago recibido como inusualmente alto para un viaje de esa distancia. Su celular será la pieza clave de toda la investigación."
-          }
-        ]
-      },
-      "id": "hs_f1_w4_h2"
-    },
-    {
-      "_note": "WP4-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 20,
-        "offsetY": 37,
-        "width": 77,
-        "height": 77,
-        "rotation": -24,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 168,
-        "offsetY": 122,
-        "width": 120,
-        "height": 116,
-        "rotation": -8,
-        "radius": 0
-      },
-      "title": "Análisis forense del celular de Orozco: la cadena queda expuesta",
-      "image": "/assets/TODO-wp4-h3.webp",
-      "datetime": {
-        "date": "Julio 2025",
-        "time": "—",
-        "timeColor": "#4ECDC4"
-      },
-      "location": "Laboratorio Forense OIJ, San José",
-      "description": "El análisis forense del teléfono de Orozco confirma toda la coordinación: la llamada de Chaves Medina a las 08:10 h, los mensajes de urgencia de Robles Salas ('Corra xfa', 'Sáqueme de aquí'), el contacto de Carvajal con su número 62329434, y el pago posterior de Chacón Guillén.",
-      "involved": [
-        {
-          "id": "chaves_medina",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/avatar-chaves-medina.webp",
-          "role": "Intermediario logístico",
-          "highlighted": true
-        },
-        {
-          "id": "robles_salas",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/avatar-robles-salas.webp",
-          "role": "Conductor — vehículo de asalto"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
-          "role": "Gatillero / Ejecutor"
-        },
-        {
-          "id": "orozco",
-          "name": "Luis Ricardo Orozco González",
-          "avatar": "/assets/avatar-orozco.webp",
-          "role": "Transportista de extracción"
-        },
-        {
-          "id": "chacon",
-          "name": "Stephanie María Chacón Guillén",
-          "avatar": "/assets/avatar-chacon.webp",
-          "role": "Facilitadora financiera"
-        }
-      ],
-      "echos": {
-        "chaves_medina": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "08:10 h" },
-            "description": "La llamada de 24 segundos de Chaves a Orozco queda documentada en el análisis forense como la orden de extracción."
-          }
-        ],
-        "robles_salas": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "08:21 h" },
-            "description": "Los mensajes de WhatsApp de Robles a Orozco —incluyendo 'Corra xfa', 'Vueleeeee', 'Sáqueme de aquí'— quedan recuperados del celular del transportista."
-          }
-        ],
-        "carvajal": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "08:34 h" },
-            "description": "Su número 62329434 contacta a Orozco directamente, cerrando la triangulación que lo identifica como el ejecutor material."
-          }
-        ],
-        "orozco": [
-          {
-            "datetime": { "date": "30/06/2025", "time": "—" },
-            "description": "Su celular es la pieza forense central que conecta a toda la estructura: llamadas, WhatsApp, GPS y registros bancarios."
-          }
-        ],
-        "chacon": [
-          {
-            "datetime": { "date": "19/06/2025", "time": "10:38 h" },
-            "description": "Los dos depósitos SINPE de ₡50.000 quedan documentados mediante el levantamiento del secreto bancario de Orozco."
-          }
-        ]
-      },
-      "id": "hs_f1_w4_h3"
-    },
-    {
-      "_note": "WP4-H4: Quinto hotspot — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 0,
-        "offsetY": 0,
-        "width": 200,
-        "height": 150,
+        "height": 400,
         "rotation": 0,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 296,
-        "offsetY": 130,
-        "width": 106,
-        "height": 112,
-        "rotation": 0,
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
         "radius": 0
-      },
-      "title": "TODO — Título evento wp4-h4",
-      "image": "/assets/TODO-wp4-h4.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento.",
-      "involved": [
-        {
-          "id": "pf1w4h4a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w4h4b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w4h4a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w4h4b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w4_h4"
+      }
     },
     {
-      "_note": "WP4-H5: Sexto hotspot — ajustar offsets con editor",
+      "_note": "wp2-H1-B: Tipo B — informativo secundario",
       "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
       "mobile": {
-        "offsetX": 0,
-        "offsetY": 0,
-        "width": 200,
-        "height": 150,
-        "rotation": 0,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 465,
-        "offsetY": -139,
-        "width": 159,
-        "height": 97,
-        "rotation": 3,
-        "radius": 0
-      },
-      "title": "TODO — Título evento wp4-h5",
-      "image": "/assets/TODO-wp4-h5.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento.",
-      "involved": [
-        {
-          "id": "pf1w4h5a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w4h5b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w4h5a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w4h5b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w4_h5"
-    },
-    {
-      "_note": "WP4-H6: Séptimo hotspot — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 0,
-        "offsetY": 0,
-        "width": 200,
-        "height": 150,
-        "rotation": 0,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 455,
-        "offsetY": -30,
-        "width": 157,
-        "height": 95,
+        "offsetX": -10,
+        "offsetY": -267,
+        "width": 280,
+        "height": 145,
         "rotation": 9,
         "radius": 0
       },
-      "title": "TODO — Título evento wp4-h6",
-      "image": "/assets/TODO-wp4-h6.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento.",
-      "involved": [
-        {
-          "id": "pf1w4h6a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w4h6b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w4h6a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w4h6b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w4_h6"
+      "desktop": {
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
+        "radius": 0
+      }
     },
     {
-      "_note": "WP4-H7: Octavo hotspot — ajustar offsets con editor",
+      "_note": "wp2-H2-B: Tipo B — contexto / mapa",
       "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
       "mobile": {
-        "offsetX": 0,
-        "offsetY": 0,
-        "width": 200,
-        "height": 150,
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
+        "radius": 0
+      }
+    }
+  ],
+  "wp3": [
+    {
+      "_note": "wp3-H0: Principal — abre popup grande",
+      "type": "hotspot",
+      "image": "/assets/TODO-wp3-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
         "rotation": 0,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 455,
-        "offsetY": 101,
-        "width": 140,
-        "height": 110,
-        "rotation": -13,
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp3-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
+      "mobile": {
+        "offsetX": -10,
+        "offsetY": -267,
+        "width": 280,
+        "height": 145,
+        "rotation": 9,
         "radius": 0
       },
-      "title": "TODO — Título evento wp4-h7",
-      "image": "/assets/TODO-wp4-h7.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
+      "desktop": {
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp3-H2-B: Tipo B — contexto / mapa",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
+      "mobile": {
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
+        "radius": 0
       },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento.",
-      "involved": [
-        {
-          "id": "pf1w4h7a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w4h7b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w4h7a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w4h7b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
+      "desktop": {
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
+        "radius": 0
+      }
+    }
+  ],
+  "wp4": [
+    {
+      "_note": "wp4-H0: Principal — abre popup grande",
+      "type": "hotspot",
+      "image": "/assets/TODO-wp4-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
       },
-      "id": "hs_f1_w4_h7"
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp4-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
+      "mobile": {
+        "offsetX": -10,
+        "offsetY": -267,
+        "width": 280,
+        "height": 145,
+        "rotation": 9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp4-H2-B: Tipo B — contexto / mapa",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
+      "mobile": {
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
+        "radius": 0
+      }
     }
   ],
   "wp5": [
     {
-      "_note": "WP5-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
+      "_note": "wp5-H0: Principal — abre popup grande",
       "type": "hotspot",
+      "image": "/assets/TODO-wp5-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp5-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
+        "offsetY": -267,
+        "width": 280,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -295,
-        "offsetY": 3,
-        "width": 390,
-        "height": 357,
-        "rotation": -2,
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
         "radius": 0
-      },
-      "title": "Allanamientos en León XIII y Cañas — cuatro detenidos",
-      "image": "/assets/TODO-wp5-h0.webp",
-      "datetime": {
-        "date": "11/09/2025 – 12/09/2025",
-        "time": "—",
-        "timeColor": "#FF4444"
-      },
-      "location": "León XIII (Tibás) y Cañas, Guanacaste",
-      "description": "Agentes del OIJ, con el director Randall Zúñiga y el fiscal general Carlo Díaz, ejecutan allanamientos en León XIII y Cañas. Resultado: cuatro de los cinco sospechosos directamente vinculados son detenidos. El fiscal Díaz enfatiza que la línea principal apunta a una orden 'aparentemente del Ejército nicaragüense'.",
-      "involved": [
-        {
-          "id": "chaves_medina",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/avatar-chaves-medina.webp",
-          "role": "Intermediario logístico",
-          "highlighted": true
-        },
-        {
-          "id": "robles_salas",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/avatar-robles-salas.webp",
-          "role": "Conductor — vehículo de asalto"
-        },
-        {
-          "id": "orozco",
-          "name": "Luis Ricardo Orozco González",
-          "avatar": "/assets/avatar-orozco.webp",
-          "role": "Transportista de extracción"
-        },
-        {
-          "id": "chacon",
-          "name": "Stephanie María Chacón Guillén",
-          "avatar": "/assets/avatar-chacon.webp",
-          "role": "Facilitadora financiera"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
-          "role": "Gatillero / Ejecutor"
-        }
-      ],
-      "echos": {
-        "chaves_medina": [
-          {
-            "datetime": { "date": "11/09/2025", "time": "—" },
-            "description": "Detenido en Cañas, Guanacaste. Tenía en su poder ₡4 millones en efectivo al momento de la captura. Se le dicta prisión preventiva por 6 meses."
-          }
-        ],
-        "robles_salas": [
-          {
-            "datetime": { "date": "11/09/2025", "time": "—" },
-            "description": "Detenido en León XIII. Se le dicta prisión preventiva por 6 meses."
-          }
-        ],
-        "orozco": [
-          {
-            "datetime": { "date": "11/09/2025", "time": "—" },
-            "description": "Detenido en vía pública. Se le dicta prisión preventiva por 6 meses."
-          }
-        ],
-        "chacon": [
-          {
-            "datetime": { "date": "11/09/2025", "time": "—" },
-            "description": "Detenida en vía pública. Enfrentará el proceso penal en libertad mientras se recopilan más indicios."
-          }
-        ],
-        "carvajal": [
-          {
-            "datetime": { "date": "11/09/2025", "time": "—" },
-            "description": "No capturado en los allanamientos. Se mantiene prófugo. El OIJ continúa las diligencias para su detención."
-          }
-        ]
-      },
-      "id": "hs_f1_w5_h0"
+      }
     },
     {
-      "_note": "WP5-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
+      "_note": "wp5-H2-B: Tipo B — contexto / mapa",
       "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
       "mobile": {
-        "offsetX": -5,
-        "offsetY": -121,
-        "width": 280,
-        "height": 190,
-        "rotation": -8,
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 53,
-        "offsetY": -141,
-        "width": 142,
-        "height": 150,
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
         "rotation": 0,
         "radius": 0
-      },
-      "title": "El presunto cerebro: Pablo Robles Murillo",
-      "image": "/assets/TODO-wp5-h1.webp",
-      "datetime": {
-        "date": "07/08/2025",
-        "time": "Última salida documentada",
-        "timeColor": "#FF4444"
-      },
-      "location": "Frontera Nicaragua – Costa Rica / Nicaragua",
-      "description": "Pablo Antonio Robles Murillo, señalado como el presunto cerebro del crimen, no está formalmente imputado. Registró numerosos movimientos migratorios entre Costa Rica y Nicaragua. Su último viaje documentado fue a Nicaragua el 7 de agosto de 2025; desde entonces no ha retornado por un puesto fronterizo oficial.",
-      "involved": [
-        {
-          "id": "robles_murillo",
-          "name": "Pablo Antonio Robles Murillo",
-          "avatar": "/assets/avatar-robles-murillo.webp",
-          "role": "Presunto cerebro / Autor intelectual",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "robles_murillo": [
-          {
-            "datetime": { "date": "10/05/2025", "time": "—" },
-            "description": "Viaja a Nicaragua antes del crimen. Regresa el 23 de julio de 2025."
-          },
-          {
-            "datetime": { "date": "07/08/2025", "time": "—" },
-            "description": "Sale nuevamente a Nicaragua. No retorna por ningún puesto fronterizo oficial. No está formalmente imputado pero es señalado por fuentes como el cerebro del complot, con vínculos al General Julio César Avilés y a estructuras de inteligencia del Ejército de Nicaragua."
-          }
-        ]
-      },
-      "id": "hs_f1_w5_h1"
-    },
-    {
-      "_note": "WP5-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -92,
-        "offsetY": 48,
-        "width": 77,
-        "height": 77,
-        "rotation": -8,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 269,
-        "offsetY": -156,
-        "width": 215,
-        "height": 144,
-        "rotation": 2,
-        "radius": 0
-      },
-      "title": "El caso sigue abierto — la impunidad persiste",
-      "image": "/assets/TODO-wp5-h2.webp",
-      "datetime": {
-        "date": "Septiembre 2025",
-        "time": "—",
-        "timeColor": "#4ECDC4"
-      },
-      "location": "San José, Costa Rica",
-      "description": "Tres sospechosos con prisión preventiva. El gatillero prófugo. El presunto cerebro sin imputar en Nicaragua. La investigación continúa abierta con el objetivo de identificar plenamente a los autores intelectuales y establecer el alcance de la represión transnacional.",
-      "involved": [
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/avatar-carvajal.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "robles_murillo",
-          "name": "Pablo Antonio Robles Murillo",
-          "avatar": "/assets/avatar-robles-murillo.webp",
-          "role": "Presunto cerebro / Autor intelectual"
-        },
-        {
-          "id": "chaves_medina",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/avatar-chaves-medina.webp",
-          "role": "Intermediario logístico"
-        }
-      ],
-      "echos": {
-        "carvajal": [
-          {
-            "datetime": { "date": "Septiembre 2025", "time": "—" },
-            "description": "Sigue prófugo. Es el único ejecutor material no capturado. El OIJ realiza diligencias activas para su detención."
-          }
-        ],
-        "robles_murillo": [
-          {
-            "datetime": { "date": "Septiembre 2025", "time": "—" },
-            "description": "Sin imputar formalmente. Fuera del país. Investigado como presunto autor intelectual con nexos a estructuras militares nicaragüenses."
-          }
-        ],
-        "chaves_medina": [
-          {
-            "datetime": { "date": "Septiembre 2025", "time": "—" },
-            "description": "En prisión preventiva. Es el eslabón clave que conecta a los autores intelectuales con los ejecutores materiales."
-          }
-        ]
-      },
-      "id": "hs_f1_w5_h2"
-    },
-    {
-      "_note": "WP5-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 20,
-        "offsetY": 37,
-        "width": 77,
-        "height": 77,
-        "rotation": -24,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 209,
-        "offsetY": 64,
-        "width": 459,
-        "height": 237,
-        "rotation": 2,
-        "radius": 0
-      },
-      "title": "TODO — Título evento cuaternario wp5",
-      "image": "/assets/TODO-wp5-h3.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento cuaternario.",
-      "involved": [
-        {
-          "id": "pf1w5h3a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w5h3b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w5h3c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w5h3a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w5h3b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w5h3c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w5_h3"
+      }
     }
   ],
   "wp6": [
     {
-      "_note": "WP6-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
+      "_note": "wp6-H0: Principal — abre popup grande",
       "type": "hotspot",
+      "image": "/assets/TODO-wp6-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp6-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
+        "offsetY": -267,
+        "width": 280,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -200,
-        "offsetY": -130,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
         "radius": 0
-      },
-      "title": "TODO — Título evento principal wp6",
-      "image": "/assets/TODO-wp6-h0.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento principal.",
-      "involved": [
-        {
-          "id": "pf1w6h0a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w6h0b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w6h0c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w6h0a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w6h0b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w6h0c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w6_h0"
+      }
     },
     {
-      "_note": "WP6-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
+      "_note": "wp6-H2-B: Tipo B — contexto / mapa",
       "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
       "mobile": {
-        "offsetX": -5,
-        "offsetY": -121,
-        "width": 280,
-        "height": 190,
-        "rotation": -8,
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
         "radius": 0
-      },
-      "title": "TODO — Título evento secundario wp6",
-      "image": "/assets/TODO-wp6-h1.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento secundario.",
-      "involved": [
-        {
-          "id": "pf1w6h1a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w6h1b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w6h1a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w6h1b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w6_h1"
-    },
-    {
-      "_note": "WP6-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -92,
-        "offsetY": 48,
-        "width": 77,
-        "height": 77,
-        "rotation": -8,
-        "radius": 20
-      },
-      "desktop": {
-        "offsetX": -9,
-        "offsetY": -180,
-        "width": 170,
-        "height": 170,
-        "rotation": 25,
-        "radius": 84
-      },
-      "title": "TODO — Título evento terciario wp6",
-      "image": "/assets/TODO-wp6-h2.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento terciario.",
-      "involved": [
-        {
-          "id": "pf1w6h2a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w6h2b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w6h2a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w6h2b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w6_h2"
-    },
-    {
-      "_note": "WP6-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 20,
-        "offsetY": 37,
-        "width": 77,
-        "height": 77,
-        "rotation": -24,
-        "radius": 15
-      },
-      "desktop": {
-        "offsetX": -9,
-        "offsetY": 61,
-        "width": 166,
-        "height": 166,
-        "rotation": 24,
-        "radius": 85
-      },
-      "title": "TODO — Título evento cuaternario wp6",
-      "image": "/assets/TODO-wp6-h3.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento cuaternario.",
-      "involved": [
-        {
-          "id": "pf1w6h3a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w6h3b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w6h3c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w6h3a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w6h3b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w6h3c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w6_h3"
+      }
     }
   ],
   "wp7": [
     {
-      "_note": "WP7-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
+      "_note": "wp7-H0: Principal — abre popup grande",
       "type": "hotspot",
+      "image": "/assets/TODO-wp7-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp7-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
+        "offsetY": -267,
+        "width": 280,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -200,
-        "offsetY": -130,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
         "radius": 0
-      },
-      "title": "TODO — Título evento principal wp7",
-      "image": "/assets/TODO-wp7-h0.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento principal.",
-      "involved": [
-        {
-          "id": "pf1w7h0a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w7h0b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w7h0c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w7h0a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w7h0b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w7h0c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w7_h0"
+      }
     },
     {
-      "_note": "WP7-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
+      "_note": "wp7-H2-B: Tipo B — contexto / mapa",
       "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
       "mobile": {
-        "offsetX": -5,
-        "offsetY": -121,
-        "width": 280,
-        "height": 190,
-        "rotation": -8,
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
         "radius": 0
-      },
-      "title": "TODO — Título evento secundario wp7",
-      "image": "/assets/TODO-wp7-h1.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento secundario.",
-      "involved": [
-        {
-          "id": "pf1w7h1a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w7h1b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w7h1a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w7h1b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w7_h1"
-    },
-    {
-      "_note": "WP7-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -92,
-        "offsetY": 48,
-        "width": 77,
-        "height": 77,
-        "rotation": -8,
-        "radius": 20
-      },
-      "desktop": {
-        "offsetX": -9,
-        "offsetY": -180,
-        "width": 170,
-        "height": 170,
-        "rotation": 25,
-        "radius": 84
-      },
-      "title": "TODO — Título evento terciario wp7",
-      "image": "/assets/TODO-wp7-h2.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento terciario.",
-      "involved": [
-        {
-          "id": "pf1w7h2a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w7h2b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w7h2a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w7h2b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w7_h2"
-    },
-    {
-      "_note": "WP7-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 20,
-        "offsetY": 37,
-        "width": 77,
-        "height": 77,
-        "rotation": -24,
-        "radius": 15
-      },
-      "desktop": {
-        "offsetX": -9,
-        "offsetY": 61,
-        "width": 166,
-        "height": 166,
-        "rotation": 24,
-        "radius": 85
-      },
-      "title": "TODO — Título evento cuaternario wp7",
-      "image": "/assets/TODO-wp7-h3.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento cuaternario.",
-      "involved": [
-        {
-          "id": "pf1w7h3a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w7h3b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w7h3c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w7h3a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w7h3b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w7h3c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w7_h3"
+      }
     }
   ],
   "wp8": [
     {
-      "_note": "WP8-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
+      "_note": "wp8-H0: Principal — abre popup grande",
       "type": "hotspot",
+      "image": "/assets/TODO-wp8-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp8-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
+        "offsetY": -267,
+        "width": 280,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -200,
-        "offsetY": -130,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
         "radius": 0
-      },
-      "title": "TODO — Título evento principal wp8",
-      "image": "/assets/TODO-wp8-h0.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento principal.",
-      "involved": [
-        {
-          "id": "pf1w8h0a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w8h0b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w8h0c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w8h0a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w8h0b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w8h0c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w8_h0"
+      }
     },
     {
-      "_note": "WP8-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
+      "_note": "wp8-H2-B: Tipo B — contexto / mapa",
       "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
       "mobile": {
-        "offsetX": -5,
-        "offsetY": -121,
-        "width": 280,
-        "height": 190,
-        "rotation": -8,
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
         "radius": 0
-      },
-      "title": "TODO — Título evento secundario wp8",
-      "image": "/assets/TODO-wp8-h1.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento secundario.",
-      "involved": [
-        {
-          "id": "pf1w8h1a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w8h1b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w8h1a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w8h1b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w8_h1"
-    },
-    {
-      "_note": "WP8-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -92,
-        "offsetY": 48,
-        "width": 77,
-        "height": 77,
-        "rotation": -8,
-        "radius": 20
-      },
-      "desktop": {
-        "offsetX": -9,
-        "offsetY": -180,
-        "width": 170,
-        "height": 170,
-        "rotation": 25,
-        "radius": 84
-      },
-      "title": "TODO — Título evento terciario wp8",
-      "image": "/assets/TODO-wp8-h2.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento terciario.",
-      "involved": [
-        {
-          "id": "pf1w8h2a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w8h2b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w8h2a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w8h2b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w8_h2"
-    },
-    {
-      "_note": "WP8-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 20,
-        "offsetY": 37,
-        "width": 77,
-        "height": 77,
-        "rotation": -24,
-        "radius": 15
-      },
-      "desktop": {
-        "offsetX": -9,
-        "offsetY": 61,
-        "width": 166,
-        "height": 166,
-        "rotation": 24,
-        "radius": 85
-      },
-      "title": "TODO — Título evento cuaternario wp8",
-      "image": "/assets/TODO-wp8-h3.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento cuaternario.",
-      "involved": [
-        {
-          "id": "pf1w8h3a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w8h3b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w8h3c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w8h3a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w8h3b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w8h3c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w8_h3"
+      }
     }
   ],
   "wp9": [
     {
-      "_note": "WP9-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
+      "_note": "wp9-H0: Principal — abre popup grande",
       "type": "hotspot",
+      "image": "/assets/TODO-wp9-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp9-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
+        "offsetY": -267,
+        "width": 280,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -200,
-        "offsetY": -130,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
         "radius": 0
-      },
-      "title": "TODO — Título evento principal wp9",
-      "image": "/assets/TODO-wp9-h0.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento principal.",
-      "involved": [
-        {
-          "id": "pf1w9h0a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w9h0b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w9h0c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w9h0a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w9h0b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w9h0c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w9_h0"
+      }
     },
     {
-      "_note": "WP9-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
+      "_note": "wp9-H2-B: Tipo B — contexto / mapa",
       "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
       "mobile": {
-        "offsetX": -5,
-        "offsetY": -121,
-        "width": 280,
-        "height": 190,
-        "rotation": -8,
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
         "radius": 0
-      },
-      "title": "TODO — Título evento secundario wp9",
-      "image": "/assets/TODO-wp9-h1.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento secundario.",
-      "involved": [
-        {
-          "id": "pf1w9h1a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w9h1b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w9h1a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w9h1b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w9_h1"
-    },
-    {
-      "_note": "WP9-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -92,
-        "offsetY": 48,
-        "width": 77,
-        "height": 77,
-        "rotation": -8,
-        "radius": 20
-      },
-      "desktop": {
-        "offsetX": -9,
-        "offsetY": -180,
-        "width": 170,
-        "height": 170,
-        "rotation": 25,
-        "radius": 84
-      },
-      "title": "TODO — Título evento terciario wp9",
-      "image": "/assets/TODO-wp9-h2.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento terciario.",
-      "involved": [
-        {
-          "id": "pf1w9h2a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w9h2b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w9h2a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w9h2b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w9_h2"
-    },
-    {
-      "_note": "WP9-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 20,
-        "offsetY": 37,
-        "width": 77,
-        "height": 77,
-        "rotation": -24,
-        "radius": 15
-      },
-      "desktop": {
-        "offsetX": -9,
-        "offsetY": 61,
-        "width": 166,
-        "height": 166,
-        "rotation": 24,
-        "radius": 85
-      },
-      "title": "TODO — Título evento cuaternario wp9",
-      "image": "/assets/TODO-wp9-h3.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento cuaternario.",
-      "involved": [
-        {
-          "id": "pf1w9h3a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w9h3b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w9h3c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w9h3a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w9h3b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w9h3c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w9_h3"
+      }
     }
   ],
   "wp10": [
     {
-      "_note": "WP10-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
+      "_note": "wp10-H0: Principal — abre popup grande",
       "type": "hotspot",
+      "image": "/assets/TODO-wp10-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp10-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
+        "offsetY": -267,
+        "width": 280,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -200,
-        "offsetY": -130,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
         "radius": 0
-      },
-      "title": "TODO — Título evento principal wp10",
-      "image": "/assets/TODO-wp10-h0.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento principal.",
-      "involved": [
-        {
-          "id": "pf1w10h0a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w10h0b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w10h0c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w10h0a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w10h0b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w10h0c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w10_h0"
+      }
     },
     {
-      "_note": "WP10-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
+      "_note": "wp10-H2-B: Tipo B — contexto / mapa",
       "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
       "mobile": {
-        "offsetX": -5,
-        "offsetY": -121,
-        "width": 280,
-        "height": 190,
-        "rotation": -8,
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
         "radius": 0
-      },
-      "title": "TODO — Título evento secundario wp10",
-      "image": "/assets/TODO-wp10-h1.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento secundario.",
-      "involved": [
-        {
-          "id": "pf1w10h1a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w10h1b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w10h1a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w10h1b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w10_h1"
-    },
-    {
-      "_note": "WP10-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -92,
-        "offsetY": 48,
-        "width": 77,
-        "height": 77,
-        "rotation": -8,
-        "radius": 20
-      },
-      "desktop": {
-        "offsetX": -9,
-        "offsetY": -180,
-        "width": 170,
-        "height": 170,
-        "rotation": 25,
-        "radius": 84
-      },
-      "title": "TODO — Título evento terciario wp10",
-      "image": "/assets/TODO-wp10-h2.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento terciario.",
-      "involved": [
-        {
-          "id": "pf1w10h2a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w10h2b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w10h2a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w10h2b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w10_h2"
-    },
-    {
-      "_note": "WP10-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 20,
-        "offsetY": 37,
-        "width": 77,
-        "height": 77,
-        "rotation": -24,
-        "radius": 15
-      },
-      "desktop": {
-        "offsetX": -9,
-        "offsetY": 61,
-        "width": 166,
-        "height": 166,
-        "rotation": 24,
-        "radius": 85
-      },
-      "title": "TODO — Título evento cuaternario wp10",
-      "image": "/assets/TODO-wp10-h3.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento cuaternario.",
-      "involved": [
-        {
-          "id": "pf1w10h3a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w10h3b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w10h3c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w10h3a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w10h3b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w10h3c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w10_h3"
+      }
     }
   ],
   "wp11": [
     {
-      "_note": "WP11-H0: Rectángulo principal izquierdo — ajustar offsets con editor",
+      "_note": "wp11-H0: Principal — abre popup grande",
       "type": "hotspot",
+      "image": "/assets/TODO-wp11-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp11-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
+        "offsetY": -267,
+        "width": 280,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -200,
-        "offsetY": -130,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
         "radius": 0
-      },
-      "title": "TODO — Título evento principal wp11",
-      "image": "/assets/TODO-wp11-h0.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento principal.",
-      "involved": [
-        {
-          "id": "pf1w11h0a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w11h0b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w11h0c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w11h0a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w11h0b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w11h0c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w11_h0"
+      }
     },
     {
-      "_note": "WP11-H1: Rectángulo secundario superior derecho — ajustar offsets con editor",
+      "_note": "wp11-H2-B: Tipo B — contexto / mapa",
       "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
       "mobile": {
-        "offsetX": -5,
-        "offsetY": -121,
-        "width": 280,
-        "height": 190,
-        "rotation": -8,
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
         "radius": 0
-      },
-      "title": "TODO — Título evento secundario wp11",
-      "image": "/assets/TODO-wp11-h1.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento secundario.",
-      "involved": [
-        {
-          "id": "pf1w11h1a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w11h1b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w11h1a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w11h1b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w11_h1"
-    },
-    {
-      "_note": "WP11-H2: Círculo terciario inferior izquierdo — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -92,
-        "offsetY": 48,
-        "width": 77,
-        "height": 77,
-        "rotation": -8,
-        "radius": 20
-      },
-      "desktop": {
-        "offsetX": -9,
-        "offsetY": -180,
-        "width": 170,
-        "height": 170,
-        "rotation": 25,
-        "radius": 84
-      },
-      "title": "TODO — Título evento terciario wp11",
-      "image": "/assets/TODO-wp11-h2.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento terciario.",
-      "involved": [
-        {
-          "id": "pf1w11h2a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w11h2b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        }
-      ],
-      "echos": {
-        "pf1w11h2a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w11h2b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          }
-        ]
-      },
-      "id": "hs_f1_w11_h2"
-    },
-    {
-      "_note": "WP11-H3: Círculo cuaternario inferior derecho — ajustar offsets con editor",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": 20,
-        "offsetY": 37,
-        "width": 77,
-        "height": 77,
-        "rotation": -24,
-        "radius": 15
-      },
-      "desktop": {
-        "offsetX": -9,
-        "offsetY": 61,
-        "width": 166,
-        "height": 166,
-        "rotation": 24,
-        "radius": 85
-      },
-      "title": "TODO — Título evento cuaternario wp11",
-      "image": "/assets/TODO-wp11-h3.webp",
-      "datetime": {
-        "date": "TODO — DD/MM/AAAA",
-        "time": "TODO — HH:MM",
-        "timeColor": "#FF4444"
-      },
-      "location": "TODO — Lugar, Ciudad, País.",
-      "description": "TODO — Descripción del evento cuaternario.",
-      "involved": [
-        {
-          "id": "pf1w11h3a",
-          "name": "TODO — Persona A",
-          "avatar": "./assets/persona_1-1.png",
-          "role": "TODO — Rol"
-        },
-        {
-          "id": "pf1w11h3b",
-          "name": "TODO — Persona B",
-          "avatar": "./assets/persona_1-2.png",
-          "role": "TODO — Rol",
-          "highlighted": true
-        },
-        {
-          "id": "pf1w11h3c",
-          "name": "TODO — Persona C",
-          "avatar": "./assets/persona_1-3.png",
-          "role": "TODO — Rol"
-        }
-      ],
-      "echos": {
-        "pf1w11h3a": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona A."
-          }
-        ],
-        "pf1w11h3b": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona B."
-          },
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Segunda interacción persona B."
-          }
-        ],
-        "pf1w11h3c": [
-          {
-            "datetime": {
-              "date": "TODO — DD/MM/AAAA",
-              "time": "TODO — HH:MM"
-            },
-            "description": "TODO — Participación persona C."
-          }
-        ]
-      },
-      "id": "hs_f1_w11_h3"
+      }
     }
   ]
 }

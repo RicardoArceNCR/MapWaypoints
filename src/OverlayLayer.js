@@ -122,7 +122,10 @@ export class OverlayLayer {
         if (window.matchMedia('(hover: none)').matches) {
           caption.querySelector('.hs-caption__badge').addEventListener('click', (e) => {
             e.stopPropagation();
-            caption.classList.toggle('is-open');
+            const isOpen = caption.classList.contains('is-open');
+            // Cerrar todos los badges abiertos antes de abrir este
+            document.querySelectorAll('.hs-caption.is-open').forEach(el => el.classList.remove('is-open'));
+            if (!isOpen) caption.classList.add('is-open');
           });
         }
       }
