@@ -116,6 +116,7 @@ body.overlays-ready #overlay-layer {
   --nav-next-top-mobile: 50%;
   /* altura del botón siguiente */
   --nav-progress-bottom-mobile: 94%;
+  --top-bar-h: 68px; /* altura del .top-bar en mobile — sincronizar si cambia padding */
   /* altura de la barrita de progreso */
 }
 
@@ -153,12 +154,6 @@ body {
   padding-bottom: 120px;
 }
 
-/* ── Puntos de progreso: subirlos sobre la barra de fases ─── */
-.progress {
-  bottom: 68px;
-  z-index: 10001;
-}
-
 /* ── Botones de fase: mover de arriba a abajo ────────────────── */
 .top-bar {
   position: fixed;
@@ -170,8 +165,9 @@ body {
   background: rgba(0, 0, 0, 0.85);
   min-height: 52px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
   padding: 8px 16px;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -223,6 +219,7 @@ body {
     box-shadow: none;
     overflow: hidden;
   }
+
 }
 
 /* Asegura que el overlay del editor también cubre todo */
@@ -290,6 +287,9 @@ body {
 }
 
 @media (max-width: 520px) {
+  :root {
+    --top-bar-h: 57px; /* botones más chicos = top-bar más bajo */
+  }
   .phase-btn {
     padding: 8px 8px;
     font-size: 11px;
@@ -730,10 +730,11 @@ body {
   }
 
   .ui .progress {
-    position: absolute;
-    left: 50%;
-    bottom: 68px;
-    transform: translateX(-50%);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: var(--top-bar-h, 68px);
+    transform: none;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -1017,7 +1018,7 @@ body.net-slow .drawer {
   }
 
   .ui .progress {
-    bottom: 68px;
+    bottom: var(--top-bar-h, 68px);
   }
 
 }

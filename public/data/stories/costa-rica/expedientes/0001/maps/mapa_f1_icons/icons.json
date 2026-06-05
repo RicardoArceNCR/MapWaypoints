@@ -9,15 +9,15 @@
         "width": 280,
         "height": 400,
         "rotation": 0,
-        "radius": 0
+        "radius": 20
       },
       "desktop": {
-        "offsetX": 4,
-        "offsetY": -43,
-        "width": 1200,
+        "offsetX": -13,
+        "offsetY": -31,
+        "width": 1040,
         "height": 450,
         "rotation": -1,
-        "radius": 0
+        "radius": 110
       },
       "title": "La víctima regresó a Costa Rica.",
       "datetime": {
@@ -85,8 +85,8 @@
       "caption": "En esta foto se ve a Samcam entrando al aeropuerto Juan Santamaría. Llega acompañado por colegas opositores.",
       "noPopup": true,
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
+        "offsetX": -9,
+        "offsetY": -293,
         "width": 280,
         "height": 145,
         "rotation": 9,
@@ -111,9 +111,9 @@
       "caption": "Mapa del Aeropuerto Juan Santamaría en Alajuela, Costa Rica. Se muestra la ruta de acceso principal.",
       "title": "",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
+        "offsetX": -4,
+        "offsetY": -101,
+        "width": 302,
         "height": 210,
         "rotation": -9,
         "radius": 0
@@ -141,9 +141,9 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 4,
-        "offsetY": -43,
-        "width": 1200,
+        "offsetX": -8,
+        "offsetY": -3,
+        "width": 1030,
         "height": 450,
         "rotation": -1,
         "radius": 0
@@ -232,11 +232,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
+        "offsetX": -299,
+        "offsetY": 5,
+        "width": 470,
+        "height": 430,
+        "rotation": 1,
         "radius": 0
       }
     },
@@ -256,10 +256,10 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 256,
-        "offsetY": 8,
-        "width": 512,
-        "height": 272,
+        "offsetX": 241,
+        "offsetY": 35,
+        "width": 525,
+        "height": 278,
         "rotation": 0,
         "radius": 0
       }
