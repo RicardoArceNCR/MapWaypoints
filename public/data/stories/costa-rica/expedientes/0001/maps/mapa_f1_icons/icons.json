@@ -12,10 +12,10 @@
         "radius": 20
       },
       "desktop": {
-        "offsetX": -13,
-        "offsetY": -31,
+        "offsetX": -35,
+        "offsetY": -73,
         "width": 1040,
-        "height": 450,
+        "height": 420,
         "rotation": -1,
         "radius": 110
       },
@@ -85,16 +85,16 @@
       "caption": "En esta foto se ve a Samcam entrando al aeropuerto Juan Santamaría. Llega acompañado por colegas opositores.",
       "noPopup": true,
       "mobile": {
-        "offsetX": -9,
-        "offsetY": -293,
-        "width": 280,
-        "height": 145,
+        "offsetX": -12,
+        "offsetY": -294,
+        "width": 260,
+        "height": 122,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
+        "offsetX": -312,
+        "offsetY": -81,
         "width": 520,
         "height": 367,
         "rotation": -1,
@@ -112,18 +112,18 @@
       "title": "",
       "mobile": {
         "offsetX": -4,
-        "offsetY": -101,
-        "width": 302,
-        "height": 210,
+        "offsetY": -102,
+        "width": 280,
+        "height": 188,
         "rotation": -9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 256,
-        "offsetY": 8,
+        "offsetX": 258,
+        "offsetY": -33,
         "width": 512,
         "height": 272,
-        "rotation": 0,
+        "rotation": 1,
         "radius": 0
       }
     }
@@ -141,8 +141,8 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -8,
-        "offsetY": -3,
+        "offsetX": 21,
+        "offsetY": -75,
         "width": 1030,
         "height": 450,
         "rotation": -1,
@@ -223,16 +223,16 @@
       "caption": "Hyundai celeste placa 903056, identificado por la puerta delantera del acompañante de color blanco. Captado en cámara al ingreso de León XIII a las 16:17 h del 18 de junio de 2025.",
       "title": "",
       "mobile": {
-        "offsetX": -15,
-        "offsetY": -150,
-        "width": 235,
-        "height": 200,
+        "offsetX": -16,
+        "offsetY": -154,
+        "width": 200,
+        "height": 180,
         "rotation": 5,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -299,
-        "offsetY": 5,
+        "offsetX": -278,
+        "offsetY": -69,
         "width": 470,
         "height": 430,
         "rotation": 1,
@@ -247,16 +247,16 @@
       "caption": "Sector León XIII, Tibás. El vehículo fue captado ingresando a esta zona diez minutos después del retorno de Samcam a su vivienda, confirmando que los sospechosos monitoreaban sus movimientos en tiempo real.",
       "title": "",
       "mobile": {
-        "offsetX": -6,
-        "offsetY": 58,
-        "width": 290,
-        "height": 210,
+        "offsetX": -8,
+        "offsetY": 59,
+        "width": 260,
+        "height": 180,
         "rotation": -9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 241,
-        "offsetY": 35,
+        "offsetX": 294,
+        "offsetY": -39,
         "width": 525,
         "height": 278,
         "rotation": 0,
@@ -273,17 +273,17 @@
       "caption": "",
       "title": "",
       "mobile": {
-        "offsetX": -7,
-        "offsetY": -186,
+        "offsetX": -2,
+        "offsetY": -91,
         "width": 280,
         "height": 400,
         "rotation": 0,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 4,
-        "offsetY": -43,
-        "width": 1200,
+        "offsetX": 25,
+        "offsetY": -50,
+        "width": 1081,
         "height": 450,
         "rotation": -1,
         "radius": 0
@@ -297,20 +297,20 @@
       "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
       "title": "",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": 4,
+        "offsetY": -191,
+        "width": 220,
+        "height": 160,
+        "rotation": -8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
-        "radius": 0
+        "offsetX": -266,
+    "offsetY": -58,
+    "width": 520,
+    "height": 383,
+    "rotation": -7,
+    "radius": 0
       }
     },
     {
@@ -321,20 +321,20 @@
       "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
       "title": "",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": -5,
+        "offsetY": -40,
+        "width": 200,
+        "height": 110,
+        "rotation": 8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 256,
-        "offsetY": 8,
-        "width": 512,
-        "height": 272,
-        "rotation": 0,
-        "radius": 0
+        "offsetX": 349,
+    "offsetY": -159,
+    "width": 484,
+    "height": 258,
+    "rotation": -1,
+    "radius": 0
       }
     }
   ],
@@ -347,10 +347,10 @@
       "caption": "",
       "title": "",
       "mobile": {
-        "offsetX": -7,
-        "offsetY": -186,
+        "offsetX": 0,
+        "offsetY": -156,
         "width": 280,
-        "height": 400,
+        "height": 450,
         "rotation": 0,
         "radius": 0
       },
@@ -371,11 +371,11 @@
       "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
       "title": "",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -6,
+        "offsetY": -271,
+        "width": 240,
+        "height": 180,
+        "rotation": 8,
         "radius": 0
       },
       "desktop": {
@@ -395,12 +395,12 @@
       "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
       "title": "",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
-        "radius": 0
+        "offsetX": 7,
+    "offsetY": -34,
+    "width": 270,
+    "height": 300,
+    "rotation": -9,
+    "radius": 0
       },
       "desktop": {
         "offsetX": 256,
