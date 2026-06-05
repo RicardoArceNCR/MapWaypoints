@@ -16,210 +16,103 @@
     },
     "useNaturalSize": false
   },
+
+  "_perfiles_mobile": {
+    "_nota": "short≤600 | medium≤740 | tall≤870 | xtall>870 | tablet ancho≥600",
+    "_ajuste": "yOffset mueve camara en px. zMobileProfile controla zoom. mobile.z siempre 1 (ignorado en mobile)."
+  },
+
+  "_fila1_yOffset":        { "default": -100, "short":  50, "medium":  -90, "tall": -160, "xtall": -190, "tablet": -300 },
+  "_fila1_zMobileProfile": { "default":    1, "short": 0.94, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
+
+  "_fila2_yOffset":        { "default": -100, "short":  30, "medium":  -90, "tall": -160, "xtall": -230, "tablet": -300 },
+  "_fila2_zMobileProfile": { "default":    1, "short": 0.94, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
+
   "waypoints": [
+
     {
+      "_fila": 1,
       "id": "wp_f1_col1",
-      "mobile": {
-        "xp": 0.172857,
-        "yp": 0.324762,
-        "z": 1
-      },
-      "desktop": {
-        "xp": 0.176887,
-        "yp": 0.243902,
-        "z": 1
-      },
-      "yOffset": {
-        "default": -100,
-        "short": 50,
-        "medium": -90,
-        "tall": -160,
-        "xtall": -190,
-        "tablet": -300
-      },
-      "zMobileProfile": {
-        "default": 1,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1,
-        "xtall": 1.05,
-        "tablet": 1.2
-      },
+      "mobile":  { "xp": 0.172857, "yp": 0.324203, "z": 1 },
+      "desktop": { "xp": 0.176887, "yp": 0.243902, "z": 1 },
+      "yOffset":        { "default": -100, "short":  -50, "medium":  -110, "tall": -230, "xtall": -250, "tablet": -300 },
+      "zMobileProfile": { "default":    1, "short": 0.94, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
       "label": "Regreso y vigilancia:",
       "lines": [
         "tres días que sellaron el asesinato de Samcam",
         "Tras el regreso de Samcam a su casa, los sospechosos iniciaron una vigilancia sistemática que concluyó en una reunión decisiva para afinar la logística del crimen en Tibás, en el condominio Naples."
       ]
     },
+
     {
+      "_fila": 1,
       "id": "wp_f1_col2",
-      "mobile": {
-        "xp": 0.51,
-        "yp": 0.275573,
-        "z": 1
-      },
-      "desktop": {
-        "xp": 0.509434,
-        "yp": 0.240488,
-        "z": 1
-      },
-      "yOffset": {
-        "default": -100,
-        "short": 50,
-        "medium": -90,
-        "tall": -160,
-        "xtall": -190,
-        "tablet": -300
-      },
-      "zMobileProfile": {
-        "default": 1,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1,
-        "xtall": 1.05,
-        "tablet": 1.2
-      },
+      "mobile":  { "xp": 0.51,     "yp": 0.275573, "z": 1 },
+      "desktop": { "xp": 0.509434, "yp": 0.240488, "z": 1 },
+      "yOffset":        { "default": -100, "short":  50, "medium":  -90, "tall": -160, "xtall": -190, "tablet": -300 },
+      "zMobileProfile": { "default":    1, "short": 0.94, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
       "label": "Día rutinario para Samcam,",
       "lines": [
         "día de ubicación final para los asesinos",
-        "Samcam realizó varios viajes matutinos en Uber desde su vivienda a la Clínica Rodrigo Fournier Guevara, en Tibás, y viceversa. Luego, se reunió en Casa España, en La Sábana, (11:15 h), donde se reunió con Rafael ‘Payo’ Solís y Óscar René Vargas. A las 16:07:26 horas regresó a su casa de habitación."
+        "Samcam realizó varios viajes matutinos en Uber desde su vivienda a la Clínica Rodrigo Fournier Guevara, en Tibás, y viceversa. Luego, se reunió en Casa España, en La Sábana, (11:15 h), donde se reunió con Rafael 'Payo' Solís y Óscar René Vargas. A las 16:07:26 horas regresó a su casa de habitación. "
       ]
     },
+
     {
+      "_fila": 1,
       "id": "wp_f1_col3",
-      "mobile": {
-        "xp": 0.830425,
-        "yp": 0.281722,
-        "z": 1
-      },
-      "desktop": {
-        "xp": 0.828774,
-        "yp": 0.245854,
-        "z": 1
-      },
-      "yOffset": {
-        "default": -100,
-        "short": 50,
-        "medium": -90,
-        "tall": -160,
-        "xtall": -190,
-        "tablet": -300
-      },
-      "zMobileProfile": {
-        "default": 1,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1,
-        "xtall": 1.05,
-        "tablet": 1.2
-      },
+      "mobile":  { "xp": 0.830425, "yp": 0.281722, "z": 1 },
+      "desktop": { "xp": 0.828774, "yp": 0.245854, "z": 1 },
+      "yOffset":        { "default": -100, "short":  50, "medium":  -90, "tall": -160, "xtall": -190, "tablet": -300 },
+      "zMobileProfile": { "default":    1, "short": 0.94, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
       "label": "Momento Culminante",
       "lines": [
         "Este es el punto donde todo cambia. Un momento decisivo en la narrativa.",
         "Los eventos que ocurren aquí tienen consecuencias duraderas."
       ]
     },
+
     {
+      "_fila": 2,
       "id": "wp_f2_col1",
-      "mobile": {
-        "xp": 0.17,
-        "yp": 0.762436,
-        "z": 1
-      },
-      "desktop": {
-        "xp": 0.172877,
-        "yp": 0.665365,
-        "z": 0.91
-      },
-      "yOffset": {
-        "default": -100,
-        "short": 30,
-        "medium": -90,
-        "tall": -160,
-        "xtall": -230,
-        "tablet": -300
-      },
-      "zMobileProfile": {
-        "default": 1,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1,
-        "xtall": 1.05,
-        "tablet": 0.9
-      },
+      "mobile":  { "xp": 0.17,     "yp": 0.762436, "z": 1 },
+      "desktop": { "xp": 0.172877, "yp": 0.665365, "z": 1 },
+      "yOffset":        { "default": -100, "short":  30, "medium":  -90, "tall": -160, "xtall": -230, "tablet": -300 },
+      "zMobileProfile": { "default":    1, "short": 0.94, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
       "label": "Momento Culminante",
       "lines": [
         "Este es el punto donde todo cambia. Un momento decisivo en la narrativa.",
         "Los eventos que ocurren aquí tienen consecuencias duraderas."
       ]
     },
+
     {
+      "_fila": 2,
       "id": "wp_f2_col2",
-      "mobile": {
-        "xp": 0.51,
-        "yp": 0.763555,
-        "z": 1
-      },
-      "desktop": {
-        "xp": 0.499057,
-        "yp": 0.666341,
-        "z": 0.91
-      },
-      "yOffset": {
-        "default": -100,
-        "short": 30,
-        "medium": -90,
-        "tall": -160,
-        "xtall": -230,
-        "tablet": -300
-      },
-      "zMobileProfile": {
-        "default": 1,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1,
-        "xtall": 1.05,
-        "tablet": 0.9
-      },
+      "mobile":  { "xp": 0.51,     "yp": 0.763555, "z": 1 },
+      "desktop": { "xp": 0.499057, "yp": 0.666341, "z": 1 },
+      "yOffset":        { "default": -100, "short":  30, "medium":  -90, "tall": -160, "xtall": -230, "tablet": -300 },
+      "zMobileProfile": { "default":    1, "short": 0.94, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
       "label": "Momento Culminanteeeee",
       "lines": [
         "Este es el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.",
         "Los eventos que ocurren aquí tienen consecuencias duraderas."
       ]
     },
+
     {
+      "_fila": 2,
       "id": "wp_f2_col3",
-      "mobile": {
-        "xp": 0.84,
-        "yp": 0.763555,
-        "z": 1
-      },
-      "desktop": {
-        "xp": 0.83,
-        "yp": 0.666341,
-        "z": 0.91
-      },
-      "yOffset": {
-        "default": -100,
-        "short": 30,
-        "medium": -90,
-        "tall": -160,
-        "xtall": -230,
-        "tablet": -300
-      },
-      "zMobileProfile": {
-        "default": 1,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1,
-        "xtall": 1.05,
-        "tablet": 0.9
-      },
+      "mobile":  { "xp": 0.84,     "yp": 0.763555, "z": 1 },
+      "desktop": { "xp": 0.83,     "yp": 0.666341, "z": 1 },
+      "yOffset":        { "default": -100, "short":  30, "medium":  -90, "tall": -160, "xtall": -230, "tablet": -300 },
+      "zMobileProfile": { "default":    1, "short": 0.94, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
       "label": "mmmmmMomento Culminanteeeee",
       "lines": [
         "Este esu748484484884 el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.",
         "Los eventos que ocurren aquí tienen consecuencias duraderas."
       ]
     }
+
   ]
 }

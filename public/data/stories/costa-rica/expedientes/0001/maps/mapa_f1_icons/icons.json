@@ -134,7 +134,7 @@
       "type": "hotspot",
       "mobile": {
         "offsetX": -7,
-        "offsetY": -186,
+        "offsetY": -60,
         "width": 280,
         "height": 400,
         "rotation": 0,
@@ -149,7 +149,6 @@
         "radius": 0
       },
       "title": "Inicia la vigilancia final de los asesinos en un vehículo Hyundai",
-      "image": "/assets/TODO-wp1-h0.webp",
       "datetime": {
         "date": "18/06/2025",
         "time": "16:17 h",
@@ -224,11 +223,11 @@
       "caption": "Hyundai celeste placa 903056, identificado por la puerta delantera del acompañante de color blanco. Captado en cámara al ingreso de León XIII a las 16:17 h del 18 de junio de 2025.",
       "title": "",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -15,
+        "offsetY": -150,
+        "width": 235,
+        "height": 200,
+        "rotation": 5,
         "radius": 0
       },
       "desktop": {
@@ -248,8 +247,8 @@
       "caption": "Sector León XIII, Tibás. El vehículo fue captado ingresando a esta zona diez minutos después del retorno de Samcam a su vivienda, confirmando que los sospechosos monitoreaban sus movimientos en tiempo real.",
       "title": "",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
+        "offsetX": -6,
+        "offsetY": 58,
         "width": 290,
         "height": 210,
         "rotation": -9,

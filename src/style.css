@@ -1684,7 +1684,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 /* medium — iPhone SE alto, Samsung S8+ */
 @media (min-height: 601px) and (max-height: 740px) {
   .waypoint-info-box__title { font-size: 1.3rem; }
-  .waypoint-info-box__desc  { font-size: 1rem; }
+  .waypoint-info-box__desc  { font-size: 0.9rem; }
 }
 
 /* tall — iPhone 12 Pro */

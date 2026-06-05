@@ -39,11 +39,11 @@
       },
       "zMobileProfile": {
         "default": 1.0,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1.0,
-        "xtall": 1.05,
-        "tablet": 1.2
+        "short": 0.94,
+        "medium": 0.96,
+        "tall": 0.97,
+        "xtall": 0.99,
+        "tablet": 1.00
       },
       "label": "Inicio del Viaje",
       "lines": [
@@ -73,11 +73,11 @@
       },
       "zMobileProfile": {
         "default": 1.0,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1.0,
-        "xtall": 1.05,
-        "tablet": 1.2
+        "short": 0.94,
+        "medium": 0.96,
+        "tall": 0.97,
+        "xtall": 0.99,
+        "tablet": 1.00
       },
       "label": "Punto Central",
       "lines": [
@@ -107,11 +107,11 @@
       },
       "zMobileProfile": {
         "default": 1.0,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1.0,
-        "xtall": 1.05,
-        "tablet": 1.2
+        "short": 0.94,
+        "medium": 0.96,
+        "tall": 0.97,
+        "xtall": 0.99,
+        "tablet": 1.00
       },
       "label": "Momento Culminante",
       "lines": [
@@ -129,7 +129,7 @@
       "desktop": {
         "xp": 0.172877,
         "yp": 0.370149,
-        "z": 0.91
+        "z": 1
       },
       "yOffset": {
         "default": -100,
@@ -141,11 +141,11 @@
       },
       "zMobileProfile": {
         "default": 1.0,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1.0,
-        "xtall": 1.05,
-        "tablet": 0.9
+        "short": 0.94,
+        "medium": 0.96,
+        "tall": 0.97,
+        "xtall": 0.99,
+        "tablet": 1.00
       },
       "label": "Momento Culminante",
       "lines": [
@@ -163,7 +163,7 @@
       "desktop": {
         "xp": 0.499057,
         "yp": 0.370692,
-        "z": 0.91
+        "z": 1
       },
       "yOffset": {
         "default": -100,
@@ -175,11 +175,11 @@
       },
       "zMobileProfile": {
         "default": 1.0,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1.0,
-        "xtall": 1.05,
-        "tablet": 0.9
+        "short": 0.94,
+        "medium": 0.96,
+        "tall": 0.97,
+        "xtall": 0.99,
+        "tablet": 1.00
       },
       "label": "Momento Culminanteeeee",
       "lines": [
@@ -197,7 +197,7 @@
       "desktop": {
         "xp": 0.83,
         "yp": 0.370692,
-        "z": 0.91
+        "z": 1
       },
       "yOffset": {
         "default": -100,
@@ -209,11 +209,11 @@
       },
       "zMobileProfile": {
         "default": 1.0,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1.0,
-        "xtall": 1.05,
-        "tablet": 0.9
+        "short": 0.94,
+        "medium": 0.96,
+        "tall": 0.97,
+        "xtall": 0.99,
+        "tablet": 1.00
       },
       "label": "mmmmmMomento Culminanteeeee",
       "lines": [
@@ -231,7 +231,7 @@
       "desktop": {
         "xp": 0.173349,
         "yp": 0.604342,
-        "z": 0.91
+        "z": 1
       },
       "yOffset": {
         "default": -100,
@@ -243,11 +243,11 @@
       },
       "zMobileProfile": {
         "default": 1.0,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1.0,
-        "xtall": 1.05,
-        "tablet": 0.9
+        "short": 0.94,
+        "medium": 0.96,
+        "tall": 0.97,
+        "xtall": 0.99,
+        "tablet": 1.00
       },
       "label": "TODO — Waypoint 7",
       "lines": [
@@ -265,7 +265,7 @@
       "desktop": {
         "xp": 0.498585,
         "yp": 0.604342,
-        "z": 0.91
+        "z": 1
       },
       "yOffset": {
         "default": -100,
@@ -277,11 +277,11 @@
       },
       "zMobileProfile": {
         "default": 1.0,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1.0,
-        "xtall": 1.05,
-        "tablet": 0.9
+        "short": 0.94,
+        "medium": 0.96,
+        "tall": 0.97,
+        "xtall": 0.99,
+        "tablet": 1.00
       },
       "label": "TODO — Waypoint 8",
       "lines": [
@@ -299,7 +299,7 @@
       "desktop": {
         "xp": 0.83,
         "yp": 0.604342,
-        "z": 0.91
+        "z": 1
       },
       "yOffset": {
         "default": -100,
@@ -311,11 +311,11 @@
       },
       "zMobileProfile": {
         "default": 1.0,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1.0,
-        "xtall": 1.05,
-        "tablet": 0.9
+        "short": 0.94,
+        "medium": 0.96,
+        "tall": 0.97,
+        "xtall": 0.99,
+        "tablet": 1.00
       },
       "label": "TODO — Waypoint 9",
       "lines": [
@@ -345,11 +345,11 @@
       },
       "zMobileProfile": {
         "default": 1.0,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1.0,
-        "xtall": 1.05,
-        "tablet": 0.9
+        "short": 0.94,
+        "medium": 0.96,
+        "tall": 0.97,
+        "xtall": 0.99,
+        "tablet": 1.00
       },
       "label": "TODO — Waypoint 10",
       "lines": [
@@ -379,11 +379,11 @@
       },
       "zMobileProfile": {
         "default": 1.0,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1.0,
-        "xtall": 1.05,
-        "tablet": 0.9
+        "short": 0.94,
+        "medium": 0.96,
+        "tall": 0.97,
+        "xtall": 0.99,
+        "tablet": 1.00
       },
       "label": "TODO — Waypoint 11",
       "lines": [
@@ -413,11 +413,11 @@
       },
       "zMobileProfile": {
         "default": 1.0,
-        "short": 0.8,
-        "medium": 0.9,
-        "tall": 1.0,
-        "xtall": 1.05,
-        "tablet": 0.9
+        "short": 0.94,
+        "medium": 0.96,
+        "tall": 0.97,
+        "xtall": 0.99,
+        "tablet": 1.00
       },
       "label": "TODO — Waypoint 12",
       "lines": [
