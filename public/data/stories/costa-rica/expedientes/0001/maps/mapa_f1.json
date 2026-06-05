@@ -23,10 +23,10 @@
   },
 
   "_fila1_yOffset":        { "default": -100, "short":  50, "medium":  -90, "tall": -160, "xtall": -190, "tablet": -300 },
-  "_fila1_zMobileProfile": { "default":    1, "short": 0.94, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
+  "_fila1_zMobileProfile": { "default":    1, "short": 0.75, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
 
   "_fila2_yOffset":        { "default": -100, "short":  30, "medium":  -90, "tall": -160, "xtall": -230, "tablet": -300 },
-  "_fila2_zMobileProfile": { "default":    1, "short": 0.94, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
+  "_fila2_zMobileProfile": { "default":    1, "short": 0.75, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
 
   "waypoints": [
 
@@ -35,8 +35,8 @@
       "id": "wp_f1_col1",
       "mobile":  { "xp": 0.172857, "yp": 0.324203, "z": 1 },
       "desktop": { "xp": 0.176887, "yp": 0.243902, "z": 1 },
-      "yOffset":        { "default": -100, "short":  -50, "medium":  -110, "tall": -230, "xtall": -250, "tablet": -300 },
-      "zMobileProfile": { "default":    1, "short": 0.77, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
+      "yOffset":        { "default": -100, "short":  -10, "medium":  -110, "tall": -230, "xtall": -250, "tablet": -300 },
+      "zMobileProfile": { "default":    1, "short": 0.75, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
       "label": "Regreso y vigilancia:",
       "lines": [
         "tres días que sellaron el asesinato de Samcam",
@@ -49,8 +49,8 @@
       "id": "wp_f1_col2",
       "mobile":  { "xp": 0.51,     "yp": 0.275573, "z": 1 },
       "desktop": { "xp": 0.509434, "yp": 0.240488, "z": 1 },
-      "yOffset":        { "default": -100, "short":  50, "medium":  -90, "tall": -160, "xtall": -190, "tablet": -300 },
-      "zMobileProfile": { "default":    1, "short": 0.94, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
+      "yOffset":        { "default": -100, "short":  90, "medium":  -90, "tall": -160, "xtall": -190, "tablet": -300 },
+      "zMobileProfile": { "default":    1, "short": 0.75, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
       "label": "Día rutinario para Samcam,",
       "lines": [
         "día de ubicación final para los asesinos",
@@ -64,7 +64,7 @@
       "mobile":  { "xp": 0.830425, "yp": 0.281722, "z": 1 },
       "desktop": { "xp": 0.828774, "yp": 0.245854, "z": 1 },
       "yOffset":        { "default": -100, "short":  50, "medium":  -90, "tall": -160, "xtall": -190, "tablet": -300 },
-      "zMobileProfile": { "default":    1, "short": 0.94, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
+      "zMobileProfile": { "default":    1, "short": 0.75, "medium":  0.96, "tall":  0.97, "xtall": 0.99, "tablet":  1.00 },
       "label": "Momento Culminante",
       "lines": [
         "Este es el punto donde todo cambia. Un momento decisivo en la narrativa.",
