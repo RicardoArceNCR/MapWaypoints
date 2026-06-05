@@ -167,7 +167,7 @@
     width: min(100vw - 30px, 520px);
 
     /* 👉 Ocupa casi toda la altura disponible */
-    max-height: calc(94dvh - 24px);
+    max-height: calc(100dvh - 33px);
 
     border-radius: var(--popup-radius-mobile);
     background: var(--popup-bg-mobile);
@@ -668,14 +668,3 @@
   }
 }
 
-@media (max-width: 768px) and (max-height: 720px) {
-  .popup-detailed {
-    max-height: calc(90vh - 24px);
-    /* antes ~95vh */
-  }
-
-  .popup-detailed__image-wrapper {
-    height: min(26vh, 160px);
-    /* cabecera más compacta */
-  }
-}
