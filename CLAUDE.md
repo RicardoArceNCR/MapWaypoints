@@ -280,6 +280,34 @@ yp_nuevo = (yp_viejo × logicalH_viejo) / logicalH_nuevo
 
 Si la imagen nueva mantiene la proporción (caso normal), los waypoints quedan intactos.
 
+### Alineación vertical de waypoints por fila (`yOffset`)
+
+Los waypoints de una misma fila deben apuntar al mismo `camY` en todos los perfiles. El primer waypoint de cada fila (`col1`) es la **base calibrada**. Los demás (`col2`, `col3`) compensan matemáticamente la diferencia de `yp`:
+
+```
+yOffset[p] = (camY_base - wp.mobile.yp × logicalH) × z[p]
+```
+
+donde `camY_base = col1.mobile.yp × logicalH + col1.yOffset[p] / z[p]`.
+
+**No copiar el `yOffset` de col1 a col2/col3 directamente** — cada waypoint tiene distinto `yp` y necesita su compensación.
+
+Para recalcular cuando cambie un `yp` o el `yOffset` de col1:
+
+```js
+const h = mapConfig.logicalH;
+const base = waypoints[0]; // col1 — la base calibrada
+const others = waypoints.slice(1, 3); // col2, col3
+
+Object.keys(base.yOffset).forEach(p => {
+  const z = base.zMobileProfile[p];
+  const camY = base.mobile.yp * h + base.yOffset[p] / z;
+  others.forEach(wp => {
+    wp.yOffset[p] = Math.round((camY - wp.mobile.yp * h) * z);
+  });
+});
+```
+
 ### Hotspot offsets: son relativos al waypoint en px del mundo
 
 ```js
