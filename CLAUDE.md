@@ -434,6 +434,8 @@ Si no hay historia (fallback default):
 | Asumir que las fotos de hotspots están en el canvas | Están en overlays DOM — `<img>` dentro de `.overlay-wrap` |
 | Poner `pointer-events: auto` en `.overlay-wrap.has-caption` | El tipo B debe ser `pointer-events: none` — solo el badge tiene `pointer-events: auto` |
 | Olvidar sincronizar `window.cameraInstance` con `camera` local | Agregar `cameraInstance.setPosition(camera.x, camera.y, camera.z)` después del lerp en el RAF loop |
+| Dejar `breathingAllowed` sin guard de popup | Agregar `!popupManager?.isOpen()` — el breathing debe pausarse con popup abierto o el canvas redibuja innecesariamente cada frame |
+| Agregar handlers de resize sin guard de popup | `handleResize`, `ResizeObserver` y `visualViewport.resize` deben retornar si `popupManager?.isOpen()` — la scrollbar del body al abrir/cerrar popup dispara resize falsos |
 | Usar `:hover` en `.overlay-wrap.has-caption` para el badge ⓘ | Usar `:has(.hs-caption__badge:hover)` — el wrap tiene `pointer-events: none` |
 
 ---
@@ -508,6 +510,11 @@ git add . && git commit -m "descripción" && git push
 - Activado via campos `caption` y `noPopup: true` en `icons.json`
 - CSS usa `:has(.hs-caption__badge:hover)` — cero JS en hover
 - Desactivado en mobile con `@media (hover: none)`
+
+**Fix canvas flash con popup abierto (Junio 2026):**
+- `breathingAllowed` ahora incluye `!popupManager?.isOpen()` — el breathing se pausa mientras el popup está abierto
+- `handleResize`, `ResizeObserver` y `visualViewport.resize` tienen guard `if (popupManager?.isOpen()) return` — evitan que la scrollbar del body al abrir/cerrar el popup dispare `setCanvasDPR()` innecesariamente
+- `DetailedPopupManager.closeAll()` llama `window.setCanvasDPR?.()` + `window.markDirty?.()` en el `setTimeout` de 300ms — el canvas se recalcula correctamente cuando la scrollbar vuelve tras el cierre
 
 **Fix de sincronización camera/breathing (Junio 2026):**
 - `window.cameraInstance.setPosition()` se llama cada frame después del lerp

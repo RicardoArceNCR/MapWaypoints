@@ -663,6 +663,8 @@ Los archivos a editar son `mapa_f1.json`, `mapa_f2.json` y `mapa_f3.json` dentro
 | **Idle FPS throttling** | Cuando no hay animación activa, el loop corre a 30fps en vez de 60fps. |
 | **Editor bajo demanda** | `editor.js` solo se carga con `?editor=1`. No está en el bundle de producción. |
 | **logicalW/H como fuente de verdad** | `drawImage` escala la imagen al espacio lógico — la resolución física es independiente. Permite imágenes livianas sin mover waypoints. |
+| **Guard breathing con popup** | `breathingAllowed` incluye `!popupManager?.isOpen()` — el breathing se pausa mientras el popup está abierto. Evita que el canvas se redibuje innecesariamente cada frame durante la lectura del popup. |
+| **Guard resize con popup** | `handleResize`, `ResizeObserver` y `visualViewport.resize` retornan inmediatamente si el popup está abierto. La scrollbar del body al abrir/cerrar popup genera un resize de ~17px que antes disparaba `setCanvasDPR()` causando un flash visible en el canvas. |
 | **structuredClone en vez de JSON.parse(JSON.stringify)** | `structuredClone()` es más rápido, preserva tipos y evita el overhead de serialización/parseo. Aplicado en `MapManager.js:684`. |
 | **Guard contra null pointer en overlays** | `_onPointerDown` y `_onPointerUp` en `OverlayLayer.js` ahora tienen guards contra items eliminados entre eventos. Previene TypeError en tappings rápidos. |
 | **Culling world-space duplicado eliminado** | `endFrame()` en `OverlayLayer.js` hacía dos culling checks (world-space y screen-space). El screen-space es suficiente y más preciso. Se eliminó el bloque world-space (~10 líneas). |
