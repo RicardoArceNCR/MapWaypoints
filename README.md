@@ -694,4 +694,4 @@ Los archivos a editar son `mapa_f1.json`, `mapa_f2.json` y `mapa_f3.json` dentro
 ### Futuro
 - [ ] Web Component `<mapa-interactivo>` para distribución sin iframe
 - [ ] Panel de administración para editar historias sin tocar JSON
-- [ ] Audio/narración sincronizada con waypoints
+- [ ] Audio/narración sincronizada con waypoints# deploy test
