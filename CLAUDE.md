@@ -280,34 +280,6 @@ yp_nuevo = (yp_viejo × logicalH_viejo) / logicalH_nuevo
 
 Si la imagen nueva mantiene la proporción (caso normal), los waypoints quedan intactos.
 
-### Alineación vertical de waypoints por fila (`yOffset`)
-
-Los waypoints de una misma fila deben apuntar al mismo `camY` en todos los perfiles. El primer waypoint de cada fila (`col1`) es la **base calibrada**. Los demás (`col2`, `col3`) compensan matemáticamente la diferencia de `yp`:
-
-```
-yOffset[p] = (camY_base - wp.mobile.yp × logicalH) × z[p]
-```
-
-donde `camY_base = col1.mobile.yp × logicalH + col1.yOffset[p] / z[p]`.
-
-**No copiar el `yOffset` de col1 a col2/col3 directamente** — cada waypoint tiene distinto `yp` y necesita su compensación.
-
-Para recalcular cuando cambie un `yp` o el `yOffset` de col1:
-
-```js
-const h = mapConfig.logicalH;
-const base = waypoints[0]; // col1 — la base calibrada
-const others = waypoints.slice(1, 3); // col2, col3
-
-Object.keys(base.yOffset).forEach(p => {
-  const z = base.zMobileProfile[p];
-  const camY = base.mobile.yp * h + base.yOffset[p] / z;
-  others.forEach(wp => {
-    wp.yOffset[p] = Math.round((camY - wp.mobile.yp * h) * z);
-  });
-});
-```
-
 ### Hotspot offsets: son relativos al waypoint en px del mundo
 
 ```js
@@ -317,6 +289,35 @@ const iconY = waypoint.y + icon.offsetY;
 ```
 
 No necesitan recalcularse al cambiar la imagen.
+
+### Hotspots reactivos al zoom (modelo world-space) — PENDIENTE DE IMPLEMENTAR
+
+**El problema actual:** los hotspots en `icons.json` usan `offsetX/offsetY/width/height` en **píxeles de pantalla fijos**. Cuando cambia `desktop.z` o `zMobileProfile`, el mapa se acerca/aleja pero el hotspot mantiene su tamaño en pantalla — deja de cubrir la zona visual que se quería marcar.
+
+**Por qué ocurre:** `MapManager._normalizeIcons()` convierte `offsetX/offsetY` a coordenadas world absolutas, pero pasa `width/height` como px fijos a `lockWidthPx` en `OverlayLayer`. El tamaño no escala con el zoom.
+
+**La solución (aún no implementada):** migrar al modelo `xp/yp/wp/hp` normalizado (0.0–1.0 relativo a `logicalW/H`). Este modelo ya existe y funciona para `window.hotspotData` (el editor), donde el tamaño en pantalla se calcula como:
+```js
+screenWidth  = (wp * logicalW) * camera.z
+screenHeight = (hp * logicalH) * camera.z
+```
+El hotspot crece y encoge exactamente con el zoom — siempre cubre la misma zona del mapa.
+
+**Qué habría que hacer para implementarlo:**
+
+1. **`MapManager._normalizeIcons()`** — detectar si el icono usa `xp/yp/wp/hp` y pasarlos a través sin convertir a px.
+2. **`app.js` loop de render** — en el bloque de `iconsForWaypoint`, si el icono tiene `xp/yp/wp/hp`, calcular `screenWidth = wp * logicalW * camera.z` igual que hace el bloque de `hotspotData`.
+3. **`icons.json`** — migrar los hotspots al nuevo formato usando la fórmula de conversión:
+   ```
+   xp = (waypoint.mobile.xp * logicalW + hotspot.mobile.offsetX) / logicalW
+   yp = (waypoint.mobile.yp * logicalH + hotspot.mobile.offsetY) / logicalH
+   wp = hotspot.mobile.width  / logicalW
+   hp = hotspot.mobile.height / logicalH
+   ```
+
+**Riesgo:** cambio de arquitectura en `MapManager` y `app.js`. Hacerlo en una rama separada, verificar con `?debug=1` que los hotspots siguen en posición correcta antes de mergear.
+
+**Mientras tanto:** al cambiar `desktop.z`, los hotspots de `icons.json` **no se reposicionan solos** — hay que ajustar `offsetX/offsetY` manualmente con el editor (`?editor=1`) para cada waypoint afectado.
 
 ### Bundle de hotspots: icons.json
 

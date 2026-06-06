@@ -148,14 +148,13 @@
         "rotation": -1,
         "radius": 0
       },
-      "title": "Inicia la vigilancia final de los asesinos en un vehículo Hyundai",
+      "title": "Día rutinario para Samcam, día de ubicación final para los asesinos",
       "datetime": {
         "date": "18/06/2025",
-        "time": "16:17 h",
-        "timeColor": "#FF4444"
+        "time": "06:26 – 16:07 h"
       },
       "location": "Ingreso a León XIII, Tibás, San José",
-      "description": "Samcam realizó varios viajes matutinos en Uber desde su vivienda a la Clínica Rodrigo Fournier Guevara, en Tibás, y viceversa. Luego, se reunió en Casa España, en La Sábana, (11:15 h), donde se reunió con Rafael ‘Payo’ Solís y Óscar René Vargas. A las 16:07:26 horas regresó a su casa de habitación.",
+      "description": "Samcam realizó varios viajes matutinos en Uber desde su vivienda a la Clínica Rodrigo Fournier Guevara, en Tibás, y viceversa. Luego se reunió en Casa España, en La Sábana (11:15 h), con Rafael \"Payo\" Solís y Óscar René Vargas. A las 16:07:26 horas regresó a su casa de habitación.",
       "involved": [
         {
           "id": "robles_murillo",
@@ -268,10 +267,9 @@
     {
       "_note": "wp2-H0: Principal — abre popup grande",
       "type": "hotspot",
-      "image": "/assets/TODO-wp2-h0.webp",
       "noPopup": false,
       "caption": "",
-      "title": "",
+      "title": "Inicia la vigilancia final de los asesinos en un vehículo Hyundai.",
       "mobile": {
         "offsetX": -2,
         "offsetY": -91,
@@ -287,7 +285,33 @@
         "height": 450,
         "rotation": -1,
         "radius": 0
-      }
+      },
+      "datetime": {
+        "date": "18/06/2025",
+        "time": "16:17 h"
+      },
+      "description": "Se capta el vehículo Hyundai celeste (placa 903056), con características distintivas (puerta delantera del acompañante blanca), en el ingreso a León XIII. Este vehículo había sido entregado por su dueño, Luis Orozco, a Danilo José Chaves Medina (\"Dani Peluqueris\") esa mañana, aparentemente para trámites, y Danilo coordinaba su devolución.",
+      "involved": [
+        {
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/pablo-anotonio-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual",
+          "highlighted": true
+        },
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario logístico"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor"
+        }
+      ]
     },
     {
       "_note": "wp2-H1-B: Tipo B — informativo secundario",
@@ -306,11 +330,11 @@
       },
       "desktop": {
         "offsetX": -266,
-    "offsetY": -58,
-    "width": 520,
-    "height": 383,
-    "rotation": -7,
-    "radius": 0
+        "offsetY": -58,
+        "width": 520,
+        "height": 383,
+        "rotation": -7,
+        "radius": 0
       }
     },
     {
@@ -330,11 +354,11 @@
       },
       "desktop": {
         "offsetX": 349,
-    "offsetY": -159,
-    "width": 484,
-    "height": 258,
-    "rotation": -1,
-    "radius": 0
+        "offsetY": -159,
+        "width": 484,
+        "height": 258,
+        "rotation": -1,
+        "radius": 0
       }
     }
   ],
@@ -342,10 +366,9 @@
     {
       "_note": "wp3-H0: Principal — abre popup grande",
       "type": "hotspot",
-      "image": "/assets/TODO-wp3-h0.webp",
       "noPopup": false,
       "caption": "",
-      "title": "",
+      "title": "Aparece el Renault Duster Blanco",
       "mobile": {
         "offsetX": 0,
         "offsetY": -156,
@@ -361,7 +384,33 @@
         "height": 450,
         "rotation": -1,
         "radius": 0
-      }
+      },
+      "datetime": {
+        "date": "18/06/2025",
+        "time": "16:19 – 17:43 h"
+      },
+      "description": "Minutos después de que Samcam llegó a casa, el Renault Duster blanco (BKK190) fue captado realizando recorridos de vigilancia en las cercanías de su vivienda en Moravia. Simultáneamente, el número de Luis Fernando Carvajal Fernández (el sicario) activó la radio base \"Valla Moravia\", la antena de telefonía ubicada en el sector, demostrando que realizaba labores de inteligencia. El Duster blanco se retiró de la zona a las 17:43 horas.",
+      "involved": [
+        {
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/pablo-anotonio-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual",
+          "highlighted": true
+        },
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario logístico"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor"
+        }
+      ]
     },
     {
       "_note": "wp3-H1-B: Tipo B — informativo secundario",
@@ -396,11 +445,11 @@
       "title": "",
       "mobile": {
         "offsetX": 7,
-    "offsetY": -34,
-    "width": 270,
-    "height": 300,
-    "rotation": -9,
-    "radius": 0
+        "offsetY": -34,
+        "width": 270,
+        "height": 300,
+        "rotation": -9,
+        "radius": 0
       },
       "desktop": {
         "offsetX": 256,
@@ -416,10 +465,9 @@
     {
       "_note": "wp4-H0: Principal — abre popup grande",
       "type": "hotspot",
-      "image": "/assets/TODO-wp4-h0.webp",
       "noPopup": false,
       "caption": "",
-      "title": "",
+      "title": "Reunión de coordinación final para el asesinato",
       "mobile": {
         "offsetX": -7,
         "offsetY": -186,
@@ -435,7 +483,33 @@
         "height": 450,
         "rotation": -1,
         "radius": 0
-      }
+      },
+      "datetime": {
+        "date": "18/06/2025",
+        "time": "17:54 – 18:23 h"
+      },
+      "description": "El Duster BKK190 se dirige a la Estación de Servicio Delta (ingreso a León XIII), donde se reúne con el Hyundai celeste 903056 y una motocicleta Freedom color rojo. Información confidencial indicó que el propósito era coordinar el asesinato, revisar los vehículos y el arma para afinar detalles de la planificación. Al Duster le abrieron el capó durante el encuentro.",
+      "involved": [
+        {
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/pablo-anotonio-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual",
+          "highlighted": true
+        },
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario logístico"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor"
+        }
+      ]
     },
     {
       "_note": "wp4-H1-B: Tipo B — informativo secundario",
@@ -490,10 +564,9 @@
     {
       "_note": "wp5-H0: Principal — abre popup grande",
       "type": "hotspot",
-      "image": "/assets/TODO-wp5-h0.webp",
       "noPopup": false,
       "caption": "",
-      "title": "",
+      "title": "Todo listo para asesinar a Samcam",
       "mobile": {
         "offsetX": -7,
         "offsetY": -186,
@@ -509,7 +582,33 @@
         "height": 450,
         "rotation": -1,
         "radius": 0
-      }
+      },
+      "datetime": {
+        "date": "18/06/2025",
+        "time": "19:04 h"
+      },
+      "description": "Tras la reunión, el dispositivo de Luis Fernando Carvajal Fernández activa la radio base \"León XIII\", la antena celular coincidente con el sector de residencia de los sospechosos.",
+      "involved": [
+        {
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/pablo-anotonio-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual",
+          "highlighted": true
+        },
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario logístico"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor"
+        }
+      ]
     },
     {
       "_note": "wp5-H1-B: Tipo B — informativo secundario",

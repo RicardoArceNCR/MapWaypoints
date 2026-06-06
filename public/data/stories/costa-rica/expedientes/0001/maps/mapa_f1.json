@@ -82,9 +82,8 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Regreso y vigilancia:",
+      "label": "Regreso y vigilancia: tres días que sellaron el asesinato de Samcam.",
       "lines": [
-        "tres días que sellaron el asesinato de Samcam",
         "Tras el regreso de Samcam a su casa, los sospechosos iniciaron una vigilancia sistemática que concluyó en una reunión decisiva para afinar la logística del crimen en Tibás, en el condominio Naples."
       ]
     },
@@ -187,10 +186,9 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Momento Culminante",
+      "label": "Aparece el Renault Duster Blanco",
       "lines": [
-        "Este es el punto donde todo cambia. Un momento decisivo en la narrativa.",
-        "Los eventos que ocurren aquí tienen consecuencias duraderas."
+        "Minutos después de que Samcam llegó a casa, el Renault Duster blanco (BKK190) fue captado realizando recorridos de vigilancia en las cercanías de su vivienda en Moravia."
       ]
     },
     {
@@ -222,10 +220,9 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Momento Culminanteeeee",
+      "label": "Reunión de coordinación final para el asesinato",
       "lines": [
-        "Este es el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.",
-        "Los eventos que ocurren aquí tienen consecuencias duraderas."
+        "El Duster BKK190 se dirige a la Estación de Servicio Delta (ingreso a León XIII), donde se reúne con el Hyundai celeste 903056 y una motocicleta Freedom color rojo."
       ]
     },
     {
@@ -257,10 +254,9 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "mmmmmMomento Culminanteeeee",
+      "label": "Todo listo para asesinar a Samcam",
       "lines": [
-        "Este esu748484484884 el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.",
-        "Los eventos que ocurren aquí tienen consecuencias duraderas."
+        "Tras la reunión, el dispositivo de Luis Fernando Carvajal Fernández activa la radio base \"León XIII\", es decir la antena celular, coincidente con el sector de residencia de los sospechosos."
       ]
     }
   ]

@@ -1689,13 +1689,13 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
 /* tall — iPhone 12 Pro */
 @media (min-height: 741px) and (max-height: 870px) {
-  .waypoint-info-box__title { font-size: 1.9rem; }
+  .waypoint-info-box__title { font-size: 1.7rem; }
   .waypoint-info-box__desc  { font-size: 1rem; text-align: center;}
 }
 
 /* xtall — iPhone XR, 14 Pro Max, Pixel, S20 */
 @media (min-height: 871px) and (max-width: 899px) {
-  .waypoint-info-box__title { font-size: 1.9rem; }
+  .waypoint-info-box__title { font-size: 1.7rem; }
   .waypoint-info-box__desc  { font-size: 1rem; text-align: center;}
 }
 
