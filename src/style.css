@@ -1701,12 +1701,12 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
 /* tablet — iPad Mini y similares (detección por ancho) */
 @media (min-width: 600px) and (max-width: 899px) {
-  .waypoint-info-box__title { font-size: 2.1rem; }
+  .waypoint-info-box__title { font-size: 1.8rem; }
   .waypoint-info-box__desc  { font-size: 0.80rem; }
 }
 
 /* desktop */
 @media (min-width: 900px) {
-  .waypoint-info-box__title { font-size: 2.65rem; }
-  .waypoint-info-box__desc  { font-size: 1.3rem; }
+  .waypoint-info-box__title { font-size: 1.85rem; }
+  .waypoint-info-box__desc  { font-size: 1rem; }
 }
