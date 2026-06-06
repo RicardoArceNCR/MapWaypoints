@@ -119,11 +119,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 258,
-        "offsetY": -33,
-        "width": 470,
-        "height": 230,
-        "rotation": 1,
+        "offsetX": 232,
+        "offsetY": -148,
+        "width": 392,
+        "height": 204,
+        "rotation": 3,
         "radius": 0
       },
       "id": "hs_f2_wp0_h2",
@@ -807,10 +807,10 @@
       "caption": "",
       "title": "Inicia la huida",
       "mobile": {
-        "offsetX": -7,
-        "offsetY": -186,
-        "width": 280,
-        "height": 400,
+        "offsetX": -3,
+        "offsetY": -21,
+        "width": 350,
+        "height": 280,
         "rotation": 0,
         "radius": 0
       },
@@ -861,11 +861,11 @@
       "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
       "title": "TODO — Inicia la huida (detalle H1)",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -14,
+        "offsetY": -8,
+        "width": 300,
+        "height": 210,
+        "rotation": -9,
         "radius": 0
       },
       "desktop": {
@@ -914,11 +914,11 @@
       "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
       "title": "TODO — Inicia la huida (detalle H2)",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": 126,
+        "offsetY": 52,
+        "width": 80,
+        "height": 100,
+        "rotation": -8,
         "radius": 0
       },
       "desktop": {
