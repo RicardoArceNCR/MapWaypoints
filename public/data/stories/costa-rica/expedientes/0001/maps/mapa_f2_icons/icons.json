@@ -65,12 +65,12 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -314,
-        "offsetY": -81,
-        "width": 460,
-        "height": 320,
-        "rotation": -1,
-        "radius": 0
+        "offsetX": -256,
+    "offsetY": -83,
+    "width": 470,
+    "height": 375,
+    "rotation": 0,
+    "radius": 0
       },
       "title": "TODO — Los sicarios salen a matar (detalle H1)",
       "id": "hs_f2_wp0_h1",
@@ -170,12 +170,12 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 21,
-        "offsetY": -75,
-        "width": 1030,
-        "height": 450,
-        "rotation": -1,
-        "radius": 0
+        "offsetX": -27,
+    "offsetY": -73,
+    "width": 866,
+    "height": 373,
+    "rotation": -1,
+    "radius": 0
       },
       "title": "Otro sicario sale en motocicleta a matar",
       "datetime": {
@@ -278,11 +278,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 295,
-        "offsetY": -39,
-        "width": 500,
-        "height": 250,
-        "rotation": 0,
+        "offsetX": 226,
+        "offsetY": -160,
+        "width": 370,
+        "height": 185,
+        "rotation": 3,
         "radius": 0
       },
       "id": "hs_f2_wp1_h2",
@@ -332,10 +332,10 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 25,
-        "offsetY": -50,
-        "width": 1081,
-        "height": 450,
+        "offsetX": -26,
+        "offsetY": -78,
+        "width": 700,
+        "height": 410,
         "rotation": -1,
         "radius": 0
       },
@@ -386,12 +386,12 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -261,
-        "offsetY": -57,
-        "width": 490,
-        "height": 355,
-        "rotation": -7,
-        "radius": 0
+        "offsetX": -259,
+    "offsetY": -203,
+    "width": 270,
+    "height": 169,
+    "rotation": 3,
+    "radius": 0
       },
       "id": "hs_f2_wp2_h1",
       "datetime": {
@@ -439,12 +439,12 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 349,
-        "offsetY": -160,
-        "width": 455,
-        "height": 233,
-        "rotation": -1,
-        "radius": 0
+        "offsetX": 79,
+    "offsetY": -186,
+    "width": 145,
+    "height": 164,
+    "rotation": 0,
+    "radius": 0
       },
       "id": "hs_f2_wp2_h2",
       "datetime": {
@@ -493,10 +493,10 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -13,
-        "offsetY": -92,
-        "width": 1000,
-        "height": 380,
+        "offsetX": -33,
+        "offsetY": -120,
+        "width": 736,
+        "height": 440,
         "rotation": -1,
         "radius": 0
       },
@@ -547,12 +547,12 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -264,
-        "offsetY": -92,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
-        "radius": 0
+        "offsetX": -152,
+    "offsetY": -293,
+    "width": 476,
+    "height": 107,
+    "rotation": 0,
+    "radius": 0
       },
       "id": "hs_f2_wp3_h1",
       "datetime": {
@@ -600,12 +600,12 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 315,
-        "offsetY": -80,
-        "width": 400,
-        "height": 380,
-        "rotation": 0,
-        "radius": 0
+        "offsetX": -155,
+    "offsetY": -35,
+    "width": 499,
+    "height": 281,
+    "rotation": 0,
+    "radius": 0
       },
       "id": "hs_f2_wp3_h2",
       "datetime": {
@@ -654,9 +654,9 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 57,
-        "offsetY": -80,
-        "width": 995,
+        "offsetX": 2,
+        "offsetY": -114,
+        "width": 900,
         "height": 400,
         "rotation": -1,
         "radius": 0
@@ -708,9 +708,9 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -272,
-        "offsetY": -78,
-        "width": 490,
+        "offsetX": -225,
+        "offsetY": -141,
+        "width": 463,
         "height": 350,
         "rotation": -1,
         "radius": 0
@@ -761,12 +761,12 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 322,
-        "offsetY": -84,
-        "width": 550,
-        "height": 390,
-        "rotation": 0,
-        "radius": 0
+        "offsetX": 271,
+    "offsetY": -193,
+    "width": 399,
+    "height": 214,
+    "rotation": 0,
+    "radius": 0
       },
       "id": "hs_f2_wp4_h2",
       "datetime": {
@@ -815,10 +815,10 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 9,
-        "offsetY": -47,
-        "width": 1000,
-        "height": 390,
+        "offsetX": 13,
+        "offsetY": -112,
+        "width": 630,
+        "height": 444,
         "rotation": -1,
         "radius": 0
       },
@@ -869,11 +869,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -271,
-        "offsetY": -59,
-        "width": 400,
-        "height": 367,
-        "rotation": -1,
+        "offsetX": 282,
+        "offsetY": -199,
+        "width": 127,
+        "height": 140,
+        "rotation": 3,
         "radius": 0
       },
       "id": "hs_f2_wp5_h1",
@@ -922,10 +922,10 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 299,
-        "offsetY": -74,
-        "width": 512,
-        "height": 410,
+        "offsetX": 96,
+        "offsetY": 16,
+        "width": 280,
+        "height": 200,
         "rotation": 0,
         "radius": 0
       },
