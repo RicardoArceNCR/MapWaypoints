@@ -4,10 +4,10 @@
       "_note": "WP0-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -7,
-        "offsetY": -186,
-        "width": 280,
-        "height": 400,
+        "offsetX": 3,
+        "offsetY": -132,
+        "width": 317,
+        "height": 339,
         "rotation": 0,
         "radius": 20
       },
@@ -57,20 +57,20 @@
       "caption": "En esta foto se ve a Samcam entrando al aeropuerto Juan Santamaría. Llega acompañado por colegas opositores.",
       "noPopup": true,
       "mobile": {
-        "offsetX": -12,
-        "offsetY": -294,
-        "width": 260,
-        "height": 122,
-        "rotation": 9,
+        "offsetX": 8,
+        "offsetY": -187,
+        "width": 309,
+        "height": 236,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
         "offsetX": -256,
-    "offsetY": -83,
-    "width": 470,
-    "height": 375,
-    "rotation": 0,
-    "radius": 0
+        "offsetY": -83,
+        "width": 470,
+        "height": 375,
+        "rotation": 0,
+        "radius": 0
       },
       "title": "TODO — Los sicarios salen a matar (detalle H1)",
       "id": "hs_f2_wp0_h1",
@@ -111,11 +111,11 @@
       "caption": "Mapa del Aeropuerto Juan Santamaría en Alajuela, Costa Rica. Se muestra la ruta de acceso principal.",
       "title": "TODO — Los sicarios salen a matar (detalle H2)",
       "mobile": {
-        "offsetX": -4,
-        "offsetY": -102,
-        "width": 280,
-        "height": 188,
-        "rotation": -9,
+        "offsetX": -41,
+        "offsetY": -18,
+        "width": 229,
+        "height": 115,
+        "rotation": 3,
         "radius": 0
       },
       "desktop": {
@@ -162,20 +162,20 @@
       "_note": "WP1-H0: Rectángulo principal — copia exacta de layout wp0",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -7,
-        "offsetY": -60,
-        "width": 280,
-        "height": 400,
+        "offsetX": 0,
+        "offsetY": -45,
+        "width": 335,
+        "height": 363,
         "rotation": 0,
         "radius": 0
       },
       "desktop": {
         "offsetX": -27,
-    "offsetY": -73,
-    "width": 866,
-    "height": 373,
-    "rotation": -1,
-    "radius": 0
+        "offsetY": -73,
+        "width": 866,
+        "height": 373,
+        "rotation": -1,
+        "radius": 0
       },
       "title": "Otro sicario sale en motocicleta a matar",
       "datetime": {
@@ -217,11 +217,11 @@
       "caption": "Hyundai celeste placa 903056, identificado por la puerta delantera del acompañante de color blanco. Captado en cámara al ingreso de León XIII a las 16:17 h del 18 de junio de 2025.",
       "title": "TODO — Otro sicario sale en motocicleta a matar (detalle H1)",
       "mobile": {
-        "offsetX": -16,
-        "offsetY": -154,
-        "width": 200,
-        "height": 180,
-        "rotation": 5,
+        "offsetX": -4,
+        "offsetY": -87,
+        "width": 298,
+        "height": 239,
+        "rotation": 1,
         "radius": 0
       },
       "desktop": {
@@ -270,11 +270,11 @@
       "caption": "Sector León XIII, Tibás. El vehículo fue captado ingresando a esta zona diez minutos después del retorno de Samcam a su vivienda, confirmando que los sospechosos monitoreaban sus movimientos en tiempo real.",
       "title": "TODO — Otro sicario sale en motocicleta a matar (detalle H2)",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": 59,
-        "width": 260,
-        "height": 180,
-        "rotation": -9,
+        "offsetX": -93,
+        "offsetY": 80,
+        "width": 110,
+        "height": 120,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -324,10 +324,10 @@
       "caption": "",
       "title": "Cambio de roles y ajuste de posiciones finales",
       "mobile": {
-        "offsetX": -2,
-        "offsetY": -91,
-        "width": 280,
-        "height": 400,
+        "offsetX": 2,
+        "offsetY": -50,
+        "width": 315,
+        "height": 371,
         "rotation": 0,
         "radius": 0
       },
@@ -378,12 +378,12 @@
       "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
       "title": "TODO — Cambio de roles y ajuste de posiciones finales (detalle H1)",
       "mobile": {
-        "offsetX": 4,
-        "offsetY": -191,
-        "width": 220,
-        "height": 160,
-        "rotation": -8,
-        "radius": 0
+        "offsetX": -60,
+    "offsetY": -127,
+    "width": 222,
+    "height": 140,
+    "rotation": 3,
+    "radius": 0
       },
       "desktop": {
         "offsetX": -259,
@@ -431,20 +431,20 @@
       "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
       "title": "TODO — Cambio de roles y ajuste de posiciones finales (detalle H2)",
       "mobile": {
-        "offsetX": -5,
-        "offsetY": -40,
-        "width": 200,
-        "height": 110,
-        "rotation": 8,
+        "offsetX": 122,
+        "offsetY": -181,
+        "width": 94,
+        "height": 104,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
         "offsetX": 79,
-    "offsetY": -186,
-    "width": 145,
-    "height": 164,
-    "rotation": 0,
-    "radius": 0
+        "offsetY": -186,
+        "width": 145,
+        "height": 164,
+        "rotation": 0,
+        "radius": 0
       },
       "id": "hs_f2_wp2_h2",
       "datetime": {
@@ -485,10 +485,10 @@
       "caption": "",
       "title": "El sicario se posiciona en la escena del crimen",
       "mobile": {
-        "offsetX": 0,
-        "offsetY": -156,
-        "width": 280,
-        "height": 450,
+        "offsetX": -1,
+        "offsetY": -52,
+        "width": 341,
+        "height": 299,
         "rotation": 0,
         "radius": 0
       },
@@ -539,12 +539,12 @@
       "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
       "title": "TODO — El sicario se posiciona en la escena del crimen (detalle H1)",
       "mobile": {
-        "offsetX": -6,
-        "offsetY": -271,
-        "width": 240,
-        "height": 180,
-        "rotation": 8,
-        "radius": 0
+        "offsetX": -72,
+    "offsetY": -137,
+    "width": 203,
+    "height": 43,
+    "rotation": 0,
+    "radius": 0
       },
       "desktop": {
         "offsetX": -152,
@@ -592,20 +592,20 @@
       "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
       "title": "TODO — El sicario se posiciona en la escena del crimen (detalle H2)",
       "mobile": {
-        "offsetX": 7,
-        "offsetY": -34,
-        "width": 270,
-        "height": 300,
-        "rotation": -9,
+        "offsetX": -4,
+        "offsetY": 6,
+        "width": 337,
+        "height": 192,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
         "offsetX": -155,
-    "offsetY": -35,
-    "width": 499,
-    "height": 281,
-    "rotation": 0,
-    "radius": 0
+        "offsetY": -35,
+        "width": 499,
+        "height": 281,
+        "rotation": 0,
+        "radius": 0
       },
       "id": "hs_f2_wp3_h2",
       "datetime": {
@@ -646,10 +646,10 @@
       "caption": "",
       "title": "SAMCAM ES ACRIBILLADO",
       "mobile": {
-        "offsetX": -7,
-        "offsetY": -186,
-        "width": 280,
-        "height": 400,
+        "offsetX": 1,
+        "offsetY": -53,
+        "width": 378,
+        "height": 367,
         "rotation": 0,
         "radius": 0
       },
@@ -700,11 +700,11 @@
       "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
       "title": "TODO — SAMCAM ES ACRIBILLADO (detalle H1)",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -75,
+        "offsetY": -157,
+        "width": 223,
+        "height": 123,
+        "rotation": 3,
         "radius": 0
       },
       "desktop": {
@@ -753,11 +753,11 @@
       "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
       "title": "TODO — SAMCAM ES ACRIBILLADO (detalle H2)",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": 109,
+        "offsetY": -194,
+        "width": 71,
+        "height": 86,
+        "rotation": 6,
         "radius": 0
       },
       "desktop": {

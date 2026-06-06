@@ -2061,6 +2061,19 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       overlay.resize(displayW, displayH);
     }
 
+    // 11b. Sincronizar editor-layer con mapa-canvas (fix hit-test de handles)
+    const editorLayer = document.getElementById('editor-layer');
+    if (editorLayer) {
+      if (editorLayer.width !== finalW || editorLayer.height !== finalH) {
+        editorLayer.width  = finalW;
+        editorLayer.height = finalH;
+      }
+      if (editorLayer.style.width  !== `${displayW}px`) editorLayer.style.width  = `${displayW}px`;
+      if (editorLayer.style.height !== `${displayH}px`) editorLayer.style.height = `${displayH}px`;
+      const edCtx = editorLayer.getContext('2d');
+      if (edCtx) edCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
     // 12. Actualizar dimensiones del cuadro de diálogo
     if (DIALOG_BOX) {
       DIALOG_BOX.w = displayW - 32; // Usar displayW en lugar de canvas.width/dpr

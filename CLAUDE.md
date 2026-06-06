@@ -319,6 +319,30 @@ El hotspot crece y encoge exactamente con el zoom — siempre cubre la misma zon
 
 **Mientras tanto:** al cambiar `desktop.z`, los hotspots de `icons.json` **no se reposicionan solos** — hay que ajustar `offsetX/offsetY` manualmente con el editor (`?editor=1`) para cada waypoint afectado.
 
+### Convención multi-fase: F2 es copia de F1
+
+`mapa_f2.json` replica exactamente todos los parámetros de cámara de `mapa_f1.json`. Cualquier cambio de zoom o posicionamiento en F1 debe aplicarse también en F2.
+
+**Valores canónicos compartidos (F1 = F2):**
+- `desktop.logicalW/H`: `4240 × 2050`
+- `desktop.z`: `0.85` en todos los waypoints
+- `desktop.xp/yp`, `yOffset`, `zMobileProfile`: idénticos waypoint por waypoint
+- `mobile.logicalW`: `1400` (mismo ancho)
+
+**Diferencia legítima F2 vs F1:**
+- `mobile.logicalH`: F1 = `1789`, F2 = `1650` (imágenes mobile de distinto alto)
+- `mobile.yp` de fila 1: distintos porque los hotspots caen en zonas diferentes de cada imagen
+
+**Para sincronizar F2 cuando cambies F1:**
+```js
+f1.waypoints.forEach((wp1, i) => {
+  f2.waypoints[i].desktop        = structuredClone(wp1.desktop);
+  f2.waypoints[i].yOffset        = structuredClone(wp1.yOffset);
+  f2.waypoints[i].zMobileProfile = structuredClone(wp1.zMobileProfile);
+  // NO tocar mobile.yp ni mobile.xp — son propios de cada imagen
+});
+```
+
 ### Bundle de hotspots: icons.json
 
 ```

@@ -111,7 +111,7 @@ map-waypoints/
 │                       ├── story.json
 │                       └── maps/
 │                           ├── mapa_f1.json       ← Plantilla canónica (logicalW:1400, iconsDir:true)
-│                           ├── mapa_f2.json       ← Copia estructural de f1 (mismo logicalW/H mobile)
+│                           ├── mapa_f2.json       ← Copia de f1: desktop idéntico (4240×2050, z:0.85), mobile logicalH:1650 (imagen propia)
 │                           ├── mapa_f3.json       ← Copia estructural de f1 (mismo logicalW/H mobile)
 │                           ├── mapa_f1_icons/
 │                           │   ├── icons.json  ← Bundle de todos los hotspots (1 request)
@@ -678,7 +678,8 @@ Los archivos a editar son `mapa_f1.json`, `mapa_f2.json` y `mapa_f3.json` dentro
 - [ ] Contenido real del Expediente 0001 — reemplazar imágenes de prueba y datos de waypoints con el caso real (`label` y `lines` en los JSON de mapas)
 - [ ] `thumb.webp` para el catálogo `index.json`
 - [ ] Resolver el colapso del iframe en WordPress online (divergentes.com) — guard de altura mínima en el listener
-- [ ] Generar imágenes mobile propias para fase 2 y fase 3 (actualmente los 3 mapas usan `mapa-mobile.webp` — logicalW/H ya está unificado a 1400×3181, listo para el reemplazo)
+- [x] ~~Imagen mobile propia para fase 2~~ — `f2-mapa-mobile-x2.webp` (1400×1650). F2 desktop idéntico a F1 (4240×2050, z:0.85, mismos waypoints y yOffset).
+- [ ] Generar imagen mobile propia para fase 3
 
 ### Corto plazo
 - [x] ~~Waypoint Info Box~~ — Caja flotante `position: absolute; top: 0` que muestra `label` y `lines[0]` del waypoint activo. Se actualiza en `goToWaypoint()`. No empuja el layout. (Mayo 2026)
