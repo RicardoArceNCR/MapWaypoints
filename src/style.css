@@ -1186,7 +1186,7 @@ body.net-slow .drawer {
 /* Tercer texto — descripción editorial, tamaño fijo 16px */
 .waypoint-info-box__body {
   margin: 6px 0 0;
-  font-size: clamp(12px, 1vw + 8px, 16px);
+  font-size: clamp(11px, 1vw + 8px, 14px);
   color: rgba(255, 255, 255, 0.55);
   line-height: 1.55;
   font-weight: 400;

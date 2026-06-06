@@ -49,8 +49,7 @@
         }
       ],
       "echos": {},
-      "id": "hs_f2_w0_h0",
-      "image": "/assets/f2-wp0-h0.webp"
+      "id": "hs_f2_w0_h0"
     },
     {
       "_note": "WP0-H0-B: Hotspot tipo B — informativo superpuesto al A",
@@ -74,7 +73,6 @@
         "radius": 0
       },
       "title": "TODO — Los sicarios salen a matar (detalle H1)",
-      "image": "/assets/f2-wp0-h1.webp",
       "id": "hs_f2_wp0_h1",
       "datetime": {
         "date": "19/06/2025",
@@ -209,8 +207,7 @@
         }
       ],
       "echos": {},
-      "id": "hs_f2_w1_h0",
-      "image": "/assets/f2-wp1-h0.webp"
+      "id": "hs_f2_w1_h0"
     },
     {
       "_note": "WP1-H0-B: Tipo B — informativo superpuesto al H0 (foto Hyundai)",
@@ -371,8 +368,7 @@
       ],
       "id": "hs_f2_wp2_h0",
       "location": "Moravia / León XIII, San José, Costa Rica.",
-      "echos": {},
-      "image": "/assets/f2-wp2-h0.webp"
+      "echos": {}
     },
     {
       "_note": "wp2-H1-B: Tipo B — informativo secundario",
@@ -533,8 +529,7 @@
       ],
       "id": "hs_f2_wp3_h0",
       "location": "Moravia / León XIII, San José, Costa Rica.",
-      "echos": {},
-      "image": "/assets/f2-wp3-h0.webp"
+      "echos": {}
     },
     {
       "_note": "wp3-H1-B: Tipo B — informativo secundario",
@@ -695,8 +690,7 @@
       ],
       "id": "hs_f2_wp4_h0",
       "location": "Moravia / León XIII, San José, Costa Rica.",
-      "echos": {},
-      "image": "/assets/f2-wp4-h0.webp"
+      "echos": {}
     },
     {
       "_note": "wp4-H1-B: Tipo B — informativo secundario",
@@ -857,8 +851,7 @@
       ],
       "id": "hs_f2_wp5_h0",
       "location": "Moravia / León XIII, San José, Costa Rica.",
-      "echos": {},
-      "image": "/assets/f2-wp5-h0.webp"
+      "echos": {}
     },
     {
       "_note": "wp5-H1-B: Tipo B — informativo secundario",

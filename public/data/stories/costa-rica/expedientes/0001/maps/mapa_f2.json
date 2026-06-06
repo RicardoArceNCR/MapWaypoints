@@ -6,12 +6,12 @@
   "mapImage": {
     "mobile": {
       "src": "/assets/f2-mapa-mobile-x2.webp?v=2026-05-21",
-      "logicalW": 1966,
-      "logicalH": 4123
+      "logicalW": 1400,
+      "logicalH": 1650
     },
     "desktop": {
       "src": "/assets/f2-mapa-dektop-2x.webp?v=2026-05-20",
-      "logicalW": 4243,
+      "logicalW": 4240,
       "logicalH": 2050
     },
     "useNaturalSize": false
@@ -21,115 +21,114 @@
       "id": "wp_f1_col1",
       "mobile": {
         "xp": 0.172857,
-        "yp": 0.165042,
+        "yp": 0.324203,
         "z": 1
       },
       "desktop": {
         "xp": 0.176887,
-        "yp": 0.135685,
-        "z": 1
+        "yp": 0.335122,
+        "z": 0.85
       },
       "yOffset": {
         "default": -100,
-        "short": 50,
-        "medium": -90,
-        "tall": -160,
-        "xtall": -190,
+        "short": -10,
+        "medium": -110,
+        "tall": -230,
+        "xtall": -250,
         "tablet": -300
       },
       "zMobileProfile": {
         "default": 1,
-        "short": 0.94,
+        "short": 0.75,
         "medium": 0.96,
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Inicio del Viaje",
+      "label": "Día D: La ejecución de Samcam",
       "lines": [
-        "Aquí comienza la historia. Un punto de partida crucial que marca el inicio de esta aventura.",
-        "Los detalles de este momento son fundamentales para entender todo lo que viene después."
+        "19/06/2025, por la mañana",
+        "En esta fase se reconstruye el trayecto de los sicarios desde León XIII hasta Moravia, los últimos movimientos de preparación y el ataque frontal contra Samcam."
       ]
     },
     {
       "id": "wp_f1_col2",
       "mobile": {
         "xp": 0.51,
-        "yp": 0.165042,
+        "yp": 0.275573,
         "z": 1
       },
       "desktop": {
         "xp": 0.509434,
-        "yp": 0.133786,
-        "z": 1
+        "yp": 0.335122,
+        "z": 0.85
       },
       "yOffset": {
-        "default": -100,
-        "short": 50,
-        "medium": -90,
-        "tall": -160,
-        "xtall": -190,
-        "tablet": -300
+        "default": -13,
+        "short": 55,
+        "medium": -26,
+        "tall": -146,
+        "xtall": -164,
+        "tablet": -213
       },
       "zMobileProfile": {
         "default": 1,
-        "short": 0.94,
+        "short": 0.75,
         "medium": 0.96,
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Punto Central",
+      "label": "Otro sicario sale en motocicleta a matar",
       "lines": [
-        "En el corazón del territorio encontramos este lugar estratégico.",
-        "Desde aquí se pueden observar todos los acontecimientos importantes."
+        "La motocicleta Freedom color rojo sale de León XIII, sector de residencia de Bryan Steven Robles Salas, quien la conducía."
       ]
     },
     {
       "id": "wp_f1_col3",
       "mobile": {
         "xp": 0.830425,
-        "yp": 0.165042,
+        "yp": 0.281722,
         "z": 1
       },
       "desktop": {
-        "xp": 0.828774,
-        "yp": 0.136771,
-        "z": 1
+        "xp": 0.838774,
+        "yp": 0.335122,
+        "z": 0.85
       },
       "yOffset": {
-        "default": -100,
-        "short": 50,
-        "medium": -90,
-        "tall": -160,
-        "xtall": -190,
-        "tablet": -300
+        "default": -24,
+        "short": 47,
+        "medium": -37,
+        "tall": -156,
+        "xtall": -175,
+        "tablet": -224
       },
       "zMobileProfile": {
         "default": 1,
-        "short": 0.94,
+        "short": 0.75,
         "medium": 0.96,
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Momento Culminante",
+      "label": "Cambio de roles y ajuste de posiciones finales.",
       "lines": [
-        "Este es el punto donde todo cambia. Un momento decisivo en la narrativa.",
-        "Los eventos que ocurren aquí tienen consecuencias duraderas."
+        "Ambos vehículos realizaron rondas y entraron a un punto de reunión (\"calle sin salida Av 65A\").",
+        "Se produjeron cambios de posición para evitar ser detectados. Luis Fernando Carvajal Fernández (el sicario, suéter gris) sube como pasajero en la motocicleta. A las 07:41 h, se realizó el último cambio: Robles Salas pasó a conducir el Duster BKK190 (vehículo de asalto) y Danilo Chaves Medina pasó a conducir la motocicleta (camisa color mostaza)."
       ]
     },
     {
       "id": "wp_f2_col1",
       "mobile": {
         "xp": 0.17,
-        "yp": 0.4262,
+        "yp": 0.762436,
         "z": 1
       },
       "desktop": {
         "xp": 0.172877,
-        "yp": 0.370149,
-        "z": 1
+        "yp": 0.769756,
+        "z": 0.85
       },
       "yOffset": {
         "default": -100,
@@ -141,84 +140,82 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "short": 0.94,
+        "short": 0.75,
         "medium": 0.96,
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Momento Culminante",
+      "label": "El sicario se posiciona en la escena del crimen",
       "lines": [
-        "Este es el punto donde todo cambia. Un momento decisivo en la narrativa.",
-        "Los eventos que ocurren aquí tienen consecuencias duraderas."
+        "Minutos antes del hecho, el dispositivo de Luis Fernando Carvajal Fernández (62329434) activó la radio base \"Valla Moravia\" (antena celular). Eso confirma su ubicación exacta en el sector del homicidio."
       ]
     },
     {
       "id": "wp_f2_col2",
       "mobile": {
         "xp": 0.51,
-        "yp": 0.4262,
+        "yp": 0.763555,
         "z": 1
       },
       "desktop": {
         "xp": 0.499057,
-        "yp": 0.370692,
-        "z": 1
+        "yp": 0.769756,
+        "z": 0.85
       },
       "yOffset": {
-        "default": -100,
-        "short": 30,
-        "medium": -90,
-        "tall": -160,
-        "xtall": -230,
-        "tablet": -300
+        "default": -102,
+        "short": 28,
+        "medium": -92,
+        "tall": -162,
+        "xtall": -232,
+        "tablet": -302
       },
       "zMobileProfile": {
         "default": 1,
-        "short": 0.94,
+        "short": 0.75,
         "medium": 0.96,
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Momento Culminanteeeee",
+      "label": "SAMCAM ES ACRIBILLADO",
       "lines": [
-        "Este es el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.",
-        "Los eventos que ocurren aquí tienen consecuencias duraderas."
+        "El Renault Duster blanco (BKK190) se estacionó frente al Condominio Naples.",
+        "El pasajero delantero (Carvajal Fernández) descendió, ingresó al condominio, llamó al ofendido por su nombre y le disparó 5 veces con un arma calibre 40. El sicario corre de regreso al automóvil."
       ]
     },
     {
       "id": "wp_f2_col3",
       "mobile": {
         "xp": 0.84,
-        "yp": 0.4262,
+        "yp": 0.763555,
         "z": 1
       },
       "desktop": {
         "xp": 0.83,
-        "yp": 0.370692,
-        "z": 1
+        "yp": 0.769756,
+        "z": 0.85
       },
       "yOffset": {
-        "default": -100,
-        "short": 30,
-        "medium": -90,
-        "tall": -160,
-        "xtall": -230,
-        "tablet": -300
+        "default": -102,
+        "short": 28,
+        "medium": -92,
+        "tall": -162,
+        "xtall": -232,
+        "tablet": -302
       },
       "zMobileProfile": {
         "default": 1,
-        "short": 0.94,
+        "short": 0.75,
         "medium": 0.96,
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "mmmmmMomento Culminanteeeee",
+      "label": "Inicia la huida",
       "lines": [
-        "Este esu748484484884 el punto donde eeeeeeeeeeeetodo cambia. Un momento decisivo en la narrativa.",
-        "Los eventos que ocurren aquí tienen consecuencias duraderas."
+        "El Renault Duster huyó a gran velocidad, con el gatillero Carvajal dentro. La motocicleta, conducida por Chaves Medina, huyó por una ruta separada hacia Tibás/León XIII."
       ]
     }
   ]
