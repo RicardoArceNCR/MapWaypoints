@@ -64,7 +64,7 @@
       "desktop": {
         "xp": 0.176887,
         "yp": 0.335122,
-        "z": 0.88
+        "z": 0.85
       },
       "yOffset": {
         "default": -100,
@@ -99,7 +99,7 @@
       "desktop": {
         "xp": 0.509434,
         "yp": 0.335122,
-        "z": 0.88
+        "z": 0.85
       },
       "yOffset": {
         "default": -13,
@@ -134,7 +134,7 @@
       "desktop": {
         "xp": 0.838774,
         "yp": 0.335122,
-        "z": 0.88
+        "z": 0.85
       },
       "yOffset": {
         "default": -24,
@@ -152,10 +152,10 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Momento Culminante",
+      "label": "Inicia la vigilancia",
       "lines": [
-        "Este es el punto donde todo cambia. Un momento decisivo en la narrativa.",
-        "Los eventos que ocurren aquí tienen consecuencias duraderas."
+        "final de los asesinos en un vehículo Hyundai.",
+        "Se capta el vehículo Hyundai celeste (placa 903056), con características distintivas (puerta delantera del acompañante blanca), en el ingreso a León XIII."
       ]
     },
     {
@@ -169,7 +169,7 @@
       "desktop": {
         "xp": 0.172877,
         "yp": 0.769756,
-        "z": 0.88
+        "z": 0.85
       },
       "yOffset": {
         "default": -100,
@@ -204,7 +204,7 @@
       "desktop": {
         "xp": 0.499057,
         "yp": 0.769756,
-        "z": 0.88
+        "z": 0.85
       },
       "yOffset": {
         "default": -102,
@@ -239,7 +239,7 @@
       "desktop": {
         "xp": 0.83,
         "yp": 0.769756,
-        "z": 0.88
+        "z": 0.85
       },
       "yOffset": {
         "default": -102,
