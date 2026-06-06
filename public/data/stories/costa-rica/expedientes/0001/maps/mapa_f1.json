@@ -51,6 +51,7 @@
     "tall": 0.97,
     "xtall": 0.99,
     "tablet": 1
+    
   },
   "waypoints": [
     {
@@ -180,7 +181,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "short": 0.94,
+        "short": 0.75,
         "medium": 0.96,
         "tall": 0.97,
         "xtall": 0.99,
@@ -214,7 +215,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "short": 0.94,
+        "short": 0.75,
         "medium": 0.96,
         "tall": 0.97,
         "xtall": 0.99,
@@ -248,7 +249,7 @@
       },
       "zMobileProfile": {
         "default": 1,
-        "short": 0.94,
+        "short": 0.75,
         "medium": 0.96,
         "tall": 0.97,
         "xtall": 0.99,

@@ -19,38 +19,65 @@
         "rotation": -1,
         "radius": 110
       },
-      "title": "Los sicarios salen a matar",
+      "title": "La víctima regresó a Costa Rica.",
       "datetime": {
-        "date": "19/06/2025",
-        "time": "06:18 h",
-        "timeColor": "#FF4444"
+        "date": "16/06/2025",
+        "time": "12:07 h",
+        "timeColor": "#1BC6EB"
       },
-      "location": "Moravia / León XIII, San José, Costa Rica.",
-      "description": "El Renault Duster blanco (BKK190) salió de León XIII dirigiéndose a Moravia. Inicialmente era conducido por Danilo José Chaves Medina.",
+      "location": "Aeropuerto Juan Santamaría, Alajuela, Costa Rica",
+      "description": "Roberto Samcam Ruiz regresa a Costa Rica proveniente de México, por el Aeropuerto Juan Santamaría, después de una gira por varios países. Su reingreso ocurre apenas tres días antes de su asesinato. Utiliza un taxi formal para dirigirse a su vivienda, ubicada en Tibás.",
       "involved": [
         {
-          "id": "danilo",
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/pablo-anotonio-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual",
+          "highlighted": true
+        },
+        {
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
+          "role": "Intermediario logístico"
         },
         {
           "id": "carvajal",
           "name": "Luis Fernando Carvajal Fernández",
           "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
+          "role": "Gatillero / Ejecutor"
         }
       ],
-      "echos": {},
-      "id": "hs_f2_w0_h0",
-      "image": "/assets/f2-wp0-h0.webp"
+      "echos": {
+        "robles_murillo": [
+          {
+            "datetime": {
+              "date": "16/06/2025",
+              "time": "—"
+            },
+            "description": "Según fuentes confidenciales, Robles Murillo coordinó con 'la plana mayor del Ejército de Nicaragua' el seguimiento al retorno de Samcam al país. Es señalado como el cerebro que activó la célula tras confirmar el regreso de la víctima."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": {
+              "date": "16/06/2025",
+              "time": "—"
+            },
+            "description": "Como intermediario entre los autores intelectuales y la célula operativa en León XIII, Chaves Medina habría recibido la orden de iniciar las labores de ubicación de Samcam."
+          }
+        ],
+        "carvajal": [
+          {
+            "datetime": {
+              "date": "16/06/2025",
+              "time": "—"
+            },
+            "description": "El futuro gatillero inicia el período de vigilancia preoperativa tras conocerse el regreso de Samcam a Costa Rica."
+          }
+        ]
+      },
+      "id": "hs_f1_w0_h0"
     },
     {
       "_note": "WP0-H0-B: Hotspot tipo B — informativo superpuesto al A",
@@ -73,45 +100,16 @@
         "rotation": -1,
         "radius": 0
       },
-      "title": "TODO — Los sicarios salen a matar (detalle H1)",
-      "image": "/assets/f2-wp0-h1.webp",
-      "id": "hs_f2_wp0_h1",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "06:18 h",
-        "timeColor": "#FF4444"
-      },
-      "description": "TODO — descripción H1",
-      "involved": [
-        {
-          "id": "danilo",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
-        }
-      ],
-      "echos": {}
+      "title": "",
+      "image": "/assets/vacio.png"
     },
     {
       "_note": "WP0-H1-B: Hotspot tipo B — informativo superpuesto al H1",
       "type": "hotspot",
-      "image": "/assets/f2-wp0-h2.webp",
+      "image": "/assets/vacio.png",
       "noPopup": true,
       "caption": "Mapa del Aeropuerto Juan Santamaría en Alajuela, Costa Rica. Se muestra la ruta de acceso principal.",
-      "title": "TODO — Los sicarios salen a matar (detalle H2)",
+      "title": "",
       "mobile": {
         "offsetX": -4,
         "offsetY": -102,
@@ -127,36 +125,7 @@
         "height": 230,
         "rotation": 1,
         "radius": 0
-      },
-      "id": "hs_f2_wp0_h2",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "06:18 h",
-        "timeColor": "#FF4444"
-      },
-      "description": "TODO — descripción H2",
-      "involved": [
-        {
-          "id": "danilo",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
-        }
-      ],
-      "echos": {}
+      }
     }
   ],
   "wp1": [
@@ -179,46 +148,79 @@
         "rotation": -1,
         "radius": 0
       },
-      "title": "Otro sicario sale en motocicleta a matar",
+      "title": "Día rutinario para Samcam, día de ubicación final para los asesinos",
       "datetime": {
-        "date": "19/06/2025",
-        "time": "06:29 h",
-        "timeColor": "#FF4444"
+        "date": "18/06/2025",
+        "time": "06:26 – 16:07 h"
       },
-      "location": "Moravia / León XIII, San José, Costa Rica.",
-      "description": "La motocicleta Freedom color rojo sale de León XIII, sector de residencia de Bryan Steven Robles Salas, quien la conducía.",
+      "location": "Ingreso a León XIII, Tibás, San José",
+      "description": "Samcam realizó varios viajes matutinos en Uber desde su vivienda a la Clínica Rodrigo Fournier Guevara, en Tibás, y viceversa. Luego se reunió en Casa España, en La Sábana (11:15 h), con Rafael \"Payo\" Solís y Óscar René Vargas. A las 16:07:26 horas regresó a su casa de habitación.",
       "involved": [
         {
-          "id": "danilo",
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/pablo-anotonio-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual",
+          "highlighted": true
+        },
+        {
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
+          "role": "Intermediario logístico"
         },
         {
           "id": "carvajal",
           "name": "Luis Fernando Carvajal Fernández",
           "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
+          "role": "Gatillero / Ejecutor"
         }
       ],
-      "echos": {},
-      "id": "hs_f2_w1_h0",
-      "image": "/assets/f2-wp1-h0.webp"
+      "echos": {
+        "robles_murillo": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
+            "description": "Desde la cadena de mando, Robles Murillo había ordenado el inicio de las vigilancia activa una vez confirmado el regreso de Samcam al país. El Hyundai es el primer vehículo visible de esa operación."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "Mañana"
+            },
+            "description": "Recibe el Hyundai celeste 903056 de manos de su dueño, Luis Orozco, bajo el pretexto de realizar trámites. Coordina la devolución pero en su lugar lo incorpora al operativo."
+          },
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
+            "description": "Captado al volante del Hyundai celeste al ingresar a León XIII, diez minutos después de que Samcam llegó a su vivienda. Inicia la vigilancia estática del perímetro."
+          }
+        ],
+        "carvajal": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
+            "description": "Coordinado con Chaves Medina, inicia el seguimiento desde el sector de León XIII como parte de la fase final de inteligencia preoperativa antes del crimen."
+          }
+        ]
+      },
+      "id": "hs_f1_w1_h0"
     },
     {
       "_note": "WP1-H0-B: Tipo B — informativo superpuesto al H0 (foto Hyundai)",
       "type": "hotspot",
-      "image": "/assets/f2-wp1-h1.webp",
+      "image": "/assets/vacio.png",
       "noPopup": true,
       "caption": "Hyundai celeste placa 903056, identificado por la puerta delantera del acompañante de color blanco. Captado en cámara al ingreso de León XIII a las 16:17 h del 18 de junio de 2025.",
-      "title": "TODO — Otro sicario sale en motocicleta a matar (detalle H1)",
+      "title": "",
       "mobile": {
         "offsetX": -16,
         "offsetY": -154,
@@ -229,49 +231,20 @@
       },
       "desktop": {
         "offsetX": -279,
-        "offsetY": -70,
-        "width": 450,
-        "height": 405,
-        "rotation": 1,
-        "radius": 0
-      },
-      "id": "hs_f2_wp1_h1",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "06:29 h",
-        "timeColor": "#FF4444"
-      },
-      "description": "TODO — descripción H1",
-      "involved": [
-        {
-          "id": "danilo",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
-        }
-      ],
-      "echos": {}
+    "offsetY": -70,
+    "width": 450,
+    "height": 405,
+    "rotation": 1,
+    "radius": 0
+      }
     },
     {
       "_note": "WP1-H1-B: Tipo B — informativo secundario (mapa zona León XIII)",
       "type": "hotspot",
-      "image": "/assets/f2-wp1-h2.webp",
+      "image": "/assets/vacio.png",
       "noPopup": true,
       "caption": "Sector León XIII, Tibás. El vehículo fue captado ingresando a esta zona diez minutos después del retorno de Samcam a su vivienda, confirmando que los sospechosos monitoreaban sus movimientos en tiempo real.",
-      "title": "TODO — Otro sicario sale en motocicleta a matar (detalle H2)",
+      "title": "",
       "mobile": {
         "offsetX": -8,
         "offsetY": 59,
@@ -287,36 +260,7 @@
         "height": 250,
         "rotation": 0,
         "radius": 0
-      },
-      "id": "hs_f2_wp1_h2",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "06:29 h",
-        "timeColor": "#FF4444"
-      },
-      "description": "TODO — descripción H2",
-      "involved": [
-        {
-          "id": "danilo",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
-        }
-      ],
-      "echos": {}
+      }
     }
   ],
   "wp2": [
@@ -325,7 +269,7 @@
       "type": "hotspot",
       "noPopup": false,
       "caption": "",
-      "title": "Cambio de roles y ajuste de posiciones finales",
+      "title": "Inicia la vigilancia final de los asesinos en un vehículo Hyundai.",
       "mobile": {
         "offsetX": -2,
         "offsetY": -91,
@@ -343,44 +287,39 @@
         "radius": 0
       },
       "datetime": {
-        "date": "19/06/2025",
-        "time": "06:37 – 07:41 h",
-        "timeColor": "#FF4444"
+        "date": "18/06/2025",
+        "time": "16:17 h"
       },
-      "description": "Ambos vehículos realizaron rondas y entraron a un punto de reunión (\"calle sin salida Av 65A\"). Se produjeron cambios para evitar ser detectados. Luis Fernando Carvajal Fernández (suéter gris) sube como pasajero en la motocicleta. A las 07:41 h: Robles Salas pasa a conducir el Duster BKK190 y Danilo Chaves Medina pasa a conducir la motocicleta (camisa color mostaza).",
+      "description": "Se capta el vehículo Hyundai celeste (placa 903056), con características distintivas (puerta delantera del acompañante blanca), en el ingreso a León XIII. Este vehículo había sido entregado por su dueño, Luis Orozco, a Danilo José Chaves Medina (\"Dani Peluqueris\") esa mañana, aparentemente para trámites, y Danilo coordinaba su devolución.",
       "involved": [
         {
-          "id": "danilo",
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/pablo-anotonio-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual",
+          "highlighted": true
+        },
+        {
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
+          "role": "Intermediario logístico"
         },
         {
           "id": "carvajal",
           "name": "Luis Fernando Carvajal Fernández",
           "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
+          "role": "Gatillero / Ejecutor"
         }
-      ],
-      "id": "hs_f2_wp2_h0",
-      "location": "Moravia / León XIII, San José, Costa Rica.",
-      "echos": {},
-      "image": "/assets/f2-wp2-h0.webp"
+      ]
     },
     {
       "_note": "wp2-H1-B: Tipo B — informativo secundario",
       "type": "hotspot",
-      "image": "/assets/f2-wp2-h1.webp",
+      "image": "/assets/vacio.png",
       "noPopup": true,
       "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — Cambio de roles y ajuste de posiciones finales (detalle H1)",
+      "title": "",
       "mobile": {
         "offsetX": 4,
         "offsetY": -191,
@@ -391,49 +330,20 @@
       },
       "desktop": {
         "offsetX": -261,
-        "offsetY": -57,
-        "width": 490,
-        "height": 355,
-        "rotation": -7,
-        "radius": 0
-      },
-      "id": "hs_f2_wp2_h1",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "06:37 – 07:41 h",
-        "timeColor": "#FF4444"
-      },
-      "description": "TODO — descripción H1",
-      "involved": [
-        {
-          "id": "danilo",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
-        }
-      ],
-      "echos": {}
+    "offsetY": -57,
+    "width": 490,
+    "height": 355,
+    "rotation": -7,
+    "radius": 0
+      }
     },
     {
       "_note": "wp2-H2-B: Tipo B — contexto / mapa",
       "type": "hotspot",
-      "image": "/assets/f2-wp2-h2.webp",
+      "image": "/assets/vacio.png",
       "noPopup": true,
       "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — Cambio de roles y ajuste de posiciones finales (detalle H2)",
+      "title": "",
       "mobile": {
         "offsetX": -5,
         "offsetY": -40,
@@ -444,41 +354,12 @@
       },
       "desktop": {
         "offsetX": 349,
-        "offsetY": -160,
-        "width": 455,
-        "height": 233,
-        "rotation": -1,
-        "radius": 0
-      },
-      "id": "hs_f2_wp2_h2",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "06:37 – 07:41 h",
-        "timeColor": "#FF4444"
-      },
-      "description": "TODO — descripción H2",
-      "involved": [
-        {
-          "id": "danilo",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
-        }
-      ],
-      "echos": {}
+    "offsetY": -160,
+    "width": 455,
+    "height": 233,
+    "rotation": -1,
+    "radius": 0
+      }
     }
   ],
   "wp3": [
@@ -487,7 +368,7 @@
       "type": "hotspot",
       "noPopup": false,
       "caption": "",
-      "title": "El sicario se posiciona en la escena del crimen",
+      "title": "Aparece el Renault Duster Blanco",
       "mobile": {
         "offsetX": 0,
         "offsetY": -156,
@@ -505,44 +386,39 @@
         "radius": 0
       },
       "datetime": {
-        "date": "19/06/2025",
-        "time": "07:40 h",
-        "timeColor": "#FF4444"
+        "date": "18/06/2025",
+        "time": "16:19 – 17:43 h"
       },
-      "description": "El dispositivo de Luis Fernando Carvajal Fernández (62329434) activó la radio base \"Valla Moravia\", confirmando su ubicación exacta en el sector del homicidio.",
+      "description": "Minutos después de que Samcam llegó a casa, el Renault Duster blanco (BKK190) fue captado realizando recorridos de vigilancia en las cercanías de su vivienda en Moravia. Simultáneamente, el número de Luis Fernando Carvajal Fernández (el sicario) activó la radio base \"Valla Moravia\", la antena de telefonía ubicada en el sector, demostrando que realizaba labores de inteligencia. El Duster blanco se retiró de la zona a las 17:43 horas.",
       "involved": [
         {
-          "id": "danilo",
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/pablo-anotonio-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual",
+          "highlighted": true
+        },
+        {
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
+          "role": "Intermediario logístico"
         },
         {
           "id": "carvajal",
           "name": "Luis Fernando Carvajal Fernández",
           "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
+          "role": "Gatillero / Ejecutor"
         }
-      ],
-      "id": "hs_f2_wp3_h0",
-      "location": "Moravia / León XIII, San José, Costa Rica.",
-      "echos": {},
-      "image": "/assets/f2-wp3-h0.webp"
+      ]
     },
     {
       "_note": "wp3-H1-B: Tipo B — informativo secundario",
       "type": "hotspot",
-      "image": "/assets/f2-wp3-h1.webp",
+      "image": "/assets/vacio.png",
       "noPopup": true,
       "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — El sicario se posiciona en la escena del crimen (detalle H1)",
+      "title": "",
       "mobile": {
         "offsetX": -6,
         "offsetY": -271,
@@ -553,49 +429,20 @@
       },
       "desktop": {
         "offsetX": -264,
-        "offsetY": -92,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
-        "radius": 0
-      },
-      "id": "hs_f2_wp3_h1",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "07:40 h",
-        "timeColor": "#FF4444"
-      },
-      "description": "TODO — descripción H1",
-      "involved": [
-        {
-          "id": "danilo",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
-        }
-      ],
-      "echos": {}
+    "offsetY": -92,
+    "width": 520,
+    "height": 367,
+    "rotation": -1,
+    "radius": 0
+      }
     },
     {
       "_note": "wp3-H2-B: Tipo B — contexto / mapa",
       "type": "hotspot",
-      "image": "/assets/f2-wp3-h2.webp",
+      "image": "/assets/vacio.png",
       "noPopup": true,
       "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — El sicario se posiciona en la escena del crimen (detalle H2)",
+      "title": "",
       "mobile": {
         "offsetX": 7,
         "offsetY": -34,
@@ -606,41 +453,12 @@
       },
       "desktop": {
         "offsetX": 315,
-        "offsetY": -80,
-        "width": 400,
-        "height": 380,
-        "rotation": 0,
-        "radius": 0
-      },
-      "id": "hs_f2_wp3_h2",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "07:40 h",
-        "timeColor": "#FF4444"
-      },
-      "description": "TODO — descripción H2",
-      "involved": [
-        {
-          "id": "danilo",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
-        }
-      ],
-      "echos": {}
+    "offsetY": -80,
+    "width": 400,
+    "height": 380,
+    "rotation": 0,
+    "radius": 0
+      }
     }
   ],
   "wp4": [
@@ -649,7 +467,7 @@
       "type": "hotspot",
       "noPopup": false,
       "caption": "",
-      "title": "SAMCAM ES ACRIBILLADO",
+      "title": "Reunión de coordinación final para el asesinato",
       "mobile": {
         "offsetX": -7,
         "offsetY": -186,
@@ -667,44 +485,39 @@
         "radius": 0
       },
       "datetime": {
-        "date": "19/06/2025",
-        "time": "07:44 h",
-        "timeColor": "#FF4444"
+        "date": "18/06/2025",
+        "time": "17:54 – 18:23 h"
       },
-      "description": "El Renault Duster blanco (BKK190) se estacionó frente al Condominio Naples. El pasajero delantero (Carvajal Fernández) descendió, ingresó al condominio, llamó al ofendido por su nombre y le disparó 5 veces con un arma calibre 40. El sicario corre de regreso al automóvil.",
+      "description": "El Duster BKK190 se dirige a la Estación de Servicio Delta (ingreso a León XIII), donde se reúne con el Hyundai celeste 903056 y una motocicleta Freedom color rojo. Información confidencial indicó que el propósito era coordinar el asesinato, revisar los vehículos y el arma para afinar detalles de la planificación. Al Duster le abrieron el capó durante el encuentro.",
       "involved": [
         {
-          "id": "danilo",
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/pablo-anotonio-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual",
+          "highlighted": true
+        },
+        {
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
+          "role": "Intermediario logístico"
         },
         {
           "id": "carvajal",
           "name": "Luis Fernando Carvajal Fernández",
           "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
+          "role": "Gatillero / Ejecutor"
         }
-      ],
-      "id": "hs_f2_wp4_h0",
-      "location": "Moravia / León XIII, San José, Costa Rica.",
-      "echos": {},
-      "image": "/assets/f2-wp4-h0.webp"
+      ]
     },
     {
       "_note": "wp4-H1-B: Tipo B — informativo secundario",
       "type": "hotspot",
-      "image": "/assets/f2-wp4-h1.webp",
+      "image": "/assets/vacio.png",
       "noPopup": true,
       "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — SAMCAM ES ACRIBILLADO (detalle H1)",
+      "title": "",
       "mobile": {
         "offsetX": -10,
         "offsetY": -267,
@@ -715,49 +528,20 @@
       },
       "desktop": {
         "offsetX": -272,
-        "offsetY": -78,
-        "width": 490,
-        "height": 350,
-        "rotation": -1,
-        "radius": 0
-      },
-      "id": "hs_f2_wp4_h1",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "07:44 h",
-        "timeColor": "#FF4444"
-      },
-      "description": "TODO — descripción H1",
-      "involved": [
-        {
-          "id": "danilo",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
-        }
-      ],
-      "echos": {}
+    "offsetY": -78,
+    "width": 490,
+    "height": 350,
+    "rotation": -1,
+    "radius": 0
+      }
     },
     {
       "_note": "wp4-H2-B: Tipo B — contexto / mapa",
       "type": "hotspot",
-      "image": "/assets/f2-wp4-h2.webp",
+      "image": "/assets/vacio.png",
       "noPopup": true,
       "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — SAMCAM ES ACRIBILLADO (detalle H2)",
+      "title": "",
       "mobile": {
         "offsetX": -8,
         "offsetY": -69,
@@ -768,41 +552,12 @@
       },
       "desktop": {
         "offsetX": 322,
-        "offsetY": -84,
-        "width": 550,
-        "height": 390,
-        "rotation": 0,
-        "radius": 0
-      },
-      "id": "hs_f2_wp4_h2",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "07:44 h",
-        "timeColor": "#FF4444"
-      },
-      "description": "TODO — descripción H2",
-      "involved": [
-        {
-          "id": "danilo",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
-        }
-      ],
-      "echos": {}
+      "offsetY": -84,
+    "width": 550,
+    "height": 390,
+    "rotation": 0,
+    "radius": 0
+      }
     }
   ],
   "wp5": [
@@ -811,7 +566,7 @@
       "type": "hotspot",
       "noPopup": false,
       "caption": "",
-      "title": "Inicia la huida",
+      "title": "Todo listo para asesinar a Samcam",
       "mobile": {
         "offsetX": -7,
         "offsetY": -186,
@@ -829,44 +584,39 @@
         "radius": 0
       },
       "datetime": {
-        "date": "19/06/2025",
-        "time": "Segundos después",
-        "timeColor": "#FF4444"
+        "date": "18/06/2025",
+        "time": "19:04 h"
       },
-      "description": "El Renault Duster huyó a gran velocidad con el gatillero Carvajal dentro. La motocicleta, conducida por Chaves Medina, huyó por una ruta separada hacia Tibás/León XIII.",
+      "description": "Tras la reunión, el dispositivo de Luis Fernando Carvajal Fernández activa la radio base \"León XIII\", la antena celular coincidente con el sector de residencia de los sospechosos.",
       "involved": [
         {
-          "id": "danilo",
+          "id": "robles_murillo",
+          "name": "Pablo Antonio Robles Murillo",
+          "avatar": "/assets/pablo-anotonio-robles-murillo.webp",
+          "role": "Presunto cerebro / Autor intelectual",
+          "highlighted": true
+        },
+        {
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
+          "role": "Intermediario logístico"
         },
         {
           "id": "carvajal",
           "name": "Luis Fernando Carvajal Fernández",
           "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
+          "role": "Gatillero / Ejecutor"
         }
-      ],
-      "id": "hs_f2_wp5_h0",
-      "location": "Moravia / León XIII, San José, Costa Rica.",
-      "echos": {},
-      "image": "/assets/f2-wp5-h0.webp"
+      ]
     },
     {
       "_note": "wp5-H1-B: Tipo B — informativo secundario",
       "type": "hotspot",
-      "image": "/assets/f2-wp5-h1.webp",
+      "image": "/assets/vacio.png",
       "noPopup": true,
       "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — Inicia la huida (detalle H1)",
+      "title": "",
       "mobile": {
         "offsetX": -10,
         "offsetY": -267,
@@ -882,44 +632,15 @@
         "height": 367,
         "rotation": -1,
         "radius": 0
-      },
-      "id": "hs_f2_wp5_h1",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "Segundos después",
-        "timeColor": "#FF4444"
-      },
-      "description": "TODO — descripción H1",
-      "involved": [
-        {
-          "id": "danilo",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
-        }
-      ],
-      "echos": {}
+      }
     },
     {
       "_note": "wp5-H2-B: Tipo B — contexto / mapa",
       "type": "hotspot",
-      "image": "/assets/f2-wp5-h2.webp",
+      "image": "/assets/vacio.png",
       "noPopup": true,
       "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — Inicia la huida (detalle H2)",
+      "title": "",
       "mobile": {
         "offsetX": -8,
         "offsetY": -69,
@@ -935,36 +656,7 @@
         "height": 410,
         "rotation": 0,
         "radius": 0
-      },
-      "id": "hs_f2_wp5_h2",
-      "datetime": {
-        "date": "19/06/2025",
-        "time": "Segundos después",
-        "timeColor": "#FF4444"
-      },
-      "description": "TODO — descripción H2",
-      "involved": [
-        {
-          "id": "danilo",
-          "name": "Danilo José Chaves Medina",
-          "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario / Conductor Duster"
-        },
-        {
-          "id": "carvajal",
-          "name": "Luis Fernando Carvajal Fernández",
-          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
-          "role": "Gatillero / Ejecutor",
-          "highlighted": true
-        },
-        {
-          "id": "bryan",
-          "name": "Bryan Steven Robles Salas",
-          "avatar": "/assets/bryan-steven-robles-salas.webp",
-          "role": "Conductor motocicleta"
-        }
-      ],
-      "echos": {}
+      }
     }
   ],
   "wp6": [
