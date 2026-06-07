@@ -331,7 +331,7 @@ export class DetailedPopupManager {
       personEl.innerHTML = `
         <div class="popup-detailed__person-avatar-wrapper">
           <img 
-            src="${person.avatar || './assets/default.webp'}" 
+            src="${person.avatar || './assets/default.gif'}" 
             alt="${person.name}"
             class="popup-detailed__person-avatar"
             loading="lazy"

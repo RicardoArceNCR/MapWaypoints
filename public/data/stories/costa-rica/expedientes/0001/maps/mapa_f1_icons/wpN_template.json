@@ -30,20 +30,20 @@
       {
         "id": "TODO_pf1wNaN0a",
         "name": "TODO — Persona A",
-        "avatar": "./assets/persona_1-1.png",
+        "avatar": "./assets/persona_1-1.gif",
         "role": "TODO — Rol"
       },
       {
         "id": "TODO_pf1wNaN0b",
         "name": "TODO — Persona B",
-        "avatar": "./assets/persona_1-2.png",
+        "avatar": "./assets/persona_1-2.gif",
         "role": "TODO — Rol",
         "highlighted": true
       },
       {
         "id": "TODO_pf1wNaN0c",
         "name": "TODO — Persona C",
-        "avatar": "./assets/persona_1-3.png",
+        "avatar": "./assets/persona_1-3.gif",
         "role": "TODO — Rol"
       }
     ],

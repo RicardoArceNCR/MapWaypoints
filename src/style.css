@@ -1678,7 +1678,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 /* short — iPhone SE, pantallas muy bajas */
 @media (max-height: 600px) {
   .waypoint-info-box__title { font-size: 1.3rem; }
-  .waypoint-info-box__desc  { font-size: 0.9rem; }
+  .waypoint-info-box__desc  { font-size: 0.8rem; }
 }
 
 /* medium — iPhone SE alto, Samsung S8+ */

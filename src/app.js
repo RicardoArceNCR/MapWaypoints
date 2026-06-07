@@ -832,11 +832,20 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       uiManager.updateThemeColor(phaseColor, phaseColorRgb);
 
       setCanvasDPR();
-      // Extra seguro: si por timing necesitas re-encajar una vez más
-      try {
-        const m = mapManager.currentMap?.config?.mapImage;
-        if (m) window.cameraInstance.fitBaseToViewport(m.logicalW, m.logicalH, 'contain');
-      } catch { }
+      // Sincronizar camera y camTarget con el nuevo mapa antes del snap.
+      // Usa mapData (retorno de loadMap) en lugar de mapManager.currentMap
+      // para evitar lecturas obsoletas si algún preload corre concurrentemente.
+      const mapImg = mapData.config?.mapImage;
+      if (mapImg && window.cameraInstance) {
+        window.cameraInstance.fitBaseToViewport(mapImg.logicalW, mapImg.logicalH, 'contain');
+        camera.x = window.cameraInstance.x;
+        camera.y = window.cameraInstance.y;
+        camera.z = window.cameraInstance.z;
+        camTarget.x = window.cameraInstance.x;
+        camTarget.y = window.cameraInstance.y;
+        camTarget.z = window.cameraInstance.z;
+      }
+      state.isFirstLoad = true;
       goToWaypoint(0);
       markDirty('camera', 'elements', 'dialog', 'minimap');
 
@@ -940,6 +949,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       camTarget.x = newTargetX;
       camTarget.y = newTargetY;
       camTarget.z = newTargetZ;
+
+      transitionState.active = false; // Cancela transición en vuelo del mapa anterior
 
       state.isFirstLoad = false;
     } else if (GLOBAL_CONFIG.CAMERA_EFFECTS.transitionEnabled) {

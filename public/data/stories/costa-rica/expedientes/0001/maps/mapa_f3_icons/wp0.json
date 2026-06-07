@@ -28,20 +28,20 @@
       {
         "id": "person1",
         "name": "Persona #1",
-        "avatar": "./assets/persona_1-1.png",
+        "avatar": "./assets/persona_1-1.gif",
         "role": "Pasajero"
       },
       {
         "id": "person2",
         "name": "Persona #2",
-        "avatar": "./assets/persona_1-2.png",
+        "avatar": "./assets/persona_1-2.gif",
         "role": "Conductor",
         "highlighted": true
       },
       {
         "id": "person3",
         "name": "Persona #3",
-        "avatar": "./assets/persona_1-3.png",
+        "avatar": "./assets/persona_1-3.gif",
         "role": "Testigo"
       }
     ],
@@ -113,26 +113,26 @@
       {
         "id": "person4",
         "name": "Persona #4",
-        "avatar": "./assets/persona_1-4.png",
+        "avatar": "./assets/persona_1-4.gif",
         "role": "Contacto principal"
       },
       {
         "id": "person5",
         "name": "Persona #5",
-        "avatar": "./assets/persona_1-1.png",
+        "avatar": "./assets/persona_1-1.gif",
         "role": "Acompañante",
         "highlighted": true
       },
       {
         "id": "person6",
         "name": "Persona #6",
-        "avatar": "./assets/persona_1-2.png",
+        "avatar": "./assets/persona_1-2.gif",
         "role": "Tercero presente"
       },
       {
         "id": "person7",
         "name": "Persona #7",
-        "avatar": "./assets/persona_1-3.png",
+        "avatar": "./assets/persona_1-3.gif",
         "role": "Observador"
       }
     ],

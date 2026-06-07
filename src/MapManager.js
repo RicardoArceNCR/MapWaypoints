@@ -479,7 +479,7 @@ export class MapManager {
    * @param {string} mapId - ID del mapa a cargar.
    * @returns {Promise<Object>} - Configuración del mapa cargado.
    */
-  async loadMap(mapId) {
+  async loadMap(mapId, { setAsCurrent = true } = {}) {
     if (!MAPS_CONFIG[mapId]) {
       throw new Error(`❌ Mapa no encontrado en índice: ${mapId}`);
     }
@@ -518,19 +518,23 @@ export class MapManager {
     const normalizedWps = this.normalizeWaypoints(mapConfig.waypoints || [], W, H);
     const normalizedIcons = this.normalizeIcons(iconsData, W, H, normalizedWps);
 
-    this.currentMapId = mapId;
-    this.currentMap = {
+    const result = {
       config: mapConfig,
       images,
       waypoints: normalizedWps,
       icons: normalizedIcons
     };
-    
+
     this.preloadedMaps.add(mapId);
-    
+
+    if (setAsCurrent) {
+      this.currentMapId = mapId;
+      this.currentMap = result;
+    }
+
     console.log(`✅ Mapa cargado: ${normalizedWps.length} waypoints`);
-    
-    return this.currentMap;
+
+    return result;
   }
 
   // ========= ⚠️ MANTENER LÓGICA ORIGINAL - NO MODIFICAR =========
@@ -540,7 +544,7 @@ export class MapManager {
     
     const tasks = phase.maps
       .filter(id => !this.preloadedMaps.has(id))
-      .map(id => this.loadMap(id).catch(e => 
+      .map(id => this.loadMap(id, { setAsCurrent: false }).catch(e =>
         console.warn(`⚠️ Error precargando ${id}:`, e)
       ));
     

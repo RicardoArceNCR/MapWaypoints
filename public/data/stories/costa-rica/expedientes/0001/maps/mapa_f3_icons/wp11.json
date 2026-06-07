@@ -28,20 +28,20 @@
       {
         "id": "pf1w11h0a",
         "name": "TODO — Persona A",
-        "avatar": "./assets/persona_1-1.png",
+        "avatar": "./assets/persona_1-1.gif",
         "role": "TODO — Rol"
       },
       {
         "id": "pf1w11h0b",
         "name": "TODO — Persona B",
-        "avatar": "./assets/persona_1-2.png",
+        "avatar": "./assets/persona_1-2.gif",
         "role": "TODO — Rol",
         "highlighted": true
       },
       {
         "id": "pf1w11h0c",
         "name": "TODO — Persona C",
-        "avatar": "./assets/persona_1-3.png",
+        "avatar": "./assets/persona_1-3.gif",
         "role": "TODO — Rol"
       }
     ],
@@ -113,20 +113,20 @@
       {
         "id": "pf1w11h1a",
         "name": "TODO — Persona A",
-        "avatar": "./assets/persona_1-1.png",
+        "avatar": "./assets/persona_1-1.gif",
         "role": "TODO — Rol"
       },
       {
         "id": "pf1w11h1b",
         "name": "TODO — Persona B",
-        "avatar": "./assets/persona_1-2.png",
+        "avatar": "./assets/persona_1-2.gif",
         "role": "TODO — Rol",
         "highlighted": true
       },
       {
         "id": "pf1w11h1c",
         "name": "TODO — Persona C",
-        "avatar": "./assets/persona_1-3.png",
+        "avatar": "./assets/persona_1-3.gif",
         "role": "TODO — Rol"
       }
     ],

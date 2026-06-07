@@ -31,20 +31,20 @@
       {
         "id": "pf1w10h0a",
         "name": "TODO — Persona A",
-        "avatar": "./assets/persona_1-1.png",
+        "avatar": "./assets/persona_1-1.gif",
         "role": "TODO — Rol"
       },
       {
         "id": "pf1w10h0b",
         "name": "TODO — Persona B",
-        "avatar": "./assets/persona_1-2.png",
+        "avatar": "./assets/persona_1-2.gif",
         "role": "TODO — Rol",
         "highlighted": true
       },
       {
         "id": "pf1w10h0c",
         "name": "TODO — Persona C",
-        "avatar": "./assets/persona_1-3.png",
+        "avatar": "./assets/persona_1-3.gif",
         "role": "TODO — Rol"
       }
     ],
@@ -118,13 +118,13 @@
       {
         "id": "pf1w10h1a",
         "name": "TODO — Persona A",
-        "avatar": "./assets/persona_1-1.png",
+        "avatar": "./assets/persona_1-1.gif",
         "role": "TODO — Rol"
       },
       {
         "id": "pf1w10h1b",
         "name": "TODO — Persona B",
-        "avatar": "./assets/persona_1-2.png",
+        "avatar": "./assets/persona_1-2.gif",
         "role": "TODO — Rol",
         "highlighted": true
       }
@@ -183,13 +183,13 @@
       {
         "id": "pf1w10h2a",
         "name": "TODO — Persona A",
-        "avatar": "./assets/persona_1-1.png",
+        "avatar": "./assets/persona_1-1.gif",
         "role": "TODO — Rol"
       },
       {
         "id": "pf1w10h2b",
         "name": "TODO — Persona B",
-        "avatar": "./assets/persona_1-2.png",
+        "avatar": "./assets/persona_1-2.gif",
         "role": "TODO — Rol",
         "highlighted": true
       }
@@ -248,20 +248,20 @@
       {
         "id": "pf1w10h3a",
         "name": "TODO — Persona A",
-        "avatar": "./assets/persona_1-1.png",
+        "avatar": "./assets/persona_1-1.gif",
         "role": "TODO — Rol"
       },
       {
         "id": "pf1w10h3b",
         "name": "TODO — Persona B",
-        "avatar": "./assets/persona_1-2.png",
+        "avatar": "./assets/persona_1-2.gif",
         "role": "TODO — Rol",
         "highlighted": true
       },
       {
         "id": "pf1w10h3c",
         "name": "TODO — Persona C",
-        "avatar": "./assets/persona_1-3.png",
+        "avatar": "./assets/persona_1-3.gif",
         "role": "TODO — Rol"
       }
     ],
