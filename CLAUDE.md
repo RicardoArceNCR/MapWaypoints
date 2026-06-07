@@ -43,7 +43,7 @@ Las dimensiones actuales:
 
 ### Coordenadas: tres sistemas distintos
 
-1. **World space** — píxeles del mapa completo (ej: `logicalW=1400, logicalH=3181`). Los waypoints usan `xp/yp` normalizados (0.0–1.0) que se multiplican por estas dimensiones.
+1. **World space** — píxeles del mapa completo (ej: `logicalW=4240, logicalH=2049`). Los waypoints usan `xp/yp` normalizados (0.0–1.0) que se multiplican por estas dimensiones.
 2. **CSS space** — píxeles lógicos del canvas en pantalla (sin DPR). La cámara opera aquí.
 3. **Device space** — píxeles físicos (`CSS × DPR`). El bitmap del canvas opera aquí.
 
@@ -86,6 +86,43 @@ if (window.cameraInstance) {
 ```
 
 `Camera.setPosition()` tiene early-return si los valores no cambiaron — cero costo cuando la cámara está quieta.
+
+---
+
+## Bugs conocidos resueltos — no reverter
+
+### Race condition en cambio de fase (Junio 2026) — CRÍTICO
+
+**Síntoma:** Al navegar a F2 por primera vez se veía deformada. Al ir a F3 y volver, se veía bien.
+
+**Bug 1 — Transición en vuelo no cancelada** (`app.js`, `goToWaypoint()`):
+El usuario navegaba en F1 con una transición cinemática de 1100ms activa. Si hacía click en F2 antes de que terminara, `transitionState.active` permanecía `true` con `targetPos` apuntando al waypoint de F1. El RAF loop seguía ejecutando `updateTransition()` y sobreescribía `camTarget` con la posición de F1, deformando la vista de F2.
+
+**Fix:** `transitionState.active = false` en el bloque `isFirstLoad` de `goToWaypoint()`, antes de asignar la posición del nuevo waypoint.
+
+**Bug 2 — Preload sobreescribía `currentMap`** (`MapManager.js`, `preloadPhase()`):
+`preloadPhase()` llamaba `this.loadMap(id)` que siempre asignaba `this.currentMap` al mapa recién cargado. Si F3 terminaba de precargarse mientras el usuario ya estaba en F2, el RAF dibujaba la imagen de F2 con `logicalH` de F3 (3815 en vez de 2049) — deformación visual.
+
+**Fix:** `loadMap()` acepta un segundo argumento `{ setAsCurrent }`. `preloadPhase()` pasa `{ setAsCurrent: false }`. El bloque de `fitBaseToViewport` en `loadMap()` usa `mapData` (retorno directo) en vez de `mapManager.currentMap`.
+
+**Verificación Playwright:** Primera y segunda carga de F2 producen `{x:750, y:~680}`. Antes: primera carga era `{x:2116, y:1570}`.
+
+### Dimensiones logicalH incorrectas en los JSON de mapas (Junio 2026)
+
+**Síntoma:** Salto visual al cambiar entre fases en desktop.
+
+**Dimensiones reales verificadas con `identify`:**
+- `mapa-dektop-2x.webp` (F1): 4240 × **2049**
+- `f2-mapa-dektop-2x.webp` (F2): 4240 × **2049**
+- `f3-mapa-dektop-x2.webp` (F3): 4240 × **3815**
+
+**Valores incorrectos que tenían los JSON:** F1 tenía `logicalH: 2050` (1px), F2 tenía `logicalH: 1773` (13% de error — causa principal del salto). **Regla:** Siempre verificar con `identify imagen.webp` antes de escribir `logicalH`.
+
+### Glitch al cerrar popup (Junio 2026)
+
+**Causa:** `DetailedPopupManager.closeAll()` llamaba `window.setCanvasDPR?.()` + `window.markDirty?.()` asumiendo que la scrollbar del body volvería al cerrar. Como `body { overflow: hidden }` es permanente, nunca hay scrollbar — esas llamadas hacían un resize de canvas innecesario produciendo flash visible.
+
+**Fix:** Eliminar esas dos llamadas de `closeAll()`. La compensación de scrollbar (`paddingRight`) también es no-op porque `scrollbarW` siempre es 0.
 
 ---
 
@@ -265,6 +302,27 @@ Subtítulo, botón y copyright se recalculan automáticamente en base a `text.le
 
 ## Convenciones de datos
 
+### logicalW/H — SIEMPRE verificar antes de escribir
+
+**Nunca escribir `logicalW/H` sin verificar las dimensiones reales de la imagen:**
+```bash
+identify imagen.webp   # Linux/Mac con ImageMagick
+sips -g pixelWidth -g pixelHeight imagen.webp  # Mac sin ImageMagick
+```
+
+Un `logicalH` incorrecto hace que la cámara calcule zoom y posición sobre una escala incorrecta — causa deformación visible al cambiar de fase (ver bug resuelto arriba).
+
+**Dimensiones verificadas — Expediente 0001:**
+
+| Imagen | logicalW | logicalH |
+|---|---|---|
+| `mapa-dektop-2x.webp` (F1 desktop) | 4240 | **2049** |
+| `f2-mapa-dektop-2x.webp` (F2 desktop) | 4240 | **2049** |
+| `f3-mapa-dektop-x2.webp` (F3 desktop) | 4240 | **3815** |
+| `mapa-mobile-2x.webp` (F1 mobile) | 1400 | 1789 |
+| `f2-mapa-mobile-x2.webp` (F2 mobile) | 1400 | 1650 |
+| `mapa-mobile.webp` (F3 mobile) | 1400 | 3181 |
+
 ### Waypoints: `xp/yp` son normalizados (0.0–1.0)
 
 ```js
@@ -324,7 +382,7 @@ El hotspot crece y encoge exactamente con el zoom — siempre cubre la misma zon
 `mapa_f2.json` replica exactamente todos los parámetros de cámara de `mapa_f1.json`. Cualquier cambio de zoom o posicionamiento en F1 debe aplicarse también en F2.
 
 **Valores canónicos compartidos (F1 = F2):**
-- `desktop.logicalW/H`: `4240 × 2050`
+- `desktop.logicalW/H`: `4240 × 2049` ← verificado con `identify`
 - `desktop.z`: `0.85` en todos los waypoints
 - `desktop.xp/yp`, `yOffset`, `zMobileProfile`: idénticos waypoint por waypoint
 - `mobile.logicalW`: `1400` (mismo ancho)
@@ -485,7 +543,10 @@ Si no hay historia (fallback default):
 | Usar `left:50%; transform:translateX(-50%)` en elementos del intro con animación de entrada | Usar `left:0; right:0; display:flex; justify-content:center` — el translateY de la animación sobreescribe el translateX |
 | Hardcodear delays en CSS para el subtítulo/botón/copyright del intro | Los delays se calculan dinámicamente en JS: `TW_START_DELAY + text.length * CHAR_DELAY + offset` |
 | Asumir que las fotos de hotspots están en el canvas | Están en overlays DOM — `<img>` dentro de `.overlay-wrap` |
-| Poner `pointer-events: auto` en `.overlay-wrap.has-caption` | El tipo B debe ser `pointer-events: none` — solo el badge tiene `pointer-events: auto` |
+| Escribir `logicalW/H` sin verificar dimensiones reales | `identify imagen.webp` primero siempre |
+| Llamar `loadMap()` desde `preloadPhase()` sin `{ setAsCurrent: false }` | El preload no debe sobreescribir `currentMap` — causa deformación si otra fase termina de cargar mientras el usuario está en otra |
+| Dejar una transición cinemática en vuelo al cambiar de fase | `transitionState.active = false` antes de `goToWaypoint(0)` en cada `loadMap()` |
+| Llamar `setCanvasDPR()` o `markDirty()` desde `closeAll()` del popup | El body tiene `overflow: hidden` permanente — no hay scrollbar que compensar, produce flash innecesario |
 | Olvidar sincronizar `window.cameraInstance` con `camera` local | Agregar `cameraInstance.setPosition(camera.x, camera.y, camera.z)` después del lerp en el RAF loop |
 | Dejar `breathingAllowed` sin guard de popup | Agregar `!popupManager?.isOpen()` — el breathing debe pausarse con popup abierto o el canvas redibuja innecesariamente cada frame |
 | Agregar handlers de resize sin guard de popup | `handleResize`, `ResizeObserver` y `visualViewport.resize` deben retornar si `popupManager?.isOpen()` — la scrollbar del body al abrir/cerrar popup dispara resize falsos |
@@ -563,6 +624,11 @@ git add . && git commit -m "descripción" && git push
 - Activado via campos `caption` y `noPopup: true` en `icons.json`
 - CSS usa `:has(.hs-caption__badge:hover)` — cero JS en hover
 - Desactivado en mobile con `@media (hover: none)`
+
+**Fixes Junio 2026:**
+- Race condition en cambio de fase: transición en vuelo cancelada con `transitionState.active = false` + `preloadPhase()` con `{ setAsCurrent: false }` — verificado con Playwright
+- Dimensiones `logicalH` corregidas: F1 `2050→2049`, F2 `1773→2049` (verificadas con `identify`)
+- Glitch al cerrar popup: `setCanvasDPR()` + `markDirty()` eliminados de `closeAll()` (eran no-op con `overflow:hidden` permanente)
 
 **Fix canvas flash con popup abierto (Junio 2026):**
 - `breathingAllowed` ahora incluye `!popupManager?.isOpen()` — el breathing se pausa mientras el popup está abierto

@@ -90,11 +90,9 @@ map-waypoints/
 │   ├── assets/                   ← Imágenes, fuentes, GIFs
 │   │   ├── fonts/                ← Inter woff2 (self-hosted)
 │   │   ├── mapa-mobile.webp      ← Imagen mapa mobile (1400×3181px físicos, logicalW:1400 logicalH:3181)
-│   │   ├── mapa-dektop-4x.webp   ← Imagen mapa desktop (4240×3685px, logicalW:4240 logicalH:3685)
-│   │   ├── fase-2-mapa-mobile-x4.webp  ← Fase 2 mobile (compartida temporalmente con fase 1)
-│   │   ├── fase-2-mapa-dektop-4x.webp  ← Fase 2 desktop
-│   │   ├── fase-3-mapa-mobile-x4.webp  ← Fase 3 mobile
-│   │   ├── fase-3-mapa-dektop-4x.webp  ← Fase 3 desktop
+│   │   ├── mapa-dektop-2x.webp   ← F1 desktop (4240×2049 verificado)
+│   │   ├── f2-mapa-dektop-2x.webp← F2 desktop (4240×2049 verificado)
+│   │   ├── f3-mapa-dektop-x2.webp← F3 desktop (4240×3815 verificado)
 │   │   └── persona_1-*.gif       ← Avatares animados de personas
 │   │
 │   └── data/                     ← Sistema de datos de historias
@@ -159,11 +157,13 @@ Maneja la carga de historias, mapas e imágenes con caché inteligente.
 
 **Métodos principales:**
 ```js
-mapManager.loadStory(url)         // Carga story.json, puebla PHASES y MAPS_CONFIG
-mapManager.loadMap(mapId)         // Fetch lazy del JSON del mapa, cachea en MAPS_CONFIG
-mapManager.getCurrentPhaseMaps()  // Retorna mapas de la fase activa
-mapManager.setPhase(phaseId)      // Cambia fase y pre-carga la siguiente
+mapManager.loadStory(url)                      // Carga story.json
+mapManager.loadMap(mapId, { setAsCurrent })    // Fetch lazy. Pasar { setAsCurrent: false } en preloads.
+mapManager.getCurrentPhaseMaps()               // Retorna mapas de la fase activa
+mapManager.setPhase(phaseId)                   // Cambia fase y pre-carga la siguiente
 ```
+
+**⚠️ CRÍTICO:** `preloadPhase()` debe pasar `{ setAsCurrent: false }` al llamar `loadMap()`. Sin esto, si F3 termina de precargarse mientras el usuario está en F2, el RAF usa `logicalH=3815` para dibujar F2 — deformación visual. (Ver sección Bugs resueltos)
 
 **Resolución de rutas de mapas:**
 ```
@@ -260,9 +260,9 @@ Herramienta de desarrollo para posicionar hotspots y overlays visualmente. Se ca
       "logicalH": 3181
     },
     "desktop": {
-      "src": "/assets/mapa-dektop-4x.webp?v=2026-05-20",
+      "src": "/assets/mapa-dektop-2x.webp?v=2026-05-25",
       "logicalW": 4240,
-      "logicalH": 3685
+      "logicalH": 2049
     },
     "useNaturalSize": false
   },
@@ -279,7 +279,20 @@ Herramienta de desarrollo para posicionar hotspots y overlays visualmente. Se ca
 }
 ```
 
-### `mapa_f1_icons/icons.json` — Bundle de hotspots (formato actual)
+**Dimensiones canónicas — Expediente 0001:**
+
+| Fase | Plataforma | logicalW | logicalH | Imagen física verificada |
+|---|---|---|---|---|
+| F1 | desktop | 4240 | 2049 | `mapa-dektop-2x.webp` |
+| F2 | desktop | 4240 | 2049 | `f2-mapa-dektop-2x.webp` |
+| F3 | desktop | 4240 | 3815 | `f3-mapa-dektop-x2.webp` |
+| F1 | mobile | 1400 | 1789 | `mapa-mobile-2x.webp` |
+| F2 | mobile | 1400 | 1650 | `f2-mapa-mobile-x2.webp` |
+| F3 | mobile | 1400 | 3181 | `mapa-mobile.webp` |
+
+**F1 y F2 desktop comparten dimensiones y waypoints** — mismos `xp/yp`, `yOffset`, `zMobileProfile`. Cualquier ajuste en F1 desktop debe replicarse en F2.
+
+### `mapa_f1_icons/icons.json`
 
 ```json
 {
@@ -447,13 +460,15 @@ fs.writeFileSync(path.join(dir,'icons.json'), JSON.stringify(bundle,null,2));
 
 ## 12. Cambiar la imagen del mapa
 
-### Paso 1 — Obtener dimensiones reales
+### Paso 1 — Verificar dimensiones reales
 
 ```bash
-sips -g pixelWidth -g pixelHeight public/assets/nueva-imagen.webp
-# O en Linux:
 identify public/assets/nueva-imagen.webp
+# O en Mac sin ImageMagick:
+sips -g pixelWidth -g pixelHeight public/assets/nueva-imagen.webp
 ```
+
+**⚠️ Nunca escribir `logicalW/H` sin verificar primero.** Un valor incorrecto (aunque sea 1px) hace que la cámara calcule zoom y posición sobre una escala incorrecta — causa deformación visible al cambiar de fase.
 
 ### Paso 2 — Actualizar `mapImage` en el JSON
 
@@ -672,14 +687,39 @@ Los archivos a editar son `mapa_f1.json`, `mapa_f2.json` y `mapa_f3.json` dentro
 
 ---
 
-## 16. Pendientes y roadmap
+## 16. Bugs resueltos — historial
+
+### Race condition en cambio de fase (Junio 2026)
+
+**Síntoma:** F2 se veía deformada la primera vez. F3→F2 se veía bien.
+
+**Bug 1 — Transición en vuelo:** `transitionState.active` permanecía `true` con `targetPos` de F1 cuando el usuario hacía click en F2 durante una transición. El RAF sobreescribía `camTarget` de vuelta a F1.
+**Fix:** `transitionState.active = false` antes de `goToWaypoint(0)` en `loadMap()`.
+
+**Bug 2 — Preload sobreescribía currentMap:** `preloadPhase()` llamaba `loadMap()` que siempre asignaba `this.currentMap`. Si F3 terminaba de precargarse mientras el usuario estaba en F2, el RAF usaba `logicalH=3815` para dibujar F2.
+**Fix:** `loadMap()` acepta `{ setAsCurrent }`. `preloadPhase()` pasa `{ setAsCurrent: false }`.
+
+**Verificación Playwright:** Primera y segunda carga de F2 producen `{x:750, y:~680}`. Antes: `{x:2116, y:1570}`.
+
+### logicalH incorrecto en JSON de mapas (Junio 2026)
+
+F2 tenía `logicalH: 1773` cuando la imagen real mide 2049px (13% de error). F1 tenía `logicalH: 2050` (1px). Corregidos tras verificar con `identify`. Regla permanente: siempre verificar con `identify` antes de escribir `logicalH`.
+
+### Glitch al cerrar popup (Junio 2026)
+
+`closeAll()` llamaba `setCanvasDPR()` + `markDirty()` asumiendo que la scrollbar del body cambiaría. Como `body { overflow: hidden }` es permanente, esas llamadas producían un resize innecesario con flash visible. Se eliminaron.
+
+---
+
+## 17. Pendientes y roadmap
 
 ### Pendiente inmediato
-- [ ] Contenido real del Expediente 0001 — reemplazar imágenes de prueba y datos de waypoints con el caso real (`label` y `lines` en los JSON de mapas)
+- [ ] Contenido real F3 — reemplazar waypoints TODO con el caso real (`label` y `lines`)
 - [ ] `thumb.webp` para el catálogo `index.json`
-- [ ] Resolver el colapso del iframe en WordPress online (divergentes.com) — guard de altura mínima en el listener
-- [x] ~~Imagen mobile propia para fase 2~~ — `f2-mapa-mobile-x2.webp` (1400×1650). F2 desktop idéntico a F1 (4240×2050, z:0.85, mismos waypoints y yOffset).
-- [ ] Generar imagen mobile propia para fase 3
+- [ ] Resolver el colapso del iframe en WordPress online — guard de altura mínima en el listener
+- [x] ~~Imagen mobile propia para fase 2~~ — `f2-mapa-mobile-x2.webp` (1400×1650)
+- [x] ~~Fix race condition cambio de fase~~ — transición en vuelo + preload sobreescribiendo currentMap (Junio 2026)
+- [x] ~~Fix logicalH incorrecto~~ — F1: 2050→2049, F2: 1773→2049 verificados con `identify` (Junio 2026)
 
 ### Corto plazo
 - [x] ~~Waypoint Info Box~~ — Caja flotante `position: absolute; top: 0` que muestra `label` y `lines[0]` del waypoint activo. Se actualiza en `goToWaypoint()`. No empuja el layout. (Mayo 2026)
