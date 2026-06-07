@@ -4,1171 +4,1667 @@
       "_note": "WP0-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -7,
-        "offsetY": -186,
-        "width": 280,
-        "height": 400,
-        "rotation": 0,
-        "radius": 20
-      },
-      "desktop": {
-        "offsetX": -35,
-        "offsetY": -73,
-        "width": 1040,
-        "height": 420,
-        "rotation": -1,
-        "radius": 110
-      },
-      "title": "TODO — Título waypoint 1",
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 1",
-      "involved": [],
-      "echos": {},
-      "id": "hs_f3_w0_h0"
-    },
-    {
-      "_note": "WP0-H0-B: Hotspot tipo B — informativo superpuesto al A",
-      "type": "hotspot",
-      "caption": "En esta foto se ve a Samcam entrando al aeropuerto Juan Santamaría. Llega acompañado por colegas opositores.",
-      "noPopup": true,
-      "mobile": {
-        "offsetX": -12,
-        "offsetY": -294,
+        "offsetX": -10,
+        "offsetY": -315,
         "width": 260,
-        "height": 122,
+        "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -314,
-        "offsetY": -81,
-        "width": 460,
-        "height": 320,
-        "rotation": -1,
+        "offsetX": -369,
+        "offsetY": -99,
+        "width": 420,
+        "height": 239,
+        "rotation": -10,
         "radius": 0
       },
-      "title": "TODO — Título waypoint 1",
-      "id": "hs_f3_w0_h1",
+      "title": "La ruta final del Duster y la localización del sicario",
+      "image": "/assets/TODO-wp0-h0.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "07:46–07:54",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 1",
-      "involved": [],
-      "echos": {}
+      "location": "Cruce El Raicero / Mall Don Pancho / Trinidad de Moravia, Coronado.",
+      "description": "El Renault Duster (con Bryan Robles Salas y Luis F. Carvajal Fernández) siguió una ruta hacia Coronado, pasando por Cruce El Raicero, Mall Don Pancho (07:53 h) y Trinidad de Moravia (07:54 h). El dispositivo de Carvajal Fernández confirmó que era el pasajero-ejecutor. Durante este trayecto, el pasajero se cambia el suéter gris por una oscura con logo Fox.",
+      "involved": [
+        {
+          "id": "hs_f3_w0h0a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w0h0b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w0h0a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:46–07:54"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w0h0b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:46–07:54"
+            },
+            "description": "TODO — Participación persona B."
+          },
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "TODO — HH:MM"
+            },
+            "description": "TODO — Segunda interacción persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w0_h0"
     },
     {
-      "_note": "WP0-H1-B: Hotspot tipo B — informativo superpuesto al H1",
+      "_note": "WP0-H1: Rectángulo secundario superior derecho",
       "type": "hotspot",
-      "noPopup": true,
-      "caption": "Mapa del Aeropuerto Juan Santamaría en Alajuela, Costa Rica. Se muestra la ruta de acceso principal.",
-      "title": "TODO — Título waypoint 1",
       "mobile": {
-        "offsetX": -4,
-        "offsetY": -102,
+        "offsetX": -5,
+        "offsetY": -121,
         "width": 280,
-        "height": 188,
-        "rotation": -9,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 258,
-        "offsetY": -33,
-        "width": 470,
-        "height": 230,
-        "rotation": 1,
-        "radius": 0
-      },
-      "id": "hs_f3_w0_h2",
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 1",
-      "involved": [],
-      "echos": {}
-    }
-  ],
-  "wp1": [
-    {
-      "_note": "WP1-H0: Rectángulo principal — copia exacta de layout wp0",
-      "type": "hotspot",
-      "mobile": {
-        "offsetX": -7,
-        "offsetY": -60,
-        "width": 280,
-        "height": 400,
-        "rotation": 0,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 21,
-        "offsetY": -75,
-        "width": 1030,
-        "height": 450,
-        "rotation": -1,
-        "radius": 0
-      },
-      "title": "TODO — Título waypoint 2",
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 2",
-      "involved": [],
-      "echos": {},
-      "id": "hs_f3_w1_h0"
-    },
-    {
-      "_note": "WP1-H0-B: Tipo B — informativo superpuesto al H0 (foto Hyundai)",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Hyundai celeste placa 903056, identificado por la puerta delantera del acompañante de color blanco. Captado en cámara al ingreso de León XIII a las 16:17 h del 18 de junio de 2025.",
-      "title": "TODO — Título waypoint 2",
-      "mobile": {
-        "offsetX": -16,
-        "offsetY": -154,
-        "width": 200,
-        "height": 180,
-        "rotation": 5,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": -279,
-        "offsetY": -70,
-        "width": 450,
-        "height": 405,
-        "rotation": 1,
-        "radius": 0
-      },
-      "id": "hs_f3_w1_h1",
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 2",
-      "involved": [],
-      "echos": {}
-    },
-    {
-      "_note": "WP1-H1-B: Tipo B — informativo secundario (mapa zona León XIII)",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Sector León XIII, Tibás. El vehículo fue captado ingresando a esta zona diez minutos después del retorno de Samcam a su vivienda, confirmando que los sospechosos monitoreaban sus movimientos en tiempo real.",
-      "title": "TODO — Título waypoint 2",
-      "mobile": {
-        "offsetX": -8,
-        "offsetY": 59,
-        "width": 260,
-        "height": 180,
-        "rotation": -9,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 295,
-        "offsetY": -39,
-        "width": 500,
-        "height": 250,
-        "rotation": 0,
-        "radius": 0
-      },
-      "id": "hs_f3_w1_h2",
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 2",
-      "involved": [],
-      "echos": {}
-    }
-  ],
-  "wp2": [
-    {
-      "_note": "wp2-H0: Principal — abre popup grande",
-      "type": "hotspot",
-      "noPopup": false,
-      "caption": "",
-      "title": "TODO — Título waypoint 3",
-      "mobile": {
-        "offsetX": -2,
-        "offsetY": -91,
-        "width": 280,
-        "height": 400,
-        "rotation": 0,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 25,
-        "offsetY": -50,
-        "width": 1081,
-        "height": 450,
-        "rotation": -1,
-        "radius": 0
-      },
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "description": "TODO — Descripción waypoint 3",
-      "involved": [],
-      "id": "hs_f3_w2_h0",
-      "location": "TODO — Ubicación",
-      "echos": {}
-    },
-    {
-      "_note": "wp2-H1-B: Tipo B — informativo secundario",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — Título waypoint 3",
-      "mobile": {
-        "offsetX": 4,
-        "offsetY": -191,
-        "width": 220,
-        "height": 160,
+        "height": 190,
         "rotation": -8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -261,
-        "offsetY": -57,
-        "width": 490,
-        "height": 355,
-        "rotation": -7,
+        "offsetX": 180,
+        "offsetY": -130,
+        "width": 417,
+        "height": 238,
+        "rotation": 25,
         "radius": 0
       },
-      "id": "hs_f3_w2_h1",
+      "title": "TODO — Título secundario WP0",
+      "image": "/assets/TODO-wp0-h1.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "07:46–07:54",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 3",
-      "involved": [],
-      "echos": {}
-    },
+      "location": "Cruce El Raicero / Mall Don Pancho / Trinidad de Moravia, Coronado.",
+      "description": "TODO — Descripción del evento secundario.",
+      "involved": [
+        {
+          "id": "hs_f3_w0h1a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w0h1b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w0h1a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:46–07:54"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w0h1b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:46–07:54"
+            },
+            "description": "TODO — Participación persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w0_h1"
+    }
+  ],
+  "wp1": [
     {
-      "_note": "wp2-H2-B: Tipo B — contexto / mapa",
+      "_note": "WP1-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
-      "noPopup": true,
-      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — Título waypoint 3",
       "mobile": {
-        "offsetX": -5,
-        "offsetY": -40,
-        "width": 200,
-        "height": 110,
-        "rotation": 8,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
+        "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 349,
-        "offsetY": -160,
-        "width": 455,
-        "height": 233,
-        "rotation": -1,
+        "offsetX": -369,
+        "offsetY": -99,
+        "width": 420,
+        "height": 239,
+        "rotation": -10,
         "radius": 0
       },
-      "id": "hs_f3_w2_h2",
+      "title": "El coordinador regresa a la base",
+      "image": "/assets/TODO-wp1-h0.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "07:52",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 3",
-      "involved": [],
-      "echos": {}
+      "location": "Sector León XIII, Tibás.",
+      "description": "La motocicleta, conducida por Danilo José Chaves Medina, ingresó al sector de León XIII. Así completó su huida.",
+      "involved": [
+        {
+          "id": "hs_f3_w1h0a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w1h0b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w1h0a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:52"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w1h0b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:52"
+            },
+            "description": "TODO — Participación persona B."
+          },
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "TODO — HH:MM"
+            },
+            "description": "TODO — Segunda interacción persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w1_h0"
+    },
+    {
+      "_note": "WP1-H1: Rectángulo secundario superior derecho",
+      "type": "hotspot",
+      "mobile": {
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
+        "rotation": -8,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 180,
+        "offsetY": -130,
+        "width": 417,
+        "height": 238,
+        "rotation": 25,
+        "radius": 0
+      },
+      "title": "TODO — Título secundario WP1",
+      "image": "/assets/TODO-wp1-h1.webp",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "07:52",
+        "timeColor": "#FF4444"
+      },
+      "location": "Sector León XIII, Tibás.",
+      "description": "TODO — Descripción del evento secundario.",
+      "involved": [
+        {
+          "id": "hs_f3_w1h1a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w1h1b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w1h1a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:52"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w1h1b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:52"
+            },
+            "description": "TODO — Participación persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w1_h1"
+    }
+  ],
+  "wp2": [
+    {
+      "_note": "WP2-H0: Rectángulo principal izquierdo",
+      "type": "hotspot",
+      "mobile": {
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
+        "rotation": 9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -369,
+        "offsetY": -99,
+        "width": 420,
+        "height": 239,
+        "rotation": -10,
+        "radius": 0
+      },
+      "title": "Se coordina la extracción del sicario. Una llamada clave.",
+      "image": "/assets/TODO-wp2-h0.webp",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "08:10",
+        "timeColor": "#FF4444"
+      },
+      "location": "León XIII, Tibás.",
+      "description": "Danilo José Chaves Medina (72678193) llamó a Luis Ricardo Orozco González, conductor encargado de la extracción. La policía judicial infiere que esta llamada (de 24 segundos) fue para coordinar que Orozco se dirigiera a Coronado a recoger a los ejecutores.",
+      "involved": [
+        {
+          "id": "hs_f3_w2h0a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w2h0b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w2h0a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:10"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w2h0b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:10"
+            },
+            "description": "TODO — Participación persona B."
+          },
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "TODO — HH:MM"
+            },
+            "description": "TODO — Segunda interacción persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w2_h0"
+    },
+    {
+      "_note": "WP2-H1: Rectángulo secundario superior derecho",
+      "type": "hotspot",
+      "mobile": {
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
+        "rotation": -8,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 180,
+        "offsetY": -130,
+        "width": 417,
+        "height": 238,
+        "rotation": 25,
+        "radius": 0
+      },
+      "title": "TODO — Título secundario WP2",
+      "image": "/assets/TODO-wp2-h1.webp",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "08:10",
+        "timeColor": "#FF4444"
+      },
+      "location": "León XIII, Tibás.",
+      "description": "TODO — Descripción del evento secundario.",
+      "involved": [
+        {
+          "id": "hs_f3_w2h1a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w2h1b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w2h1a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:10"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w2h1b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:10"
+            },
+            "description": "TODO — Participación persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w2_h1"
     }
   ],
   "wp3": [
     {
-      "_note": "wp3-H0: Principal — abre popup grande",
+      "_note": "WP3-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
-      "noPopup": false,
-      "caption": "",
-      "title": "TODO — Título waypoint 4",
       "mobile": {
-        "offsetX": 0,
-        "offsetY": -156,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
+        "rotation": 9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -369,
+        "offsetY": -99,
+        "width": 420,
+        "height": 239,
+        "rotation": -10,
+        "radius": 0
+      },
+      "title": "El Hyundai sale hacia Coronado",
+      "image": "/assets/TODO-wp3-h0.webp",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "08:15",
+        "timeColor": "#FF4444"
+      },
+      "location": "León XIII – Ruta 32, Tibás.",
+      "description": "El Hyundai celeste (placa 903056), conducido por Orozco González para la extracción, salió de León XIII y se dirigió hacia la Ruta 32, confirmando el rumbo hacia Coronado.",
+      "involved": [
+        {
+          "id": "hs_f3_w3h0a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w3h0b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w3h0a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:15"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w3h0b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:15"
+            },
+            "description": "TODO — Participación persona B."
+          },
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "TODO — HH:MM"
+            },
+            "description": "TODO — Segunda interacción persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w3_h0"
+    },
+    {
+      "_note": "WP3-H1: Rectángulo secundario superior derecho",
+      "type": "hotspot",
+      "mobile": {
+        "offsetX": -5,
+        "offsetY": -121,
         "width": 280,
-        "height": 450,
-        "rotation": 0,
+        "height": 190,
+        "rotation": -8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -13,
-        "offsetY": -92,
-        "width": 1000,
-        "height": 380,
-        "rotation": -1,
+        "offsetX": 180,
+        "offsetY": -130,
+        "width": 417,
+        "height": 238,
+        "rotation": 25,
         "radius": 0
       },
+      "title": "TODO — Título secundario WP3",
+      "image": "/assets/TODO-wp3-h1.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "08:15",
+        "timeColor": "#FF4444"
       },
-      "description": "TODO — Descripción waypoint 4",
-      "involved": [],
-      "id": "hs_f3_w3_h0",
-      "location": "TODO — Ubicación",
-      "echos": {}
-    },
-    {
-      "_note": "wp3-H1-B: Tipo B — informativo secundario",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — Título waypoint 4",
-      "mobile": {
-        "offsetX": -6,
-        "offsetY": -271,
-        "width": 240,
-        "height": 180,
-        "rotation": 8,
-        "radius": 0
+      "location": "León XIII – Ruta 32, Tibás.",
+      "description": "TODO — Descripción del evento secundario.",
+      "involved": [
+        {
+          "id": "hs_f3_w3h1a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w3h1b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w3h1a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:15"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w3h1b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:15"
+            },
+            "description": "TODO — Participación persona B."
+          }
+        ]
       },
-      "desktop": {
-        "offsetX": -264,
-        "offsetY": -92,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
-        "radius": 0
-      },
-      "id": "hs_f3_w3_h1",
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 4",
-      "involved": [],
-      "echos": {}
-    },
-    {
-      "_note": "wp3-H2-B: Tipo B — contexto / mapa",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — Título waypoint 4",
-      "mobile": {
-        "offsetX": 7,
-        "offsetY": -34,
-        "width": 270,
-        "height": 300,
-        "rotation": -9,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 315,
-        "offsetY": -80,
-        "width": 400,
-        "height": 380,
-        "rotation": 0,
-        "radius": 0
-      },
-      "id": "hs_f3_w3_h2",
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 4",
-      "involved": [],
-      "echos": {}
+      "id": "hs_f3_w3_h1"
     }
   ],
   "wp4": [
     {
-      "_note": "wp4-H0: Principal — abre popup grande",
+      "_note": "WP4-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
-      "noPopup": false,
-      "caption": "",
-      "title": "TODO — Título waypoint 5",
-      "mobile": {
-        "offsetX": -7,
-        "offsetY": -186,
-        "width": 280,
-        "height": 400,
-        "rotation": 0,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 57,
-        "offsetY": -80,
-        "width": 995,
-        "height": 400,
-        "rotation": -1,
-        "radius": 0
-      },
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "description": "TODO — Descripción waypoint 5",
-      "involved": [],
-      "id": "hs_f3_w4_h0",
-      "location": "TODO — Ubicación",
-      "echos": {}
-    },
-    {
-      "_note": "wp4-H1-B: Tipo B — informativo secundario",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — Título waypoint 5",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
+        "offsetY": -315,
+        "width": 260,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -272,
-        "offsetY": -78,
-        "width": 490,
-        "height": 350,
-        "rotation": -1,
+        "offsetX": -369,
+        "offsetY": -99,
+        "width": 420,
+        "height": 239,
+        "rotation": -10,
         "radius": 0
       },
-      "id": "hs_f3_w4_h1",
+      "title": "Un mensaje desesperado",
+      "image": "/assets/TODO-wp4-h0.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "08:21",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 5",
-      "involved": [],
-      "echos": {}
+      "location": "Dulce Nombre de Coronado, cercanías de Casa Kuakua.",
+      "description": "Bryan Steven Robles Salas envió a Orozco su ubicación GPS, coincidente con el sitio donde el Duster BKK190 fue abandonado. Robles Salas envió mensajes de desesperación: \"Corra xfa\", \"Vueleeeee\", \"Sáqueme de aquí\".",
+      "involved": [
+        {
+          "id": "hs_f3_w4h0a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w4h0b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w4h0a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:21"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w4h0b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:21"
+            },
+            "description": "TODO — Participación persona B."
+          },
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "TODO — HH:MM"
+            },
+            "description": "TODO — Segunda interacción persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w4_h0"
     },
     {
-      "_note": "wp4-H2-B: Tipo B — contexto / mapa",
+      "_note": "WP4-H1: Rectángulo secundario superior derecho",
       "type": "hotspot",
-      "noPopup": true,
-      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — Título waypoint 5",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
+        "rotation": -8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 322,
-        "offsetY": -84,
-        "width": 550,
-        "height": 390,
-        "rotation": 0,
+        "offsetX": 180,
+        "offsetY": -130,
+        "width": 417,
+        "height": 238,
+        "rotation": 25,
         "radius": 0
       },
-      "id": "hs_f3_w4_h2",
+      "title": "TODO — Título secundario WP4",
+      "image": "/assets/TODO-wp4-h1.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "08:21",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 5",
-      "involved": [],
-      "echos": {}
+      "location": "Dulce Nombre de Coronado, cercanías de Casa Kuakua.",
+      "description": "TODO — Descripción del evento secundario.",
+      "involved": [
+        {
+          "id": "hs_f3_w4h1a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w4h1b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w4h1a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:21"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w4h1b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:21"
+            },
+            "description": "TODO — Participación persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w4_h1"
     }
   ],
   "wp5": [
     {
-      "_note": "wp5-H0: Principal — abre popup grande",
+      "_note": "WP5-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
-      "noPopup": false,
-      "caption": "",
-      "title": "TODO — Título waypoint 6",
-      "mobile": {
-        "offsetX": -7,
-        "offsetY": -186,
-        "width": 280,
-        "height": 400,
-        "rotation": 0,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 9,
-        "offsetY": -47,
-        "width": 1000,
-        "height": 390,
-        "rotation": -1,
-        "radius": 0
-      },
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "description": "TODO — Descripción waypoint 6",
-      "involved": [],
-      "id": "hs_f3_w5_h0",
-      "location": "TODO — Ubicación",
-      "echos": {}
-    },
-    {
-      "_note": "wp5-H1-B: Tipo B — informativo secundario",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — Título waypoint 6",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
+        "offsetY": -315,
+        "width": 260,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -271,
-        "offsetY": -59,
-        "width": 400,
-        "height": 367,
-        "rotation": -1,
+        "offsetX": -369,
+        "offsetY": -99,
+        "width": 420,
+        "height": 239,
+        "rotation": -10,
         "radius": 0
       },
-      "id": "hs_f3_w5_h1",
+      "title": "El sicario también se contacta",
+      "image": "/assets/TODO-wp5-h0.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "08:34",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 6",
-      "involved": [],
-      "echos": {}
+      "location": "Coronado, San José.",
+      "description": "Luis Fernando Carvajal Fernández, el gatillero, contactó a Orozco explicando que el celular de Robles se había apagado y solicitando la ubicación en tiempo real.",
+      "involved": [
+        {
+          "id": "hs_f3_w5h0a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w5h0b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w5h0a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:34"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w5h0b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:34"
+            },
+            "description": "TODO — Participación persona B."
+          },
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "TODO — HH:MM"
+            },
+            "description": "TODO — Segunda interacción persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w5_h0"
     },
     {
-      "_note": "wp5-H2-B: Tipo B — contexto / mapa",
+      "_note": "WP5-H1: Rectángulo secundario superior derecho",
       "type": "hotspot",
-      "noPopup": true,
-      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — Título waypoint 6",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
+        "rotation": -8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 299,
-        "offsetY": -74,
-        "width": 512,
-        "height": 410,
-        "rotation": 0,
+        "offsetX": 180,
+        "offsetY": -130,
+        "width": 417,
+        "height": 238,
+        "rotation": 25,
         "radius": 0
       },
-      "id": "hs_f3_w5_h2",
+      "title": "TODO — Título secundario WP5",
+      "image": "/assets/TODO-wp5-h1.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "08:34",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 6",
-      "involved": [],
-      "echos": {}
+      "location": "Coronado, San José.",
+      "description": "TODO — Descripción del evento secundario.",
+      "involved": [
+        {
+          "id": "hs_f3_w5h1a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w5h1b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w5h1a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:34"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w5h1b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:34"
+            },
+            "description": "TODO — Participación persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w5_h1"
     }
   ],
   "wp6": [
     {
-      "_note": "wp3-H0: Principal — abre popup grande",
+      "_note": "WP6-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
-      "noPopup": false,
-      "caption": "",
-      "title": "TODO — Título waypoint 7",
       "mobile": {
-        "offsetX": 0,
-        "offsetY": -156,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
+        "rotation": 9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -369,
+        "offsetY": -99,
+        "width": 420,
+        "height": 239,
+        "rotation": -10,
+        "radius": 0
+      },
+      "title": "Llega la extracción",
+      "image": "/assets/TODO-wp6-h0.webp",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "08:38",
+        "timeColor": "#FF4444"
+      },
+      "location": "Rodeo, Coronado, San José.",
+      "description": "El dispositivo de Luis Orozco registra su ubicación coincidente con el sitio exacto en Rodeo, Coronado, donde fue hallado el Duster BKK190 abandonado.",
+      "involved": [
+        {
+          "id": "hs_f3_w6h0a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w6h0b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w6h0a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:38"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w6h0b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:38"
+            },
+            "description": "TODO — Participación persona B."
+          },
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "TODO — HH:MM"
+            },
+            "description": "TODO — Segunda interacción persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w6_h0"
+    },
+    {
+      "_note": "WP6-H1: Rectángulo secundario superior derecho",
+      "type": "hotspot",
+      "mobile": {
+        "offsetX": -5,
+        "offsetY": -121,
         "width": 280,
-        "height": 450,
-        "rotation": 0,
+        "height": 190,
+        "rotation": -8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -13,
-        "offsetY": -92,
-        "width": 1000,
-        "height": 380,
-        "rotation": -1,
+        "offsetX": 180,
+        "offsetY": -130,
+        "width": 417,
+        "height": 238,
+        "rotation": 25,
         "radius": 0
       },
+      "title": "TODO — Título secundario WP6",
+      "image": "/assets/TODO-wp6-h1.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "08:38",
+        "timeColor": "#FF4444"
       },
-      "description": "TODO — Descripción waypoint 7",
-      "involved": [],
-      "id": "hs_f3_w6_h0",
-      "location": "TODO — Ubicación",
-      "echos": {}
-    },
-    {
-      "_note": "wp3-H1-B: Tipo B — informativo secundario",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — Título waypoint 7",
-      "mobile": {
-        "offsetX": -6,
-        "offsetY": -271,
-        "width": 240,
-        "height": 180,
-        "rotation": 8,
-        "radius": 0
+      "location": "Rodeo, Coronado, San José.",
+      "description": "TODO — Descripción del evento secundario.",
+      "involved": [
+        {
+          "id": "hs_f3_w6h1a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w6h1b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w6h1a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:38"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w6h1b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:38"
+            },
+            "description": "TODO — Participación persona B."
+          }
+        ]
       },
-      "desktop": {
-        "offsetX": -264,
-        "offsetY": -92,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
-        "radius": 0
-      },
-      "id": "hs_f3_w6_h1",
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 7",
-      "involved": [],
-      "echos": {}
-    },
-    {
-      "_note": "wp3-H2-B: Tipo B — contexto / mapa",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — Título waypoint 7",
-      "mobile": {
-        "offsetX": 7,
-        "offsetY": -34,
-        "width": 270,
-        "height": 300,
-        "rotation": -9,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 315,
-        "offsetY": -80,
-        "width": 400,
-        "height": 380,
-        "rotation": 0,
-        "radius": 0
-      },
-      "id": "hs_f3_w6_h2",
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 7",
-      "involved": [],
-      "echos": {}
+      "id": "hs_f3_w6_h1"
     }
   ],
   "wp7": [
     {
-      "_note": "wp4-H0: Principal — abre popup grande",
+      "_note": "WP7-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
-      "noPopup": false,
-      "caption": "",
-      "title": "TODO — Título waypoint 8",
-      "mobile": {
-        "offsetX": -7,
-        "offsetY": -186,
-        "width": 280,
-        "height": 400,
-        "rotation": 0,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 57,
-        "offsetY": -80,
-        "width": 995,
-        "height": 400,
-        "rotation": -1,
-        "radius": 0
-      },
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "description": "TODO — Descripción waypoint 8",
-      "involved": [],
-      "id": "hs_f3_w7_h0",
-      "location": "TODO — Ubicación",
-      "echos": {}
-    },
-    {
-      "_note": "wp4-H1-B: Tipo B — informativo secundario",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — Título waypoint 8",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
+        "offsetY": -315,
+        "width": 260,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -272,
-        "offsetY": -78,
-        "width": 490,
-        "height": 350,
-        "rotation": -1,
+        "offsetX": -369,
+        "offsetY": -99,
+        "width": 420,
+        "height": 239,
+        "rotation": -10,
         "radius": 0
       },
-      "id": "hs_f3_w7_h1",
+      "title": "Se consuma la extracción",
+      "image": "/assets/TODO-wp7-h0.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "08:46",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 8",
-      "involved": [],
-      "echos": {}
+      "location": "Rodeo, Coronado, San José.",
+      "description": "El Hyundai celeste (placa 903056) se retiró del lugar, habiendo recogido a Bryan Robles Salas y Luis Fernando Carvajal Fernández.",
+      "involved": [
+        {
+          "id": "hs_f3_w7h0a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w7h0b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w7h0a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:46"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w7h0b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:46"
+            },
+            "description": "TODO — Participación persona B."
+          },
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "TODO — HH:MM"
+            },
+            "description": "TODO — Segunda interacción persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w7_h0"
     },
     {
-      "_note": "wp4-H2-B: Tipo B — contexto / mapa",
+      "_note": "WP7-H1: Rectángulo secundario superior derecho",
       "type": "hotspot",
-      "noPopup": true,
-      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — Título waypoint 8",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
+        "rotation": -8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 322,
-        "offsetY": -84,
-        "width": 550,
-        "height": 390,
-        "rotation": 0,
+        "offsetX": 180,
+        "offsetY": -130,
+        "width": 417,
+        "height": 238,
+        "rotation": 25,
         "radius": 0
       },
-      "id": "hs_f3_w7_h2",
+      "title": "TODO — Título secundario WP7",
+      "image": "/assets/TODO-wp7-h1.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "08:46",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 8",
-      "involved": [],
-      "echos": {}
+      "location": "Rodeo, Coronado, San José.",
+      "description": "TODO — Descripción del evento secundario.",
+      "involved": [
+        {
+          "id": "hs_f3_w7h1a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w7h1b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w7h1a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:46"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w7h1b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:46"
+            },
+            "description": "TODO — Participación persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w7_h1"
     }
   ],
   "wp8": [
     {
-      "_note": "wp5-H0: Principal — abre popup grande",
+      "_note": "WP8-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
-      "noPopup": false,
-      "caption": "",
-      "title": "TODO — Título waypoint 9",
-      "mobile": {
-        "offsetX": -7,
-        "offsetY": -186,
-        "width": 280,
-        "height": 400,
-        "rotation": 0,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 9,
-        "offsetY": -47,
-        "width": 1000,
-        "height": 390,
-        "rotation": -1,
-        "radius": 0
-      },
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "description": "TODO — Descripción waypoint 9",
-      "involved": [],
-      "id": "hs_f3_w8_h0",
-      "location": "TODO — Ubicación",
-      "echos": {}
-    },
-    {
-      "_note": "wp5-H1-B: Tipo B — informativo secundario",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — Título waypoint 9",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
+        "offsetY": -315,
+        "width": 260,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -271,
-        "offsetY": -59,
-        "width": 400,
-        "height": 367,
-        "rotation": -1,
+        "offsetX": -369,
+        "offsetY": -99,
+        "width": 420,
+        "height": 239,
+        "rotation": -10,
         "radius": 0
       },
-      "id": "hs_f3_w8_h1",
+      "title": "Retorno a la base criminal",
+      "image": "/assets/TODO-wp8-h0.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "09:14",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 9",
-      "involved": [],
-      "echos": {}
+      "location": "Sector León XIII, Tibás.",
+      "description": "Orozco González y los ejecutores regresan al sector de León XIII. La ubicación registrada por Orozco es coincidente con la vivienda de Carvajal Fernández.",
+      "involved": [
+        {
+          "id": "hs_f3_w8h0a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w8h0b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w8h0a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "09:14"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w8h0b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "09:14"
+            },
+            "description": "TODO — Participación persona B."
+          },
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "TODO — HH:MM"
+            },
+            "description": "TODO — Segunda interacción persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w8_h0"
     },
     {
-      "_note": "wp5-H2-B: Tipo B — contexto / mapa",
+      "_note": "WP8-H1: Rectángulo secundario superior derecho",
       "type": "hotspot",
-      "noPopup": true,
-      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — Título waypoint 9",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
+        "rotation": -8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 299,
-        "offsetY": -74,
-        "width": 512,
-        "height": 410,
-        "rotation": 0,
+        "offsetX": 180,
+        "offsetY": -130,
+        "width": 417,
+        "height": 238,
+        "rotation": 25,
         "radius": 0
       },
-      "id": "hs_f3_w8_h2",
+      "title": "TODO — Título secundario WP8",
+      "image": "/assets/TODO-wp8-h1.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "09:14",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 9",
-      "involved": [],
-      "echos": {}
+      "location": "Sector León XIII, Tibás.",
+      "description": "TODO — Descripción del evento secundario.",
+      "involved": [
+        {
+          "id": "hs_f3_w8h1a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w8h1b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w8h1a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "09:14"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w8h1b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "09:14"
+            },
+            "description": "TODO — Participación persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w8_h1"
     }
   ],
   "wp9": [
     {
-      "_note": "wp3-H0: Principal — abre popup grande",
+      "_note": "WP9-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
-      "noPopup": false,
-      "caption": "",
-      "title": "TODO — Título waypoint 10",
       "mobile": {
-        "offsetX": 0,
-        "offsetY": -156,
+        "offsetX": -10,
+        "offsetY": -315,
+        "width": 260,
+        "height": 145,
+        "rotation": 9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -369,
+        "offsetY": -99,
+        "width": 420,
+        "height": 239,
+        "rotation": -10,
+        "radius": 0
+      },
+      "title": "Una mujer paga el \"servicio\" de asesinato",
+      "image": "/assets/TODO-wp9-h0.webp",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "10:38",
+        "timeColor": "#FF4444"
+      },
+      "location": "León XIII, Tibás.",
+      "description": "Stephanie María Chacón Guillén depositó a Luis Ricardo Orozco González ₡50.000 en dos tractos (\"Viaje\" y \"Gasolina\"). Este monto es diez veces superior al costo normal del viaje, lo que sugiere que era el pago por la colaboración y el riesgo asumido.",
+      "involved": [
+        {
+          "id": "hs_f3_w9h0a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w9h0b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w9h0a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "10:38"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w9h0b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "10:38"
+            },
+            "description": "TODO — Participación persona B."
+          },
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "TODO — HH:MM"
+            },
+            "description": "TODO — Segunda interacción persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w9_h0"
+    },
+    {
+      "_note": "WP9-H1: Rectángulo secundario superior derecho",
+      "type": "hotspot",
+      "mobile": {
+        "offsetX": -5,
+        "offsetY": -121,
         "width": 280,
-        "height": 450,
-        "rotation": 0,
+        "height": 190,
+        "rotation": -8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -13,
-        "offsetY": -92,
-        "width": 1000,
-        "height": 380,
-        "rotation": -1,
+        "offsetX": 180,
+        "offsetY": -130,
+        "width": 417,
+        "height": 238,
+        "rotation": 25,
         "radius": 0
       },
+      "title": "TODO — Título secundario WP9",
+      "image": "/assets/TODO-wp9-h1.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "10:38",
+        "timeColor": "#FF4444"
       },
-      "description": "TODO — Descripción waypoint 10",
-      "involved": [],
-      "id": "hs_f3_w9_h0",
-      "location": "TODO — Ubicación",
-      "echos": {}
-    },
-    {
-      "_note": "wp3-H1-B: Tipo B — informativo secundario",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — Título waypoint 10",
-      "mobile": {
-        "offsetX": -6,
-        "offsetY": -271,
-        "width": 240,
-        "height": 180,
-        "rotation": 8,
-        "radius": 0
+      "location": "León XIII, Tibás.",
+      "description": "TODO — Descripción del evento secundario.",
+      "involved": [
+        {
+          "id": "hs_f3_w9h1a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w9h1b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w9h1a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "10:38"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w9h1b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "10:38"
+            },
+            "description": "TODO — Participación persona B."
+          }
+        ]
       },
-      "desktop": {
-        "offsetX": -264,
-        "offsetY": -92,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
-        "radius": 0
-      },
-      "id": "hs_f3_w9_h1",
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 10",
-      "involved": [],
-      "echos": {}
-    },
-    {
-      "_note": "wp3-H2-B: Tipo B — contexto / mapa",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — Título waypoint 10",
-      "mobile": {
-        "offsetX": 7,
-        "offsetY": -34,
-        "width": 270,
-        "height": 300,
-        "rotation": -9,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 315,
-        "offsetY": -80,
-        "width": 400,
-        "height": 380,
-        "rotation": 0,
-        "radius": 0
-      },
-      "id": "hs_f3_w9_h2",
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 10",
-      "involved": [],
-      "echos": {}
+      "id": "hs_f3_w9_h1"
     }
   ],
   "wp10": [
     {
-      "_note": "wp4-H0: Principal — abre popup grande",
+      "_note": "WP10-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
-      "noPopup": false,
-      "caption": "",
-      "title": "TODO — Título waypoint 11",
-      "mobile": {
-        "offsetX": -7,
-        "offsetY": -186,
-        "width": 280,
-        "height": 400,
-        "rotation": 0,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 57,
-        "offsetY": -80,
-        "width": 995,
-        "height": 400,
-        "rotation": -1,
-        "radius": 0
-      },
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "description": "TODO — Descripción waypoint 11",
-      "involved": [],
-      "id": "hs_f3_w10_h0",
-      "location": "TODO — Ubicación",
-      "echos": {}
-    },
-    {
-      "_note": "wp4-H1-B: Tipo B — informativo secundario",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — Título waypoint 11",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
+        "offsetY": -315,
+        "width": 260,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -272,
-        "offsetY": -78,
-        "width": 490,
-        "height": 350,
-        "rotation": -1,
+        "offsetX": -369,
+        "offsetY": -99,
+        "width": 420,
+        "height": 239,
+        "rotation": -10,
         "radius": 0
       },
-      "id": "hs_f3_w10_h1",
+      "title": "Confirmación de éxito",
+      "image": "/assets/TODO-wp10-h0.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "16:50",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 11",
-      "involved": [],
-      "echos": {}
+      "location": "León XIII, Tibás.",
+      "description": "Luis Orozco preguntó a Bryan Robles por mensaje: \"¿Como le fue?\". Robles respondió que \"le fue bien\" y preguntó si salió algo \"del carro\" (el Duster abandonado). La conversación confirma el conocimiento mutuo sobre el crimen.",
+      "involved": [
+        {
+          "id": "hs_f3_w10h0a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w10h0b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w10h0a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "16:50"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w10h0b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "16:50"
+            },
+            "description": "TODO — Participación persona B."
+          },
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "TODO — HH:MM"
+            },
+            "description": "TODO — Segunda interacción persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w10_h0"
     },
     {
-      "_note": "wp4-H2-B: Tipo B — contexto / mapa",
+      "_note": "WP10-H1: Rectángulo secundario superior derecho",
       "type": "hotspot",
-      "noPopup": true,
-      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — Título waypoint 11",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
+        "rotation": -8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 322,
-        "offsetY": -84,
-        "width": 550,
-        "height": 390,
-        "rotation": 0,
+        "offsetX": 180,
+        "offsetY": -130,
+        "width": 417,
+        "height": 238,
+        "rotation": 25,
         "radius": 0
       },
-      "id": "hs_f3_w10_h2",
+      "title": "TODO — Título secundario WP10",
+      "image": "/assets/TODO-wp10-h1.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "16:50",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 11",
-      "involved": [],
-      "echos": {}
+      "location": "León XIII, Tibás.",
+      "description": "TODO — Descripción del evento secundario.",
+      "involved": [
+        {
+          "id": "hs_f3_w10h1a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w10h1b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w10h1a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "16:50"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w10h1b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "16:50"
+            },
+            "description": "TODO — Participación persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w10_h1"
     }
   ],
   "wp11": [
     {
-      "_note": "wp5-H0: Principal — abre popup grande",
+      "_note": "WP11-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
-      "noPopup": false,
-      "caption": "",
-      "title": "TODO — Título waypoint 12",
-      "mobile": {
-        "offsetX": -7,
-        "offsetY": -186,
-        "width": 280,
-        "height": 400,
-        "rotation": 0,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 9,
-        "offsetY": -47,
-        "width": 1000,
-        "height": 390,
-        "rotation": -1,
-        "radius": 0
-      },
-      "datetime": {
-        "date": "TODO",
-        "time": "TODO"
-      },
-      "description": "TODO — Descripción waypoint 12",
-      "involved": [],
-      "id": "hs_f3_w11_h0",
-      "location": "TODO — Ubicación",
-      "echos": {}
-    },
-    {
-      "_note": "wp5-H1-B: Tipo B — informativo secundario",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "title": "TODO — Título waypoint 12",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
+        "offsetY": -315,
+        "width": 260,
         "height": 145,
         "rotation": 9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": -271,
-        "offsetY": -59,
-        "width": 400,
-        "height": 367,
-        "rotation": -1,
+        "offsetX": -369,
+        "offsetY": -99,
+        "width": 420,
+        "height": 239,
+        "rotation": -10,
         "radius": 0
       },
-      "id": "hs_f3_w11_h1",
+      "title": "Encuentran las prendas del sicario",
+      "image": "/assets/TODO-wp11-h0.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "—",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 12",
-      "involved": [],
-      "echos": {}
+      "location": "Dulce Nombre de Coronado — Renault Duster BKK190 abandonado.",
+      "description": "Las prendas de vestir utilizadas por el sicario (suéter gris y pantalón color vino) fueron encontradas por el OIJ en el Renault Duster abandonado. Las evidencias materiales confirman la identidad del ejecutor.",
+      "involved": [
+        {
+          "id": "hs_f3_w11h0a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w11h0b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w11h0a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w11h0b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "TODO — Participación persona B."
+          },
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "TODO — HH:MM"
+            },
+            "description": "TODO — Segunda interacción persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w11_h0"
     },
     {
-      "_note": "wp5-H2-B: Tipo B — contexto / mapa",
+      "_note": "WP11-H1: Rectángulo secundario superior derecho",
       "type": "hotspot",
-      "noPopup": true,
-      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
-      "title": "TODO — Título waypoint 12",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": -5,
+        "offsetY": -121,
+        "width": 280,
+        "height": 190,
+        "rotation": -8,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 299,
-        "offsetY": -74,
-        "width": 512,
-        "height": 410,
-        "rotation": 0,
+        "offsetX": 180,
+        "offsetY": -130,
+        "width": 417,
+        "height": 238,
+        "rotation": 25,
         "radius": 0
       },
-      "id": "hs_f3_w11_h2",
+      "title": "TODO — Título secundario WP11",
+      "image": "/assets/TODO-wp11-h1.webp",
       "datetime": {
-        "date": "TODO",
-        "time": "TODO"
+        "date": "19/06/2025",
+        "time": "—",
+        "timeColor": "#FF4444"
       },
-      "location": "TODO — Ubicación",
-      "description": "TODO — Descripción waypoint 12",
-      "involved": [],
-      "echos": {}
+      "location": "Dulce Nombre de Coronado — Renault Duster BKK190 abandonado.",
+      "description": "TODO — Descripción del evento secundario.",
+      "involved": [
+        {
+          "id": "hs_f3_w11h1a",
+          "name": "TODO — Persona A",
+          "avatar": "./assets/persona_1-1.gif",
+          "role": "TODO — Rol"
+        },
+        {
+          "id": "hs_f3_w11h1b",
+          "name": "TODO — Persona B",
+          "avatar": "./assets/persona_1-2.gif",
+          "role": "TODO — Rol",
+          "highlighted": true
+        }
+      ],
+      "echos": {
+        "hs_f3_w11h1a": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "TODO — Participación persona A."
+          }
+        ],
+        "hs_f3_w11h1b": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "TODO — Participación persona B."
+          }
+        ]
+      },
+      "id": "hs_f3_w11_h1"
     }
   ]
 }

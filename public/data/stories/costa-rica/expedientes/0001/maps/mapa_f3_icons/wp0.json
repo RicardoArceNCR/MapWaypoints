@@ -1,190 +1,136 @@
 [
   {
+    "_note": "WP0-H0: Rectángulo principal izquierdo",
     "type": "hotspot",
     "mobile": {
-      "offsetX": -26,
-      "offsetY": -301,
-      "width": 370,
-      "height": 200,
-      "rotation": 9
+      "offsetX": -10,
+      "offsetY": -315,
+      "width": 260,
+      "height": 145,
+      "rotation": 9,
+      "radius": 0
     },
     "desktop": {
-      "offsetX": -465,
-      "offsetY": -61,
-      "width": 388,
-      "height": 230,
-      "rotation": -10
+      "offsetX": -369,
+      "offsetY": -99,
+      "width": 420,
+      "height": 239,
+      "rotation": -10,
+      "radius": 0
     },
-    "title": "Llegada al Aeropuerto",
-    "image": "/assets/mapa-1.webp",
+    "title": "La ruta final del Duster y la localización del sicario",
+    "image": "/assets/TODO-wp0-h0.webp",
     "datetime": {
-      "date": "15/06/2025",
-      "time": "12:07",
+      "date": "19/06/2025",
+      "time": "07:46–07:54",
       "timeColor": "#FF4444"
     },
-    "location": "Aeropuerto Juan Santamaría (SJO), Alajuela.",
-    "description": "Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas en su permanencia en San José. Sale en taxi formal (Taxi Tap) hacia su vivienda, conducido por José Roberto Naranjo González.",
+    "location": "Cruce El Raicero / Mall Don Pancho / Trinidad de Moravia, Coronado.",
+    "description": "El Renault Duster (con Bryan Robles Salas y Luis F. Carvajal Fernández) siguió una ruta hacia Coronado, pasando por Cruce El Raicero, Mall Don Pancho (07:53 h) y Trinidad de Moravia (07:54 h). El dispositivo de Carvajal Fernández confirmó que era el pasajero-ejecutor. Durante este trayecto, el pasajero se cambia el suéter gris por una oscura con logo Fox.",
     "involved": [
       {
-        "id": "person1",
-        "name": "Persona #1",
+        "id": "hs_f3_w0h0a",
+        "name": "TODO — Persona A",
         "avatar": "./assets/persona_1-1.gif",
-        "role": "Pasajero"
+        "role": "TODO — Rol"
       },
       {
-        "id": "person2",
-        "name": "Persona #2",
+        "id": "hs_f3_w0h0b",
+        "name": "TODO — Persona B",
         "avatar": "./assets/persona_1-2.gif",
-        "role": "Conductor",
+        "role": "TODO — Rol",
         "highlighted": true
-      },
-      {
-        "id": "person3",
-        "name": "Persona #3",
-        "avatar": "./assets/persona_1-3.gif",
-        "role": "Testigo"
       }
     ],
     "echos": {
-      "person2": [
+      "hs_f3_w0h0a": [
         {
           "datetime": {
-            "date": "15/06/2025",
-            "time": "12:07"
+            "date": "19/06/2025",
+            "time": "07:46–07:54"
           },
-          "description": "Roberto Danilo Samcam Ruiz regresa a Costa Rica desde México. No se observan personas o situaciones sospechosas."
+          "description": "TODO — Participación persona A."
+        }
+      ],
+      "hs_f3_w0h0b": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "07:46–07:54"
+          },
+          "description": "TODO — Participación persona B."
         },
         {
           "datetime": {
-            "date": "15/06/2025",
-            "time": "14:30"
+            "date": "19/06/2025",
+            "time": "TODO — HH:MM"
           },
-          "description": "Segunda interacción documentada con el conductor en zona residencial."
-        }
-      ],
-      "person1": [
-        {
-          "datetime": {
-            "date": "15/06/2025",
-            "time": "11:45"
-          },
-          "description": "Arribo del vuelo internacional desde Ciudad de México."
-        }
-      ],
-      "person3": [
-        {
-          "datetime": {
-            "date": "15/06/2025",
-            "time": "12:10"
-          },
-          "description": "Observación del proceso de abordaje del taxi desde zona de espera."
+          "description": "TODO — Segunda interacción persona B."
         }
       ]
     },
     "id": "hs_f3_w0_h0"
   },
   {
+    "_note": "WP0-H1: Rectángulo secundario superior derecho",
     "type": "hotspot",
     "mobile": {
       "offsetX": -5,
-      "offsetY": 24,
-      "width": 400,
-      "height": 270,
-      "rotation": -9,
+      "offsetY": -121,
+      "width": 280,
+      "height": 190,
+      "rotation": -8,
       "radius": 0
     },
     "desktop": {
-      "offsetX": -115,
-      "offsetY": -101,
-      "width": 150,
-      "height": 156,
-      "rotation": 25
+      "offsetX": 180,
+      "offsetY": -130,
+      "width": 417,
+      "height": 238,
+      "rotation": 25,
+      "radius": 0
     },
-    "title": "Encuentro en Zona Residencial",
-    "image": "/assets/mapa-1.webp",
+    "title": "TODO — Título secundario WP0",
+    "image": "/assets/TODO-wp0-h1.webp",
     "datetime": {
-      "date": "16/06/2025",
-      "time": "18:45",
+      "date": "19/06/2025",
+      "time": "07:46–07:54",
       "timeColor": "#FF4444"
     },
-    "location": "Barrio Escalante, San José.",
-    "description": "Se documenta un segundo encuentro en zona residencial. Los participantes mantienen conversación de aproximadamente 15 minutos en establecimiento comercial. No se detectan comportamientos irregulares durante la observación.",
+    "location": "Cruce El Raicero / Mall Don Pancho / Trinidad de Moravia, Coronado.",
+    "description": "TODO — Descripción del evento secundario.",
     "involved": [
       {
-        "id": "person4",
-        "name": "Persona #4",
-        "avatar": "./assets/persona_1-4.gif",
-        "role": "Contacto principal"
-      },
-      {
-        "id": "person5",
-        "name": "Persona #5",
+        "id": "hs_f3_w0h1a",
+        "name": "TODO — Persona A",
         "avatar": "./assets/persona_1-1.gif",
-        "role": "Acompañante",
-        "highlighted": true
+        "role": "TODO — Rol"
       },
       {
-        "id": "person6",
-        "name": "Persona #6",
+        "id": "hs_f3_w0h1b",
+        "name": "TODO — Persona B",
         "avatar": "./assets/persona_1-2.gif",
-        "role": "Tercero presente"
-      },
-      {
-        "id": "person7",
-        "name": "Persona #7",
-        "avatar": "./assets/persona_1-3.gif",
-        "role": "Observador"
+        "role": "TODO — Rol",
+        "highlighted": true
       }
     ],
     "echos": {
-      "person4": [
+      "hs_f3_w0h1a": [
         {
           "datetime": {
-            "date": "16/06/2025",
-            "time": "18:30"
+            "date": "19/06/2025",
+            "time": "07:46–07:54"
           },
-          "description": "Llegada al establecimiento comercial. Se observa actitud relajada y comportamiento normal."
-        },
-        {
-          "datetime": {
-            "date": "16/06/2025",
-            "time": "19:00"
-          },
-          "description": "Salida del establecimiento. Se dirige hacia vehículo estacionado en zona lateral."
+          "description": "TODO — Participación persona A."
         }
       ],
-      "person5": [
+      "hs_f3_w0h1b": [
         {
           "datetime": {
-            "date": "16/06/2025",
-            "time": "18:45"
+            "date": "19/06/2025",
+            "time": "07:46–07:54"
           },
-          "description": "Ingreso al establecimiento aproximadamente 5 minutos después del contacto principal."
-        },
-        {
-          "datetime": {
-            "date": "16/06/2025",
-            "time": "19:05"
-          },
-          "description": "Permanece en el lugar después de la salida del contacto principal."
-        }
-      ],
-      "person6": [
-        {
-          "datetime": {
-            "date": "16/06/2025",
-            "time": "18:50"
-          },
-          "description": "Participa brevemente en la conversación. Duración aproximada: 3 minutos."
-        }
-      ],
-      "person7": [
-        {
-          "datetime": {
-            "date": "16/06/2025",
-            "time": "18:40"
-          },
-          "description": "Se mantiene en las inmediaciones durante todo el evento documentado."
+          "description": "TODO — Participación persona B."
         }
       ]
     },

@@ -1,82 +1,139 @@
 [
   {
+    "_note": "WP5-H0: Rectángulo principal izquierdo",
     "type": "hotspot",
     "mobile": {
-      "offsetX": -160,
-      "offsetY": -180,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
+      "offsetX": -10,
+      "offsetY": -315,
+      "width": 260,
+      "height": 145,
+      "rotation": 9,
+      "radius": 0
     },
     "desktop": {
-      "offsetX": -90,
-      "offsetY": -90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
+      "offsetX": -369,
+      "offsetY": -99,
+      "width": 420,
+      "height": 239,
+      "rotation": -10,
+      "radius": 0
     },
-    "title": "Después de Todo",
-    "body": "Cómo termina el protagonista después de esta experiencia. Su estado final.",
+    "title": "El sicario también se contacta",
+    "image": "/assets/TODO-wp5-h0.webp",
+    "datetime": {
+      "date": "19/06/2025",
+      "time": "08:34",
+      "timeColor": "#FF4444"
+    },
+    "location": "Coronado, San José.",
+    "description": "Luis Fernando Carvajal Fernández, el gatillero, contactó a Orozco explicando que el celular de Robles se había apagado y solicitando la ubicación en tiempo real.",
+    "involved": [
+      {
+        "id": "hs_f3_w5h0a",
+        "name": "TODO — Persona A",
+        "avatar": "./assets/persona_1-1.gif",
+        "role": "TODO — Rol"
+      },
+      {
+        "id": "hs_f3_w5h0b",
+        "name": "TODO — Persona B",
+        "avatar": "./assets/persona_1-2.gif",
+        "role": "TODO — Rol",
+        "highlighted": true
+      }
+    ],
+    "echos": {
+      "hs_f3_w5h0a": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:34"
+          },
+          "description": "TODO — Participación persona A."
+        }
+      ],
+      "hs_f3_w5h0b": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:34"
+          },
+          "description": "TODO — Participación persona B."
+        },
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "TODO — HH:MM"
+          },
+          "description": "TODO — Segunda interacción persona B."
+        }
+      ]
+    },
     "id": "hs_f3_w5_h0"
   },
   {
+    "_note": "WP5-H1: Rectángulo secundario superior derecho",
     "type": "hotspot",
     "mobile": {
-      "offsetX": 160,
-      "offsetY": -180,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
+      "offsetX": -5,
+      "offsetY": -121,
+      "width": 280,
+      "height": 190,
+      "rotation": -8,
+      "radius": 0
     },
     "desktop": {
-      "offsetX": 90,
-      "offsetY": -90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
+      "offsetX": 180,
+      "offsetY": -130,
+      "width": 417,
+      "height": 238,
+      "rotation": 25,
+      "radius": 0
     },
-    "title": "Vidas Transformadas",
-    "body": "Cómo han cambiado todas las personas involucradas. El impacto duradero.",
+    "title": "TODO — Título secundario WP5",
+    "image": "/assets/TODO-wp5-h1.webp",
+    "datetime": {
+      "date": "19/06/2025",
+      "time": "08:34",
+      "timeColor": "#FF4444"
+    },
+    "location": "Coronado, San José.",
+    "description": "TODO — Descripción del evento secundario.",
+    "involved": [
+      {
+        "id": "hs_f3_w5h1a",
+        "name": "TODO — Persona A",
+        "avatar": "./assets/persona_1-1.gif",
+        "role": "TODO — Rol"
+      },
+      {
+        "id": "hs_f3_w5h1b",
+        "name": "TODO — Persona B",
+        "avatar": "./assets/persona_1-2.gif",
+        "role": "TODO — Rol",
+        "highlighted": true
+      }
+    ],
+    "echos": {
+      "hs_f3_w5h1a": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:34"
+          },
+          "description": "TODO — Participación persona A."
+        }
+      ],
+      "hs_f3_w5h1b": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:34"
+          },
+          "description": "TODO — Participación persona B."
+        }
+      ]
+    },
     "id": "hs_f3_w5_h1"
-  },
-  {
-    "type": "hotspot",
-    "mobile": {
-      "offsetX": -160,
-      "offsetY": 180,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
-    },
-    "desktop": {
-      "offsetX": -90,
-      "offsetY": 90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
-    },
-    "title": "Memoria Tangible",
-    "body": "Lo que permanece físicamente como recordatorio de toda la historia.",
-    "id": "hs_f3_w5_h2"
-  },
-  {
-    "type": "hotspot",
-    "mobile": {
-      "offsetX": 160,
-      "offsetY": 180,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
-    },
-    "desktop": {
-      "offsetX": 90,
-      "offsetY": 90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
-    },
-    "title": "Lugar de Reflexión",
-    "body": "El último lugar donde la historia se contempla. Un espacio para entender todo lo vivido.",
-    "id": "hs_f3_w5_h3"
   }
 ]

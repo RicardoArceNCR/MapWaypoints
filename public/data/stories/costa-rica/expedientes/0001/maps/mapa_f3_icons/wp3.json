@@ -1,82 +1,139 @@
 [
   {
+    "_note": "WP3-H0: Rectángulo principal izquierdo",
     "type": "hotspot",
     "mobile": {
-      "offsetX": -160,
-      "offsetY": -180,
-      "width": 130,
-      "height": 130,
-      "rotation": 0
+      "offsetX": -10,
+      "offsetY": -315,
+      "width": 260,
+      "height": 145,
+      "rotation": 9,
+      "radius": 0
     },
     "desktop": {
-      "offsetX": -90,
-      "offsetY": -90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
+      "offsetX": -369,
+      "offsetY": -99,
+      "width": 420,
+      "height": 239,
+      "rotation": -10,
+      "radius": 0
     },
-    "title": "Testigos del Desenlace cuando es de tipo mapa",
-    "body": "Quiénes están presentes en este momento crucial. su relacion y otras cosas",
+    "title": "El Hyundai sale hacia Coronado",
+    "image": "/assets/TODO-wp3-h0.webp",
+    "datetime": {
+      "date": "19/06/2025",
+      "time": "08:15",
+      "timeColor": "#FF4444"
+    },
+    "location": "León XIII – Ruta 32, Tibás.",
+    "description": "El Hyundai celeste (placa 903056), conducido por Orozco González para la extracción, salió de León XIII y se dirigió hacia la Ruta 32, confirmando el rumbo hacia Coronado.",
+    "involved": [
+      {
+        "id": "hs_f3_w3h0a",
+        "name": "TODO — Persona A",
+        "avatar": "./assets/persona_1-1.gif",
+        "role": "TODO — Rol"
+      },
+      {
+        "id": "hs_f3_w3h0b",
+        "name": "TODO — Persona B",
+        "avatar": "./assets/persona_1-2.gif",
+        "role": "TODO — Rol",
+        "highlighted": true
+      }
+    ],
+    "echos": {
+      "hs_f3_w3h0a": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:15"
+          },
+          "description": "TODO — Participación persona A."
+        }
+      ],
+      "hs_f3_w3h0b": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:15"
+          },
+          "description": "TODO — Participación persona B."
+        },
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "TODO — HH:MM"
+          },
+          "description": "TODO — Segunda interacción persona B."
+        }
+      ]
+    },
     "id": "hs_f3_w3_h0"
   },
   {
+    "_note": "WP3-H1: Rectángulo secundario superior derecho",
     "type": "hotspot",
     "mobile": {
-      "offsetX": 160,
-      "offsetY": -180,
-      "width": 130,
-      "height": 130,
-      "rotation": 0
+      "offsetX": -5,
+      "offsetY": -121,
+      "width": 280,
+      "height": 190,
+      "rotation": -8,
+      "radius": 0
     },
     "desktop": {
-      "offsetX": 90,
-      "offsetY": -90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
+      "offsetX": 180,
+      "offsetY": -130,
+      "width": 417,
+      "height": 238,
+      "rotation": 25,
+      "radius": 0
     },
-    "title": "Testigos del Desenlace",
-    "body": "Quiénes están presentes en este momento crucial. Su reacción ante los eventos finales.",
+    "title": "TODO — Título secundario WP3",
+    "image": "/assets/TODO-wp3-h1.webp",
+    "datetime": {
+      "date": "19/06/2025",
+      "time": "08:15",
+      "timeColor": "#FF4444"
+    },
+    "location": "León XIII – Ruta 32, Tibás.",
+    "description": "TODO — Descripción del evento secundario.",
+    "involved": [
+      {
+        "id": "hs_f3_w3h1a",
+        "name": "TODO — Persona A",
+        "avatar": "./assets/persona_1-1.gif",
+        "role": "TODO — Rol"
+      },
+      {
+        "id": "hs_f3_w3h1b",
+        "name": "TODO — Persona B",
+        "avatar": "./assets/persona_1-2.gif",
+        "role": "TODO — Rol",
+        "highlighted": true
+      }
+    ],
+    "echos": {
+      "hs_f3_w3h1a": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:15"
+          },
+          "description": "TODO — Participación persona A."
+        }
+      ],
+      "hs_f3_w3h1b": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:15"
+          },
+          "description": "TODO — Participación persona B."
+        }
+      ]
+    },
     "id": "hs_f3_w3_h1"
-  },
-  {
-    "type": "hotspot",
-    "mobile": {
-      "offsetX": -160,
-      "offsetY": 80,
-      "width": 100,
-      "height": 180,
-      "radius": 10
-    },
-    "desktop": {
-      "offsetX": -90,
-      "offsetY": 90,
-      "width": 150,
-      "height": 120,
-      "radius": 10
-    },
-    "title": "Legado Material",
-    "body": "Objetos que permanecen como testimonio. Evidencia física de todo lo ocurrido.",
-    "id": "hs_f3_w3_h2"
-  },
-  {
-    "type": "hotspot",
-    "mobile": {
-      "offsetX": 160,
-      "offsetY": 80,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
-    },
-    "desktop": {
-      "offsetX": 90,
-      "offsetY": 90,
-      "width": 130,
-      "height": 90,
-      "rotation": 0
-    },
-    "title": "Lugar del Destino",
-    "body": "El significado final de esta ubicación. Por qué todo termina precisamente aquí.",
-    "id": "hs_f3_w3_h3"
   }
 ]

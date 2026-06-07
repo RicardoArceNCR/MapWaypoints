@@ -1,82 +1,139 @@
 [
   {
+    "_note": "WP4-H0: Rectángulo principal izquierdo",
     "type": "hotspot",
     "mobile": {
-      "offsetX": -160,
-      "offsetY": -180,
-      "width": 130,
-      "height": 130,
-      "rotation": 0
+      "offsetX": -10,
+      "offsetY": -315,
+      "width": 260,
+      "height": 145,
+      "rotation": 9,
+      "radius": 0
     },
     "desktop": {
-      "offsetX": -90,
-      "offsetY": -90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
+      "offsetX": -369,
+      "offsetY": -99,
+      "width": 420,
+      "height": 239,
+      "rotation": -10,
+      "radius": 0
     },
-    "title": "Reflexión Final",
-    "body": "El momento de entender todo lo vivido. Un espacio para procesar.",
+    "title": "Un mensaje desesperado",
+    "image": "/assets/TODO-wp4-h0.webp",
+    "datetime": {
+      "date": "19/06/2025",
+      "time": "08:21",
+      "timeColor": "#FF4444"
+    },
+    "location": "Dulce Nombre de Coronado, cercanías de Casa Kuakua.",
+    "description": "Bryan Steven Robles Salas envió a Orozco su ubicación GPS, coincidente con el sitio donde el Duster BKK190 fue abandonado. Robles Salas envió mensajes de desesperación: \"Corra xfa\", \"Vueleeeee\", \"Sáqueme de aquí\".",
+    "involved": [
+      {
+        "id": "hs_f3_w4h0a",
+        "name": "TODO — Persona A",
+        "avatar": "./assets/persona_1-1.gif",
+        "role": "TODO — Rol"
+      },
+      {
+        "id": "hs_f3_w4h0b",
+        "name": "TODO — Persona B",
+        "avatar": "./assets/persona_1-2.gif",
+        "role": "TODO — Rol",
+        "highlighted": true
+      }
+    ],
+    "echos": {
+      "hs_f3_w4h0a": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:21"
+          },
+          "description": "TODO — Participación persona A."
+        }
+      ],
+      "hs_f3_w4h0b": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:21"
+          },
+          "description": "TODO — Participación persona B."
+        },
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "TODO — HH:MM"
+          },
+          "description": "TODO — Segunda interacción persona B."
+        }
+      ]
+    },
     "id": "hs_f3_w4_h0"
   },
   {
+    "_note": "WP4-H1: Rectángulo secundario superior derecho",
     "type": "hotspot",
     "mobile": {
-      "offsetX": 160,
-      "offsetY": -180,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
+      "offsetX": -5,
+      "offsetY": -121,
+      "width": 280,
+      "height": 190,
+      "rotation": -8,
+      "radius": 0
     },
     "desktop": {
-      "offsetX": 90,
-      "offsetY": -90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
+      "offsetX": 180,
+      "offsetY": -130,
+      "width": 417,
+      "height": 238,
+      "rotation": 25,
+      "radius": 0
     },
-    "title": "Testigos del Final",
-    "body": "Quiénes presencian el momento culminante. Su rol en la conclusión.",
+    "title": "TODO — Título secundario WP4",
+    "image": "/assets/TODO-wp4-h1.webp",
+    "datetime": {
+      "date": "19/06/2025",
+      "time": "08:21",
+      "timeColor": "#FF4444"
+    },
+    "location": "Dulce Nombre de Coronado, cercanías de Casa Kuakua.",
+    "description": "TODO — Descripción del evento secundario.",
+    "involved": [
+      {
+        "id": "hs_f3_w4h1a",
+        "name": "TODO — Persona A",
+        "avatar": "./assets/persona_1-1.gif",
+        "role": "TODO — Rol"
+      },
+      {
+        "id": "hs_f3_w4h1b",
+        "name": "TODO — Persona B",
+        "avatar": "./assets/persona_1-2.gif",
+        "role": "TODO — Rol",
+        "highlighted": true
+      }
+    ],
+    "echos": {
+      "hs_f3_w4h1a": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:21"
+          },
+          "description": "TODO — Participación persona A."
+        }
+      ],
+      "hs_f3_w4h1b": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:21"
+          },
+          "description": "TODO — Participación persona B."
+        }
+      ]
+    },
     "id": "hs_f3_w4_h1"
-  },
-  {
-    "type": "hotspot",
-    "mobile": {
-      "offsetX": -160,
-      "offsetY": 180,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
-    },
-    "desktop": {
-      "offsetX": -90,
-      "offsetY": 90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
-    },
-    "title": "Símbolos del Cierre",
-    "body": "Objetos que representan la conclusión. Su significado simbólico final.",
-    "id": "hs_f3_w4_h2"
-  },
-  {
-    "type": "hotspot",
-    "mobile": {
-      "offsetX": 160,
-      "offsetY": 180,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
-    },
-    "desktop": {
-      "offsetX": 90,
-      "offsetY": 90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
-    },
-    "title": "Centro del Desenlace",
-    "body": "El punto exacto donde todo converge y se resuelve.",
-    "id": "hs_f3_w4_h3"
   }
 ]

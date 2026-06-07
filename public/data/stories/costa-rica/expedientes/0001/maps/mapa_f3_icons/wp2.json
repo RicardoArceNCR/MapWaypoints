@@ -1,82 +1,139 @@
 [
   {
+    "_note": "WP2-H0: Rectángulo principal izquierdo",
     "type": "hotspot",
     "mobile": {
-      "offsetX": -160,
-      "offsetY": -180,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
+      "offsetX": -10,
+      "offsetY": -315,
+      "width": 260,
+      "height": 145,
+      "rotation": 9,
+      "radius": 0
     },
     "desktop": {
-      "offsetX": -90,
-      "offsetY": -90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
+      "offsetX": -369,
+      "offsetY": -99,
+      "width": 420,
+      "height": 239,
+      "rotation": -10,
+      "radius": 0
     },
-    "title": "Transformación Final",
-    "body": "El estado final del personaje. Cómo los acontecimientos han definido su destino.",
+    "title": "Se coordina la extracción del sicario. Una llamada clave.",
+    "image": "/assets/TODO-wp2-h0.webp",
+    "datetime": {
+      "date": "19/06/2025",
+      "time": "08:10",
+      "timeColor": "#FF4444"
+    },
+    "location": "León XIII, Tibás.",
+    "description": "Danilo José Chaves Medina (72678193) llamó a Luis Ricardo Orozco González, conductor encargado de la extracción. La policía judicial infiere que esta llamada (de 24 segundos) fue para coordinar que Orozco se dirigiera a Coronado a recoger a los ejecutores.",
+    "involved": [
+      {
+        "id": "hs_f3_w2h0a",
+        "name": "TODO — Persona A",
+        "avatar": "./assets/persona_1-1.gif",
+        "role": "TODO — Rol"
+      },
+      {
+        "id": "hs_f3_w2h0b",
+        "name": "TODO — Persona B",
+        "avatar": "./assets/persona_1-2.gif",
+        "role": "TODO — Rol",
+        "highlighted": true
+      }
+    ],
+    "echos": {
+      "hs_f3_w2h0a": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:10"
+          },
+          "description": "TODO — Participación persona A."
+        }
+      ],
+      "hs_f3_w2h0b": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:10"
+          },
+          "description": "TODO — Participación persona B."
+        },
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "TODO — HH:MM"
+          },
+          "description": "TODO — Segunda interacción persona B."
+        }
+      ]
+    },
     "id": "hs_f3_w2_h0"
   },
   {
+    "_note": "WP2-H1: Rectángulo secundario superior derecho",
     "type": "hotspot",
     "mobile": {
-      "offsetX": 160,
-      "offsetY": -180,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
+      "offsetX": -5,
+      "offsetY": -121,
+      "width": 280,
+      "height": 190,
+      "rotation": -8,
+      "radius": 0
     },
     "desktop": {
-      "offsetX": 90,
-      "offsetY": -90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
+      "offsetX": 180,
+      "offsetY": -130,
+      "width": 417,
+      "height": 238,
+      "rotation": 25,
+      "radius": 0
     },
-    "title": "Testigos del Desenlace",
-    "body": "Quiénes están presentes en este momento crucial. Su reacción ante los eventos finales.",
+    "title": "TODO — Título secundario WP2",
+    "image": "/assets/TODO-wp2-h1.webp",
+    "datetime": {
+      "date": "19/06/2025",
+      "time": "08:10",
+      "timeColor": "#FF4444"
+    },
+    "location": "León XIII, Tibás.",
+    "description": "TODO — Descripción del evento secundario.",
+    "involved": [
+      {
+        "id": "hs_f3_w2h1a",
+        "name": "TODO — Persona A",
+        "avatar": "./assets/persona_1-1.gif",
+        "role": "TODO — Rol"
+      },
+      {
+        "id": "hs_f3_w2h1b",
+        "name": "TODO — Persona B",
+        "avatar": "./assets/persona_1-2.gif",
+        "role": "TODO — Rol",
+        "highlighted": true
+      }
+    ],
+    "echos": {
+      "hs_f3_w2h1a": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:10"
+          },
+          "description": "TODO — Participación persona A."
+        }
+      ],
+      "hs_f3_w2h1b": [
+        {
+          "datetime": {
+            "date": "19/06/2025",
+            "time": "08:10"
+          },
+          "description": "TODO — Participación persona B."
+        }
+      ]
+    },
     "id": "hs_f3_w2_h1"
-  },
-  {
-    "type": "hotspot",
-    "mobile": {
-      "offsetX": -160,
-      "offsetY": 180,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
-    },
-    "desktop": {
-      "offsetX": -90,
-      "offsetY": 90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
-    },
-    "title": "Legado Material",
-    "body": "Objetos que permanecen como testimonio. Evidencia física de todo lo ocurrido.",
-    "id": "hs_f3_w2_h2"
-  },
-  {
-    "type": "hotspot",
-    "mobile": {
-      "offsetX": 160,
-      "offsetY": 80,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
-    },
-    "desktop": {
-      "offsetX": 90,
-      "offsetY": 90,
-      "width": 136,
-      "height": 136,
-      "rotation": 0
-    },
-    "title": "Lugar del Destino",
-    "body": "El significado final de esta ubicación. Por qué todo termina precisamente aquí.",
-    "id": "hs_f3_w2_h3"
   }
 ]

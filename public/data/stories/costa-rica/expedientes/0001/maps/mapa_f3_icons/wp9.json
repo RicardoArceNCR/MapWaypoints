@@ -1,168 +1,136 @@
 [
   {
+    "_note": "WP9-H0: Rectángulo principal izquierdo",
     "type": "hotspot",
     "mobile": {
-      "offsetX": -26,
-      "offsetY": -301,
-      "width": 370,
-      "height": 200,
-      "rotation": 0
+      "offsetX": -10,
+      "offsetY": -315,
+      "width": 260,
+      "height": 145,
+      "rotation": 9,
+      "radius": 0
     },
     "desktop": {
-      "offsetX": -465,
-      "offsetY": -61,
-      "width": 388,
-      "height": 230,
-      "rotation": 0
+      "offsetX": -369,
+      "offsetY": -99,
+      "width": 420,
+      "height": 239,
+      "rotation": -10,
+      "radius": 0
     },
-    "title": "TODO — Evento principal waypoint 10",
-    "image": "/assets/mapa-1.webp",
+    "title": "Una mujer paga el \"servicio\" de asesinato",
+    "image": "/assets/TODO-wp9-h0.webp",
     "datetime": {
-      "date": "TODO — DD/MM/AAAA",
-      "time": "TODO — HH:MM",
+      "date": "19/06/2025",
+      "time": "10:38",
       "timeColor": "#FF4444"
     },
-    "location": "TODO — Lugar, Ciudad, País.",
-    "description": "TODO — Descripción del evento. Reemplazar con información real.",
+    "location": "León XIII, Tibás.",
+    "description": "Stephanie María Chacón Guillén depositó a Luis Ricardo Orozco González ₡50.000 en dos tractos (\"Viaje\" y \"Gasolina\"). Este monto es diez veces superior al costo normal del viaje, lo que sugiere que era el pago por la colaboración y el riesgo asumido.",
     "involved": [
       {
-        "id": "pf1w9h0a",
+        "id": "hs_f3_w9h0a",
         "name": "TODO — Persona A",
         "avatar": "./assets/persona_1-1.gif",
         "role": "TODO — Rol"
       },
       {
-        "id": "pf1w9h0b",
+        "id": "hs_f3_w9h0b",
         "name": "TODO — Persona B",
         "avatar": "./assets/persona_1-2.gif",
         "role": "TODO — Rol",
         "highlighted": true
-      },
-      {
-        "id": "pf1w9h0c",
-        "name": "TODO — Persona C",
-        "avatar": "./assets/persona_1-3.gif",
-        "role": "TODO — Rol"
       }
     ],
     "echos": {
-      "pf1w9h0a": [
+      "hs_f3_w9h0a": [
         {
           "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
+            "date": "19/06/2025",
+            "time": "10:38"
           },
           "description": "TODO — Participación persona A."
         }
       ],
-      "pf1w9h0b": [
+      "hs_f3_w9h0b": [
         {
           "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
+            "date": "19/06/2025",
+            "time": "10:38"
           },
           "description": "TODO — Participación persona B."
         },
         {
           "datetime": {
-            "date": "TODO — DD/MM/AAAA",
+            "date": "19/06/2025",
             "time": "TODO — HH:MM"
           },
           "description": "TODO — Segunda interacción persona B."
-        }
-      ],
-      "pf1w9h0c": [
-        {
-          "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
-          },
-          "description": "TODO — Participación persona C."
         }
       ]
     },
     "id": "hs_f3_w9_h0"
   },
   {
+    "_note": "WP9-H1: Rectángulo secundario superior derecho",
     "type": "hotspot",
     "mobile": {
       "offsetX": -5,
-      "offsetY": 24,
-      "width": 300,
-      "height": 180,
-      "rotation": -5,
+      "offsetY": -121,
+      "width": 280,
+      "height": 190,
+      "rotation": -8,
       "radius": 0
     },
     "desktop": {
-      "offsetX": -115,
-      "offsetY": -101,
-      "width": 220,
-      "height": 160,
-      "rotation": 8
+      "offsetX": 180,
+      "offsetY": -130,
+      "width": 417,
+      "height": 238,
+      "rotation": 25,
+      "radius": 0
     },
-    "title": "TODO — Evento secundario waypoint 10",
-    "image": "/assets/mapa-1.webp",
+    "title": "TODO — Título secundario WP9",
+    "image": "/assets/TODO-wp9-h1.webp",
     "datetime": {
-      "date": "TODO — DD/MM/AAAA",
-      "time": "TODO — HH:MM",
+      "date": "19/06/2025",
+      "time": "10:38",
       "timeColor": "#FF4444"
     },
-    "location": "TODO — Lugar, Ciudad, País.",
-    "description": "TODO — Descripción del evento. Reemplazar con información real.",
+    "location": "León XIII, Tibás.",
+    "description": "TODO — Descripción del evento secundario.",
     "involved": [
       {
-        "id": "pf1w9h1a",
+        "id": "hs_f3_w9h1a",
         "name": "TODO — Persona A",
         "avatar": "./assets/persona_1-1.gif",
         "role": "TODO — Rol"
       },
       {
-        "id": "pf1w9h1b",
+        "id": "hs_f3_w9h1b",
         "name": "TODO — Persona B",
         "avatar": "./assets/persona_1-2.gif",
         "role": "TODO — Rol",
         "highlighted": true
-      },
-      {
-        "id": "pf1w9h1c",
-        "name": "TODO — Persona C",
-        "avatar": "./assets/persona_1-3.gif",
-        "role": "TODO — Rol"
       }
     ],
     "echos": {
-      "pf1w9h1a": [
+      "hs_f3_w9h1a": [
         {
           "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
+            "date": "19/06/2025",
+            "time": "10:38"
           },
           "description": "TODO — Participación persona A."
         }
       ],
-      "pf1w9h1b": [
+      "hs_f3_w9h1b": [
         {
           "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
+            "date": "19/06/2025",
+            "time": "10:38"
           },
           "description": "TODO — Participación persona B."
-        },
-        {
-          "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
-          },
-          "description": "TODO — Segunda interacción persona B."
-        }
-      ],
-      "pf1w9h1c": [
-        {
-          "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
-          },
-          "description": "TODO — Participación persona C."
         }
       ]
     },

@@ -1,168 +1,136 @@
 [
   {
+    "_note": "WP11-H0: Rectángulo principal izquierdo",
     "type": "hotspot",
     "mobile": {
-      "offsetX": -26,
-      "offsetY": -301,
-      "width": 370,
-      "height": 200,
-      "rotation": 0
+      "offsetX": -10,
+      "offsetY": -315,
+      "width": 260,
+      "height": 145,
+      "rotation": 9,
+      "radius": 0
     },
     "desktop": {
-      "offsetX": -465,
-      "offsetY": -61,
-      "width": 388,
-      "height": 230,
-      "rotation": 0
+      "offsetX": -369,
+      "offsetY": -99,
+      "width": 420,
+      "height": 239,
+      "rotation": -10,
+      "radius": 0
     },
-    "title": "TODO — Evento principal waypoint 12",
-    "image": "/assets/mapa-1.webp",
+    "title": "Encuentran las prendas del sicario",
+    "image": "/assets/TODO-wp11-h0.webp",
     "datetime": {
-      "date": "TODO — DD/MM/AAAA",
-      "time": "TODO — HH:MM",
+      "date": "19/06/2025",
+      "time": "—",
       "timeColor": "#FF4444"
     },
-    "location": "TODO — Lugar, Ciudad, País.",
-    "description": "TODO — Descripción del evento. Reemplazar con información real.",
+    "location": "Dulce Nombre de Coronado — Renault Duster BKK190 abandonado.",
+    "description": "Las prendas de vestir utilizadas por el sicario (suéter gris y pantalón color vino) fueron encontradas por el OIJ en el Renault Duster abandonado. Las evidencias materiales confirman la identidad del ejecutor.",
     "involved": [
       {
-        "id": "pf1w11h0a",
+        "id": "hs_f3_w11h0a",
         "name": "TODO — Persona A",
         "avatar": "./assets/persona_1-1.gif",
         "role": "TODO — Rol"
       },
       {
-        "id": "pf1w11h0b",
+        "id": "hs_f3_w11h0b",
         "name": "TODO — Persona B",
         "avatar": "./assets/persona_1-2.gif",
         "role": "TODO — Rol",
         "highlighted": true
-      },
-      {
-        "id": "pf1w11h0c",
-        "name": "TODO — Persona C",
-        "avatar": "./assets/persona_1-3.gif",
-        "role": "TODO — Rol"
       }
     ],
     "echos": {
-      "pf1w11h0a": [
+      "hs_f3_w11h0a": [
         {
           "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
+            "date": "19/06/2025",
+            "time": "—"
           },
           "description": "TODO — Participación persona A."
         }
       ],
-      "pf1w11h0b": [
+      "hs_f3_w11h0b": [
         {
           "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
+            "date": "19/06/2025",
+            "time": "—"
           },
           "description": "TODO — Participación persona B."
         },
         {
           "datetime": {
-            "date": "TODO — DD/MM/AAAA",
+            "date": "19/06/2025",
             "time": "TODO — HH:MM"
           },
           "description": "TODO — Segunda interacción persona B."
-        }
-      ],
-      "pf1w11h0c": [
-        {
-          "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
-          },
-          "description": "TODO — Participación persona C."
         }
       ]
     },
     "id": "hs_f3_w11_h0"
   },
   {
+    "_note": "WP11-H1: Rectángulo secundario superior derecho",
     "type": "hotspot",
     "mobile": {
       "offsetX": -5,
-      "offsetY": 24,
-      "width": 300,
-      "height": 180,
-      "rotation": -5,
+      "offsetY": -121,
+      "width": 280,
+      "height": 190,
+      "rotation": -8,
       "radius": 0
     },
     "desktop": {
-      "offsetX": -115,
-      "offsetY": -101,
-      "width": 220,
-      "height": 160,
-      "rotation": 8
+      "offsetX": 180,
+      "offsetY": -130,
+      "width": 417,
+      "height": 238,
+      "rotation": 25,
+      "radius": 0
     },
-    "title": "TODO — Evento secundario waypoint 12",
-    "image": "/assets/mapa-1.webp",
+    "title": "TODO — Título secundario WP11",
+    "image": "/assets/TODO-wp11-h1.webp",
     "datetime": {
-      "date": "TODO — DD/MM/AAAA",
-      "time": "TODO — HH:MM",
+      "date": "19/06/2025",
+      "time": "—",
       "timeColor": "#FF4444"
     },
-    "location": "TODO — Lugar, Ciudad, País.",
-    "description": "TODO — Descripción del evento. Reemplazar con información real.",
+    "location": "Dulce Nombre de Coronado — Renault Duster BKK190 abandonado.",
+    "description": "TODO — Descripción del evento secundario.",
     "involved": [
       {
-        "id": "pf1w11h1a",
+        "id": "hs_f3_w11h1a",
         "name": "TODO — Persona A",
         "avatar": "./assets/persona_1-1.gif",
         "role": "TODO — Rol"
       },
       {
-        "id": "pf1w11h1b",
+        "id": "hs_f3_w11h1b",
         "name": "TODO — Persona B",
         "avatar": "./assets/persona_1-2.gif",
         "role": "TODO — Rol",
         "highlighted": true
-      },
-      {
-        "id": "pf1w11h1c",
-        "name": "TODO — Persona C",
-        "avatar": "./assets/persona_1-3.gif",
-        "role": "TODO — Rol"
       }
     ],
     "echos": {
-      "pf1w11h1a": [
+      "hs_f3_w11h1a": [
         {
           "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
+            "date": "19/06/2025",
+            "time": "—"
           },
           "description": "TODO — Participación persona A."
         }
       ],
-      "pf1w11h1b": [
+      "hs_f3_w11h1b": [
         {
           "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
+            "date": "19/06/2025",
+            "time": "—"
           },
           "description": "TODO — Participación persona B."
-        },
-        {
-          "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
-          },
-          "description": "TODO — Segunda interacción persona B."
-        }
-      ],
-      "pf1w11h1c": [
-        {
-          "datetime": {
-            "date": "TODO — DD/MM/AAAA",
-            "time": "TODO — HH:MM"
-          },
-          "description": "TODO — Participación persona C."
         }
       ]
     },
