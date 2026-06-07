@@ -5,7 +5,7 @@
   "iconsDir": true,
   "mapImage": {
     "mobile": {
-      "src": "/assets/mapa-mobile.webp?v=2026-05-21",
+      "src": "/assets/f3-mapa-mobile-x2.webp?v=2026-05-21",
       "logicalW": 1400,
       "logicalH": 3181
     },
@@ -16,17 +16,86 @@
     },
     "useNaturalSize": false
   },
+  "_perfiles_mobile": {
+    "_nota": "short≤600 | medium≤740 | tall≤870 | xtall>870 | tablet ancho≥600",
+    "_ajuste": "yOffset mueve camara en px. zMobileProfile controla zoom. mobile.z siempre 1 (ignorado en mobile)."
+  },
+  "_fila1_yOffset": {
+    "default": -100,
+    "short": -10,
+    "medium": -110,
+    "tall": -230,
+    "xtall": -250,
+    "tablet": -300
+  },
+  "_fila1_zMobileProfile": {
+    "default": 1,
+    "short": 0.75,
+    "medium": 0.96,
+    "tall": 0.97,
+    "xtall": 0.99,
+    "tablet": 1
+  },
+  "_fila2_yOffset": {
+    "default": -100,
+    "short": 30,
+    "medium": -90,
+    "tall": -160,
+    "xtall": -230,
+    "tablet": -300
+  },
+  "_fila2_zMobileProfile": {
+    "default": 1,
+    "short": 0.75,
+    "medium": 0.96,
+    "tall": 0.97,
+    "xtall": 0.99,
+    "tablet": 1
+  },
+  "_fila3_yOffset": {
+    "default": -100,
+    "short": 30,
+    "medium": -90,
+    "tall": -160,
+    "xtall": -230,
+    "tablet": -300
+  },
+  "_fila3_zMobileProfile": {
+    "default": 1,
+    "short": 0.75,
+    "medium": 0.96,
+    "tall": 0.97,
+    "xtall": 0.99,
+    "tablet": 1
+  },
+  "_fila4_yOffset": {
+    "default": -100,
+    "short": 30,
+    "medium": -90,
+    "tall": -160,
+    "xtall": -230,
+    "tablet": -300
+  },
+  "_fila4_zMobileProfile": {
+    "default": 1,
+    "short": 0.75,
+    "medium": 0.96,
+    "tall": 0.97,
+    "xtall": 0.99,
+    "tablet": 1
+  },
   "waypoints": [
     {
+      "_fila": 1,
       "id": "wp_f1_col1",
       "mobile": {
         "xp": 0.172857,
-        "yp": 0.165042,
+        "yp": 0.184597,
         "z": 1
       },
       "desktop": {
         "xp": 0.176887,
-        "yp": 0.135685,
+        "yp": 0.180079,
         "z": 0.85
       },
       "yOffset": {
@@ -45,22 +114,23 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Inicio del Viaje",
+      "label": "TODO — Waypoint 1",
       "lines": [
-        "Aquí comienza la historia. Un punto de partida crucial que marca el inicio de esta aventura.",
-        "Los detalles de este momento son fundamentales para entender todo lo que viene después."
+        "TODO — Primera línea.",
+        "TODO — Segunda línea."
       ]
     },
     {
+      "_fila": 1,
       "id": "wp_f1_col2",
       "mobile": {
         "xp": 0.51,
-        "yp": 0.165042,
+        "yp": 0.184597,
         "z": 1
       },
       "desktop": {
         "xp": 0.509434,
-        "yp": 0.135685,
+        "yp": 0.180079,
         "z": 0.85
       },
       "yOffset": {
@@ -79,22 +149,23 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Punto Central",
+      "label": "TODO — Waypoint 2",
       "lines": [
-        "En el corazón del territorio encontramos este lugar estratégico.",
-        "Desde aquí se pueden observar todos los acontecimientos importantes."
+        "TODO — Primera línea.",
+        "TODO — Segunda línea."
       ]
     },
     {
+      "_fila": 1,
       "id": "wp_f1_col3",
       "mobile": {
-        "xp": 0.830425,
-        "yp": 0.165042,
+        "xp": 0.817925,
+        "yp": 0.184597,
         "z": 1
       },
       "desktop": {
-        "xp": 0.828774,
-        "yp": 0.135685,
+        "xp": 0.838774,
+        "yp": 0.180079,
         "z": 0.85
       },
       "yOffset": {
@@ -113,22 +184,23 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Momento Culminante",
+      "label": "TODO — Waypoint 3",
       "lines": [
-        "Este es el punto donde todo cambia. Un momento decisivo en la narrativa.",
-        "Los eventos que ocurren aquí tienen consecuencias duraderas."
+        "TODO — Primera línea.",
+        "TODO — Segunda línea."
       ]
     },
     {
+      "_fila": 2,
       "id": "wp_f2_col1",
       "mobile": {
         "xp": 0.17,
-        "yp": 0.4262,
+        "yp": 0.423739,
         "z": 1
       },
       "desktop": {
         "xp": 0.172877,
-        "yp": 0.370149,
+        "yp": 0.413368,
         "z": 0.85
       },
       "yOffset": {
@@ -149,20 +221,21 @@
       },
       "label": "TODO — Waypoint 4",
       "lines": [
-        "TODO — Primera línea waypoint 4.",
+        "TODO — Primera línea.",
         "TODO — Segunda línea."
       ]
     },
     {
+      "_fila": 2,
       "id": "wp_f2_col2",
       "mobile": {
         "xp": 0.51,
-        "yp": 0.4262,
+        "yp": 0.423739,
         "z": 1
       },
       "desktop": {
         "xp": 0.499057,
-        "yp": 0.370149,
+        "yp": 0.413368,
         "z": 0.85
       },
       "yOffset": {
@@ -183,20 +256,21 @@
       },
       "label": "TODO — Waypoint 5",
       "lines": [
-        "TODO — Primera línea waypoint 5.",
+        "TODO — Primera línea.",
         "TODO — Segunda línea."
       ]
     },
     {
+      "_fila": 2,
       "id": "wp_f2_col3",
       "mobile": {
         "xp": 0.84,
-        "yp": 0.4262,
+        "yp": 0.423739,
         "z": 1
       },
       "desktop": {
         "xp": 0.83,
-        "yp": 0.370149,
+        "yp": 0.413368,
         "z": 0.85
       },
       "yOffset": {
@@ -217,20 +291,21 @@
       },
       "label": "TODO — Waypoint 6",
       "lines": [
-        "TODO — Primera línea waypoint 6.",
+        "TODO — Primera línea.",
         "TODO — Segunda línea."
       ]
     },
     {
+      "_fila": 3,
       "id": "wp_f3_col1",
       "mobile": {
-        "xp": 0.173585,
-        "yp": 0.697579,
+        "xp": 0.17,
+        "yp": 0.662882,
         "z": 1
       },
       "desktop": {
         "xp": 0.173349,
-        "yp": 0.604342,
+        "yp": 0.646658,
         "z": 0.85
       },
       "yOffset": {
@@ -249,22 +324,23 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Momento Culminante",
+      "label": "TODO — Waypoint 7",
       "lines": [
-        "Este es el punto donde todo cambia. Un momento decisivo en la narrativa.",
-        "Los eventos que ocurren aquí tienen consecuencias duraderas."
+        "TODO — Primera línea.",
+        "TODO — Segunda línea."
       ]
     },
     {
+      "_fila": 3,
       "id": "wp_f3_col2",
       "mobile": {
         "xp": 0.51,
-        "yp": 0.697579,
+        "yp": 0.662882,
         "z": 1
       },
       "desktop": {
         "xp": 0.498585,
-        "yp": 0.604342,
+        "yp": 0.646658,
         "z": 0.85
       },
       "yOffset": {
@@ -283,22 +359,23 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Momento Culminante",
+      "label": "TODO — Waypoint 8",
       "lines": [
-        "Este es el punto donde todo cambia. Un momento decisivo en la narrativa.",
-        "Los eventos que ocurren aquí tienen consecuencias duraderas."
+        "TODO — Primera línea.",
+        "TODO — Segunda línea."
       ]
     },
     {
+      "_fila": 3,
       "id": "wp_f3_col3",
       "mobile": {
         "xp": 0.84,
-        "yp": 0.697579,
+        "yp": 0.662882,
         "z": 1
       },
       "desktop": {
         "xp": 0.83,
-        "yp": 0.604342,
+        "yp": 0.646658,
         "z": 0.85
       },
       "yOffset": {
@@ -317,22 +394,23 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Momento Culminante",
+      "label": "TODO — Waypoint 9",
       "lines": [
-        "Este es el punto donde todo cambia. Un momento decisivo en la narrativa.",
-        "Los eventos que ocurren aquí tienen consecuencias duraderas."
+        "TODO — Primera línea.",
+        "TODO — Segunda línea."
       ]
     },
     {
+      "_fila": 4,
       "id": "wp_f4_col1",
       "mobile": {
         "xp": 0.17,
-        "yp": 0.946558,
+        "yp": 0.902025,
         "z": 1
       },
       "desktop": {
         "xp": 0.17217,
-        "yp": 0.851289,
+        "yp": 0.879948,
         "z": 0.85
       },
       "yOffset": {
@@ -353,20 +431,21 @@
       },
       "label": "TODO — Waypoint 10",
       "lines": [
-        "TODO — Primera línea waypoint 10.",
+        "TODO — Primera línea.",
         "TODO — Segunda línea."
       ]
     },
     {
+      "_fila": 4,
       "id": "wp_f4_col2",
       "mobile": {
         "xp": 0.51,
-        "yp": 0.946558,
+        "yp": 0.902025,
         "z": 1
       },
       "desktop": {
         "xp": 0.496462,
-        "yp": 0.851289,
+        "yp": 0.879948,
         "z": 0.85
       },
       "yOffset": {
@@ -387,20 +466,21 @@
       },
       "label": "TODO — Waypoint 11",
       "lines": [
-        "TODO — Primera línea waypoint 11.",
+        "TODO — Primera línea.",
         "TODO — Segunda línea."
       ]
     },
     {
+      "_fila": 4,
       "id": "wp_f4_col3",
       "mobile": {
         "xp": 0.84,
-        "yp": 0.946558,
+        "yp": 0.902025,
         "z": 1
       },
       "desktop": {
         "xp": 0.83,
-        "yp": 0.851289,
+        "yp": 0.879948,
         "z": 0.85
       },
       "yOffset": {
@@ -421,7 +501,7 @@
       },
       "label": "TODO — Waypoint 12",
       "lines": [
-        "TODO — Primera línea waypoint 12.",
+        "TODO — Primera línea.",
         "TODO — Segunda línea."
       ]
     }
