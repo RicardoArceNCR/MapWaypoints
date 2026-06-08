@@ -4,11 +4,11 @@
       "_note": "WP0-H0: Hotspot principal con popup",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -4,
+        "offsetY": -206,
+        "width": 302,
+        "height": 335,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -72,11 +72,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": 4,
+        "offsetY": -139,
+        "width": 262,
+        "height": 186,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -96,11 +96,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": -48,
+        "offsetY": -306,
+        "width": 179,
+        "height": 103,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -118,11 +118,11 @@
       "_note": "WP1-H0: Hotspot principal con popup",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -17,
+        "offsetY": -206,
+        "width": 317,
+        "height": 307,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -172,10 +172,10 @@
       "image": "/assets/vacio.png",
       "mobile": {
         "offsetX": -10,
-        "offsetY": -267,
+        "offsetY": -265,
         "width": 280,
         "height": 145,
-        "rotation": 9,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -195,11 +195,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": -17,
+        "offsetY": -144,
+        "width": 282,
+        "height": 135,
+        "rotation": 3,
         "radius": 0
       },
       "desktop": {
@@ -217,11 +217,11 @@
       "_note": "WP2-H0: Hotspot principal con popup",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": 18,
+        "offsetY": -206,
+        "width": 327,
+        "height": 311,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -285,11 +285,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": 17,
+        "offsetY": -252,
+        "width": 290,
+        "height": 187,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -309,11 +309,11 @@
       "title": "",
       "image": "/assets/danilo-jose-chavez-medina.webp",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": -71,
+        "offsetY": -105,
+        "width": 98,
+        "height": 90,
+        "rotation": -3,
         "radius": 0
       },
       "desktop": {
