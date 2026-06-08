@@ -1085,6 +1085,7 @@ export function initEditor() {
             <div>R = Rulers</div>
             <div>H = Hide UI</div>
             <div>F = Focus</div>
+            <div>B = + Buffer</div>
             <div>Esc = Deselect</div>
             <div>↑↓←→ = Move</div>
             <div>Shift+Arrow = 10px</div>
@@ -1551,6 +1552,13 @@ export function initEditor() {
     // 🆕 Focus
     if (e.key === 'f' || e.key === 'F') {
       focusOnItem();
+      e.preventDefault();
+      return;
+    }
+
+    // Buffer — agrega hotspot seleccionado al wp buffer
+    if (e.key === 'b' || e.key === 'B') {
+      addToWpBuffer();
       e.preventDefault();
       return;
     }
