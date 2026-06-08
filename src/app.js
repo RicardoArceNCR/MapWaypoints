@@ -2520,6 +2520,15 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       // Disparar animación del texto
       const wp = state.currentWaypoints[state.idx];
       if (wp) updateWaypointInfoBox(wp);
+
+      // 📍 Badges ⓘ: el timer de goToWaypoint ya expiró durante el intro — refrescar
+      clearTimeout(goToWaypoint._badgeTimer);
+      goToWaypoint._badgeTimer = setTimeout(() => {
+        const badges = document.querySelectorAll('.hs-caption');
+        badges.forEach((el, i) => {
+          setTimeout(() => el.classList.remove('hs-caption--hidden'), i * 180);
+        });
+      }, 1200);
     } else {
       if (firstMap) await loadMap(firstMap.id);
       // Sin intro — habilitar animaciones y disparar secuencia con mask
