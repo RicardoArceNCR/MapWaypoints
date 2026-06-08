@@ -81,60 +81,35 @@
 │   │   ├── bryan-steven-robles-salas.webp
 │   │   ├── danilo-jose-chavez-medina.webp
 │   │   ├── default.gif
-│   │   ├── F3-movil.webp
-│   │   ├── fase-2-mapa-dektop-4x.png
-│   │   ├── fase-2-mapa-dektop-4x.webp
-│   │   ├── fase-2-mapa-mobile-x4.png
-│   │   ├── fase-2-mapa-mobile-x4.webp
-│   │   ├── fase-3-mapa-dektop-4x.png
-│   │   ├── fase-3-mapa-dektop-4x.webp
-│   │   ├── fase-3-mapa-mobile-x4.png
-│   │   ├── fase-3-mapa-mobile-x4.webp
+│   │   ├── f2-mapa-dektop-2x.jpg
+│   │   ├── f2-mapa-dektop-2x.webp
+│   │   ├── f2-mapa-mobile-x2.jpg
+│   │   ├── f2-mapa-mobile-x2.webp
+│   │   ├── f3-mapa-dektop-x2.jpg
+│   │   ├── f3-mapa-dektop-x2.webp
+│   │   ├── f3-mapa-mobile-x2.jpg
+│   │   ├── f3-mapa-mobile-x2.webp
 │   │   ├── fonts
 │   │   │   ├── inter-v20-latin-500.woff2
 │   │   │   ├── inter-v20-latin-600.woff2
 │   │   │   ├── inter-v20-latin-700.woff2
 │   │   │   ├── inter-v20-latin-800.woff2
 │   │   │   └── inter-v20-latin-regular.woff2
-│   │   ├── icon-info.png
 │   │   ├── logo-divergentes.webp
 │   │   ├── luis-fernando-carvajal-fernandez.webp
 │   │   ├── luis-ricardo-orozco-gonzales.webp
-│   │   ├── mapa-1.jpg
 │   │   ├── mapa-1.webp
-│   │   ├── mapa-11.webp
-│   │   ├── mapa-dektop-2.jpg
-│   │   ├── mapa-dektop-2.webp
 │   │   ├── mapa-dektop-2x.jpg
 │   │   ├── mapa-dektop-2x.webp
-│   │   ├── mapa-dektop-3.jpg
-│   │   ├── mapa-dektop-3.webp
-│   │   ├── mapa-dektop-3x.jpg
-│   │   ├── mapa-dektop-4x.jpg
-│   │   ├── mapa-dektop-4x.png
-│   │   ├── mapa-dektop-4x.webp
-│   │   ├── mapa-dektop-copy.jpg
-│   │   ├── mapa-dektop.jpg
-│   │   ├── mapa-dektop.webp
-│   │   ├── mapa-mobile-2.jpg
-│   │   ├── mapa-mobile-2.webp
 │   │   ├── mapa-mobile-2x.jpg
 │   │   ├── mapa-mobile-2x.webp
-│   │   ├── mapa-mobile-3.jpg
-│   │   ├── mapa-mobile-3.webp
-│   │   ├── mapa-mobile-x2.jpg
-│   │   ├── mapa-mobile-x2.png
-│   │   ├── mapa-mobile-x2.webp
-│   │   ├── mapa-mobile-x4.png
-│   │   ├── mapa-mobile-x4.webp
-│   │   ├── mapa-mobile.jpg
-│   │   ├── mapa-mobile.png
 │   │   ├── mapa-mobile.webp
 │   │   ├── pablo-anotonio-robles-murillo.webp
 │   │   ├── persona_1-1.gif
 │   │   ├── persona_1-2.gif
 │   │   ├── persona_1-3.gif
 │   │   ├── persona_1-4.gif
+│   │   ├── stephanie-maria-chacon-guillen.webp
 │   │   └── vacio.png
 │   └── data
 │       ├── index.json
@@ -159,4 +134,4 @@
 ├── vercel.json
 └── vite.config.js
 
-16 directories, 144 files
+16 directories, 119 files

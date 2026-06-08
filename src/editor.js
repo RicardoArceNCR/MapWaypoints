@@ -919,7 +919,7 @@ export function initEditor() {
     `;
 
     ui.innerHTML = `
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <div id="editor-panel-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
         <div style="font-weight: bold; font-size: ${editor.isMobile ? '14px' : '16px'}; color: #FFD700;">
           🎨 EDITOR ADVANCED
         </div>
@@ -1100,6 +1100,21 @@ export function initEditor() {
         border-color: #00FF00 !important;
         box-shadow: 0 0 6px rgba(0, 255, 255, 0.6);
       }
+      /* ── Panel draggable & is-dragging ── */
+      #editor-pro-ui {
+        transition: opacity 0.2s ease, transform 0.3s ease !important;
+      }
+      body.is-dragging #editor-pro-ui {
+        opacity: 0.15 !important;
+        pointer-events: none !important;
+      }
+      #editor-panel-header {
+        cursor: grab;
+        user-select: none;
+      }
+      #editor-panel-header:active {
+        cursor: grabbing;
+      }
     `;
     document.head.appendChild(style);
 
@@ -1116,6 +1131,8 @@ export function initEditor() {
     document.getElementById('export-json-btn')?.addEventListener('click', exportItemJSON);
     document.getElementById('waypoint-selector-btn')?.addEventListener('click', createWaypointSelector);
 
+    // ── Panel draggable ──
+    initPanelDrag(ui);
     const collapseBtn = document.getElementById('toggle-ui-collapse');
     if (collapseBtn) {
       collapseBtn.addEventListener('click', () => {
@@ -1703,6 +1720,7 @@ export function initEditor() {
     }
 
     editor.isDragging = true;
+    document.body.classList.add('is-dragging');
 
     window.dispatchEvent(new CustomEvent('editor:getMapCoords', {
       detail: { clientX: e.clientX, clientY: e.clientY }
@@ -1977,6 +1995,7 @@ export function initEditor() {
       editor.selectedItem = null;
       editor.mode = null;
       editor.isDragging = false;
+      document.body.classList.remove('is-dragging');
       canvas.style.cursor = 'crosshair';
       updateInfo('No item selected');
       updatePropertiesPanel();
@@ -1993,6 +2012,7 @@ export function initEditor() {
     editor.mode = null;
     editor.corner = null;
     editor.isDragging = false;
+    document.body.classList.remove('is-dragging');
     canvas.style.cursor = editor.active ? 'crosshair' : 'default';
     editor.needsRedraw = true;
     window.dispatchEvent(new CustomEvent('editor:redraw'));
@@ -2140,6 +2160,71 @@ export function initEditor() {
   }
 
   console.log('✅ Editor Pro Advanced cargado. Presiona "E"');
+
+  // ── Panel draggable ──────────────────────────────────────────────────────
+  function initPanelDrag(panel) {
+    // Solo desktop — en mobile el panel ocupa ancho completo, no tiene sentido
+    if (editor.isMobile) return;
+
+    const STORAGE_KEY = 'editor_panel_pos';
+    const header = document.getElementById('editor-panel-header');
+    if (!header) return;
+
+    // Restaurar posición guardada
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+      if (saved && typeof saved.left === 'number' && typeof saved.top === 'number') {
+        panel.style.left = saved.left + 'px';
+        panel.style.top  = saved.top  + 'px';
+        clampPanel(panel);
+      }
+    } catch {}
+
+    let startX, startY, startLeft, startTop, draggingPanel = false;
+
+    header.addEventListener('pointerdown', (e) => {
+      if (e.target.tagName === 'BUTTON') return;
+      e.preventDefault();
+      draggingPanel = true;
+      header.setPointerCapture(e.pointerId);
+      startX    = e.clientX;
+      startY    = e.clientY;
+      startLeft = panel.offsetLeft;
+      startTop  = panel.offsetTop;
+      panel.style.transition = 'none';
+    });
+
+    header.addEventListener('pointermove', (e) => {
+      if (!draggingPanel) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      panel.style.left = (startLeft + dx) + 'px';
+      panel.style.top  = (startTop  + dy) + 'px';
+    });
+
+    header.addEventListener('pointerup', (e) => {
+      if (!draggingPanel) return;
+      draggingPanel = false;
+      panel.style.transition = '';
+      clampPanel(panel);
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          left: panel.offsetLeft,
+          top:  panel.offsetTop
+        }));
+      } catch {}
+    });
+  }
+
+  function clampPanel(panel) {
+    const margin = 10;
+    const maxLeft = window.innerWidth  - panel.offsetWidth  - margin;
+    const maxTop  = window.innerHeight - panel.offsetHeight - margin;
+    panel.style.left = Math.max(margin, Math.min(panel.offsetLeft, maxLeft)) + 'px';
+    panel.style.top  = Math.max(margin, Math.min(panel.offsetTop,  maxTop))  + 'px';
+  }
+  // ────────────────────────────────────────────────────────────────────────
+
     // --- HMR: limpia y re-monta UI si estaba activo
     if (import.meta.hot) {
       import.meta.hot.dispose(() => {

@@ -12,11 +12,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -369,
-        "offsetY": -99,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -55,
+        "offsetY": -46,
+        "width": 954,
+        "height": 441,
+        "rotation": 0,
         "radius": 0
       },
       "title": "La ruta final del Duster y la localización del sicario",
@@ -80,11 +80,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
+        "offsetX": -244,
+        "offsetY": -45,
+        "width": 540,
+        "height": 400,
+        "rotation": 0,
         "radius": 0
       }
     },
@@ -104,11 +104,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 244,
+        "offsetY": -158,
+        "width": 283,
+        "height": 188,
+        "rotation": 0,
         "radius": 0
       }
     }
@@ -126,11 +126,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -369,
-        "offsetY": -99,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -31,
+        "offsetY": -59,
+        "width": 1166,
+        "height": 373,
+        "rotation": 0,
         "radius": 0
       },
       "title": "El coordinador regresa a la base",
@@ -203,11 +203,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 17,
+        "offsetY": 35,
+        "width": 172,
+        "height": 161,
+        "rotation": 0,
         "radius": 0
       }
     }
@@ -225,11 +225,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -369,
-        "offsetY": -99,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -29,
+        "offsetY": -29,
+        "width": 754,
+        "height": 390,
+        "rotation": 0,
         "radius": 0
       },
       "title": "Se coordina la extracción. Una llamada clave.",
@@ -293,11 +293,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
+        "offsetX": -147,
         "offsetY": -37,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
+        "width": 494,
+        "height": 336,
+        "rotation": 0,
         "radius": 0
       }
     },
@@ -317,11 +317,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 277,
+        "offsetY": -138,
+        "width": 174,
+        "height": 171,
+        "rotation": -4,
         "radius": 0
       }
     }
@@ -339,11 +339,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -369,
-        "offsetY": -99,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": 10,
+        "offsetY": -96,
+        "width": 958,
+        "height": 429,
+        "rotation": 0,
         "radius": 0
       },
       "title": "El Hyundai sale hacia Coronado",
@@ -392,11 +392,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
+        "offsetX": -274,
+        "offsetY": -204,
+        "width": 431,
+        "height": 218,
+        "rotation": -2,
         "radius": 0
       }
     },
@@ -416,11 +416,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": -204,
+        "offsetY": 34,
+        "width": 148,
+        "height": 167,
+        "rotation": 0,
         "radius": 0
       }
     }
@@ -438,11 +438,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -369,
-        "offsetY": -99,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": 3,
+        "offsetY": -102,
+        "width": 804,
+        "height": 426,
+        "rotation": 0,
         "radius": 0
       },
       "title": "Un mensaje desesperado",
@@ -521,11 +521,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
+        "offsetX": -90,
+        "offsetY": -104,
+        "width": 585,
+        "height": 397,
+        "rotation": 0,
         "radius": 0
       }
     },
@@ -545,11 +545,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 319,
+        "offsetY": -160,
+        "width": 182,
+        "height": 212,
+        "rotation": 0,
         "radius": 0
       }
     }
@@ -567,11 +567,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -369,
-        "offsetY": -99,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": 20,
+        "offsetY": -97,
+        "width": 840,
+        "height": 438,
+        "rotation": 0,
         "radius": 0
       },
       "title": "El sicario también se contacta",
@@ -635,11 +635,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
+        "offsetX": -324,
+        "offsetY": -59,
+        "width": 189,
+        "height": 223,
+        "rotation": -2,
         "radius": 0
       }
     },
@@ -659,11 +659,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 146,
+        "offsetY": -97,
+        "width": 583,
+        "height": 394,
+        "rotation": 0,
         "radius": 0
       }
     }
@@ -681,11 +681,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -369,
-        "offsetY": -99,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -29,
+        "offsetY": -122,
+        "width": 941,
+        "height": 520,
+        "rotation": 0,
         "radius": 0
       },
       "title": "Llega la extracción",
@@ -764,10 +764,10 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
-        "width": 520,
-        "height": 367,
+        "offsetX": -342,
+        "offsetY": -255,
+        "width": 335,
+        "height": 221,
         "rotation": -1,
         "radius": 0
       }
@@ -788,11 +788,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": -311,
+        "offsetY": 6,
+        "width": 227,
+        "height": 250,
+        "rotation": 0,
         "radius": 0
       }
     }
@@ -810,11 +810,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -369,
-        "offsetY": -99,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -6,
+        "offsetY": -117,
+        "width": 1025,
+        "height": 515,
+        "rotation": 0,
         "radius": 0
       },
       "title": "Se consuma la extracción",
@@ -893,10 +893,10 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
-        "width": 520,
-        "height": 367,
+        "offsetX": -169,
+        "offsetY": -137,
+        "width": 655,
+        "height": 439,
         "rotation": -1,
         "radius": 0
       }
@@ -917,11 +917,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 358,
+        "offsetY": -258,
+        "width": 326,
+        "height": 216,
+        "rotation": 0,
         "radius": 0
       }
     }
@@ -939,11 +939,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -369,
-        "offsetY": -99,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": 18,
+        "offsetY": -115,
+        "width": 996,
+        "height": 489,
+        "rotation": 0,
         "radius": 0
       },
       "title": "Retorno a la base criminal",
@@ -1022,11 +1022,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
+        "offsetX": 308,
+        "offsetY": -248,
+        "width": 397,
+        "height": 209,
+        "rotation": -2,
         "radius": 0
       }
     },
@@ -1046,11 +1046,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": -80,
+        "offsetY": 4,
+        "width": 202,
+        "height": 229,
+        "rotation": 2,
         "radius": 0
       }
     }
@@ -1068,11 +1068,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -369,
-        "offsetY": -99,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -21,
+        "offsetY": -142,
+        "width": 999,
+        "height": 453,
+        "rotation": 0,
         "radius": 0
       },
       "title": "Una mujer paga el 'servicio' de asesinato",
@@ -1151,11 +1151,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
+        "offsetX": -193,
+        "offsetY": -134,
+        "width": 661,
+        "height": 406,
+        "rotation": 0,
         "radius": 0
       }
     },
@@ -1175,11 +1175,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 365,
+        "offsetY": -138,
+        "width": 266,
+        "height": 286,
+        "rotation": 0,
         "radius": 0
       }
     }
@@ -1197,11 +1197,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -369,
-        "offsetY": -99,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -48,
+        "offsetY": -157,
+        "width": 944,
+        "height": 417,
+        "rotation": 0,
         "radius": 0
       },
       "title": "Confirmación de éxito: '¿Como le fue?'",
@@ -1265,11 +1265,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
+        "offsetX": -396,
+        "offsetY": -120,
+        "width": 273,
+        "height": 297,
+        "rotation": 0,
         "radius": 0
       }
     },
@@ -1289,11 +1289,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 116,
+        "offsetY": -170,
+        "width": 597,
+        "height": 346,
+        "rotation": 0,
         "radius": 0
       }
     }
@@ -1311,11 +1311,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -369,
-        "offsetY": -99,
-        "width": 420,
-        "height": 239,
-        "rotation": -10,
+        "offsetX": -19,
+        "offsetY": -133,
+        "width": 871,
+        "height": 441,
+        "rotation": 0,
         "radius": 0
       },
       "title": "Encuentran las prendas del sicario",
@@ -1364,35 +1364,11 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -288,
-        "offsetY": -37,
-        "width": 520,
-        "height": 367,
-        "rotation": -1,
-        "radius": 0
-      }
-    },
-    {
-      "_note": "WP11-HRB: Tipo B — noPopup, ajustar con editor",
-      "type": "hotspot",
-      "noPopup": true,
-      "caption": "TODO — Imagen: Renault Duster BKK-190 en el lugar de abandono.",
-      "title": "",
-      "image": "/assets/vacio.png",
-      "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
-        "radius": 0
-      },
-      "desktop": {
-        "offsetX": 180,
-        "offsetY": -130,
-        "width": 417,
-        "height": 238,
-        "rotation": 25,
+        "offsetX": 333,
+        "offsetY": -122,
+        "width": 215,
+        "height": 242,
+        "rotation": 2,
         "radius": 0
       }
     }
