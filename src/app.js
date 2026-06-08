@@ -1085,6 +1085,13 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     _wib.offsetHeight; // force reflow
     _wib.classList.add('visible');
 
+    // 📍 Ocultar badges ⓘ mientras anima el info-box, revelarlos al terminar
+    document.querySelectorAll('.hs-caption').forEach(el => el.classList.add('hs-caption--hidden'));
+    clearTimeout(updateWaypointInfoBox._badgeTimer);
+    updateWaypointInfoBox._badgeTimer = setTimeout(() => {
+      document.querySelectorAll('.hs-caption').forEach(el => el.classList.remove('hs-caption--hidden'));
+    }, 350); // 0.25s transición CSS + 100ms margen
+
     // ── Determinar si es el primer waypoint del primer mapa ──
     const isFirstEntry = !_revealMaskDone && state.idx === 0;
 

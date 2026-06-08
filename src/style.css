@@ -1539,6 +1539,13 @@ body:has(#story-intro:not([hidden])) .top-bar {
   pointer-events: none;
 }
 
+/* 🔒 Oculto durante animación de entrada del waypoint */
+.hs-caption--hidden .hs-caption__badge {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
 .hs-caption__badge {
   width: 42px;
   height: 42px;
@@ -1553,6 +1560,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   justify-content: center;
   pointer-events: none;
   flex-shrink: 0;
+  transition: opacity 0.2s ease;
 }
 
 .hs-caption__tooltip {

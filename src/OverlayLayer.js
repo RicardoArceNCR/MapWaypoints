@@ -23,6 +23,16 @@ export class OverlayLayer {
 
     this._onPointerDown = this._onPointerDown.bind(this);
     this._onPointerUp = this._onPointerUp.bind(this);
+
+    // 📱 Mobile: cerrar tooltip ⓘ con cualquier tap fuera del badge
+    if (window.matchMedia('(hover: none)').matches) {
+      document.addEventListener('pointerdown', (e) => {
+        if (!e.target.closest('.hs-caption__badge')) {
+          document.querySelectorAll('.hs-caption.is-open')
+            .forEach(el => el.classList.remove('is-open'));
+        }
+      }, { capture: true, passive: true });
+    }
   }
 
   _recalcOffsets() {
@@ -103,7 +113,7 @@ export class OverlayLayer {
       // 💬 Caption badge — solo si meta.caption existe
       if (meta?.caption) {
         const caption = document.createElement('div');
-        caption.className = 'hs-caption';
+        caption.className = 'hs-caption hs-caption--hidden'; // 👈 nace oculto, app.js lo revela
         caption.setAttribute('aria-hidden', 'true');
         caption.innerHTML = `
           <div class="hs-caption__badge">
@@ -368,38 +378,6 @@ export class OverlayLayer {
           detail: { key, record: rec }
         }));
       }
-    }
-  }
-
-  /**
-   * Anima la entrada de todos los overlays activos actualmente.
-   * Agrega clase `hs-entering` con --hs-i para el stagger CSS.
-   * Se auto-limpia en animationend para no dejar basura en el DOM.
-   * Llamado desde app.js después del delay de transición de waypoint.
-   */
-  animateIn() {
-    let i = 0;
-    for (const [, rec] of this.items) {
-      const wrap = rec.wrap;
-      if (!wrap || wrap.style.display === 'none') continue;
-
-      // Capturar transform actual para que @keyframes parta desde ahí
-      // (CSS var --tx/--ty se setean en endFrame como translate(sx, sy))
-      // Solo necesitamos el índice para el stagger
-      wrap.style.setProperty('--hs-i', String(i));
-
-      // Quitar clase anterior si quedó (cambio de WP muy rápido)
-      wrap.classList.remove('hs-entering');
-      // Force reflow mínimo para reiniciar la animación
-      void wrap.offsetWidth;
-      wrap.classList.add('hs-entering');
-
-      wrap.addEventListener('animationend', () => {
-        wrap.classList.remove('hs-entering');
-        wrap.style.removeProperty('--hs-i');
-      }, { once: true });
-
-      i++;
     }
   }
 }
