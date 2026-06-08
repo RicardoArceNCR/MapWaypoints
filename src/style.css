@@ -1710,3 +1710,99 @@ body:has(#story-intro:not([hidden])) .top-bar {
   .waypoint-info-box__title { font-size: 1.85rem; }
   .waypoint-info-box__desc  { font-size: 1rem; }
 }
+
+/* =========================================================
+   WAYPOINT REVEAL MASK — radial dark → transparent
+   DOM: #wp-reveal-mask dentro de #mapa-canvas-wrapper
+   Vive solo en el primer waypoint del primer mapa.
+   pointer-events: none siempre — nunca bloquea interacción.
+   ========================================================= */
+#wp-reveal-mask {
+  position: absolute;
+  inset: 0;
+  z-index: 38; /* justo debajo del info-box (39) */
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 50%,
+    rgba(0, 0, 0, 0.0) 0%,
+    rgba(0, 0, 0, 0.55) 55%,
+    rgba(0, 0, 0, 0.88) 100%
+  );
+  opacity: 1;
+  transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+
+#wp-reveal-mask.is-fading {
+  opacity: 0;
+}
+
+/* =========================================================
+   WAYPOINT INFO BOX — animaciones de entrada por elemento
+   Cada hijo entra por separado con slide-up + fade.
+   ========================================================= */
+
+/* Estado inicial de cada elemento animable */
+.waypoint-info-box__title,
+.waypoint-info-box__desc,
+.waypoint-info-box__body,
+.waypoint-info-box__date {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+/* Clase que JS agrega con setTimeout para cada elemento */
+.waypoint-info-box__title.wib-in,
+.waypoint-info-box__desc.wib-in,
+.waypoint-info-box__body.wib-in,
+.waypoint-info-box__date.wib-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   HOTSPOT ENTRADA — fade en el wrap, scale en el img hijo.
+   Separar capas evita el conflicto con el inline transform
+   de posicionamiento que endFrame() escribe cada frame.
+   JS asigna --hs-i como CSS var para el stagger por índice.
+   ========================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  /* Fade en el contenedor (no toca el transform de posición) */
+  .overlay-wrap.hs-entering {
+    animation: hs-enter-fade 0.45s ease both;
+    animation-delay: calc(var(--hs-i, 0) * 60ms);
+  }
+
+  /* Scale en la imagen hija (transform propio, no interfiere) */
+  .overlay-wrap.hs-entering > img.overlay-item {
+    animation: hs-enter-scale 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--hs-i, 0) * 60ms);
+  }
+}
+
+@keyframes hs-enter-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes hs-enter-scale {
+  from { transform: scale(0.78); }
+  to   { transform: scale(1); }
+}
+
+/* reduced-motion: sin animación, aparición instantánea */
+@media (prefers-reduced-motion: reduce) {
+  .waypoint-info-box__title,
+  .waypoint-info-box__desc,
+  .waypoint-info-box__body,
+  .waypoint-info-box__date {
+    opacity: 0;
+    transform: none;
+    transition: opacity 0.15s ease;
+  }
+  .overlay-wrap.hs-entering,
+  .overlay-wrap.hs-entering > img.overlay-item {
+    animation: none;
+  }
+}

@@ -982,16 +982,76 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   }
 
   // ========= 📌 WAYPOINT INFO BOX =========
+
+  // IDs de los timeouts de stagger — se cancelan si goToWaypoint se llama antes de que terminen
+  const _wibTimers = [];
+
+  // Bloquea animaciones hasta que el intro haya terminado (o si no hay intro, siempre true)
+  let _wibReady = false;
+
+  // Mask de reveal — se crea una sola vez y se usa en el primer waypoint
+  let _revealMask = null;
+  let _revealMaskDone = false;
+
+  function _getOrCreateRevealMask() {
+    if (_revealMask) return _revealMask;
+    const wrapper = document.getElementById('mapa-canvas-wrapper');
+    if (!wrapper) { console.warn('[mask] ❌ mapa-canvas-wrapper not found'); return null; }
+    const el = document.createElement('div');
+    el.id = 'wp-reveal-mask';
+    wrapper.appendChild(el);
+    console.log('[mask] ✅ created', el, 'in', wrapper);
+    _revealMask = el;
+    return el;
+  }
+
+  function _triggerRevealMask(delayMs) {
+    if (_revealMaskDone) { console.log('[mask] skip — already done'); return; }
+    _revealMaskDone = true;
+    console.log('[mask] trigger — fading in', delayMs, 'ms');
+
+    const mask = _getOrCreateRevealMask();
+    if (!mask) return;
+
+    mask.style.display = 'block';
+    mask.will = 'opacity';
+
+    // Después del delay, inicia el fade-out del mask
+    setTimeout(() => {
+      console.log('[mask] → adding is-fading');
+      mask.classList.add('is-fading');
+      mask.addEventListener('transitionend', () => {
+        console.log('[mask] → transitionend, hiding');
+        mask.style.display = 'none';
+        mask.style.willChange = 'auto';
+      }, { once: true });
+    }, delayMs);
+  }
+
   function updateWaypointInfoBox(wp) {
-    if (!_wib) return;
+    if (!_wib || !_wibReady) {
+      console.log('[wib] blocked — _wib:', !!_wib, '_wibReady:', _wibReady);
+      return;
+    }
+    console.log('[wib] running — idx:', state.idx, '_revealMaskDone:', _revealMaskDone);
     const title = wp?.label || '';
     const desc  = (wp?.lines && wp.lines[0]) || '';
     const body  = (wp?.lines && wp.lines[1]) || '';
+
+    // Cancelar timers anteriores si los hay (cambio rápido de waypoint)
+    _wibTimers.forEach(id => clearTimeout(id));
+    _wibTimers.length = 0;
+
     if (!title && !desc) {
       _wib.hidden = true;
       _wib.classList.remove('visible');
       return;
     }
+
+    // Reset visual de todos los elementos animables — salen del DOM visual
+    const _animEls = [_wibTitle, _wibDesc, _wibBody].filter(Boolean);
+    _animEls.forEach(el => el.classList.remove('wib-in'));
+
     _wibTitle.textContent = title;
     _wibDesc.textContent  = desc;
     if (_wibBody) {
@@ -1012,14 +1072,50 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         _wib.insertBefore(dateEl, _wib.firstChild);
       }
       dateEl.textContent = dateStr;
+      dateEl.classList.remove('wib-in');
       dateEl.hidden = false;
     } else if (dateEl) {
       dateEl.hidden = true;
     }
 
+    // Mostrar el contenedor (sin clase visible aún — los hijos entran escalonados)
     _wib.hidden = false;
     _wib.offsetHeight; // force reflow
     _wib.classList.add('visible');
+
+    // ── Determinar si es el primer waypoint del primer mapa ──
+    const isFirstEntry = !_revealMaskDone && state.idx === 0;
+
+    // Delay base: 1500ms si es primer entry, 0ms en navegaciones normales
+    const BASE_DELAY = isFirstEntry ? 1500 : 0;
+
+    if (isFirstEntry) {
+      _triggerRevealMask(BASE_DELAY);
+    }
+
+    // ── Stagger de elementos del info-box ──
+    const staggerMap = [
+      { el: _wibTitle,  delay: BASE_DELAY },
+      { el: _wibDesc,   delay: BASE_DELAY + 500 },
+      { el: dateEl,     delay: BASE_DELAY + 1000 },
+      { el: _wibBody,   delay: BASE_DELAY + 1500 },
+    ];
+
+    staggerMap.forEach(({ el, delay }) => {
+      if (!el || el.hidden) return;
+      const id = setTimeout(() => {
+        el.classList.add('wib-in');
+      }, delay);
+      _wibTimers.push(id);
+    });
+
+    // ── Hotspots: entran después del info-box ──
+    // Delay: después del último elemento del stagger + pequeño margen
+    const hsDelay = BASE_DELAY + 1600;
+    const id = setTimeout(() => {
+      overlay?.animateIn?.();
+    }, hsDelay);
+    _wibTimers.push(id);
   }
 
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
@@ -2367,8 +2463,18 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const mapLoadPromise = firstMap ? loadMap(firstMap.id) : Promise.resolve();
       await waitForIntro();
       await mapLoadPromise;
+      // Intro terminó — habilitar animaciones y saltar mask/delay
+      _revealMaskDone = true;
+      _wibReady = true;
+      // Disparar animación ahora que el usuario ve el canvas
+      const wp = state.currentWaypoints[state.idx];
+      if (wp) updateWaypointInfoBox(wp);
     } else {
       if (firstMap) await loadMap(firstMap.id);
+      // Sin intro — habilitar animaciones y disparar secuencia
+      _wibReady = true;
+      const wp = state.currentWaypoints[state.idx];
+      if (wp) updateWaypointInfoBox(wp);
     }
     // ─────────────────────────────────────────
 
