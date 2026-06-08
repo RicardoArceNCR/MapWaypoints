@@ -1710,7 +1710,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const minTapSize = isCard ? 48 : 56; // cards pueden ser algo más pequeñas
 
       overlay.upsert({
-        key: `waypoint_${state.idx}:${i}`,
+        key: `waypoint_${state.currentMapId}:${state.idx}:${i}`,
         src: icon.img,
         worldX: icon.x,
         worldY: icon.y,
@@ -1851,6 +1851,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       }
 
       if (isHit) {
+        if (item.noPopup) return;
         openPopup(item);
         return;
       }

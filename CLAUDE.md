@@ -126,6 +126,28 @@ El usuario navegaba en F1 con una transición cinemática de 1100ms activa. Si h
 
 ---
 
+
+### Hotspots tipo B abriendo popup vacío en Fase 3 (Junio 2026)
+
+**Síntoma:** Los hotspots tipo B (`noPopup: true`) en `mapa_f3` abrían el popup detallado vacío al hacer click, a pesar de tener `noPopup: true` en el JSON y `vacio.png` como imagen. En F1 y F2 funcionaban correctamente.
+
+**Causa:** Hay **dos sistemas independientes de hit-testing** en `app.js`:
+1. `OverlayLayer._onPointerUp()` — maneja clicks en los overlays DOM. Sí respeta `noPopup`.
+2. Un handler de `mousedown`/`click` sobre el canvas que itera `state.currentIcons[state.idx]` y llama `openPopup(item)` directamente — **sin verificar `item.noPopup`**.
+
+Los logs de `[noPopup debug]` nunca aparecían porque el canvas interceptaba el click antes de que llegara al `OverlayLayer`. El bug existía en las tres fases pero F1/F2 no lo manifestaban porque sus tipo B coincidían en posición con el tipo A (que sí abre popup correctamente), enmascarando el problema.
+
+**Fix:** En `app.js`, en el bloque de hit-testing del canvas, agregar el guard antes de `openPopup`:
+```js
+if (isHit) {
+  if (item.noPopup) return;  // ← guard para tipo B
+  openPopup(item);
+  return;
+}
+```
+
+**Lección:** Cuando `OverlayLayer` no dispara su log de debug, el click no está llegando ahí — buscar el handler en `app.js` que procesa el canvas directamente.
+
 ## Sistema de hotspots — dos tipos
 
 ### Tipo A — hotspot con imagen (abre popup)
@@ -551,6 +573,7 @@ Si no hay historia (fallback default):
 | Dejar `breathingAllowed` sin guard de popup | Agregar `!popupManager?.isOpen()` — el breathing debe pausarse con popup abierto o el canvas redibuja innecesariamente cada frame |
 | Agregar handlers de resize sin guard de popup | `handleResize`, `ResizeObserver` y `visualViewport.resize` deben retornar si `popupManager?.isOpen()` — la scrollbar del body al abrir/cerrar popup dispara resize falsos |
 | Usar `:hover` en `.overlay-wrap.has-caption` para el badge ⓘ | Usar `:has(.hs-caption__badge:hover)` — el wrap tiene `pointer-events: none` |
+| Asumir que `noPopup: true` en `icons.json` es suficiente para bloquear el popup | El canvas tiene su propio hit-test en `app.js` que llama `openPopup()` directamente — ese path también necesita el guard `if (item.noPopup) return` |
 
 ---
 
