@@ -979,6 +979,21 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     updateWaypointInfoBox(wp);
     uiManager.updateProgress(state.currentWaypoints.length, i);
     markDirty('camera', 'elements', 'dialog', 'minimap');
+
+    // 📍 Badges ⓘ: ocultar ya, revelar cuando termina la transición de cámara
+    document.querySelectorAll('.hs-caption').forEach(el => el.classList.add('hs-caption--hidden'));
+    clearTimeout(goToWaypoint._badgeTimer);
+    const camDuration = GLOBAL_CONFIG.CAMERA_EFFECTS.transitionEnabled
+      ? (isMobile && GLOBAL_CONFIG.CAMERA_EFFECTS.transitionDurationMobile
+          ? GLOBAL_CONFIG.CAMERA_EFFECTS.transitionDurationMobile
+          : GLOBAL_CONFIG.CAMERA_EFFECTS.transitionDuration)
+      : 0;
+    goToWaypoint._badgeTimer = setTimeout(() => {
+      const badges = document.querySelectorAll('.hs-caption');
+      badges.forEach((el, i) => {
+        setTimeout(() => el.classList.remove('hs-caption--hidden'), i * 180);
+      });
+    }, camDuration + 1100); // fin de cámara + 1s extra
   }
 
   // ========= 📌 WAYPOINT INFO BOX =========
@@ -1084,13 +1099,6 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     _wib.hidden = false;
     _wib.offsetHeight; // force reflow
     _wib.classList.add('visible');
-
-    // 📍 Ocultar badges ⓘ mientras anima el info-box, revelarlos al terminar
-    document.querySelectorAll('.hs-caption').forEach(el => el.classList.add('hs-caption--hidden'));
-    clearTimeout(updateWaypointInfoBox._badgeTimer);
-    updateWaypointInfoBox._badgeTimer = setTimeout(() => {
-      document.querySelectorAll('.hs-caption').forEach(el => el.classList.remove('hs-caption--hidden'));
-    }, 350); // 0.25s transición CSS + 100ms margen
 
     // ── Determinar si es el primer waypoint del primer mapa ──
     const isFirstEntry = !_revealMaskDone && state.idx === 0;

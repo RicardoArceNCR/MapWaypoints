@@ -1560,7 +1560,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   justify-content: center;
   pointer-events: none;
   flex-shrink: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.4s ease-out;
 }
 
 .hs-caption__tooltip {
