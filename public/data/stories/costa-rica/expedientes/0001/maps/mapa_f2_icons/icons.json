@@ -4,8 +4,8 @@
       "_note": "WP0-H0: Rectángulo principal izquierdo",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 3,
-        "offsetY": -132,
+        "offsetX": 4,
+        "offsetY": -170,
         "width": 317,
         "height": 339,
         "rotation": 0,
@@ -57,10 +57,10 @@
       "caption": "En esta foto se ve a Samcam entrando al aeropuerto Juan Santamaría. Llega acompañado por colegas opositores.",
       "noPopup": true,
       "mobile": {
-        "offsetX": 8,
-        "offsetY": -187,
-        "width": 309,
-        "height": 236,
+        "offsetX": 5,
+        "offsetY": -225,
+        "width": 282,
+        "height": 187,
         "rotation": 0,
         "radius": 0
       },
@@ -111,10 +111,10 @@
       "caption": "Mapa del Aeropuerto Juan Santamaría en Alajuela, Costa Rica. Se muestra la ruta de acceso principal.",
       "title": "TODO — Los sicarios salen a matar (detalle H2)",
       "mobile": {
-        "offsetX": -41,
-        "offsetY": -18,
-        "width": 229,
-        "height": 115,
+        "offsetX": -40,
+        "offsetY": -59,
+        "width": 190,
+        "height": 92,
         "rotation": 3,
         "radius": 0
       },

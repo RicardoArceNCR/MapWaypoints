@@ -331,11 +331,11 @@
       "_note": "WP3-H0: Hotspot principal con popup",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": 9,
+        "offsetY": -180,
+        "width": 321,
+        "height": 353,
+        "rotation": -2,
         "radius": 0
       },
       "desktop": {
@@ -384,11 +384,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": 9,
+        "offsetY": -64,
+        "width": 248,
+        "height": 119,
+        "rotation": -2,
         "radius": 0
       },
       "desktop": {
@@ -408,11 +408,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": -103,
+        "offsetY": -261,
+        "width": 84,
+        "height": 89,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -430,11 +430,11 @@
       "_note": "WP4-H0: Hotspot principal con popup",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -17,
+        "offsetY": -188,
+        "width": 308,
+        "height": 319,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -513,11 +513,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
+        "offsetX": -18,
+        "offsetY": -119,
         "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "height": 177,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -537,11 +537,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": 60,
+        "offsetY": -266,
+        "width": 118,
+        "height": 121,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -559,11 +559,11 @@
       "_note": "WP5-H0: Hotspot principal con popup",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -16,
+        "offsetY": -184,
+        "width": 325,
+        "height": 303,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -627,11 +627,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -74,
+        "offsetY": -97,
+        "width": 98,
+        "height": 121,
+        "rotation": -4,
         "radius": 0
       },
       "desktop": {
@@ -651,11 +651,11 @@
       "title": "",
       "image": "/assets/luis-fernando-carvajal-fernandez.webp",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
+        "offsetX": -16,
+        "offsetY": -219,
         "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "height": 186,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -673,11 +673,11 @@
       "_note": "WP6-H0: Hotspot principal con popup",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -1,
+        "offsetY": -157,
+        "width": 329,
+        "height": 349,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -756,11 +756,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -68,
+        "offsetY": -58,
+        "width": 179,
+        "height": 109,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -780,11 +780,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": 89,
+        "offsetY": -60,
+        "width": 122,
+        "height": 126,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -802,11 +802,11 @@
       "_note": "WP7-H0: Hotspot principal con popup",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -14,
+        "offsetY": -159,
+        "width": 323,
+        "height": 337,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -885,11 +885,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
+        "offsetX": -29,
+        "offsetY": -141,
         "width": 280,
         "height": 145,
-        "rotation": 9,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -909,11 +909,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": 30,
+        "offsetY": -268,
+        "width": 139,
+        "height": 83,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -931,11 +931,11 @@
       "_note": "WP8-H0: Hotspot principal con popup",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -15,
+        "offsetY": -168,
+        "width": 319,
+        "height": 319,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -1014,11 +1014,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": 16,
+        "offsetY": -112,
+        "width": 191,
+        "height": 97,
+        "rotation": -2,
         "radius": 0
       },
       "desktop": {
@@ -1038,11 +1038,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": -132,
+        "offsetY": -12,
+        "width": 120,
+        "height": 120,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -1060,11 +1060,11 @@
       "_note": "WP9-H0: Hotspot principal con popup",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": 1,
+        "offsetY": -102,
+        "width": 333,
+        "height": 361,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -1143,11 +1143,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": 0,
+        "offsetY": -18,
+        "width": 308,
+        "height": 189,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -1167,11 +1167,11 @@
       "title": "",
       "image": "/assets/stephanie-maria-chacon-guillen.webp",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": 40,
+        "offsetY": -187,
+        "width": 120,
+        "height": 149,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -1189,11 +1189,11 @@
       "_note": "WP10-H0: Hotspot principal con popup",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -14,
+        "offsetY": -110,
+        "width": 307,
+        "height": 351,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -1257,11 +1257,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -77,
+        "offsetY": -5,
+        "width": 123,
+        "height": 124,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -1281,11 +1281,11 @@
       "title": "",
       "image": "/assets/bryan-steven-robles-salas.webp",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": -69,
-        "width": 290,
-        "height": 210,
-        "rotation": -9,
+        "offsetX": -14,
+        "offsetY": -187,
+        "width": 284,
+        "height": 165,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -1303,11 +1303,11 @@
       "_note": "WP11-H0: Hotspot principal con popup",
       "type": "hotspot",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -315,
-        "width": 260,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -11,
+        "offsetY": -82,
+        "width": 316,
+        "height": 378,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
@@ -1356,11 +1356,11 @@
       "title": "",
       "image": "/assets/vacio.png",
       "mobile": {
-        "offsetX": -10,
-        "offsetY": -267,
-        "width": 280,
-        "height": 145,
-        "rotation": 9,
+        "offsetX": -12,
+        "offsetY": -152,
+        "width": 282,
+        "height": 201,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {

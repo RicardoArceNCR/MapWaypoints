@@ -61,7 +61,11 @@ export function initEditor() {
     
     // 🆕 CLIPBOARD
     clipboard: null,
-    
+
+    // 🆕 WP BUFFER — acumula hotspots del waypoint activo para copiar como grupo
+    wpBuffer: [],
+    wpBufferWaypointIndex: null,   // para detectar cambio de waypoint
+
     // 🆕 PRESETS
     presets: loadPresetsFromStorage()
   };
@@ -449,7 +453,12 @@ export function initEditor() {
       btn.onclick = () => {
         exitPeekMode();
         editor.waypointIndex = index;
-        
+
+        // Reset buffer al cambiar de waypoint
+        editor.wpBuffer = [];
+        editor.wpBufferWaypointIndex = index;
+        updateWpBufferBtn();
+
         // Disparar evento para cargar datos del waypoint
         window.dispatchEvent(new CustomEvent('editor:getWaypointData', {
           detail: { waypointIndex: index }
@@ -1035,6 +1044,25 @@ export function initEditor() {
             background:#FF6B00; border:none; border-radius:6px;
             color:#fff; font-weight:bold; cursor:pointer; font-size:12px;
           ">📋 Copy JSON</button>
+
+          <!-- 🆕 WP BUFFER -->
+          <div style="margin-top:8px; display:flex; gap:6px;">
+            <button id="add-to-buffer-btn" style="
+              flex:1; padding:7px 4px;
+              background:#00BFFF; border:none; border-radius:6px;
+              color:#000; font-weight:bold; cursor:pointer; font-size:11px;
+            ">＋ Buffer</button>
+            <button id="copy-group-btn" disabled style="
+              flex:2; padding:7px 6px;
+              background:#333; border:1px solid #444; border-radius:6px;
+              color:#888; font-weight:bold; cursor:not-allowed; font-size:11px;
+            ">Copiar Grupo (0)</button>
+            <button id="clear-buffer-btn" disabled style="
+              padding:7px 6px;
+              background:#333; border:1px solid #444; border-radius:6px;
+              color:#888; font-weight:bold; cursor:not-allowed; font-size:11px;
+            ">✕</button>
+          </div>
         </div>
 
         <!-- 🆕 PRESETS -->
@@ -1129,6 +1157,9 @@ export function initEditor() {
     document.getElementById('focus-btn')?.addEventListener('click', focusOnItem);
     document.getElementById('save-preset-btn')?.addEventListener('click', savePreset);
     document.getElementById('export-json-btn')?.addEventListener('click', exportItemJSON);
+    document.getElementById('add-to-buffer-btn')?.addEventListener('click', addToWpBuffer);
+    document.getElementById('copy-group-btn')?.addEventListener('click', copyWpGroup);
+    document.getElementById('clear-buffer-btn')?.addEventListener('click', clearWpBuffer);
     document.getElementById('waypoint-selector-btn')?.addEventListener('click', createWaypointSelector);
 
     // ── Panel draggable ──
@@ -2017,6 +2048,156 @@ export function initEditor() {
     editor.needsRedraw = true;
     window.dispatchEvent(new CustomEvent('editor:redraw'));
   }
+
+  // ── WP BUFFER ────────────────────────────────────────────────────────────
+
+  function buildHotspotJSON(item) {
+    // Misma lógica de limpieza que exportItemJSON
+    if (!item || !editor.waypoint) return null;
+    const wp = editor.waypoint;
+    const offsetX  = Math.round(item.x - wp.x);
+    const offsetY  = Math.round(item.y - wp.y);
+    const width    = Math.round(item.width);
+    const height   = Math.round(item.height);
+    const rotation = Math.round(item.rotation || 0);
+    const radius   = item.radius || 0;
+
+    const STRIP = new Set(['x','y','waypointIndex','debugColor',
+                           '_editorId','_rawMobile','_rawDesktop',
+                           '_prevX','_prevY','_internal']);
+
+    const mobileBase  = item._rawMobile  || {};
+    const desktopBase = item._rawDesktop || {};
+    const mobileOut   = { ...mobileBase,  offsetX, offsetY, width, height, rotation, radius };
+    const desktopOut  = { ...desktopBase, offsetX, offsetY, width, height, rotation, radius };
+
+    if (radius === 0 && !('radius' in mobileBase))  delete mobileOut.radius;
+    if (radius === 0 && !('radius' in desktopBase)) delete desktopOut.radius;
+
+    const json = {};
+    if (item._note) json._note = item._note;
+    json.type    = item.type || 'hotspot';
+    json.mobile  = mobileOut;
+    json.desktop = desktopOut;
+
+    const ORDER = ['title','image','datetime','location','description','involved','echos','body'];
+    ORDER.forEach(k => { if (item[k] !== undefined) json[k] = item[k]; });
+
+    Object.keys(item).forEach(k => {
+      if (!STRIP.has(k) && !(k in json) && !['type','mobile','desktop','_note'].includes(k)) {
+        json[k] = item[k];
+      }
+    });
+    return json;
+  }
+
+  function updateWpBufferBtn() {
+    const count      = editor.wpBuffer.length;
+    const copyBtn    = document.getElementById('copy-group-btn');
+    const clearBtn   = document.getElementById('clear-buffer-btn');
+    if (!copyBtn || !clearBtn) return;
+
+    const hasItems = count > 0;
+    copyBtn.disabled    = !hasItems;
+    clearBtn.disabled   = !hasItems;
+    copyBtn.textContent = `Copiar Grupo (${count})`;
+    copyBtn.style.background  = hasItems ? '#9C27B0' : '#333';
+    copyBtn.style.color       = hasItems ? '#fff'    : '#888';
+    copyBtn.style.borderColor = hasItems ? '#9C27B0' : '#444';
+    copyBtn.style.cursor      = hasItems ? 'pointer' : 'not-allowed';
+    clearBtn.style.background  = hasItems ? '#c0392b' : '#333';
+    clearBtn.style.color       = hasItems ? '#fff'    : '#888';
+    clearBtn.style.borderColor = hasItems ? '#c0392b' : '#444';
+    clearBtn.style.cursor      = hasItems ? 'pointer' : 'not-allowed';
+  }
+
+  function addToWpBuffer() {
+    if (!editor.selectedItem) {
+      updateInfo('⚠️ Seleccioná un hotspot primero');
+      return;
+    }
+    const item = editor.items[editor.selectedItem.index];
+    if (!item || !editor.waypoint) return;
+
+    // Dedup por índice en editor.items
+    const idx = editor.selectedItem.index;
+    if (editor.wpBuffer.some(e => e._srcIndex === idx)) {
+      updateInfo('⚠️ Este hotspot ya está en el buffer');
+      flashBtn('add-to-buffer-btn', '#FF9800', '⚠️ Ya agregado');
+      return;
+    }
+
+    const json = buildHotspotJSON(item);
+    if (!json) return;
+    json._srcIndex = idx; // marca interna para dedup (se limpia al copiar)
+
+    editor.wpBuffer.push(json);
+    updateWpBufferBtn();
+
+    // Feedback visual — destello en botón + toast
+    const wpId = window.mapManager?.currentMap?.waypoints?.[editor.waypointIndex]?.id
+                 || `wp${editor.waypointIndex}`;
+    flashBtn('add-to-buffer-btn', '#00FF88', `✓ +1`);
+    updateInfo(`✅ Agregado al buffer · ${wpId} tiene ${editor.wpBuffer.length} hotspot${editor.wpBuffer.length > 1 ? 's' : ''}`);
+  }
+
+  function flashBtn(id, color, label) {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    const orig = { bg: btn.style.background, text: btn.textContent };
+    btn.style.background = color;
+    btn.textContent      = label;
+    setTimeout(() => {
+      btn.style.background = orig.bg;
+      btn.textContent      = orig.text;
+    }, 1200);
+  }
+
+  function copyWpGroup() {
+    if (!editor.wpBuffer.length) return;
+
+    // Solo geometría al exportar — buffer interno sigue completo
+    const clean = editor.wpBuffer.map(({ _srcIndex, ...e }) => {
+      const geo = { type: e.type };
+      if (e._note) geo._note = e._note;
+      geo.mobile  = e.mobile;
+      geo.desktop = e.desktop;
+      return geo;
+    });
+
+    const wpKey = `wp${editor.waypointIndex}`;
+    const out   = { [wpKey]: clean };
+    const str   = JSON.stringify(out, null, 2);
+
+    navigator.clipboard.writeText(str)
+      .then(() => {
+        const btn = document.getElementById('copy-group-btn');
+        const count = clean.length;
+        const origText = btn.textContent;
+        btn.textContent      = `✓ Copiado (${count})`;
+        btn.style.background = '#00FF88';
+        btn.style.color      = '#000';
+        setTimeout(() => {
+          btn.textContent      = origText;
+          btn.style.background = '#9C27B0';
+          btn.style.color      = '#fff';
+        }, 2000);
+        updateInfo(`✅ Grupo copiado — ${count} hotspot${count > 1 ? 's' : ''} · pegá en ${wpKey}`);
+      })
+      .catch(() => {
+        console.log('%c📦 WP Group JSON:', 'color:#9C27B0;font-weight:bold');
+        console.log(str);
+        updateInfo('⚠️ Clipboard bloqueado — JSON en consola');
+      });
+  }
+
+  function clearWpBuffer() {
+    editor.wpBuffer = [];
+    updateWpBufferBtn();
+    updateInfo('🗑 Buffer limpiado');
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
 
   function exportItemJSON() {
     if (!editor.selectedItem) return;
