@@ -988,6 +988,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
   // Bloquea animaciones hasta que el intro haya terminado (o si no hay intro, siempre true)
   let _wibReady = false;
+  // True si el usuario pasó por el intro — cambia el timing del primer WP
+  let _hadIntro = false;
 
   // Mask de reveal — se crea una sola vez y se usa en el primer waypoint
   let _revealMask = null;
@@ -1086,11 +1088,13 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     // ── Determinar si es el primer waypoint del primer mapa ──
     const isFirstEntry = !_revealMaskDone && state.idx === 0;
 
-    // Delay base: 1500ms si es primer entry, 0ms en navegaciones normales
-    const BASE_DELAY = isFirstEntry ? 1500 : 0;
+    // Con intro: mask ya está opaco y empieza a desvanecerse (1.1s).
+    // El texto entra cuando el mask ya es casi transparente (~800ms).
+    // Sin intro: mask se queda visible 1500ms antes de revelar contenido.
+    const BASE_DELAY = isFirstEntry ? 1500 : (_hadIntro && state.idx === 0 ? 800 : 0);
 
     if (isFirstEntry) {
-      _triggerRevealMask(BASE_DELAY);
+      _triggerRevealMask(1500); // sin intro: mask visible 1500ms
     }
 
     // ── Stagger de elementos del info-box ──
@@ -1114,6 +1118,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const hsDelay = BASE_DELAY + 1600;
     const id = setTimeout(() => {
       overlay?.animateIn?.();
+      // Una vez usada, la flag no debe afectar navegaciones siguientes
+      _hadIntro = false;
     }, hsDelay);
     _wibTimers.push(id);
   }
@@ -2460,18 +2466,36 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const rawStory = mapManager._lastLoadedStory;
     if (rawStory?.intro && !appConfig.toggles.nointro) {
       showIntro(rawStory.intro);
+      // Crear el mask YA mientras el intro está visible,
+      // para que esté opaco cuando el canvas se revele
+      const maskEl = _getOrCreateRevealMask();
+      if (maskEl) maskEl.style.display = 'block';
+
       const mapLoadPromise = firstMap ? loadMap(firstMap.id) : Promise.resolve();
       await waitForIntro();
       await mapLoadPromise;
-      // Intro terminó — habilitar animaciones y saltar mask/delay
-      _revealMaskDone = true;
+
+      // Intro terminó, canvas visible — ahora sí disparar fade-out del mask
+      _hadIntro = true;
       _wibReady = true;
-      // Disparar animación ahora que el usuario ve el canvas
+      _revealMaskDone = true; // evitar que updateWaypointInfoBox lo vuelva a disparar
+      if (maskEl) {
+        // Pequeño delay para que el usuario vea el mapa con el mask un instante
+        setTimeout(() => {
+          maskEl.classList.add('is-fading');
+          maskEl.addEventListener('transitionend', () => {
+            maskEl.style.display = 'none';
+            maskEl.style.willChange = 'auto';
+          }, { once: true });
+        }, 200);
+      }
+
+      // Disparar animación del texto
       const wp = state.currentWaypoints[state.idx];
       if (wp) updateWaypointInfoBox(wp);
     } else {
       if (firstMap) await loadMap(firstMap.id);
-      // Sin intro — habilitar animaciones y disparar secuencia
+      // Sin intro — habilitar animaciones y disparar secuencia con mask
       _wibReady = true;
       const wp = state.currentWaypoints[state.idx];
       if (wp) updateWaypointInfoBox(wp);

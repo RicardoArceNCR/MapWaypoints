@@ -1745,20 +1745,30 @@ body:has(#story-intro:not([hidden])) .top-bar {
 /* Estado inicial de cada elemento animable */
 .waypoint-info-box__title,
 .waypoint-info-box__desc,
-.waypoint-info-box__body,
-.waypoint-info-box__date {
+.waypoint-info-box__body {
   opacity: 0;
   transform: translateY(8px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+/* La fecha tiene translateX(-50%) base — combinar con translateY */
+.waypoint-info-box__date {
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
   transition: opacity 0.45s ease, transform 0.45s ease;
 }
 
 /* Clase que JS agrega con setTimeout para cada elemento */
 .waypoint-info-box__title.wib-in,
 .waypoint-info-box__desc.wib-in,
-.waypoint-info-box__body.wib-in,
-.waypoint-info-box__date.wib-in {
+.waypoint-info-box__body.wib-in {
   opacity: 1;
   transform: translateY(0);
+}
+
+.waypoint-info-box__date.wib-in {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* =========================================================
@@ -1795,10 +1805,14 @@ body:has(#story-intro:not([hidden])) .top-bar {
 @media (prefers-reduced-motion: reduce) {
   .waypoint-info-box__title,
   .waypoint-info-box__desc,
-  .waypoint-info-box__body,
-  .waypoint-info-box__date {
+  .waypoint-info-box__body {
     opacity: 0;
     transform: none;
+    transition: opacity 0.15s ease;
+  }
+  .waypoint-info-box__date {
+    opacity: 0;
+    transform: translateX(-50%);
     transition: opacity 0.15s ease;
   }
   .overlay-wrap.hs-entering,
