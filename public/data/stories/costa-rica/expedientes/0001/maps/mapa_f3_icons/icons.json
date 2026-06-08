@@ -20,7 +20,6 @@
         "radius": 0
       },
       "title": "La ruta final del Duster y la localización del sicario",
-      "image": "/assets/TODO-wp0-h0.webp",
       "datetime": {
         "date": "19/06/2025",
         "time": "07:46–07:54",
@@ -91,15 +90,14 @@
         "rotation": 25,
         "radius": 0
       },
-      "title": "TODO — Título secundario WP0",
-      "image": "/assets/TODO-wp0-h1.webp",
+      "title": "La ruta final del Duster y la localización del sicario",
       "datetime": {
         "date": "19/06/2025",
         "time": "07:46–07:54",
         "timeColor": "#FF4444"
       },
       "location": "Cruce El Raicero / Mall Don Pancho / Trinidad de Moravia, Coronado.",
-      "description": "TODO — Descripción del evento secundario.",
+      "description": "El Renault Duster (con Bryan Robles Salas y Luis F. Carvajal Fernández) siguió una ruta hacia Coronado, pasando por Cruce El Raicero, Mall Don Pancho (07:53 h), y Trinidad de Moravia (07:54 h). El dispositivo de Carvajal Fernández (62329434) activó las radio bases en tiempo y lugar coincidente con el movimiento del vehículo, confirmando que era el pasajero-ejecutor. Durante este trayecto, el pasajero se cambia el suéter gris por una oscura con logo Fox.",
       "involved": [
         {
           "id": "hs_f3_w0h1a",
@@ -159,7 +157,6 @@
         "radius": 0
       },
       "title": "El coordinador regresa a la base",
-      "image": "/assets/TODO-wp1-h0.webp",
       "datetime": {
         "date": "19/06/2025",
         "time": "07:52",
@@ -230,15 +227,14 @@
         "rotation": 25,
         "radius": 0
       },
-      "title": "TODO — Título secundario WP1",
-      "image": "/assets/TODO-wp1-h1.webp",
+      "title": "El coordinador regresa a la base.",
       "datetime": {
         "date": "19/06/2025",
         "time": "07:52",
         "timeColor": "#FF4444"
       },
       "location": "Sector León XIII, Tibás.",
-      "description": "TODO — Descripción del evento secundario.",
+      "description": "La motocicleta, conducida por Danilo José Chaves Medina, ingresó al sector de León XIII. Así completó su huida.",
       "involved": [
         {
           "id": "hs_f3_w1h1a",
@@ -298,7 +294,6 @@
         "radius": 0
       },
       "title": "Se coordina la extracción del sicario. Una llamada clave.",
-      "image": "/assets/TODO-wp2-h0.webp",
       "datetime": {
         "date": "19/06/2025",
         "time": "08:10",
@@ -369,15 +364,14 @@
         "rotation": 25,
         "radius": 0
       },
-      "title": "TODO — Título secundario WP2",
-      "image": "/assets/TODO-wp2-h1.webp",
+      "title": "Se coordina la extracción del sicario. Una llamada clave.",
       "datetime": {
         "date": "19/06/2025",
         "time": "08:10",
         "timeColor": "#FF4444"
       },
       "location": "León XIII, Tibás.",
-      "description": "TODO — Descripción del evento secundario.",
+      "description": "Danilo José Chaves Medina (72678193) llamó a Luis Ricardo Orozco González, conductor encargado de la extracción (72678193). La policía judicial infiere que esta llamada (de 24 segundos de duración) fue para coordinar que Orozco se dirigiera a Coronado a recoger a los ejecutores (Robles Salas y Carvajal Fernández).",
       "involved": [
         {
           "id": "hs_f3_w2h1a",
@@ -508,15 +502,14 @@
         "rotation": 25,
         "radius": 0
       },
-      "title": "TODO — Título secundario WP3",
-      "image": "/assets/TODO-wp3-h1.webp",
+      "title": "El Hyundai sale hacia Coronado",
       "datetime": {
         "date": "19/06/2025",
         "time": "08:15",
         "timeColor": "#FF4444"
       },
       "location": "León XIII – Ruta 32, Tibás.",
-      "description": "TODO — Descripción del evento secundario.",
+      "description": "El Hyundai celeste (placa 903056), conducido por Orozco González para la extracción, salió de León XIII y se dirigió hacia la Ruta 32, confirmando el rumbo hacia Coronado.",
       "involved": [
         {
           "id": "hs_f3_w3h1a",
@@ -647,15 +640,14 @@
         "rotation": 25,
         "radius": 0
       },
-      "title": "TODO — Título secundario WP4",
-      "image": "/assets/TODO-wp4-h1.webp",
+      "title": "Un mensaje desesperado",
       "datetime": {
         "date": "19/06/2025",
         "time": "08:21",
         "timeColor": "#FF4444"
       },
       "location": "Dulce Nombre de Coronado, cercanías de Casa Kuakua.",
-      "description": "TODO — Descripción del evento secundario.",
+      "description": "Bryan Steven Robles Salas (conductor del Duster) envió a Orozco su ubicación GPS, coincidente con el sitio donde el Renault Duster BKK190 fue abandonado en una calle sin salida en Dulce Nombre de Coronado (cercanías de Casa Kuakua). Robles Salas envió mensajes de desesperación: \"Corra xfa\", \"Vueleeeee\", \"Sáqueme de aquí\".",
       "involved": [
         {
           "id": "hs_f3_w4h1a",
@@ -786,15 +778,14 @@
         "rotation": 25,
         "radius": 0
       },
-      "title": "TODO — Título secundario WP5",
-      "image": "/assets/TODO-wp5-h1.webp",
+      "title": "El sicario también se contacta",
       "datetime": {
         "date": "19/06/2025",
         "time": "08:34",
         "timeColor": "#FF4444"
       },
       "location": "Coronado, San José.",
-      "description": "TODO — Descripción del evento secundario.",
+      "description": "Luis Fernando Carvajal Fernández, el gatillero, también contactó a Orozco, explicando que el celular de Robles se había apagado y solicitando la ubicación en tiempo real",
       "involved": [
         {
           "id": "hs_f3_w5h1a",
@@ -925,15 +916,14 @@
         "rotation": 25,
         "radius": 0
       },
-      "title": "TODO — Título secundario WP6",
-      "image": "/assets/TODO-wp6-h1.webp",
+      "title": "Llega la extracción ",
       "datetime": {
         "date": "19/06/2025",
         "time": "08:38",
         "timeColor": "#FF4444"
       },
       "location": "Rodeo, Coronado, San José.",
-      "description": "TODO — Descripción del evento secundario.",
+      "description": "El dispositivo de Luis Orozco registra su ubicación coincidente con el sitio exacto en Rodeo, Coronado, donde fue hallado el Duster BKK190 abandonado.",
       "involved": [
         {
           "id": "hs_f3_w6h1a",
@@ -993,7 +983,6 @@
         "radius": 0
       },
       "title": "Se consuma la extracción",
-      "image": "/assets/TODO-wp7-h0.webp",
       "datetime": {
         "date": "19/06/2025",
         "time": "08:46",
@@ -1064,15 +1053,14 @@
         "rotation": 25,
         "radius": 0
       },
-      "title": "TODO — Título secundario WP7",
-      "image": "/assets/TODO-wp7-h1.webp",
+      "title": "Se consuma la extracción",
       "datetime": {
         "date": "19/06/2025",
         "time": "08:46",
         "timeColor": "#FF4444"
       },
       "location": "Rodeo, Coronado, San José.",
-      "description": "TODO — Descripción del evento secundario.",
+      "description": "El Hyundai celeste (placa 903056) se retiró del lugar, habiendo recogido a Bryan Robles Salas y Luis Fernando Carvajal Fernández.",
       "involved": [
         {
           "id": "hs_f3_w7h1a",
@@ -1132,7 +1120,6 @@
         "radius": 0
       },
       "title": "Retorno a la base criminal",
-      "image": "/assets/TODO-wp8-h0.webp",
       "datetime": {
         "date": "19/06/2025",
         "time": "09:14",
@@ -1203,15 +1190,14 @@
         "rotation": 25,
         "radius": 0
       },
-      "title": "TODO — Título secundario WP8",
-      "image": "/assets/TODO-wp8-h1.webp",
+      "title": "Retorno a la base criminal",
       "datetime": {
         "date": "19/06/2025",
         "time": "09:14",
         "timeColor": "#FF4444"
       },
       "location": "Sector León XIII, Tibás.",
-      "description": "TODO — Descripción del evento secundario.",
+      "description": "Orozco González y los ejecutores regresan al sector de León XIII. La ubicación registrada por Orozco es coincidente con la vivienda de Carvajal Fernández.",
       "involved": [
         {
           "id": "hs_f3_w8h1a",
@@ -1271,7 +1257,6 @@
         "radius": 0
       },
       "title": "Una mujer paga el \"servicio\" de asesinato",
-      "image": "/assets/TODO-wp9-h0.webp",
       "datetime": {
         "date": "19/06/2025",
         "time": "10:38",
@@ -1343,7 +1328,6 @@
         "radius": 0
       },
       "title": "TODO — Título secundario WP9",
-      "image": "/assets/TODO-wp9-h1.webp",
       "datetime": {
         "date": "19/06/2025",
         "time": "10:38",
@@ -1410,7 +1394,6 @@
         "radius": 0
       },
       "title": "Confirmación de éxito",
-      "image": "/assets/TODO-wp10-h0.webp",
       "datetime": {
         "date": "19/06/2025",
         "time": "16:50",
@@ -1481,15 +1464,14 @@
         "rotation": 25,
         "radius": 0
       },
-      "title": "TODO — Título secundario WP10",
-      "image": "/assets/TODO-wp10-h1.webp",
+      "title": "Encuentran las prendas del sicario",
       "datetime": {
         "date": "19/06/2025",
         "time": "16:50",
         "timeColor": "#FF4444"
       },
       "location": "León XIII, Tibás.",
-      "description": "TODO — Descripción del evento secundario.",
+      "description": "Las prendas de vestir utilizadas por el sicario (suéter gris y pantalón color vino) fueron encontradas por la OIJ en el vehículo Renault Duster abandonado.",
       "involved": [
         {
           "id": "hs_f3_w10h1a",
@@ -1549,7 +1531,6 @@
         "radius": 0
       },
       "title": "Encuentran las prendas del sicario",
-      "image": "/assets/TODO-wp11-h0.webp",
       "datetime": {
         "date": "19/06/2025",
         "time": "—",
@@ -1620,7 +1601,7 @@
         "rotation": 25,
         "radius": 0
       },
-      "title": "TODO — Título secundario WP11",
+      "title": "Encuentran las prendas del sicario",
       "image": "/assets/TODO-wp11-h1.webp",
       "datetime": {
         "date": "19/06/2025",
@@ -1628,7 +1609,7 @@
         "timeColor": "#FF4444"
       },
       "location": "Dulce Nombre de Coronado — Renault Duster BKK190 abandonado.",
-      "description": "TODO — Descripción del evento secundario.",
+      "description": "Las prendas de vestir utilizadas por el sicario (suéter gris y pantalón color vino) fueron encontradas por la OIJ en el vehículo Renault Duster abandonado.",
       "involved": [
         {
           "id": "hs_f3_w11h1a",
