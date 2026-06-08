@@ -429,6 +429,10 @@ export class DetailedPopupManager {
    * Cierra todos los popups
    */
   closeAll() {
+    // 📱 Cerrar cualquier tooltip ⓘ abierto
+    document.querySelectorAll('.hs-caption.is-open')
+      .forEach(el => el.classList.remove('is-open'));
+
     // Cancelar timeout anterior si existe
     if (this.closeTimeout) {
       clearTimeout(this.closeTimeout);

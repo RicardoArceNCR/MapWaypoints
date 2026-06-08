@@ -1905,7 +1905,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   const popupBody = document.getElementById('popup-body');
   const popupClose = document.getElementById('popup-close');
 
-  function openPopup(hotspot) { if (popupManager) popupManager.openPopup(hotspot); }
+  function openPopup(hotspot) {
+    // 📱 Cerrar tooltips ⓘ antes de abrir popup
+    document.querySelectorAll('.hs-caption.is-open')
+      .forEach(el => el.classList.remove('is-open'));
+    if (popupManager) popupManager.openPopup(hotspot);
+  }
   function closePopup() { if (popupManager) popupManager.closeAll(); }
 
   document.querySelector('.btn.next').addEventListener('click', showFullLineOrNext);
@@ -2400,7 +2405,14 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   const drawerClose = document.getElementById('menu-puntos').querySelector('.drawer__close');
   hamburger.addEventListener('click', () => {
     const open = hamburger.getAttribute('aria-expanded') === 'true';
-    if (open) uiManager.closeDrawer(); else uiManager.openDrawer();
+    if (open) {
+      uiManager.closeDrawer();
+    } else {
+      // 📱 Cerrar tooltips ⓘ antes de abrir el menú
+      document.querySelectorAll('.hs-caption.is-open')
+        .forEach(el => el.classList.remove('is-open'));
+      uiManager.openDrawer();
+    }
   });
   drawerClose.addEventListener('click', () => uiManager.closeDrawer());
   drawerBackdrop.addEventListener('click', () => uiManager.closeDrawer());
