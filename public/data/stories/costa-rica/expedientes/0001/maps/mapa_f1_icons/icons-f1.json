@@ -85,7 +85,7 @@
       "caption": "En esta foto se ve a Samcam entrando al aeropuerto Juan Santamaría. Llega acompañado por colegas opositores.",
       "noPopup": true,
       "mobile": {
-        "offsetX": -12,
+        "offsetX": -20,
         "offsetY": -294,
         "width": 260,
         "height": 122,
@@ -111,9 +111,9 @@
       "caption": "Mapa del Aeropuerto Juan Santamaría en Alajuela, Costa Rica. Se muestra la ruta de acceso principal.",
       "title": "",
       "mobile": {
-        "offsetX": -4,
-        "offsetY": -102,
-        "width": 280,
+        "offsetX": 2,
+        "offsetY": -81,
+        "width": 270,
         "height": 188,
         "rotation": -9,
         "radius": 0
@@ -222,10 +222,10 @@
       "caption": "Hyundai celeste placa 903056, identificado por la puerta delantera del acompañante de color blanco. Captado en cámara al ingreso de León XIII a las 16:17 h del 18 de junio de 2025.",
       "title": "",
       "mobile": {
-        "offsetX": -16,
-        "offsetY": -154,
+        "offsetX": -14,
+        "offsetY": -114,
         "width": 200,
-        "height": 180,
+        "height": 130,
         "rotation": 5,
         "radius": 0
       },
@@ -246,10 +246,10 @@
       "caption": "Sector León XIII, Tibás. El vehículo fue captado ingresando a esta zona diez minutos después del retorno de Samcam a su vivienda, confirmando que los sospechosos monitoreaban sus movimientos en tiempo real.",
       "title": "",
       "mobile": {
-        "offsetX": -8,
-        "offsetY": 59,
+        "offsetX": -7,
+        "offsetY": 67,
         "width": 260,
-        "height": 180,
+        "height": 130,
         "rotation": -9,
         "radius": 0
       },
