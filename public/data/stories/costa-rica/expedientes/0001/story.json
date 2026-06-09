@@ -7,6 +7,10 @@
     "title": "ASÍ ASESINARON A\nROBERTO SAMCAM:",
     "subtitle": "UN CRIMEN EN TRES FASES"
   },
+  "brief": {
+    "heading": "Sobre esta reconstrucción",
+    "text": "DIVERGENTES, con el informe de la OIJ y reportería propia, reconstruye un crimen político que expone la represión transnacional de los Ortega-Murillo: tras volver a Costa Rica, el mayor en retiro quedó en la mira de una célula sicarial asentada en León XIII. Duster blanco y moto roja, cambios de rol y extracción en Hyundai celeste sellaron el asesinato del opositor y la huida de los sicarios. Peritajes de celulares, radiobases y chats atan la coordinación a Danilo José Chaves Medina, Bryan Steven Robles Salas y Luis Fernando Carvajal Fernández, mientras pagos y transferencias a Luis Ricardo Orozco sostienen la logística de escape de los sicarios. En paralelo, fuentes identifican a Pablo Antonio Robles Murillo como el presunto cerebro del complot, vinculado a estructuras de inteligencia del Ejército de Nicaragua. Con este rompecabezas técnico y financiero armado, la OIJ perfiló roles y solicitó allanamientos y capturas. El caso sigue abierto y la impunidad persiste, pero esta reconstrucción aporta mayor claridad sobre el momento fatal de Samcam."
+  },
   "phases": [
     {
       "id": "fase1",

@@ -119,7 +119,7 @@
   width: calc(99% - 2 * var(--popup-padding));
   max-width: var(--popup-max-width);
   height: auto;
-  max-height: calc(90vh - 2 * var(--popup-padding));
+  max-height: calc(90vh - 1 * var(--popup-padding));
   background: var(--popup-bg);
   backdrop-filter: blur(30px);
   border: 1px solid var(--popup-border);

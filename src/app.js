@@ -551,6 +551,40 @@ let memoryMonitor = new MemoryMonitor();
       }, { once: true });
     });
   }
+
+  function showBrief({ heading, text } = {}) {
+    const el = document.getElementById('story-brief');
+    if (!el) return;
+    const elHeading = document.getElementById('story-brief-title');
+    const elBody = document.getElementById('story-brief-body');
+    if (elHeading && heading) elHeading.textContent = heading;
+    if (elBody && text) {
+      const p = document.createElement('p');
+      p.textContent = text;
+      elBody.innerHTML = '';
+      elBody.appendChild(p);
+    }
+    el.hidden = false;
+    const btn = document.getElementById('story-brief-close');
+    if (btn) setTimeout(() => btn.focus(), 50);
+  }
+
+  function waitForBrief() {
+    return new Promise((resolve) => {
+      const el = document.getElementById('story-brief');
+      const btn = document.getElementById('story-brief-close');
+      if (!el || !btn) return resolve();
+      function close() {
+        el.classList.add('is-hiding');
+        setTimeout(() => { el.hidden = true; resolve(); }, 400);
+      }
+      btn.addEventListener('click', close, { once: true });
+      function onKey(e) {
+        if (e.key === 'Escape') { document.removeEventListener('keydown', onKey); close(); }
+      }
+      document.addEventListener('keydown', onKey);
+    });
+  }
   // ───────────────────────────────────────────────
 
   window.mapManager = mapManager;
@@ -2500,6 +2534,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
       const mapLoadPromise = firstMap ? loadMap(firstMap.id) : Promise.resolve();
       await waitForIntro();
+      if (rawStory?.brief) {
+        showBrief(rawStory.brief);
+        await waitForBrief();
+      }
       await mapLoadPromise;
 
       // Intro terminó, canvas visible — ahora sí disparar fade-out del mask
