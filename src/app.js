@@ -9,7 +9,7 @@
 // 7. Validación de dimensiones de canvas
 // 8. Spatial index para waypoints
 
-import { GLOBAL_CONFIG, MAPS_CONFIG } from './config.js';
+import { GLOBAL_CONFIG, MAPS_CONFIG, PHASES } from './config.js';
 import { MapManager } from './MapManager.js';
 import { Camera } from './Camera.js';
 import { UIManager } from './UIManager.js';
@@ -1075,6 +1075,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     updateWaypointInfoBox(wp);
     uiManager.updateProgress(state.currentWaypoints.length, i);
     markDirty('camera', 'elements', 'dialog', 'minimap');
+    updateNextPhaseBtn();
 
     // 📍 Badges ⓘ: ocultar ya, revelar cuando termina la transición de cámara
     document.querySelectorAll('.hs-caption').forEach(el => el.classList.add('hs-caption--hidden'));
@@ -1984,6 +1985,23 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (hasTyped) markDirty('dialog');
   }
   function startTyping() { state.typing = true; state.typedText = ''; state.lastTick = 0; srLive.textContent = ''; markDirty('dialog'); }
+
+  function _getNextPhaseBtn() {
+    const currentIdx = PHASES.findIndex(p => p.id === mapManager.currentPhase);
+    if (currentIdx < 0 || currentIdx >= PHASES.length - 1) return null;
+    const nextPhase = PHASES[currentIdx + 1];
+    return document.querySelector(`.phase-btn[data-phase="${nextPhase.id}"]`);
+  }
+
+  function updateNextPhaseBtn() {
+    const isLast = state.idx === state.currentWaypoints.length - 1;
+    const nextPhaseBtn = _getNextPhaseBtn();
+    if (isLast && nextPhaseBtn) {
+      nextPhaseBtn.classList.add('phase-btn--next-available');
+    } else {
+      document.querySelectorAll('.phase-btn--next-available').forEach(el => el.classList.remove('phase-btn--next-available'));
+    }
+  }
 
   function showFullLineOrNext() {
     if (!state.currentWaypoints.length) return;

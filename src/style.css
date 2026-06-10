@@ -2043,3 +2043,40 @@ body:has(#story-intro:not([hidden])) .top-bar {
 @media (prefers-reduced-motion: reduce) {
   .phase-transition-overlay { transition: none; }
 }
+
+/* ========= PHASE BUTTON PULSE (al llegar al último waypoint) ========= */
+.phase-btn--next-available {
+  animation: phase-btn-pulse 2s ease-in-out infinite !important;
+  box-shadow: 0 0 25px rgba(var(--phase-color-rgb, 27, 198, 235), 0.6) !important;
+  border-color: var(--phase-color, #1BC6EB) !important;
+}
+.phase-btn--next-available span {
+  position: relative;
+  z-index: 1;
+}
+.phase-btn--next-available::before {
+  opacity: 0.15 !important;
+}
+
+@keyframes phase-btn-pulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(var(--phase-color-rgb, 27, 198, 235), 0.3);
+    transform: translateY(0);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(var(--phase-color-rgb, 27, 198, 235), 0.8);
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 899px) {
+  .phase-btn--next-available {
+    animation-duration: 1.6s !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phase-btn--next-available {
+    animation: none !important;
+  }
+}
