@@ -1657,10 +1657,14 @@ body:has(#story-intro:not([hidden])) .top-bar {
   100% { background-position: 12px 0, 100% 12px, -12px 100%, 0 -12px; }
 }
 
-/* Announce: borde corre N veces al revelar badges */
+/* Announce: borde + tooltip al revelar badges */
 .overlay-wrap.has-caption.hs-announcing::after {
   opacity: 1;
   animation: hs-dash-march 0.4s linear 2 forwards;
+}
+.overlay-wrap.has-caption.hs-announcing .hs-caption__tooltip {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (hover: none) {
@@ -1675,9 +1679,14 @@ body:has(#story-intro:not([hidden])) .top-bar {
     transform: translateY(0);
     display: block;
   }
-  /* Mobile: mostrar borde solo durante el announce */
+  /* Mobile: borde + tooltip solo durante el announce */
   .overlay-wrap.has-caption.hs-announcing::after {
     display: block;
+  }
+  .overlay-wrap.has-caption.hs-announcing .hs-caption__tooltip {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

@@ -1266,7 +1266,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     _wibTimers.push(id);
 
     // ── Badges ⓘ: anuncio después de que todo el texto y hotspots hayan entrado ──
-    const badgeDelay = BASE_DELAY + 2200; // 600ms después de hotspot animateIn
+    const badgeDelay = BASE_DELAY + 2500; // 1s después del último texto (BASE_DELAY+1500)
     const badgeId = setTimeout(() => {
       const badges = document.querySelectorAll('.hs-caption');
       badges.forEach((el, i) => {
@@ -1279,7 +1279,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
               wrap.classList.remove('hs-announcing');
             }, { once: true });
           }
-        }, i * 180);
+        }, i * 700);
       });
     }, badgeDelay);
     _wibTimers.push(badgeId);
