@@ -1259,7 +1259,16 @@ body.net-slow .drawer {
 
 body.popup-open .top-bar,
 body.popup-open .phase-filter,
-body.popup-open #waypoint-info-box {
+body.popup-open #waypoint-info-box,
+body.popup-open .hamburger,
+body.popup-open .mosca-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Drawer abierto → ocultar hamburger y mosca */
+.hamburger[aria-expanded="true"],
+.hamburger[aria-expanded="true"] + .mosca-btn {
   opacity: 0;
   pointer-events: none;
 }
