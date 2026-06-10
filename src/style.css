@@ -2369,6 +2369,19 @@ body:has(#story-intro:not([hidden])) .top-bar {
   transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
 }
 
+/* Variante secundaria — mismo tamaño, menor énfasis visual */
+.story-brief__btn--ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.story-brief__btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+
 .story-brief__btn:hover {
   background: rgba(255, 255, 255, 0.14);
   border-color: rgba(255, 255, 255, 0.5);
@@ -2407,17 +2420,19 @@ body:has(#story-intro:not([hidden])) .top-bar {
   }
 
   .story-brief__footer {
-    padding: 12px 18px calc(20px + env(safe-area-inset-bottom));
+    padding: 12px 14px calc(20px + env(safe-area-inset-bottom));
+    gap: 6px;
   }
 
   .story-brief__btn {
     text-align: center;
-    padding: 13px 28px;
+    padding: 10px 14px;
+    font-size: 0.8rem;
   }
 
   .story-brief__share-link {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
   }
 }
 

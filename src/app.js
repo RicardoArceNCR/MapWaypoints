@@ -582,18 +582,19 @@ let memoryMonitor = new MemoryMonitor();
     });
   }
 
-  function showBrief({ heading, text, html, skipTypewriter = false, btnLabel } = {}) {
-    const el      = document.getElementById('story-brief');
-    const elTitle = document.getElementById('story-brief-title');
-    const elBody  = document.getElementById('story-brief-body');
-    const btn     = document.getElementById('story-brief-close');
+  function showBrief({ heading, text, html, skipTypewriter = false, showInicio = false } = {}) {
+    const el        = document.getElementById('story-brief');
+    const elTitle   = document.getElementById('story-brief-title');
+    const elBody    = document.getElementById('story-brief-body');
+    const btn       = document.getElementById('story-brief-close');
+    const inicioBtn = document.getElementById('story-brief-inicio');
     if (!el) return;
 
     if (elTitle && heading) {
       const textEl = elTitle.querySelector('.story-brief__heading-text');
       if (textEl) textEl.textContent = heading;
     }
-    if (btn && btnLabel) btn.textContent = btnLabel;
+    if (inicioBtn) inicioBtn.hidden = !showInicio;
 
     // HTML directo — sin typewriter
     if (elBody && html) {
@@ -664,22 +665,34 @@ let memoryMonitor = new MemoryMonitor();
 
   function waitForBrief() {
     return new Promise((resolve) => {
-      const el  = document.getElementById('story-brief');
-      const btn = document.getElementById('story-brief-close');
-      if (!el || !btn) return resolve();
+      const el        = document.getElementById('story-brief');
+      const closeBtn  = document.getElementById('story-brief-close');
+      const inicioBtn = document.getElementById('story-brief-inicio');
+      if (!el || !closeBtn) return resolve();
 
-      function close() {
+      function cleanup() {
         if (typeof el._briefCancel === 'function') el._briefCancel();
         const _body = document.getElementById('story-brief-body');
         if (typeof el._briefSkipClick === 'function' && _body) _body.removeEventListener('click', el._briefSkipClick);
         document.removeEventListener('keydown', onKey);
         document.body.classList.remove('brief-open');
         el.classList.add('is-hiding');
-        if (btn) btn.textContent = 'Entendido';
+      }
+
+      function close() {
+        cleanup();
         setTimeout(() => { el.hidden = true; el.classList.remove('is-hiding'); resolve(); }, 400);
       }
 
-      btn.addEventListener('click', close, { once: true });
+      closeBtn.addEventListener('click', close, { once: true });
+
+      if (inicioBtn && !inicioBtn.hidden) {
+        inicioBtn.addEventListener('click', () => {
+          cleanup();
+          setTimeout(() => location.reload(), 400);
+        }, { once: true });
+      }
+
       function onKey(e) {
         if (e.key === 'Escape') close();
       }
@@ -2090,9 +2103,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           heading: 'Línea de tiempo de las pesquisas',
           html: CLOSING_BRIEF_HTML,
           skipTypewriter: true,
-          btnLabel: '← Inicio'
+          showInicio: true
         });
-        waitForBrief().then(() => location.reload());
+        waitForBrief();
       } else {
         goToWaypoint(state.idx + 1);
       }
@@ -2730,7 +2743,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     function _openAboutBrief() {
       const isLastPhase = !mapManager.getNextPhaseId();
       const briefData = isLastPhase
-        ? { heading: 'Línea de tiempo de las pesquisas', html: CLOSING_BRIEF_HTML, skipTypewriter: true }
+        ? { heading: 'Línea de tiempo de las pesquisas', html: CLOSING_BRIEF_HTML, skipTypewriter: true, showInicio: true }
         : rawStory.brief;
       showBrief(briefData);
       waitForBrief();
