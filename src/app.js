@@ -947,13 +947,27 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
   }
 
+  // Overlay de transición entre fases — creado una vez, reutilizado
+  const phaseOverlay = document.createElement('div');
+  phaseOverlay.className = 'phase-transition-overlay';
+  document.body.appendChild(phaseOverlay);
+
+  async function _fadePhase(fn) {
+    phaseOverlay.classList.add('is-entering');
+    await new Promise(r => setTimeout(r, 350));
+    await fn();
+    phaseOverlay.classList.remove('is-entering');
+  }
+
   async function handlePhaseChange(phaseId, firstMapId) {
-    await loadMap(firstMapId);
-    uiManager.updateMapSelector();
+    await _fadePhase(async () => {
+      await loadMap(firstMapId);
+      uiManager.updateMapSelector();
+    });
   }
 
   async function handleMapChange(mapId) {
-    await loadMap(mapId);
+    await _fadePhase(() => loadMap(mapId));
   }
 
   function goToWaypoint(i) {
@@ -1188,7 +1202,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     // Con intro: mask ya está opaco y empieza a desvanecerse (1.1s).
     // El texto entra cuando el mask ya es casi transparente (~800ms).
     // Sin intro: mask se queda visible 1500ms antes de revelar contenido.
-    const BASE_DELAY = isFirstEntry ? 1500 : (_hadIntro && state.idx === 0 ? 800 : 0);
+    const BASE_DELAY = isFirstEntry ? 1500 : (_hadIntro && state.idx === 0 ? 1400 : 0);
 
     if (isFirstEntry) {
       _triggerRevealMask(1500); // sin intro: mask visible 1500ms
@@ -2582,31 +2596,35 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
       const mapLoadPromise = firstMap ? loadMap(firstMap.id) : Promise.resolve();
       await waitForIntro();
-
-      // Brief aparece tras el intro, mientras el mapa termina de cargar en background
-      if (rawStory?.brief) {
-        showBrief(rawStory.brief);
-        await waitForBrief();
-      }
-
       await mapLoadPromise;
 
-      // Intro (+ brief) terminaron, canvas visible — disparar fade-out del mask
+      // ── Arrancar el RAF aquí para que el canvas se pinte antes del brief ──
+      setCanvasDPR();
+      performanceStats.lastFpsUpdate = performance.now();
+      requestAnimationFrame(loop);
+      document.body.classList.add('overlays-ready');
+
+      // Canvas listo — revelar con fade del mask, luego brief encima del canvas visible
       _hadIntro = true;
       _wibReady = true;
       _revealMaskDone = true; // evitar que updateWaypointInfoBox lo vuelva a disparar
       if (maskEl) {
-        // Pequeño delay para que el usuario vea el mapa con el mask un instante
         setTimeout(() => {
           maskEl.classList.add('is-fading');
           maskEl.addEventListener('transitionend', () => {
             maskEl.style.display = 'none';
             maskEl.style.willChange = 'auto';
           }, { once: true });
-        }, 200);
+        }, 150);
       }
 
-      // Disparar animación del texto
+      // Brief aparece sobre el canvas ya visible y pintado (su backdrop lo oscurece)
+      if (rawStory?.brief) {
+        showBrief(rawStory.brief);
+        await waitForBrief();
+      }
+
+      // Disparar animación del texto (BASE_DELAY=1400 da margen al cierre del brief)
       const wp = state.currentWaypoints[state.idx];
       if (wp) updateWaypointInfoBox(wp);
 
@@ -2619,23 +2637,29 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         });
       }, 1200);
     } else {
+      // Crear el mask ANTES de loadMap — estará opaco cuando el canvas se pinte por primera vez
+      const maskElNoIntro = _getOrCreateRevealMask();
+      if (maskElNoIntro) maskElNoIntro.style.display = 'block';
+
       if (firstMap) await loadMap(firstMap.id);
-      // Brief aparece antes de iniciar el canvas — animaciones aún bloqueadas
+
+      // ── Arrancar el RAF antes del brief: canvas pintado mientras el usuario lee ──
+      setCanvasDPR();
+      performanceStats.lastFpsUpdate = performance.now();
+      requestAnimationFrame(loop);
+      document.body.classList.add('overlays-ready');
+
+      // Brief aparece encima del canvas ya pintado (su backdrop semitransparente lo oscurece)
       if (rawStory?.brief) {
         showBrief(rawStory.brief);
         await waitForBrief();
       }
+
       // Habilitar animaciones solo después de que el brief se cerró
       _wibReady = true;
       const wp = state.currentWaypoints[state.idx];
       if (wp) updateWaypointInfoBox(wp);
     }
-
-    setCanvasDPR();
-
-    performanceStats.lastFpsUpdate = performance.now();
-    requestAnimationFrame(loop);
-    document.body.classList.add('overlays-ready');
   })();
 
 
