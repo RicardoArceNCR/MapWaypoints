@@ -1497,6 +1497,12 @@ body.brief-open .phase-filter {
   transition: opacity 0.2s ease;
 }
 
+body.brief-open #mapa-canvas,
+body.brief-open #overlay-layer,
+body.brief-open #editor-layer {
+  pointer-events: none;
+}
+
 @media (max-width: 799px) {
   body.brief-open .top-bar,
   body.brief-open .phase-filter {
