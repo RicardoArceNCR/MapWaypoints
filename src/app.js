@@ -2288,6 +2288,16 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     wrap.addEventListener('pointerleave', () => { swipe = null; }, { passive: true });
   })();
 
+  // ========= BADGE ANNOUNCE — cancelar con cualquier acción =========
+  function _cancelBadgeAnnounce() {
+    window._badgeAnnounceCancelled = true;
+    document.querySelectorAll('.overlay-wrap.hs-announcing')
+      .forEach(el => el.classList.remove('hs-announcing'));
+  }
+  // pointerdown cubre click de mouse Y tap de touch en un solo evento
+  wrap.addEventListener('pointerdown', _cancelBadgeAnnounce, { passive: true });
+  document.addEventListener('keydown', _cancelBadgeAnnounce, { passive: true });
+
   function clientToMapCoords(cx, cy) {
     if (!mapManager.currentMap) return { x: 0, y: 0 };
     const rect = canvas.getBoundingClientRect();
