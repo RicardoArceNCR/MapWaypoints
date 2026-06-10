@@ -2631,6 +2631,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   });
 
   // ========= DRAWER =========
+  // ── Home button → reload al intro ──
+  document.getElementById('home-btn')?.addEventListener('click', () => location.reload());
+
   const hamburger = document.querySelector('.hamburger');
   const drawerBackdrop = document.querySelector('.drawer-backdrop');
   const drawerClose = document.getElementById('menu-puntos').querySelector('.drawer__close');

@@ -73,6 +73,13 @@
   <!-- <a class="skip-link" href="#main-content">.</a> -->
 
   <header class="top-bar" role="banner">
+    <!-- Botón Home — fuera del phase-filter para que UIManager no lo borre -->
+    <button class="home-btn" id="home-btn" aria-label="Volver al inicio" title="Inicio">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 12L12 3l9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M5 10v9a1 1 0 001 1h4v-4h4v4h4a1 1 0 001-1v-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
     <!-- Filtro de fases (Desktop) -->
     <div class="phase-filter" id="phase-filter" role="group" aria-label="Filtro de fases"></div>
 

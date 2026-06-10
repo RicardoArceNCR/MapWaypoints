@@ -165,10 +165,11 @@ body {
   background: rgba(0, 0, 0, 0.85);
   min-height: 63px;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-end;
-  padding: 16px 16px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -247,17 +248,11 @@ body {
 
 /* ========= FILTRO DE FASES (Desktop y Mobile) ========= */
 .phase-filter {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 35;
   display: flex;
   justify-content: center;
   gap: 8px;
-  padding: 10px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 100%);
-  backdrop-filter: blur(8px);
+  flex: 1;
+  z-index: 35;
 }
 
 
@@ -297,6 +292,47 @@ body {
   }
 }
 
+/* ========= HOME BUTTON ========= */
+.home-btn {
+  align-self: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: rgba(20, 20, 20, 0.85);
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-btn:hover {
+  background: rgba(40, 40, 40, 0.95);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.home-btn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 520px) {
+  .home-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+  }
+  .home-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
 .phase-btn::before {
   content: '';
   position: absolute;
@@ -332,7 +368,7 @@ body {
 /* ========= BOTÓN SOBRE ESTA RECONSTRUCCIÓN (Mobile) ========= */
 .about-btn {
   position: fixed;
-  bottom: 160px;
+  bottom: 195px;
   right: 16px;
   z-index: 10000;
   width: 48px;
