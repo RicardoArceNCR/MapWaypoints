@@ -332,7 +332,7 @@ body {
 /* ========= BOTÓN SOBRE ESTA RECONSTRUCCIÓN (Mobile) ========= */
 .about-btn {
   position: fixed;
-  bottom: 195px;
+  bottom: 160px;
   right: 16px;
   z-index: 10000;
   width: 48px;
@@ -359,9 +359,15 @@ body {
   transform: scale(0.95);
 }
 
-@media (min-width: 900px) {
-  .about-btn {
+@media (max-width: 899px) {
+  .about-btn--desktop {
     display: none !important;
+  }
+}
+
+@media (min-width: 900px) {
+  .about-btn:not(.about-btn--desktop) {
+    display: none;
   }
 }
 
