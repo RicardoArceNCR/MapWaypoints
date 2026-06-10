@@ -1118,29 +1118,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const _isLastWp = i === state.currentWaypoints.length - 1;
     uiManager.setNextPhaseHint(_isLastWp, mapManager.getNextPhaseId());
 
-    // 📍 Badges ⓘ: ocultar ya, revelar cuando termina la transición de cámara
+    // 📍 Badges ⓘ: ocultar ahora, updateWaypointInfoBox los revela al final de la secuencia
     document.querySelectorAll('.hs-caption').forEach(el => el.classList.add('hs-caption--hidden'));
-    clearTimeout(goToWaypoint._badgeTimer);
-    const camDuration = GLOBAL_CONFIG.CAMERA_EFFECTS.transitionEnabled
-      ? (isMobile && GLOBAL_CONFIG.CAMERA_EFFECTS.transitionDurationMobile
-          ? GLOBAL_CONFIG.CAMERA_EFFECTS.transitionDurationMobile
-          : GLOBAL_CONFIG.CAMERA_EFFECTS.transitionDuration)
-      : 0;
-    goToWaypoint._badgeTimer = setTimeout(() => {
-      const badges = document.querySelectorAll('.hs-caption');
-      badges.forEach((el, i) => {
-        setTimeout(() => {
-          el.classList.remove('hs-caption--hidden');
-          const wrap = el.closest('.overlay-wrap');
-          if (wrap) {
-            wrap.classList.add('hs-announcing');
-            wrap.addEventListener('animationend', () => {
-              wrap.classList.remove('hs-announcing');
-            }, { once: true });
-          }
-        }, i * 180);
-      });
-    }, camDuration + 1100); // fin de cámara + 1s extra
   }
 
   // ========= 📌 WAYPOINT INFO BOX =========
@@ -1285,6 +1264,25 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       _hadIntro = false;
     }, hsDelay);
     _wibTimers.push(id);
+
+    // ── Badges ⓘ: anuncio después de que todo el texto y hotspots hayan entrado ──
+    const badgeDelay = BASE_DELAY + 2200; // 600ms después de hotspot animateIn
+    const badgeId = setTimeout(() => {
+      const badges = document.querySelectorAll('.hs-caption');
+      badges.forEach((el, i) => {
+        setTimeout(() => {
+          el.classList.remove('hs-caption--hidden');
+          const wrap = el.closest('.overlay-wrap');
+          if (wrap) {
+            wrap.classList.add('hs-announcing');
+            wrap.addEventListener('animationend', () => {
+              wrap.classList.remove('hs-announcing');
+            }, { once: true });
+          }
+        }, i * 180);
+      });
+    }, badgeDelay);
+    _wibTimers.push(badgeId);
   }
 
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
@@ -2728,24 +2726,6 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       // Disparar animación del texto (BASE_DELAY=1400 da margen al fade del mask)
       const wp = state.currentWaypoints[state.idx];
       if (wp) updateWaypointInfoBox(wp);
-
-      // 📍 Badges ⓘ: el timer de goToWaypoint ya expiró durante el intro — refrescar
-      clearTimeout(goToWaypoint._badgeTimer);
-      goToWaypoint._badgeTimer = setTimeout(() => {
-        const badges = document.querySelectorAll('.hs-caption');
-        badges.forEach((el, i) => {
-          setTimeout(() => {
-            el.classList.remove('hs-caption--hidden');
-            const wrap = el.closest('.overlay-wrap');
-            if (wrap) {
-              wrap.classList.add('hs-announcing');
-              wrap.addEventListener('animationend', () => {
-                wrap.classList.remove('hs-announcing');
-              }, { once: true });
-            }
-          }, i * 180);
-        });
-      }, 1200);
     } else {
       // Crear el mask ANTES de loadMap — estará opaco cuando el canvas se pinte por primera vez
       const maskElNoIntro = _getOrCreateRevealMask();
@@ -2769,24 +2749,6 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       _wibReady = true;
       const wp = state.currentWaypoints[state.idx];
       if (wp) updateWaypointInfoBox(wp);
-
-      // 📍 Badges ⓘ: refrescar timer después del brief (igual que rama con intro)
-      clearTimeout(goToWaypoint._badgeTimer);
-      goToWaypoint._badgeTimer = setTimeout(() => {
-        const badges = document.querySelectorAll('.hs-caption');
-        badges.forEach((el, i) => {
-          setTimeout(() => {
-            el.classList.remove('hs-caption--hidden');
-            const wrap = el.closest('.overlay-wrap');
-            if (wrap) {
-              wrap.classList.add('hs-announcing');
-              wrap.addEventListener('animationend', () => {
-                wrap.classList.remove('hs-announcing');
-              }, { once: true });
-            }
-          }, i * 180);
-        });
-      }, 1200);
     }
   })();
 
