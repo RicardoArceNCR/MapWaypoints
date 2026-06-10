@@ -1265,13 +1265,19 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }, hsDelay);
     _wibTimers.push(id);
 
-    // ── Badges ⓘ: anuncio después de que todo el texto y hotspots hayan entrado ──
+    // ── Badges ⓘ: iconos aparecen después de textos y hotspots ──
+    const iconDelay = BASE_DELAY + 2200; // después de hotspots (1600)
+    const iconId = setTimeout(() => {
+      document.querySelectorAll('.hs-caption').forEach(el => el.classList.remove('hs-caption--hidden'));
+    }, iconDelay);
+    _wibTimers.push(iconId);
+
+    // ── Badges ⓘ: auto-play announce secuencial después de que los iconos ya son visibles ──
     const badgeDelay = BASE_DELAY + 4500; // 3s después del último texto (BASE_DELAY+1500)
     const badgeId = setTimeout(() => {
       const badges = document.querySelectorAll('.hs-caption');
       badges.forEach((el, i) => {
         setTimeout(() => {
-          el.classList.remove('hs-caption--hidden');
           const wrap = el.closest('.overlay-wrap');
           if (wrap) {
             wrap.classList.add('hs-announcing');
