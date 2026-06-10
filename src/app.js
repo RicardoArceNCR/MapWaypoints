@@ -1077,6 +1077,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     markDirty('camera', 'elements', 'dialog', 'minimap');
     updateNextPhaseBtn();
 
+    const _isLastWp = i === state.currentWaypoints.length - 1;
+    uiManager.setNextPhaseHint(_isLastWp, mapManager.getNextPhaseId());
+
     // 📍 Badges ⓘ: ocultar ya, revelar cuando termina la transición de cámara
     document.querySelectorAll('.hs-caption').forEach(el => el.classList.add('hs-caption--hidden'));
     clearTimeout(goToWaypoint._badgeTimer);
@@ -2006,15 +2009,24 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   function showFullLineOrNext() {
     if (!state.currentWaypoints.length) return;
     const wp = state.currentWaypoints[state.idx];
-    if (!GLOBAL_CONFIG.SHOW_DIALOGS) {
-      if (state.idx < state.currentWaypoints.length - 1) { goToWaypoint(state.idx + 1); }
-      else { goToWaypoint(0); }
-      return;
+    const isLastWp = state.idx === state.currentWaypoints.length - 1;
+
+    function advanceOrLoop() {
+      const nextPhaseId = mapManager.getNextPhaseId();
+      if (isLastWp && nextPhaseId) {
+        uiManager.selectPhase(nextPhaseId);
+      } else if (isLastWp) {
+        goToWaypoint(0);
+      } else {
+        goToWaypoint(state.idx + 1);
+      }
     }
+
+    if (!GLOBAL_CONFIG.SHOW_DIALOGS) { advanceOrLoop(); return; }
     const full = (wp.lines && wp.lines[state.lineIndex]) || '';
     if (state.typing) { state.typing = false; state.typedText = full; srLive.textContent = full; markDirty('dialog'); return; }
     if (state.lineIndex < (wp.lines ? wp.lines.length - 1 : -1)) { state.lineIndex++; startTyping(); return; }
-    if (state.idx < state.currentWaypoints.length - 1) { goToWaypoint(state.idx + 1); } else { goToWaypoint(0); }
+    advanceOrLoop();
   }
   function prev() {
     if (!state.currentWaypoints.length) return;

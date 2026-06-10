@@ -566,6 +566,12 @@ export class MapManager {
     return true;
   }
 
+  // ========= 🔄 OBTENER ID DE LA SIGUIENTE FASE =========
+  getNextPhaseId() {
+    const idx = PHASES.findIndex(p => p.id === this.currentPhase);
+    return PHASES[idx + 1]?.id ?? null;
+  }
+
   // ========= ⚠️ MANTENER LÓGICA ORIGINAL - NO MODIFICAR =========
   getCurrentPhaseMaps() {
     const phase = PHASES.find(p => p.id === this.currentPhase);

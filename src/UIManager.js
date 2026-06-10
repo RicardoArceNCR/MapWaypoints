@@ -102,6 +102,14 @@ export class UIManager {
     });
   }
 
+  // ========= HINT DE SIGUIENTE FASE =========
+  setNextPhaseHint(show, nextPhaseId) {
+    this.phaseFilter.querySelectorAll('.phase-btn').forEach(btn => {
+      const isNext = nextPhaseId && btn.dataset.phase === nextPhaseId;
+      btn.classList.toggle('is-hinting', !!(show && isNext));
+    });
+  }
+
   // ========= ACCESIBILIDAD: FOCUS EN EL DRAWER =========
   setDrawerFocusEnabled(enabled) {
     if (!this.drawer) return;

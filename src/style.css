@@ -2080,3 +2080,36 @@ body:has(#story-intro:not([hidden])) .top-bar {
     animation: none !important;
   }
 }
+
+/* ========= PHASE BUTTON HINT (sweep conic gradient) ========= */
+.phase-btn.is-hinting {
+  position: relative;
+  overflow: hidden;
+}
+.phase-btn.is-hinting::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(var(--phase-color-rgb, 27, 198, 235), 0.12) 30%,
+    rgba(var(--phase-color-rgb, 27, 198, 235), 0.25) 50%,
+    rgba(var(--phase-color-rgb, 27, 198, 235), 0.12) 70%,
+    transparent
+  );
+  animation: hint-sweep 2.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes hint-sweep {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phase-btn.is-hinting::after {
+    animation: none;
+    opacity: 0.08;
+  }
+}
