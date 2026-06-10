@@ -1660,7 +1660,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 /* Announce: borde + tooltip al revelar badges */
 .overlay-wrap.has-caption.hs-announcing::after {
   opacity: 1;
-  animation: hs-dash-march 0.4s linear 2 forwards;
+  animation: hs-dash-march 0.4s linear 5 forwards; /* 5 × 0.4s = 2s */
 }
 .overlay-wrap.has-caption.hs-announcing .hs-caption__tooltip {
   opacity: 1;
