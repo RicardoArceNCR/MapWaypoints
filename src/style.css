@@ -1256,10 +1256,12 @@ body:has(#story-intro:not([hidden])) .top-bar {
   inset: 0;
   z-index: 200;
   background: #000;
-  display: flex;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
   align-items: center;
-  justify-content: center;
+  justify-items: center;
   text-align: center;
+  padding: 32px 24px 24px;
   transition: opacity 0.7s ease;
 }
 
@@ -1269,12 +1271,15 @@ body:has(#story-intro:not([hidden])) .top-bar {
 }
 
 .story-intro__content {
+  grid-row: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 28px;
-  padding: 32px 24px;
+  padding: 16px 0;
   max-width: 640px;
+  width: 100%;
 }
 
 /* --- Entradas escalonadas lentas --- */
@@ -1442,12 +1447,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
 /* Logo */
 .story-intro__logo-wrap {
-  position: absolute;
-  top: 32px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
+  grid-row: 1;
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1475,16 +1475,52 @@ body:has(#story-intro:not([hidden])) .top-bar {
   opacity: 0.7;
 }
 
+/* Compartir en redes */
+.story-intro__share {
+  grid-row: 3;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 0 8px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.story-intro__share.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.story-intro__share-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.story-intro__share-link:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: scale(1.08);
+}
+
+.story-intro__share-link svg {
+  width: 24px;
+  height: 24px;
+}
+
 /* Copyright */
 .story-intro__copyright {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-  padding: 0 5%;
+  grid-row: 4;
+  padding: 0;
   margin: 0;
   text-align: center;
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.2);
   white-space: normal;
@@ -1524,6 +1560,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   }
 
   .story-intro__logo-wrap,
+  .story-intro__share,
   .story-intro__copyright {
     opacity: 1;
     transform: none;
@@ -1927,13 +1964,39 @@ body:has(#story-intro:not([hidden])) .top-bar {
 .story-brief__heading {
   margin: 0;
   padding: 18px 24px 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.story-brief__heading-text {
   font-size: clamp(0.78rem, 2vw, 0.85rem);
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.38);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.story-brief__heading-logo {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.story-brief__heading-logo-img {
+  height: 18px;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 520px) {
+  .story-brief__heading-logo-img {
+    content: url('/assets/mosca-r.webp');
+    height: 14px;
+  }
 }
 
 .story-brief__body {

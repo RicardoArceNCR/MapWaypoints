@@ -524,10 +524,11 @@ let memoryMonitor = new MemoryMonitor();
     const elBtn = document.getElementById('intro-btn');
     const elLogo = document.querySelector('.story-intro__logo-wrap');
     const elCopy = document.querySelector('.story-intro__copyright');
+    const elShare = document.querySelector('.story-intro__share');
     if (!el) return;
 
     // Reset clases por si se reutiliza
-    [elSub, elBtn, elLogo, elCopy].forEach(el =>
+    [elSub, elBtn, elLogo, elCopy, elShare].forEach(el =>
       el?.classList.remove('is-visible', 'btn-ready')
     );
     elTitle?.classList.remove('tw-done');
@@ -563,7 +564,9 @@ let memoryMonitor = new MemoryMonitor();
     // 4. Botón
     setTimeout(() => elBtn?.classList.add('is-visible'), TW_START_DELAY + totalTime + 900);
     setTimeout(() => elBtn?.classList.add('btn-ready'), TW_START_DELAY + totalTime + 2000);
-    // 5. Copyright — al final de todo
+    // 5. Compartir en redes — junto con copyright
+    setTimeout(() => elShare?.classList.add('is-visible'), TW_START_DELAY + totalTime + 1400);
+    // 6. Copyright — al final de todo
     setTimeout(() => elCopy?.classList.add('is-visible'), TW_START_DELAY + totalTime + 1400);
   }
 
@@ -586,7 +589,10 @@ let memoryMonitor = new MemoryMonitor();
     const btn     = document.getElementById('story-brief-close');
     if (!el) return;
 
-    if (elTitle && heading) elTitle.textContent = heading;
+    if (elTitle && heading) {
+      const textEl = elTitle.querySelector('.story-brief__heading-text');
+      if (textEl) textEl.textContent = heading;
+    }
     if (btn && btnLabel) btn.textContent = btnLabel;
 
     // HTML directo — sin typewriter
