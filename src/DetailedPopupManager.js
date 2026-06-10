@@ -24,6 +24,7 @@ export class DetailedPopupManager {
     this.popupDetailedEchos = document.getElementById('popup-detailed-echos');
     this.popupDetailedEchosSection = document.getElementById('popup-detailed-echos-section');
     this.popupDetailedEchosTitle = document.getElementById('popup-detailed-echos-title');
+    this.popupDetailedScrollClose = document.getElementById('popup-detailed-scroll-close');
     
     // Backdrop compartido
     this.backdrop = document.getElementById('popup-backdrop');
@@ -47,6 +48,7 @@ export class DetailedPopupManager {
     // Cerrar popups
     this.popupSimpleClose?.addEventListener('click', () => this.closeAll());
     this.popupDetailedClose?.addEventListener('click', () => this.closeAll());
+    this.popupDetailedScrollClose?.addEventListener('click', () => this.closeAll());
     
     // Cerrar solo si el click fue directamente en el fondo,
     // no dentro de la tarjeta
@@ -303,6 +305,7 @@ export class DetailedPopupManager {
       this.popupDetailed.classList.add('popup--visible');
       this.backdrop.classList.add('popup-backdrop--visible');
       document.body.classList.add('popup-open');
+      this._updateScrollCloseButton();
     });
     
     // Resetear scroll del contenido
@@ -351,6 +354,7 @@ export class DetailedPopupManager {
       
       this.popupDetailedInvolved.appendChild(personEl);
     });
+    this._updateScrollCloseButton();
   }
   
   /**
@@ -423,8 +427,20 @@ export class DetailedPopupManager {
     });
     
     this.popupDetailedEchosSection.hidden = false;
+    this._updateScrollCloseButton();
   }
   
+  /**
+   * Muestra/oculta el botón de cerrar al final del scroll
+   * según si el contenido necesita scroll o no
+   */
+  _updateScrollCloseButton() {
+    const content = this.popupDetailed?.querySelector('.popup-detailed__content');
+    if (!content || !this.popupDetailedScrollClose) return;
+    const needsScroll = content.scrollHeight > content.clientHeight + 1;
+    this.popupDetailedScrollClose.hidden = !needsScroll;
+  }
+
   /**
    * Cierra todos los popups
    */

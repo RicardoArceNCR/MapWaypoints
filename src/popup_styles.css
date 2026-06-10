@@ -610,6 +610,36 @@
   line-height: 1.6;
 }
 
+/* Botón de cerrar al final del scroll */
+.popup-detailed__scroll-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 28px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.popup-detailed__scroll-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.popup-detailed__scroll-close:active {
+  transform: scale(0.98);
+}
+
 /* Estados de carga */
 .popup-detailed__loading {
   display: flex;
