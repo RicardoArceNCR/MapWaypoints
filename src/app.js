@@ -592,9 +592,9 @@ let memoryMonitor = new MemoryMonitor();
     // HTML directo — sin typewriter
     if (elBody && html) {
       elBody.innerHTML = html;
-      elBody.scrollTop = 0; // reset scroll para que el texto empiece desde el inicio
       document.body.classList.add('brief-open');
       el.hidden = false;
+      elBody.scrollTop = 0; // reset scroll después de mostrar el elemento
       if (btn) setTimeout(() => btn.focus(), 80);
       return;
     }

@@ -2033,7 +2033,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
   .story-brief__panel {
     border-radius: 18px 18px 0 0;  /* solo esquinas superiores */
-    max-height: 92vh;              /* casi toda la pantalla */
+    max-height: 100dvh;            /* toda la pantalla */
     width: 100%;
     margin: 0;
     transform: translateY(24px);  /* entra desde abajo */
