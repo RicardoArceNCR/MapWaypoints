@@ -2712,6 +2712,16 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     // ── INTRO: mostrar si la story lo define ──
     const rawStory = mapManager._lastLoadedStory;
+
+    // ── Botón "Sobre esta reconstrucción" ──
+    const _aboutBtn = document.getElementById('about-btn');
+    if (_aboutBtn && rawStory?.brief) {
+      _aboutBtn.hidden = false;
+      _aboutBtn.addEventListener('click', () => {
+        showBrief(rawStory.brief);
+        waitForBrief();
+      });
+    }
     if (rawStory?.intro && !appConfig.toggles.nointro) {
       showIntro(rawStory.intro);
       // Crear el mask YA mientras el intro está visible,

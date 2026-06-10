@@ -329,6 +329,49 @@ body {
   opacity: 1;
 }
 
+/* ========= BOTÓN SOBRE ESTA RECONSTRUCCIÓN (Mobile) ========= */
+.about-btn {
+  position: fixed;
+  bottom: 195px;
+  right: 16px;
+  z-index: 10000;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.75);
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.2s ease, opacity 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.about-btn:active {
+  transform: scale(0.95);
+}
+
+@media (min-width: 900px) {
+  .about-btn {
+    display: none !important;
+  }
+}
+
+body.popup-open .about-btn,
+body.brief-open .about-btn,
+body:has(.drawer--open) .about-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* ========= HAMBURGUESA (Mobile) ========= */
 .hamburger {
   position: fixed;
