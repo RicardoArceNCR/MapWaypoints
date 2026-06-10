@@ -572,6 +572,12 @@ export class MapManager {
     return PHASES[idx + 1]?.id ?? null;
   }
 
+  // ========= 🔄 OBTENER ID DE LA FASE ANTERIOR =========
+  getPrevPhaseId() {
+    const idx = PHASES.findIndex(p => p.id === this.currentPhase);
+    return idx > 0 ? PHASES[idx - 1]?.id ?? null : null;
+  }
+
   // ========= ⚠️ MANTENER LÓGICA ORIGINAL - NO MODIFICAR =========
   getCurrentPhaseMaps() {
     const phase = PHASES.find(p => p.id === this.currentPhase);

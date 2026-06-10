@@ -158,9 +158,11 @@ Maneja la carga de historias, mapas e imágenes con caché inteligente.
 **Métodos principales:**
 ```js
 mapManager.loadStory(url)                      // Carga story.json
-mapManager.loadMap(mapId, { setAsCurrent })    // Fetch lazy. Pasar { setAsCurrent: false } en preloads.
+mapManager.loadMap(mapId, { setAsCurrent }, goToLast) // Fetch lazy. goToLast=true va al último waypoint.
 mapManager.getCurrentPhaseMaps()               // Retorna mapas de la fase activa
 mapManager.setPhase(phaseId)                   // Cambia fase y pre-carga la siguiente
+mapManager.getNextPhaseId()                    // ID de la fase siguiente (null si es la última)
+mapManager.getPrevPhaseId()                    // ID de la fase anterior (null si es la primera)
 ```
 
 **⚠️ CRÍTICO:** `preloadPhase()` debe pasar `{ setAsCurrent: false }` al llamar `loadMap()`. Sin esto, si F3 termina de precargarse mientras el usuario está en F2, el RAF usa `logicalH=3815` para dibujar F2 — deformación visual. (Ver sección Bugs resueltos)
@@ -207,6 +209,12 @@ Sistema de popups modales con estructura detallada: imagen principal, fecha/hora
 
 ### `UIManager.js` — Interfaz de usuario
 Renderiza el filtro de fases (botones superiores), el selector de mapas, el drawer lateral mobile y los puntos de progreso.
+
+**Métodos clave:**
+```js
+uiManager.selectPhase(phaseId, goToLast=false) // Cambia fase; goToLast=true va al último waypoint
+uiManager.setNextPhaseHint(show, nextPhaseId)  // Activa/desactiva animación hint en botón de siguiente fase
+```
 
 ### `editor.js` — Editor visual
 Herramienta de desarrollo para posicionar hotspots y overlays visualmente. Se carga **solo** con `?editor=1` — no afecta el bundle de producción.
@@ -720,6 +728,10 @@ F2 tenía `logicalH: 1773` cuando la imagen real mide 2049px (13% de error). F1 
 - [x] ~~Imagen mobile propia para fase 2~~ — `f2-mapa-mobile-x2.webp` (1400×1650)
 - [x] ~~Fix race condition cambio de fase~~ — transición en vuelo + preload sobreescribiendo currentMap (Junio 2026)
 - [x] ~~Fix logicalH incorrecto~~ — F1: 2050→2049, F2: 1773→2049 verificados con `identify` (Junio 2026)
+- [x] ~~Transiciones entre fases~~ — fade negro con `.phase-transition-overlay` (Junio 2026)
+- [x] ~~Navegación continua entre fases~~ — siguiente en último waypoint avanza fase, atrás en waypoint 0 regresa a última fase anterior (Junio 2026)
+- [x] ~~Brief de cierre~~ — popup con línea de tiempo al terminar última fase, botón "← Inicio" recarga la app (Junio 2026)
+- [x] ~~Minimap desactivado~~ — `SHOW_MINIMAP: false` en config.js (Junio 2026)
 
 ### Corto plazo
 - [x] ~~Waypoint Info Box~~ — Caja flotante `position: absolute; top: 0` que muestra `label` y `lines[0]` del waypoint activo. Se actualiza en `goToWaypoint()`. No empuja el layout. (Mayo 2026)
@@ -735,4 +747,59 @@ F2 tenía `logicalH: 1773` cuando la imagen real mide 2049px (13% de error). F1 
 ### Futuro
 - [ ] Web Component `<mapa-interactivo>` para distribución sin iframe
 - [ ] Panel de administración para editar historias sin tocar JSON
-- [ ] Audio/narración sincronizada con waypoints# deploy test
+- [ ] Audio/narración sincronizada con waypoints
+
+---
+
+## 18. Sistema de navegación entre fases (Junio 2026)
+
+### Flujo completo
+
+```
+Fase 1, waypoint 0 → ... → Fase 1, waypoint N (último)
+  ↓ click "siguiente"
+  → uiManager.selectPhase('fase2')
+  → _fadePhase(): pantalla negra 550ms → loadMap(mapa_f2, goToLast=false) → fade out
+  → Fase 2, waypoint 0
+
+Fase 2, waypoint 0
+  ↓ click "anterior"
+  → mapManager.getPrevPhaseId() → 'fase1'
+  → uiManager.selectPhase('fase1', goToLast=true)
+  → _fadePhase(): pantalla negra → loadMap(mapa_f1, goToLast=true)
+  → goToWaypoint(waypoints.length - 1)
+  → Fase 1, último waypoint
+
+Fase 3, último waypoint
+  ↓ click "siguiente"
+  → mapManager.getNextPhaseId() → null (última fase)
+  → showBrief({ html: CLOSING_BRIEF_HTML, btnLabel: '← Inicio' })
+  ↓ click "← Inicio"
+  → location.reload() → intro
+```
+
+### Hint visual en botón de siguiente fase
+
+Al llegar al último waypoint de una fase, el botón de la siguiente fase recibe `.is-hinting`:
+- `::after` con `conic-gradient` rotando (2.2s, compositor GPU)
+- Se desactiva al navegar hacia atrás (ya no es el último waypoint)
+- En la última fase no aparece nada (`getNextPhaseId()` devuelve `null`)
+- Respeta `prefers-reduced-motion` con glow estático
+
+### Brief de cierre
+
+`CLOSING_BRIEF_HTML` es una constante en `app.js` con la línea de tiempo de las pesquisas en HTML. Para actualizar el contenido editorial buscar `const CLOSING_BRIEF_HTML` en `app.js`.
+
+### Transición `_fadePhase()`
+
+```js
+// Implementación en app.js
+async function _fadePhase(fn) {
+  phaseOverlay.classList.add('is-entering');   // fade a negro (0.55s)
+  await new Promise(r => setTimeout(r, 550));
+  await fn();                                   // carga el mapa
+  phaseOverlay.classList.remove('is-entering'); // fade out del negro
+}
+```
+
+El overlay `.phase-transition-overlay` tiene `z-index: 150` — sobre canvas y overlays DOM, bajo intro (200) y brief (210).

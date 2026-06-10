@@ -163,12 +163,12 @@ body {
   right: 0;
   z-index: 9999;
   background: rgba(0, 0, 0, 0.85);
-  min-height: 52px;
+  min-height: 63px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-end;
-  padding: 8px 16px;
+  padding: 16px 16px;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -2006,15 +2006,22 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
 @media (max-width: 520px) {
   .story-brief {
-    padding: 32px 12px 12px;
-    align-items: flex-start;
-    background: rgba(0, 0, 0, 0.35);
+    padding: 0;
+    align-items: stretch;
+    justify-content: flex-end; /* panel sube desde abajo como sheet */
+    background: rgba(0, 0, 0, 0.55);
   }
 
   .story-brief__panel {
-    border-radius: 18px;
-    max-height: 82vh;
+    border-radius: 18px 18px 0 0;  /* solo esquinas superiores */
+    max-height: 92vh;              /* casi toda la pantalla */
     width: 100%;
+    margin: 0;
+    transform: translateY(24px);  /* entra desde abajo */
+  }
+
+  .story-brief:not([hidden]) .story-brief__panel {
+    transform: translateY(0);
   }
 
   .story-brief__heading {
@@ -2026,7 +2033,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   }
 
   .story-brief__footer {
-    padding: 12px 18px 20px;
+    padding: 12px 18px calc(20px + env(safe-area-inset-bottom));
     justify-content: stretch;
   }
 

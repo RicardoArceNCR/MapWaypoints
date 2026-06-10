@@ -44,7 +44,7 @@ export class UIManager {
     });
   }
 
-  async selectPhase(phaseId) {
+  async selectPhase(phaseId, goToLast = false) {
     if (!this.mapManager.setPhase(phaseId)) return;
 
     // Actualizar UI
@@ -58,7 +58,7 @@ export class UIManager {
     // Cargar primer mapa de la fase
     const maps = this.mapManager.getCurrentPhaseMaps();
     if (maps.length > 0) {
-      await this.onPhaseChange(phaseId, maps[0].id);
+      await this.onPhaseChange(phaseId, maps[0].id, goToLast);
     }
   }
 

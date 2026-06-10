@@ -574,6 +574,9 @@ Si no hay historia (fallback default):
 | Agregar handlers de resize sin guard de popup | `handleResize`, `ResizeObserver` y `visualViewport.resize` deben retornar si `popupManager?.isOpen()` — la scrollbar del body al abrir/cerrar popup dispara resize falsos |
 | Usar `:hover` en `.overlay-wrap.has-caption` para el badge ⓘ | Usar `:has(.hs-caption__badge:hover)` — el wrap tiene `pointer-events: none` |
 | Asumir que `noPopup: true` en `icons.json` es suficiente para bloquear el popup | El canvas tiene su propio hit-test en `app.js` que llama `openPopup()` directamente — ese path también necesita el guard `if (item.noPopup) return` |
+| Llamar `goToWaypoint(0)` directamente al cambiar de fase con `goToLast=true` | Pasar `goToLast` a `loadMap()` — `loadMap` llama `goToWaypoint` internamente; hacerlo después pisa el índice |
+| Agregar `classList.add('is-fading')` sin `offsetHeight` previo en mobile | Forzar reflow con `el.offsetHeight` antes de agregar la clase — sin reflow el browser colapsa la transición en un solo frame |
+| Omitir `el.classList.remove('is-hiding')` al cerrar el brief | La clase `is-hiding` tiene `opacity:0` — si queda pegada, el siguiente `el.hidden=false` muestra el panel invisible |
 
 ---
 
@@ -652,6 +655,18 @@ git add . && git commit -m "descripción" && git push
 - Race condition en cambio de fase: transición en vuelo cancelada con `transitionState.active = false` + `preloadPhase()` con `{ setAsCurrent: false }` — verificado con Playwright
 - Dimensiones `logicalH` corregidas: F1 `2050→2049`, F2 `1773→2049` (verificadas con `identify`)
 - Glitch al cerrar popup: `setCanvasDPR()` + `markDirty()` eliminados de `closeAll()` (eran no-op con `overflow:hidden` permanente)
+
+**UX de navegación entre fases (Junio 2026):**
+
+- **Transición con fade negro** — `_fadePhase()` con overlay `.phase-transition-overlay` (CSS `opacity 0.55s`, z-index 150). El mapa carga mientras la pantalla está negra. Aplicado en `handlePhaseChange` y `handleMapChange`.
+- **Secuencia intro → canvas → brief reordenada** — el RAF arranca y el mask del canvas se retira *antes* de mostrar el brief. El brief aparece encima del canvas ya pintado. `offsetHeight` forzado antes de `classList.add('is-fading')` para garantizar la transición en mobile real.
+- **Brief de cierre** — al llegar al último waypoint de la última fase, `showFullLineOrNext` llama `showBrief({ html: CLOSING_BRIEF_HTML, skipTypewriter: true, btnLabel: '← Inicio' })`. Al cerrar ejecuta `location.reload()` para volver al intro limpiamente.
+- **`showBrief` ampliado** — acepta `html` (innerHTML directo, sin typewriter), `skipTypewriter` y `btnLabel`. `waitForBrief` resetea el botón a "Entendido" y limpia `is-hiding` al cerrar.
+- **Hint en botón de siguiente fase** — `uiManager.setNextPhaseHint(isLast, nextPhaseId)` se llama en cada `goToWaypoint()`. Agrega `.is-hinting` al botón de la siguiente fase con `conic-gradient` rotando en `::after` (compositor GPU, `prefers-reduced-motion` respetado).
+- **Navegación continua entre fases** — `showFullLineOrNext` en último waypoint avanza a siguiente fase (`uiManager.selectPhase(nextPhaseId)`). `prev()` en waypoint 0 va al último waypoint de la fase anterior (`uiManager.selectPhase(prevPhaseId, true)`). El flag `goToLast` se propaga `UIManager → handlePhaseChange → loadMap` — `loadMap` llama `goToWaypoint(length-1)` en vez de `goToWaypoint(0)`.
+- **Fix rama `SHOW_DIALOGS: false`** — `prev()` tenía un `return` prematuro en la rama `!SHOW_DIALOGS` que impedía el cambio de fase hacia atrás. Corregido incluyendo el bloque `prevPhaseId` dentro de esa rama.
+- **Minimap desactivado** — `SHOW_MINIMAP: false` en `config.js`, guard en `drawMinimap()`, `display: none` en CSS. Para reactivar: `SHOW_MINIMAP: true` + quitar `display: none`.
+- **Brief mobile como bottom sheet** — en `@media (max-width: 520px)`: `align-items: stretch`, `justify-content: flex-end`, `border-radius: 18px 18px 0 0`, `max-height: 92vh`. El panel sube desde abajo, el body scrollea desde el inicio del contenido.
 
 **Fix canvas flash con popup abierto (Junio 2026):**
 - `breathingAllowed` ahora incluye `!popupManager?.isOpen()` — el breathing se pausa mientras el popup está abierto

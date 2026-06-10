@@ -997,9 +997,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     phaseOverlay.classList.remove('is-entering');
   }
 
-  async function handlePhaseChange(phaseId, firstMapId) {
+  async function handlePhaseChange(phaseId, firstMapId, goToLast = false) {
     await _fadePhase(async () => {
-      await loadMap(firstMapId);
+      await loadMap(firstMapId, goToLast);
       uiManager.updateMapSelector();
     });
   }
@@ -2076,7 +2076,14 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   }
   function prev() {
     if (!state.currentWaypoints.length) return;
-    if (!GLOBAL_CONFIG.SHOW_DIALOGS) { if (state.idx > 0) goToWaypoint(state.idx - 1); return; }
+    if (!GLOBAL_CONFIG.SHOW_DIALOGS) {
+      if (state.idx > 0) { goToWaypoint(state.idx - 1); }
+      else {
+        const prevPhaseId = mapManager.getPrevPhaseId();
+        if (prevPhaseId) uiManager.selectPhase(prevPhaseId, true);
+      }
+      return;
+    }
     if (state.typing) {
       state.typing = false;
       const full = (state.currentWaypoints[state.idx].lines || [''])[state.lineIndex] || '';
@@ -2084,6 +2091,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
     if (state.lineIndex > 0) { state.lineIndex--; startTyping(); }
     else if (state.idx > 0) { goToWaypoint(state.idx - 1); }
+    else if (state.idx === 0) {
+      const prevPhaseId = mapManager.getPrevPhaseId();
+      if (prevPhaseId) {
+        uiManager.selectPhase(prevPhaseId, true);
+      }
+    }
   }
 
 
