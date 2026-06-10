@@ -331,10 +331,10 @@ body {
 
 /* ========= HAMBURGUESA (Mobile) ========= */
 .hamburger {
-  position: absolute;
+  position: fixed;
   bottom: 100px;
   right: 16px;
-  z-index: 40;
+  z-index: 10000;
   width: 48px;
   height: 48px;
   border: none;
@@ -361,6 +361,40 @@ body {
 
 .hamburger:active {
   transform: scale(0.95);
+}
+
+/* ========= BOTÓN MOSCA (logo flotante) ========= */
+.mosca-btn {
+  position: fixed;
+  bottom: 44px;
+  right: 16px;
+  z-index: 10000;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.mosca-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.05);
+}
+
+.mosca-btn:active {
+  transform: scale(0.95);
+}
+
+.mosca-btn__img {
+  width: 28px;
+  height: auto;
+  display: block;
+  pointer-events: none;
 }
 
 /* ========= SELECTOR DE MAPAS ========= */
