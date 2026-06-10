@@ -430,6 +430,7 @@ body {
 /* ELEMENTOS FIJOS (ej. Minimap) */
 /* ========================================================= */
 #minimap {
+  display: none !important;
   position: fixed;
   /* Fijo en la pantalla, no se mueve con scroll */
   bottom: 20px;

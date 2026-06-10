@@ -1804,6 +1804,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   }
 
   function drawMinimap() {
+    if (!GLOBAL_CONFIG.SHOW_MINIMAP) return;
     // 👇 minimapa desactivado en mobile para ahorrar CPU/GPU
     if (window.innerWidth < 600) return;
 
@@ -2061,7 +2062,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           skipTypewriter: true,
           btnLabel: '← Inicio'
         });
-        waitForBrief().then(() => goToWaypoint(0));
+        waitForBrief().then(() => location.reload());
       } else {
         goToWaypoint(state.idx + 1);
       }

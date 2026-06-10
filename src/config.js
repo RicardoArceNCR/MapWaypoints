@@ -141,6 +141,7 @@ export const GLOBAL_CONFIG = {
   SHOW_POPUP_ON_CLICK: true,
   DEBUG_SHOW_GRID: true,             // Mostrar cuadrícula de referencia cada 10%
   DEBUG_SHOW_COORDS: false,           // Mostrar coordenadas en cada área
+  SHOW_MINIMAP: false,                // Mostrar minimap (false = desactivado)
   DEBUG_SHOW_MINIMAP_MOBILE: false,   // Mostrar minimap en mobile
   DEBUG_SHOW_WAYPOINT_LABELS: false,  // Mostrar números en waypoints
   DEBUG_SHOW_MEMORY_STATS: false,     // 🆕 Mostrar uso de memoria
