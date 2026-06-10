@@ -1127,6 +1127,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     // 📍 Badges ⓘ: ocultar ahora, updateWaypointInfoBox los revela al final de la secuencia
     document.querySelectorAll('.hs-caption').forEach(el => el.classList.add('hs-caption--hidden'));
+    window._badgeAnnounceCancelled = false; // reset flag para el nuevo waypoint
   }
 
   // ========= 📌 WAYPOINT INFO BOX =========
@@ -1285,6 +1286,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const badges = document.querySelectorAll('.hs-caption');
       badges.forEach((el, i) => {
         setTimeout(() => {
+          if (window._badgeAnnounceCancelled) return;
           const wrap = el.closest('.overlay-wrap');
           if (wrap) {
             wrap.classList.add('hs-announcing');

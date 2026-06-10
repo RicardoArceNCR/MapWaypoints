@@ -128,12 +128,20 @@ export class OverlayLayer {
         wrap.appendChild(caption);
         wrap.classList.add('has-caption');
 
+        // Cancelar auto-announce si el usuario interactúa con el badge
+        const badgeEl = caption.querySelector('.hs-caption__badge');
+        const _cancelAnnounce = () => {
+          window._badgeAnnounceCancelled = true;
+          document.querySelectorAll('.overlay-wrap.hs-announcing').forEach(w => w.classList.remove('hs-announcing'));
+        };
+        badgeEl.addEventListener('mouseenter', _cancelAnnounce);
+        badgeEl.addEventListener('click', _cancelAnnounce);
+
         // 📱 Mobile: tap en badge toggle tooltip
         if (window.matchMedia('(hover: none)').matches) {
-          caption.querySelector('.hs-caption__badge').addEventListener('click', (e) => {
+          badgeEl.addEventListener('click', (e) => {
             e.stopPropagation();
             const isOpen = caption.classList.contains('is-open');
-            // Cerrar todos los badges abiertos antes de abrir este
             document.querySelectorAll('.hs-caption.is-open').forEach(el => el.classList.remove('is-open'));
             if (!isOpen) caption.classList.add('is-open');
           });
