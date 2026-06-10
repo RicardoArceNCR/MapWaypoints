@@ -553,34 +553,77 @@ let memoryMonitor = new MemoryMonitor();
   }
 
   function showBrief({ heading, text } = {}) {
-    const el = document.getElementById('story-brief');
+    const el      = document.getElementById('story-brief');
+    const elTitle = document.getElementById('story-brief-title');
+    const elBody  = document.getElementById('story-brief-body');
+    const btn     = document.getElementById('story-brief-close');
     if (!el) return;
-    const elHeading = document.getElementById('story-brief-title');
-    const elBody = document.getElementById('story-brief-body');
-    if (elHeading && heading) elHeading.textContent = heading;
+
+    if (elTitle && heading) elTitle.textContent = heading;
+
+    let p = null;
     if (elBody && text) {
-      const p = document.createElement('p');
-      p.textContent = text;
       elBody.innerHTML = '';
+      p = document.createElement('p');
+      p.className = 'brief-tw';
+      p.textContent = '';
       elBody.appendChild(p);
     }
+
     el.hidden = false;
-    const btn = document.getElementById('story-brief-close');
-    if (btn) setTimeout(() => btn.focus(), 50);
+
+    const CHAR_DELAY = 3;
+    const chars     = text ? [...text] : [];
+    let   idx       = 0;
+    let   twTimer   = null;
+    let   cancelled = false;
+
+    // Respeta prefers-reduced-motion: muestra texto completo de inmediato
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      if (p) { p.textContent = text; p.classList.add('brief-tw--done'); }
+    } else {
+      function tick() {
+        if (cancelled || !p) return;
+        if (idx < chars.length) {
+          p.textContent += chars[idx++];
+          if (elBody) elBody.scrollTop = elBody.scrollHeight;
+          twTimer = setTimeout(tick, CHAR_DELAY);
+        } else {
+          p.classList.add('brief-tw--done');
+        }
+      }
+      twTimer = setTimeout(tick, 300);
+    }
+
+    el._briefCancel = () => {
+      cancelled = true;
+      clearTimeout(twTimer);
+      if (p && idx < chars.length) {
+        p.textContent = text;
+        p.classList.add('brief-tw--done');
+      }
+    };
+
+    if (btn) setTimeout(() => btn.focus(), 80);
   }
 
   function waitForBrief() {
     return new Promise((resolve) => {
-      const el = document.getElementById('story-brief');
+      const el  = document.getElementById('story-brief');
       const btn = document.getElementById('story-brief-close');
       if (!el || !btn) return resolve();
+
       function close() {
+        if (typeof el._briefCancel === 'function') el._briefCancel();
+        document.removeEventListener('keydown', onKey);
         el.classList.add('is-hiding');
         setTimeout(() => { el.hidden = true; resolve(); }, 400);
       }
+
       btn.addEventListener('click', close, { once: true });
       function onKey(e) {
-        if (e.key === 'Escape') { document.removeEventListener('keydown', onKey); close(); }
+        if (e.key === 'Escape') close();
       }
       document.addEventListener('keydown', onKey);
     });
