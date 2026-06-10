@@ -347,14 +347,6 @@ export class OverlayLayer {
 
     // 🆕 "fat-finger forgiveness": solo click si no se arrastró
     if (dx <= 8 && dy <= 8 && dt <= 500) {
-      // 👇 AGREGAR ESTO TEMPORALMENTE
-      console.log(`[noPopup debug] key=${key}`, {
-        metaNoPopup: rec.meta?.noPopup,
-        datasetNoPopup: rec.wrap?.dataset?.noPopup,
-        metaFull: rec.meta
-      });
-      // 👆 FIN LOG TEMPORAL
-
       // 🆕 Verifica toggle global antes de cualquier acción
       if (!GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK) {
         console.log(`[INFO] Popup disabled via SHOW_POPUP_ON_CLICK for hotspot ${key}`);

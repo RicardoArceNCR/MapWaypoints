@@ -517,8 +517,7 @@ body {
   top: 80px;
   right: -100%;
   width: min(85vw, 380px);
-  height: 100vh;
-  height: 100dvh;
+  height: calc(100dvh - 80px);
   background: rgba(15, 15, 15, 0.98);
   backdrop-filter: blur(20px);
   z-index: 45;
@@ -526,12 +525,7 @@ body {
   display: flex;
   flex-direction: column;
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.5);
-}
-
-@media (min-width: 900px) {
-  .drawer {
-    height: 100%;
-  }
+  overflow: hidden;
 }
 
 .drawer--open {
@@ -581,15 +575,19 @@ body {
   flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-content: start;
+  align-items: stretch;
 }
 
 .drawer__list li {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
 }
 
 .drawer__list button {
   width: 100%;
-  padding: 18px 18px;
+  min-height: 80px;
+  padding: 16px 18px;
   border: none;
   background: transparent;
   color: #fff;
@@ -598,12 +596,16 @@ body {
   transition: background-color 0.2s ease;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 4px;
 }
 
+.drawer__list li:nth-child(odd) {
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 .drawer__list button:hover {
-  background: rgba(var(--phase-color-rgb), 0.15);
-  padding-left: 28px;
+  background: rgba(var(--phase-color-rgb, 27, 198, 235), 0.15);
 }
 
 .drawer__list button span {

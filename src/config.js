@@ -16,14 +16,6 @@ export const GLOBAL_CONFIG = {
   // ========= DEBUG Y VISUALIZACIÓN =========
   // DEBUG_HOTSPOTS: true,
   
-  // Estilos para iconos y hotspots
-  ICON_STYLES: {
-    showBackground: true,  // Fondo semi-transparente en debug (opcional)
-    backgroundColor: 'rgba(0, 209, 255, 0)',  // Fondo azul claro
-    borderColor: 'rgba(255, 255, 255, 1)',  // Color del marco blanco semi-transparente
-    borderWidth: 5,  // Grosor del marco (aumentado a 3px para mejor visibilidad en mobile)
-    debugFill: 'rgba(255,0,0,0)'  // Fondo rojo sutil para hotspots en debug
-  },
   
   // Configuración de toque
   TOUCH: {
