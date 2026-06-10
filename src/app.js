@@ -535,7 +535,7 @@ let memoryMonitor = new MemoryMonitor();
     elSub.textContent = subtitle || '';
     el.hidden = false;
 
-    const CHAR_DELAY = 90;
+    const CHAR_DELAY = 70;
     const TW_START_DELAY = 1600;
     const text = (title || '').replace(/\\n/g, '\n');
     const totalTime = text.length * CHAR_DELAY;
@@ -618,7 +618,7 @@ let memoryMonitor = new MemoryMonitor();
       p.className = 'brief-tw';
       p.textContent = '';
 
-      const CHAR_DELAY = 8;
+      const CHAR_DELAY = 1;
       const chars      = text ? [...text] : [];
       let   idx        = 0;
       let   twTimer    = null;
