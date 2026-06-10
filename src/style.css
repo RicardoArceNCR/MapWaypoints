@@ -1603,6 +1603,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   .story-intro__subtitle,
   .story-intro__btn,
   .story-intro__logo-wrap,
+  .story-intro__share,
   .story-intro__copyright {
     animation: none;
     transition: none;
@@ -1611,7 +1612,6 @@ body:has(#story-intro:not([hidden])) .top-bar {
   }
 
   .story-intro__logo-wrap,
-  .story-intro__share,
   .story-intro__copyright {
     opacity: 1;
     transform: none;
@@ -2108,8 +2108,35 @@ body:has(#story-intro:not([hidden])) .top-bar {
   padding: 13px 24px 18px;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   flex-shrink: 0;
+}
+
+.story-brief__share {
+  display: flex;
+  gap: 8px;
+}
+
+.story-brief__share-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.35);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.story-brief__share-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+.story-brief__share-link:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .story-brief__btn {
@@ -2165,13 +2192,16 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
   .story-brief__footer {
     padding: 12px 18px calc(20px + env(safe-area-inset-bottom));
-    justify-content: stretch;
   }
 
   .story-brief__btn {
-    width: 100%;
     text-align: center;
     padding: 13px 28px;
+  }
+
+  .story-brief__share-link {
+    width: 40px;
+    height: 40px;
   }
 }
 
