@@ -1315,7 +1315,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
               wrap.classList.remove('hs-announcing');
             }, { once: true });
           }
-        }, i * 3000); // 2s animación + 1s gap
+        }, i * 4000); // 4s animación — cada badge espera a que termine el anterior
       });
     }, badgeDelay);
     _wibTimers.push(badgeId);
