@@ -2073,7 +2073,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   position: absolute;
   inset: 0;
   z-index: 38; /* justo debajo del info-box (39) */
-  pointer-events: none;
+  pointer-events: auto;
   background: radial-gradient(
     ellipse 80% 70% at 50% 50%,
     rgba(0, 0, 0, 0.0) 0%,
@@ -2087,6 +2087,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
 #wp-reveal-mask.is-fading {
   opacity: 0;
+  pointer-events: none;
 }
 
 /* =========================================================
