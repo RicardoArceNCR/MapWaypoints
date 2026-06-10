@@ -565,24 +565,28 @@ let memoryMonitor = new MemoryMonitor();
     if (elBody && text) {
       elBody.innerHTML = '';
       p = document.createElement('p');
-      p.className = 'brief-tw';
-      p.textContent = '';
       elBody.appendChild(p);
     }
 
+    // Bloquear fases mientras el brief está abierto
+    document.body.classList.add('brief-open');
+
     el.hidden = false;
 
-    const CHAR_DELAY = 3;
-    const chars     = text ? [...text] : [];
-    let   idx       = 0;
-    let   twTimer   = null;
-    let   cancelled = false;
-
-    // Respeta prefers-reduced-motion: muestra texto completo de inmediato
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
-      if (p) { p.textContent = text; p.classList.add('brief-tw--done'); }
+    // Mobile: texto completo sin animación. Desktop: typewriter 8ms/char.
+    const mobile = isMobileViewport();
+    if (mobile || !p) {
+      if (p) p.textContent = text || '';
     } else {
+      p.className = 'brief-tw';
+      p.textContent = '';
+
+      const CHAR_DELAY = 8;
+      const chars      = text ? [...text] : [];
+      let   idx        = 0;
+      let   twTimer    = null;
+      let   cancelled  = false;
+
       function tick() {
         if (cancelled || !p) return;
         if (idx < chars.length) {
@@ -594,16 +598,16 @@ let memoryMonitor = new MemoryMonitor();
         }
       }
       twTimer = setTimeout(tick, 300);
-    }
 
-    el._briefCancel = () => {
-      cancelled = true;
-      clearTimeout(twTimer);
-      if (p && idx < chars.length) {
-        p.textContent = text;
-        p.classList.add('brief-tw--done');
-      }
-    };
+      el._briefCancel = () => {
+        cancelled = true;
+        clearTimeout(twTimer);
+        if (p && idx < chars.length) {
+          p.textContent = text;
+          p.classList.add('brief-tw--done');
+        }
+      };
+    }
 
     if (btn) setTimeout(() => btn.focus(), 80);
   }
@@ -617,6 +621,7 @@ let memoryMonitor = new MemoryMonitor();
       function close() {
         if (typeof el._briefCancel === 'function') el._briefCancel();
         document.removeEventListener('keydown', onKey);
+        document.body.classList.remove('brief-open');
         el.classList.add('is-hiding');
         setTimeout(() => { el.hidden = true; resolve(); }, 400);
       }

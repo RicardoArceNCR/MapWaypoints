@@ -1222,6 +1222,25 @@ body.popup-open #waypoint-info-box {
 }
 
 /* ========================================================= */
+/* BRIEF OPEN — Bloquear fases mientras el brief está activo */
+/* ========================================================= */
+
+body.brief-open .top-bar,
+body.brief-open .phase-filter {
+  pointer-events: none;
+  opacity: 0.3;
+  transition: opacity 0.2s ease;
+}
+
+@media (max-width: 799px) {
+  body.brief-open .top-bar,
+  body.brief-open .phase-filter {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* ========================================================= */
 /* INTRO SCREEN                                              */
 /* ========================================================= */
 
