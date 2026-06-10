@@ -2582,13 +2582,16 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
       const mapLoadPromise = firstMap ? loadMap(firstMap.id) : Promise.resolve();
       await waitForIntro();
+
+      // Brief aparece tras el intro, mientras el mapa termina de cargar en background
       if (rawStory?.brief) {
         showBrief(rawStory.brief);
         await waitForBrief();
       }
+
       await mapLoadPromise;
 
-      // Intro terminó, canvas visible — ahora sí disparar fade-out del mask
+      // Intro (+ brief) terminaron, canvas visible — disparar fade-out del mask
       _hadIntro = true;
       _wibReady = true;
       _revealMaskDone = true; // evitar que updateWaypointInfoBox lo vuelva a disparar
@@ -2617,12 +2620,16 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       }, 1200);
     } else {
       if (firstMap) await loadMap(firstMap.id);
-      // Sin intro — habilitar animaciones y disparar secuencia con mask
+      // Brief aparece antes de iniciar el canvas — animaciones aún bloqueadas
+      if (rawStory?.brief) {
+        showBrief(rawStory.brief);
+        await waitForBrief();
+      }
+      // Habilitar animaciones solo después de que el brief se cerró
       _wibReady = true;
       const wp = state.currentWaypoints[state.idx];
       if (wp) updateWaypointInfoBox(wp);
     }
-    // ─────────────────────────────────────────
 
     setCanvasDPR();
 
