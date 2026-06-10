@@ -1631,9 +1631,8 @@ body:has(#story-intro:not([hidden])) .top-bar {
 .hs-caption {
   position: absolute;
   top: 0;
-  right: 0;
-  left: auto;
-  transform: translate(50%, -50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 9999;
   pointer-events: none;
 }
@@ -1665,8 +1664,8 @@ body:has(#story-intro:not([hidden])) .top-bar {
 .hs-caption__tooltip {
   position: absolute;
   top: 26px;
-  right: 0;
-  left: auto;
+  left: 50%;
+  transform: translate(-50%, -4px);
   min-width: 180px;
   max-width: 240px;
   background: rgba(10, 14, 20, 0.92);
@@ -1681,7 +1680,6 @@ body:has(#story-intro:not([hidden])) .top-bar {
   pointer-events: none;
   white-space: normal;
   opacity: 0;
-  transform: translateY(-4px);
   transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
@@ -1728,7 +1726,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
 .overlay-wrap.has-caption:has(.hs-caption__badge:hover) .hs-caption__tooltip {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(-50%, 0);
 }
 
 @keyframes hs-dash-march {
@@ -1743,7 +1741,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 }
 .overlay-wrap.has-caption.hs-announcing .hs-caption__tooltip {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(-50%, 0);
 }
 
 @media (hover: none) {
@@ -1755,7 +1753,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   }
   .hs-caption.is-open .hs-caption__tooltip {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, 0);
     display: block;
   }
   /* Mobile: borde + tooltip solo durante el announce */
@@ -1765,7 +1763,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   .overlay-wrap.has-caption.hs-announcing .hs-caption__tooltip {
     display: block;
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, 0);
   }
 }
 
