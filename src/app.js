@@ -2714,13 +2714,25 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const rawStory = mapManager._lastLoadedStory;
 
     // ── Botón "Sobre esta reconstrucción" ──
+    function _openAboutBrief() {
+      const isLastPhase = !mapManager.getNextPhaseId();
+      const briefData = isLastPhase
+        ? { heading: 'Línea de tiempo de las pesquisas', html: CLOSING_BRIEF_HTML, skipTypewriter: true }
+        : rawStory.brief;
+      showBrief(briefData);
+      waitForBrief();
+    }
+
     const _aboutBtn = document.getElementById('about-btn');
     if (_aboutBtn && rawStory?.brief) {
       _aboutBtn.hidden = false;
-      _aboutBtn.addEventListener('click', () => {
-        showBrief(rawStory.brief);
-        waitForBrief();
-      });
+      _aboutBtn.addEventListener('click', _openAboutBrief);
+    }
+
+    const _aboutBtnDesktop = document.getElementById('about-btn-desktop');
+    if (_aboutBtnDesktop && rawStory?.brief) {
+      _aboutBtnDesktop.hidden = false;
+      _aboutBtnDesktop.addEventListener('click', _openAboutBrief);
     }
     if (rawStory?.intro && !appConfig.toggles.nointro) {
       showIntro(rawStory.intro);
