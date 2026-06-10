@@ -1132,6 +1132,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     // Después del delay, inicia el fade-out del mask
     setTimeout(() => {
       console.log('[mask] → adding is-fading');
+      mask.offsetHeight; // force reflow — garantiza transición en mobile real
       mask.classList.add('is-fading');
       mask.addEventListener('transitionend', () => {
         console.log('[mask] → transitionend, hiding');
@@ -2604,12 +2605,20 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       requestAnimationFrame(loop);
       document.body.classList.add('overlays-ready');
 
-      // Canvas listo — revelar con fade del mask, luego brief encima del canvas visible
       _hadIntro = true;
       _wibReady = true;
       _revealMaskDone = true; // evitar que updateWaypointInfoBox lo vuelva a disparar
+
+      // Brief aparece sobre el canvas pintado — mask sigue opaco mientras el usuario lee
+      if (rawStory?.brief) {
+        showBrief(rawStory.brief);
+        await waitForBrief();
+      }
+
+      // Revelar canvas DESPUÉS de que el brief cierra — fade del mask
       if (maskEl) {
         setTimeout(() => {
+          maskEl.offsetHeight; // force reflow — garantiza transición en mobile real
           maskEl.classList.add('is-fading');
           maskEl.addEventListener('transitionend', () => {
             maskEl.style.display = 'none';
@@ -2618,13 +2627,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         }, 150);
       }
 
-      // Brief aparece sobre el canvas ya visible y pintado (su backdrop lo oscurece)
-      if (rawStory?.brief) {
-        showBrief(rawStory.brief);
-        await waitForBrief();
-      }
-
-      // Disparar animación del texto (BASE_DELAY=1400 da margen al cierre del brief)
+      // Disparar animación del texto (BASE_DELAY=1400 da margen al fade del mask)
       const wp = state.currentWaypoints[state.idx];
       if (wp) updateWaypointInfoBox(wp);
 
