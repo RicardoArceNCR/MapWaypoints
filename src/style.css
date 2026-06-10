@@ -1934,12 +1934,23 @@ body:has(#story-intro:not([hidden])) .top-bar {
 }
 
 .story-brief__body p {
-  margin: 0;
+  margin: 0 0 12px;
   font-size: clamp(0.875rem, 2.2vw, 0.95rem);
   line-height: 1.74;
   color: rgba(255, 255, 255, 0.80);
   font-weight: 400;
 }
+.story-brief__body p:last-child { margin-bottom: 0; }
+.story-brief__body ul {
+  margin: 0 0 12px;
+  padding-left: 1.4em;
+  color: rgba(255, 255, 255, 0.80);
+  font-size: clamp(0.875rem, 2.2vw, 0.95rem);
+  line-height: 1.74;
+}
+.story-brief__body ul li { margin-bottom: 6px; }
+.story-brief__body strong { color: rgba(255, 255, 255, 0.95); font-weight: 600; }
+.story-brief__body em { color: rgba(255, 255, 255, 0.65); font-style: italic; }
 
 .brief-tw::after {
   content: '|';

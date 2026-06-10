@@ -429,6 +429,33 @@ let memoryMonitor = new MemoryMonitor();
   const srLive = wrap.querySelector('.sr-live');
   const uiControls = document.querySelector('.ui');
 
+  // ── Brief de cierre (última fase, último waypoint) ──────────────────
+  const CLOSING_BRIEF_HTML = `
+    <p><strong>19 junio 2025</strong> — El OIJ inicia pesquisas el mismo día del homicidio. Llamadas del Sistema 9-1-1 reportan entre 7 y 10 disparos en el Condominio Naples de Moravia.</p>
+    <p>Rastreo de cámaras iniciado en paralelo. Una fuente confidencial (línea 800-8000-645) identifica el vehículo: <strong>Renault Duster blanco, placa BKK-190</strong>. Otra fuente aporta nombres: <em>"Dani Chaves"</em> (peluquero de León XIII) como coordinador; <em>"Bryan Robles"</em>; y <em>"Luis"</em> (sicario, número 62329434). Los sospechosos se reunieron la noche anterior en la Gasolinera Delta para afinar detalles.</p>
+    <p>Rastreo de video documenta la ruta de escape del Duster hasta Coronado, donde es abandonado en una calle sin salida. Un <strong>Hyundai Accent celeste, placa 903056</strong> (puerta blanca, aros diferentes) recoge a los ejecutores.</p>
+    <p><strong>30 junio 2025</strong> — Investigadores abordan al conductor del Hyundai en León XIII: <strong>Luis Ricardo Orozco González</strong>, taxista informal. Confiesa que fue contactado para recoger a dos sujetos en Coronado — un "viaje raro" pagado por SINPE Móvil.</p>
+    <p>El análisis forense del celular de Orozco es la pieza decisiva:</p>
+    <ul>
+      <li><strong>08:10:13 del día del crimen</strong> — Danilo José Chaves Medina ("Danny Peluqueris") llama a Orozco para coordinar el rescate.</li>
+      <li>WhatsApp entre Orozco y Bryan Steven Robles Salas revela la urgencia extrema de la huida.</li>
+      <li>El número 62329434 es acreditado a <strong>Luis Fernando Carvajal Fernández</strong>, el gatillero.</li>
+    </ul>
+    <p>Secreto bancario levantado: <strong>Stephanie María Chacón Guillén</strong> realiza dos depósitos SINPE a Orozco por ₡50.000 con los detalles "Viaje" y "Gasolina". Orozco luego pregunta a Robles "¿Cómo le fue?"; Robles responde: <em>"Viste las noticia"</em>.</p>
+    <p><strong>28 agosto 2025</strong> — OIJ presenta informe solicitando órdenes de allanamiento.</p>
+    <p><strong>11–12 septiembre 2025</strong> — Allanamientos en León XIII y Cañas, Guanacaste. Cuatro sospechosos capturados:</p>
+    <ul>
+      <li><strong>Danilo José Chaves Medina</strong>, 35 años — detenido en Cañas con ₡4.000.000 en efectivo. Coordinador logístico.</li>
+      <li><strong>Bryan Steven Robles Salas</strong>, 23 años — conductor del Duster durante la ejecución y la huida.</li>
+      <li><strong>Luis Ricardo Orozco González</strong>, 33 años — conductor del Hyundai celeste.</li>
+      <li><strong>Stephanie María Chacón Guillén</strong>, 30 años — enfrentará el proceso en libertad.</li>
+    </ul>
+    <p>Chaves Medina, Robles Salas y Orozco González son puestos en <strong>prisión preventiva por seis meses</strong>.</p>
+    <p><strong>Prófugo</strong> — <strong>Luis Fernando Carvajal Fernández</strong>, 20 años, el gatillero. El OIJ continúa diligencias para su detención.</p>
+    <p><strong>Autor intelectual</strong> — <strong>Pablo Antonio Robles Murillo</strong>, nicaragüense naturalizado. Salió hacia Nicaragua el 7 de agosto de 2025 y no ha retornado. Aún no está formalmente imputado.</p>
+    <p>El fiscal general Díaz sostuvo que la principal línea de investigación apunta a que el crimen fue <em>"una orden aparentemente del Ejército nicaragüense"</em>. La investigación se mantiene abierta.</p>
+  `;
+
   // Waypoint info box refs
   const _wib = document.getElementById('waypoint-info-box');
   const _wibTitle = document.getElementById('waypoint-info-title');
@@ -552,7 +579,7 @@ let memoryMonitor = new MemoryMonitor();
     });
   }
 
-  function showBrief({ heading, text } = {}) {
+  function showBrief({ heading, text, html, skipTypewriter = false, btnLabel } = {}) {
     const el      = document.getElementById('story-brief');
     const elTitle = document.getElementById('story-brief-title');
     const elBody  = document.getElementById('story-brief-body');
@@ -560,6 +587,16 @@ let memoryMonitor = new MemoryMonitor();
     if (!el) return;
 
     if (elTitle && heading) elTitle.textContent = heading;
+    if (btn && btnLabel) btn.textContent = btnLabel;
+
+    // HTML directo — sin typewriter
+    if (elBody && html) {
+      elBody.innerHTML = html;
+      document.body.classList.add('brief-open');
+      el.hidden = false;
+      if (btn) setTimeout(() => btn.focus(), 80);
+      return;
+    }
 
     let p = null;
     if (elBody && text) {
@@ -575,7 +612,7 @@ let memoryMonitor = new MemoryMonitor();
 
     // Mobile: texto completo sin animación. Desktop: typewriter 8ms/char.
     const mobile = isMobileViewport();
-    if (mobile || !p) {
+    if (mobile || !p || skipTypewriter) {
       if (p) p.textContent = text || '';
     } else {
       p.className = 'brief-tw';
@@ -623,7 +660,8 @@ let memoryMonitor = new MemoryMonitor();
         document.removeEventListener('keydown', onKey);
         document.body.classList.remove('brief-open');
         el.classList.add('is-hiding');
-        setTimeout(() => { el.hidden = true; resolve(); }, 400);
+        if (btn) btn.textContent = 'Entendido';
+        setTimeout(() => { el.hidden = true; el.classList.remove('is-hiding'); resolve(); }, 400);
       }
 
       btn.addEventListener('click', close, { once: true });
@@ -2016,7 +2054,14 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       if (isLastWp && nextPhaseId) {
         uiManager.selectPhase(nextPhaseId);
       } else if (isLastWp) {
-        goToWaypoint(0);
+        // Última fase, último waypoint — brief de cierre
+        showBrief({
+          heading: 'Línea de tiempo de las pesquisas',
+          html: CLOSING_BRIEF_HTML,
+          skipTypewriter: true,
+          btnLabel: '← Inicio'
+        });
+        waitForBrief().then(() => goToWaypoint(0));
       } else {
         goToWaypoint(state.idx + 1);
       }
