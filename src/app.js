@@ -1129,7 +1129,16 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     goToWaypoint._badgeTimer = setTimeout(() => {
       const badges = document.querySelectorAll('.hs-caption');
       badges.forEach((el, i) => {
-        setTimeout(() => el.classList.remove('hs-caption--hidden'), i * 180);
+        setTimeout(() => {
+          el.classList.remove('hs-caption--hidden');
+          const wrap = el.closest('.overlay-wrap');
+          if (wrap) {
+            wrap.classList.add('hs-announcing');
+            wrap.addEventListener('animationend', () => {
+              wrap.classList.remove('hs-announcing');
+            }, { once: true });
+          }
+        }, i * 180);
       });
     }, camDuration + 1100); // fin de cámara + 1s extra
   }
@@ -2725,7 +2734,16 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       goToWaypoint._badgeTimer = setTimeout(() => {
         const badges = document.querySelectorAll('.hs-caption');
         badges.forEach((el, i) => {
-          setTimeout(() => el.classList.remove('hs-caption--hidden'), i * 180);
+          setTimeout(() => {
+            el.classList.remove('hs-caption--hidden');
+            const wrap = el.closest('.overlay-wrap');
+            if (wrap) {
+              wrap.classList.add('hs-announcing');
+              wrap.addEventListener('animationend', () => {
+                wrap.classList.remove('hs-announcing');
+              }, { once: true });
+            }
+          }, i * 180);
         });
       }, 1200);
     } else {
@@ -2751,6 +2769,24 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       _wibReady = true;
       const wp = state.currentWaypoints[state.idx];
       if (wp) updateWaypointInfoBox(wp);
+
+      // 📍 Badges ⓘ: refrescar timer después del brief (igual que rama con intro)
+      clearTimeout(goToWaypoint._badgeTimer);
+      goToWaypoint._badgeTimer = setTimeout(() => {
+        const badges = document.querySelectorAll('.hs-caption');
+        badges.forEach((el, i) => {
+          setTimeout(() => {
+            el.classList.remove('hs-caption--hidden');
+            const wrap = el.closest('.overlay-wrap');
+            if (wrap) {
+              wrap.classList.add('hs-announcing');
+              wrap.addEventListener('animationend', () => {
+                wrap.classList.remove('hs-announcing');
+              }, { once: true });
+            }
+          }, i * 180);
+        });
+      }, 1200);
     }
   })();
 

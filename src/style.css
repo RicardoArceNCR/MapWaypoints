@@ -1657,6 +1657,12 @@ body:has(#story-intro:not([hidden])) .top-bar {
   100% { background-position: 12px 0, 100% 12px, -12px 100%, 0 -12px; }
 }
 
+/* Announce: borde corre N veces al revelar badges */
+.overlay-wrap.has-caption.hs-announcing::after {
+  opacity: 1;
+  animation: hs-dash-march 0.4s linear 2 forwards;
+}
+
 @media (hover: none) {
   .hs-caption__tooltip {
     display: none;
@@ -1667,6 +1673,10 @@ body:has(#story-intro:not([hidden])) .top-bar {
   .hs-caption.is-open .hs-caption__tooltip {
     opacity: 1;
     transform: translateY(0);
+    display: block;
+  }
+  /* Mobile: mostrar borde solo durante el announce */
+  .overlay-wrap.has-caption.hs-announcing::after {
     display: block;
   }
 }
