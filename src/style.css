@@ -618,6 +618,66 @@ body {
   color: rgba(255, 255, 255, 0.6);
 }
 
+/* ========= DRAWER SHARE (solo mobile) ========= */
+.drawer__share {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .drawer__share {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    flex-shrink: 0;
+  }
+
+  .drawer__share-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .drawer__share-links {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .drawer__share-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    justify-content: center;
+  }
+
+  .drawer__share-link:active {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+  }
+
+  .drawer__share-link span {
+    display: none;
+  }
+}
+
 .drawer-backdrop {
   position: fixed;
   inset: 0;
