@@ -579,6 +579,8 @@ body {
   margin: 0;
   overflow-y: auto;
   flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .drawer__list li {
@@ -587,7 +589,7 @@ body {
 
 .drawer__list button {
   width: 100%;
-  padding: 18px 24px;
+  padding: 18px 18px;
   border: none;
   background: transparent;
   color: #fff;
@@ -1249,6 +1251,52 @@ body.net-slow .drawer {
 }
 
 /* ========================================================= */
+/* WAYPOINT SHARE — iconos flotantes a la derecha del info box */
+/* ========================================================= */
+.waypoint-share {
+  position: absolute;
+  top: 12px;
+  left: calc(70% + min(280px, 22.5vw) + 10px);
+  z-index: 39;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: auto;
+}
+
+.waypoint-share__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.4);
+  background: rgba(10, 18, 26, 0.25);
+  backdrop-filter: blur(8px);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.waypoint-share__link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+@media (min-width: 900px) {
+  .waypoint-info-box.visible ~ .waypoint-share {
+    display: flex;
+  }
+}
+
+/* Ocultar con popup/brief/drawer abiertos */
+body.popup-open #waypoint-share,
+body.brief-open #waypoint-share,
+body:has(.drawer--open) #waypoint-share {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ========================================================= */
 /* POPUP OPEN — Ocultar chrome de navegación                */
 /* ========================================================= */
 .top-bar,
@@ -1266,11 +1314,18 @@ body.popup-open .mosca-btn {
   pointer-events: none;
 }
 
-/* Drawer abierto → ocultar hamburger y mosca */
+/* Drawer abierto → ocultar hamburger, mosca y botones de fases */
 .hamburger[aria-expanded="true"],
 .hamburger[aria-expanded="true"] + .mosca-btn {
   opacity: 0;
   pointer-events: none;
+}
+
+body:has(.drawer--open) .top-bar,
+body:has(.drawer--open) .phase-filter {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 /* ========================================================= */

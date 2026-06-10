@@ -651,6 +651,12 @@ let memoryMonitor = new MemoryMonitor();
           p.classList.add('brief-tw--done');
         }
       };
+
+      // Click en el body del brief → salta la animación
+      const _onClickSkip = () => { el._briefCancel(); };
+      elBody.addEventListener('click', _onClickSkip, { once: true });
+      // Guardar referencia para limpiarla al cerrar
+      el._briefSkipClick = _onClickSkip;
     }
 
     if (btn) setTimeout(() => btn.focus(), 80);
@@ -664,6 +670,8 @@ let memoryMonitor = new MemoryMonitor();
 
       function close() {
         if (typeof el._briefCancel === 'function') el._briefCancel();
+        const _body = document.getElementById('story-brief-body');
+        if (typeof el._briefSkipClick === 'function' && _body) _body.removeEventListener('click', el._briefSkipClick);
         document.removeEventListener('keydown', onKey);
         document.body.classList.remove('brief-open');
         el.classList.add('is-hiding');
@@ -2674,6 +2682,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     uiManager = new UIManager(mapManager, handlePhaseChange, handleMapChange);
     popupManager = new DetailedPopupManager();
+
+    // Escuchar clicks en el drawer y puntos de progreso
+    document.addEventListener('goto-waypoint', (e) => {
+      goToWaypoint(e.detail);
+    });
 
     // === Editor: carga bajo demanda con ?editor=1 ===
     if (appConfig.editorActive) {
