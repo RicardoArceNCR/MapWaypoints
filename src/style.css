@@ -2218,7 +2218,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
     0 24px 60px rgba(0, 0, 0, 0.55),
     0 0 0 1px rgba(0, 0, 0, 0.3);
   width: min(600px, 100%);
-  max-height: min(78vh, 560px);
+  max-height: min(94vh, 700px);
   display: flex;
   flex-direction: column;
   overflow: hidden;

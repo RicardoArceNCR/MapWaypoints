@@ -618,47 +618,8 @@ let memoryMonitor = new MemoryMonitor();
 
     el.hidden = false;
 
-    // Mobile: texto completo sin animación. Desktop: typewriter 8ms/char.
-    const mobile = isMobileViewport();
-    if (mobile || !p || skipTypewriter) {
-      if (p) p.textContent = text || '';
-    } else {
-      p.className = 'brief-tw';
-      p.textContent = '';
-
-      const CHAR_DELAY = 1;
-      const chars      = text ? [...text] : [];
-      let   idx        = 0;
-      let   twTimer    = null;
-      let   cancelled  = false;
-
-      function tick() {
-        if (cancelled || !p) return;
-        if (idx < chars.length) {
-          p.textContent += chars[idx++];
-          if (elBody) elBody.scrollTop = elBody.scrollHeight;
-          twTimer = setTimeout(tick, CHAR_DELAY);
-        } else {
-          p.classList.add('brief-tw--done');
-        }
-      }
-      twTimer = setTimeout(tick, 300);
-
-      el._briefCancel = () => {
-        cancelled = true;
-        clearTimeout(twTimer);
-        if (p && idx < chars.length) {
-          p.textContent = text;
-          p.classList.add('brief-tw--done');
-        }
-      };
-
-      // Click en el body del brief → salta la animación
-      const _onClickSkip = () => { el._briefCancel(); };
-      elBody.addEventListener('click', _onClickSkip, { once: true });
-      // Guardar referencia para limpiarla al cerrar
-      el._briefSkipClick = _onClickSkip;
-    }
+    if (p) p.textContent = text || '';
+    if (elBody) elBody.scrollTop = 0;
 
     if (btn) setTimeout(() => btn.focus(), 80);
   }
