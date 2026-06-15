@@ -527,10 +527,13 @@ let memoryMonitor = new MemoryMonitor();
   }, { passive: true });
 
   // ── helpers intro ──────────────────────────────
-  function showIntro({ title, subtitle }) {
+  function showIntro({ title, subtitle, credits, date }) {
     const el = document.getElementById('story-intro');
     const elTitle = document.getElementById('intro-title');
     const elSub = document.getElementById('intro-subtitle');
+    const elCredits = document.getElementById('intro-credits');
+    const elCreditsAuthors = document.getElementById('intro-credits-authors');
+    const elCreditsDate = document.getElementById('intro-credits-date');
     const elBtn = document.getElementById('intro-btn');
     const elLogo = document.querySelector('.story-intro__logo-wrap');
     const elCopy = document.querySelector('.story-intro__copyright');
@@ -544,6 +547,8 @@ let memoryMonitor = new MemoryMonitor();
     elTitle?.classList.remove('tw-done');
 
     elSub.textContent = subtitle || '';
+    if (elCreditsAuthors) elCreditsAuthors.textContent = credits || '';
+    if (elCreditsDate) elCreditsDate.textContent = date || '';
     el.hidden = false;
 
     const CHAR_DELAY = 70;
@@ -571,12 +576,14 @@ let memoryMonitor = new MemoryMonitor();
 
     // 3. Subtítulo — después del typewriter
     setTimeout(() => elSub?.classList.add('is-visible'), TW_START_DELAY + totalTime + 300);
-    // 4. Botón
+    // 4. Créditos (autoría + fecha) — entre el subtítulo y el botón
+    setTimeout(() => elCredits?.classList.add('is-visible'), TW_START_DELAY + totalTime + 600);
+    // 5. Botón
     setTimeout(() => elBtn?.classList.add('is-visible'), TW_START_DELAY + totalTime + 900);
     setTimeout(() => elBtn?.classList.add('btn-ready'), TW_START_DELAY + totalTime + 2000);
-    // 5. Compartir en redes — junto con copyright
+    // 6. Compartir en redes — junto con copyright
     setTimeout(() => elShare?.classList.add('is-visible'), TW_START_DELAY + totalTime + 1400);
-    // 6. Copyright — al final de todo
+    // 7. Copyright — al final de todo
     setTimeout(() => elCopy?.classList.add('is-visible'), TW_START_DELAY + totalTime + 1400);
   }
 

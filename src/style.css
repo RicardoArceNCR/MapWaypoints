@@ -1554,6 +1554,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
 /* --- Entradas escalonadas lentas --- */
 .story-intro__subtitle,
+.story-intro__credits,
 .story-intro__btn {
   opacity: 0;
   transform: translateY(24px);
@@ -1563,12 +1564,20 @@ body:has(#story-intro:not([hidden])) .top-bar {
   animation: none;
 }
 
+.story-intro__credits {
+  animation: none;
+}
+
 .story-intro__btn {
   animation: none;
 }
 
 /* Clase que JS agrega cuando es momento */
 .story-intro__subtitle.is-visible {
+  animation: intro-rise 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.story-intro__credits.is-visible {
   animation: intro-rise 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -1639,6 +1648,31 @@ body:has(#story-intro:not([hidden])) .top-bar {
   color: rgba(255, 255, 255, 0.55);
   line-height: 1.6;
   max-width: 480px;
+}
+
+/* --- Créditos: autoría + fecha, entre el subtítulo y el botón --- */
+.story-intro__credits {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+}
+
+.story-intro__credits-authors {
+  display: block;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.story-intro__credits-date {
+  display: block;
+  font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.35);
 }
 
 /* --- Botón con haz de luz giratorio --- */
