@@ -456,6 +456,16 @@ let memoryMonitor = new MemoryMonitor();
     <p>El fiscal general Díaz sostuvo que la principal línea de investigación apunta a que el crimen fue <em>"una orden aparentemente del Ejército nicaragüense"</em>. La investigación se mantiene abierta.</p>
   `;
 
+  // Datos del brief de cierre — un solo lugar para los dos call-sites
+  function getClosingBriefData() {
+    return {
+      heading: 'Línea de tiempo de las pesquisas',
+      html: CLOSING_BRIEF_HTML,
+      skipTypewriter: true,
+      methodology: mapManager?._lastLoadedStory?.brief?.methodology
+    };
+  }
+
   // Waypoint info box refs
   const _wib = document.getElementById('waypoint-info-box');
   const _wibTitle = document.getElementById('waypoint-info-title');
@@ -582,53 +592,130 @@ let memoryMonitor = new MemoryMonitor();
     });
   }
 
-  function showBrief({ heading, text, html, skipTypewriter = false, showInicio = false } = {}) {
-    const el        = document.getElementById('story-brief');
-    const elTitle   = document.getElementById('story-brief-title');
-    const elBody    = document.getElementById('story-brief-body');
-    const btn       = document.getElementById('story-brief-close');
-    const inicioBtn = document.getElementById('story-brief-inicio');
+  // Vuelca {text|html} en el body del brief y resetea el scroll.
+  // Reutilizado tanto por la apertura inicial como por el toggle de metodología.
+  function _renderBriefContent(elBody, { text, html } = {}) {
+    if (!elBody) return;
+    if (html) {
+      elBody.innerHTML = html;
+    } else {
+      elBody.innerHTML = '';
+      const p = document.createElement('p');
+      p.textContent = text || '';
+      elBody.appendChild(p);
+    }
+    elBody.scrollTop = 0;
+  }
+
+  // Cierre por click fuera del panel y swipe hacia abajo (mobile).
+  // Ambos disparan el mismo botón "Cerrar", así que reutilizan
+  // exactamente el mismo flujo de cleanup/resolve que waitForBrief().
+  // Se cablea una sola vez (los handlers son no-op mientras el brief
+  // está oculto, gracias a pointer-events:none).
+  let _briefDismissWired = false;
+  function _wireBriefDismiss() {
+    if (_briefDismissWired) return;
+    _briefDismissWired = true;
+
+    const el       = document.getElementById('story-brief');
+    const panel    = el?.querySelector('.story-brief__panel');
+    const handle   = el?.querySelector('.story-brief__drag-handle');
+    const closeBtn = document.getElementById('story-brief-close');
+    if (!el || !panel || !closeBtn) return;
+
+    // Click fuera del panel cierra
+    el.addEventListener('click', (e) => {
+      if (e.target === el) closeBtn.click();
+    });
+
+    if (!handle) return;
+
+    let startY = 0, currentY = 0, dragging = false;
+
+    handle.addEventListener('touchstart', (e) => {
+      startY = e.touches[0].clientY;
+      dragging = true;
+      panel.style.transition = 'none';
+    });
+
+    handle.addEventListener('touchmove', (e) => {
+      if (!dragging) return;
+      currentY = e.touches[0].clientY;
+      const deltaY = currentY - startY;
+      if (deltaY > 0) {
+        panel.style.transform = `translateY(${deltaY}px)`;
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    handle.addEventListener('touchend', () => {
+      if (!dragging) return;
+      const deltaY = currentY - startY;
+      panel.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+      if (deltaY > 100) {
+        closeBtn.click();
+      } else {
+        panel.style.transform = '';
+      }
+      dragging = false;
+      startY = 0;
+      currentY = 0;
+    });
+  }
+
+  function showBrief({ heading, text, html, methodology, skipTypewriter = false } = {}) {
+    const el      = document.getElementById('story-brief');
+    const elTitle = document.getElementById('story-brief-title');
+    const elBody  = document.getElementById('story-brief-body');
+    const btn     = document.getElementById('story-brief-close');
+    const methBtn = document.getElementById('story-brief-methodology');
     if (!el) return;
+
+    _wireBriefDismiss();
 
     if (elTitle && heading) {
       const textEl = elTitle.querySelector('.story-brief__heading-text');
       if (textEl) textEl.textContent = heading;
     }
-    if (inicioBtn) inicioBtn.hidden = !showInicio;
 
-    // HTML directo — sin typewriter
-    if (elBody && html) {
-      elBody.innerHTML = html;
-      document.body.classList.add('brief-open');
-      el.hidden = false;
-      elBody.scrollTop = 0; // reset scroll después de mostrar el elemento
-      if (btn) setTimeout(() => btn.focus(), 80);
-      return;
-    }
+    const mainContent = { text, html };
+    const mainLabel = heading || 'Sobre esta reconstrucción';
 
-    let p = null;
-    if (elBody && text) {
-      elBody.innerHTML = '';
-      p = document.createElement('p');
-      elBody.appendChild(p);
+    // Botón "Nota metodológica" — toggle in-place, sin abrir otro modal.
+    if (methBtn) {
+      if (methodology) {
+        const methLabel = methodology.tabLabel || methodology.heading || 'Nota metodológica';
+        let showingMethodology = false;
+
+        methBtn.hidden = false;
+        methBtn.textContent = methLabel;
+
+        if (methBtn._clickHandler) methBtn.removeEventListener('click', methBtn._clickHandler);
+        methBtn._clickHandler = () => {
+          showingMethodology = !showingMethodology;
+          _renderBriefContent(elBody, showingMethodology ? methodology : mainContent);
+          methBtn.textContent = showingMethodology ? `← ${mainLabel}` : methLabel;
+        };
+        methBtn.addEventListener('click', methBtn._clickHandler);
+      } else {
+        methBtn.hidden = true;
+      }
     }
 
     // Bloquear fases mientras el brief está abierto
     document.body.classList.add('brief-open');
-
     el.hidden = false;
 
-    if (p) p.textContent = text || '';
-    if (elBody) elBody.scrollTop = 0;
+    _renderBriefContent(elBody, mainContent);
 
     if (btn) setTimeout(() => btn.focus(), 80);
   }
 
   function waitForBrief() {
     return new Promise((resolve) => {
-      const el        = document.getElementById('story-brief');
-      const closeBtn  = document.getElementById('story-brief-close');
-      const inicioBtn = document.getElementById('story-brief-inicio');
+      const el       = document.getElementById('story-brief');
+      const panel    = el?.querySelector('.story-brief__panel');
+      const closeBtn = document.getElementById('story-brief-close');
       if (!el || !closeBtn) return resolve();
 
       function cleanup() {
@@ -642,17 +729,19 @@ let memoryMonitor = new MemoryMonitor();
 
       function close() {
         cleanup();
-        setTimeout(() => { el.hidden = true; el.classList.remove('is-hiding'); resolve(); }, 400);
+        setTimeout(() => {
+          el.hidden = true;
+          el.classList.remove('is-hiding');
+          // Limpiar estilos inline que pudo dejar el swipe (drag handle)
+          if (panel) {
+            panel.style.transform = '';
+            panel.style.transition = '';
+          }
+          resolve();
+        }, 400);
       }
 
       closeBtn.addEventListener('click', close, { once: true });
-
-      if (inicioBtn && !inicioBtn.hidden) {
-        inicioBtn.addEventListener('click', () => {
-          cleanup();
-          setTimeout(() => location.reload(), 400);
-        }, { once: true });
-      }
 
       function onKey(e) {
         if (e.key === 'Escape') close();
@@ -2060,12 +2149,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         uiManager.selectPhase(nextPhaseId);
       } else if (isLastWp) {
         // Última fase, último waypoint — brief de cierre
-        showBrief({
-          heading: 'Línea de tiempo de las pesquisas',
-          html: CLOSING_BRIEF_HTML,
-          skipTypewriter: true,
-          showInicio: true
-        });
+        showBrief(getClosingBriefData());
         waitForBrief();
       } else {
         goToWaypoint(state.idx + 1);
@@ -2704,7 +2788,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     function _openAboutBrief() {
       const isLastPhase = !mapManager.getNextPhaseId();
       const briefData = isLastPhase
-        ? { heading: 'Línea de tiempo de las pesquisas', html: CLOSING_BRIEF_HTML, skipTypewriter: true, showInicio: true }
+        ? getClosingBriefData()
         : rawStory.brief;
       showBrief(briefData);
       waitForBrief();
