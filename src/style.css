@@ -2473,6 +2473,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
     width: 36px;
     height: 4px;
     background: rgba(255, 255, 255, 0.3);
+    padding-top: 22px;
     border-radius: 999px;
   }
 
