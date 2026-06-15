@@ -1310,6 +1310,7 @@ body.net-slow .drawer {
   margin: 0 auto;
   z-index: 39;
   pointer-events: none;
+  cursor: default;
   font-family: 'Segoe UI', system-ui, sans-serif;
 
   background: rgba(10, 18, 26, 0.215);

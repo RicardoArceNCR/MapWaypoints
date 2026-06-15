@@ -472,6 +472,15 @@ let memoryMonitor = new MemoryMonitor();
   const _wibDesc = document.getElementById('waypoint-info-desc');
   const _wibBody = document.getElementById('waypoint-info-body');
 
+  if (_wib) {
+    _wib.style.pointerEvents = 'auto';
+    _wib.addEventListener('click', () => {
+      const hotspots = state.currentIcons[state.idx] || [];
+      const target = hotspots.find(h => !h.noPopup) || hotspots[0];
+      if (target) popupManager?.openPopup(target);
+    });
+  }
+
   // Managers
   const mapManager = new MapManager();
 
