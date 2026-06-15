@@ -651,6 +651,15 @@ git add . && git commit -m "descripción" && git push
 - CSS usa `:has(.hs-caption__badge:hover)` — cero JS en hover
 - Desactivado en mobile con `@media (hover: none)`
 
+**Lista de implicados: filtro sticky + grupos reordenables (Junio 2026):**
+- `.popup-detailed__involved` (fila de avatares "Implicados") es ahora una **barra sticky** (`position: sticky; top: 0`) dentro de `.popup-detailed__content` — actúa como filtro siempre accesible mientras se hace scroll por los echos. Sin `backdrop-filter` (ya lo aplica `.popup-detailed`, duplicarlo en el sticky encarece cada frame de scroll); usa `background: var(--popup-bg)`/`var(--popup-bg-mobile)` + `box-shadow` para indicar que está "pegada". En mobile se oculta `.popup-detailed__person-role` dentro de la barra para ahorrar espacio
+- `updateEchos()` (re-render destructivo por click) fue **eliminado** y reemplazado por:
+  - `buildEchoGroups(hotspot)` — se llama una sola vez en `openDetailedPopup()`, después de `renderInvolved`. Crea un `<section class="popup-detailed__echo-group">` por cada implicado con `echos` para ese hotspot (orden: `highlighted: true` primero, resto en orden de `involved[]`). Implicados sin echos para ese hotspot no generan grupo — su avatar sigue arriba como filtro
+  - `_createEchoGroup(person, echos)` — helper que crea cada grupo (header con avatar+nombre + lista de echos). `animation-delay` escalonado limitado a los primeros 15 echos para no alargar el efecto cascada con varios grupos
+  - `promotePerson(personId)` — al click en un avatar, hace `prepend()` del grupo correspondiente (O(1), no re-decodifica imágenes ni relanza `echoSlideIn`) + scroll suave al inicio de la lista de echos. Si la persona no tiene echos para ese hotspot, no hace nada
+  - `this.echoGroupEls` (Map personId → elemento) se limpia en `closeAll()`
+- `index.html`: se eliminó el `<h4 id="popup-detailed-echos-title">` y el divider huérfano de `#popup-detailed-echos-section` — cada grupo trae su propio header
+
 ## Contenido editorial por historia — docs/editorial/{historia}/
 
 Cada historia con contenido real tiene una carpeta `docs/editorial/{id}/` (fuera de `public/`, no se publica) con el sistema de seguimiento de "personas implicadas":
