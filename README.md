@@ -722,7 +722,9 @@ F2 tenía `logicalH: 1773` cuando la imagen real mide 2049px (13% de error). F1 
 ## 17. Pendientes y roadmap
 
 ### Pendiente inmediato
-- [ ] Contenido real F3 — reemplazar waypoints TODO con el caso real (`label` y `lines`)
+- [x] ~~Contenido real F1/F2/F3~~ — `label`/`lines` reales + pasada de tono/legal aplicada en los 3 mapas (Junio 2026, ver `docs/editorial/expediente-0001/`)
+- [x] ~~Hotspots conectados a personas reales~~ — `involved`/`echos` completos en F1/F2/F3 (30 echos agregados en F1 wp2-5 + F2 wp0-5, Junio 2026)
+- [ ] 25 imágenes nuevas + 4 referencias a avatares existentes para hotspots tipo B (ver `docs/editorial/expediente-0001/shot-list-f3.md` y `shot-list-f1-f2.md`)
 - [ ] `thumb.webp` para el catálogo `index.json`
 - [ ] Resolver el colapso del iframe en WordPress online — guard de altura mínima en el listener
 - [x] ~~Imagen mobile propia para fase 2~~ — `f2-mapa-mobile-x2.webp` (1400×1650)

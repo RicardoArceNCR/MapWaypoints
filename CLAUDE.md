@@ -641,7 +641,7 @@ git add . && git commit -m "descripción" && git push
 - Layout fullscreen estable: ancho y alto siempre `window.innerWidth/Height`
 - Multi-historia funcional via `?story=`
 - Editor visual funcional con undo/redo (50 pasos), multi-select
-- Primer expediente real (Costa Rica 0001) en progreso — contenido real pendiente
+- Primer expediente real (Costa Rica 0001): contenido de texto completo — `label`/`lines`, tono/legal, `involved`/`echos` en las 3 fases (Junio 2026). Pendiente: 25 imágenes + 4 referencias a avatares existentes para hotspots tipo B, y `thumb.webp` (ver `docs/editorial/expediente-0001/`)
 
 **Sistema de hotspots informativos tipo B (Junio 2026):**
 - Overlay invisible (`vacio.png`) con badge ⓘ y tooltip descriptivo
@@ -650,6 +650,17 @@ git add . && git commit -m "descripción" && git push
 - Activado via campos `caption` y `noPopup: true` en `icons.json`
 - CSS usa `:has(.hs-caption__badge:hover)` — cero JS en hover
 - Desactivado en mobile con `@media (hover: none)`
+
+## Contenido editorial por historia — docs/editorial/{historia}/
+
+Cada historia con contenido real tiene una carpeta `docs/editorial/{id}/` (fuera de `public/`, no se publica) con el sistema de seguimiento de "personas implicadas":
+
+- `personas.json` — registro canónico: id, name, avatar, caseRole, status, bio, appearsIn, _echosStatus. Es la FUENTE DE VERDAD que `involved[].id`/`echos{}` en los `icons.json` deben usar — mismo id en las 3 fases.
+- `grid-implicados.md` — tabla de seguimiento: perfil base de cada persona, dónde aparece, qué `echos` faltan.
+- `shot-list-*.md` — imágenes pendientes para hotspots tipo B, por fase.
+- `audit_gaps.py` — corre desde `maps/`, detecta `involved[]` sin `echos` correspondiente y captions tipo B con placeholder (lorem ipsum / TODO).
+
+Antes de escribir `involved`/`echos`/captions para una historia, revisar esta carpeta — evita duplicar ids o reescribir contenido ya existente.
 
 **Fixes Junio 2026:**
 - Race condition en cambio de fase: transición en vuelo cancelada con `transitionState.active = false` + `preloadPhase()` con `{ setAsCurrent: false }` — verificado con Playwright
