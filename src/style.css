@@ -2499,6 +2499,21 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
 .story-brief__share {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.story-brief__share-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.story-brief__share-icons {
+  display: flex;
   gap: 8px;
 }
 
