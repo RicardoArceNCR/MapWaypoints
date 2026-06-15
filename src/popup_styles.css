@@ -137,19 +137,15 @@
 .popup-detailed__drag-handle {
   position: absolute;
   top: 0;
-  /* pegado al borde superior del popup */
   left: 0;
   right: 0;
   height: 40px;
-  /* altura normal en desktop */
   display: flex;
   justify-content: center;
   align-items: flex-start;
   touch-action: none;
-  /* el gesto es para el handle, no para scroll */
   cursor: grab;
   z-index: 2;
-  /* por debajo del botón de cerrar (z-index:10) */
 }
 
 /* Mobile: Diseño tipo card flotante */
@@ -159,16 +155,9 @@
     bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
     left: 50%;
     right: auto;
-
-    /* Animación de entrada desde abajo */
     transform: translate(-50%, 110%);
-
-    /* Margen lateral y ancho máx */
     width: min(100vw - 30px, 520px);
-
-    /* 👉 Ocupa casi toda la altura disponible */
     max-height: calc(100dvh - 33px);
-
     border-radius: var(--popup-radius-mobile);
     background: var(--popup-bg-mobile);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
@@ -176,31 +165,26 @@
 
   .popup-detailed {
     backdrop-filter: blur(16px);
-    /* en vez de 30px */
   }
 
   .popup-backdrop--visible {
     backdrop-filter: blur(4px);
-    /* en vez de 8px */
   }
 
   .popup-detailed.popup--visible {
     transform: translate(-50%, 0);
   }
 
-  /* Ajustes de paddings más "card" en mobile */
   .popup-detailed__content {
     padding: 16px 18px 20px;
     padding-bottom: 20px;
   }
 
-  /* La imagen respeta el borde superior redondeado */
   .popup-detailed__media {
     border-radius: var(--popup-radius-mobile) var(--popup-radius-mobile) 0 0;
     overflow: hidden;
   }
 
-  /* Handle para arrastrar hacia abajo (estilo sheet nativo) */
   .popup-detailed__drag-handle::before {
     content: '';
     position: absolute;
@@ -216,7 +200,6 @@
 
   .popup-detailed__drag-handle {
     height: 110px;
-    /* cubre la barra + buena parte del mapa */
   }
 }
 
@@ -234,7 +217,6 @@
   .popup-detailed__image-wrapper {
     height: min(32vh, 190px);
     margin-top: 20px;
-    /* Espacio para el handle */
   }
 }
 
@@ -254,7 +236,6 @@
   }
 }
 
-/* Overlay gradient para mejor legibilidad del texto */
 .popup-detailed__image-overlay {
   position: absolute;
   inset: 0;
@@ -271,11 +252,7 @@
   overflow-y: auto;
   padding: calc(var(--popup-padding) * 1.5);
   padding-bottom: calc(var(--popup-padding) * 2);
-
-  /* Scroll suave en iOS */
   -webkit-overflow-scrolling: touch;
-
-  /* Barra de scroll personalizada */
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
@@ -406,12 +383,18 @@
   letter-spacing: 1px;
 }
 
-/* Grid de implicados */
+/* Grid de implicados — sticky bar de avatares */
 .popup-detailed__involved {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* fallback: 2 cols */
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
-  margin-bottom: 24px;
+  padding: 12px 0 24px;
+  margin-bottom: 0;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--popup-bg);
+  box-shadow: 0 8px 12px -8px rgba(0, 0, 0, 0.4);
 }
 
 /* Desktop: 2–4 columnas según cantidad */
@@ -432,9 +415,13 @@
 @media (max-width: 768px) {
   .popup-detailed__involved {
     gap: 10px;
+    background: var(--popup-bg-mobile);
   }
   .popup-detailed__involved:has(.popup-detailed__person:nth-child(3)) {
     grid-template-columns: repeat(3, 1fr);
+  }
+  .popup-detailed__person-role {
+    display: none;
   }
 }
 
@@ -547,20 +534,105 @@
   word-break: break-word;
 }
 
-/* Echos mejorados */
+/* Echos mejorados — grupos combinados */
 .popup-detailed__echos {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.popup-detailed__echo {
+/* Tarjeta por implicado: franja de acento + cuerpo */
+.echo-group {
+  display: flex;
+  align-items: stretch;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
+  overflow: hidden;
+  scroll-margin-top: 80px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.echo-group--active {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(var(--phase-color-rgb, 27, 198, 235), 0.35);
+}
+
+.echo-group__accent {
+  width: 4px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease;
+}
+
+.echo-group--active .echo-group__accent {
+  background: var(--phase-color, #1BC6EB);
+}
+
+.echo-group__body {
+  flex: 1;
+  min-width: 0;
   padding: 16px;
-  transition: all 0.3s ease;
+}
+
+.echo-group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.echo-group-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+
+.echo-group-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.echo-group-name {
+  color: var(--phase-color, #1BC6EB);
+  font-size: clamp(15px, 2.8vw, 17px);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.echo-group-role {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: clamp(11px, 2vw, 12px);
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.echo-group-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cada echo es una fila dentro de la tarjeta del implicado,
+   separada por un divisor en vez de ser su propia card */
+.popup-detailed__echo {
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   animation: echoSlideIn 0.4s ease-out both;
+}
+
+.popup-detailed__echo:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.popup-detailed__echo:not(:first-child) {
+  margin-top: 12px;
 }
 
 @keyframes echoSlideIn {
@@ -573,11 +645,6 @@
     opacity: 1;
     transform: translateX(0);
   }
-}
-
-.popup-detailed__echo:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .popup-detailed__echo-header {
@@ -697,4 +764,3 @@
     color: black;
   }
 }
-

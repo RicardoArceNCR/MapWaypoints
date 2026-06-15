@@ -9,7 +9,7 @@ export class DetailedPopupManager {
     this.popupSimpleTitle = document.getElementById('popup-title');
     this.popupSimpleBody = document.getElementById('popup-body');
     this.popupSimpleClose = document.getElementById('popup-close');
-    
+
     // Referencias DOM - Popup detallado
     this.popupDetailed = document.getElementById('popup-detailed');
     this.popupDetailedClose = document.getElementById('popup-detailed-close');
@@ -23,33 +23,35 @@ export class DetailedPopupManager {
     this.popupDetailedInvolvedSection = document.getElementById('popup-detailed-involved-section');
     this.popupDetailedEchos = document.getElementById('popup-detailed-echos');
     this.popupDetailedEchosSection = document.getElementById('popup-detailed-echos-section');
-    this.popupDetailedEchosTitle = document.getElementById('popup-detailed-echos-title');
     this.popupDetailedScrollClose = document.getElementById('popup-detailed-scroll-close');
-    
+
+    this.popupDetailedContent = this.popupDetailed?.querySelector('.popup-detailed__content');
+
     // Backdrop compartido
     this.backdrop = document.getElementById('popup-backdrop');
-    
+
     // Estado
     this.currentHotspot = null;
     this.selectedPersonId = null;
+    this.echoGroupEls = new Map();
     this.touchStartY = 0;
     this.touchCurrentY = 0;
     this.isDragging = false;
-    this.closeTimeout = null;          // 🆕 timeout para animación de cierre
-    
+    this.closeTimeout = null;
+
     // Detectar si es dispositivo móvil (antes de listeners)
     this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    
+
     // Event listeners
     this.initEventListeners();
   }
-  
+
   initEventListeners() {
     // Cerrar popups
     this.popupSimpleClose?.addEventListener('click', () => this.closeAll());
     this.popupDetailedClose?.addEventListener('click', () => this.closeAll());
     this.popupDetailedScrollClose?.addEventListener('click', () => this.closeAll());
-    
+
     // Cerrar solo si el click fue directamente en el fondo,
     // no dentro de la tarjeta
     this.backdrop?.addEventListener('click', (e) => {
@@ -57,7 +59,7 @@ export class DetailedPopupManager {
         this.closeAll();
       }
     });
-    
+
     // Evitar que los clicks dentro del popup lleguen al backdrop
     this.popupSimple?.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -65,62 +67,62 @@ export class DetailedPopupManager {
     this.popupDetailed?.addEventListener('click', (e) => {
       e.stopPropagation();
     });
-    
+
     // Cerrar con Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && (!this.popupSimple.hidden || !this.popupDetailed.hidden)) {
         this.closeAll();
       }
     });
-    
+
     // Gesto de deslizar hacia abajo en mobile
     if (this.isMobile && this.popupDetailed) {
       this.initSwipeToClose();
     }
-    
+
     // Prevenir scroll del body cuando el popup está abierto
     this.backdrop?.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
   }
-  
+
   initSwipeToClose() {
     const handle = this.popupDetailed.querySelector('.popup-detailed__drag-handle');
     if (!handle) return;
-    
+
     handle.addEventListener('touchstart', (e) => {
       this.touchStartY = e.touches[0].clientY;
       this.isDragging = true;
       this.popupDetailed.style.transition = 'none';
     });
-    
+
     handle.addEventListener('touchmove', (e) => {
       if (!this.isDragging) return;
-      
+
       this.touchCurrentY = e.touches[0].clientY;
       const deltaY = this.touchCurrentY - this.touchStartY;
-      
+
       if (deltaY > 0) {
         this.popupDetailed.style.transform = `translate(-50%, ${deltaY}px)`;
       }
     });
-    
+
     handle.addEventListener('touchend', () => {
       if (!this.isDragging) return;
-      
+
       const deltaY = this.touchCurrentY - this.touchStartY;
       this.popupDetailed.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-      
+
       if (deltaY > 100) {
         this.closeAll();
       } else {
         this.popupDetailed.style.transform = 'translate(-50%, 0)';
       }
-      
+
       this.isDragging = false;
       this.touchStartY = 0;
       this.touchCurrentY = 0;
     });
   }
-  
+
   /**
    * Detecta si un hotspot tiene estructura detallada
    */
@@ -139,18 +141,16 @@ export class DetailedPopupManager {
    */
   openFromHotspot(hs) {
     if (!hs) return;
-    // Normaliza payload mínimo
     const data = {
-      id:    hs.id || hs.key,
-      title: hs.title || hs.meta?.title || hs.text || '',
-      body:  hs.body  || hs.meta?.description || hs.description || '',
-      image: hs.image || hs.meta?.media || null,
+      id:       hs.id || hs.key,
+      title:    hs.title || hs.meta?.title || hs.text || '',
+      body:     hs.body  || hs.meta?.description || hs.description || '',
+      image:    hs.image || hs.meta?.media || null,
       datetime: hs.datetime,
       location: hs.location,
       involved: hs.involved,
       echos:    hs.echos
     };
-    // Reusa la ruta actual: decide si es detallado o simple
     this.openPopup(data);
   }
 
@@ -158,27 +158,24 @@ export class DetailedPopupManager {
    * Abre el popup apropiado según el tipo de hotspot
    */
   openPopup(hotspot) {
-    // Prevenir scroll del body
     document.body.style.overflow = 'hidden';
-    
+
     if (this.isDetailedHotspot(hotspot)) {
       this.openDetailedPopup(hotspot);
     } else {
       this.openSimplePopup(hotspot);
     }
   }
-  
+
   /**
    * Abre el popup simple (estructura original)
    */
   openSimplePopup(hotspot) {
-    // Cancelar cualquier cierre pendiente
     if (this.closeTimeout) {
       clearTimeout(this.closeTimeout);
       this.closeTimeout = null;
     }
 
-    // Asegurar que el detallado está oculto
     if (this.popupDetailed) {
       this.popupDetailed.classList.remove('popup--visible');
       this.popupDetailed.hidden = true;
@@ -190,43 +187,37 @@ export class DetailedPopupManager {
     this.backdrop.hidden = false;
     this.popupSimple.hidden = false;
 
-    // Añadir clase para animación
     requestAnimationFrame(() => {
       this.popupSimple.classList.add('popup--visible');
       this.backdrop.classList.add('popup-backdrop--visible');
       document.body.classList.add('popup-open');
     });
   }
-  
+
   /**
    * Abre el popup detallado (nueva estructura)
    */
   openDetailedPopup(hotspot) {
-    // Cancelar cualquier cierre pendiente
     if (this.closeTimeout) {
       clearTimeout(this.closeTimeout);
       this.closeTimeout = null;
     }
 
-    // Asegurar que el simple está oculto
     if (this.popupSimple) {
       this.popupSimple.classList.remove('popup--visible');
       this.popupSimple.hidden = true;
     }
 
     this.currentHotspot = hotspot;
-    
-    // Título
+
     this.popupDetailedTitle.textContent = hotspot.title || '';
-    
-    // Imagen con overlay gradient
+
     if (hotspot.image) {
       this.popupDetailedImage.src = hotspot.image;
       this.popupDetailedImage.alt = hotspot.title || '';
       const imageWrapper = this.popupDetailedImage.parentElement;
       imageWrapper.style.display = 'block';
-      
-      // Añadir overlay gradient para mobile
+
       if (!imageWrapper.querySelector('.popup-detailed__image-overlay')) {
         const overlay = document.createElement('div');
         overlay.className = 'popup-detailed__image-overlay';
@@ -235,18 +226,15 @@ export class DetailedPopupManager {
     } else {
       this.popupDetailedImage.parentElement.style.display = 'none';
     }
-    
-    // Fecha y hora con formato mejorado
+
     if (hotspot.datetime) {
       this.popupDetailedDate.textContent = hotspot.datetime.date || '';
       this.popupDetailedTime.textContent = hotspot.datetime.time || '';
-      
-      // Aplicar color personalizado a la hora
+
       if (hotspot.datetime.timeColor) {
         this.popupDetailedTime.style.color = hotspot.datetime.timeColor;
       }
-      
-      // Mostrar contenedor de datetime
+
       const datetimeContainer = this.popupDetailedDate.parentElement;
       if (datetimeContainer) {
         datetimeContainer.style.display = 'flex';
@@ -257,8 +245,7 @@ export class DetailedPopupManager {
         datetimeContainer.style.display = 'none';
       }
     }
-    
-    // Ubicación con ícono
+
     if (hotspot.location) {
       this.popupDetailedLocation.innerHTML = `
         <svg class="popup-detailed__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -270,71 +257,64 @@ export class DetailedPopupManager {
     } else {
       this.popupDetailedLocation.style.display = 'none';
     }
-    
-    // Descripción
+
     if (hotspot.description) {
       this.popupDetailedDescription.textContent = hotspot.description;
       this.popupDetailedDescription.style.display = 'block';
     } else {
       this.popupDetailedDescription.style.display = 'none';
     }
-    
+
     // Personas implicadas
     if (hotspot.involved && hotspot.involved.length > 0) {
       this.renderInvolved(hotspot.involved);
       this.popupDetailedInvolvedSection.hidden = false;
-      
-      // Seleccionar automáticamente la persona resaltada o la primera
+
       const highlighted = hotspot.involved.find(p => p.highlighted);
       const firstPerson = hotspot.involved[0];
       this.selectedPersonId = highlighted ? highlighted.id : firstPerson.id;
-      
-      // Actualizar echos para la persona seleccionada
-      this.updateEchos();
+
+      this.buildEchosGroups(hotspot);
     } else {
       this.popupDetailedInvolvedSection.hidden = true;
       this.popupDetailedEchosSection.hidden = true;
     }
-    
-    // Mostrar popup
+
     this.popupDetailed.hidden = false;
     this.backdrop.hidden = false;
-    
-    // Añadir clases para animación
+
     requestAnimationFrame(() => {
       this.popupDetailed.classList.add('popup--visible');
       this.backdrop.classList.add('popup-backdrop--visible');
       document.body.classList.add('popup-open');
       this._updateScrollCloseButton();
     });
-    
-    // Resetear scroll del contenido
+
     const content = this.popupDetailed.querySelector('.popup-detailed__content');
     if (content) {
       content.scrollTop = 0;
     }
   }
-  
+
   /**
    * Renderiza la lista de personas implicadas
    */
   renderInvolved(involved) {
     this.popupDetailedInvolved.innerHTML = '';
-    
+
     involved.forEach(person => {
       const personEl = document.createElement('div');
       personEl.className = 'popup-detailed__person';
       personEl.dataset.personId = person.id;
-      
-      // Marcar como activa si está seleccionada
+
       if (person.id === this.selectedPersonId || person.highlighted) {
         personEl.classList.add('active');
       }
-      
+
       personEl.innerHTML = `
         <div class="popup-detailed__person-avatar-wrapper">
-          <img 
-            src="${person.avatar || './assets/default.gif'}" 
+          <img
+            src="${person.avatar || './assets/default.gif'}"
             alt="${person.name}"
             class="popup-detailed__person-avatar"
             loading="lazy"
@@ -346,28 +326,25 @@ export class DetailedPopupManager {
           ${person.role ? `<div class="popup-detailed__person-role">${person.role}</div>` : ''}
         </div>
       `;
-      
-      // Click para seleccionar persona
+
       personEl.addEventListener('click', () => {
         this.selectPerson(person.id);
       });
-      
+
       this.popupDetailedInvolved.appendChild(personEl);
     });
     this._updateScrollCloseButton();
   }
-  
+
   /**
-   * Selecciona una persona y actualiza los echos
+   * Selecciona una persona y promueve su grupo de echos
    */
   selectPerson(personId) {
     this.selectedPersonId = personId;
-    
-    // Actualizar clases activas con animación
+
     this.popupDetailedInvolved.querySelectorAll('.popup-detailed__person').forEach(el => {
       if (el.dataset.personId === personId) {
         el.classList.add('active');
-        // Pequeña animación de pulso
         el.classList.add('popup-detailed__person--pulse');
         setTimeout(() => {
           el.classList.remove('popup-detailed__person--pulse');
@@ -376,43 +353,84 @@ export class DetailedPopupManager {
         el.classList.remove('active');
       }
     });
-    
-    // Actualizar echos
-    this.updateEchos();
+
+    this.promotePerson(personId);
   }
-  
+
   /**
-   * Actualiza la sección de echos para la persona seleccionada
+   * Construye grupos de echos combinados para todas las personas con echos.
+   * Ordena con la persona seleccionada primero.
    */
-  updateEchos() {
-    if (!this.currentHotspot || !this.currentHotspot.echos || !this.selectedPersonId) {
+  buildEchosGroups(hotspot) {
+    this.echoGroupEls.clear();
+
+    const involved = hotspot.involved || [];
+    const echosData = hotspot.echos || {};
+
+    const peopleWithEchos = involved.filter(p => echosData[p.id] && echosData[p.id].length > 0);
+
+    if (peopleWithEchos.length === 0) {
+      this.popupDetailedEchos.innerHTML = '';
       this.popupDetailedEchosSection.hidden = true;
+      this._updateScrollCloseButton();
       return;
     }
-    
-    const echos = this.currentHotspot.echos[this.selectedPersonId];
-    
-    if (!echos || echos.length === 0) {
-      this.popupDetailedEchosSection.hidden = true;
-      return;
-    }
-    
-    // Actualizar título de echos
-    const selectedPerson = this.currentHotspot.involved?.find(p => p.id === this.selectedPersonId);
-    if (selectedPerson) {
-      this.popupDetailedEchosTitle.textContent = `Echos de ${selectedPerson.name}:`;
-    } else {
-      this.popupDetailedEchosTitle.textContent = 'Echos:';
-    }
-    
-    // Renderizar echos con animación de entrada
+
+    peopleWithEchos.sort((a, b) => {
+      if (a.id === this.selectedPersonId) return -1;
+      if (b.id === this.selectedPersonId) return 1;
+      return 0;
+    });
+
     this.popupDetailedEchos.innerHTML = '';
-    
+    peopleWithEchos.forEach(person => {
+      const isActive = person.id === this.selectedPersonId;
+      const group = this._createEchoGroup(person.id, person, echosData[person.id], isActive);
+      this.popupDetailedEchos.appendChild(group);
+      this.echoGroupEls.set(person.id, group);
+    });
+
+    this.popupDetailedEchosSection.hidden = false;
+    this._updateScrollCloseButton();
+  }
+
+  /**
+   * Crea un <section> tipo tarjeta (franja de acento + header avatar/nombre/rol
+   * + lista de echos) para una persona. Limita animaciones a 15 items.
+   */
+  _createEchoGroup(personId, person, echos, isActive) {
+    const section = document.createElement('section');
+    section.className = 'echo-group' + (isActive ? ' echo-group--active' : '');
+    section.dataset.personId = personId;
+
+    const accent = document.createElement('div');
+    accent.className = 'echo-group__accent';
+    section.appendChild(accent);
+
+    const body = document.createElement('div');
+    body.className = 'echo-group__body';
+
+    const header = document.createElement('div');
+    header.className = 'echo-group-header';
+    header.innerHTML = `
+      <img class="echo-group-avatar" src="${person.avatar || './assets/default.gif'}" alt="${person.name}" loading="lazy" />
+      <div class="echo-group-info">
+        <span class="echo-group-name">${person.name}</span>
+        ${person.role ? `<span class="echo-group-role">${person.role}</span>` : ''}
+      </div>
+    `;
+    body.appendChild(header);
+
+    const list = document.createElement('div');
+    list.className = 'echo-group-list';
+
     echos.forEach((echo, index) => {
       const echoEl = document.createElement('div');
       echoEl.className = 'popup-detailed__echo';
-      echoEl.style.animationDelay = `${index * 0.05}s`;
-      
+      if (index < 15) {
+        echoEl.style.animationDelay = `${index * 0.05}s`;
+      }
+
       echoEl.innerHTML = `
         <div class="popup-detailed__echo-header">
           <div class="popup-detailed__echo-datetime">
@@ -422,17 +440,46 @@ export class DetailedPopupManager {
         </div>
         <div class="popup-detailed__echo-description">${echo.description || ''}</div>
       `;
-      
-      this.popupDetailedEchos.appendChild(echoEl);
+
+      list.appendChild(echoEl);
     });
-    
-    this.popupDetailedEchosSection.hidden = false;
-    this._updateScrollCloseButton();
+
+    body.appendChild(list);
+    section.appendChild(body);
+    return section;
   }
-  
+
+  /**
+   * Promueve el grupo de echos de una persona al inicio del contenedor,
+   * sincroniza la franja de acento activa y hace scroll suave hacia él.
+   * Si la persona no tiene echos en este hotspot, solo actualiza el acento.
+   */
+  promotePerson(personId) {
+    this.echoGroupEls.forEach((el, id) => {
+      el.classList.toggle('echo-group--active', id === personId);
+    });
+
+    const groupEl = this.echoGroupEls.get(personId);
+    if (!groupEl) return;
+
+    const parent = this.popupDetailedEchos;
+    if (parent.firstChild !== groupEl) {
+      parent.prepend(groupEl);
+    }
+
+    if (this.popupDetailedContent) {
+      const bar = this.popupDetailedInvolved;
+      const target = groupEl.offsetTop - this.popupDetailedContent.offsetTop - bar.offsetHeight;
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      this.popupDetailedContent.scrollTo({
+        top: Math.max(0, target),
+        behavior: prefersReduced ? 'auto' : 'smooth'
+      });
+    }
+  }
+
   /**
    * Muestra/oculta el botón de cerrar al final del scroll
-   * según si el contenido necesita scroll o no
    */
   _updateScrollCloseButton() {
     const content = this.popupDetailed?.querySelector('.popup-detailed__content');
@@ -445,44 +492,39 @@ export class DetailedPopupManager {
    * Cierra todos los popups
    */
   closeAll() {
-    // 📱 Cerrar cualquier tooltip ⓘ abierto
     document.querySelectorAll('.hs-caption.is-open')
       .forEach(el => el.classList.remove('is-open'));
 
-    // Cancelar timeout anterior si existe
     if (this.closeTimeout) {
       clearTimeout(this.closeTimeout);
       this.closeTimeout = null;
     }
 
-    // Quitar clases visibles para disparar animación
     this.popupSimple.classList.remove('popup--visible');
     this.popupDetailed.classList.remove('popup--visible');
     this.backdrop.classList.remove('popup-backdrop--visible');
 
-    // Esperar a que termine la animación antes de ocultar
     this.closeTimeout = setTimeout(() => {
       this.popupSimple.hidden = true;
       this.popupDetailed.hidden = true;
       this.backdrop.hidden = true;
-      
-      // Resetear transform del popup detallado
+
       if (this.popupDetailed) {
         this.popupDetailed.style.transform = '';
       }
-      
-      // Restaurar scroll del body + chrome navegación
+
       document.body.style.overflow = '';
       document.body.classList.remove('popup-open');
 
       this.currentHotspot = null;
       this.selectedPersonId = null;
+      this.echoGroupEls.clear();
       this.popupDetailedTime.style.color = '';
 
       this.closeTimeout = null;
     }, 300);
   }
-  
+
   /**
    * Verifica si algún popup está abierto
    */
