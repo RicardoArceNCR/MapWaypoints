@@ -6,7 +6,7 @@
 │   │   ├── bryan-steven-robles-salas.webp
 │   │   ├── danilo-jose-chavez-medina.webp
 │   │   ├── default.gif
-│   │   ├── editor-Cocws56V.js
+│   │   ├── editor-C3CUB168.js
 │   │   ├── f2-mapa-dektop-2x.jpg
 │   │   ├── f2-mapa-dektop-2x.webp
 │   │   ├── f2-mapa-mobile-x2.jpg
@@ -21,8 +21,9 @@
 │   │   │   ├── inter-v20-latin-700.woff2
 │   │   │   ├── inter-v20-latin-800.woff2
 │   │   │   └── inter-v20-latin-regular.woff2
-│   │   ├── index-Bq5UaRYU.js
-│   │   ├── index-CnMmLN07.css
+│   │   ├── index-DXR_ofOX.js
+│   │   ├── index-pZ_QuL68.css
+│   │   ├── logo_diver-1.webp
 │   │   ├── logo-divergentes.webp
 │   │   ├── luis-fernando-carvajal-fernandez.webp
 │   │   ├── luis-ricardo-orozco-gonzales.webp
@@ -32,14 +33,15 @@
 │   │   ├── mapa-mobile-2x.jpg
 │   │   ├── mapa-mobile-2x.webp
 │   │   ├── mapa-mobile.webp
+│   │   ├── mosca-r.webp
 │   │   ├── pablo-anotonio-robles-murillo.webp
 │   │   ├── persona_1-1.gif
 │   │   ├── persona_1-2.gif
 │   │   ├── persona_1-3.gif
 │   │   ├── persona_1-4.gif
-│   │   ├── popup_styles-gqo_4jZM.css
+│   │   ├── popup_styles-QqpiP20k.css
 │   │   ├── stephanie-maria-chacon-guillen.webp
-│   │   ├── style-Dc4HxRqI.css
+│   │   ├── style-qaZJpFLx.css
 │   │   └── vacio.png
 │   ├── data
 │   │   ├── index.json
@@ -48,6 +50,10 @@
 │   │   │       └── expedientes
 │   │   └── story.json
 │   └── index.html
+├── docs
+│   └── editorial
+│       └── expediente-0001
+│           └── grid-implicados.md
 ├── FONTS-GUIDE.md
 ├── generate_icons.py
 ├── mapas_icons.txt
@@ -75,6 +81,7 @@
 │   │   │   ├── inter-v20-latin-700.woff2
 │   │   │   ├── inter-v20-latin-800.woff2
 │   │   │   └── inter-v20-latin-regular.woff2
+│   │   ├── logo_diver-1.webp
 │   │   ├── logo-divergentes.webp
 │   │   ├── luis-fernando-carvajal-fernandez.webp
 │   │   ├── luis-ricardo-orozco-gonzales.webp
@@ -84,6 +91,7 @@
 │   │   ├── mapa-mobile-2x.jpg
 │   │   ├── mapa-mobile-2x.webp
 │   │   ├── mapa-mobile.webp
+│   │   ├── mosca-r.webp
 │   │   ├── pablo-anotonio-robles-murillo.webp
 │   │   ├── persona_1-1.gif
 │   │   ├── persona_1-2.gif
@@ -114,4 +122,4 @@
 ├── vercel.json
 └── vite.config.js
 
-16 directories, 99 files
+19 directories, 104 files

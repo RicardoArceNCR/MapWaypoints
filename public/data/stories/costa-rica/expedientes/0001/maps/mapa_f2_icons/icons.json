@@ -29,7 +29,7 @@
       "description": "El Renault Duster blanco (BKK190) salió de León XIII dirigiéndose a Moravia. Inicialmente era conducido por Danilo José Chaves Medina.",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -42,13 +42,32 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
         }
       ],
-      "echos": {},
+      "echos": {
+        "chaves_medina": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "—" },
+            "description": "Tras la reunión de coordinación de la noche anterior, este es el día en que, según el expediente, Chaves Medina pasaría de las labores de vigilancia e intermediación a un rol operativo directo: horas más tarde conduciría uno de los vehículos de la huida."
+          }
+        ],
+        "carvajal": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "—" },
+            "description": "Para Carvajal Fernández, de 20 años, este es el día en que culmina el período de vigilancia documentado en la fase anterior. Según el OIJ, es a partir de esta mañana que su rol señalado pasa de la vigilancia a la ejecución."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "—" },
+            "description": "Bryan Steven Robles Salas, de 23 años y vecino de León XIII, abre esta fase: según el expediente, es quien conduce la motocicleta que sale de León XIII al inicio de la mañana, en el primer movimiento documentado del Día D."
+          }
+        ]
+      },
       "id": "hs_f2_w0_h0"
     },
     {
@@ -82,7 +101,7 @@
       "description": "TODO — descripción H1",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -95,7 +114,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -135,7 +154,7 @@
       "description": "TODO — descripción H2",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -148,7 +167,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -187,7 +206,7 @@
       "description": "La motocicleta Freedom color rojo sale de León XIII, sector de residencia de Bryan Steven Robles Salas, quien la conducía.",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -200,13 +219,32 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
         }
       ],
-      "echos": {},
+      "echos": {
+        "robles_salas": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "06:29 h" },
+            "description": "Según el expediente, Robles Salas conduce la motocicleta Freedom roja que sale de León XIII, sector donde reside, a las 6:29 h de la mañana — el primer vehículo de la célula en moverse este día."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "06:29 h" },
+            "description": "Mientras la motocicleta salía de León XIII, Chaves Medina —según la reconstrucción del OIJ— se encontraba ya posicionado junto al resto de la célula, lista para los cambios de posición que se documentan en el siguiente punto del recorrido."
+          }
+        ],
+        "carvajal": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "06:29 h" },
+            "description": "A esta hora, según el expediente, Carvajal Fernández permanecía en el Renault Duster, donde había pasado buena parte de la vigilancia de los días previos, a la espera de los cambios de posición que ocurrirían poco después."
+          }
+        ]
+      },
       "id": "hs_f2_w1_h0"
     },
     {
@@ -241,7 +279,7 @@
       "description": "TODO — descripción H1",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -254,7 +292,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -294,7 +332,7 @@
       "description": "TODO — descripción H2",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -307,7 +345,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -347,7 +385,7 @@
       "description": "Ambos vehículos realizaron rondas y entraron a un punto de reunión (\"calle sin salida Av 65A\"). Se produjeron cambios para evitar ser detectados. Luis Fernando Carvajal Fernández (suéter gris) sube como pasajero en la motocicleta. A las 07:41 h: Robles Salas pasa a conducir el Duster BKK190 y Danilo Chaves Medina pasa a conducir la motocicleta (camisa color mostaza).",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -360,7 +398,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -368,7 +406,26 @@
       ],
       "id": "hs_f2_wp2_h0",
       "location": "Moravia / León XIII, San José, Costa Rica.",
-      "echos": {}
+      "echos": {
+        "carvajal": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "06:37 – 07:41 h" },
+            "description": "Según la reconstrucción del OIJ, en este punto Carvajal Fernández —identificado por la investigación como el presunto gatillero, con suéter gris— sube como pasajero a la motocicleta durante los cambios de posición previos al ataque."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "07:41 h" },
+            "description": "A las 7:41 h, según el expediente, Robles Salas pasó a conducir el Renault Duster BKK190 — el vehículo que, minutos después, se dirigiría al Condominio Naples."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "07:41 h" },
+            "description": "En el mismo cambio de las 7:41 h, Chaves Medina —con camisa color mostaza, según la reconstrucción— pasó a conducir la motocicleta, completando el último ajuste de posiciones antes del ataque."
+          }
+        ]
+      }
     },
     {
       "_note": "wp2-H1-B: Tipo B — informativo secundario",
@@ -387,11 +444,11 @@
       },
       "desktop": {
         "offsetX": -259,
-    "offsetY": -203,
-    "width": 270,
-    "height": 169,
-    "rotation": 3,
-    "radius": 0
+        "offsetY": -203,
+        "width": 270,
+        "height": 169,
+        "rotation": 3,
+        "radius": 0
       },
       "id": "hs_f2_wp2_h1",
       "datetime": {
@@ -402,7 +459,7 @@
       "description": "TODO — descripción H1",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -415,7 +472,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -455,7 +512,7 @@
       "description": "TODO — descripción H2",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -468,7 +525,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -483,7 +540,7 @@
       "type": "hotspot",
       "noPopup": false,
       "caption": "",
-      "title": "El sicario se posiciona en la escena del crimen",
+      "title": "El presunto gatillero se ubica cerca de la escena",
       "mobile": {
         "offsetX": 2,
         "offsetY": -148,
@@ -508,7 +565,7 @@
       "description": "El dispositivo de Luis Fernando Carvajal Fernández (62329434) activó la radio base \"Valla Moravia\", confirmando su ubicación exacta en el sector del homicidio.",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -521,7 +578,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -529,7 +586,26 @@
       ],
       "id": "hs_f2_wp3_h0",
       "location": "Moravia / León XIII, San José, Costa Rica.",
-      "echos": {}
+      "echos": {
+        "carvajal": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "—" },
+            "description": "Este es el momento que el expediente describe con mayor precisión sobre Carvajal Fernández: minutos antes del ataque, su dispositivo activó la radio base 'Valla Moravia', lo que según el OIJ ubicaría su teléfono en el sector del homicidio."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "—" },
+            "description": "Según la reconstrucción, a esta hora Robles Salas ya conducía el Renault Duster BKK190 con Carvajal Fernández como pasajero delantero, acercándose al Condominio Naples donde minutos después ocurriría el ataque."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "—" },
+            "description": "Mientras el Duster se acercaba a la escena, Chaves Medina —según el expediente— se desplazaba en la motocicleta por una ruta separada, en la posición que mantendría durante el ataque y la huida inmediata."
+          }
+        ]
+      }
     },
     {
       "_note": "wp3-H1-B: Tipo B — informativo secundario",
@@ -548,11 +624,11 @@
       },
       "desktop": {
         "offsetX": -152,
-    "offsetY": -293,
-    "width": 476,
-    "height": 107,
-    "rotation": 0,
-    "radius": 0
+        "offsetY": -293,
+        "width": 476,
+        "height": 107,
+        "rotation": 0,
+        "radius": 0
       },
       "id": "hs_f2_wp3_h1",
       "datetime": {
@@ -563,7 +639,7 @@
       "description": "TODO — descripción H1",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -576,7 +652,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -616,7 +692,7 @@
       "description": "TODO — descripción H2",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -629,7 +705,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -644,7 +720,7 @@
       "type": "hotspot",
       "noPopup": false,
       "caption": "",
-      "title": "SAMCAM ES ACRIBILLADO",
+      "title": "Samcam recibe el ataque mortal",
       "mobile": {
         "offsetX": -14,
         "offsetY": -142,
@@ -669,7 +745,7 @@
       "description": "El Renault Duster blanco (BKK190) se estacionó frente al Condominio Naples. El pasajero delantero (Carvajal Fernández) descendió, ingresó al condominio, llamó al ofendido por su nombre y le disparó 5 veces con un arma calibre 40. El sicario corre de regreso al automóvil.",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -682,7 +758,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -690,7 +766,26 @@
       ],
       "id": "hs_f2_wp4_h0",
       "location": "Moravia / León XIII, San José, Costa Rica.",
-      "echos": {}
+      "echos": {
+        "carvajal": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "07:44 h" },
+            "description": "Según la reconstrucción del OIJ, es Carvajal Fernández —identificado por la investigación como el pasajero delantero del Duster— quien desciende del vehículo, ingresa al condominio, llama a la víctima por su nombre y le habría disparado varias veces, antes de correr de vuelta al automóvil."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "07:44 h" },
+            "description": "Mientras el ataque ocurría, según el expediente Robles Salas permanecía al volante del Renault Duster, estacionado frente al Condominio Naples, a la espera de que Carvajal Fernández regresara al vehículo."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "07:44 h" },
+            "description": "En este momento, según la reconstrucción, Chaves Medina se encontraba en la motocicleta, en una posición separada del Duster — el punto desde el cual, segundos después, ambos vehículos iniciarían la huida por rutas distintas."
+          }
+        ]
+      }
     },
     {
       "_note": "wp4-H1-B: Tipo B — informativo secundario",
@@ -724,7 +819,7 @@
       "description": "TODO — descripción H1",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -737,7 +832,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -762,11 +857,11 @@
       },
       "desktop": {
         "offsetX": 271,
-    "offsetY": -193,
-    "width": 399,
-    "height": 214,
-    "rotation": 0,
-    "radius": 0
+        "offsetY": -193,
+        "width": 399,
+        "height": 214,
+        "rotation": 0,
+        "radius": 0
       },
       "id": "hs_f2_wp4_h2",
       "datetime": {
@@ -777,7 +872,7 @@
       "description": "TODO — descripción H2",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -790,7 +885,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -830,7 +925,7 @@
       "description": "El Renault Duster huyó a gran velocidad con el gatillero Carvajal dentro. La motocicleta, conducida por Chaves Medina, huyó por una ruta separada hacia Tibás/León XIII.",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -843,7 +938,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -851,7 +946,26 @@
       ],
       "id": "hs_f2_wp5_h0",
       "location": "Moravia / León XIII, San José, Costa Rica.",
-      "echos": {}
+      "echos": {
+        "carvajal": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "—" },
+            "description": "Según el expediente, Carvajal Fernández —señalado como el presunto gatillero— huye a bordo del Renault Duster, que se aleja a gran velocidad del Condominio Naples inmediatamente después del ataque."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "—" },
+            "description": "Robles Salas, según la reconstrucción del OIJ, es quien conduce el Renault Duster en esta huida inicial — el mismo vehículo que horas más tarde sería abandonado en Coronado, como se documenta en la siguiente fase."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": { "date": "19/06/2025", "time": "—" },
+            "description": "Chaves Medina, según el expediente, huye por una ruta separada en la motocicleta, de regreso hacia Tibás/León XIII — un trayecto que se reconstruye con más detalle al inicio de la fase 3."
+          }
+        ]
+      }
     },
     {
       "_note": "wp5-H1-B: Tipo B — informativo secundario",
@@ -885,7 +999,7 @@
       "description": "TODO — descripción H1",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -898,7 +1012,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"
@@ -938,7 +1052,7 @@
       "description": "TODO — descripción H2",
       "involved": [
         {
-          "id": "danilo",
+          "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
           "role": "Intermediario / Conductor Duster"
@@ -951,7 +1065,7 @@
           "highlighted": true
         },
         {
-          "id": "bryan",
+          "id": "robles_salas",
           "name": "Bryan Steven Robles Salas",
           "avatar": "/assets/bryan-steven-robles-salas.webp",
           "role": "Conductor motocicleta"

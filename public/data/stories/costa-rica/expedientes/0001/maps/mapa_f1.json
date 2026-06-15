@@ -51,7 +51,6 @@
     "tall": 0.97,
     "xtall": 0.99,
     "tablet": 1
-    
   },
   "waypoints": [
     {
@@ -117,7 +116,7 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Día rutinario para Samcam, día de ubicación final para los asesinos",
+      "label": "Día rutinario para Samcam, día de ubicación final de los presuntos responsables",
       "lines": [
         "Samcam realizó varios viajes matutinos en Uber desde su vivienda a la Clínica Rodrigo Fournier Guevara, en Tibás, y viceversa."
       ]
@@ -151,9 +150,8 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "Inicia la vigilancia",
+      "label": "Inicia la vigilancia final de los presuntos responsables",
       "lines": [
-        "final de los asesinos en un vehículo Hyundai.",
         "Se capta el vehículo Hyundai celeste (placa 903056), con características distintivas (puerta delantera del acompañante blanca), en el ingreso a León XIII."
       ]
     },
