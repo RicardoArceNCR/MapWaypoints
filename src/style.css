@@ -1548,7 +1548,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   align-items: center;
   justify-content: center;
   gap: 28px;
-  padding: 16px 0;
+  padding: 46px 0;
   max-width: 640px;
   width: 100%;
 }
