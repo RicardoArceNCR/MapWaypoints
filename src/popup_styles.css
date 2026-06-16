@@ -685,10 +685,45 @@
 .popup-detailed__scroll-close {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 8px;
   width: 100%;
   margin-top: 28px;
+}
+
+.popup-detailed__scroll-share {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 8px 10px;
+  flex-shrink: 0;
+}
+
+.popup-detailed__share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.2s ease, background 0.2s ease;
+  text-decoration: none;
+}
+
+.popup-detailed__share-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.popup-detailed__scroll-close-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: 14px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -701,10 +736,14 @@
   transition: all 0.2s ease;
 }
 
-.popup-detailed__scroll-close:hover {
+.popup-detailed__scroll-close-btn:hover {
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
   border-color: rgba(255, 255, 255, 0.25);
+}
+
+.popup-detailed__scroll-close-btn:active {
+  transform: scale(0.98);
 }
 
 .popup-detailed__scroll-close:active {
@@ -749,59 +788,6 @@
 .popup-close:focus-visible {
   outline: 2px solid var(--phase-color, #1BC6EB);
   outline-offset: 2px;
-}
-
-/* ========= POPUP-DETAILED HEADER ACTIONS (share + close) ========= */
-.popup-detailed__header-actions {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 15;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.popup-detailed__header-actions .popup-close {
-  position: relative;
-  top: auto;
-  right: auto;
-}
-
-.popup-detailed__header-share {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 100px;
-  padding: 4px 6px;
-}
-
-.popup-detailed__share-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  color: rgba(255, 255, 255, 0.6);
-  transition: color 0.2s ease, background 0.2s ease;
-  text-decoration: none;
-}
-
-.popup-detailed__share-btn:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-@media (max-width: 768px) {
-  .popup-detailed__header-actions {
-    top: 8px;
-    right: 8px;
-  }
 }
 
 /* Print styles */

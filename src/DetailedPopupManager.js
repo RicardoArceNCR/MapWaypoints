@@ -50,7 +50,7 @@ export class DetailedPopupManager {
     // Cerrar popups
     this.popupSimpleClose?.addEventListener('click', () => this.closeAll());
     this.popupDetailedClose?.addEventListener('click', () => this.closeAll());
-    this.popupDetailedScrollClose?.addEventListener('click', () => this.closeAll());
+    this.popupDetailedScrollClose?.querySelector('.popup-detailed__scroll-close-btn')?.addEventListener('click', () => this.closeAll());
 
     // Cerrar solo si el click fue directamente en el fondo,
     // no dentro de la tarjeta

@@ -188,21 +188,8 @@
         <!-- Handle para arrastrar en móvil -->
         <div class="popup-detailed__drag-handle" aria-hidden="true"></div>
 
-        <!-- Header actions: share + close -->
-        <div class="popup-detailed__header-actions">
-          <div class="popup-detailed__header-share">
-            <a id="popup-share-facebook" class="popup-detailed__share-btn" aria-label="Compartir en Facebook" rel="nofollow noopener" target="_blank" href="#">
-              <svg viewBox="0 0 32 32" width="16" height="16" fill="currentColor"><path d="M28 16c0-6.627-5.373-12-12-12S4 9.373 4 16c0 5.628 3.875 10.35 9.101 11.647v-7.98h-2.474V16H13.1v-1.58c0-4.085 1.849-5.978 5.859-5.978.76 0 2.072.15 2.608.298v3.325c-.283-.03-.775-.045-1.386-.045-1.967 0-2.728.745-2.728 2.683V16h3.92l-.673 3.667h-3.247v8.245C23.395 27.195 28 22.135 28 16Z"/></svg>
-            </a>
-            <a id="popup-share-whatsapp" class="popup-detailed__share-btn" aria-label="Compartir en WhatsApp" rel="nofollow noopener" target="_blank" href="#">
-              <svg viewBox="-6 -5 40 40" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M 11.579798566743314 24.396926207859085 A 10 10 0 1 0 6.808479557110079 20.73576436351046"/><path d="M 7 19 l -1 6 l 6 -1"/><path d="M 10 10 q -1 8 8 11 c 5 -1 0 -6 -1 -3 q -4 -3 -5 -5 c 4 -2 -1 -5 -1 -4" fill="currentColor"/></svg>
-            </a>
-            <a id="popup-share-x" class="popup-detailed__share-btn" aria-label="Compartir en X" rel="nofollow noopener" target="_blank" href="#">
-              <svg viewBox="0 0 32 32" width="16" height="16" fill="currentColor"><path d="M21.751 7h3.067l-6.7 7.658L26 25.078h-6.172l-4.833-6.32-5.531 6.32h-3.07l7.167-8.19L6 7h6.328l4.37 5.777L21.75 7Zm-1.076 16.242h1.7L11.404 8.74H9.58l11.094 14.503Z"/></svg>
-            </a>
-          </div>
-          <button id="popup-detailed-close" class="popup-close" aria-label="Cerrar">×</button>
-        </div>
+        <!-- Botón de cerrar -->
+        <button id="popup-detailed-close" class="popup-close" aria-label="Cerrar">×</button>
 
         <!-- Imagen principal con overlay -->
         <div class="popup-detailed__image-wrapper">
@@ -239,10 +226,23 @@
           </div>
 
           <!-- Botón de cerrar al final del scroll -->
-          <button id="popup-detailed-scroll-close" class="popup-detailed__scroll-close" hidden>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-            Cerrar
-          </button>
+          <div id="popup-detailed-scroll-close" class="popup-detailed__scroll-close" hidden>
+            <div class="popup-detailed__scroll-share">
+              <a id="popup-share-facebook" class="popup-detailed__share-btn" aria-label="Compartir en Facebook" rel="nofollow noopener" target="_blank" href="#">
+                <svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor"><path d="M28 16c0-6.627-5.373-12-12-12S4 9.373 4 16c0 5.628 3.875 10.35 9.101 11.647v-7.98h-2.474V16H13.1v-1.58c0-4.085 1.849-5.978 5.859-5.978.76 0 2.072.15 2.608.298v3.325c-.283-.03-.775-.045-1.386-.045-1.967 0-2.728.745-2.728 2.683V16h3.92l-.673 3.667h-3.247v8.245C23.395 27.195 28 22.135 28 16Z"/></svg>
+              </a>
+              <a id="popup-share-whatsapp" class="popup-detailed__share-btn" aria-label="Compartir en WhatsApp" rel="nofollow noopener" target="_blank" href="#">
+                <svg viewBox="-6 -5 40 40" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M 11.579798566743314 24.396926207859085 A 10 10 0 1 0 6.808479557110079 20.73576436351046"/><path d="M 7 19 l -1 6 l 6 -1"/><path d="M 10 10 q -1 8 8 11 c 5 -1 0 -6 -1 -3 q -4 -3 -5 -5 c 4 -2 -1 -5 -1 -4" fill="currentColor"/></svg>
+              </a>
+              <a id="popup-share-x" class="popup-detailed__share-btn" aria-label="Compartir en X" rel="nofollow noopener" target="_blank" href="#">
+                <svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor"><path d="M21.751 7h3.067l-6.7 7.658L26 25.078h-6.172l-4.833-6.32-5.531 6.32h-3.07l7.167-8.19L6 7h6.328l4.37 5.777L21.75 7Zm-1.076 16.242h1.7L11.404 8.74H9.58l11.094 14.503Z"/></svg>
+              </a>
+            </div>
+            <button class="popup-detailed__scroll-close-btn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              Cerrar
+            </button>
+          </div>
         </div>
       </div>
 

@@ -254,6 +254,7 @@ body {
   gap: 8px;
   flex: 1;
   z-index: 35;
+  margin-left: -56px;
 }
 
 
@@ -784,7 +785,7 @@ body:has(.drawer--open) .about-btn {
   z-index: 30;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 5px;
   padding: 12px 20px;
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(12px);
@@ -834,9 +835,9 @@ body:has(.drawer--open) .about-btn {
 }
 
 .progress span {
-  width: 12px;
+  width: 18px;
   height: 12px;
-  border-radius: 50%;
+  border-radius: 30%;
   background: rgba(255, 255, 255, 0.3);
   transition: transform 0.2s ease, background 0.2s ease, width 0.2s ease, height 0.2s ease;
   cursor: pointer;
@@ -849,8 +850,8 @@ body:has(.drawer--open) .about-btn {
 
 .progress span.active {
   background: var(--phase-color);
-  width: 12px;
-  height: 12px;
+  width: 15px;
+  height: 15px;
   box-shadow: 0 0 12px var(--phase-color);
 }
 
@@ -866,6 +867,7 @@ body:has(.drawer--open) .about-btn {
     padding: 10px;
     background: none;
     backdrop-filter: none;
+    padding-top: 0px;
   }
 
   .ui {
