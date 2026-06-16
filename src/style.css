@@ -1676,10 +1676,6 @@ body:has(#story-intro:not([hidden])) .top-bar {
     flex-shrink: 0;
     padding-bottom: env(safe-area-inset-bottom, 12px);
   }
-
-  .story-intro__copyright {
-    padding-bottom: env(safe-area-inset-bottom, 12px);
-  }
 }
 
 .story-intro__subtitle {

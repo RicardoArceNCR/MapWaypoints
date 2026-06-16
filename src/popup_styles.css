@@ -403,9 +403,11 @@
     grid-template-columns: minmax(0, 280px);
     justify-content: center;
   }
+
   .popup-detailed__involved:has(.popup-detailed__person:nth-child(3):last-child) {
     grid-template-columns: repeat(3, 1fr);
   }
+
   .popup-detailed__involved:has(.popup-detailed__person:nth-child(4)) {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -417,9 +419,11 @@
     gap: 10px;
     background: var(--popup-bg-mobile);
   }
+
   .popup-detailed__involved:has(.popup-detailed__person:nth-child(3)) {
     grid-template-columns: repeat(3, 1fr);
   }
+
   .popup-detailed__person-role {
     display: none;
   }
@@ -473,8 +477,8 @@
 /* Avatar wrapper mejorado */
 .popup-detailed__person-avatar-wrapper {
   position: relative;
-  width: clamp(48px, 12vw, 72px);
-  height: clamp(48px, 12vw, 72px);
+  width: clamp(68px, 16vw, 98px);
+  height: clamp(68px, 16vw, 98px);
   margin: 0 auto 8px;
 }
 
@@ -745,6 +749,60 @@
 .popup-close:focus-visible {
   outline: 2px solid var(--phase-color, #1BC6EB);
   outline-offset: 2px;
+}
+
+/* ========= POPUP-DETAILED HEADER ACTIONS (share + close) ========= */
+.popup-detailed__header-actions {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.popup-detailed__header-actions .popup-close {
+  position: relative;
+  top: auto;
+  right: auto;
+}
+
+.popup-detailed__header-share {
+  display: flex;
+  gap: 6px;
+}
+
+.popup-detailed__share-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.popup-detailed__share-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.popup-detailed__share-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 768px) {
+  .popup-detailed__header-actions {
+    top: 8px;
+    right: 8px;
+  }
 }
 
 /* Print styles */
