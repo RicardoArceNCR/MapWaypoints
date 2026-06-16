@@ -459,7 +459,7 @@ let memoryMonitor = new MemoryMonitor();
   // Datos del brief de cierre — un solo lugar para los dos call-sites
   function getClosingBriefData() {
     return {
-      heading: 'Línea de tiempo de las pesquisas',
+      heading: 'POST CRIMEN | Pesquisas, capturas y apertura de juicio',
       html: CLOSING_BRIEF_HTML,
       skipTypewriter: true,
       methodology: mapManager?._lastLoadedStory?.brief?.methodology
@@ -1284,8 +1284,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const mainHotspotForWib = hsForWib.find(h => !h.noPopup && h.title);
     const isPhaseIntro = state.idx === 0 && (wp?.label || wp?.lines?.[0]);
     const title = isPhaseIntro ? (wp.label || '') : (mainHotspotForWib?.title || '');
-    const desc  = isPhaseIntro ? (wp?.lines?.[0] || '') : (mainHotspotForWib?.description || '');
-    const body  = isPhaseIntro ? (wp?.lines?.[1] || '') : '';
+    const desc = isPhaseIntro ? (wp?.lines?.[0] || '') : (mainHotspotForWib?.description || '');
+    const body = isPhaseIntro ? (wp?.lines?.[1] || '') : '';
 
     // Cancelar timers anteriores si los hay (cambio rápido de waypoint)
     _wibTimers.forEach(id => clearTimeout(id));
