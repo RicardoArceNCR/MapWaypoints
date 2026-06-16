@@ -111,7 +111,7 @@ export class OverlayLayer {
       wrap.appendChild(img);
 
       // 💬 Caption badge — solo si meta.caption existe
-      if (meta?.caption) {
+      if (meta?.caption && GLOBAL_CONFIG.SHOW_CAPTION_BADGES) {
         const caption = document.createElement('div');
         caption.className = 'hs-caption hs-caption--hidden'; // 👈 nace oculto, app.js lo revela
         caption.setAttribute('aria-hidden', 'true');

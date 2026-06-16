@@ -64,12 +64,13 @@ function parseUrlToggles() {
     debug: params.get('debug'),
     editor: params.get('editor'),
     popups: params.get('popups'),
+    badges: params.get('badges'),
     embed: params.get('embed'),
     story: params.get('story') ?? undefined,
     nointro: params.get('nointro') === '1'
   };
 
-  for (const key of ['debug', 'editor', 'popups', 'embed']) {
+  for (const key of ['debug', 'editor', 'popups', 'badges', 'embed']) {
     const val = toggles[key];
     if (val == null) {
       toggles[key] = undefined;
@@ -115,6 +116,12 @@ if (appConfig.toggles.hasOwnProperty('popups')) {
 if (appConfig.toggles.hasOwnProperty('debug')) {
   GLOBAL_CONFIG.DEBUG_HOTSPOTS = !!appConfig.toggles.debug;
   console.log('[CONFIG] DEBUG_HOTSPOTS from URL:', GLOBAL_CONFIG.DEBUG_HOTSPOTS);
+}
+
+// Aplica toggle de caption badges desde URL si está presente
+if (appConfig.toggles.badges !== undefined) {
+  GLOBAL_CONFIG.SHOW_CAPTION_BADGES = !!appConfig.toggles.badges;
+  console.log(`[CONFIG] SHOW_CAPTION_BADGES set from URL: ${GLOBAL_CONFIG.SHOW_CAPTION_BADGES}`);
 }
 
 // Escucha cambios de estado del editor (enviado por editor.js)

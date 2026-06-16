@@ -190,10 +190,16 @@ Overlay DOM invisible (`vacio.png`). No bloquea clicks al tipo A debajo. En hove
 
 **Cómo funciona internamente:**
 - `upsert()`: si `meta.noPopup === true`, no se agregan listeners `pointerdown/pointerup`.
-- `upsert()`: si `meta.caption` existe, se inyecta `.hs-caption` (badge + tooltip) como hijo del wrap.
+- `upsert()`: si `meta.caption` existe **Y** `GLOBAL_CONFIG.SHOW_CAPTION_BADGES === true`, se inyecta `.hs-caption` (badge + tooltip) como hijo del wrap. Si el flag está en `false`, el campo `caption` del JSON se ignora silenciosamente — ningún elemento DOM se genera.
 - CSS: `.overlay-wrap.has-caption` tiene `pointer-events: none`. Solo `.hs-caption__badge` tiene `pointer-events: auto`.
 - CSS: el hover usa `:has(.hs-caption__badge:hover)` para activar borde dashed y tooltip — cero JS.
 - CSS: `hs-dash-march` (@keyframes) solo corre cuando el cursor está sobre el badge — no consume GPU en reposo.
+
+**Feature flag `SHOW_CAPTION_BADGES` (`config.js`):**
+- `false` (default en producción) — badges no se renderizan. Los datos `caption` en `icons.json` se preservan.
+- `true` — activa el sistema completo de badges.
+- Toggle por URL: `?badges=1` activa en dev/QA sin tocar el flag. `?badges=0` desactiva.
+- El CSS de `.hs-caption` siempre va en el bundle (trivial en peso) pero no tiene efecto si no hay elementos con esa clase.
 
 ---
 
@@ -610,6 +616,9 @@ npm run dev      # localhost:5173
 # Normal:
 http://localhost:5173/?story=costa-rica/expedientes/0001&nointro=1&popups=1
 
+# Con badges ⓘ activados (desactivados en producción por defecto):
+http://localhost:5173/?story=costa-rica/expedientes/0001&nointro=1&popups=1&badges=1
+
 # Con debug (overlays rojos):
 http://localhost:5173/?story=costa-rica/expedientes/0001&debug=1&popups=1&overlays=1
 
@@ -650,6 +659,7 @@ git add . && git commit -m "descripción" && git push
 - Activado via campos `caption` y `noPopup: true` en `icons.json`
 - CSS usa `:has(.hs-caption__badge:hover)` — cero JS en hover
 - Desactivado en mobile con `@media (hover: none)`
+- **`SHOW_CAPTION_BADGES: false` en producción** — feature flag en `config.js`. Activa en dev con `?badges=1`. Los datos `caption` en JSON se preservan siempre.
 
 **Lista de implicados: filtro sticky + grupos reordenables (Junio 2026):**
 - `.popup-detailed__involved` (fila de avatares "Implicados") es ahora una **barra sticky** (`position: sticky; top: 0`) dentro de `.popup-detailed__content` — actúa como filtro siempre accesible mientras se hace scroll por los echos. Sin `backdrop-filter` (ya lo aplica `.popup-detailed`, duplicarlo en el sticky encarece cada frame de scroll); usa `background: var(--popup-bg)`/`var(--popup-bg-mobile)` + `box-shadow` para indicar que está "pegada". En mobile se oculta `.popup-detailed__person-role` dentro de la barra para ahorrar espacio

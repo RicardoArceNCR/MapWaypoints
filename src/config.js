@@ -12,6 +12,7 @@ export const GLOBAL_CONFIG = {
   // Control de visibilidad SEPARADO
   SHOW_DIALOGS: false,   // Controla los cuadros de diálogo de texto
   SHOW_CONTROLS: true,  // Controla los botones de navegación (prev/next/progress)
+  SHOW_CAPTION_BADGES: false, // 🔖 Badge ⓘ + tooltip sobre hotspots — false = desactivado en producción (toggle vía ?badges=1)
   
   // ========= DEBUG Y VISUALIZACIÓN =========
   // DEBUG_HOTSPOTS: true,
