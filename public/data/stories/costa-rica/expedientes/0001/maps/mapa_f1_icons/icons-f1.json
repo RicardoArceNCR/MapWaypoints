@@ -93,10 +93,10 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -314,
+        "offsetX": -313,
         "offsetY": -81,
-        "width": 460,
-        "height": 320,
+        "width": 506,
+        "height": 363,
         "rotation": -1,
         "radius": 0
       },
@@ -231,11 +231,11 @@
       },
       "desktop": {
         "offsetX": -279,
-    "offsetY": -70,
-    "width": 450,
-    "height": 405,
-    "rotation": 1,
-    "radius": 0
+        "offsetY": -70,
+        "width": 450,
+        "height": 405,
+        "rotation": 1,
+        "radius": 0
       }
     },
     {
@@ -330,11 +330,11 @@
       },
       "desktop": {
         "offsetX": -261,
-    "offsetY": -57,
-    "width": 490,
-    "height": 355,
-    "rotation": -7,
-    "radius": 0
+        "offsetY": -57,
+        "width": 490,
+        "height": 355,
+        "rotation": -7,
+        "radius": 0
       }
     },
     {
@@ -354,11 +354,11 @@
       },
       "desktop": {
         "offsetX": 349,
-    "offsetY": -160,
-    "width": 455,
-    "height": 233,
-    "rotation": -1,
-    "radius": 0
+        "offsetY": -160,
+        "width": 455,
+        "height": 233,
+        "rotation": -1,
+        "radius": 0
       }
     }
   ],
@@ -429,11 +429,11 @@
       },
       "desktop": {
         "offsetX": -264,
-    "offsetY": -92,
-    "width": 520,
-    "height": 367,
-    "rotation": -1,
-    "radius": 0
+        "offsetY": -92,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
+        "radius": 0
       }
     },
     {
@@ -453,11 +453,11 @@
       },
       "desktop": {
         "offsetX": 315,
-    "offsetY": -80,
-    "width": 400,
-    "height": 380,
-    "rotation": 0,
-    "radius": 0
+        "offsetY": -80,
+        "width": 400,
+        "height": 380,
+        "rotation": 0,
+        "radius": 0
       }
     }
   ],
@@ -528,11 +528,11 @@
       },
       "desktop": {
         "offsetX": -272,
-    "offsetY": -78,
-    "width": 490,
-    "height": 350,
-    "rotation": -1,
-    "radius": 0
+        "offsetY": -78,
+        "width": 490,
+        "height": 350,
+        "rotation": -1,
+        "radius": 0
       }
     },
     {
@@ -552,11 +552,11 @@
       },
       "desktop": {
         "offsetX": 322,
-      "offsetY": -84,
-    "width": 550,
-    "height": 390,
-    "rotation": 0,
-    "radius": 0
+        "offsetY": -84,
+        "width": 550,
+        "height": 390,
+        "rotation": 0,
+        "radius": 0
       }
     }
   ],

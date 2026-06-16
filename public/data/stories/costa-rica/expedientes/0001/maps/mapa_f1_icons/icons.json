@@ -82,7 +82,7 @@
     {
       "_note": "WP0-H0-B: Hotspot tipo B — informativo superpuesto al A",
       "type": "hotspot",
-      "caption": "En esta foto se ve a Samcam entrando al aeropuerto Juan Santamaría. Llega acompañado por colegas opositores.",
+      "caption": "Roberto Samcam Ruiz regresa a Costa Rica proveniente de México, por el Aeropuerto Juan Santamaría, después de una gira por varios países.",
       "noPopup": true,
       "mobile": {
         "offsetX": -12,
@@ -95,8 +95,8 @@
       "desktop": {
         "offsetX": -314,
         "offsetY": -81,
-        "width": 460,
-        "height": 320,
+        "width": 484,
+        "height": 330,
         "rotation": -1,
         "radius": 0
       },
@@ -108,7 +108,7 @@
       "type": "hotspot",
       "image": "/assets/vacio.png",
       "noPopup": true,
-      "caption": "Mapa del Aeropuerto Juan Santamaría en Alajuela, Costa Rica. Se muestra la ruta de acceso principal.",
+      "caption": "Su reingreso ocurre apenas tres días antes de su asesinato. Utiliza un taxi formal para dirigirse a su vivienda, ubicada en Tibás.",
       "title": "",
       "mobile": {
         "offsetX": -4,
@@ -119,10 +119,10 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": 258,
-        "offsetY": -33,
-        "width": 470,
-        "height": 230,
+        "offsetX": 257,
+        "offsetY": -32,
+        "width": 458,
+        "height": 239,
         "rotation": 1,
         "radius": 0
       }
@@ -315,19 +315,28 @@
       "echos": {
         "robles_murillo": [
           {
-            "datetime": { "date": "18/06/2025", "time": "—" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
             "description": "Según el expediente, Robles Murillo es un exmilitar del batallón Sócrates Sandino, entrenado —de acuerdo con información confidencial— en Cuba y Rusia en labores de inteligencia, asesinato y sabotaje. Esa formación es parte de lo que la investigación señala al describirlo como el presunto cerebro de la operación."
           }
         ],
         "chaves_medina": [
           {
-            "datetime": { "date": "18/06/2025", "time": "16:17 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
             "description": "Horas antes, Chaves Medina había recibido de manos de Orozco González el Hyundai celeste (placa 903056), en teoría para hacer un trámite. Según la reconstrucción, es él quien lo conduce de regreso hacia León XIII, el mismo vehículo que al día siguiente sería usado para extraer a los ejecutores tras el ataque."
           }
         ],
         "carvajal": [
           {
-            "datetime": { "date": "18/06/2025", "time": "16:17 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
             "description": "Mientras el Hyundai celeste ingresaba a León XIII, el dispositivo de Carvajal Fernández —ya a bordo del Renault Duster blanco— continuaba el patrón de recorridos de vigilancia por los alrededores de la vivienda de Samcam en Moravia, que se documenta en el siguiente punto del recorrido."
           }
         ]
@@ -434,19 +443,28 @@
       "echos": {
         "robles_murillo": [
           {
-            "datetime": { "date": "18/06/2025", "time": "—" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
             "description": "La investigación lo vincula con la cúpula del Ejército de Nicaragua y, en particular, con el general Julio César Avilés. Según el expediente, ese vínculo es parte de la base sobre la que se sostiene la hipótesis de que el crimen respondió a una orden externa."
           }
         ],
         "chaves_medina": [
           {
-            "datetime": { "date": "18/06/2025", "time": "—" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
             "description": "Vecino de León XIII y de oficio barbero —conocido en la zona como 'Dani Peluqueris'—, Chaves Medina es señalado por el OIJ como el intermediario que mantenía el contacto entre la célula que recorría Moravia en el Duster y quienes coordinaban la logística desde León XIII."
           }
         ],
         "carvajal": [
           {
-            "datetime": { "date": "18/06/2025", "time": "—" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
             "description": "Vecino de León XIII, de 20 años, Carvajal Fernández es, según el expediente, quien se desplaza en este Renault Duster blanco (placa BKK190) realizando los recorridos de vigilancia que se documentan entre el 16 y el 18 de junio cerca de la vivienda de Samcam."
           }
         ]
@@ -553,19 +571,28 @@
       "echos": {
         "robles_murillo": [
           {
-            "datetime": { "date": "18/06/2025", "time": "—" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
             "description": "El expediente lo menciona como posible coordinador de reuniones previas al crimen, sin que exista una imputación formal por ello. La reunión que se documenta en este punto —entre el Duster, el Hyundai y la motocicleta— es, para la investigación, parte de la logística final que se le atribuye haber puesto en marcha."
           }
         ],
         "chaves_medina": [
           {
-            "datetime": { "date": "18/06/2025", "time": "17:54 – 18:23 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "17:54 – 18:23 h"
+            },
             "description": "En esta reunión en la Estación de Servicio Delta confluyen los tres vehículos de la célula: el Duster, el Hyundai que Chaves Medina había devuelto horas antes y la motocicleta Freedom roja. Según el expediente, aquí se terminan de afinar los roles que cada uno cumpliría al día siguiente."
           }
         ],
         "carvajal": [
           {
-            "datetime": { "date": "18/06/2025", "time": "17:54 – 18:23 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "17:54 – 18:23 h"
+            },
             "description": "Carvajal Fernández llega a este punto a bordo del Renault Duster, que según el expediente se dirige desde Moravia hasta la Estación de Servicio Delta para esta reunión, el último encuentro de coordinación antes del ataque del día siguiente."
           }
         ]
@@ -672,19 +699,28 @@
       "echos": {
         "robles_murillo": [
           {
-            "datetime": { "date": "18/06/2025", "time": "—" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
             "description": "Según el expediente, Robles Murillo no ha vuelto a Costa Rica desde el 7 de agosto de 2025. Es mencionado en la causa pero no está imputado formalmente: su nombre aparece dentro de la línea de investigación sobre quién ordenó el crimen, una pregunta que el caso deja abierta incluso tras la acusación de junio de 2026."
           }
         ],
         "chaves_medina": [
           {
-            "datetime": { "date": "18/06/2025", "time": "19:04 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "19:04 h"
+            },
             "description": "La antena 'León XIII' que se activa en este punto corresponde al sector donde reside Chaves Medina. Para el OIJ, este registro —junto con el resto de la actividad telefónica de ese día— forma parte de la reconstrucción de los movimientos de la célula la noche previa al ataque."
           }
         ],
         "carvajal": [
           {
-            "datetime": { "date": "18/06/2025", "time": "19:04 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "19:04 h"
+            },
             "description": "Según el expediente, es el propio dispositivo de Carvajal Fernández el que activa esta antena, 'León XIII', coincidente con el sector de residencia de los sospechosos. Para la investigación, este registro cierra el período de vigilancia preoperativa documentado en esta fase."
           }
         ]
