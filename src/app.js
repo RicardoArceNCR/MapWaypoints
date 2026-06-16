@@ -633,9 +633,9 @@ let memoryMonitor = new MemoryMonitor();
     if (_briefDismissWired) return;
     _briefDismissWired = true;
 
-    const el       = document.getElementById('story-brief');
-    const panel    = el?.querySelector('.story-brief__panel');
-    const handle   = el?.querySelector('.story-brief__drag-handle');
+    const el = document.getElementById('story-brief');
+    const panel = el?.querySelector('.story-brief__panel');
+    const handle = el?.querySelector('.story-brief__drag-handle');
     const closeBtn = document.getElementById('story-brief-close');
     if (!el || !panel || !closeBtn) return;
 
@@ -680,10 +680,10 @@ let memoryMonitor = new MemoryMonitor();
   }
 
   function showBrief({ heading, text, html, methodology, skipTypewriter = false } = {}) {
-    const el      = document.getElementById('story-brief');
+    const el = document.getElementById('story-brief');
     const elTitle = document.getElementById('story-brief-title');
-    const elBody  = document.getElementById('story-brief-body');
-    const btn     = document.getElementById('story-brief-close');
+    const elBody = document.getElementById('story-brief-body');
+    const btn = document.getElementById('story-brief-close');
     const methBtn = document.getElementById('story-brief-methodology');
     if (!el) return;
 
@@ -729,8 +729,8 @@ let memoryMonitor = new MemoryMonitor();
 
   function waitForBrief() {
     return new Promise((resolve) => {
-      const el       = document.getElementById('story-brief');
-      const panel    = el?.querySelector('.story-brief__panel');
+      const el = document.getElementById('story-brief');
+      const panel = el?.querySelector('.story-brief__panel');
       const closeBtn = document.getElementById('story-brief-close');
       if (!el || !closeBtn) return resolve();
 
@@ -754,7 +754,7 @@ let memoryMonitor = new MemoryMonitor();
             panel.style.transition = '';
           }
           resolve();
-        }, 400);
+        }, 250);
       }
 
       closeBtn.addEventListener('click', close, { once: true });
@@ -1274,8 +1274,8 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
     console.log('[wib] running — idx:', state.idx, '_revealMaskDone:', _revealMaskDone);
     const title = wp?.label || '';
-    const desc  = (wp?.lines && wp.lines[0]) || '';
-    const body  = (wp?.lines && wp.lines[1]) || '';
+    const desc = (wp?.lines && wp.lines[0]) || '';
+    const body = (wp?.lines && wp.lines[1]) || '';
 
     // Cancelar timers anteriores si los hay (cambio rápido de waypoint)
     _wibTimers.forEach(id => clearTimeout(id));
@@ -1292,7 +1292,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     _animEls.forEach(el => el.classList.remove('wib-in'));
 
     _wibTitle.textContent = title;
-    _wibDesc.textContent  = desc;
+    _wibDesc.textContent = desc;
     if (_wibBody) {
       _wibBody.textContent = body;
       _wibBody.hidden = !body;
@@ -1336,10 +1336,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
     // ── Stagger de elementos del info-box ──
     const staggerMap = [
-      { el: _wibTitle,  delay: BASE_DELAY },
-      { el: _wibDesc,   delay: BASE_DELAY + 500 },
-      { el: dateEl,     delay: BASE_DELAY + 1000 },
-      { el: _wibBody,   delay: BASE_DELAY + 1500 },
+      { el: _wibTitle, delay: BASE_DELAY },
+      { el: _wibDesc, delay: BASE_DELAY + 500 },
+      { el: dateEl, delay: BASE_DELAY + 1000 },
+      { el: _wibBody, delay: BASE_DELAY + 1500 },
     ];
 
     staggerMap.forEach(({ el, delay }) => {
@@ -2499,10 +2499,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const editorLayer = document.getElementById('editor-layer');
     if (editorLayer) {
       if (editorLayer.width !== finalW || editorLayer.height !== finalH) {
-        editorLayer.width  = finalW;
+        editorLayer.width = finalW;
         editorLayer.height = finalH;
       }
-      if (editorLayer.style.width  !== `${displayW}px`) editorLayer.style.width  = `${displayW}px`;
+      if (editorLayer.style.width !== `${displayW}px`) editorLayer.style.width = `${displayW}px`;
       if (editorLayer.style.height !== `${displayH}px`) editorLayer.style.height = `${displayH}px`;
       const edCtx = editorLayer.getContext('2d');
       if (edCtx) edCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
