@@ -2295,7 +2295,8 @@ body:has(#story-intro:not([hidden])) .top-bar {
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   flex-shrink: 0;
   transition: opacity 0.4s ease-out;
 }

@@ -500,6 +500,13 @@ let memoryMonitor = new MemoryMonitor();
     console.log('[overlay click]', key, record?.meta);
   });
 
+  // Badge ⓘ click → abre el hotspot principal del waypoint actual
+  overlay.root.addEventListener('badge:click', (e) => {
+    const items = state.currentIcons[state.idx] || [];
+    const mainHotspot = items.find(item => !item.noPopup && (item.type === 'hotspot' || item.type === 'icon'));
+    if (mainHotspot) openPopup(mainHotspot);
+  });
+
   // Auto-snap fallback: si no hubo overlay:click, busca el overlay más cercano
   overlay.root.addEventListener('pointerup', (ev) => {
     const now = performance.now();

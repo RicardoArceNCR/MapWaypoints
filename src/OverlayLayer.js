@@ -135,17 +135,19 @@ export class OverlayLayer {
           document.querySelectorAll('.overlay-wrap.hs-announcing').forEach(w => w.classList.remove('hs-announcing'));
         };
         badgeEl.addEventListener('mouseenter', _cancelAnnounce);
-        badgeEl.addEventListener('click', _cancelAnnounce);
 
-        // 📱 Mobile: tap en badge toggle tooltip
-        if (window.matchMedia('(hover: none)').matches) {
-          badgeEl.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isOpen = caption.classList.contains('is-open');
-            document.querySelectorAll('.hs-caption.is-open').forEach(el => el.classList.remove('is-open'));
-            if (!isOpen) caption.classList.add('is-open');
-          });
-        }
+        // 🖱️ Click en badge ⓘ → badge:click → app.js abre el hotspot principal del waypoint
+        badgeEl.addEventListener('click', (e) => {
+          e.stopPropagation();
+          _cancelAnnounce();
+
+          if (!GLOBAL_CONFIG.SHOW_POPUP_ON_CLICK) return;
+
+          this.root.dispatchEvent(new CustomEvent('badge:click', {
+            bubbles: true,
+            detail: { key }
+          }));
+        });
       }
 
       this.root.appendChild(wrap);
