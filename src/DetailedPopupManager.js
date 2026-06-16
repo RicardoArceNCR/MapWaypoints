@@ -212,6 +212,16 @@ export class DetailedPopupManager {
 
     this.popupDetailedTitle.textContent = hotspot.title || '';
 
+    // Actualizar hrefs de compartir con URL + título dinámicos
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(hotspot.title || '');
+    const fb = document.getElementById('popup-share-facebook');
+    const wa = document.getElementById('popup-share-whatsapp');
+    const x = document.getElementById('popup-share-x');
+    if (fb) fb.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+    if (wa) wa.href = `https://api.whatsapp.com/send?text=${title}%20${url}`;
+    if (x)  x.href  = `https://twitter.com/intent/tweet?via=DivergentesCA&text=${title}&url=${url}`;
+
     if (hotspot.image) {
       this.popupDetailedImage.src = hotspot.image;
       this.popupDetailedImage.alt = hotspot.title || '';
