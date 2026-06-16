@@ -1280,9 +1280,12 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       return;
     }
     console.log('[wib] running — idx:', state.idx, '_revealMaskDone:', _revealMaskDone);
-    const title = wp?.label || '';
-    const desc = (wp?.lines && wp.lines[0]) || '';
-    const body = (wp?.lines && wp.lines[1]) || '';
+    const hsForWib = state.currentIcons[state.idx] || [];
+    const mainHotspotForWib = hsForWib.find(h => !h.noPopup && h.title);
+    const isPhaseIntro = state.idx === 0 && (wp?.label || wp?.lines?.[0]);
+    const title = isPhaseIntro ? (wp.label || '') : (mainHotspotForWib?.title || '');
+    const desc  = isPhaseIntro ? (wp?.lines?.[0] || '') : (mainHotspotForWib?.description || '');
+    const body  = isPhaseIntro ? (wp?.lines?.[1] || '') : '';
 
     // Cancelar timers anteriores si los hay (cambio rápido de waypoint)
     _wibTimers.forEach(id => clearTimeout(id));

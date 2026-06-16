@@ -51,19 +51,28 @@
       "echos": {
         "chaves_medina": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Tras la reunión de coordinación de la noche anterior, este es el día en que, según el expediente, Chaves Medina pasaría de las labores de vigilancia e intermediación a un rol operativo directo: horas más tarde conduciría uno de los vehículos de la huida."
           }
         ],
         "carvajal": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Para Carvajal Fernández, de 20 años, este es el día en que culmina el período de vigilancia documentado en la fase anterior. Según el OIJ, es a partir de esta mañana que su rol señalado pasa de la vigilancia a la ejecución."
           }
         ],
         "robles_salas": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Bryan Steven Robles Salas, de 23 años y vecino de León XIII, abre esta fase: según el expediente, es quien conduce la motocicleta que sale de León XIII al inicio de la mañana, en el primer movimiento documentado del Día D."
           }
         ]
@@ -228,19 +237,28 @@
       "echos": {
         "robles_salas": [
           {
-            "datetime": { "date": "19/06/2025", "time": "06:29 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "06:29 h"
+            },
             "description": "Según el expediente, Robles Salas conduce la motocicleta Freedom roja que sale de León XIII, sector donde reside, a las 6:29 h de la mañana — el primer vehículo de la célula en moverse este día."
           }
         ],
         "chaves_medina": [
           {
-            "datetime": { "date": "19/06/2025", "time": "06:29 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "06:29 h"
+            },
             "description": "Mientras la motocicleta salía de León XIII, Chaves Medina —según la reconstrucción del OIJ— se encontraba ya posicionado junto al resto de la célula, lista para los cambios de posición que se documentan en el siguiente punto del recorrido."
           }
         ],
         "carvajal": [
           {
-            "datetime": { "date": "19/06/2025", "time": "06:29 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "06:29 h"
+            },
             "description": "A esta hora, según el expediente, Carvajal Fernández permanecía en el Renault Duster, donde había pasado buena parte de la vigilancia de los días previos, a la espera de los cambios de posición que ocurrirían poco después."
           }
         ]
@@ -409,19 +427,28 @@
       "echos": {
         "carvajal": [
           {
-            "datetime": { "date": "19/06/2025", "time": "06:37 – 07:41 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "06:37 – 07:41 h"
+            },
             "description": "Según la reconstrucción del OIJ, en este punto Carvajal Fernández —identificado por la investigación como el presunto gatillero, con suéter gris— sube como pasajero a la motocicleta durante los cambios de posición previos al ataque."
           }
         ],
         "robles_salas": [
           {
-            "datetime": { "date": "19/06/2025", "time": "07:41 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:41 h"
+            },
             "description": "A las 7:41 h, según el expediente, Robles Salas pasó a conducir el Renault Duster BKK190 — el vehículo que, minutos después, se dirigiría al Condominio Naples."
           }
         ],
         "chaves_medina": [
           {
-            "datetime": { "date": "19/06/2025", "time": "07:41 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:41 h"
+            },
             "description": "En el mismo cambio de las 7:41 h, Chaves Medina —con camisa color mostaza, según la reconstrucción— pasó a conducir la motocicleta, completando el último ajuste de posiciones antes del ataque."
           }
         ]
@@ -540,7 +567,7 @@
       "type": "hotspot",
       "noPopup": false,
       "caption": "",
-      "title": "El presunto gatillero se ubica cerca de la escena",
+      "title": "El sicario se posiciona en la escena del crimen.",
       "mobile": {
         "offsetX": 2,
         "offsetY": -148,
@@ -562,7 +589,7 @@
         "time": "07:40 h",
         "timeColor": "#FF4444"
       },
-      "description": "El dispositivo de Luis Fernando Carvajal Fernández (62329434) activó la radio base \"Valla Moravia\", confirmando su ubicación exacta en el sector del homicidio.",
+      "description": "Minutos antes del hecho, el dispositivo de Luis Fernando Carvajal Fernández (62329434) activó la radio base 'Valla Moravia' (antena celular). Eso confirma su ubicación exacta en el sector del homicidio.",
       "involved": [
         {
           "id": "chaves_medina",
@@ -589,19 +616,28 @@
       "echos": {
         "carvajal": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Este es el momento que el expediente describe con mayor precisión sobre Carvajal Fernández: minutos antes del ataque, su dispositivo activó la radio base 'Valla Moravia', lo que según el OIJ ubicaría su teléfono en el sector del homicidio."
           }
         ],
         "robles_salas": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Según la reconstrucción, a esta hora Robles Salas ya conducía el Renault Duster BKK190 con Carvajal Fernández como pasajero delantero, acercándose al Condominio Naples donde minutos después ocurriría el ataque."
           }
         ],
         "chaves_medina": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Mientras el Duster se acercaba a la escena, Chaves Medina —según el expediente— se desplazaba en la motocicleta por una ruta separada, en la posición que mantendría durante el ataque y la huida inmediata."
           }
         ]
@@ -720,7 +756,7 @@
       "type": "hotspot",
       "noPopup": false,
       "caption": "",
-      "title": "Samcam recibe el ataque mortal",
+      "title": "SAMCAM ES ACRIBILLADO",
       "mobile": {
         "offsetX": -14,
         "offsetY": -142,
@@ -769,19 +805,28 @@
       "echos": {
         "carvajal": [
           {
-            "datetime": { "date": "19/06/2025", "time": "07:44 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:44 h"
+            },
             "description": "Según la reconstrucción del OIJ, es Carvajal Fernández —identificado por la investigación como el pasajero delantero del Duster— quien desciende del vehículo, ingresa al condominio, llama a la víctima por su nombre y le habría disparado varias veces, antes de correr de vuelta al automóvil."
           }
         ],
         "robles_salas": [
           {
-            "datetime": { "date": "19/06/2025", "time": "07:44 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:44 h"
+            },
             "description": "Mientras el ataque ocurría, según el expediente Robles Salas permanecía al volante del Renault Duster, estacionado frente al Condominio Naples, a la espera de que Carvajal Fernández regresara al vehículo."
           }
         ],
         "chaves_medina": [
           {
-            "datetime": { "date": "19/06/2025", "time": "07:44 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:44 h"
+            },
             "description": "En este momento, según la reconstrucción, Chaves Medina se encontraba en la motocicleta, en una posición separada del Duster — el punto desde el cual, segundos después, ambos vehículos iniciarían la huida por rutas distintas."
           }
         ]
@@ -949,19 +994,28 @@
       "echos": {
         "carvajal": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Según el expediente, Carvajal Fernández —señalado como el presunto gatillero— huye a bordo del Renault Duster, que se aleja a gran velocidad del Condominio Naples inmediatamente después del ataque."
           }
         ],
         "robles_salas": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Robles Salas, según la reconstrucción del OIJ, es quien conduce el Renault Duster en esta huida inicial — el mismo vehículo que horas más tarde sería abandonado en Coronado, como se documenta en la siguiente fase."
           }
         ],
         "chaves_medina": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Chaves Medina, según el expediente, huye por una ruta separada en la motocicleta, de regreso hacia Tibás/León XIII — un trayecto que se reconstruye con más detalle al inicio de la fase 3."
           }
         ]

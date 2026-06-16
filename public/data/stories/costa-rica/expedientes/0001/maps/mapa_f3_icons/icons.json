@@ -26,7 +26,7 @@
         "timeColor": "#FF4444"
       },
       "location": "Cruce El Raicero → Mall Don Pancho → Trinidad de Moravia, San José",
-      "description": "El Renault Duster (con Robles Salas y Carvajal Fernández) siguió ruta hacia Coronado pasando por Cruce El Raicero, Mall Don Pancho (07:53 h) y Trinidad de Moravia (07:54 h). El dispositivo de Carvajal activó radiobases coincidentes con el movimiento del vehículo. Durante el trayecto se cambia el suéter gris por una sudadera oscura con logo Fox.",
+      "description": "El Renault Duster (con Bryan Robles Salas y Luis F. Carvajal Fernández) siguió una ruta hacia Coronado, pasando por Cruce El Raicero, Mall Don Pancho (07:53 h), y Trinidad de Moravia (07:54 h). El dispositivo de Carvajal Fernández (62329434) activó las radio bases en tiempo y lugar coincidente con el movimiento del vehículo, confirmando que era el pasajero-ejecutor. Durante este trayecto, el pasajero se cambia el suéter gris por una oscura con logo Fox.",
       "involved": [
         {
           "id": "robles_salas",
@@ -140,7 +140,7 @@
         "timeColor": "#4ECDC4"
       },
       "location": "Sector León XIII, Tibás, San José",
-      "description": "La motocicleta, conducida por Danilo José Chaves Medina, ingresó al sector de León XIII a las 07:52 h, completando su huida tras la ejecución. Su trayecto por ruta separada desde Moravia le permitió desvincularse de la escena del crimen antes que el Duster.",
+      "description": "La motocicleta, conducida por Danilo José Chaves Medina, ingresó al sector de León XIII. Así completó su huida.",
       "involved": [
         {
           "id": "chaves_medina",

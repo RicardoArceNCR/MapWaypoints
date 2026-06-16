@@ -78,11 +78,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "Otro sicario sale en motocicleta a matar",
-      "lines": [
-        "La motocicleta Freedom color rojo sale de León XIII, sector de residencia de Bryan Steven Robles Salas, quien la conducía."
-      ]
+      }
     },
     {
       "id": "wp_f1_col3",
@@ -111,11 +107,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "Cambio de roles y ajuste de posiciones finales.",
-      "lines": [
-        "Ambos vehículos realizaron rondas y entraron a un punto de reunión ('calle sin salida Av 65A'). Se produjeron cambios de posición para evitar ser detectados. Luis Fernando Carvajal Fernández (el sicario, suéter gris) sube como pasajero en la motocicleta. A las 07:41 h, se realizó el último cambio: Robles Salas pasó a conducir el Duster BKK190 (vehículo de asalto) y Danilo Chaves Medina pasó a conducir la motocicleta (camisa color mostaza).  "
-      ]
+      }
     },
     {
       "id": "wp_f2_col1",
@@ -144,11 +136,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "El sicario se posiciona en la escena del crimen",
-      "lines": [
-        "Minutos antes del hecho, el dispositivo de Luis Fernando Carvajal Fernández (62329434) activó la radio base 'Valla Moravia' (antena celular). Eso confirma su ubicación exacta en el sector del homicidio."
-      ]
+      }
     },
     {
       "id": "wp_f2_col2",
@@ -177,11 +165,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "SAMCAM ES ACRIBILLADO",
-      "lines": [
-        "El Renault Duster blanco (BKK190) se estacionó frente al Condominio Naples. El pasajero delantero (Carvajal Fernández) descendió, ingresó al condominio, llamó al ofendido por su nombre y le disparó 5 veces con un arma calibre 40. El sicario corre de regreso al automóvil."
-      ]
+      }
     },
     {
       "id": "wp_f2_col3",
@@ -210,11 +194,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "Inicia la huida",
-      "lines": [
-        "El Renault Duster huyó a gran velocidad, con el gatillero Carvajal dentro. La motocicleta, conducida por Chaves Medina, huyó por una ruta separada hacia Tibás/León XIII."
-      ]
+      }
     }
   ]
 }

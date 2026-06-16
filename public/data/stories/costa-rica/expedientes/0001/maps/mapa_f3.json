@@ -114,10 +114,9 @@
         "xtall": 0.99,
         "tablet": 1
       },
-      "label": "La ruta final del Duster y la localización del sicario",
+      "label": "Cadena de comunicaciones de huida, extracción y desecho de vehículos",
       "lines": [
-        "07:46 – 07:54 h — El Renault Duster (con Bryan Robles Salas y Luis F. Carvajal Fernández) siguió una ruta hacia Coronado, pasando por Cruce El Raicero, Mall Don Pancho (07:53 h) y Trinidad de Moravia (07:54 h).",
-        "Según el OIJ, el dispositivo de Carvajal Fernández registró actividad coincidente con esta ruta, lo que lo ubicaría como el pasajero. Durante el trayecto, el pasajero se cambia el suéter gris por una chaqueta oscura con logo Fox."
+        "Esta fase abarca la huida de los ejecutores, la coordinación de la recogida mediante llamadas y envío de ubicación, el abandono del vehículo y la remuneración del ‘servicio’, es decir el asesinato de Samcam."
       ]
     },
     {
@@ -148,12 +147,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "El coordinador regresa a la base",
-      "lines": [
-        "07:52 h — La motocicleta, conducida por Danilo José Chaves Medina, ingresó al sector de León XIII.",
-        "Así completó su huida."
-      ]
+      }
     },
     {
       "_fila": 1,
@@ -183,12 +177,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "Se coordina la extracción del sicario. Una llamada clave.",
-      "lines": [
-        "08:10:13 h — Danilo José Chaves Medina (72678193) llamó a Luis Ricardo Orozco González, conductor encargado de la extracción.",
-        "La policía judicial infiere que esta llamada (de 24 segundos) fue para coordinar que Orozco se dirigiera a Coronado a recoger a los ejecutores."
-      ]
+      }
     },
     {
       "_fila": 2,
@@ -218,12 +207,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "El Hyundai sale hacia Coronado",
-      "lines": [
-        "08:15 h — El Hyundai celeste (placa 903056), conducido por Orozco González, salió de León XIII y se dirigió hacia la Ruta 32.",
-        "Confirmando el rumbo hacia Coronado."
-      ]
+      }
     },
     {
       "_fila": 2,
@@ -253,12 +237,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "Un mensaje desesperado",
-      "lines": [
-        "08:21 h — Bryan Steven Robles Salas envió a Orozco su ubicación GPS, coincidente con el sitio donde el Duster BKK190 fue abandonado en Dulce Nombre de Coronado.",
-        "Robles Salas envió mensajes de desesperación: \"Corra xfa\", \"Vueleeeee\", \"Sáqueme de aquí\"."
-      ]
+      }
     },
     {
       "_fila": 2,
@@ -288,12 +267,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "El presunto gatillero también se contacta",
-      "lines": [
-        "08:34 h — Según el expediente, Carvajal Fernández —señalado como el gatillero— contactó a Orozco para explicar que el celular de Robles se había apagado.",
-        "Solicitó la ubicación en tiempo real."
-      ]
+      }
     },
     {
       "_fila": 3,
@@ -323,12 +297,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "Llega la extracción",
-      "lines": [
-        "08:38 h — El dispositivo de Luis Orozco registra su ubicación coincidente con el sitio exacto en Rodeo, Coronado.",
-        "Allí fue hallado el Duster BKK190 abandonado."
-      ]
+      }
     },
     {
       "_fila": 3,
@@ -358,12 +327,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "Se consuma la extracción",
-      "lines": [
-        "08:46 h — El Hyundai celeste (placa 903056) se retiró del lugar.",
-        "Habiendo recogido a Bryan Robles Salas y Luis Fernando Carvajal Fernández."
-      ]
+      }
     },
     {
       "_fila": 3,
@@ -393,12 +357,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "Retorno a la base criminal",
-      "lines": [
-        "09:14 h — Orozco González y los ejecutores regresan al sector de León XIII.",
-        "La ubicación registrada por Orozco es coincidente con la vivienda de Carvajal Fernández."
-      ]
+      }
     },
     {
       "_fila": 4,
@@ -428,12 +387,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "Una mujer paga el \"servicio\" de asesinato",
-      "lines": [
-        "10:38 h — Stephanie María Chacón Guillén depositó a Luis Ricardo Orozco González ₡50.000 en dos tractos (\"Viaje\" y \"Gasolina\").",
-        "Este monto es diez veces superior al costo normal del viaje, lo que sugiere que era el pago por la colaboración y el riesgo asumido."
-      ]
+      }
     },
     {
       "_fila": 4,
@@ -463,12 +417,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "Confirmación de éxito",
-      "lines": [
-        "16:50 h — Luis Orozco preguntó a Bryan Robles: \"¿Como le fue?\". Robles respondió que \"le fue bien\" y preguntó si salió algo \"del carro\" (el Duster abandonado).",
-        "Para el OIJ, esta conversación evidenciaría el conocimiento mutuo sobre lo ocurrido."
-      ]
+      }
     },
     {
       "_fila": 4,
@@ -498,12 +447,7 @@
         "tall": 0.97,
         "xtall": 0.99,
         "tablet": 1
-      },
-      "label": "Encuentran las prendas del presunto sicario",
-      "lines": [
-        "19/06/2025 — Las prendas de vestir descritas por testigos (suéter gris y pantalón color vino) fueron encontradas por el OIJ en el Renault Duster abandonado.",
-        "Según el OIJ, estas evidencias materiales respaldarían la identificación de Carvajal Fernández como el presunto ejecutor."
-      ]
+      }
     }
   ]
 }
