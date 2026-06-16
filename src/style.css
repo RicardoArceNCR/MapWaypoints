@@ -785,14 +785,14 @@ body:has(.drawer--open) .about-btn {
   z-index: 30;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 15px;
   padding: 12px 20px;
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(12px);
   border-radius: 50px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   /* 🆕 Que parezca "player" compacto y se adapte al ancho */
-  width: min(90vw, 400px);
+  width: min(90vw, 440px);
 }
 
 /* Botones base */
@@ -830,12 +830,12 @@ body:has(.drawer--open) .about-btn {
   /* 🆕 reparte los dots en todo el ancho */
   flex: 1;
   /* 🆕 ocupa todo el espacio entre los botones */
-  gap: 0;
+  gap: 9px;
   /* el espacio lo maneja space-between */
 }
 
 .progress span {
-  width: 18px;
+  width: 100%;
   height: 12px;
   border-radius: 30%;
   background: rgba(255, 255, 255, 0.3);
@@ -850,7 +850,7 @@ body:has(.drawer--open) .about-btn {
 
 .progress span.active {
   background: var(--phase-color);
-  width: 15px;
+  width: 100%;
   height: 15px;
   box-shadow: 0 0 12px var(--phase-color);
 }
@@ -929,21 +929,16 @@ body:has(.drawer--open) .about-btn {
     align-items: center;
     justify-content: center;
     gap: 4px;
-    padding: 2px 6px calc(2px + env(safe-area-inset-top));
-
-    background: linear-gradient(to bottom,
-        rgba(0, 0, 0, 0.92) 0%,
-        rgba(0, 0, 0, 0.6) 50%,
-        rgba(0, 0, 0, 0) 100%);
-
+    padding: 3px 9px calc(2px + env(safe-area-inset-top));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 100%);
     width: 100%;
     pointer-events: auto;
   }
 
   .ui .progress span {
-    height: 3px;
-    width: 120px;
-    border-radius: 999px;
+    height: 4px;
+    width: 100%;
+    border-radius: 0px;
     background: rgba(255, 255, 255, 0.3);
     transition: background 0.2s ease, height 0.2s ease, width 0.2s ease;
   }
@@ -951,7 +946,7 @@ body:has(.drawer--open) .about-btn {
   .ui .progress span.active {
     background: var(--phase-color);
     height: 4px;
-    width: 82px;
+    width: 100%;
     box-shadow: 0 0 6px rgba(var(--phase-color-rgb), 0.8);
   }
 
@@ -1208,10 +1203,6 @@ body.net-slow .drawer {
     font-size: 10px;
     padding: 3px 6px;
     margin-bottom: 4px;
-  }
-
-  .ui .progress span {
-    width: 100px;
   }
 
 }
@@ -2624,7 +2615,6 @@ body:has(#story-intro:not([hidden])) .top-bar {
     width: 36px;
     height: 4px;
     background: rgba(255, 255, 255, 0.3);
-    padding-top: 22px;
     border-radius: 999px;
   }
 
