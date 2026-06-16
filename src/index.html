@@ -107,7 +107,8 @@
       </button>
 
       <!-- Botón lista de implicados -->
-      <button id="suspects-btn" class="about-btn suspects-btn" aria-label="Lista de implicados" title="Implicados" hidden>
+      <button id="suspects-btn" class="about-btn suspects-btn" aria-label="Lista de implicados" title="Implicados"
+        hidden>
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
           stroke-linecap="round" stroke-linejoin="round">
           <circle cx="9" cy="7" r="4" />
@@ -149,11 +150,15 @@
         </div>
         <ol class="drawer__list" id="drawer-list"></ol>
         <footer class="drawer__footer">
-          <a class="drawer__footer-logo" href="https://www.divergentes.com/" target="_blank" rel="noopener noreferrer" aria-label="Divergentes">
+          <a class="drawer__footer-logo" href="https://www.divergentes.com/" target="_blank" rel="noopener noreferrer"
+            aria-label="Divergentes">
             <img src="/assets/mosca-r.webp" alt="Divergentes" class="drawer__footer-logo-img">
           </a>
           <button class="drawer__footer-close" aria-label="Cerrar menú">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
             Cerrar
           </button>
         </footer>
@@ -313,11 +318,13 @@
             <div class="suspect-card__header">
               <img class="suspect-card__avatar" src="/assets/keny-hosman-navarrete-vallecillo.webp" alt="" width="44"
                 height="44" loading="lazy" decoding="async">
-              <span class="suspect-card__name">Keny Hosman Navarrete Vallecillo <em>"Chatel"</em></span>
+              <span class="suspect-card__name">Keny Hosman Navarrete Vallecillo, alias <em>"Chatel"</em></span>
               <span class="suspect-card__status suspect-card__status--imputado">No imputado</span>
             </div>
-            <p class="suspect-card__role">Presunto coordinador del encargo criminal</p>
-            <p class="suspect-card__age">38 años</p>
+            <p class="suspect-card__role">Presunto coordinador del encargo criminal. Identificado como quien orquestó el
+              contacto entre los autores intelectuales y la célula sicarial costarricense de León XIII, operando desde
+              su celda mediante llamadas telefónicas.</p>
+            <p class="suspect-card__age">38 a&ntilde;os</p>
             <p class="suspect-card__detail">Nicaragüense originario de Diriamba, Carazo. Cumple condena desde 2016 en el
               pabellón C-4 del CAI Jorge Arturo Montero Castro ("La Reforma"), Alajuela, por robo agravado, privación de
               libertad y receptación. El expediente documenta un alto volumen de llamadas entre su celda y los
@@ -332,9 +339,12 @@
               <span class="suspect-card__name">Pablo Antonio Robles Murillo</span>
               <span class="suspect-card__status suspect-card__status--imputado">No imputado</span>
             </div>
-            <p class="suspect-card__role">Presunto autor intelectual</p>
+            <p class="suspect-card__role">Inicialmente fue señalado de idear el homicidio. Una fuente anónima sostiene
+              que tiene nexos con “la plana mayor” del Ejército de Nicaragua. Fue parte del batallón Sócrates Sandino en
+              los ochenta. Se le atribuye haber sido entrenado en Cuba y Rusia en labores de inteligencia, asesinato y
+              sabotaje. </p>
             <p class="suspect-card__detail">Es un nicaragüense naturalizado costarricense. Se le señala de haber
-              mantenido reuniones previas para coordinar el asesinato con "la plana mayor del Ejército". Tiene vínculos
+              mantenido reuniones previas para coordinar el asesinato con “la plana mayor del Ejército”. Tiene vínculos
               con el General Julio César Avilés. Mencionado en el expediente, pero no está formalmente imputado.</p>
           </article>
 
@@ -345,11 +355,13 @@
               <span class="suspect-card__name">Danilo José Chaves Medina</span>
               <span class="suspect-card__status suspect-card__status--detenido">Detenido</span>
             </div>
-            <p class="suspect-card__role">Intermediario logístico</p>
-            <p class="suspect-card__age">35 años</p>
-            <p class="suspect-card__detail">Vecino de León XIII, barbero. Estuvo en la escena del crimen. Coordinó el
-              rescate de los ejecutores. Detenido el 11 de septiembre de 2025 en Cañas, Guanacaste. Prisión preventiva.
-            </p>
+            <p class="suspect-card__role">Intermediario entre los autores intelectuales y los materiales. Estuvo en la
+              escena del crimen, donde compartió motocicleta con el supuesto gatillero. Coordinó el rescate de los
+              ejecutores llamando a Orozco González (el transportista) después del crimen.</p>
+            <p class="suspect-card__age">35 a&ntilde;os</p>
+            <p class="suspect-card__detail">Vecino de León XIII. Su oficio registrado es Barbero. Fue el usuario que
+              contactó a Luis Orozco para el traslado. Estatus: Detenido el 11 de septiembre de 2025 en Cañas,
+              Guanacaste. Dictada prisión preventiva.</p>
           </article>
 
           <article class="suspect-card">
@@ -357,13 +369,17 @@
               <img class="suspect-card__avatar" src="/assets/luis-fernando-carvajal-fernandez.webp" alt="" width="44"
                 height="44" loading="lazy" decoding="async">
               <span class="suspect-card__name">Luis Fernando Carvajal Fernández</span>
-              <span class="suspect-card__status suspect-card__status--profugo">Prófugo</span>
+              <span class="suspect-card__status suspect-card__status--detenido">Capturado</span>
             </div>
-            <p class="suspect-card__role">Gatillero / Ejecutor</p>
-            <p class="suspect-card__age">20 años</p>
-            <p class="suspect-card__detail">Reside en León XIII. Ingresó al condominio Naples, llamó a la víctima por su
-              nombre y le disparó al menos 8 veces (.40 o 9mm). Realizó vigilancia el día previo. OIJ realiza
-              diligencias para su detención.</p>
+            <p class="suspect-card__role">Gatillero. Es quien ingresa al condominio Naples, llama a la víctima por su
+              nombre, y le dispara al menos ocho veces (calibre .40 o 9mm). Participó en labores de vigilancia e
+              inteligencia el día previo, activando la radio base "Valla Moravia" (antena de celular) cerca de la
+              vivienda de Samcam. Se comunicó con Orozco González durante la huida para dar su ubicación, indicando que
+              el celular de Robles Salas se había quedado sin batería.</p>
+            <p class="suspect-card__age">20 a&ntilde;os</p>
+            <p class="suspect-card__detail">Reside en León XIII. Viajó como pasajero en el Renault Duster blanco
+              (BKK-190) al momento de la ejecución. Estatus: Prófugo. El OIJ está realizando diligencias para su
+              detención.</p>
           </article>
 
           <article class="suspect-card">
@@ -373,10 +389,12 @@
               <span class="suspect-card__name">Bryan Steven Robles Salas</span>
               <span class="suspect-card__status suspect-card__status--detenido">Detenido</span>
             </div>
-            <p class="suspect-card__role">Conductor y vigilante</p>
-            <p class="suspect-card__age">23 años</p>
-            <p class="suspect-card__detail">Reside en León XIII. Condujo el Renault Duster blanco (BKK-190) durante la
-              ejecución. Conocido de Orozco González. Prisión preventiva.</p>
+            <p class="suspect-card__role">Conductor principal y vigilante. Condujo el Renault Duster blanco (BKK-190)
+              durante la ejecución. Inicialmente, condujo la motocicleta roja en las horas previas al crimen. Fue quien,
+              en la huida, envió mensajes de urgencia pidiendo ser rescatado a Luis Orozco.</p>
+            <p class="suspect-card__age">23 a&ntilde;os</p>
+            <p class="suspect-card__detail">Reside en León XIII. Conocido de Luis Orozco González (se encontró una foto
+              de ambos oculta en el celular de Orozco). Estatus: Detenido en León XIII. Dictada prisión preventiva.</p>
           </article>
 
           <article class="suspect-card">
@@ -386,10 +404,13 @@
               <span class="suspect-card__name">Luis Ricardo Orozco González</span>
               <span class="suspect-card__status suspect-card__status--detenido">Detenido</span>
             </div>
-            <p class="suspect-card__role">Transportista de rescate</p>
-            <p class="suspect-card__age">33 años</p>
-            <p class="suspect-card__detail">Vecino de León XIII. Condujo el Hyundai Accent celeste (903056). Recogió a
-              los ejecutores en Coronado. Cobró 10&times; el precio habitual. Prisión preventiva.</p>
+            <p class="suspect-card__role">Transportista de Rescate (Taxista informal / "pirata"). Condujo el Hyundai
+              Accent celeste (placa 903056). Recogió a Robles Salas y Carvajal Fernández en Coronado después de
+              abandonar el Duster. Su celular fue clave para establecer la coordinación y la ruta de huida.</p>
+            <p class="suspect-card__age">33 a&ntilde;os</p>
+            <p class="suspect-card__detail">Vecino de León XIII. Fue contactado por Danilo Chaves. Recibió un pago por
+              el "Viaje" y "Gasolina" diez veces superior al usual. Estatus: Detenido en vía pública. Dictada prisión
+              preventiva.</p>
           </article>
 
           <article class="suspect-card">
@@ -399,16 +420,22 @@
               <span class="suspect-card__name">Stephanie María Chacón Guillén</span>
               <span class="suspect-card__status suspect-card__status--libre">Libre (proceso activo)</span>
             </div>
-            <p class="suspect-card__role">Facilitadora financiera</p>
-            <p class="suspect-card__age">30 años</p>
-            <p class="suspect-card__detail">Pareja de Danilo Chaves Medina. Presuntamente realizó depósitos de
-              &cent;50.000 a Orozco González para pagar el traslado de los involucrados.</p>
+            <p class="suspect-card__role">Facilitadora Financiera. Presuntamente realizó los depósitos de ¢50.000,00 a
+              Luis Orozco González para pagar el traslado de los involucrados.</p>
+            <p class="suspect-card__age">30 a&ntilde;os</p>
+            <p class="suspect-card__detail">Es la pareja sentimental (madre de una hija) de Danilo José Chaves Medina
+              (el intermediario). Estatus: Detenida. Enfrentará el proceso penal en libertad mientras se recopilan más
+              indicios.</p>
           </article>
 
-        <button class="suspects-popup__footer-close" id="suspects-footer-close">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-          Cerrar
-        </button>
+          <button class="suspects-popup__footer-close" id="suspects-footer-close">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+            Cerrar
+          </button>
+
         </div>
       </div>
 
