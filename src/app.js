@@ -2741,6 +2741,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   suspectsBtn?.addEventListener('click', openSuspects);
   suspectsClose?.addEventListener('click', closeSuspects);
   suspectsBackdrop?.addEventListener('click', closeSuspects);
+  document.getElementById('suspects-footer-close')?.addEventListener('click', closeSuspects);
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && suspectsPopup?.classList.contains('is-open')) closeSuspects();

@@ -541,6 +541,36 @@ body.suspects-open .mosca-btn {
   gap: 8px;
 }
 
+.suspects-popup__footer-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  margin-top: 4px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: rgba(255,255,255,0.7);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.suspects-popup__footer-close:hover {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border-color: rgba(255,255,255,0.25);
+}
+
+.suspects-popup__footer-close:active {
+  transform: scale(0.98);
+}
+
 /* ========= TARJETA DE SOSPECHOSO ========= */
 .suspect-card {
   background: rgba(255, 255, 255, 0.04);
