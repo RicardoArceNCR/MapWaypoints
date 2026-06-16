@@ -164,7 +164,7 @@ body {
   right: 0;
   z-index: 9999;
   background: rgb(0 0 0 / 0%);
-  min-height: 63px;
+  min-height: 46px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1183,10 +1183,8 @@ body.suspects-open .mosca-btn {
   .phase-filter {
     z-index: 35;
     gap: 8px;
-    padding: 10px;
     background: none;
     backdrop-filter: none;
-    padding-top: 0px;
   }
 
   .ui {
@@ -1665,7 +1663,7 @@ body.net-slow .drawer {
   flex-shrink: 0;
   pointer-events: auto;
   position: absolute;
-  bottom: -13px;
+  bottom: -28px;
   right: 32px;
 }
 
@@ -1679,8 +1677,8 @@ body.net-slow .drawer {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   border-radius: 8px;
   border: none;
   background: rgb(0 0 0 / 73%);
@@ -1725,7 +1723,7 @@ body.net-slow .drawer {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: -22px;
+  bottom: -35px;
 
   /* Badge */
   display: inline-flex;
@@ -1737,7 +1735,7 @@ body.net-slow .drawer {
   background: var(--phase-color, #1BC6EB);
   color: #0a121a;
 
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -3034,6 +3032,11 @@ body:has(#story-intro:not([hidden])) .top-bar {
 @media (max-width: 899px) {
   .phase-btn--next-available {
     animation-duration: 1.6s !important;
+  }
+
+  .progress span:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0.9);
   }
 }
 
