@@ -353,7 +353,7 @@
         "timeColor": "#4ECDC4"
       },
       "location": "León XIII → Ruta 32 → Coronado, San José",
-      "description": "El Hyundai celeste (placa 903056), conducido por Luis Ricardo Orozco González, salió de León XIII y se dirigió hacia la Ruta 32, confirmando el rumbo hacia Coronado para recoger a los ejecutores.",
+      "description": "El Hyundai celeste (placa 903056), conducido por Orozco González para la extracción, salió de León XIII y se dirigió hacia la Ruta 32, confirmando el rumbo hacia Coronado.",
       "involved": [
         {
           "id": "orozco",
@@ -452,7 +452,7 @@
         "timeColor": "#FF4444"
       },
       "location": "Dulce Nombre de Coronado, San José (cercanías Casa Kuakua)",
-      "description": "Bryan Steven Robles Salas envió a Orozco su ubicación GPS, coincidente con el sitio donde el Duster BKK-190 fue abandonado en una calle sin salida en Dulce Nombre de Coronado. Sus mensajes reflejan la desesperación: 'Corra xfa', 'Vueleeeee', 'Sáqueme de aquí'.",
+      "description": "Bryan Steven Robles Salas (conductor del Duster) envió a Orozco su ubicación GPS, coincidente con el sitio donde el Renault Duster BKK190 fue abandonado en una calle sin salida en Dulce Nombre de Coronado (cercanías de Casa Kuakua). Robles Salas envió mensajes de desesperación: \"Corra xfa\", \"Vueleeeee\", \"Sáqueme de aquí\".",
       "involved": [
         {
           "id": "robles_salas",
@@ -574,14 +574,14 @@
         "rotation": 0,
         "radius": 0
       },
-      "title": "El presunto gatillero también se contacta",
+      "title": "El sicario también se contacta",
       "datetime": {
         "date": "19/06/2025",
         "time": "08:34 h",
         "timeColor": "#FF4444"
       },
       "location": "Dulce Nombre de Coronado, San José",
-      "description": "Luis Fernando Carvajal Fernández contactó directamente a Orozco González, explicando que el celular de Robles se había apagado y solicitando la ubicación en tiempo real. Este contacto ata el número 62329434 definitivamente a Carvajal como el ejecutor.",
+      "description": "Luis Fernando Carvajal Fernández, el gatillero, también contactó a Orozco, explicando que el celular de Robles se había apagado y solicitando la ubicación en tiempo real",
       "involved": [
         {
           "id": "carvajal",
@@ -695,7 +695,7 @@
         "timeColor": "#4ECDC4"
       },
       "location": "Rodeo, Dulce Nombre de Coronado, San José",
-      "description": "El dispositivo de Luis Orozco registra su ubicación coincidente con el sitio exacto en Rodeo, Coronado, donde fue hallado el Duster BKK-190 abandonado. La extracción está en curso.",
+      "description": "El dispositivo de Luis Orozco registra su ubicación coincidente con el sitio exacto en Rodeo, Coronado, donde fue hallado el Duster BKK190 abandonado.",
       "involved": [
         {
           "id": "orozco",
@@ -824,7 +824,7 @@
         "timeColor": "#4ECDC4"
       },
       "location": "Rodeo, Dulce Nombre de Coronado, San José",
-      "description": "El Hyundai celeste (placa 903056) se retiró del lugar habiendo recogido a Bryan Robles Salas y Luis Fernando Carvajal Fernández. Los tres —Orozco, Robles Salas y Carvajal— se dirigen ahora de regreso a León XIII.",
+      "description": "El Hyundai celeste (placa 903056) se retiró del lugar, habiendo recogido a Bryan Robles Salas y Luis Fernando Carvajal Fernández.",
       "involved": [
         {
           "id": "orozco",
@@ -953,7 +953,7 @@
         "timeColor": "#4ECDC4"
       },
       "location": "Sector León XIII, Tibás, San José",
-      "description": "Orozco González y los ejecutores regresan al sector de León XIII. La ubicación registrada por el dispositivo de Orozco es coincidente con la vivienda de Carvajal Fernández, confirmando el destino final de la extracción.",
+      "description": "Orozco González y los ejecutores regresan al sector de León XIII. La ubicación registrada por Orozco es coincidente con la vivienda de Carvajal Fernández.",
       "involved": [
         {
           "id": "orozco",
@@ -1075,14 +1075,14 @@
         "rotation": 0,
         "radius": 0
       },
-      "title": "Una mujer paga el 'servicio' de asesinato",
+      "title": "Una mujer paga el “servicio” de asesinato",
       "datetime": {
         "date": "19/06/2025",
         "time": "10:38 h",
         "timeColor": "#FF4444"
       },
       "location": "León XIII, Tibás (transferencia SINPE Móvil)",
-      "description": "Stephanie María Chacón Guillén depositó a Luis Ricardo Orozco González ₡50.000 en dos tractos vía SINPE Móvil, con los conceptos 'Viaje' y 'Gasolina'. El monto es diez veces superior al costo normal del traslado, lo que la OIJ interpreta como la retribución por el riesgo asumido.",
+      "description": "Stephanie María Chacón Guillen (madre de una hija de Danilo Chaves) depositó a Luis Ricardo Orozco González ¢50.000,00 en dos tractos (“Viaje” y “Gasolina”). Este monto es diez veces superior al costo normal del viaje, lo que sugiere que era el pago por la colaboración y el riesgo asumido por el encargado de la extracción.",
       "involved": [
         {
           "id": "chacon",
@@ -1204,14 +1204,14 @@
         "rotation": 0,
         "radius": 0
       },
-      "title": "Confirmación de éxito: '¿Como le fue?'",
+      "title": "Confirmación de éxito",
       "datetime": {
         "date": "19/06/2025",
         "time": "16:50 h",
         "timeColor": "#FF4444"
       },
       "location": "León XIII, Tibás, San José",
-      "description": "Luis Orozco preguntó a Bryan Robles por mensaje: '¿Como le fue?'. Robles respondió que 'le fue bien' y preguntó si salió algo 'del carro' (el Duster abandonado). Esta conversación, recuperada del celular de Orozco, es una de las evidencias más contundentes del caso.",
+      "description": "Luis Orozco preguntó a Bryan Robles por mensaje: ¿Como le fue?. Robles respondió que 'le fue bien' y preguntó si Orozco vio las noticias, y si salió algo 'del carro' (el Duster abandonado).",
       "involved": [
         {
           "id": "robles_salas",
@@ -1318,14 +1318,14 @@
         "rotation": 0,
         "radius": 0
       },
-      "title": "Encuentran las prendas del presunto sicario",
+      "title": "Encuentran las prendas del sicario",
       "datetime": {
         "date": "19/06/2025",
         "time": "—",
         "timeColor": "#FF4444"
       },
       "location": "Renault Duster BKK-190 abandonado, Rodeo, Coronado",
-      "description": "Las prendas de vestir utilizadas por el sicario —suéter gris y pantalón color vino— fueron encontradas por el OIJ dentro del Renault Duster abandonado. Las evidencias materiales confirman la identidad del ejecutor y su cambio de ropa durante la huida.",
+      "description": "Las prendas de vestir utilizadas por el sicario (suéter gris y pantalón color vino) fueron encontradas por la OIJ en el vehículo Renault Duster abandonado.",
       "involved": [
         {
           "id": "carvajal",
