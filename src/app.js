@@ -1368,7 +1368,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     _wibTimers.push(iconId);
 
     // ── Badges ⓘ: auto-play announce secuencial después de que los iconos ya son visibles ──
-    const badgeDelay = BASE_DELAY + 4500; // 3s después del último texto (BASE_DELAY+1500)
+    const badgeDelay = BASE_DELAY + 13000; // 3s después del último texto (BASE_DELAY+1500)
     const badgeId = setTimeout(() => {
       const badges = document.querySelectorAll('.hs-caption');
       badges.forEach((el, i) => {
