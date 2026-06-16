@@ -1618,6 +1618,8 @@ body.net-slow .drawer {
     opacity: 0.85;
     transition: opacity 0.1s ease;
   }
+
+
 }
 
 /* ========================================================= */
@@ -1744,6 +1746,13 @@ body.net-slow .drawer {
 
   /* Sombra para separarlo del info-box */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 899px) {
+  .waypoint-info-box__date {
+    bottom: -28px;
+    font-size: 12px;
+  }
 }
 
 /* Tercer texto — descripción editorial, tamaño fijo 16px */
