@@ -2762,6 +2762,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
   });
   drawerClose.addEventListener('click', () => uiManager.closeDrawer());
+  document.querySelector('.drawer__footer-close')?.addEventListener('click', () => uiManager.closeDrawer());
   drawerBackdrop.addEventListener('click', () => uiManager.closeDrawer());
 
   // ========= INICIO =========

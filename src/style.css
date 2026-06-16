@@ -384,7 +384,7 @@ body {
 /* ========= BOTÓN SOBRE ESTA RECONSTRUCCIÓN (Mobile) ========= */
 .about-btn {
   position: fixed;
-  bottom: 195px;
+  bottom: 120px;
   right: 16px;
   z-index: 1000;
   width: 48px;
@@ -435,7 +435,7 @@ body:has(.drawer--open) .suspects-btn {
 
 /* ========= BOTÓN SOSPECHOSOS ========= */
 .suspects-btn {
-  bottom: calc(195px + 48px + 12px);
+  bottom: calc(120px + 48px + 12px);
 }
 
 /* Ocultar el botón cuando el panel está abierto */
@@ -549,10 +549,10 @@ body.suspects-open .mosca-btn {
   width: 100%;
   padding: 14px;
   margin-top: 4px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   font-family: inherit;
   font-size: 0.9rem;
   font-weight: 600;
@@ -562,9 +562,9 @@ body.suspects-open .mosca-btn {
 }
 
 .suspects-popup__footer-close:hover {
-  background: rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.12);
   color: #fff;
-  border-color: rgba(255,255,255,0.25);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .suspects-popup__footer-close:active {
@@ -686,7 +686,7 @@ body.suspects-open .mosca-btn {
 /* ========= HAMBURGUESA (Mobile) ========= */
 .hamburger {
   position: fixed;
-  bottom: 100px;
+  bottom: 59px;
   right: 16px;
   z-index: 10000;
   width: 48px;
@@ -720,8 +720,8 @@ body.suspects-open .mosca-btn {
 /* ========= BOTÓN MOSCA (logo flotante) ========= */
 .mosca-btn {
   position: fixed;
-  bottom: 44px;
-  right: 16px;
+  bottom: 59px;
+  left: 16px;
   z-index: 10000;
   width: 48px;
   height: 48px;
@@ -1032,6 +1032,61 @@ body.suspects-open .mosca-btn {
   }
 }
 
+.drawer__footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  margin-top: auto;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+}
+
+.drawer__footer-logo {
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.drawer__footer-logo:hover {
+  opacity: 0.8;
+}
+
+.drawer__footer-logo-img {
+  height: 28px;
+  width: auto;
+}
+
+.drawer__footer-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  padding: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  color: rgba(255,255,255,0.7);
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.drawer__footer-close:hover {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border-color: rgba(255,255,255,0.25);
+}
+
+.drawer__footer-close:active {
+  transform: scale(0.98);
+}
+
 .drawer-backdrop {
   position: fixed;
   inset: 0;
@@ -1228,7 +1283,7 @@ body.suspects-open .mosca-btn {
   }
 
   .suspects-btn {
-    bottom: calc(143px + 48px + 12px);
+    bottom: calc(142px + 48px + 12px);
   }
 }
 
@@ -1656,6 +1711,10 @@ body.net-slow .drawer {
   font-weight: 700;
   color: #ffffff;
   line-height: 1.2;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  border-right: 2px solid transparent;
 }
 
 .waypoint-info-box__desc {
@@ -2109,11 +2168,13 @@ body:has(#story-intro:not([hidden])) .top-bar {
   height: 44px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.08);
-  transition: background 0.2s ease, transform 0.15s ease;
+  color: rgba(255, 255, 255, 0.6);
+  transition: background 0.2s ease, transform 0.15s ease, color 0.2s ease;
 }
 
 .story-intro__share-link:hover {
   background: rgba(255, 255, 255, 0.16);
+  color: #fff;
   transform: scale(1.08);
 }
 
@@ -2492,7 +2553,22 @@ body:has(#story-intro:not([hidden])) .top-bar {
 }
 
 /* Clase que JS agrega con setTimeout para cada elemento */
-.waypoint-info-box__title.wib-in,
+@keyframes wib-typewriter {
+  from { width: 0; opacity: 0; }
+  to   { width: 100%; opacity: 1; }
+}
+
+@keyframes wib-cursor-blink {
+  0%, 100% { border-color: var(--phase-color, #1BC6EB); }
+  50%       { border-color: transparent; }
+}
+
+.waypoint-info-box__title.wib-in {
+  animation:
+    wib-typewriter 0.6s steps(30, end) forwards,
+    wib-cursor-blink 0.8s step-end 4;
+}
+
 .waypoint-info-box__desc.wib-in,
 .waypoint-info-box__body.wib-in {
   opacity: 1;
