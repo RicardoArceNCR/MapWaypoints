@@ -172,12 +172,12 @@
       "alias": "Chatel",
       "age": 38,
       "nationality": "Nicaragüense (Diriamba, Carazo)",
-      "avatar": null,
+      "avatar": "/assets/keny-hosman-navarrete-vallecillo.webp",
       "caseRole": "Señalado como coordinador del encargo desde prisión",
       "status": "Cumple condena desde 2016 en el CAI La Reforma (Alajuela). Incorporado a la acusación formal de junio de 2026.",
       "bio": "Según el expediente, habría sido el eslabón que —desde su celda en el pabellón C-4 de La Reforma— conectó a quienes ordenaron el crimen con la célula sicarial de León XIII, a través de un alto volumen de llamadas documentadas antes y después del homicidio.",
       "appearsIn": [],
-      "_placement": "Sin foto disponible (avatar null -> fallback automático a default.gif, ya soportado por el código). Igual que Robles Murillo, no participa en f1-f3; ver recomendación de epílogo.",
+      "_placement": "Igual que Robles Murillo, no participa en f1-f3; ver recomendación de epílogo.",
       "_echosStatus": "No aparece en ningún hotspot todavía"
     }
   ]

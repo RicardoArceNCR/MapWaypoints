@@ -12,7 +12,7 @@ Generado desde `personas.json` + el audit_gaps.py corrido por el editor. Sirve p
 | `robles_salas` | Bryan Steven Robles Salas | `/assets/bryan-steven-robles-salas.webp` | Conductor / vigilancia |
 | `orozco` | Luis Ricardo Orozco González | `/assets/luis-ricardo-orozco-gonzales.webp` | Transportista de extracción |
 | `chacon` | Stephanie María Chacón Guillén | `/assets/stephanie-maria-chacon-guillen.webp` | Señalada como facilitadora financiera |
-| `navarrete` | Keny Hosman Navarrete Vallecillo ("Chatel") | `null` → `default.gif` | Señalado como coordinador del encargo desde prisión |
+| `navarrete` | Keny Hosman Navarrete Vallecillo ("Chatel") | `/assets/keny-hosman-navarrete-vallecillo.webp` | Señalado como coordinador del encargo desde prisión |
 
 ## Dónde aparece cada uno (`involved[]` real, post-rename)
 

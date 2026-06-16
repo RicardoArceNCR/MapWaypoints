@@ -386,7 +386,7 @@ body {
   position: fixed;
   bottom: 195px;
   right: 16px;
-  z-index: 10000;
+  z-index: 1000;
   width: 48px;
   height: 48px;
   border: none;
@@ -418,16 +418,239 @@ body {
 }
 
 @media (min-width: 900px) {
-  .about-btn:not(.about-btn--desktop) {
+  .about-btn:not(.about-btn--desktop):not(.suspects-btn) {
     display: none;
   }
 }
 
 body.popup-open .about-btn,
 body.brief-open .about-btn,
-body:has(.drawer--open) .about-btn {
+body:has(.drawer--open) .about-btn,
+body.popup-open .suspects-btn,
+body.brief-open .suspects-btn,
+body:has(.drawer--open) .suspects-btn {
   opacity: 0;
   pointer-events: none;
+}
+
+/* ========= BOTÓN SOSPECHOSOS ========= */
+.suspects-btn {
+  bottom: calc(195px + 48px + 12px);
+}
+
+/* Ocultar el botón cuando el panel está abierto */
+body.suspects-open .suspects-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ========= POPUP DE IMPLICADOS ========= */
+.suspects-popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(420px, 100vw);
+  z-index: 20001;
+  background: rgba(15, 15, 15, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0.35s;
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.suspects-popup.is-open {
+  transform: translateX(0);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0s;
+  visibility: visible;
+}
+
+/* Backdrop */
+.suspects-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 20000;
+}
+
+/* Ocultar top-bar y UI cuando el panel está abierto */
+body.suspects-open .top-bar,
+body.suspects-open .phase-filter {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+body.suspects-open .hamburger,
+body.suspects-open .mosca-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.suspects-popup__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.suspects-popup__title {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--phase-color, #1BC6EB);
+  margin: 0;
+}
+
+.suspects-popup__close {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.suspects-popup__close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.suspects-popup__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ========= TARJETA DE SOSPECHOSO ========= */
+.suspect-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.suspect-card__header {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: start;
+  gap: 0 10px;
+  margin-bottom: 6px;
+}
+
+.suspect-card__avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  grid-column: 1;
+}
+
+.suspect-card__avatar--placeholder {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.suspect-card__name {
+  grid-column: 2;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: #fff;
+  line-height: 1.35;
+  align-self: center;
+}
+
+.suspect-card__name em {
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.suspect-card__status {
+  grid-column: 3;
+  font-size: 0.63rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 100px;
+  white-space: nowrap;
+  align-self: start;
+  margin-top: 2px;
+}
+
+.suspect-card__status--detenido {
+  background: rgba(255, 107, 107, 0.15);
+  color: #FF6B6B;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+.suspect-card__status--profugo {
+  background: rgba(255, 165, 0, 0.15);
+  color: #FFA500;
+  border: 1px solid rgba(255, 165, 0, 0.3);
+}
+
+.suspect-card__status--imputado {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.suspect-card__status--libre {
+  background: rgba(78, 205, 196, 0.12);
+  color: #4ECDC4;
+  border: 1px solid rgba(78, 205, 196, 0.25);
+}
+
+.suspect-card__role {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--phase-color, #1BC6EB);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.suspect-card__age {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0;
+}
+
+.suspect-card__detail {
+  font-size: 0.79rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+  margin: 4px 0 0;
 }
 
 /* ========= HAMBURGUESA (Mobile) ========= */
@@ -962,11 +1185,20 @@ body:has(.drawer--open) .about-btn {
   }
 
   .hamburger {
-    bottom: 140px;
+    bottom: 84px;
   }
 
   .mosca-btn {
     bottom: 84px;
+    left: 16px;
+  }
+
+  button#about-btn {
+    bottom: 142px;
+  }
+
+  .suspects-btn {
+    bottom: calc(143px + 48px + 12px);
   }
 }
 

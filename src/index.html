@@ -27,9 +27,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"> -->
   <link rel="stylesheet" href="./style.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="./style.css"></noscript>
+  <noscript>
+    <link rel="stylesheet" href="./style.css">
+  </noscript>
   <link rel="stylesheet" href="./popup_styles.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="./popup_styles.css"></noscript>
+  <noscript>
+    <link rel="stylesheet" href="./popup_styles.css">
+  </noscript>
   <!-- Preload de mapas eliminado: los assets se cargan dinámicamente por fase -->
 
 
@@ -76,8 +80,10 @@
     <!-- Botón Home — fuera del phase-filter para que UIManager no lo borre -->
     <button class="home-btn" id="home-btn" aria-label="Volver al inicio" title="Inicio">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M3 12L12 3l9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M5 10v9a1 1 0 001 1h4v-4h4v4h4a1 1 0 001-1v-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3 12L12 3l9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <path d="M5 10v9a1 1 0 001 1h4v-4h4v4h4a1 1 0 001-1v-9" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" />
       </svg>
     </button>
     <!-- Filtro de fases (Desktop) -->
@@ -94,18 +100,29 @@
       <!-- Botón "Sobre esta reconstrucción" (Mobile) -->
       <button id="about-btn" class="about-btn" aria-label="Sobre esta reconstrucción" hidden>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
-          <rect x="11" y="10" width="2" height="7" rx="1" fill="currentColor"/>
-          <circle cx="12" cy="7.5" r="1.2" fill="currentColor"/>
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8" />
+          <rect x="11" y="10" width="2" height="7" rx="1" fill="currentColor" />
+          <circle cx="12" cy="7.5" r="1.2" fill="currentColor" />
+        </svg>
+      </button>
+
+      <!-- Botón lista de implicados -->
+      <button id="suspects-btn" class="about-btn suspects-btn" aria-label="Lista de implicados" title="Implicados" hidden>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="7" r="4" />
+          <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          <path d="M21 21v-2a4 4 0 0 0-3-3.87" />
         </svg>
       </button>
 
       <!-- Botón "Sobre esta reconstrucción" — Desktop (sibling flotante) -->
       <button id="about-btn-desktop" class="about-btn about-btn--desktop" aria-label="Sobre esta reconstrucción" hidden>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
-          <rect x="11" y="10" width="2" height="7" rx="1" fill="currentColor"/>
-          <circle cx="12" cy="7.5" r="1.2" fill="currentColor"/>
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8" />
+          <rect x="11" y="10" width="2" height="7" rx="1" fill="currentColor" />
+          <circle cx="12" cy="7.5" r="1.2" fill="currentColor" />
         </svg>
       </button>
 
@@ -115,7 +132,8 @@
       </button>
 
       <!-- Botón mosca (logo flotante) -->
-      <a class="mosca-btn" href="https://www.divergentes.com/" target="_blank" rel="noopener noreferrer" aria-label="Divergentes">
+      <a class="mosca-btn" href="https://www.divergentes.com/" target="_blank" rel="noopener noreferrer"
+        aria-label="Divergentes">
         <img src="/assets/mosca-r.webp" alt="" class="mosca-btn__img" />
       </a>
 
@@ -127,13 +145,14 @@
         </header>
         <div class="drawer__share" aria-label="Compartir">
           <span class="drawer__share-label">Compartir</span>
-            <div class="drawer__share-links" data-share-mount="drawer"></div>
+          <div class="drawer__share-links" data-share-mount="drawer"></div>
         </div>
         <ol class="drawer__list" id="drawer-list"></ol>
       </nav>
 
       <!-- Backdrop del drawer -->
       <div class="drawer-backdrop" hidden></div>
+      <div class="suspects-backdrop" hidden></div>
 
       <!-- Waypoint info box flotante -->
       <div id="waypoint-info-box" class="waypoint-info-box" aria-live="polite" hidden>
@@ -231,22 +250,152 @@
             <div class="popup-detailed__scroll-share">
               <span class="popup-detailed__share-label">Compartir</span>
               <div class="popup-detailed__share-icons">
-                <a id="popup-share-facebook" class="popup-detailed__share-btn" aria-label="Compartir en Facebook" rel="nofollow noopener" target="_blank" href="#">
-                  <svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor"><path d="M28 16c0-6.627-5.373-12-12-12S4 9.373 4 16c0 5.628 3.875 10.35 9.101 11.647v-7.98h-2.474V16H13.1v-1.58c0-4.085 1.849-5.978 5.859-5.978.76 0 2.072.15 2.608.298v3.325c-.283-.03-.775-.045-1.386-.045-1.967 0-2.728.745-2.728 2.683V16h3.92l-.673 3.667h-3.247v8.245C23.395 27.195 28 22.135 28 16Z"/></svg>
+                <a id="popup-share-facebook" class="popup-detailed__share-btn" aria-label="Compartir en Facebook"
+                  rel="nofollow noopener" target="_blank" href="#">
+                  <svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor">
+                    <path
+                      d="M28 16c0-6.627-5.373-12-12-12S4 9.373 4 16c0 5.628 3.875 10.35 9.101 11.647v-7.98h-2.474V16H13.1v-1.58c0-4.085 1.849-5.978 5.859-5.978.76 0 2.072.15 2.608.298v3.325c-.283-.03-.775-.045-1.386-.045-1.967 0-2.728.745-2.728 2.683V16h3.92l-.673 3.667h-3.247v8.245C23.395 27.195 28 22.135 28 16Z" />
+                  </svg>
                 </a>
-                <a id="popup-share-whatsapp" class="popup-detailed__share-btn" aria-label="Compartir en WhatsApp" rel="nofollow noopener" target="_blank" href="#">
-                  <svg viewBox="-6 -5 40 40" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M 11.579798566743314 24.396926207859085 A 10 10 0 1 0 6.808479557110079 20.73576436351046"/><path d="M 7 19 l -1 6 l 6 -1"/><path d="M 10 10 q -1 8 8 11 c 5 -1 0 -6 -1 -3 q -4 -3 -5 -5 c 4 -2 -1 -5 -1 -4" fill="currentColor"/></svg>
+                <a id="popup-share-whatsapp" class="popup-detailed__share-btn" aria-label="Compartir en WhatsApp"
+                  rel="nofollow noopener" target="_blank" href="#">
+                  <svg viewBox="-6 -5 40 40" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                      d="M 11.579798566743314 24.396926207859085 A 10 10 0 1 0 6.808479557110079 20.73576436351046" />
+                    <path d="M 7 19 l -1 6 l 6 -1" />
+                    <path d="M 10 10 q -1 8 8 11 c 5 -1 0 -6 -1 -3 q -4 -3 -5 -5 c 4 -2 -1 -5 -1 -4"
+                      fill="currentColor" />
+                  </svg>
                 </a>
-                <a id="popup-share-x" class="popup-detailed__share-btn" aria-label="Compartir en X" rel="nofollow noopener" target="_blank" href="#">
-                  <svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor"><path d="M21.751 7h3.067l-6.7 7.658L26 25.078h-6.172l-4.833-6.32-5.531 6.32h-3.07l7.167-8.19L6 7h6.328l4.37 5.777L21.75 7Zm-1.076 16.242h1.7L11.404 8.74H9.58l11.094 14.503Z"/></svg>
+                <a id="popup-share-x" class="popup-detailed__share-btn" aria-label="Compartir en X"
+                  rel="nofollow noopener" target="_blank" href="#">
+                  <svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor">
+                    <path
+                      d="M21.751 7h3.067l-6.7 7.658L26 25.078h-6.172l-4.833-6.32-5.531 6.32h-3.07l7.167-8.19L6 7h6.328l4.37 5.777L21.75 7Zm-1.076 16.242h1.7L11.404 8.74H9.58l11.094 14.503Z" />
+                  </svg>
                 </a>
               </div>
             </div>
             <button class="popup-detailed__scroll-close-btn">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18M6 6l12 12" />
+              </svg>
               Cerrar
             </button>
           </div>
+        </div>
+      </div>
+
+      <!-- Popup de implicados -->
+      <div id="suspects-popup" class="suspects-popup" role="dialog" aria-modal="true" aria-label="Implicados">
+        <div class="suspects-popup__header">
+          <h2 class="suspects-popup__title">Implicados</h2>
+          <button class="suspects-popup__close" aria-label="Cerrar">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="suspects-popup__body">
+
+          <article class="suspect-card">
+            <div class="suspect-card__header">
+              <img class="suspect-card__avatar" src="/assets/keny-hosman-navarrete-vallecillo.webp" alt="" width="44"
+                height="44" loading="lazy" decoding="async">
+              <span class="suspect-card__name">Keny Hosman Navarrete Vallecillo <em>"Chatel"</em></span>
+              <span class="suspect-card__status suspect-card__status--imputado">No imputado</span>
+            </div>
+            <p class="suspect-card__role">Presunto coordinador del encargo criminal</p>
+            <p class="suspect-card__age">38 años</p>
+            <p class="suspect-card__detail">Nicaragüense originario de Diriamba, Carazo. Cumple condena desde 2016 en el
+              pabellón C-4 del CAI Jorge Arturo Montero Castro ("La Reforma"), Alajuela, por robo agravado, privación de
+              libertad y receptación. El expediente documenta un alto volumen de llamadas entre su celda y los
+              sospechosos ejecutores, en fechas previas y posteriores al crimen. Mencionado en el expediente judicial
+              pero no formalmente imputado hasta la acusación de junio de 2026.</p>
+          </article>
+
+          <article class="suspect-card">
+            <div class="suspect-card__header">
+              <img class="suspect-card__avatar" src="/assets/pablo-anotonio-robles-murillo.webp" alt="" width="44"
+                height="44" loading="lazy" decoding="async">
+              <span class="suspect-card__name">Pablo Antonio Robles Murillo</span>
+              <span class="suspect-card__status suspect-card__status--imputado">No imputado</span>
+            </div>
+            <p class="suspect-card__role">Presunto autor intelectual</p>
+            <p class="suspect-card__detail">Es un nicaragüense naturalizado costarricense. Se le señala de haber
+              mantenido reuniones previas para coordinar el asesinato con "la plana mayor del Ejército". Tiene vínculos
+              con el General Julio César Avilés. Mencionado en el expediente, pero no está formalmente imputado.</p>
+          </article>
+
+          <article class="suspect-card">
+            <div class="suspect-card__header">
+              <img class="suspect-card__avatar" src="/assets/danilo-jose-chavez-medina.webp" alt="" width="44"
+                height="44" loading="lazy" decoding="async">
+              <span class="suspect-card__name">Danilo José Chaves Medina</span>
+              <span class="suspect-card__status suspect-card__status--detenido">Detenido</span>
+            </div>
+            <p class="suspect-card__role">Intermediario logístico</p>
+            <p class="suspect-card__age">35 años</p>
+            <p class="suspect-card__detail">Vecino de León XIII, barbero. Estuvo en la escena del crimen. Coordinó el
+              rescate de los ejecutores. Detenido el 11 de septiembre de 2025 en Cañas, Guanacaste. Prisión preventiva.
+            </p>
+          </article>
+
+          <article class="suspect-card">
+            <div class="suspect-card__header">
+              <img class="suspect-card__avatar" src="/assets/luis-fernando-carvajal-fernandez.webp" alt="" width="44"
+                height="44" loading="lazy" decoding="async">
+              <span class="suspect-card__name">Luis Fernando Carvajal Fernández</span>
+              <span class="suspect-card__status suspect-card__status--profugo">Prófugo</span>
+            </div>
+            <p class="suspect-card__role">Gatillero / Ejecutor</p>
+            <p class="suspect-card__age">20 años</p>
+            <p class="suspect-card__detail">Reside en León XIII. Ingresó al condominio Naples, llamó a la víctima por su
+              nombre y le disparó al menos 8 veces (.40 o 9mm). Realizó vigilancia el día previo. OIJ realiza
+              diligencias para su detención.</p>
+          </article>
+
+          <article class="suspect-card">
+            <div class="suspect-card__header">
+              <img class="suspect-card__avatar" src="/assets/bryan-steven-robles-salas.webp" alt="" width="44"
+                height="44" loading="lazy" decoding="async">
+              <span class="suspect-card__name">Bryan Steven Robles Salas</span>
+              <span class="suspect-card__status suspect-card__status--detenido">Detenido</span>
+            </div>
+            <p class="suspect-card__role">Conductor y vigilante</p>
+            <p class="suspect-card__age">23 años</p>
+            <p class="suspect-card__detail">Reside en León XIII. Condujo el Renault Duster blanco (BKK-190) durante la
+              ejecución. Conocido de Orozco González. Prisión preventiva.</p>
+          </article>
+
+          <article class="suspect-card">
+            <div class="suspect-card__header">
+              <img class="suspect-card__avatar" src="/assets/luis-ricardo-orozco-gonzales.webp" alt="" width="44"
+                height="44" loading="lazy" decoding="async">
+              <span class="suspect-card__name">Luis Ricardo Orozco González</span>
+              <span class="suspect-card__status suspect-card__status--detenido">Detenido</span>
+            </div>
+            <p class="suspect-card__role">Transportista de rescate</p>
+            <p class="suspect-card__age">33 años</p>
+            <p class="suspect-card__detail">Vecino de León XIII. Condujo el Hyundai Accent celeste (903056). Recogió a
+              los ejecutores en Coronado. Cobró 10&times; el precio habitual. Prisión preventiva.</p>
+          </article>
+
+          <article class="suspect-card">
+            <div class="suspect-card__header">
+              <img class="suspect-card__avatar" src="/assets/stephanie-maria-chacon-guillen.webp" alt="" width="44"
+                height="44" loading="lazy" decoding="async">
+              <span class="suspect-card__name">Stephanie María Chacón Guillén</span>
+              <span class="suspect-card__status suspect-card__status--libre">Libre (proceso activo)</span>
+            </div>
+            <p class="suspect-card__role">Facilitadora financiera</p>
+            <p class="suspect-card__age">30 años</p>
+            <p class="suspect-card__detail">Pareja de Danilo Chaves Medina. Presuntamente realizó depósitos de
+              &cent;50.000 a Orozco González para pagar el traslado de los involucrados.</p>
+          </article>
+
         </div>
       </div>
 
@@ -292,13 +441,13 @@
 
     <!-- Contenido central -->
     <div class="story-intro__content">
-      <h1 id="intro-title"    class="story-intro__title"></h1>
-      <p  id="intro-subtitle" class="story-intro__subtitle"></p>
-      <p  id="intro-credits"  class="story-intro__credits">
+      <h1 id="intro-title" class="story-intro__title"></h1>
+      <p id="intro-subtitle" class="story-intro__subtitle"></p>
+      <p id="intro-credits" class="story-intro__credits">
         <span id="intro-credits-authors" class="story-intro__credits-authors"></span>
-        <span id="intro-credits-date"    class="story-intro__credits-date"></span>
+        <span id="intro-credits-date" class="story-intro__credits-date"></span>
       </p>
-      <button id="intro-btn"  class="story-intro__btn"><span>Empezar</span></button>
+      <button id="intro-btn" class="story-intro__btn"><span>Empezar</span></button>
     </div>
 
     <!-- Compartir en redes -->
@@ -316,46 +465,62 @@
 
   <!-- Template único de share links — fuente de verdad para URLs -->
   <template id="tpl-share-links">
-    <a aria-label="Facebook" class="js-share-link" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.divergentes.com%2Fsica-mineria-ilegal-nuevos-roces-costa-rica-nicaragua%2F" title="Facebook" rel="nofollow noopener" target="_blank">
-      <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor"><path d="M28 16c0-6.627-5.373-12-12-12S4 9.373 4 16c0 5.628 3.875 10.35 9.101 11.647v-7.98h-2.474V16H13.1v-1.58c0-4.085 1.849-5.978 5.859-5.978.76 0 2.072.15 2.608.298v3.325c-.283-.03-.775-.045-1.386-.045-1.967 0-2.728.745-2.728 2.683V16h3.92l-.673 3.667h-3.247v8.245C23.395 27.195 28 22.135 28 16Z"/></svg>
+    <a aria-label="Facebook" class="js-share-link"
+      href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.divergentes.com%2Fsica-mineria-ilegal-nuevos-roces-costa-rica-nicaragua%2F"
+      title="Facebook" rel="nofollow noopener" target="_blank">
+      <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor">
+        <path
+          d="M28 16c0-6.627-5.373-12-12-12S4 9.373 4 16c0 5.628 3.875 10.35 9.101 11.647v-7.98h-2.474V16H13.1v-1.58c0-4.085 1.849-5.978 5.859-5.978.76 0 2.072.15 2.608.298v3.325c-.283-.03-.775-.045-1.386-.045-1.967 0-2.728.745-2.728 2.683V16h3.92l-.673 3.667h-3.247v8.245C23.395 27.195 28 22.135 28 16Z" />
+      </svg>
       <span>Facebook</span>
     </a>
-    <a aria-label="Whatsapp" class="js-share-link" href="https://api.whatsapp.com/send?text=Del%20SICA%20a%20la%20miner%C3%ADa%20ilegal%3A%20los%20nuevos%20roces%20entre%20Costa%20Rica%20y%20Nicaragua%20https%3A%2F%2Fwww.divergentes.com%2Fsica-mineria-ilegal-nuevos-roces-costa-rica-nicaragua%2F" title="Whatsapp" rel="nofollow noopener" target="_blank">
-      <svg viewBox="-6 -5 40 40" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M 11.579798566743314 24.396926207859085 A 10 10 0 1 0 6.808479557110079 20.73576436351046"/><path d="M 7 19 l -1 6 l 6 -1"/><path d="M 10 10 q -1 8 8 11 c 5 -1 0 -6 -1 -3 q -4 -3 -5 -5 c 4 -2 -1 -5 -1 -4" fill="currentColor"/></svg>
+    <a aria-label="Whatsapp" class="js-share-link"
+      href="https://api.whatsapp.com/send?text=Del%20SICA%20a%20la%20miner%C3%ADa%20ilegal%3A%20los%20nuevos%20roces%20entre%20Costa%20Rica%20y%20Nicaragua%20https%3A%2F%2Fwww.divergentes.com%2Fsica-mineria-ilegal-nuevos-roces-costa-rica-nicaragua%2F"
+      title="Whatsapp" rel="nofollow noopener" target="_blank">
+      <svg viewBox="-6 -5 40 40" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M 11.579798566743314 24.396926207859085 A 10 10 0 1 0 6.808479557110079 20.73576436351046" />
+        <path d="M 7 19 l -1 6 l 6 -1" />
+        <path d="M 10 10 q -1 8 8 11 c 5 -1 0 -6 -1 -3 q -4 -3 -5 -5 c 4 -2 -1 -5 -1 -4" fill="currentColor" />
+      </svg>
       <span>WhatsApp</span>
     </a>
-    <a aria-label="X" class="js-share-link" href="https://twitter.com/intent/tweet?via=DivergentesCA&amp;text=Del%20SICA%20a%20la%20miner%C3%ADa%20ilegal%3A%20los%20nuevos%20roces%20entre%20Costa%20Rica%20y%20Nicaragua&amp;url=https%3A%2F%2Fwww.divergentes.com%2Fsica-mineria-ilegal-nuevos-roces-costa-rica-nicaragua%2F" title="X" rel="nofollow noopener" target="_blank">
-      <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor"><path d="M21.751 7h3.067l-6.7 7.658L26 25.078h-6.172l-4.833-6.32-5.531 6.32h-3.07l7.167-8.19L6 7h6.328l4.37 5.777L21.75 7Zm-1.076 16.242h1.7L11.404 8.74H9.58l11.094 14.503Z"/></svg>
+    <a aria-label="X" class="js-share-link"
+      href="https://twitter.com/intent/tweet?via=DivergentesCA&amp;text=Del%20SICA%20a%20la%20miner%C3%ADa%20ilegal%3A%20los%20nuevos%20roces%20entre%20Costa%20Rica%20y%20Nicaragua&amp;url=https%3A%2F%2Fwww.divergentes.com%2Fsica-mineria-ilegal-nuevos-roces-costa-rica-nicaragua%2F"
+      title="X" rel="nofollow noopener" target="_blank">
+      <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor">
+        <path
+          d="M21.751 7h3.067l-6.7 7.658L26 25.078h-6.172l-4.833-6.32-5.531 6.32h-3.07l7.167-8.19L6 7h6.328l4.37 5.777L21.75 7Zm-1.076 16.242h1.7L11.404 8.74H9.58l11.094 14.503Z" />
+      </svg>
       <span>X / Twitter</span>
     </a>
   </template>
 
   <!-- Mount script: clona template en cada data-share-mount con la clase BEM correcta -->
   <script>
-  (function() {
-    var tpl = document.getElementById('tpl-share-links');
-    if (!tpl) return;
-    var classMap = {
-      'drawer': 'drawer__share-link',
-      'brief': 'story-brief__share-link',
-      'intro': 'story-intro__share-link',
-      'waypoint-info': 'wib-action-btn'
-    };
-    document.querySelectorAll('[data-share-mount]').forEach(function(el) {
-      var ctx = el.getAttribute('data-share-mount');
-      var cls = classMap[ctx];
-      if (!cls) return;
-      var frag = tpl.content.cloneNode(true);
-      frag.querySelectorAll('.js-share-link').forEach(function(link) {
-        link.className = cls;
-        if (ctx === 'waypoint-info') {
-          var span = link.querySelector('span');
-          if (span) span.remove();
-        }
+    (function () {
+      var tpl = document.getElementById('tpl-share-links');
+      if (!tpl) return;
+      var classMap = {
+        'drawer': 'drawer__share-link',
+        'brief': 'story-brief__share-link',
+        'intro': 'story-intro__share-link',
+        'waypoint-info': 'wib-action-btn'
+      };
+      document.querySelectorAll('[data-share-mount]').forEach(function (el) {
+        var ctx = el.getAttribute('data-share-mount');
+        var cls = classMap[ctx];
+        if (!cls) return;
+        var frag = tpl.content.cloneNode(true);
+        frag.querySelectorAll('.js-share-link').forEach(function (link) {
+          link.className = cls;
+          if (ctx === 'waypoint-info') {
+            var span = link.querySelector('span');
+            if (span) span.remove();
+          }
+        });
+        el.appendChild(frag);
       });
-      el.appendChild(frag);
-    });
-  })();
+    })();
   </script>
 
   <!-- ÚNICO script de entrada -->

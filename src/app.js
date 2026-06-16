@@ -2718,6 +2718,34 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   // ── Home button → reload al intro ──
   document.getElementById('home-btn')?.addEventListener('click', () => location.reload());
 
+  // ── Suspects popup ──
+  const suspectsBtn = document.getElementById('suspects-btn');
+  const suspectsPopup = document.getElementById('suspects-popup');
+  const suspectsClose = suspectsPopup?.querySelector('.suspects-popup__close');
+  const suspectsBackdrop = document.querySelector('.suspects-backdrop');
+
+  function openSuspects() {
+    suspectsPopup.classList.add('is-open');
+    suspectsBackdrop.hidden = false;
+    document.body.classList.add('suspects-open');
+    suspectsClose?.focus();
+  }
+
+  function closeSuspects() {
+    suspectsPopup.classList.remove('is-open');
+    suspectsBackdrop.hidden = true;
+    document.body.classList.remove('suspects-open');
+    suspectsBtn?.focus();
+  }
+
+  suspectsBtn?.addEventListener('click', openSuspects);
+  suspectsClose?.addEventListener('click', closeSuspects);
+  suspectsBackdrop?.addEventListener('click', closeSuspects);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && suspectsPopup?.classList.contains('is-open')) closeSuspects();
+  });
+
   const hamburger = document.querySelector('.hamburger');
   const drawerBackdrop = document.querySelector('.drawer-backdrop');
   const drawerClose = document.getElementById('menu-puntos').querySelector('.drawer__close');
@@ -2820,6 +2848,11 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (_aboutBtnDesktop && rawStory?.brief) {
       _aboutBtnDesktop.hidden = false;
       _aboutBtnDesktop.addEventListener('click', _openAboutBrief);
+    }
+
+    const _suspectsBtn = document.getElementById('suspects-btn');
+    if (_suspectsBtn) {
+      _suspectsBtn.hidden = false;
     }
     if (rawStory?.intro && !appConfig.toggles.nointro) {
       showIntro(rawStory.intro);
