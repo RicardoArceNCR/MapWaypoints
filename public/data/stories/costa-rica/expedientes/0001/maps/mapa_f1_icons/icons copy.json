@@ -82,10 +82,10 @@
     {
       "_note": "WP0-H0-B: Hotspot tipo B — informativo superpuesto al A",
       "type": "hotspot",
-      "caption": "En esta foto se ve a Samcam entrando al aeropuerto Juan Santamaría. Llega acompañado por colegas opositores.",
+      "caption": "Roberto Samcam Ruiz regresa a Costa Rica proveniente de México, por el Aeropuerto Juan Santamaría, después de una gira por varios países.",
       "noPopup": true,
       "mobile": {
-        "offsetX": -20,
+        "offsetX": -12,
         "offsetY": -294,
         "width": 260,
         "height": 122,
@@ -93,10 +93,10 @@
         "radius": 0
       },
       "desktop": {
-        "offsetX": -313,
+        "offsetX": -314,
         "offsetY": -81,
-        "width": 506,
-        "height": 363,
+        "width": 484,
+        "height": 330,
         "rotation": -1,
         "radius": 0
       },
@@ -108,21 +108,21 @@
       "type": "hotspot",
       "image": "/assets/vacio.png",
       "noPopup": true,
-      "caption": "Mapa del Aeropuerto Juan Santamaría en Alajuela, Costa Rica. Se muestra la ruta de acceso principal.",
+      "caption": "Su reingreso ocurre apenas tres días antes de su asesinato. Utiliza un taxi formal para dirigirse a su vivienda, ubicada en Tibás.",
       "title": "",
       "mobile": {
-        "offsetX": 2,
-        "offsetY": -81,
-        "width": 270,
+        "offsetX": -4,
+        "offsetY": -102,
+        "width": 280,
         "height": 188,
         "rotation": -9,
         "radius": 0
       },
       "desktop": {
-        "offsetX": 258,
-        "offsetY": -33,
-        "width": 470,
-        "height": 230,
+        "offsetX": 257,
+        "offsetY": -32,
+        "width": 458,
+        "height": 239,
         "rotation": 1,
         "radius": 0
       }
@@ -148,13 +148,13 @@
         "rotation": -1,
         "radius": 0
       },
-      "title": "Día rutinario para Samcam, día de ubicación final para los asesinos",
+      "title": "Día rutinario para Samcam, día de ubicación final de los presuntos responsables",
       "datetime": {
         "date": "18/06/2025",
         "time": "06:26 – 16:07 h"
       },
       "location": "Ingreso a León XIII, Tibás, San José",
-      "description": "Samcam realizó varios viajes matutinos en Uber desde su vivienda a la Clínica Rodrigo Fournier Guevara, en Tibás, y viceversa. Luego se reunió en Casa España, en La Sábana (11:15 h), con Rafael \"Payo\" Solís y Óscar René Vargas. A las 16:07:26 horas regresó a su casa de habitación.",
+      "description": "Samcam realizó varios viajes matutinos en Uber desde su vivienda a la Clínica Rodrigo Fournier Guevara, en Tibás, y viceversa. Luego, se reunió en Casa España, en La Sábana, (11:15 h), donde se reunió con Rafael ‘Payo’ Solís y Óscar René Vargas. A las 16:07:26 horas regresó a su casa de habitación.",
       "involved": [
         {
           "id": "robles_murillo",
@@ -222,10 +222,10 @@
       "caption": "Hyundai celeste placa 903056, identificado por la puerta delantera del acompañante de color blanco. Captado en cámara al ingreso de León XIII a las 16:17 h del 18 de junio de 2025.",
       "title": "",
       "mobile": {
-        "offsetX": -14,
-        "offsetY": -114,
+        "offsetX": -16,
+        "offsetY": -154,
         "width": 200,
-        "height": 130,
+        "height": 180,
         "rotation": 5,
         "radius": 0
       },
@@ -246,10 +246,10 @@
       "caption": "Sector León XIII, Tibás. El vehículo fue captado ingresando a esta zona diez minutos después del retorno de Samcam a su vivienda, confirmando que los sospechosos monitoreaban sus movimientos en tiempo real.",
       "title": "",
       "mobile": {
-        "offsetX": -7,
-        "offsetY": 67,
+        "offsetX": -8,
+        "offsetY": 59,
         "width": 260,
-        "height": 130,
+        "height": 180,
         "rotation": -9,
         "radius": 0
       },
@@ -269,7 +269,7 @@
       "type": "hotspot",
       "noPopup": false,
       "caption": "",
-      "title": "Inicia la vigilancia final de los asesinos en un vehículo Hyundai.",
+      "title": "Inicia la vigilancia final de los presuntos responsables en un vehículo Hyundai.",
       "mobile": {
         "offsetX": -2,
         "offsetY": -91,
@@ -311,7 +311,36 @@
           "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
           "role": "Gatillero / Ejecutor"
         }
-      ]
+      ],
+      "echos": {
+        "robles_murillo": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
+            "description": "Según el expediente, Robles Murillo es un exmilitar del batallón Sócrates Sandino, entrenado —de acuerdo con información confidencial— en Cuba y Rusia en labores de inteligencia, asesinato y sabotaje. Esa formación es parte de lo que la investigación señala al describirlo como el presunto cerebro de la operación."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
+            "description": "Horas antes, Chaves Medina había recibido de manos de Orozco González el Hyundai celeste (placa 903056), en teoría para hacer un trámite. Según la reconstrucción, es él quien lo conduce de regreso hacia León XIII, el mismo vehículo que al día siguiente sería usado para extraer a los ejecutores tras el ataque."
+          }
+        ],
+        "carvajal": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
+            "description": "Mientras el Hyundai celeste ingresaba a León XIII, el dispositivo de Carvajal Fernández —ya a bordo del Renault Duster blanco— continuaba el patrón de recorridos de vigilancia por los alrededores de la vivienda de Samcam en Moravia, que se documenta en el siguiente punto del recorrido."
+          }
+        ]
+      }
     },
     {
       "_note": "wp2-H1-B: Tipo B — informativo secundario",
@@ -410,7 +439,36 @@
           "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
           "role": "Gatillero / Ejecutor"
         }
-      ]
+      ],
+      "echos": {
+        "robles_murillo": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
+            "description": "La investigación lo vincula con la cúpula del Ejército de Nicaragua y, en particular, con el general Julio César Avilés. Según el expediente, ese vínculo es parte de la base sobre la que se sostiene la hipótesis de que el crimen respondió a una orden externa."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
+            "description": "Vecino de León XIII y de oficio barbero —conocido en la zona como 'Dani Peluqueris'—, Chaves Medina es señalado por el OIJ como el intermediario que mantenía el contacto entre la célula que recorría Moravia en el Duster y quienes coordinaban la logística desde León XIII."
+          }
+        ],
+        "carvajal": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
+            "description": "Vecino de León XIII, de 20 años, Carvajal Fernández es, según el expediente, quien se desplaza en este Renault Duster blanco (placa BKK190) realizando los recorridos de vigilancia que se documentan entre el 16 y el 18 de junio cerca de la vivienda de Samcam."
+          }
+        ]
+      }
     },
     {
       "_note": "wp3-H1-B: Tipo B — informativo secundario",
@@ -488,7 +546,7 @@
         "date": "18/06/2025",
         "time": "17:54 – 18:23 h"
       },
-      "description": "El Duster BKK190 se dirige a la Estación de Servicio Delta (ingreso a León XIII), donde se reúne con el Hyundai celeste 903056 y una motocicleta Freedom color rojo. Información confidencial indicó que el propósito era coordinar el asesinato, revisar los vehículos y el arma para afinar detalles de la planificación. Al Duster le abrieron el capó durante el encuentro.",
+      "description": "El Duster BKK190 se dirige a la Estación de Servicio Delta (ingreso a León XIII), donde se reúne con el Hyundai celeste 903056 y una motocicleta Freedom color rojo. Información confidencial indicó que el propósito era coordinar el asesinato, revisar los vehículos y el arma. Se coordinó el asesinato, se revisaron los vehículos (al Duster le abrieron el capó) y el arma para 'afinar detalles de la planificación'.",
       "involved": [
         {
           "id": "robles_murillo",
@@ -509,7 +567,36 @@
           "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
           "role": "Gatillero / Ejecutor"
         }
-      ]
+      ],
+      "echos": {
+        "robles_murillo": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
+            "description": "El expediente lo menciona como posible coordinador de reuniones previas al crimen, sin que exista una imputación formal por ello. La reunión que se documenta en este punto —entre el Duster, el Hyundai y la motocicleta— es, para la investigación, parte de la logística final que se le atribuye haber puesto en marcha."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "17:54 – 18:23 h"
+            },
+            "description": "En esta reunión en la Estación de Servicio Delta confluyen los tres vehículos de la célula: el Duster, el Hyundai que Chaves Medina había devuelto horas antes y la motocicleta Freedom roja. Según el expediente, aquí se terminan de afinar los roles que cada uno cumpliría al día siguiente."
+          }
+        ],
+        "carvajal": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "17:54 – 18:23 h"
+            },
+            "description": "Carvajal Fernández llega a este punto a bordo del Renault Duster, que según el expediente se dirige desde Moravia hasta la Estación de Servicio Delta para esta reunión, el último encuentro de coordinación antes del ataque del día siguiente."
+          }
+        ]
+      }
     },
     {
       "_note": "wp4-H1-B: Tipo B — informativo secundario",
@@ -608,7 +695,36 @@
           "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
           "role": "Gatillero / Ejecutor"
         }
-      ]
+      ],
+      "echos": {
+        "robles_murillo": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
+            "description": "Según el expediente, Robles Murillo no ha vuelto a Costa Rica desde el 7 de agosto de 2025. Es mencionado en la causa pero no está imputado formalmente: su nombre aparece dentro de la línea de investigación sobre quién ordenó el crimen, una pregunta que el caso deja abierta incluso tras la acusación de junio de 2026."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "19:04 h"
+            },
+            "description": "La antena 'León XIII' que se activa en este punto corresponde al sector donde reside Chaves Medina. Para el OIJ, este registro —junto con el resto de la actividad telefónica de ese día— forma parte de la reconstrucción de los movimientos de la célula la noche previa al ataque."
+          }
+        ],
+        "carvajal": [
+          {
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "19:04 h"
+            },
+            "description": "Según el expediente, es el propio dispositivo de Carvajal Fernández el que activa esta antena, 'León XIII', coincidente con el sector de residencia de los sospechosos. Para la investigación, este registro cierra el período de vigilancia preoperativa documentado en esta fase."
+          }
+        ]
+      }
     },
     {
       "_note": "wp5-H1-B: Tipo B — informativo secundario",

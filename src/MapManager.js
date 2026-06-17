@@ -52,6 +52,7 @@ export class MapManager {
       Object.assign(MAPS_CONFIG, story.mapsIndex);
       this.currentStoryId = story.id || null;
       this._lastLoadedStory = story;
+      await this.loadPersonas(this.currentStoryId);
 
       if (!this.currentPhase && PHASES.length) {
         this.currentPhase = PHASES[0].id;
@@ -473,6 +474,45 @@ export class MapManager {
     return normalized;
   }
 
+  // ========= 👤 PERSONAS ECHOS =========
+  async loadPersonas(storyId) {
+    const url = storyId
+      ? `/data/stories/${storyId}/personas.json`
+      : `/data/personas.json`;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      this._personasEchos = {};
+      for (const persona of (data.personas || [])) {
+        if (persona.echos && Object.keys(persona.echos).length) {
+          this._personasEchos[persona.id] = persona.echos;
+        }
+      }
+      console.log(`👤 Personas cargadas: ${Object.keys(this._personasEchos).length} con echos`);
+    } catch (e) {
+      console.warn('[MapManager] personas.json no disponible — usando echos de icons.json:', e.message);
+      this._personasEchos = {};
+    }
+  }
+
+  _injectPersonasEchos(mapId, normalizedIcons) {
+    if (!this._personasEchos || !Object.keys(this._personasEchos).length) return;
+
+    for (const [wpIndexStr, hotspots] of Object.entries(normalizedIcons)) {
+      const echoKey = `${mapId}:${wpIndexStr}`;
+      for (const hotspot of hotspots) {
+        if (hotspot.noPopup) continue;
+        if (!hotspot.echos) hotspot.echos = {};
+        for (const [personaId, personaEchos] of Object.entries(this._personasEchos)) {
+          if (personaEchos[echoKey]) {
+            hotspot.echos[personaId] = personaEchos[echoKey];
+          }
+        }
+      }
+    }
+  }
+
   // ========= ⚠️ MANTENER LÓGICA ORIGINAL - NO MODIFICAR =========
   /**
    * Carga un mapa por ID, con optimizaciones para mobile/desktop.
@@ -517,6 +557,7 @@ export class MapManager {
     const H = mapConfig.mapImage.logicalH;
     const normalizedWps = this.normalizeWaypoints(mapConfig.waypoints || [], W, H);
     const normalizedIcons = this.normalizeIcons(iconsData, W, H, normalizedWps);
+    this._injectPersonasEchos(mapId, normalizedIcons);
 
     const result = {
       config: mapConfig,
