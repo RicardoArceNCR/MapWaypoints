@@ -1,0 +1,1575 @@
+{
+  "wp0": [
+    {
+      "_note": "WP0-H0: Rectángulo principal izquierdo",
+      "type": "hotspot",
+      "mobile": {
+        "offsetX": 4,
+        "offsetY": -170,
+        "width": 317,
+        "height": 339,
+        "rotation": 0,
+        "radius": 20
+      },
+      "desktop": {
+        "offsetX": -41,
+        "offsetY": -71,
+        "width": 970,
+        "height": 408,
+        "rotation": -1,
+        "radius": 110
+      },
+      "title": "Los sicarios salen a matar",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "06:18 h",
+        "timeColor": "#FF4444"
+      },
+      "location": "Moravia / León XIII, San José, Costa Rica.",
+      "description": "El Renault Duster blanco (BKK190) salió de León XIII dirigiéndose a Moravia. Inicialmente era conducido por Danilo José Chaves Medina.",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {
+        "chaves_medina": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "Tras la reunión de coordinación de la noche anterior, este es el día en que, según el expediente, Chaves Medina pasaría de las labores de vigilancia e intermediación a un rol operativo directo: horas más tarde conduciría uno de los vehículos de la huida."
+          }
+        ],
+        "carvajal": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "Para Carvajal Fernández, de 20 años, este es el día en que culmina el período de vigilancia documentado en la fase anterior. Según el OIJ, es a partir de esta mañana que su rol señalado pasa de la vigilancia a la ejecución."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "Bryan Steven Robles Salas, de 23 años y vecino de León XIII, abre esta fase: según el expediente, es quien conduce la motocicleta que sale de León XIII al inicio de la mañana, en el primer movimiento documentado del Día D."
+          }
+        ]
+      },
+      "id": "hs_f2_w0_h0"
+    },
+    {
+      "_note": "WP0-H0-B: Hotspot tipo B — informativo superpuesto al A",
+      "type": "hotspot",
+      "caption": "En esta foto se ve a Samcam entrando al aeropuerto Juan Santamaría. Llega acompañado por colegas opositores.",
+      "noPopup": true,
+      "mobile": {
+        "offsetX": 5,
+        "offsetY": -225,
+        "width": 282,
+        "height": 187,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -35,
+        "offsetY": -78,
+        "width": 946,
+        "height": 430,
+        "rotation": -1,
+        "radius": 110
+      },
+      "title": "TODO — Los sicarios salen a matar (detalle H1)",
+      "id": "hs_f2_wp0_h1",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "06:18 h",
+        "timeColor": "#FF4444"
+      },
+      "description": "TODO — descripción H1",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {}
+    },
+    {
+      "_note": "WP0-H1-B: Hotspot tipo B — informativo superpuesto al H1",
+      "type": "hotspot",
+      "image": "/assets/f2-wp0-h2.webp",
+      "noPopup": true,
+      "caption": "Mapa del Aeropuerto Juan Santamaría en Alajuela, Costa Rica. Se muestra la ruta de acceso principal.",
+      "title": "TODO — Los sicarios salen a matar (detalle H2)",
+      "mobile": {
+        "offsetX": -40,
+        "offsetY": -59,
+        "width": 190,
+        "height": 92,
+        "rotation": 3,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 230,
+        "offsetY": -153,
+        "width": 392,
+        "height": 206,
+        "rotation": 3,
+        "radius": 0
+      },
+      "id": "hs_f2_wp0_h2",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "06:18 h",
+        "timeColor": "#FF4444"
+      },
+      "description": "TODO — descripción H2",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {}
+    }
+  ],
+  "wp1": [
+    {
+      "_note": "WP1-H0: Rectángulo principal — copia exacta de layout wp0",
+      "type": "hotspot",
+      "mobile": {
+        "offsetX": -16,
+        "offsetY": -84,
+        "width": 316,
+        "height": 328,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -27,
+        "offsetY": -73,
+        "width": 866,
+        "height": 373,
+        "rotation": -1,
+        "radius": 0
+      },
+      "title": "Otro sicario sale en motocicleta a matar",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "06:29 h",
+        "timeColor": "#FF4444"
+      },
+      "location": "Moravia / León XIII, San José, Costa Rica.",
+      "description": "La motocicleta Freedom color rojo sale de León XIII, sector de residencia de Bryan Steven Robles Salas, quien la conducía.",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {
+        "robles_salas": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "06:29 h"
+            },
+            "description": "Según el expediente, Robles Salas conduce la motocicleta Freedom roja que sale de León XIII, sector donde reside, a las 6:29 h de la mañana — el primer vehículo de la célula en moverse este día."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "06:29 h"
+            },
+            "description": "Mientras la motocicleta salía de León XIII, Chaves Medina —según la reconstrucción del OIJ— se encontraba ya posicionado junto al resto de la célula, lista para los cambios de posición que se documentan en el siguiente punto del recorrido."
+          }
+        ],
+        "carvajal": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "06:29 h"
+            },
+            "description": "A esta hora, según el expediente, Carvajal Fernández permanecía en el Renault Duster, donde había pasado buena parte de la vigilancia de los días previos, a la espera de los cambios de posición que ocurrirían poco después."
+          }
+        ]
+      },
+      "id": "hs_f2_w1_h0"
+    },
+    {
+      "_note": "WP1-H0-B: Tipo B — informativo superpuesto al H0 (foto Hyundai)",
+      "type": "hotspot",
+      "image": "/assets/f2-wp1-h1.webp",
+      "noPopup": true,
+      "caption": "Hyundai celeste placa 903056, identificado por la puerta delantera del acompañante de color blanco. Captado en cámara al ingreso de León XIII a las 16:17 h del 18 de junio de 2025.",
+      "title": "TODO — Otro sicario sale en motocicleta a matar (detalle H1)",
+      "mobile": {
+        "offsetX": -17,
+        "offsetY": -119,
+        "width": 288,
+        "height": 216,
+        "rotation": 1,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -279,
+        "offsetY": -70,
+        "width": 450,
+        "height": 405,
+        "rotation": 1,
+        "radius": 0
+      },
+      "id": "hs_f2_wp1_h1",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "06:29 h",
+        "timeColor": "#FF4444"
+      },
+      "description": "TODO — descripción H1",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {}
+    },
+    {
+      "_note": "WP1-H1-B: Tipo B — informativo secundario (mapa zona León XIII)",
+      "type": "hotspot",
+      "image": "/assets/f2-wp1-h2.webp",
+      "noPopup": true,
+      "caption": "Sector León XIII, Tibás. El vehículo fue captado ingresando a esta zona diez minutos después del retorno de Samcam a su vivienda, confirmando que los sospechosos monitoreaban sus movimientos en tiempo real.",
+      "title": "TODO — Otro sicario sale en motocicleta a matar (detalle H2)",
+      "mobile": {
+        "offsetX": -99,
+        "offsetY": 25,
+        "width": 83,
+        "height": 93,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 226,
+        "offsetY": -160,
+        "width": 370,
+        "height": 185,
+        "rotation": 3,
+        "radius": 0
+      },
+      "id": "hs_f2_wp1_h2",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "06:29 h",
+        "timeColor": "#FF4444"
+      },
+      "description": "TODO — descripción H2",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {}
+    }
+  ],
+  "wp2": [
+    {
+      "_note": "wp2-H0: Principal — abre popup grande",
+      "type": "hotspot",
+      "noPopup": false,
+      "caption": "",
+      "title": "Cambio de roles y ajuste de posiciones finales",
+      "mobile": {
+        "offsetX": -1,
+        "offsetY": -79,
+        "width": 329,
+        "height": 303,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -26,
+        "offsetY": -78,
+        "width": 700,
+        "height": 410,
+        "rotation": -1,
+        "radius": 0
+      },
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "06:37 – 07:41 h",
+        "timeColor": "#FF4444"
+      },
+      "description": "Ambos vehículos realizaron rondas y entraron a un punto de reunión (\"calle sin salida Av 65A\"). Se produjeron cambios para evitar ser detectados. Luis Fernando Carvajal Fernández (suéter gris) sube como pasajero en la motocicleta. A las 07:41 h: Robles Salas pasa a conducir el Duster BKK190 y Danilo Chaves Medina pasa a conducir la motocicleta (camisa color mostaza).",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "id": "hs_f2_wp2_h0",
+      "location": "Moravia / León XIII, San José, Costa Rica.",
+      "echos": {
+        "carvajal": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "06:37 – 07:41 h"
+            },
+            "description": "Según la reconstrucción del OIJ, en este punto Carvajal Fernández —identificado por la investigación como el presunto gatillero, con suéter gris— sube como pasajero a la motocicleta durante los cambios de posición previos al ataque."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:41 h"
+            },
+            "description": "A las 7:41 h, según el expediente, Robles Salas pasó a conducir el Renault Duster BKK190 — el vehículo que, minutos después, se dirigiría al Condominio Naples."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:41 h"
+            },
+            "description": "En el mismo cambio de las 7:41 h, Chaves Medina —con camisa color mostaza, según la reconstrucción— pasó a conducir la motocicleta, completando el último ajuste de posiciones antes del ataque."
+          }
+        ]
+      }
+    },
+    {
+      "_note": "wp2-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/f2-wp2-h1.webp",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "TODO — Cambio de roles y ajuste de posiciones finales (detalle H1)",
+      "mobile": {
+        "offsetX": -64,
+        "offsetY": -146,
+        "width": 170,
+        "height": 101,
+        "rotation": 3,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -259,
+        "offsetY": -203,
+        "width": 270,
+        "height": 169,
+        "rotation": 3,
+        "radius": 0
+      },
+      "id": "hs_f2_wp2_h1",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "06:37 – 07:41 h",
+        "timeColor": "#FF4444"
+      },
+      "description": "TODO — descripción H1",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {}
+    },
+    {
+      "_note": "wp2-H2-B: Tipo B — contexto / mapa",
+      "type": "hotspot",
+      "image": "/assets/f2-wp2-h2.webp",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "TODO — Cambio de roles y ajuste de posiciones finales (detalle H2)",
+      "mobile": {
+        "offsetX": 93,
+        "offsetY": -184,
+        "width": 78,
+        "height": 83,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 79,
+        "offsetY": -186,
+        "width": 145,
+        "height": 164,
+        "rotation": 0,
+        "radius": 0
+      },
+      "id": "hs_f2_wp2_h2",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "06:37 – 07:41 h",
+        "timeColor": "#FF4444"
+      },
+      "description": "TODO — descripción H2",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {}
+    }
+  ],
+  "wp3": [
+    {
+      "_note": "wp3-H0: Principal — abre popup grande",
+      "type": "hotspot",
+      "noPopup": false,
+      "caption": "",
+      "title": "El sicario se posiciona en la escena del crimen.",
+      "mobile": {
+        "offsetX": 2,
+        "offsetY": -148,
+        "width": 337,
+        "height": 272,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -33,
+        "offsetY": -120,
+        "width": 736,
+        "height": 440,
+        "rotation": -1,
+        "radius": 0
+      },
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "07:40 h",
+        "timeColor": "#FF4444"
+      },
+      "description": "Minutos antes del hecho, el dispositivo de Luis Fernando Carvajal Fernández (62329434) activó la radio base 'Valla Moravia' (antena celular). Eso confirma su ubicación exacta en el sector del homicidio.",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "id": "hs_f2_wp3_h0",
+      "location": "Moravia / León XIII, San José, Costa Rica.",
+      "echos": {
+        "carvajal": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "Este es el momento que el expediente describe con mayor precisión sobre Carvajal Fernández: minutos antes del ataque, su dispositivo activó la radio base 'Valla Moravia', lo que según el OIJ ubicaría su teléfono en el sector del homicidio."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "Según la reconstrucción, a esta hora Robles Salas ya conducía el Renault Duster BKK190 con Carvajal Fernández como pasajero delantero, acercándose al Condominio Naples donde minutos después ocurriría el ataque."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "Mientras el Duster se acercaba a la escena, Chaves Medina —según el expediente— se desplazaba en la motocicleta por una ruta separada, en la posición que mantendría durante el ataque y la huida inmediata."
+          }
+        ]
+      }
+    },
+    {
+      "_note": "wp3-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/f2-wp3-h1.webp",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "TODO — El sicario se posiciona en la escena del crimen (detalle H1)",
+      "mobile": {
+        "offsetX": -60,
+        "offsetY": -223,
+        "width": 191,
+        "height": 37,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -152,
+        "offsetY": -293,
+        "width": 476,
+        "height": 107,
+        "rotation": 0,
+        "radius": 0
+      },
+      "id": "hs_f2_wp3_h1",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "07:40 h",
+        "timeColor": "#FF4444"
+      },
+      "description": "TODO — descripción H1",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {}
+    },
+    {
+      "_note": "wp3-H2-B: Tipo B — contexto / mapa",
+      "type": "hotspot",
+      "image": "/assets/f2-wp3-h2.webp",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "TODO — El sicario se posiciona en la escena del crimen (detalle H2)",
+      "mobile": {
+        "offsetX": 2,
+        "offsetY": -95,
+        "width": 302,
+        "height": 147,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -155,
+        "offsetY": -35,
+        "width": 499,
+        "height": 281,
+        "rotation": 0,
+        "radius": 0
+      },
+      "id": "hs_f2_wp3_h2",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "07:40 h",
+        "timeColor": "#FF4444"
+      },
+      "description": "TODO — descripción H2",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {}
+    }
+  ],
+  "wp4": [
+    {
+      "_note": "wp4-H0: Principal — abre popup grande",
+      "type": "hotspot",
+      "noPopup": false,
+      "caption": "",
+      "title": "SAMCAM ES ACRIBILLADO",
+      "mobile": {
+        "offsetX": -14,
+        "offsetY": -142,
+        "width": 329,
+        "height": 285,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 2,
+        "offsetY": -114,
+        "width": 900,
+        "height": 400,
+        "rotation": -1,
+        "radius": 0
+      },
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "07:44 h",
+        "timeColor": "#FF4444"
+      },
+      "description": "El Renault Duster blanco (BKK190) se estacionó frente al Condominio Naples. El pasajero delantero (Carvajal Fernández) descendió, ingresó al condominio, llamó al ofendido por su nombre y le disparó 5 veces con un arma calibre 40. El sicario corre de regreso al automóvil.",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "id": "hs_f2_wp4_h0",
+      "location": "Moravia / León XIII, San José, Costa Rica.",
+      "echos": {
+        "carvajal": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:44 h"
+            },
+            "description": "Según la reconstrucción del OIJ, es Carvajal Fernández —identificado por la investigación como el pasajero delantero del Duster— quien desciende del vehículo, ingresa al condominio, llama a la víctima por su nombre y le habría disparado varias veces, antes de correr de vuelta al automóvil."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:44 h"
+            },
+            "description": "Mientras el ataque ocurría, según el expediente Robles Salas permanecía al volante del Renault Duster, estacionado frente al Condominio Naples, a la espera de que Carvajal Fernández regresara al vehículo."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:44 h"
+            },
+            "description": "En este momento, según la reconstrucción, Chaves Medina se encontraba en la motocicleta, en una posición separada del Duster — el punto desde el cual, segundos después, ambos vehículos iniciarían la huida por rutas distintas."
+          }
+        ]
+      }
+    },
+    {
+      "_note": "wp4-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/f2-wp4-h1.webp",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "TODO — SAMCAM ES ACRIBILLADO (detalle H1)",
+      "mobile": {
+        "offsetX": -13,
+        "offsetY": -104,
+        "width": 289,
+        "height": 187,
+        "rotation": 3,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -225,
+        "offsetY": -141,
+        "width": 463,
+        "height": 350,
+        "rotation": -1,
+        "radius": 0
+      },
+      "id": "hs_f2_wp4_h1",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "07:44 h",
+        "timeColor": "#FF4444"
+      },
+      "description": "TODO — descripción H1",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {}
+    },
+    {
+      "_note": "wp4-H2-B: Tipo B — contexto / mapa",
+      "type": "hotspot",
+      "image": "/assets/f2-wp4-h2.webp",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "TODO — SAMCAM ES ACRIBILLADO (detalle H2)",
+      "mobile": {
+        "offsetX": 82,
+        "offsetY": -174,
+        "width": 59,
+        "height": 63,
+        "rotation": 6,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 271,
+        "offsetY": -193,
+        "width": 399,
+        "height": 214,
+        "rotation": 0,
+        "radius": 0
+      },
+      "id": "hs_f2_wp4_h2",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "07:44 h",
+        "timeColor": "#FF4444"
+      },
+      "description": "TODO — descripción H2",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {}
+    }
+  ],
+  "wp5": [
+    {
+      "_note": "wp5-H0: Principal — abre popup grande",
+      "type": "hotspot",
+      "noPopup": false,
+      "caption": "",
+      "title": "Inicia la huida",
+      "mobile": {
+        "offsetX": -13,
+        "offsetY": -152,
+        "width": 319,
+        "height": 237,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 13,
+        "offsetY": -112,
+        "width": 630,
+        "height": 444,
+        "rotation": -1,
+        "radius": 0
+      },
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "Segundos después",
+        "timeColor": "#FF4444"
+      },
+      "description": "El Renault Duster huyó a gran velocidad con el gatillero Carvajal dentro. La motocicleta, conducida por Chaves Medina, huyó por una ruta separada hacia Tibás/León XIII.",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "id": "hs_f2_wp5_h0",
+      "location": "Moravia / León XIII, San José, Costa Rica.",
+      "echos": {
+        "carvajal": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "Según el expediente, Carvajal Fernández —señalado como el presunto gatillero— huye a bordo del Renault Duster, que se aleja a gran velocidad del Condominio Naples inmediatamente después del ataque."
+          }
+        ],
+        "robles_salas": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "Robles Salas, según la reconstrucción del OIJ, es quien conduce el Renault Duster en esta huida inicial — el mismo vehículo que horas más tarde sería abandonado en Coronado, como se documenta en la siguiente fase."
+          }
+        ],
+        "chaves_medina": [
+          {
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "Chaves Medina, según el expediente, huye por una ruta separada en la motocicleta, de regreso hacia Tibás/León XIII — un trayecto que se reconstruye con más detalle al inicio de la fase 3."
+          }
+        ]
+      }
+    },
+    {
+      "_note": "wp5-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/f2-wp5-h1.webp",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "TODO — Inicia la huida (detalle H1)",
+      "mobile": {
+        "offsetX": 111,
+        "offsetY": -89,
+        "width": 62,
+        "height": 79,
+        "rotation": -7,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 282,
+        "offsetY": -199,
+        "width": 127,
+        "height": 140,
+        "rotation": 3,
+        "radius": 0
+      },
+      "id": "hs_f2_wp5_h1",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "Segundos después",
+        "timeColor": "#FF4444"
+      },
+      "description": "TODO — descripción H1",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {}
+    },
+    {
+      "_note": "wp5-H2-B: Tipo B — contexto / mapa",
+      "type": "hotspot",
+      "image": "/assets/f2-wp5-h2.webp",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "TODO — Inicia la huida (detalle H2)",
+      "mobile": {
+        "offsetX": -13,
+        "offsetY": -143,
+        "width": 272,
+        "height": 177,
+        "rotation": -8,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 96,
+        "offsetY": 16,
+        "width": 280,
+        "height": 200,
+        "rotation": 0,
+        "radius": 0
+      },
+      "id": "hs_f2_wp5_h2",
+      "datetime": {
+        "date": "19/06/2025",
+        "time": "Segundos después",
+        "timeColor": "#FF4444"
+      },
+      "description": "TODO — descripción H2",
+      "involved": [
+        {
+          "id": "chaves_medina",
+          "name": "Danilo José Chaves Medina",
+          "avatar": "/assets/danilo-jose-chavez-medina.webp",
+          "role": "Intermediario / Conductor Duster"
+        },
+        {
+          "id": "carvajal",
+          "name": "Luis Fernando Carvajal Fernández",
+          "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
+          "role": "Gatillero / Ejecutor",
+          "highlighted": true
+        },
+        {
+          "id": "robles_salas",
+          "name": "Bryan Steven Robles Salas",
+          "avatar": "/assets/bryan-steven-robles-salas.webp",
+          "role": "Conductor motocicleta"
+        }
+      ],
+      "echos": {}
+    }
+  ],
+  "wp6": [
+    {
+      "_note": "wp6-H0: Principal — abre popup grande",
+      "type": "hotspot",
+      "image": "/assets/TODO-wp6-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp6-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
+      "mobile": {
+        "offsetX": -10,
+        "offsetY": -267,
+        "width": 280,
+        "height": 145,
+        "rotation": 9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp6-H2-B: Tipo B — contexto / mapa",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
+      "mobile": {
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
+        "radius": 0
+      }
+    }
+  ],
+  "wp7": [
+    {
+      "_note": "wp7-H0: Principal — abre popup grande",
+      "type": "hotspot",
+      "image": "/assets/TODO-wp7-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp7-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
+      "mobile": {
+        "offsetX": -10,
+        "offsetY": -267,
+        "width": 280,
+        "height": 145,
+        "rotation": 9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp7-H2-B: Tipo B — contexto / mapa",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
+      "mobile": {
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
+        "radius": 0
+      }
+    }
+  ],
+  "wp8": [
+    {
+      "_note": "wp8-H0: Principal — abre popup grande",
+      "type": "hotspot",
+      "image": "/assets/TODO-wp8-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp8-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
+      "mobile": {
+        "offsetX": -10,
+        "offsetY": -267,
+        "width": 280,
+        "height": 145,
+        "rotation": 9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp8-H2-B: Tipo B — contexto / mapa",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
+      "mobile": {
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
+        "radius": 0
+      }
+    }
+  ],
+  "wp9": [
+    {
+      "_note": "wp9-H0: Principal — abre popup grande",
+      "type": "hotspot",
+      "image": "/assets/TODO-wp9-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp9-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
+      "mobile": {
+        "offsetX": -10,
+        "offsetY": -267,
+        "width": 280,
+        "height": 145,
+        "rotation": 9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp9-H2-B: Tipo B — contexto / mapa",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
+      "mobile": {
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
+        "radius": 0
+      }
+    }
+  ],
+  "wp10": [
+    {
+      "_note": "wp10-H0: Principal — abre popup grande",
+      "type": "hotspot",
+      "image": "/assets/TODO-wp10-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp10-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
+      "mobile": {
+        "offsetX": -10,
+        "offsetY": -267,
+        "width": 280,
+        "height": 145,
+        "rotation": 9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp10-H2-B: Tipo B — contexto / mapa",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
+      "mobile": {
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
+        "radius": 0
+      }
+    }
+  ],
+  "wp11": [
+    {
+      "_note": "wp11-H0: Principal — abre popup grande",
+      "type": "hotspot",
+      "image": "/assets/TODO-wp11-h0.webp",
+      "noPopup": false,
+      "caption": "",
+      "title": "",
+      "mobile": {
+        "offsetX": -7,
+        "offsetY": -186,
+        "width": 280,
+        "height": 400,
+        "rotation": 0,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 4,
+        "offsetY": -43,
+        "width": 1200,
+        "height": 450,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp11-H1-B: Tipo B — informativo secundario",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "title": "",
+      "mobile": {
+        "offsetX": -10,
+        "offsetY": -267,
+        "width": 280,
+        "height": 145,
+        "rotation": 9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": -288,
+        "offsetY": -37,
+        "width": 520,
+        "height": 367,
+        "rotation": -1,
+        "radius": 0
+      }
+    },
+    {
+      "_note": "wp11-H2-B: Tipo B — contexto / mapa",
+      "type": "hotspot",
+      "image": "/assets/vacio.png",
+      "noPopup": true,
+      "caption": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.",
+      "title": "",
+      "mobile": {
+        "offsetX": -8,
+        "offsetY": -69,
+        "width": 290,
+        "height": 210,
+        "rotation": -9,
+        "radius": 0
+      },
+      "desktop": {
+        "offsetX": 256,
+        "offsetY": 8,
+        "width": 512,
+        "height": 272,
+        "rotation": 0,
+        "radius": 0
+      }
+    }
+  ]
+}
