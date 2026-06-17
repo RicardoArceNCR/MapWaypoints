@@ -1,4 +1,5 @@
 {
+  "_readme": "_readme: Los echos de implicados ya NO se editan aquí. La fuente de verdad es personas.json — MapManager los inyecta en runtime. Este archivo solo debe contener: title, date, datetime, location, desc, body, image, involved[], noPopup. Si se deja el campo 'echos' aquí, personas.json lo sobreescribe.",
   "wp0": [
     {
       "_note": "WP0-H0: Hotspot principal con popup",
