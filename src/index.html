@@ -138,6 +138,12 @@
         <img src="/assets/mosca-r.webp" alt="" class="mosca-btn__img" />
       </a>
 
+      <!-- Share group fijo izquierda — sobre la mosca (solo desktop, solo con waypoint activo) -->
+      <div id="wib-share-group" class="wib-share-group" aria-label="Compartir" hidden>
+        <span class="wib-share-group__label">Compartir</span>
+        <div class="wib-share-group__icons" data-share-mount="waypoint-info"></div>
+      </div>
+
       <!-- Drawer/Menú lateral -->
       <nav id="menu-puntos" class="drawer" aria-hidden="true">
         <header class="drawer__head">
@@ -175,7 +181,16 @@
           <p id="waypoint-info-desc" class="waypoint-info-box__desc"></p>
           <p id="waypoint-info-body" class="waypoint-info-box__body" hidden></p>
         </div>
-        <div class="waypoint-info-box__actions" data-share-mount="waypoint-info"></div>
+        <div class="waypoint-info-box__actions">
+          <button id="wib-ver-mas" class="wib-ver-mas-btn" aria-label="Ver más detalles">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            Ver más
+          </button>
+        </div>
       </div>
 
       <!-- Capa DOM para overlays -->

@@ -478,10 +478,30 @@ let memoryMonitor = new MemoryMonitor();
   const _wibTitle = document.getElementById('waypoint-info-title');
   const _wibDesc = document.getElementById('waypoint-info-desc');
   const _wibBody = document.getElementById('waypoint-info-body');
+  const _wibShareGroup = document.getElementById('wib-share-group');
+
+  // Helpers para mostrar/ocultar el share group izquierdo
+  function _showWibShare() {
+    if (!_wibShareGroup) return;
+    _wibShareGroup.hidden = false;
+    _wibShareGroup.offsetHeight; // force reflow
+    _wibShareGroup.classList.add('is-active');
+  }
+  function _hideWibShare() {
+    if (!_wibShareGroup) return;
+    _wibShareGroup.classList.remove('is-active');
+    setTimeout(() => { _wibShareGroup.hidden = true; }, 300);
+  }
 
   if (_wib) {
     _wib.style.pointerEvents = 'auto';
-    _wib.addEventListener('click', () => {
+  }
+
+  // Botón Ver más — abre el popup del hotspot activo
+  const _wibVerMas = document.getElementById('wib-ver-mas');
+  if (_wibVerMas) {
+    _wibVerMas.addEventListener('click', (e) => {
+      e.stopPropagation();
       const hotspots = state.currentIcons[state.idx] || [];
       const target = hotspots.find(h => !h.noPopup) || hotspots[0];
       if (target) popupManager?.openPopup(target);
@@ -1336,6 +1356,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     if (!title && !desc) {
       _wib.hidden = true;
       _wib.classList.remove('visible');
+      _hideWibShare();
       return;
     }
 
@@ -1373,6 +1394,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     _wib.hidden = false;
     _wib.offsetHeight; // force reflow
     _wib.classList.add('visible');
+    _showWibShare();
 
     // ── Determinar si es el primer waypoint del primer mapa ──
     const isFirstEntry = !_revealMaskDone && state.idx === 0;

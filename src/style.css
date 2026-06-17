@@ -1700,6 +1700,86 @@ body.net-slow .drawer {
   background: rgba(255, 255, 255, 0.2);
 }
 
+/* Botón Ver más — reemplaza los share en el wib */
+.wib-ver-mas-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgb(0 0 0 / 73%);
+  color: rgba(255, 255, 255, 0.7);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.wib-ver-mas-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.wib-ver-mas-btn:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Grupo share fijo izquierda — sobre la mosca, solo desktop */
+.wib-share-group {
+  position: fixed;
+  bottom: 116px;
+  left: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.wib-share-group:not([hidden]) {
+  pointer-events: auto;
+}
+
+.wib-share-group.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wib-share-group__label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  position: absolute;
+  transform: translateY(-50%) rotate(-90deg);
+  right: 15px;
+  bottom: 34px;
+}
+
+.wib-share-group__icons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Solo desktop */
+@media (max-width: 899px) {
+  .wib-share-group {
+    display: none !important;
+  }
+}
+
 .waypoint-info-box.visible {
   opacity: 1;
   transform: translateY(0);
@@ -1777,10 +1857,13 @@ body.net-slow .drawer {
   }
 }
 
-/* Ocultar actions con popup/brief/drawer abiertos */
+/* Ocultar actions y share group con popup/brief/drawer abiertos */
 body.popup-open .waypoint-info-box__actions,
 body.brief-open .waypoint-info-box__actions,
-body:has(.drawer--open) .waypoint-info-box__actions {
+body:has(.drawer--open) .waypoint-info-box__actions,
+body.popup-open .wib-share-group,
+body.brief-open .wib-share-group,
+body:has(.drawer--open) .wib-share-group {
   opacity: 0;
   pointer-events: none;
 }
