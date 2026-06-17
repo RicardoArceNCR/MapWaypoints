@@ -460,22 +460,30 @@
     <div class="story-brief__backdrop"></div>
     <div class="story-brief__panel">
       <div class="story-brief__drag-handle" aria-hidden="true"></div>
-      <div id="story-brief-title" class="story-brief__heading">
-        <span class="story-brief__heading-text"></span>
-        <div class="story-brief__heading-logo">
-          <a href="https://www.divergentes.com/" target="_blank" rel="noopener noreferrer" aria-label="Divergentes">
-            <img src="/assets/logo_diver-1.webp" alt="Divergentes" class="story-brief__heading-logo-img" />
-          </a>
-        </div>
+      <!-- Left image column (visible only in split mode) -->
+      <div class="story-brief__image-col" id="story-brief-image-col" aria-hidden="true">
+        <img class="story-brief__image" id="story-brief-image" src="" alt="" />
+        <p class="story-brief__image-caption" id="story-brief-image-caption"></p>
       </div>
-      <div id="story-brief-body" class="story-brief__body"></div>
-      <div class="story-brief__footer">
-        <button id="story-brief-methodology" class="story-brief__btn story-brief__btn--ghost" hidden></button>
-        <div class="story-brief__share">
-          <span class="story-brief__share-label">Comparte ahora</span>
-          <div class="story-brief__share-icons" data-share-mount="brief"></div>
+      <!-- Right content column (wraps heading + body + footer) -->
+      <div class="story-brief__content-col">
+        <div id="story-brief-title" class="story-brief__heading">
+          <span class="story-brief__heading-text"></span>
+          <div class="story-brief__heading-logo">
+            <a href="https://www.divergentes.com/" target="_blank" rel="noopener noreferrer" aria-label="Divergentes">
+              <img src="/assets/logo_diver-1.webp" alt="Divergentes" class="story-brief__heading-logo-img" />
+            </a>
+          </div>
         </div>
-        <button id="story-brief-close" class="story-brief__btn">Cerrar</button>
+        <div id="story-brief-body" class="story-brief__body"></div>
+        <div class="story-brief__footer">
+          <button id="story-brief-methodology" class="story-brief__btn story-brief__btn--ghost" hidden></button>
+          <div class="story-brief__share">
+            <span class="story-brief__share-label">Comparte ahora</span>
+            <div class="story-brief__share-icons" data-share-mount="brief"></div>
+          </div>
+          <button id="story-brief-close" class="story-brief__btn">Cerrar</button>
+        </div>
       </div>
     </div>
   </div>

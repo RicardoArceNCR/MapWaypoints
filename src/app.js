@@ -438,29 +438,10 @@ let memoryMonitor = new MemoryMonitor();
 
   // ── Brief de cierre (última fase, último waypoint) ──────────────────
   const CLOSING_BRIEF_HTML = `
-    <p><strong>19 junio 2025</strong> — El OIJ inicia pesquisas el mismo día del homicidio. Llamadas del Sistema 9-1-1 reportan entre 7 y 10 disparos en el Condominio Naples de Moravia.</p>
-    <p>Rastreo de cámaras iniciado en paralelo. Una fuente confidencial (línea 800-8000-645) identifica el vehículo: <strong>Renault Duster blanco, placa BKK-190</strong>. Otra fuente aporta nombres: <em>"Dani Chaves"</em> (peluquero de León XIII) como coordinador; <em>"Bryan Robles"</em>; y <em>"Luis"</em> (sicario, número 62329434). Los sospechosos se reunieron la noche anterior en la Gasolinera Delta para afinar detalles.</p>
-    <p>Rastreo de video documenta la ruta de escape del Duster hasta Coronado, donde es abandonado en una calle sin salida. Un <strong>Hyundai Accent celeste, placa 903056</strong> (puerta blanca, aros diferentes) recoge a los ejecutores.</p>
-    <p><strong>30 junio 2025</strong> — Investigadores abordan al conductor del Hyundai en León XIII: <strong>Luis Ricardo Orozco González</strong>, taxista informal. Confiesa que fue contactado para recoger a dos sujetos en Coronado — un "viaje raro" pagado por SINPE Móvil.</p>
-    <p>El análisis forense del celular de Orozco es la pieza decisiva:</p>
-    <ul>
-      <li><strong>08:10:13 del día del crimen</strong> — Danilo José Chaves Medina ("Danny Peluqueris") llama a Orozco para coordinar el rescate.</li>
-      <li>WhatsApp entre Orozco y Bryan Steven Robles Salas revela la urgencia extrema de la huida.</li>
-      <li>El número 62329434 es acreditado a <strong>Luis Fernando Carvajal Fernández</strong>, el gatillero.</li>
-    </ul>
-    <p>Secreto bancario levantado: <strong>Stephanie María Chacón Guillén</strong> realiza dos depósitos SINPE a Orozco por ₡50.000 con los detalles "Viaje" y "Gasolina". Orozco luego pregunta a Robles "¿Cómo le fue?"; Robles responde: <em>"Viste las noticia"</em>.</p>
-    <p><strong>28 agosto 2025</strong> — OIJ presenta informe solicitando órdenes de allanamiento.</p>
-    <p><strong>11–12 septiembre 2025</strong> — Allanamientos en León XIII y Cañas, Guanacaste. Cuatro sospechosos capturados:</p>
-    <ul>
-      <li><strong>Danilo José Chaves Medina</strong>, 35 años — detenido en Cañas con ₡4.000.000 en efectivo. Coordinador logístico.</li>
-      <li><strong>Bryan Steven Robles Salas</strong>, 23 años — conductor del Duster durante la ejecución y la huida.</li>
-      <li><strong>Luis Ricardo Orozco González</strong>, 33 años — conductor del Hyundai celeste.</li>
-      <li><strong>Stephanie María Chacón Guillén</strong>, 30 años — enfrentará el proceso en libertad.</li>
-    </ul>
-    <p>Chaves Medina, Robles Salas y Orozco González son puestos en <strong>prisión preventiva por seis meses</strong>.</p>
-    <p><strong>Prófugo</strong> — <strong>Luis Fernando Carvajal Fernández</strong>, 20 años, el gatillero. El OIJ continúa diligencias para su detención.</p>
-    <p><strong>Autor intelectual</strong> — <strong>Pablo Antonio Robles Murillo</strong>, nicaragüense naturalizado. Salió hacia Nicaragua el 7 de agosto de 2025 y no ha retornado. Aún no está formalmente imputado.</p>
-    <p>El fiscal general Díaz sostuvo que la principal línea de investigación apunta a que el crimen fue <em>"una orden aparentemente del Ejército nicaragüense"</em>. La investigación se mantiene abierta.</p>
+    <p>El OIJ inició las investigaciones el mismo día del homicidio. En el sitio exacto del crimen no había cámaras, pero los investigadores comenzaron un rastreo sistemático de dispositivos de video en los alrededores para reconstruir la ruta de huida. Paralelamente, la línea confidencial 800-8000-645 recibió una llamada que identificó el vehículo clave: un <strong>Renault Duster blanco, placa BKK-190</strong>. Otra fuente, que se presentó directamente a la Sección de Homicidios por temor a represalias, aportó nombres: <em>"Dani Chaves"</em>, un peluquero de León XIII; <em>"Bryan Robles"</em>; y un <em>"Luis"</em> con el número 62329434. También reveló que la noche anterior los sospechosos se habían reunido en una gasolinera para "afinar detalles", revisar los vehículos y el arma.</p>
+    <p>El 30 de junio, once días después del crimen, investigadores del OIJ localizaron en León XIII a <strong>Luis Ricardo Orozco González</strong>, el taxista informal que había recogido a los ejecutores en Coronado. Orozco confesó el viaje. Su celular se convirtió en la pieza más decisiva de la investigación: registraba la llamada de coordinación de Danilo Chaves, los mensajes desesperados de Bryan Robles pidiendo ser rescatado, y los depósitos de 50.000 colones que Stephanie Chacón había hecho esa misma mañana como pago por el traslado.</p>
+    <p>Con ese rompecabezas técnico y financiero armado, el OIJ solicitó las órdenes de allanamiento el 28 de agosto de 2025. Los operativos se ejecutaron el 11 y 12 de septiembre. El director del OIJ, Randall Zúñiga, y el Fiscal General Carlos Díaz encabezaron personalmente los allanamientos en León XIII y Cañas, Guanacaste. Fueron detenidos <strong>Danilo José Chaves Medina, Bryan Steven Robles Salas, Luis Ricardo Orozco González</strong> y <strong>Stephanie María Chacón Guillén</strong>. El gatillero, Luis Fernando Carvajal Fernández, seguía prófugo.</p>
+    <p>Ese mismo día, Díaz fue contundente: <em>"Una de las líneas de investigación apunta a que esto fue una orden aparentemente del Ejército nicaragüense. No nos vamos a conformar con detener a quienes realizaron la ejecución; vamos a llegar hasta las últimas consecuencias"</em>. El expediente judicial, según reveló el diario La Nación, mencionaba a la <strong>DICIM y el G2</strong>, organismos de inteligencia del régimen de Ortega y Murillo, como presuntos planificadores del crimen.</p>
   `;
 
   // Datos del brief de cierre — un solo lugar para los dos call-sites
@@ -469,7 +450,23 @@ let memoryMonitor = new MemoryMonitor();
       heading: 'POST CRIMEN | Pesquisas, capturas y apertura de juicio',
       html: CLOSING_BRIEF_HTML,
       skipTypewriter: true,
-      methodology: mapManager?._lastLoadedStory?.brief?.methodology
+      image: '/assets/burned-duster.webp',
+      imageCaption: 'Vehículo de escape, Renault Duster blanco, abandonado en Coronado (Imagen ilustrativa)',
+      methodology: {
+        tabLabel: 'Línea de Tiempo de Pesquisas',
+        html: `
+          <h3>Línea de Tiempo de las Pesquisas de la OIJ (Posterior al Crimen)</h3>
+          <p>Las pesquisas del Organismo de Investigación Judicial (OIJ) comenzaron el <strong>19 de junio de 2025</strong>, el mismo día del homicidio, con la recolección de incidentes del Sistema 9-1-1, que registraron llamadas reportando entre 7 y 10 disparos en el Condominio Naples de Moravia.</p>
+          <p>Paralelamente, el OIJ inició un amplio rastreo de cámaras de video para reconstruir la dinámica y la ruta de huida de los agresores, ya que en el sitio exacto del suceso no había dispositivos de grabación. Un elemento crucial fue la información confidencial recibida a través de la línea 800-8000-645, que identificó el vehículo utilizado por los responsables como un <strong>Renault Duster blanco, placa BKK-190</strong>. Otra fuente confidencial, que se presentó a la Sección de Homicidios por temor a represalias, aportó nombres específicos de los implicados, incluyendo a <em>"Dani Chaves"</em> (un peluquero de León XIII) como coordinador logístico, <em>"Bryan Robles"</em>, y un <em>"Luis"</em> (el sicario) que utilizaba el número 62329434. Esta información también reveló que los sospechosos se reunieron la noche anterior (18/06/2025) en la Gasolinera Delta para "afinar detalles de la planificación", revisar los vehículos y el arma.</p>
+          <p>El análisis de video permitió a la OIJ rastrear la ruta de escape del Renault Duster BKK190. Se documentó que este vehículo huyó a gran velocidad hacia Coronado, donde finalmente fue abandonado en una calle sin salida cerca de "Casa Kuakua". Las cámaras de seguridad captaron entonces la llegada de un vehículo de rescate: un <strong>Hyundai Accent color celeste, placa 903056</strong>, con características distintivas (puerta blanca, aros diferentes). El vehículo Hyundai recogió a los ejecutores en el punto de abandono del Duster. Horas después, el <strong>30 de junio de 2025</strong>, investigadores del OIJ localizaron y abordaron al conductor del Hyundai en León XIII, identificándolo como <strong>Luis Ricardo Orozco González</strong>, un taxista informal. Orozco González, quien fue informado de sus derechos, confesó que fue contactado para recoger a dos sujetos en Coronado y trasladarlos a León XIII, un "viaje raro" por el cual fue pagado mediante SINPE MÓVIL.</p>
+          <p>La pieza más decisiva de la investigación provino del análisis forense del teléfono celular decomisado a Luis Ricardo Orozco González. Este análisis confirmó la coordinación entre la estructura:</p>
+          <ol>
+            <li><strong>La orden de rescate:</strong> A las 08:10:13 horas del día del crimen, Danilo José Chaves Medina ("Danny Peluqueris") llamó a Orozco para coordinar su traslado a Coronado y que recogiera a los ejecutores.</li>
+            <li><strong>La urgencia del escape:</strong> Conversaciones de WhatsApp entre Orozco y Bryan Steven Robles Salas ("Bryan R") revelaron la extrema urgencia de la huida.</li>
+            <li><strong>El sicario confirmado:</strong> Otro número, el 62329434, contactó a Orozco, indicando que andaba con Bryan Robles y que el celular de este último se había quedado sin batería. Este número fue acreditado a <strong>Luis Fernando Carvajal Fernández</strong>, el gatillero.</li>
+          </ol>
+        `
+      }
     };
   }
 
@@ -748,15 +745,33 @@ let memoryMonitor = new MemoryMonitor();
     });
   }
 
-  function showBrief({ heading, text, html, methodology, skipTypewriter = false } = {}) {
+  function showBrief({ heading, text, html, methodology, skipTypewriter = false, image, imageCaption } = {}) {
     const el = document.getElementById('story-brief');
     const elTitle = document.getElementById('story-brief-title');
     const elBody = document.getElementById('story-brief-body');
     const btn = document.getElementById('story-brief-close');
     const methBtn = document.getElementById('story-brief-methodology');
+    const panel = el?.querySelector('.story-brief__panel');
+    const imgCol = document.getElementById('story-brief-image-col');
+    const imgEl = document.getElementById('story-brief-image');
+    const captionEl = document.getElementById('story-brief-image-caption');
     if (!el) return;
 
     _wireBriefDismiss();
+
+    // ── Split layout: activate when image is provided ──
+    if (panel) {
+      if (image) {
+        panel.classList.add('story-brief__panel--split');
+        if (imgCol) imgCol.removeAttribute('aria-hidden');
+        if (imgEl) { imgEl.src = image; imgEl.alt = imageCaption || ''; }
+        if (captionEl) captionEl.textContent = imageCaption || '';
+      } else {
+        panel.classList.remove('story-brief__panel--split');
+        if (imgCol) imgCol.setAttribute('aria-hidden', 'true');
+        if (imgEl) imgEl.src = '';
+      }
+    }
 
     if (elTitle && heading) {
       const textEl = elTitle.querySelector('.story-brief__heading-text');
