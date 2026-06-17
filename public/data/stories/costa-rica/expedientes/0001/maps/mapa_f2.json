@@ -53,6 +53,7 @@
     },
     {
       "id": "wp_f1_col2",
+      "label": "Cambio de roles y ajuste de posiciones",
       "mobile": {
         "xp": 0.51,
         "yp": 0.275573,
@@ -82,6 +83,7 @@
     },
     {
       "id": "wp_f1_col3",
+      "label": "El gatillero se ubica cerca de la escena",
       "mobile": {
         "xp": 0.830425,
         "yp": 0.281722,
@@ -111,6 +113,7 @@
     },
     {
       "id": "wp_f2_col1",
+      "label": "Samcam recibe el ataque mortal",
       "mobile": {
         "xp": 0.17,
         "yp": 0.762436,
@@ -140,6 +143,7 @@
     },
     {
       "id": "wp_f2_col2",
+      "label": "Inicia la huida",
       "mobile": {
         "xp": 0.51,
         "yp": 0.763555,
@@ -169,6 +173,7 @@
     },
     {
       "id": "wp_f2_col3",
+      "label": "Dispersión y abandono de vehículos",
       "mobile": {
         "xp": 0.84,
         "yp": 0.763555,

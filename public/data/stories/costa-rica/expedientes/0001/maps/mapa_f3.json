@@ -122,6 +122,7 @@
     {
       "_fila": 1,
       "id": "wp_f1_col2",
+      "label": "Retorno a León XIII en motocicleta",
       "mobile": {
         "xp": 0.51,
         "yp": 0.184597,
@@ -152,6 +153,7 @@
     {
       "_fila": 1,
       "id": "wp_f1_col3",
+      "label": "Coordinación del rescate telefónico",
       "mobile": {
         "xp": 0.817925,
         "yp": 0.184597,
@@ -182,6 +184,7 @@
     {
       "_fila": 2,
       "id": "wp_f2_col1",
+      "label": "El Hyundai celeste entra en acción",
       "mobile": {
         "xp": 0.17,
         "yp": 0.423739,
@@ -212,6 +215,7 @@
     {
       "_fila": 2,
       "id": "wp_f2_col2",
+      "label": "Mensajes desesperados de Robles Salas",
       "mobile": {
         "xp": 0.51,
         "yp": 0.423739,
@@ -242,6 +246,7 @@
     {
       "_fila": 2,
       "id": "wp_f2_col3",
+      "label": "El gatillero contacta al taxista",
       "mobile": {
         "xp": 0.84,
         "yp": 0.423739,
@@ -272,6 +277,7 @@
     {
       "_fila": 3,
       "id": "wp_f3_col1",
+      "label": "El Duster es abandonado en Coronado",
       "mobile": {
         "xp": 0.17,
         "yp": 0.662882,
@@ -302,6 +308,7 @@
     {
       "_fila": 3,
       "id": "wp_f3_col2",
+      "label": "Extracción de los ejecutores",
       "mobile": {
         "xp": 0.51,
         "yp": 0.662882,
@@ -332,6 +339,7 @@
     {
       "_fila": 3,
       "id": "wp_f3_col3",
+      "label": "Regreso a León XIII",
       "mobile": {
         "xp": 0.84,
         "yp": 0.662882,
@@ -362,6 +370,7 @@
     {
       "_fila": 4,
       "id": "wp_f4_col1",
+      "label": "Pago vía SINPE Móvil",
       "mobile": {
         "xp": 0.17,
         "yp": 0.902025,
@@ -392,6 +401,7 @@
     {
       "_fila": 4,
       "id": "wp_f4_col2",
+      "label": "¿Cómo le fue? — confirmación del crimen",
       "mobile": {
         "xp": 0.51,
         "yp": 0.902025,
@@ -422,6 +432,7 @@
     {
       "_fila": 4,
       "id": "wp_f4_col3",
+      "label": "Encuentran las prendas del sicario",
       "mobile": {
         "xp": 0.84,
         "yp": 0.902025,
