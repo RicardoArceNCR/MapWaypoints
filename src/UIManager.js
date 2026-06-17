@@ -6,14 +6,14 @@ export class UIManager {
     this.mapManager = mapManager;
     this.onPhaseChange = onPhaseChange;
     this.onMapChange = onMapChange;
-    
+
     // Referencias DOM
     this.phaseFilter = document.getElementById('phase-filter');
     this.mapSelector = document.getElementById('map-selector');
     this.drawer = document.getElementById('menu-puntos');
     this.drawerList = document.getElementById('drawer-list');
     this.progressEl = document.querySelector('.progress');
-    
+
     this.init();
     this.setDrawerFocusEnabled(false); // 👈 NUEVO
   }
@@ -65,7 +65,7 @@ export class UIManager {
   // ========= SELECTOR DE MAPAS =========
   updateMapSelector() {
     const maps = this.mapManager.getCurrentPhaseMaps();
-    
+
     this.mapSelector.innerHTML = maps.length > 1 ? `
       <label for="map-select" class="sr-only">Seleccionar mapa</label>
       <select id="map-select" class="map-select">
@@ -158,7 +158,7 @@ export class UIManager {
         this.closeDrawer();
       });
     });
-    
+
     const isOpen = this.drawer && this.drawer.classList.contains('drawer--open');
     this.setDrawerFocusEnabled(!!isOpen);
   }

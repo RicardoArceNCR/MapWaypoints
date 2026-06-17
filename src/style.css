@@ -303,7 +303,7 @@ body {
   .phase-btn {
     padding: 8px 8px;
     font-size: 11px;
-    border-radius: 8px;
+    border-radius: 35px;
   }
 }
 
@@ -517,7 +517,7 @@ body.suspects-open .mosca-btn {
   width: 36px;
   height: 36px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: 38px;
   background: transparent;
   color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
@@ -551,7 +551,7 @@ body.suspects-open .mosca-btn {
   margin-top: 4px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  border-radius: 38px;
   color: rgba(255, 255, 255, 0.7);
   font-family: inherit;
   font-size: 0.9rem;
@@ -905,7 +905,7 @@ body.suspects-open .mosca-btn {
   width: 36px;
   height: 36px;
   border: none;
-  border-radius: 8px;
+  border-radius: 38px;
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
   font-size: 24px;
@@ -1068,7 +1068,7 @@ body.suspects-open .mosca-btn {
   padding: 12px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  border-radius: 38px;
   color: rgba(255, 255, 255, 0.7);
   font-family: inherit;
   font-size: 0.88rem;
@@ -1665,13 +1665,13 @@ body.net-slow .drawer {
   flex-shrink: 0;
   pointer-events: auto;
   position: absolute;
-  bottom: -28px;
-  right: 32px;
+  bottom: -42px;
+  right: 210px;
 }
 
 @media (min-width: 900px) {
   .waypoint-info-box__actions {
-    display: flex;
+    display: none;
   }
 }
 
@@ -1706,12 +1706,12 @@ body.net-slow .drawer {
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
-  border-radius: 8px;
+  border-radius: 38px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgb(0 0 0 / 73%);
   color: rgba(255, 255, 255, 0.7);
   font-family: inherit;
-  font-size: 0.78rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   cursor: pointer;
@@ -1801,17 +1801,22 @@ body.net-slow .drawer {
 }
 
 /* Fecha dinámica del hotspot — aparece arriba del título */
-.waypoint-info-box__date {
+/* Wrapper: posiciona la pill debajo del info-box */
+.waypoint-info-box__date-row {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   bottom: -35px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
-  /* Badge */
+.waypoint-info-box__date {
   display: inline-flex;
   align-items: center;
   padding: 3px 12px 3px 10px;
-  border-radius: 99px;
+  border-radius: 99px 0 0 99px;
 
   /* Color: celeste de fase como bg, texto oscuro */
   background: var(--phase-color, #1BC6EB);
@@ -1828,10 +1833,54 @@ body.net-slow .drawer {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
+/* Botón + mobile — mitad derecha de la pill partida */
+.wib-ver-mas-mobile {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  justify-content: center;
+  padding: 3px 12px 3px 6px;
+  border: none;
+  border-radius: 0 99px 99px 0;
+  background: color-mix(in srgb, var(--phase-color, #1BC6EB) 75%, #000 25%);
+  color: #0a121a;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  transition: background 0.2s ease;
+}
+
+.wib-ver-mas-mobile::after {
+  content: 'ver más';
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+  width: 83px;
+  padding: 5px 0px;
+}
+
+.wib-ver-mas-mobile:hover {
+  background: color-mix(in srgb, var(--phase-color, #1BC6EB) 65%, #000 35%);
+}
+
 @media (max-width: 899px) {
-  .waypoint-info-box__date {
+  .waypoint-info-box__date-row {
     bottom: -28px;
+  }
+
+  .waypoint-info-box__date {
     font-size: 12px;
+    border-radius: 99px 0 0 99px;
+  }
+}
+
+@media (min-width: 900px) {
+  .wib-ver-mas-mobile {
+    display: inline-flex;
   }
 }
 
@@ -2700,8 +2749,8 @@ body:has(#story-intro:not([hidden])) .top-bar {
   transition: opacity 0.45s ease, transform 0.45s ease;
 }
 
-/* La fecha tiene translateX(-50%) base — combinar con translateY */
-.waypoint-info-box__date {
+/* El date-row tiene translateX(-50%) base — combinar con translateY */
+.waypoint-info-box__date-row {
   opacity: 0;
   transform: translateX(-50%) translateY(8px);
   transition: opacity 0.45s ease, transform 0.45s ease;
@@ -2715,7 +2764,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   transform: translateY(0);
 }
 
-.waypoint-info-box__date.wib-in {
+.waypoint-info-box__date-row.wib-in {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
@@ -2772,7 +2821,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
     transition: opacity 0.28s ease;
   }
 
-  .waypoint-info-box__date {
+  .waypoint-info-box__date-row {
     opacity: 0;
     transform: translateX(-50%);
     transition: opacity 0.15s ease;

@@ -1374,20 +1374,35 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     // 🗓️ Fecha dinámica — primer hotspot principal del waypoint activo
     const hotspots = state.currentIcons[state.idx] || [];
     const mainHotspot = hotspots.find(h => !h.noPopup && h.datetime?.date);
-    let dateEl = _wib.querySelector('.waypoint-info-box__date');
+    let dateRow = _wib.querySelector('.waypoint-info-box__date-row');
     if (mainHotspot?.datetime) {
       const { date, time } = mainHotspot.datetime;
       const dateStr = [date, time].filter(Boolean).join(' · ');
-      if (!dateEl) {
-        dateEl = document.createElement('p');
+      if (!dateRow) {
+        dateRow = document.createElement('div');
+        dateRow.className = 'waypoint-info-box__date-row';
+        const dateEl = document.createElement('p');
         dateEl.className = 'waypoint-info-box__date';
-        _wib.insertBefore(dateEl, _wib.firstChild);
+        dateRow.appendChild(dateEl);
+        const btnMobile = document.createElement('button');
+        btnMobile.className = 'wib-ver-mas-mobile';
+        btnMobile.textContent = '+';
+        btnMobile.setAttribute('aria-label', 'Ver más');
+        btnMobile.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const hs = state.currentIcons[state.idx] || [];
+          const target = hs.find(h => !h.noPopup) || hs[0];
+          if (target) popupManager?.openPopup(target);
+        });
+        dateRow.appendChild(btnMobile);
+        _wib.insertBefore(dateRow, _wib.firstChild);
       }
+      const dateEl = dateRow.querySelector('.waypoint-info-box__date');
       dateEl.textContent = dateStr;
-      dateEl.classList.remove('wib-in');
-      dateEl.hidden = false;
-    } else if (dateEl) {
-      dateEl.hidden = true;
+      dateRow.classList.remove('wib-in');
+      dateRow.hidden = false;
+    } else if (dateRow) {
+      dateRow.hidden = true;
     }
 
     // Mostrar el contenedor (sin clase visible aún — los hijos entran escalonados)
@@ -1412,7 +1427,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     const staggerMap = [
       { el: _wibTitle, delay: BASE_DELAY },
       { el: _wibDesc, delay: BASE_DELAY + 500 },
-      { el: dateEl, delay: BASE_DELAY + 1000 },
+      { el: dateRow, delay: BASE_DELAY + 1000 },
       { el: _wibBody, delay: BASE_DELAY + 1500 },
     ];
 
