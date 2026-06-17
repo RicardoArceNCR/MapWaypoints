@@ -1388,13 +1388,15 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         btnMobile.className = 'wib-ver-mas-mobile';
         btnMobile.textContent = '+';
         btnMobile.setAttribute('aria-label', 'Ver más');
-        btnMobile.addEventListener('click', (e) => {
+        btnMobile.setAttribute('tabindex', '-1');
+        dateRow.appendChild(btnMobile);
+        dateRow.style.cursor = 'pointer';
+        dateRow.addEventListener('click', (e) => {
           e.stopPropagation();
           const hs = state.currentIcons[state.idx] || [];
           const target = hs.find(h => !h.noPopup) || hs[0];
           if (target) popupManager?.openPopup(target);
         });
-        dateRow.appendChild(btnMobile);
         _wib.insertBefore(dateRow, _wib.firstChild);
       }
       const dateEl = dateRow.querySelector('.waypoint-info-box__date');
