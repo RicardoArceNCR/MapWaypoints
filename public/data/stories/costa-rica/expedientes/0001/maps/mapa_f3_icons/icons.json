@@ -307,7 +307,7 @@
       "noPopup": true,
       "caption": "TODO — Imagen: Danilo José Chaves Medina.",
       "title": "",
-      "image": "/assets/danilo-jose-chavez-medina.webp",
+      "image": "/assets/vacio.png",
       "mobile": {
         "offsetX": -71,
         "offsetY": -105,
@@ -649,7 +649,7 @@
       "noPopup": true,
       "caption": "TODO — Imagen: Luis Fernando Carvajal Fernández.",
       "title": "",
-      "image": "/assets/luis-fernando-carvajal-fernandez.webp",
+      "image": "/assets/vacio.png",
       "mobile": {
         "offsetX": -16,
         "offsetY": -219,
@@ -1165,7 +1165,7 @@
       "noPopup": true,
       "caption": "TODO — Imagen: Stephanie María Chacón Guillén.",
       "title": "",
-      "image": "/assets/stephanie-maria-chacon-guillen.webp",
+      "image": "/assets/vacio.png",
       "mobile": {
         "offsetX": 40,
         "offsetY": -187,
@@ -1279,7 +1279,7 @@
       "noPopup": true,
       "caption": "TODO — Imagen: Bryan Steven Robles Salas.",
       "title": "",
-      "image": "/assets/bryan-steven-robles-salas.webp",
+      "image": "/assets/vacio.png",
       "mobile": {
         "offsetX": -14,
         "offsetY": -187,
