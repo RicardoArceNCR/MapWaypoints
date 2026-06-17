@@ -519,7 +519,7 @@ let memoryMonitor = new MemoryMonitor();
       methImage: BRIEF_SCENES[1].img,
       methCaption: BRIEF_SCENES[1].caption,
       methodology: {
-        tabLabel: 'Línea de Tiempo de las Pesquisas de la OIJ (Posterior al Crimen)',
+        tabLabel: 'Post Crimen',
         html: `
           <h3>Línea de Tiempo de las Pesquisas de la OIJJJ</h3>
 
