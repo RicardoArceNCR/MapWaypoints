@@ -511,6 +511,7 @@ let memoryMonitor = new MemoryMonitor();
   function getClosingBriefData() {
     return {
       heading: 'POST CRIMEN | Pesquisas, capturas y apertura de juicio',
+      backLabel: 'Línea de tiempo',
       html: CLOSING_BRIEF_HTML,
       skipTypewriter: true,
       image: BRIEF_SCENES[0].img,
@@ -847,7 +848,7 @@ let memoryMonitor = new MemoryMonitor();
     });
   }
 
-  function showBrief({ heading, text, html, methodology, skipTypewriter = false, image, imageCaption, scenes, methImage, methCaption } = {}) {
+  function showBrief({ heading, text, html, methodology, skipTypewriter = false, image, imageCaption, scenes, methImage, methCaption, backLabel } = {}) {
     const el = document.getElementById('story-brief');
     const elTitle = document.getElementById('story-brief-title');
     const elBody = document.getElementById('story-brief-body');
@@ -881,7 +882,7 @@ let memoryMonitor = new MemoryMonitor();
     }
 
     const mainContent = { text, html };
-    const mainLabel = heading || 'Sobre esta reconstrucción';
+    const mainLabel = backLabel || heading || 'Sobre esta reconstrucción';
 
     // ── Crossfade helper para cambiar imagen del panel izquierdo ──
     function _switchImage(newSrc, newCaption) {
