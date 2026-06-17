@@ -136,15 +136,19 @@ export class UIManager {
   }
 
   // ========= DRAWER/MENU =========
-  updateDrawer(waypoints) {
-    this.drawerList.innerHTML = waypoints.map((wp, i) => `
+  updateDrawer(waypoints, icons = {}) {
+    this.drawerList.innerHTML = waypoints.map((wp, i) => {
+      const wpIcons = icons[`wp${i}`] || [];
+      const typeA = wpIcons.find(item => !item.noPopup);
+      const label = wp.label || typeA?.title || ('Punto ' + (i + 1));
+      return `
       <li>
         <button type="button" data-index="${i}">
-          <span>${i + 1}. ${wp.label || ('Punto ' + (i + 1))}</span>
+          <span>${i + 1}. ${label}</span>
           <small>${wp.speaker || ''}</small>
         </button>
-      </li>
-    `).join('');
+      </li>`;
+    }).join('');
 
     // Event listeners
     this.drawerList.querySelectorAll('button').forEach(btn => {

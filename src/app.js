@@ -1054,7 +1054,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       }
 
       uiManager.updateProgress(state.currentWaypoints.length, 0);
-      uiManager.updateDrawer(state.currentWaypoints);
+      uiManager.updateDrawer(state.currentWaypoints, state.currentIcons);
       const phaseColor = mapManager.getCurrentPhaseColor();
       const phaseColorRgb = mapManager.getCurrentPhaseColorRgb();
       uiManager.updateThemeColor(phaseColor, phaseColorRgb);
