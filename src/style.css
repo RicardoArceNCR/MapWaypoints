@@ -1886,6 +1886,35 @@ body:has(#story-intro:not([hidden])) .top-bar {
   z-index: 1;
 }
 
+/* ---- Imágenes de layout mobile (solo ≤520px) ---- */
+.story-intro__img-top {
+  display: none;
+}
+
+.story-intro__img-bottom {
+  display: none;
+}
+
+@media (max-width: 520px) {
+  .story-intro__img-top {
+    display: block;
+    width: 200px;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 0 auto 4px;
+    flex-shrink: 0;
+  }
+
+  .story-intro__img-bottom {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+}
+
 .story-intro.is-hiding {
   opacity: 0;
   pointer-events: none;

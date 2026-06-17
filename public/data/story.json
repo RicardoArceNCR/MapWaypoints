@@ -9,7 +9,9 @@
     "credits": "Wilfredo Miranda Aburto y Ricardo Arce Aburto",
     "date": "19 de junio de 2026",
     "bgDesktop": "/assets/portada-dsktB.webp",
-    "bgMobile": "/assets/portada-movi-bl.webp"
+    "bgMobile": "/assets/portada-movil-A-.webp",
+    "imgTop": "/assets/portada-movi-Cl.webp",
+    "imgBottom": "/assets/portada-movil-B.webp"
   },
   "phases": [
     {
