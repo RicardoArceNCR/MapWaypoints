@@ -1854,7 +1854,7 @@ body.net-slow .drawer {
 
 .wib-ver-mas-mobile::after {
   content: 'ver más';
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -2030,8 +2030,8 @@ body:has(#story-intro:not([hidden])) .top-bar {
 @media (max-width: 520px) {
   .story-intro__img-top {
     display: block;
-    width: 200px;
-    height: 230px;
+    width: 184px;
+    height: 212px;
     object-fit: cover;
     border-radius: 8px;
     margin: 0 auto 4px;
@@ -2173,10 +2173,10 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
   .story-intro__content {
     padding: 16px 0;
-    gap: 16px;
+    gap: 11px;
     flex: 1 0 auto;
     width: 100%;
-    margin-top: -35px;
+    margin-top: -45px;
   }
 
   .story-intro__share {
