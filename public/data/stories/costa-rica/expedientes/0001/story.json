@@ -7,7 +7,9 @@
     "title": "ASÍ ASESINARON A\nROBERTO SAMCAM:",
     "subtitle": "UN CRIMEN EN TRES FASES, VIGILANCIA PREVIA Y UNA FUERTE MOTIVACIÓN POLÍTICA",
     "credits": "Wilfredo Miranda Aburto y Ricardo Arce Aburto",
-    "date": "19 de junio de 2026"
+    "date": "19 de junio de 2026",
+    "bgDesktop": "/assets/portada-dsktB.webp",
+    "bgMobile": "/assets/portada-movi-bl.webp"
   },
   "brief": {
     "heading": "Sobre esta reconstrucción",

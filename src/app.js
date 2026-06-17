@@ -550,7 +550,7 @@ let memoryMonitor = new MemoryMonitor();
   }, { passive: true });
 
   // ── helpers intro ──────────────────────────────
-  function showIntro({ title, subtitle, credits, date }) {
+  function showIntro({ title, subtitle, credits, date, bgDesktop, bgMobile }) {
     const el = document.getElementById('story-intro');
     const elTitle = document.getElementById('intro-title');
     const elSub = document.getElementById('intro-subtitle');
@@ -562,6 +562,14 @@ let memoryMonitor = new MemoryMonitor();
     const elCopy = document.querySelector('.story-intro__copyright');
     const elShare = document.querySelector('.story-intro__share');
     if (!el) return;
+
+    // Background image: elegir según ancho de pantalla
+    const bgUrl = window.matchMedia('(max-width: 899px)').matches
+      ? bgMobile
+      : bgDesktop;
+    if (bgUrl) {
+      el.style.backgroundImage = `url(${bgUrl})`;
+    }
 
     // Reset clases por si se reutiliza
     [elSub, elBtn, elLogo, elCopy, elShare].forEach(el =>
