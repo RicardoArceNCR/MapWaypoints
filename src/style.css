@@ -2037,9 +2037,10 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
   .story-intro__content {
     padding: 16px 0;
-    gap: 20px;
+    gap: 16px;
     flex: 1 0 auto;
     width: 100%;
+    margin-top: -35px;
   }
 
   .story-intro__share {
@@ -2058,7 +2059,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   margin: 0;
   font-size: clamp(1rem, 2.5vw, 1.2rem);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgb(255 255 255 / 69%);
   line-height: 1.6;
   max-width: 480px;
 }
@@ -2083,9 +2084,10 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
 .story-intro__credits-date {
   display: block;
-  font-size: clamp(0.75rem, 1.8vw, 0.99rem);
+  font-size: clamp(0.95rem, 1.8vw, 0.99rem);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.35);
+  padding-top: 12px;
 }
 
 /* --- Botón con haz de luz giratorio --- */
