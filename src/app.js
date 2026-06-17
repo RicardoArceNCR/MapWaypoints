@@ -569,7 +569,15 @@ let memoryMonitor = new MemoryMonitor();
     const isMobile = window.matchMedia('(max-width: 520px)').matches;
     const bgUrl = (isMobile && bgMobile) ? bgMobile : bgDesktop;
     if (bgUrl) {
-      el.style.backgroundImage = `url('${bgUrl}')`;
+      if (isMobile) {
+        // En mobile, el vignette va como primera capa del background
+        // (no usa ::before, que falla con flex + overflow)
+        el.style.background =
+          "radial-gradient(ellipse at 50% 30%, rgba(0,0,0,0.0) 20%, rgba(0,0,0,0.75) 100%), " +
+          `url('${bgUrl}') center/cover no-repeat #000`;
+      } else {
+        el.style.backgroundImage = `url('${bgUrl}')`;
+      }
     }
 
     // Imágenes de layout mobile: solo en pantallas ≤520px
