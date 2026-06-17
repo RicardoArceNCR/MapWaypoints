@@ -511,62 +511,38 @@ let memoryMonitor = new MemoryMonitor();
   function getClosingBriefData() {
     return {
       heading: 'POST CRIMEN | Pesquisas, capturas y apertura de juicio',
-      backLabel: 'Línea de tiempo',
       html: CLOSING_BRIEF_HTML,
       skipTypewriter: true,
       image: BRIEF_SCENES[0].img,
       imageCaption: BRIEF_SCENES[0].caption,
       scenes: BRIEF_SCENES,
-      methImage: BRIEF_SCENES[1].img,
-      methCaption: BRIEF_SCENES[1].caption,
       methodology: {
-        tabLabel: 'Post Crimen',
+        tabLabel: 'Línea de Tiempo de Pesquisas',
         html: `
-          <h3>Línea de Tiempo de las Pesquisas de la OIJJJ</h3>
-
+          <h3>Línea de Tiempo de las Pesquisas de la OIJ (Posterior al Crimen)</h3>
           <p>Las pesquisas del Organismo de Investigación Judicial (OIJ) comenzaron el 19 de junio de 2025, el mismo día del homicidio, con la recolección de incidentes del Sistema 9-1-1, que registraron llamadas reportando entre 7 y 10 disparos en el Condominio Naples de Moravia.</p>
-
           <p>Paralelamente, el OIJ inició un amplio rastreo de cámaras de video para reconstruir la dinámica y la ruta de huida de los agresores, ya que en el sitio exacto del suceso no había dispositivos de grabación. Un elemento crucial fue la información confidencial recibida a través de la línea 800-8000-645, que identificó el vehículo utilizado por los responsables como un Renault Duster blanco, placa BKK-190. Otra fuente confidencial, que se presentó a la Sección de Homicidios por temor a represalias, aportó nombres específicos de los implicados, incluyendo a "Dani Chaves" (un peluquero de León XIII) como coordinador logístico, "Bryan Robles", y un "Luis" (el sicario) que utilizaba el número 62329434. Esta información también reveló que los sospechosos se reunieron la noche anterior (18/06/2025) en la Gasolinera Delta para "afinar detalles de la planificación", revisar los vehículos y el arma.</p>
-
           <p>El análisis de video permitió a la OIJ rastrear la ruta de escape del Renault Duster BKK190. Se documentó que este vehículo huyó a gran velocidad hacia Coronado, donde finalmente fue abandonado en una calle sin salida cerca de "Casa Kuakua". Las cámaras de seguridad captaron entonces la llegada de un vehículo de rescate: un Hyundai Accent color celeste, placa 903056, con características distintivas (puerta blanca, aros diferentes). El vehículo Hyundai recogió a los ejecutores en el punto de abandono del Duster. Horas después, el 30 de junio de 2025, investigadores del OIJ localizaron y abordaron al conductor del Hyundai en León XIII, identificándolo como Luis Ricardo Orozco González, un taxista informal. Orozco González, quien fue informado de sus derechos, confesó que fue contactado para recoger a dos sujetos en Coronado y trasladarlos a León XIII, un "viaje raro" por el cual fue pagado mediante SINPE MÓVIL.</p>
-
           <p>La pieza más decisiva de la investigación provino del análisis forense del teléfono celular decomisado a Luis Ricardo Orozco González. Este análisis confirmó la coordinación entre la estructura:</p>
-
-          <ul>
-            <li><strong>La orden de rescate:</strong> A las 08:10:13 horas del día del crimen, Danilo José Chaves Medina ("Danny Peluqueris") llamó a Orozco para coordinar su traslado a Coronado y que recogiera a los ejecutores.</li>
-            <li><strong>La urgencia del escape:</strong> Conversaciones de WhatsApp entre Orozco y Bryan Steven Robles Salas ("Bryan R") revelaron la extrema urgencia de la huida. </li>
-            <li><strong>El sicario confirmado:</strong> Otro número, el 62329434, contactó a Orozco, indicando que andaba con Bryan Robles y que el celular de este último se había quedado sin batería. Este número fue acreditado a Luis Fernando Carvajal Fernández, el gatillero.</li>
-          </ul>
-
+          <p>La orden de rescate: A las 08:10:13 horas del día del crimen, Danilo José Chaves Medina ("Danny Peluqueris") llamó a Orozco para coordinar su traslado a Coronado y que recogiera a los ejecutores.</p>
+          <p>La urgencia del escape: Conversaciones de WhatsApp entre Orozco y Bryan Steven Robles Salas ("Bryan R") revelaron la extrema urgencia de la huida.</p>
+          <p>El sicario confirmado: Otro número, el 62329434, contactó a Orozco, indicando que andaba con Bryan Robles y que el celular de este último se había quedado sin batería. Este número fue acreditado a Luis Fernando Carvajal Fernández, el gatillero.</p>
           <p>El levantamiento del secreto bancario de Luis Ricardo Orozco González fue fundamental para establecer la remuneración por el crimen. Se documentó que, el mismo día del homicidio, Stephanie María Chacón Guillen (madre de una hija de Danilo José Chaves Medina) realizó dos depósitos vía SINPE MÓVIL a la cuenta de Orozco por un total de ¢50.000,00, con los detalles "Viaje" y "Gasolina". Los investigadores concluyeron que este pago, significativamente más alto que el costo normal del traslado, era la retribución por el riesgo y la colaboración en el escape de los sicarios.</p>
-
           <p>Finalmente, el interés de los sospechosos en el resultado de su acción se confirmó en un mensaje posterior de Orozco a Robles Salas preguntando "¿Como le fue?", a lo que Robles respondió positivamente, cuestionando: "Viste las noticia".</p>
-          
           <p>La convergencia de todos estos indicios (videos, testimonios, análisis telefónico, rastreo de radiobases y registros bancarios) permitió al OIJ establecer el pleno conocimiento y la participación activa de Danilo José Chaves Medina, Bryan Steven Robles Salas, Luis Fernando Carvajal Fernández y Luis Ricardo Orozco González en la planificación, ejecución y soporte logístico del asesinato, culminando con la solicitud de allanamiento y detención de estos y de Stephanie María Chacón Guillén.</p>
-          
           <h4>Los allanamientos</h4>
-
           <p>La historia posterior al crimen, que involucra las pesquisas finales y la ejecución de las órdenes judiciales, marca la culminación de la investigación de la fase de ejecución por parte del OIJ.</p>
-          
           <p>Aunque el informe del OIJ con fecha 28 de agosto de 2025 había solicitado las órdenes de allanamiento para el 10 de septiembre de 2025, la acción operativa se concretó los días 11 y 12 de septiembre de 2025. Agentes del OIJ, junto con su director Randall Zúñiga y el fiscal general Carlo Díaz, ejecutaron dos allanamientos en León XIII (Cantón de Tibás, San José) y un tercero en Cañas, Guanacaste. Estas diligencias resultaron en la captura de cuatro de los cinco sospechosos vinculados directamente al asesinato de Roberto Samcam.</p>
-          
-          <h4>Los sospechosos detenidos fueron:</h4>
-
-          <ul>
-            <li>Chaves Medina (Danilo José Chaves Medina): De 35 años, fue detenido el 11 de septiembre de 2025 en Cañas, Guanacaste. Fue identificado como el intermediario clave entre los autores intelectuales y los autores materiales del homicidio. El OIJ señaló que Chaves Medina (alias "Danny Peluqueris") estuvo en la escena, compartió la motocicleta con el sicario, y fue quien coordinó el rescate de los ejecutores llamando a Orozco González. Al momento de su captura, se reportó que tenía en su poder cuatro millones de colones en efectivo.</li>
-            <li>Robles Salas (Bryan Steven Robles Salas): De 23 años, fue detenido en León XIII. Se presume que fue uno de los transportistas involucrados, específicamente el conductor del vehículo Renault Duster (placa BKK190) durante la ejecución y la huida, quien además envió mensajes desesperados a Orozco para ser rescatado ("Corra playo xfavor", "Sáqueme de aquí").</li>
-            <li>Orozco González (Luis Ricardo Orozco González): De 33 años, fue detenido en una vía pública. Es el transportista informal que condujo el vehículo Hyundai celeste, y cuya apertura telefónica y bancaria fue clave para documentar el pago y la urgencia de la huida de los sicarios.</li>
-            <li>Chacón Guillén (Stephanie María Chacón Guillén): De 30 años, fue detenida en una vía pública. Identificada como la pareja sentimental (madre de una hija) de Chaves Medina, quien presuntamente realizó los depósitos de ¢50.000,00 a Orozco González por el "Viaje" y la "Gasolina" para el traslado de los sicarios. El Ministerio Público detalló que, a diferencia de los otros tres, ella enfrentaría el proceso penal en libertad mientras se recopilan más indicios. Tras las detenciones, Chaves Medina, Robles Salas y Orozco González fueron puestos en prisión preventiva por un periodo de seis meses.</li>
-          </ul>
-
+          <p>Los sospechosos detenidos fueron:</p>
+          <p>1. Chaves Medina (Danilo José Chaves Medina): De 35 años, fue detenido el 11 de septiembre de 2025 en Cañas, Guanacaste. Fue identificado como el intermediario clave entre los autores intelectuales y los autores materiales del homicidio. El OIJ señaló que Chaves Medina (alias "Danny Peluqueris") estuvo en la escena, compartió la motocicleta con el sicario, y fue quien coordinó el rescate de los ejecutores llamando a Orozco González. Al momento de su captura, se reportó que tenía en su poder cuatro millones de colones en efectivo.</p>
+          <p>2. Robles Salas (Bryan Steven Robles Salas): De 23 años, fue detenido en León XIII. Se presume que fue uno de los transportistas involucrados, específicamente el conductor del vehículo Renault Duster (placa BKK190) durante la ejecución y la huida, quien además envió mensajes desesperados a Orozco para ser rescatado ("Corra playo xfavor", "Sáqueme de aquí").</p>
+          <p>3. Orozco González (Luis Ricardo Orozco González): De 33 años, fue detenido en una vía pública. Es el transportista informal que condujo el vehículo Hyundai celeste, y cuya apertura telefónica y bancaria fue clave para documentar el pago y la urgencia de la huida de los sicarios.</p>
+          <p>4. Chacón Guillén (Stephanie María Chacón Guillén): De 30 años, fue detenida en una vía pública. Identificada como la pareja sentimental (madre de una hija) de Chaves Medina, quien presuntamente realizó los depósitos de ¢50.000,00 a Orozco González por el "Viaje" y la "Gasolina" para el traslado de los sicarios. El Ministerio Público detalló que, a diferencia de los otros tres, ella enfrentaría el proceso penal en libertad mientras se recopilan más indicios.</p>
+          <p>Tras las detenciones, Chaves Medina, Robles Salas y Orozco González fueron puestos en prisión preventiva por un periodo de seis meses.</p>
           <p>El principal sospechoso material del crimen, el gatillero, no fue capturado en estos allanamientos y se mantiene prófugo: Carvajal Fernández (Luis Fernando Carvajal Fernández), De 20 años de edad, es el sujeto que, según el OIJ, fue quien ingresó al condominio, llamó al ofendido por su nombre y le disparó al menos ocho veces. Se siguen realizando diligencias para su detención. La investigación previa ya lo había identificado como el usuario del número que activó la radio base "Valla Moravia" justo antes del ataque.</p>
-          
           <p>Además de los ejecutores directos, la investigación puso nombre al presunto autor intelectual o "cerebro" del homicidio: Pablo Antonio Robles Murillo. Es señalado como el presunto "cerebro" del asesinato. Es un sujeto nicaragüense naturalizado costarricense, que ha mantenido vínculos con "la plana mayor del Ejército" de Nicaragua. Información confidencial sugirió que Robles Murillo estuvo en Rusia entrenando en labores de inteligencia, asesinato y sabotaje.</p>
-
           <p>Robles Murillo registró numerosos movimientos migratorios entre Costa Rica y Nicaragua, y salió del país hacia Nicaragua el 10 de mayo de 2025 (antes del crimen) y regresó el 23 de julio. Su último viaje documentado fue a Nicaragua el 7 de agosto de 2025, y desde entonces no ha retornado por un puesto fronterizo oficial. Por el momento, no está formalmente imputado en el caso.</p>
-
           <p>Durante los allanamientos, el Fiscal General Carlo Díaz destacó la rapidez con la que avanzó el caso y enfáticamente sostuvo que la principal línea de investigación apunta a que el crimen fue "una orden aparentemente del Ejército nicaragüense". La investigación se mantiene abierta con el objetivo de identificar plenamente a los autores intelectuales del asesinato.</p>
-
           <p>El expediente judicial también documentó que el asesinato fue particularmente violento, impactando a Samcam en, al menos, ocho ocasiones. La falta de vigilancia en el condominio (solo con una aguja que "estaba arriba") fue aprovechada por los sicarios para ingresar hasta la puerta de su apartamento en un segundo piso.</p>
         `
       }
@@ -848,7 +824,7 @@ let memoryMonitor = new MemoryMonitor();
     });
   }
 
-  function showBrief({ heading, text, html, methodology, skipTypewriter = false, image, imageCaption, scenes, methImage, methCaption, backLabel } = {}) {
+  function showBrief({ heading, text, html, methodology, skipTypewriter = false, image, imageCaption, scenes } = {}) {
     const el = document.getElementById('story-brief');
     const elTitle = document.getElementById('story-brief-title');
     const elBody = document.getElementById('story-brief-body');
@@ -882,7 +858,7 @@ let memoryMonitor = new MemoryMonitor();
     }
 
     const mainContent = { text, html };
-    const mainLabel = backLabel || heading || 'Sobre esta reconstrucción';
+    const mainLabel = heading || 'Sobre esta reconstrucción';
 
     // ── Crossfade helper para cambiar imagen del panel izquierdo ──
     function _switchImage(newSrc, newCaption) {
@@ -907,9 +883,9 @@ let memoryMonitor = new MemoryMonitor();
       scenes.forEach(s => { const i = new Image(); i.src = s.img; });
     }
 
-    // Imagen para la pestaña de metodología: param explícito o primera de scenes o imagen principal
-    const briefMethImage = methImage || ((scenes && scenes.length) ? scenes[0].img : image);
-    const briefMethCaption = methCaption || ((scenes && scenes.length) ? scenes[0].caption : (imageCaption || ''));
+    // Imagen para la pestaña de metodología: primera de scenes o la imagen principal
+    const methImage = (scenes && scenes.length) ? scenes[0].img : image;
+    const methCaption = (scenes && scenes.length) ? scenes[0].caption : (imageCaption || '');
 
     // Botón "Nota metodológica" — toggle in-place, sin abrir otro modal.
     if (methBtn) {
@@ -926,8 +902,8 @@ let memoryMonitor = new MemoryMonitor();
           _renderBriefContent(elBody, showingMethodology ? methodology : mainContent);
           methBtn.textContent = showingMethodology ? `← ${mainLabel}` : methLabel;
           // Cambiar imagen según la pestaña activa
-          if (showingMethodology && briefMethImage) {
-            _switchImage(briefMethImage, briefMethCaption);
+          if (showingMethodology && methImage) {
+            _switchImage(methImage, methCaption);
           } else if (!showingMethodology && image) {
             _switchImage(image, imageCaption || '');
           }
@@ -961,6 +937,7 @@ let memoryMonitor = new MemoryMonitor();
         document.removeEventListener('keydown', onKey);
         document.body.classList.remove('brief-open');
         el.classList.add('is-hiding');
+        // Disconnect scroll-scene observer
         if (el._sceneObserver) { el._sceneObserver.disconnect(); el._sceneObserver = null; }
       }
 
@@ -2967,11 +2944,86 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   const suspectsClose = suspectsPopup?.querySelector('.suspects-popup__close');
   const suspectsBackdrop = document.querySelector('.suspects-backdrop');
 
+  let _suspectsTimelineBuilt = false;
+
+  function _buildSuspectTimelines() {
+    if (!mapManager._personasEchos) return;
+
+    const PHASE_LABELS = {
+      mapa_f1: 'Fase 1 — Vigilancia',
+      mapa_f2: 'Fase 2 — Ejecución',
+      mapa_f3: 'Fase 3 — Huida',
+    };
+
+    suspectsPopup?.querySelectorAll('.suspect-card[data-persona-id]').forEach(card => {
+      const personaId = card.dataset.personaId;
+      const echos = mapManager._personasEchos[personaId];
+      if (!echos || !Object.keys(echos).length) return;
+
+      // Botón toggle
+      const toggle = document.createElement('div');
+      toggle.className = 'suspect-card__toggle';
+      toggle.innerHTML = '<em class="suspect-card__toggle-icon">▾</em> Ver línea de tiempo';
+      card.appendChild(toggle);
+
+      // Contenedor timeline
+      const timeline = document.createElement('div');
+      timeline.className = 'suspect-card__timeline';
+
+      // Ordenar echos por fase y waypoint
+      const sorted = Object.entries(echos).sort(([a], [b]) => {
+        const [mapaA, wpA] = a.split(':');
+        const [mapaB, wpB] = b.split(':');
+        if (mapaA !== mapaB) return mapaA.localeCompare(mapaB);
+        return parseInt(wpA) - parseInt(wpB);
+      });
+
+      let lastMapa = null;
+      sorted.forEach(([key, echoList]) => {
+        const [mapa] = key.split(':');
+        echoList.forEach(echo => {
+          const item = document.createElement('div');
+          item.className = 'suspect-card__tl-item';
+
+          const phaseLabel = mapa !== lastMapa
+            ? `<div class="suspect-card__tl-phase">${PHASE_LABELS[mapa] || mapa}</div>`
+            : '';
+          lastMapa = mapa;
+
+          const date = echo.datetime?.date || '';
+          const time = echo.datetime?.time || '';
+          const datetime = [date, time].filter(Boolean).join(' · ');
+
+          item.innerHTML = `
+            ${phaseLabel}
+            ${datetime ? `<div class="suspect-card__tl-datetime">${datetime}</div>` : ''}
+            <p class="suspect-card__tl-desc">${echo.description || ''}</p>
+          `;
+          timeline.appendChild(item);
+        });
+      });
+
+      card.appendChild(timeline);
+
+      // Click en toda la card expande/colapsa
+      card.addEventListener('click', () => {
+        card.classList.toggle('is-expanded');
+        toggle.innerHTML = card.classList.contains('is-expanded')
+          ? '<em class="suspect-card__toggle-icon">▾</em> Ocultar línea de tiempo'
+          : '<em class="suspect-card__toggle-icon">▾</em> Ver línea de tiempo';
+      });
+    });
+  }
+
   function openSuspects() {
     suspectsPopup.classList.add('is-open');
     suspectsBackdrop.hidden = false;
     document.body.classList.add('suspects-open');
     suspectsClose?.focus();
+    if (!_suspectsTimelineBuilt) {
+      _suspectsTimelineBuilt = true;
+      _buildSuspectTimelines();
+    }
   }
 
   function closeSuspects() {
