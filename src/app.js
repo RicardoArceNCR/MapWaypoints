@@ -437,14 +437,74 @@ let memoryMonitor = new MemoryMonitor();
   const uiControls = document.querySelector('.ui');
 
   // ── Brief de cierre (última fase, último waypoint) ──────────────────
+  // Escenas del brief de cierre — cada una con su imagen, caption y label
+  const BRIEF_SCENES = [
+    {
+      img: '/assets/banner-2.webp',
+      caption: 'Vehículo de escape, Renault Duster blanco, abandonado en Coronado (Imagen ilustrativa)',
+      label: '19 jun 2025 — Rastreo inicial',
+    },
+    {
+      img: '/assets/burned-duster.webp',
+      caption: 'El análisis forense del celular de Orozco González fue la pieza clave de la investigación',
+      label: '30 jun 2025 — El taxista y su celular',
+    },
+    {
+      img: '/assets/banner-2.webp',
+      caption: 'Operativos de allanamiento en León XIII y Cañas, Guanacaste, septiembre 2025',
+      label: '11-12 sep 2025 — Los allanamientos',
+    },
+    {
+      img: '/assets/burned-duster.webp',
+      caption: 'Fiscal General Carlos Díaz señaló al Ejército nicaragüense como presunto ordenante',
+      label: 'Sep 2025 — La declaración del Fiscal',
+    },
+    {
+      img: '/assets/burned-duster.webp',
+      caption: 'El gatillero fue capturado el 10 de febrero de 2026 en San Isidro de Heredia',
+      label: 'Feb 2026 — Captura del gatillero',
+    },
+    {
+      img: '/assets/burned-duster.webp',
+      caption: 'Keny Hosman Navarrete Vallecillo, alias "Chatel", coordinó el contacto desde su celda',
+      label: 'Mar 2026 — Chatel, el eslabón',
+    },
+    {
+      img: '/assets/burned-duster.webp',
+      caption: 'La Fiscalía presentó la acusación formal el 10 de junio de 2026',
+      label: '10 jun 2026 — Acusación formal',
+    },
+  ];
+
   const CLOSING_BRIEF_HTML = `
-    <p>El OIJ inició las investigaciones el mismo día del homicidio. En el sitio exacto del crimen no había cámaras, pero los investigadores comenzaron un rastreo sistemático de dispositivos de video en los alrededores para reconstruir la ruta de huida. Paralelamente, la línea confidencial 800-8000-645 recibió una llamada que identificó el vehículo clave: un Renault Duster blanco, placa BKK-190. Otra fuente, que se presentó directamente a la Sección de Homicidios por temor a represalias, aportó nombres: "Dani Chaves", un peluquero de León XIII; "Bryan Robles"; y un "Luis" con el número 62329434. También reveló que la noche anterior los sospechosos se habían reunido en una gasolinera para "afinar detalles", revisar los vehículos y el arma.</p>
-    <p>El 30 de junio, once días después del crimen, investigadores del OIJ localizaron en León XIII a Luis Ricardo Orozco González, el taxista informal que había recogido a los ejecutores en Coronado. Orozco confesó el viaje. Su celular se convirtió en la pieza más decisiva de la investigación: registraba la llamada de coordinación de Danilo Chaves, los mensajes desesperados de Bryan Robles pidiendo ser rescatado, y los depósitos de 50.000 colones que Stephanie Chacón había hecho esa misma mañana como pago por el traslado.</p>
-    <p>Con ese rompecabezas técnico y financiero armado, el OIJ solicitó las órdenes de allanamiento el 28 de agosto de 2025. Los operativos se ejecutaron el 11 y 12 de septiembre. El director del OIJ, Randall Zúñiga, y el Fiscal General Carlos Díaz encabezaron personalmente los allanamientos en León XIII y Cañas, Guanacaste. Fueron detenidos Danilo José Chaves Medina, Bryan Steven Robles Salas, Luis Ricardo Orozco González y Stephanie María Chacón Guillén. El gatillero, Luis Fernando Carvajal Fernández, seguía prófugo.</p>
-    <p>Ese mismo día, Díaz fue contundente: "Una de las líneas de investigación apunta a que esto fue una orden aparentemente del Ejército nicaragüense. No nos vamos a conformar con detener a quienes realizaron la ejecución; vamos a llegar hasta las últimas consecuencias". El expediente judicial, según reveló el diario La Nación, mencionaba a la DICIM y el G2, organismos de inteligencia del régimen de Ortega y Murillo, como presuntos planificadores del crimen.</p>
-    <p>Semanas después, la jueza dejó en libertad a Chacón Guillén mientras se recopilaban más indicios. Los otros tres permanecieron en prisión preventiva. El gatillero fue capturado el 10 de febrero de 2026 por la Policía Municipal de San Isidro de Heredia.</p>
-    <p>En marzo de 2026, el expediente incorporó una figura que completó la cadena: Keny Hosman Navarrete Vallecillo, alias "Chatel", nicaragüense de 38 años originario de Diriamba que cumple condena desde 2016 en "La Reforma", la cárcel de Alajuela. Los investigadores documentaron un alto volumen de llamadas entre su celda y los ejecutores en fechas previas y posteriores al crimen. Chatel era el eslabón: el hombre que desde su celda coordinó el contacto entre quienes ordenaron el asesinato y la célula sicarial de León XIII.</p>
-    <p>El 10 de junio de 2026, casi un año exacto después del asesinato, la Fiscalía presentó la acusación formal ante el Juzgado Penal. La familia fue notificada y recibió un plazo para presentar la querella. Para Claudia Vargas, viuda de Samcam, el paso era importante pero insuficiente. "En un año, un caso complejo, con múltiples personas investigadas y una dimensión transnacional, avanza hacia una nueva etapa: el juicio contra los ejecutores materiales", escribió. Y agregó: "Aún queda mucho camino por recorrer. La justicia debe alcanzar no solo a quienes ejecutaron el crimen, sino también a quienes lo planificaron y ordenaron".</p>
+    <div class="brief-scene" data-scene="0">
+      <div class="brief-scene__label">19 jun 2025 — Rastreo inicial</div>
+      <p>El OIJ inició las investigaciones el mismo día del homicidio. En el sitio exacto del crimen no había cámaras, pero los investigadores comenzaron un rastreo sistemático de dispositivos de video en los alrededores para reconstruir la ruta de huida. Paralelamente, la línea confidencial 800-8000-645 recibió una llamada que identificó el vehículo clave: un Renault Duster blanco, placa BKK-190. Otra fuente, que se presentó directamente a la Sección de Homicidios por temor a represalias, aportó nombres: "Dani Chaves", un peluquero de León XIII; "Bryan Robles"; y un "Luis" con el número 62329434. También reveló que la noche anterior los sospechosos se habían reunido en una gasolinera para "afinar detalles", revisar los vehículos y el arma.</p>
+    </div>
+    <div class="brief-scene" data-scene="1">
+      <div class="brief-scene__label">30 jun 2025 — El taxista y su celular</div>
+      <p>El 30 de junio, once días después del crimen, investigadores del OIJ localizaron en León XIII a Luis Ricardo Orozco González, el taxista informal que había recogido a los ejecutores en Coronado. Orozco confesó el viaje. Su celular se convirtió en la pieza más decisiva de la investigación: registraba la llamada de coordinación de Danilo Chaves, los mensajes desesperados de Bryan Robles pidiendo ser rescatado, y los depósitos de 50.000 colones que Stephanie Chacón había hecho esa misma mañana como pago por el traslado.</p>
+    </div>
+    <div class="brief-scene" data-scene="2">
+      <div class="brief-scene__label">11–12 sep 2025 — Los allanamientos</div>
+      <p>Con ese rompecabezas técnico y financiero armado, el OIJ solicitó las órdenes de allanamiento el 28 de agosto de 2025. Los operativos se ejecutaron el 11 y 12 de septiembre. El director del OIJ, Randall Zúñiga, y el Fiscal General Carlos Díaz encabezaron personalmente los allanamientos en León XIII y Cañas, Guanacaste. Fueron detenidos Danilo José Chaves Medina, Bryan Steven Robles Salas, Luis Ricardo Orozco González y Stephanie María Chacón Guillén. El gatillero, Luis Fernando Carvajal Fernández, seguía prófugo.</p>
+    </div>
+    <div class="brief-scene" data-scene="3">
+      <div class="brief-scene__label">Sep 2025 — La declaración del Fiscal</div>
+      <p>Ese mismo día, Díaz fue contundente: "Una de las líneas de investigación apunta a que esto fue una orden aparentemente del Ejército nicaragüense. No nos vamos a conformar con detener a quienes realizaron la ejecución; vamos a llegar hasta las últimas consecuencias". El expediente judicial, según reveló el diario La Nación, mencionaba a la DICIM y el G2, organismos de inteligencia del régimen de Ortega y Murillo, como presuntos planificadores del crimen.</p>
+    </div>
+    <div class="brief-scene" data-scene="4">
+      <div class="brief-scene__label">Feb 2026 — Captura del gatillero</div>
+      <p>Semanas después, la jueza dejó en libertad a Chacón Guillén mientras se recopilaban más indicios. Los otros tres permanecieron en prisión preventiva. El gatillero fue capturado el 10 de febrero de 2026 por la Policía Municipal de San Isidro de Heredia.</p>
+    </div>
+    <div class="brief-scene" data-scene="5">
+      <div class="brief-scene__label">Mar 2026 — Chatel, el eslabón</div>
+      <p>En marzo de 2026, el expediente incorporó una figura que completó la cadena: Keny Hosman Navarrete Vallecillo, alias "Chatel", nicaragüense de 38 años originario de Diriamba que cumple condena desde 2016 en "La Reforma", la cárcel de Alajuela. Los investigadores documentaron un alto volumen de llamadas entre su celda y los ejecutores en fechas previas y posteriores al crimen. Chatel era el eslabón: el hombre que desde su celda coordinó el contacto entre quienes ordenaron el asesinato y la célula sicarial de León XIII.</p>
+    </div>
+    <div class="brief-scene" data-scene="6">
+      <div class="brief-scene__label">10 jun 2026 — Acusación formal</div>
+      <p>El 10 de junio de 2026, casi un año exacto después del asesinato, la Fiscalía presentó la acusación formal ante el Juzgado Penal. La familia fue notificada y recibió un plazo para presentar la querella. Para Claudia Vargas, viuda de Samcam, el paso era importante pero insuficiente. "En un año, un caso complejo, con múltiples personas investigadas y una dimensión transnacional, avanza hacia una nueva etapa: el juicio contra los ejecutores materiales", escribió. Y agregó: "Aún queda mucho camino por recorrer. La justicia debe alcanzar no solo a quienes ejecutaron el crimen, sino también a quienes lo planificaron y ordenaron".</p>
+    </div>
   `;
 
   // Datos del brief de cierre — un solo lugar para los dos call-sites
@@ -453,10 +513,13 @@ let memoryMonitor = new MemoryMonitor();
       heading: 'POST CRIMEN | Pesquisas, capturas y apertura de juicio',
       html: CLOSING_BRIEF_HTML,
       skipTypewriter: true,
-      image: '/assets/burned-duster.webp',
-      imageCaption: 'Vehículo de escape, Renault Duster blanco, abandonado en Coronado (Imagen ilustrativa)',
+      image: BRIEF_SCENES[0].img,
+      imageCaption: BRIEF_SCENES[0].caption,
+      scenes: BRIEF_SCENES,
+      methImage: BRIEF_SCENES[1].img,
+      methCaption: BRIEF_SCENES[1].caption,
       methodology: {
-        tabLabel: 'Línea de Tiempo de Pesquisas',
+        tabLabel: 'Línea de Tiempo de las Pesquisas de la OIJ (Posterior al Crimen)',
         html: `
           <h3>Línea de Tiempo de las Pesquisas de la OIJ (Posterior al Crimen)</h3>
           <p>Las pesquisas del Organismo de Investigación Judicial (OIJ) comenzaron el 19 de junio de 2025, el mismo día del homicidio, con la recolección de incidentes del Sistema 9-1-1, que registraron llamadas reportando entre 7 y 10 disparos en el Condominio Naples de Moravia.</p>
@@ -763,7 +826,7 @@ let memoryMonitor = new MemoryMonitor();
     });
   }
 
-  function showBrief({ heading, text, html, methodology, skipTypewriter = false, image, imageCaption } = {}) {
+  function showBrief({ heading, text, html, methodology, skipTypewriter = false, image, imageCaption, scenes, methImage, methCaption } = {}) {
     const el = document.getElementById('story-brief');
     const elTitle = document.getElementById('story-brief-title');
     const elBody = document.getElementById('story-brief-body');
@@ -799,6 +862,33 @@ let memoryMonitor = new MemoryMonitor();
     const mainContent = { text, html };
     const mainLabel = heading || 'Sobre esta reconstrucción';
 
+    // ── Crossfade helper para cambiar imagen del panel izquierdo ──
+    function _switchImage(newSrc, newCaption) {
+      if (!imgEl) return;
+      const currentSrc = imgEl.src.replace(location.origin, '');
+      if (currentSrc === newSrc) return;
+      imgEl.classList.add('is-switching');
+      setTimeout(() => {
+        imgEl.src = newSrc;
+        imgEl.alt = newCaption || '';
+        if (captionEl) captionEl.textContent = newCaption || '';
+        imgEl.classList.remove('is-switching');
+        imgEl.classList.add('is-entering');
+        imgEl.addEventListener('animationend', () => {
+          imgEl.classList.remove('is-entering');
+        }, { once: true });
+      }, 220);
+    }
+
+    // Precargar imágenes de escenas si se proveen
+    if (scenes && scenes.length) {
+      scenes.forEach(s => { const i = new Image(); i.src = s.img; });
+    }
+
+    // Imagen para la pestaña de metodología: param explícito o primera de scenes o imagen principal
+    const briefMethImage = methImage || ((scenes && scenes.length) ? scenes[0].img : image);
+    const briefMethCaption = methCaption || ((scenes && scenes.length) ? scenes[0].caption : (imageCaption || ''));
+
     // Botón "Nota metodológica" — toggle in-place, sin abrir otro modal.
     if (methBtn) {
       if (methodology) {
@@ -813,6 +903,12 @@ let memoryMonitor = new MemoryMonitor();
           showingMethodology = !showingMethodology;
           _renderBriefContent(elBody, showingMethodology ? methodology : mainContent);
           methBtn.textContent = showingMethodology ? `← ${mainLabel}` : methLabel;
+          // Cambiar imagen según la pestaña activa
+          if (showingMethodology && briefMethImage) {
+            _switchImage(briefMethImage, briefMethCaption);
+          } else if (!showingMethodology && image) {
+            _switchImage(image, imageCaption || '');
+          }
         };
         methBtn.addEventListener('click', methBtn._clickHandler);
       } else {
@@ -843,6 +939,7 @@ let memoryMonitor = new MemoryMonitor();
         document.removeEventListener('keydown', onKey);
         document.body.classList.remove('brief-open');
         el.classList.add('is-hiding');
+        if (el._sceneObserver) { el._sceneObserver.disconnect(); el._sceneObserver = null; }
       }
 
       function close() {
