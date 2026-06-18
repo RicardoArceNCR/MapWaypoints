@@ -98,13 +98,13 @@
         "mapa_f2:0": [
           {
             "datetime": { "date": "19/06/2025", "time": "—" },
-            "description": "Tras la reunión de coordinación de la noche anterior, este es el día en que, según el expediente, Chaves Medina pasaría de las labores de vigilancia e intermediación a un rol operativo directo: horas más tarde conduciría uno de los vehículos de la huida."
+            "description": "Tras la reunión de coordinación de la noche anterior en la estación Delta, este es el día en que Chaves Medina consolidó su rol netamente operativo. Desde la mañana del ataque, fue él quien condujo el Renault Duster blanco desde León XIII hasta Moravia para realizar los recorridos de vigilancia previos. Minutos antes del homicidio, realizó un cambio táctico para asumir la conducción de la motocicleta roja, vehículo en el que finalmente ejecutó la huida de la escena del crimen."
           }
         ],
         "mapa_f2:1": [
           {
             "datetime": { "date": "19/06/2025", "time": "06:29 h" },
-            "description": "Mientras la motocicleta salía de León XIII, Chaves Medina —según la reconstrucción del OIJ— se encontraba ya posicionado junto al resto de la célula, lista para los cambios de posición que se documentan en el siguiente punto del recorrido."
+            "description": "Al salir de León XIII, los sospechosos se desplazaron por separado hacia Moravia: a las 06:18 horas salió Chaves Medina conduciendo el Renault Duster blanco y, once minutos después, Bryan Robles lo siguió en la motocicleta roja. Los cambios de posición no fueron inmediatos; ocurrieron tras casi una hora de recorridos en Moravia, consolidándose a las 07:41 horas cerca de Plaza Los Colegios, cuando Chaves Medina descendió del Duster para asumir la conducción de la motocicleta con la que ejecutaría la huida."
           }
         ],
         "mapa_f2:2": [
@@ -116,7 +116,7 @@
         "mapa_f2:3": [
           {
             "datetime": { "date": "19/06/2025", "time": "—" },
-            "description": "Mientras el Duster se acercaba a la escena, Chaves Medina —según el expediente— se desplazaba en la motocicleta por una ruta separada, en la posición que mantendría durante el ataque y la huida inmediata."
+            "description": "Durante el trayecto de acercamiento a Moravia, Chaves Medina conducía el Renault Duster blanco, mientras que Bryan Robles pilotaba la moto. El cambio de posiciones ocurrió a las 07:41 horas cerca de Plaza Los Colegios, apenas tres minutos antes del ataque. Tras este intercambio, ambos vehículos no se separaron, sino que avanzaron uno detrás del otro por la misma vía (calle 53) hacia la casa del ofendido, manteniendo a Chaves Medina en la motocicleta únicamente para la ejecución del asalto y la huida inmediata."
           }
         ],
         "mapa_f2:4": [
@@ -128,7 +128,7 @@
         "mapa_f2:5": [
           {
             "datetime": { "date": "19/06/2025", "time": "—" },
-            "description": "Chaves Medina, según el expediente, huye por una ruta separada en la motocicleta, de regreso hacia Tibás/León XIII — un trayecto que se reconstruye con más detalle al inicio de la fase 3."
+            "description": "Tras el homicidio, Chaves Medina huyó por una ruta separada en la motocicleta a gran velocidad, mientras el Renault Duster escapaba hacia Coronado. La reconstrucción de las cámaras documenta que tomó la ruta Moravia - Tibás por la carretera 102, pasó por La Florida y las cercanías de la ruta 32, ingresando de regreso a León XIII a las 07:51 horas. Toda esta ruta de escape se detalla oficialmente en la sección 3.7 del informe, bajo el análisis de la huida de la motocicleta sospechosa posterior a los hechos."
           }
         ],
         "mapa_f3:1": [
