@@ -763,10 +763,7 @@ let memoryMonitor = new MemoryMonitor();
     if (html) {
       elBody.innerHTML = html;
     } else {
-      elBody.innerHTML = '';
-      const p = document.createElement('p');
-      p.textContent = text || '';
-      elBody.appendChild(p);
+      elBody.innerHTML = text || '';
     }
     elBody.scrollTop = 0;
   }
