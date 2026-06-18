@@ -446,8 +446,8 @@ let memoryMonitor = new MemoryMonitor();
     },
     {
       img: '/assets/post-crimen.webp',
-      caption: 'Actúa con nosotros',
-      label: 'www.divergentes.com/complices',
+      caption: 'Actúa con nosotros www.divergentes.com/complices',
+      label: 'Click aquí',
     },
     {
       img: '/assets/banner-2.webp',
