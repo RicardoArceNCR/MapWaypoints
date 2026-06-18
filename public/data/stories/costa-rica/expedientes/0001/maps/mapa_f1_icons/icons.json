@@ -1,5 +1,4 @@
 {
-  "_readme": "_readme: Los echos de implicados ya NO se editan aquí. La fuente de verdad es personas.json — MapManager los inyecta en runtime. Este archivo solo debe contener: title, date, datetime, location, desc, body, image, involved[], noPopup. Si se deja el campo 'echos' aquí, personas.json lo sobreescribe.",
   "wp0": [
     {
       "_note": "WP0-H0: Rectángulo principal izquierdo",
@@ -27,7 +26,7 @@
         "timeColor": "#1BC6EB"
       },
       "location": "Aeropuerto Juan Santamaría, Alajuela, Costa Rica",
-      "description": "Roberto Samcam Ruiz regresa a Costa Rica proveniente de México, por el Aeropuerto Juan Santamaría, después de una gira por varios países. Su reingreso ocurre apenas tres días antes de su asesinato. Utiliza un taxi formal para dirigirse a su vivienda, ubicada en Moravia.",
+      "description": "Roberto Samcam Ruiz regresa a Costa Rica proveniente de México, por el Aeropuerto Juan Santamaría, después de una gira por varios países. Su reingreso ocurre apenas tres días antes de su asesinato. Utiliza un taxi formal para dirigirse a su vivienda, ubicada en Tibás.",
       "involved": [
         {
           "id": "robles_murillo",
@@ -40,7 +39,7 @@
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Autor material"
+          "role": "Intermediario logístico"
         },
         {
           "id": "carvajal",
@@ -155,20 +154,14 @@
         "time": "06:26 – 16:07 h"
       },
       "location": "Ingreso a León XIII, Tibás, San José",
-      "description": "Samcam realizó varios viajes matutinos en Uber desde su vivienda a la Clínica Rodrigo Fournier Guevara, en Moravia, y viceversa. Luego, se reunió en Casa España, en La Sábana, (11:15 h), donde se reunió con Rafael ‘Payo’ Solís y Óscar René Vargas. A las 16:07:26 horas regresó a su casa de habitación.",
+      "description": "Samcam realizó varios viajes matutinos en Uber desde su vivienda a la Clínica Rodrigo Fournier Guevara, en Tibás, y viceversa. Luego, se reunió en Casa España, en La Sábana, (11:15 h), donde se reunió con Rafael ‘Payo’ Solís y Óscar René Vargas. A las 16:07:26 horas regresó a su casa de habitación.",
       "involved": [
-        {
-          "id": "robles_murillo",
-          "name": "Pablo Antonio Robles Murillo",
-          "avatar": "/assets/pablo-anotonio-robles-murillo.webp",
-          "role": "Presunto cerebro / Autor intelectual",
-          "highlighted": true
-        },
         {
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Autor material"
+          "role": "Intermediario logístico",
+          "highlighted": true
         },
         {
           "id": "carvajal",
@@ -178,15 +171,6 @@
         }
       ],
       "echos": {
-        "robles_murillo": [
-          {
-            "datetime": {
-              "date": "18/06/2025",
-              "time": "16:17 h"
-            },
-            "description": "Desde la cadena de mando, Robles Murillo había ordenado el inicio de las vigilancia activa una vez confirmado el regreso de Samcam al país. El Hyundai es el primer vehículo visible de esa operación."
-          }
-        ],
         "chaves_medina": [
           {
             "datetime": {
@@ -304,7 +288,7 @@
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Autor material"
+          "role": "Intermediario logístico"
         },
         {
           "id": "carvajal",
@@ -432,7 +416,7 @@
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Autor material"
+          "role": "Intermediario logístico"
         },
         {
           "id": "carvajal",
@@ -560,7 +544,7 @@
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Autor material"
+          "role": "Intermediario logístico"
         },
         {
           "id": "carvajal",
@@ -688,7 +672,7 @@
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Autor material"
+          "role": "Intermediario logístico"
         },
         {
           "id": "carvajal",
