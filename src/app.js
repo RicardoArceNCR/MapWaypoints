@@ -517,7 +517,8 @@ let memoryMonitor = new MemoryMonitor();
       imageCaption: BRIEF_SCENES[0].caption,
       scenes: BRIEF_SCENES,
       methodology: {
-        tabLabel: 'Línea de Tiempo de Pesquisas',
+        tabLabel: 'Post Crimen',
+        backLabel: 'Línea de tiempo',
         html: `
           <h3>Línea de Tiempo de las Pesquisas de la OIJ (Posterior al Crimen)</h3>
           <p>Las pesquisas del Organismo de Investigación Judicial (OIJ) comenzaron el 19 de junio de 2025, el mismo día del homicidio, con la recolección de incidentes del Sistema 9-1-1, que registraron llamadas reportando entre 7 y 10 disparos en el Condominio Naples de Moravia.</p>
@@ -900,7 +901,7 @@ let memoryMonitor = new MemoryMonitor();
         methBtn._clickHandler = () => {
           showingMethodology = !showingMethodology;
           _renderBriefContent(elBody, showingMethodology ? methodology : mainContent);
-          methBtn.textContent = showingMethodology ? `← ${mainLabel}` : methLabel;
+          methBtn.textContent = showingMethodology ? `← ${methodology.backLabel || mainLabel}` : methLabel;
           // Cambiar imagen según la pestaña activa
           if (showingMethodology && methImage) {
             _switchImage(methImage, methCaption);

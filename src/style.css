@@ -3509,8 +3509,8 @@ body:has(#story-intro:not([hidden])) .top-bar {
   /* On mobile, split collapses: hide image col, content col fills all */
   .story-brief__panel--split {
     width: 100%;
-    height: auto;
-    max-height: 92dvh;
+    height: 100dvh;
+    max-height: 100dvh;
   }
 
   .story-brief__panel--split .story-brief__image-col {
