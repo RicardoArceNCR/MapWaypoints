@@ -450,7 +450,7 @@ body.suspects-open .suspects-btn {
   top: 0;
   right: 0;
   bottom: 0;
-  width: min(420px, 100vw);
+  width: min(420px, 92vw);
   z-index: 20001;
   background: rgba(15, 15, 15, 0.98);
   backdrop-filter: blur(20px);
@@ -584,15 +584,15 @@ body.suspects-open .mosca-btn {
 
 .suspect-card__header {
   display: grid;
-  grid-template-columns: 64px 1fr auto;
+  grid-template-columns: 80px 1fr auto;
   align-items: start;
   gap: 0 10px;
   margin-bottom: 6px;
 }
 
 .suspect-card__avatar {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid rgba(255, 255, 255, 0.12);
@@ -698,7 +698,7 @@ body.suspects-open .mosca-btn {
   align-items: center;
   gap: 6px;
   margin-top: 10px;
-  font-size: 0.7rem;
+  font-size: 0.80rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -802,8 +802,8 @@ body.suspects-open .mosca-btn {
 
 .suspect-card__tl-nav {
   flex-shrink: 0;
-  width: 22px;
-  height: 22px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -862,7 +862,7 @@ body.suspects-open .mosca-btn {
 .suspect-card__tl-phase-icon {
   display: inline-block;
   font-style: normal;
-  font-size: 0.65rem;
+  font-size: 0.91rem;
   color: rgba(255, 255, 255, 0.25);
   transition: transform 0.2s ease;
   line-height: 1;
