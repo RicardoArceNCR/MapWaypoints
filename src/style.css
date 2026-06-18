@@ -450,7 +450,7 @@ body.suspects-open .suspects-btn {
   top: 0;
   right: 0;
   bottom: 0;
-  width: min(420px, 92vw);
+  width: min(399px, 100vw);
   z-index: 20001;
   background: rgba(15, 15, 15, 0.98);
   backdrop-filter: blur(20px);
@@ -514,8 +514,8 @@ body.suspects-open .mosca-btn {
 }
 
 .suspects-popup__close {
-  width: 36px;
-  height: 36px;
+  width: 55px;
+  height: 55px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 38px;
   background: transparent;
