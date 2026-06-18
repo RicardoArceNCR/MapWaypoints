@@ -792,6 +792,41 @@ body.suspects-open .mosca-btn {
   margin: 0;
 }
 
+.suspect-card__tl-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+.suspect-card__tl-nav {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  padding: 0;
+}
+
+.suspect-card__tl-nav:hover {
+  background: #FF6B35;
+  border-color: #FF6B35;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.suspect-card__tl-nav:active {
+  transform: scale(0.95);
+}
+
 /* ========= HAMBURGUESA (Mobile) ========= */
 .hamburger {
   position: fixed;

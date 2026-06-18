@@ -2945,6 +2945,71 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   const suspectsBackdrop = document.querySelector('.suspects-backdrop');
 
   let _suspectsTimelineBuilt = false;
+  let _echoNavInProgress = false;
+
+  // Busca el phaseId que contiene un mapId dado
+  function _getPhaseIdForMap(mapId) {
+    const phase = PHASES.find(p => {
+      const maps = MAPS_CONFIG[p.maps?.[0]]?.phase
+        ? p.maps
+        : Object.values(MAPS_CONFIG).filter(m => m.phase === p.id).map(m => m.id);
+      return maps.includes(mapId);
+    });
+    // Fallback: buscar directamente en MAPS_CONFIG
+    if (!phase) {
+      const mapCfg = MAPS_CONFIG[mapId];
+      if (mapCfg?.phase) return mapCfg.phase;
+    }
+    return phase?.id || null;
+  }
+
+  // Navega al waypoint del echo y abre su hotspot principal
+  async function navigateToEcho(echoKey) {
+    if (_echoNavInProgress) return;
+    if (!echoKey || !echoKey.includes(':')) return;
+
+    _echoNavInProgress = true;
+    try {
+      const [mapId, wpIndexStr] = echoKey.split(':');
+      const wpIndex = parseInt(wpIndexStr, 10);
+
+      if (isNaN(wpIndex)) return;
+
+      // Cerrar el suspects popup
+      closeSuspects();
+
+      const phaseId = _getPhaseIdForMap(mapId);
+      const needsMapChange = mapManager.currentMapId !== mapId;
+
+      if (needsMapChange && phaseId) {
+        // Cambiar fase con fade — actualizar UI de botones manualmente
+        await _fadePhase(async () => {
+          mapManager.setPhase(phaseId);
+          // Actualizar botones de fase en UI
+          document.querySelectorAll('.phase-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.phase === phaseId);
+          });
+          await loadMap(mapId);
+          uiManager.updateMapSelector();
+        });
+      }
+
+      // Validar que el waypoint existe
+      if (wpIndex >= state.currentWaypoints.length) return;
+
+      // Navegar al waypoint
+      goToWaypoint(wpIndex);
+
+      // Abrir el hotspot principal (primer !noPopup)
+      await new Promise(r => setTimeout(r, 400));
+      const hotspots = state.currentIcons[String(wpIndex)] || state.currentIcons[wpIndex] || [];
+      const target = hotspots.find(h => !h.noPopup);
+      if (target) popupManager?.openPopup(target);
+
+    } finally {
+      _echoNavInProgress = false;
+    }
+  }
 
   function _buildSuspectTimelines() {
     if (!mapManager._personasEchos) return;
@@ -2984,6 +3049,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         echoList.forEach(echo => {
           const item = document.createElement('div');
           item.className = 'suspect-card__tl-item';
+          item.dataset.echoKey = key;
 
           const phaseLabel = mapa !== lastMapa
             ? `<div class="suspect-card__tl-phase">${PHASE_LABELS[mapa] || mapa}</div>`
@@ -2996,9 +3062,23 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
 
           item.innerHTML = `
             ${phaseLabel}
-            ${datetime ? `<div class="suspect-card__tl-datetime">${datetime}</div>` : ''}
+            <div class="suspect-card__tl-header">
+              ${datetime ? `<div class="suspect-card__tl-datetime">${datetime}</div>` : ''}
+              <button class="suspect-card__tl-nav" aria-label="Ir al mapa" title="Ir al mapa">
+                <svg viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
+              </button>
+            </div>
             <p class="suspect-card__tl-desc">${echo.description || ''}</p>
           `;
+
+          // Solo el botón navega — el resto de la card sigue toggleando
+          item.querySelector('.suspect-card__tl-nav').addEventListener('click', (e) => {
+            e.stopPropagation();
+            navigateToEcho(item.dataset.echoKey);
+          });
+
           timeline.appendChild(item);
         });
       });
