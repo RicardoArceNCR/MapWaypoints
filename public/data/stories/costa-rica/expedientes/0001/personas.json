@@ -57,95 +57,143 @@
       "echos": {
         "mapa_f1:0": [
           {
-            "datetime": { "date": "16/06/2025", "time": "—" },
+            "datetime": {
+              "date": "16/06/2025",
+              "time": "—"
+            },
             "description": "Como parte de los autores intelectuales y la célula operativa en León XIII, Chaves Medina inicia las labores de ubicación de Samcam."
           }
         ],
         "mapa_f1:1": [
           {
-            "datetime": { "date": "18/06/2025", "time": "Mañana" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "Mañana"
+            },
             "description": "Recibe el Hyundai celeste 903056 de manos de su dueño, Luis Orozco, bajo el pretexto de realizar trámites. Coordina la devolución pero en su lugar lo incorpora al operativo."
           },
           {
-            "datetime": { "date": "18/06/2025", "time": "16:17 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
             "description": "Exactamente diez minutos después de que la víctima llegara a su vivienda—, Danilo José Chaves Medina fue captado en video al volante del Hyundai celeste. En ese momento, el vehículo transitaba por el sector de Tibás, específicamente en la salida de León XIII junto a la empresa Metalco."
           }
         ],
         "mapa_f1:2": [
           {
-            "datetime": { "date": "18/06/2025", "time": "16:17 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
             "description": "Horas antes, Chaves Medina había recibido de manos de Orozco González el Hyundai celeste (placa 903056), en teoría para hacer un trámite. Según la reconstrucción, es él quien lo conduce de regreso hacia León XIII, el mismo vehículo que al día siguiente sería usado para extraer a los ejecutores tras el ataque."
           }
         ],
         "mapa_f1:3": [
           {
-            "datetime": { "date": "18/06/2025", "time": "—" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
             "description": "Vecino de la León XIII y de oficio barbero —registrado en los contactos telefónicos de sus cómplices como 'Dani Peluqueris'—, el OIJ lo señala como un miembro central de la célula operativa que participó directamente en la ejecución del crimen. El día del homicidio, condujo el Renault Duster blanco hacia Moravia, cambió de posición justo antes del ataque para pilotar la motocicleta roja en la que huyó de la escena, y dio la orden directa para rescatar a los sicarios que quedaron varados en Coronado."
           }
         ],
         "mapa_f1:4": [
           {
-            "datetime": { "date": "18/06/2025", "time": "17:54 – 18:23 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "17:54 – 18:23 h"
+            },
             "description": "En esta reunión en la Estación de Servicio Delta confluyen los tres vehículos de la célula: el Duster, el Hyundai y la motocicleta Freedom roja. Según el expediente, aquí se terminan de afinar los roles que cada uno cumpliría al día siguiente."
           }
         ],
         "mapa_f1:5": [
           {
-            "datetime": { "date": "18/06/2025", "time": "19:04 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "19:04 h"
+            },
             "description": "La antena 'León XIII' que se activa en este punto corresponde al sector donde reside Chaves Medina. Para el OIJ, este registro —junto con el resto de la actividad telefónica de ese día— forma parte de la reconstrucción de los movimientos de la célula la noche previa al ataque."
           }
         ],
         "mapa_f2:0": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Tras la reunión de coordinación de la noche anterior en la estación Delta, este es el día en que Chaves Medina consolidó su rol netamente operativo. Desde la mañana del ataque, fue él quien condujo el Renault Duster blanco desde León XIII hasta Moravia para realizar los recorridos de vigilancia previos. Minutos antes del homicidio, realizó un cambio táctico para asumir la conducción de la motocicleta roja, vehículo en el que finalmente ejecutó la huida de la escena del crimen."
           }
         ],
         "mapa_f2:1": [
           {
-            "datetime": { "date": "19/06/2025", "time": "06:29 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "06:29 h"
+            },
             "description": "Al salir de León XIII, los sospechosos se desplazaron por separado hacia Moravia: a las 06:18 horas salió Chaves Medina conduciendo el Renault Duster blanco y, once minutos después, Bryan Robles lo siguió en la motocicleta roja. Los cambios de posición no fueron inmediatos; ocurrieron tras casi una hora de recorridos en Moravia, consolidándose a las 07:41 horas cerca de Plaza Los Colegios, cuando Chaves Medina descendió del Duster para asumir la conducción de la motocicleta con la que ejecutaría la huida."
           }
         ],
         "mapa_f2:2": [
           {
-            "datetime": { "date": "19/06/2025", "time": "07:41 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:41 h"
+            },
             "description": "En el mismo cambio de las 7:41 h, Chaves Medina —con camisa color mostaza, según la reconstrucción— pasó a conducir la motocicleta, completando el último ajuste de posiciones antes del ataque."
           }
         ],
         "mapa_f2:3": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Durante el trayecto de acercamiento a Moravia, Chaves Medina conducía el Renault Duster blanco, mientras que Bryan Robles pilotaba la moto. El cambio de posiciones ocurrió a las 07:41 horas cerca de Plaza Los Colegios, apenas tres minutos antes del ataque. Tras este intercambio, ambos vehículos no se separaron, sino que avanzaron uno detrás del otro por la misma vía (calle 53) hacia la casa del ofendido, manteniendo a Chaves Medina en la motocicleta únicamente para la ejecución del asalto y la huida inmediata."
           }
         ],
         "mapa_f2:4": [
           {
-            "datetime": { "date": "19/06/2025", "time": "07:44 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:44 h"
+            },
             "description": "En este momento, según la reconstrucción, Chaves Medina se encontraba en la motocicleta, en una posición separada del Duster — el punto desde el cual, segundos después, ambos vehículos iniciarían la huida por rutas distintas."
           }
         ],
         "mapa_f2:5": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Tras el homicidio, Chaves Medina huyó por una ruta separada en la motocicleta a gran velocidad, mientras el Renault Duster escapaba hacia Coronado. La reconstrucción de las cámaras documenta que tomó la ruta Moravia - Tibás por la carretera 102, pasó por La Florida y las cercanías de la ruta 32, ingresando de regreso a León XIII a las 07:51 horas. Toda esta ruta de escape se detalla oficialmente en la sección 3.7 del informe, bajo el análisis de la huida de la motocicleta sospechosa posterior a los hechos."
           }
         ],
         "mapa_f3:1": [
           {
-            "datetime": { "date": "19/06/2025", "time": "07:52 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:52 h"
+            },
             "description": "Ingresa a León XIII en la motocicleta Freedom color rojo (camisa color mostaza). Completa su huida por ruta separada a Tibás. Minutos después coordinará la extracción de los ejecutores desde este mismo sector."
           }
         ],
         "mapa_f3:2": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:10 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:10 h"
+            },
             "description": "Tras regresar a León XIII, Chaves Medina realizó una llamada de WhatsApp de 24 segundos a Luis Ricardo Orozco, registrada forensemente como la 'Llamada 199' en el celular Samsung decomisado a este último. El informe de la Sección Contra el Ciber-Crimen califica esta comunicación como de alta relevancia para la investigación, ya que determinó el momento exacto en que se coordinó la extracción de los sicarios. Inmediatamente después de colgar, Orozco se comunicó con los ejecutores que huían en Coronado para indicarles que iba en camino a rescatarlos."
           }
         ],
         "mapa_f3:9": [
           {
-            "datetime": { "date": "19/06/2025", "time": "10:38 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "10:38 h"
+            },
             "description": "Stephanie María Chacón Guillén —madre de una de las hijas de Chaves Medina— realizó dos transferencias a Luis Ricardo Orozco por un total de ¢50.000 bajo los conceptos de 'VIAJE' y 'GASOLINA'. Según el OIJ, este movimiento vincula la logística de Chaves Medina con la cadena financiera de la operación, al tratarse del pago para que Orozco rescatara a los sicarios en Coronado."
           }
         ]
@@ -178,73 +226,109 @@
       "echos": {
         "mapa_f2:0": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
-            "description": "Bryan Steven Robles Salas, de 23 años y vecino de León XIII, abre esta fase: según el expediente, es quien conduce la motocicleta que sale de León XIII al inicio de la mañana, en el primer movimiento documentado del Día D."
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "Bryan Steven Robles Salas, de 23 años y vecino de León XIII, fue el encargado de pilotar la motocicleta Freedom roja la mañana del crimen. A las 06:18 horas salió el Renault Duster blanco conducido por Chaves Medina, y once minutos después, a las 06:29 horas, Robles Salas partió en la motocicleta para seguir la misma ruta hacia Moravia."
           }
         ],
         "mapa_f2:1": [
           {
-            "datetime": { "date": "19/06/2025", "time": "06:29 h" },
-            "description": "Según el expediente, Robles Salas conduce la motocicleta Freedom roja que sale de León XIII, sector donde reside, a las 6:29 h de la mañana — el primer vehículo de la célula en moverse este día."
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "06:29 h"
+            },
+            "description": "Según el expediente, Robles Salas condujo la motocicleta Freedom roja que salió de León XIII, sector donde reside, a las 06:29 horas de la mañana."
           }
         ],
         "mapa_f2:2": [
           {
-            "datetime": { "date": "19/06/2025", "time": "07:41 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:41 h"
+            },
             "description": "A las 7:41 h, según el expediente, Robles Salas pasó a conducir el Renault Duster BKK190 — el vehículo que, minutos después, se dirigiría al Condominio Naples."
           }
         ],
         "mapa_f2:3": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Según la reconstrucción, a esta hora Robles Salas ya conducía el Renault Duster BKK190 con Carvajal Fernández como pasajero delantero, acercándose al Condominio Naples donde minutos después ocurriría el ataque."
           }
         ],
         "mapa_f2:4": [
           {
-            "datetime": { "date": "19/06/2025", "time": "07:44 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:44 h"
+            },
             "description": "Mientras el ataque ocurría, según el expediente Robles Salas permanecía al volante del Renault Duster, estacionado frente al Condominio Naples, a la espera de que Carvajal Fernández regresara al vehículo."
           }
         ],
         "mapa_f2:5": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
-            "description": "Robles Salas, según la reconstrucción del OIJ, es quien conduce el Renault Duster en esta huida inicial — el mismo vehículo que horas más tarde sería abandonado en Coronado, como se documenta en la siguiente fase."
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "Según el expediente, Robles Salas condujo el Renault Duster tanto en la ejecución como en la huida inicial. El ataque ocurrió a las 07:44 horas y el vehículo ingresó al sector de El Rodeo, en Coronado, a las 08:22 horas, donde fue dejado minutos antes de que el transporte de rescate los extrajera a las 08:38 horas."
           }
         ],
         "mapa_f3:0": [
           {
-            "datetime": { "date": "19/06/2025", "time": "07:46 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:46 h"
+            },
             "description": "Conduce el Duster en la ruta de escape hacia Coronado. Cámaras lo registran pasando por Cruce El Raicero, Mall Don Pancho (07:53 h) y Trinidad de Moravia (07:54 h)."
           }
         ],
         "mapa_f3:4": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:21 h" },
-            "description": "Abandona el Duster BKK-190 en la calle sin salida. Envía su ubicación GPS a Orozco junto a los mensajes 'Corra xfa', 'Vueleeeee', 'Sáqueme de aquí'. Está varado con el gatillero esperando la extracción."
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:21 h"
+            },
+            "description": "Tras el ataque, Robles Salas y el gatillero, Luis Fernando Carvajal, ocultaron y abandonaron deliberadamente el Renault Duster BKK-190 en la vía pública de El Rodeo (Coronado), a unos 100 metros de una calle sin salida de la que habían salido previamente. Durante la espera, Robles Salas envió su ubicación GPS a Luis Orozco junto a los mensajes desesperados \"Sáqueme de aquí\", \"Corra xfa\" y \"Vueleeeee\" para acelerar la extracción coordinada."
           }
         ],
         "mapa_f3:6": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:38 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:38 h"
+            },
             "description": "Espera la llegada del Hyundai en el punto de abandono del Duster. Ha enviado su GPS y mensajes desesperados durante los 17 minutos previos."
           }
         ],
         "mapa_f3:7": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:46 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:46 h"
+            },
             "description": "Aborda el Hyundai celeste. Será detenido en León XIII el 11 de septiembre de 2025."
           }
         ],
         "mapa_f3:8": [
           {
-            "datetime": { "date": "19/06/2025", "time": "09:14 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "09:14 h"
+            },
             "description": "Regresa a León XIII. Será detenido en este sector el 11 de septiembre de 2025, con prisión preventiva dictada."
           }
         ],
         "mapa_f3:10": [
           {
-            "datetime": { "date": "19/06/2025", "time": "16:50 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "16:50 h"
+            },
             "description": "Responde 'le fue bien' y pregunta si salió algo del carro en las noticias. La conversación confirma su conocimiento del crimen cometido."
           }
         ]
@@ -258,7 +342,7 @@
       "avatar": "/assets/luis-fernando-carvajal-fernandez.webp",
       "caseRole": "Señalado como gatillero",
       "status": "Capturado el 10/02/2026 en San Isidro de Heredia (Policía Municipal), tras permanecer prófugo.",
-      "bio": "Vecino de León XIII. Según el OIJ, es quien habría ingresado al Condominio Naples, llamado a Samcam por su nombre y disparado al menos ocho veces. La noche y la madrugada previas, su dispositivo activó las antenas 'Valla Moravia' y 'León XIII', lo que la investigación interpreta como labores de vigilancia.",
+      "bio": "Vecino de León XIII. Según el OIJ, es quien habría ingresado al Condominio Naples, llamado a Samcam por su nombre y disparado al menos cinco veces. La tarde previa, su dispositivo activó las antenas 'Valla Moravia' y 'León XIII', lo que la investigación interpreta como labores de vigilancia.",
       "appearsIn": [
         "mapa_f1:0",
         "mapa_f1:1",
@@ -284,116 +368,173 @@
       "echos": {
         "mapa_f1:0": [
           {
-            "datetime": { "date": "16/06/2025", "time": "—" },
+            "datetime": {
+              "date": "16/06/2025",
+              "time": "—"
+            },
             "description": "El futuro gatillero inicia el período de vigilancia preoperativa tras conocerse el regreso de Samcam a Costa Rica."
           }
         ],
         "mapa_f1:1": [
           {
-            "datetime": { "date": "18/06/2025", "time": "16:17 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
             "description": "Coordinado con Chaves Medina, inicia el seguimiento desde el sector de León XIII como parte de la fase final de inteligencia preoperativa antes del crimen."
           }
         ],
         "mapa_f1:2": [
           {
-            "datetime": { "date": "18/06/2025", "time": "16:17 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "16:17 h"
+            },
             "description": "Mientras el Hyundai celeste ingresaba a León XIII, el dispositivo de Carvajal Fernández —ya a bordo del Renault Duster blanco— continuaba el patrón de recorridos de vigilancia por los alrededores de la vivienda de Samcam en Moravia, que se documenta en el siguiente punto del recorrido."
           }
         ],
         "mapa_f1:3": [
           {
-            "datetime": { "date": "18/06/2025", "time": "—" },
-            "description": "Vecino de León XIII, de 20 años, Carvajal Fernández es, según el expediente, quien se desplaza en este Renault Duster blanco (placa BKK190) realizando los recorridos de vigilancia que se documentan entre el 16 y el 18 de junio cerca de la vivienda de Samcam."
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
+            "description": "Luis Fernando Carvajal Fernández, de 20 años y vecino de León XIII, se desplazaba a bordo del Renault Duster blanco (placa BKK190) para realizar labores de inteligencia preoperativa. Los recorridos específicos documentados por la policía cerca de la vivienda de Samcam ocurrieron la tarde del 18 de junio (el día previo al crimen) y la mañana del propio 19 de junio, día de los hechos."
           }
         ],
         "mapa_f1:4": [
           {
-            "datetime": { "date": "18/06/2025", "time": "17:54 – 18:23 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "17:54 – 18:23 h"
+            },
             "description": "Carvajal Fernández llega a este punto a bordo del Renault Duster, que según el expediente se dirige desde Moravia hasta la Estación de Servicio Delta para esta reunión, el último encuentro de coordinación antes del ataque del día siguiente."
           }
         ],
         "mapa_f1:5": [
           {
-            "datetime": { "date": "18/06/2025", "time": "19:04 h" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "19:04 h"
+            },
             "description": "Según el expediente, es el propio dispositivo de Carvajal Fernández el que activa esta antena, 'León XIII', coincidente con el sector de residencia de los sospechosos. Para la investigación, este registro cierra el período de vigilancia preoperativa documentado en esta fase."
           }
         ],
         "mapa_f2:0": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Para Carvajal Fernández, de 20 años, este es el día en que culmina el período de vigilancia documentado en la fase anterior. Según el OIJ, es a partir de esta mañana que su rol señalado pasa de la vigilancia a la ejecución."
           }
         ],
         "mapa_f2:1": [
           {
-            "datetime": { "date": "19/06/2025", "time": "06:29 h" },
-            "description": "A esta hora, según el expediente, Carvajal Fernández permanecía en el Renault Duster, donde había pasado buena parte de la vigilancia de los días previos, a la espera de los cambios de posición que ocurrirían poco después."
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "06:29 h"
+            },
+            "description": "En los minutos previos al cambio táctico de las 07:41 horas, Carvajal Fernández viajaba como pasajero en la motocicleta roja tras un reajuste realizado a las 06:46 horas."
           }
         ],
         "mapa_f2:2": [
           {
-            "datetime": { "date": "19/06/2025", "time": "06:37 – 07:41 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "06:37 – 07:41 h"
+            },
             "description": "Según la reconstrucción del OIJ, en este punto Carvajal Fernández —identificado por la investigación como el presunto gatillero, con suéter gris— sube como pasajero a la motocicleta durante los cambios de posición previos al ataque."
           }
         ],
         "mapa_f2:3": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Este es el momento que el expediente describe con mayor precisión sobre Carvajal Fernández: minutos antes del ataque, su dispositivo activó la radio base 'Valla Moravia', lo que según el OIJ ubicaría su teléfono en el sector del homicidio."
           }
         ],
         "mapa_f2:4": [
           {
-            "datetime": { "date": "19/06/2025", "time": "07:44 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:44 h"
+            },
             "description": "Según la reconstrucción del OIJ, es Carvajal Fernández —identificado por la investigación como el pasajero delantero del Duster— quien desciende del vehículo, ingresa al condominio, llama a la víctima por su nombre y le habría disparado varias veces, antes de correr de vuelta al automóvil."
           }
         ],
         "mapa_f2:5": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
             "description": "Según el expediente, Carvajal Fernández —señalado como el presunto gatillero— huye a bordo del Renault Duster, que se aleja a gran velocidad del Condominio Naples inmediatamente después del ataque."
           }
         ],
         "mapa_f3:0": [
           {
-            "datetime": { "date": "19/06/2025", "time": "07:46–07:54 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "07:46–07:54 h"
+            },
             "description": "Su dispositivo (62329434) activa radiobases en tiempo y lugar coincidente con el movimiento del Duster, confirmando que era el pasajero-ejecutor. Se cambia el suéter gris por una sudadera oscura con logo Fox durante la huida."
           }
         ],
         "mapa_f3:4": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:21 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:21 h"
+            },
             "description": "Está junto a Robles Salas esperando la extracción en el punto de abandono del Duster, en Dulce Nombre de Coronado."
           }
         ],
         "mapa_f3:5": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:34 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:34 h"
+            },
             "description": "Contacta a Orozco desde el número 62329434, el mismo que activó la radiobase 'Valla Moravia' antes del crimen. Indica que el celular de Robles se quedó sin batería y pide la ubicación de Orozco en tiempo real. Este contacto lo identifica definitivamente como el pasajero-ejecutor."
           }
         ],
         "mapa_f3:6": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:38 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:38 h"
+            },
             "description": "Espera junto a Robles Salas en el punto de extracción en Coronado."
           }
         ],
         "mapa_f3:7": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:46 h" },
-            "description": "Aborda el Hyundai celeste. Se mantiene prófugo desde los allanamientos del 11 de septiembre de 2025."
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:46 h"
+            },
+            "description": "Aborda el Hyundai color celeste para huir de regreso a su zona de residencia en León XIII."
           }
         ],
         "mapa_f3:8": [
           {
-            "datetime": { "date": "19/06/2025", "time": "09:14 h" },
-            "description": "Llega a su vivienda en León XIII. Se mantendrá prófugo tras los allanamientos del 11 y 12 de septiembre de 2025."
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "09:14 h"
+            },
+            "description": "Llega a su vivienda en León XIII."
           }
         ],
         "mapa_f3:11": [
           {
-            "datetime": { "date": "19/06/2025", "time": "—" },
-            "description": "El suéter gris y el pantalón color vino que usó durante el crimen fueron encontrados en el Duster abandonado. Se había cambiado a una sudadera oscura con logo Fox durante la huida hacia Coronado. Las prendas son evidencia material que confirma su rol como ejecutor. Se mantiene prófugo."
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "—"
+            },
+            "description": "El suéter gris y el pantalón color vino que usó durante el crimen fueron encontrados en el Duster abandonado. Se había cambiado a una sudadera oscura con logo Fox durante la huida hacia Coronado. Las prendas son evidencia material que confirma su rol como ejecutor."
           }
         ]
       }
@@ -422,55 +563,82 @@
       "echos": {
         "mapa_f3:2": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:15 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:15 h"
+            },
             "description": "Tras recibir la llamada, el Hyundai celeste (placa 903056) sale de León XIII rumbo a la Ruta 32 con dirección a Coronado."
           }
         ],
         "mapa_f3:3": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:15 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:15 h"
+            },
             "description": "Sale de León XIII en el Hyundai celeste (placa 903056, puerta delantera blanca). Se dirige por Ruta 32 hacia Coronado siguiendo las instrucciones de Chaves Medina."
           }
         ],
         "mapa_f3:4": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:21 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:21 h"
+            },
             "description": "Recibe la ubicación GPS de Robles Salas y los mensajes de pánico. Continúa la ruta hacia el punto de extracción en Coronado."
           }
         ],
         "mapa_f3:5": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:34 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:34 h"
+            },
             "description": "Recibe el contacto del número 62329434 (Carvajal). Su celular, analizado forensemente, contiene esta comunicación que cierra la triangulación de la estructura criminal."
           }
         ],
         "mapa_f3:6": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:38 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:38 h"
+            },
             "description": "Su dispositivo registra la llegada al sitio exacto en Rodeo, Coronado, donde el OIJ encontraría después el Duster BKK-190 abandonado. La ubicación es prueba forense de su participación en la extracción."
           }
         ],
         "mapa_f3:7": [
           {
-            "datetime": { "date": "19/06/2025", "time": "08:46 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "08:46 h"
+            },
             "description": "Recoge a los dos ejecutores y sale del punto de abandono del Duster con destino a León XIII."
           }
         ],
         "mapa_f3:8": [
           {
-            "datetime": { "date": "19/06/2025", "time": "09:14 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "09:14 h"
+            },
             "description": "Su dispositivo registra la llegada a León XIII, coincidiendo con la vivienda de Carvajal. Completa el traslado que le será pagado diez veces por encima de lo normal."
           }
         ],
         "mapa_f3:9": [
           {
-            "datetime": { "date": "19/06/2025", "time": "10:38 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "10:38 h"
+            },
             "description": "Recibe el pago. El levantamiento de su secreto bancario por el OIJ documenta esta transferencia como evidencia del pago por participar en la logística del crimen."
           }
         ],
         "mapa_f3:10": [
           {
-            "datetime": { "date": "19/06/2025", "time": "16:50 h" },
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "16:50 h"
+            },
             "description": "Inicia el intercambio preguntando '¿Como le fue?'. Su celular, analizado forensemente por el OIJ, contiene toda la cadena de comunicaciones que ata a la estructura criminal."
           }
         ]
@@ -484,7 +652,7 @@
       "avatar": "/assets/stephanie-maria-chacon-guillen.webp",
       "caseRole": "Señalada como facilitadora financiera",
       "status": "Detenida; enfrenta el proceso en libertad mientras se recopilan más indicios.",
-      "bio": "Pareja sentimental de Danilo Chaves Medina (madre de una hija en común). Según la Fiscalía, realizó dos depósitos vía SINPE Móvil por ₡50.000 a Orozco González, bajo los conceptos 'Viaje' y 'Gasolina', el mismo día del crimen.",
+      "bio": "Tiene una relación directa con Danilo Chaves Medina (madre de una hija en común). Según el OIJ, realizó dos depósitos vía SINPE Móvil por ₡50.000 a Orozco González, bajo los conceptos 'Viaje' y 'Gasolina', el mismo día del crimen.",
       "appearsIn": [
         "mapa_f3:9"
       ],
@@ -492,8 +660,11 @@
       "echos": {
         "mapa_f3:9": [
           {
-            "datetime": { "date": "19/06/2025", "time": "10:38 h" },
-            "description": "Realiza dos depósitos vía SINPE Móvil a la cuenta de Orozco por ₡50.000 totales ('Viaje' y 'Gasolina'). Es la pareja sentimental y madre de una hija de Danilo Chaves Medina. Enfrentará el proceso penal en libertad mientras se recopilan más indicios."
+            "datetime": {
+              "date": "19/06/2025",
+              "time": "10:38 h"
+            },
+            "description": "Realiza dos depósitos vía SINPE Móvil a la cuenta de Orozco por ₡50.000 totales ('Viaje' y 'Gasolina'). Es madre de una hija de Danilo Chaves Medina. Enfrentará el proceso penal en libertad mientras se recopilan más indicios."
           }
         ]
       }
@@ -519,31 +690,46 @@
       "echos": {
         "mapa_f1:0": [
           {
-            "datetime": { "date": "16/06/2025", "time": "—" },
-            "description": "Según fuentes confidenciales, Robles Murillo coordinó con 'la plana mayor del Ejército de Nicaragua' el seguimiento al retorno de Samcam al país."
+            "datetime": {
+              "date": "16/06/2025",
+              "time": "—"
+            },
+            "description": "Según el expediente, un informante confidencial ubicó a Robles Murillo en Nicaragua un mes antes de los hechos reuniéndose con \"la plana mayor del Ejército\". La fuente señaló expresamente que en dichas reuniones con la cúpula militar —que incluye un vínculo histórico con el actual jefe del ejército, general Julio César Avilés— se estaba coordinando directamente el asesinato del general en retiro. La alerta perfiló a Robles Murillo como uno de los presuntos cerebros de la operación debido a su entrenamiento en inteligencia y sabotaje."
           }
         ],
         "mapa_f1:2": [
           {
-            "datetime": { "date": "18/06/2025", "time": "—" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
             "description": "Según el expediente, Robles Murillo es un exmilitar del batallón Sócrates Sandino, entrenado —de acuerdo con información confidencial— en Cuba y Rusia en labores de inteligencia, asesinato y sabotaje. Esa formación es parte de lo que la investigación señala al describirlo como el presunto cerebro de la operación."
           }
         ],
         "mapa_f1:3": [
           {
-            "datetime": { "date": "18/06/2025", "time": "—" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
             "description": "La investigación lo vincula con la cúpula del Ejército de Nicaragua y, en particular, con el general Julio César Avilés. Esa conexión podría formar parte de la base sobre la que se sustenta la hipótesis de que el crimen obedeció a una orden externa."
           }
         ],
         "mapa_f1:4": [
           {
-            "datetime": { "date": "18/06/2025", "time": "—" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
             "description": "El expediente lo menciona como posible coordinador de reuniones previas al crimen, sin que exista una imputación formal por ello."
           }
         ],
         "mapa_f1:5": [
           {
-            "datetime": { "date": "18/06/2025", "time": "—" },
+            "datetime": {
+              "date": "18/06/2025",
+              "time": "—"
+            },
             "description": "Según el expediente, Robles Murillo no ha vuelto a Costa Rica desde el 10 de mayo de 2025. Es mencionado en la causa pero no está imputado formalmente: su nombre aparece dentro de la línea de investigación sobre quién ordenó el crimen, una pregunta que el caso deja abierta incluso tras la acusación de junio de 2026."
           }
         ]
