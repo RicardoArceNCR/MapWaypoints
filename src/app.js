@@ -3185,16 +3185,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           phaseBody.appendChild(item);
         });
 
-        // Acordeón de fases: colapsa todas, expande solo la clickeada
+        // Toggle independiente: cada fase se abre/cierra sin afectar a las demás
         phaseHeader.addEventListener('click', (e) => {
           e.stopPropagation();
-          const wasCollapsed = phaseSection.classList.contains('is-collapsed');
-          card.querySelectorAll('.suspect-card__tl-phase-section').forEach(s => {
-            s.classList.add('is-collapsed');
-          });
-          if (wasCollapsed) {
-            phaseSection.classList.remove('is-collapsed');
-          }
+          phaseSection.classList.toggle('is-collapsed');
         });
 
         phaseSection.appendChild(phaseHeader);
