@@ -3084,7 +3084,10 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   }
 
   function _buildSuspectTimelines() {
-    if (!mapManager._personasEchos) return;
+    if (!mapManager._personasEchos || !Object.keys(mapManager._personasEchos).length) {
+      console.warn('[Suspects] personas.json no disponible — timelines no se construyen');
+      return;
+    }
 
     const PHASE_LABELS = {
       mapa_f1: 'Fase 1 — Vigilancia',
@@ -3170,10 +3173,16 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
           phaseBody.appendChild(item);
         });
 
-        // Toggle de la sección de fase — stopPropagation para no togglear la card
+        // Acordeón de fases: colapsa todas, expande solo la clickeada
         phaseHeader.addEventListener('click', (e) => {
           e.stopPropagation();
-          phaseSection.classList.toggle('is-collapsed');
+          const wasCollapsed = phaseSection.classList.contains('is-collapsed');
+          card.querySelectorAll('.suspect-card__tl-phase-section').forEach(s => {
+            s.classList.add('is-collapsed');
+          });
+          if (wasCollapsed) {
+            phaseSection.classList.remove('is-collapsed');
+          }
         });
 
         phaseSection.appendChild(phaseHeader);

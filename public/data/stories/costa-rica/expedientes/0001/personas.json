@@ -33,9 +33,9 @@
       "age": 35,
       "nationality": "Costa Rica",
       "avatar": "/assets/danilo-jose-chavez-medina.webp",
-      "caseRole": "Intermediario entre los autores materiales e intelectuales",
+      "caseRole": "Autor material e intelectual",
       "status": "Detenido el 11/09/2025 en Cañas, Guanacaste. Prisión preventiva.",
-      "bio": "Vecino de León XIII, de oficio barbero. Según el expediente, fue el intermediario clave: estuvo en la escena compartiendo motocicleta con el presunto gatillero y, tras el ataque, coordinó la extracción llamando a Orozco González. Al momento de su detención portaba ₡4 millones en efectivo.",
+      "bio": "Vecino de León XIII, de oficio barbero. Según el expediente, fue un autor clave: estuvo en la escena compartiendo motocicleta con el presunto gatillero y, tras el ataque, coordinó la extracción llamando a Orozco González. Al momento de su detención portaba ₡4 millones en efectivo.",
       "appearsIn": [
         "mapa_f1:0",
         "mapa_f1:1",
@@ -140,13 +140,13 @@
         "mapa_f3:2": [
           {
             "datetime": { "date": "19/06/2025", "time": "08:10 h" },
-            "description": "Llama a Orozco por 24 segundos desde León XIII. Esta llamada es la pieza que ata toda la cadena de complicidad y es documentada en el análisis forense del celular de Orozco."
+            "description": "Tras regresar a León XIII, Chaves Medina realizó una llamada de WhatsApp de 24 segundos a Luis Ricardo Orozco, registrada forensemente como la 'Llamada 199' en el celular Samsung decomisado a este último. El informe de la Sección Contra el Ciber-Crimen califica esta comunicación como de alta relevancia para la investigación, ya que determinó el momento exacto en que se coordinó la extracción de los sicarios. Inmediatamente después de colgar, Orozco se comunicó con los ejecutores que huían en Coronado para indicarles que iba en camino a rescatarlos."
           }
         ],
         "mapa_f3:9": [
           {
             "datetime": { "date": "19/06/2025", "time": "10:38 h" },
-            "description": "Su pareja realiza el pago en su nombre, vinculándolo directamente a la cadena financiera. Al momento de su detención el 11 de septiembre en Cañas, Guanacaste, tenía ₡4 millones en efectivo."
+            "description": "Stephanie María Chacón Guillén —madre de una de las hijas de Chaves Medina— realizó dos transferencias a Luis Ricardo Orozco por un total de ¢50.000 bajo los conceptos de 'VIAJE' y 'GASOLINA'. Según el OIJ, este movimiento vincula la logística de Chaves Medina con la cadena financiera de la operación, al tratarse del pago para que Orozco rescatara a los sicarios en Coronado."
           }
         ]
       }
