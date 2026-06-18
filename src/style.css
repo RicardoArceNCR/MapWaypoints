@@ -3280,6 +3280,29 @@ body:has(#story-intro:not([hidden])) .top-bar {
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+  transition: opacity 0.22s ease;
+}
+
+.story-brief__body.is-switching {
+  opacity: 0;
+}
+
+@keyframes brief-body-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+.story-brief__body.is-entering {
+  animation: brief-body-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-brief__body {
+    transition: none;
+  }
+  .story-brief__body.is-entering {
+    animation: none;
+  }
 }
 
 .story-brief__body::-webkit-scrollbar {

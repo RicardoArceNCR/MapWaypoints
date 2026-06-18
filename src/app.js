@@ -902,16 +902,24 @@ let memoryMonitor = new MemoryMonitor();
         if (methBtn._clickHandler) methBtn.removeEventListener('click', methBtn._clickHandler);
         methBtn._clickHandler = () => {
           showingMethodology = !showingMethodology;
-          _renderBriefContent(elBody, showingMethodology ? methodology : mainContent);
-          methBtn.textContent = showingMethodology ? `← ${methodology.backLabel || mainLabel}` : methLabel;
-          // Cambiar imagen según la pestaña activa
-          if (showingMethodology) {
-            const mImg = methodology.image || methImage;
-            const mCap = methodology.imageCaption || methCaption;
-            if (mImg) _switchImage(mImg, mCap);
-          } else if (image) {
-            _switchImage(image, imageCaption || '');
-          }
+          const nextContent = showingMethodology ? methodology : mainContent;
+          const mImg = showingMethodology ? (methodology.image || methImage) : image;
+          const mCap = showingMethodology ? (methodology.imageCaption || methCaption) : (imageCaption || '');
+
+          // Fade out body e imagen al mismo tiempo
+          elBody.classList.add('is-switching');
+          if (mImg) _switchImage(mImg, mCap);
+
+          // Swap contenido cuando body está invisible (mismo timing que _switchImage)
+          setTimeout(() => {
+            _renderBriefContent(elBody, nextContent);
+            methBtn.textContent = showingMethodology ? `← ${methodology.backLabel || mainLabel}` : methLabel;
+            elBody.classList.remove('is-switching');
+            elBody.classList.add('is-entering');
+            elBody.addEventListener('animationend', () => {
+              elBody.classList.remove('is-entering');
+            }, { once: true });
+          }, 220);
         };
         methBtn.addEventListener('click', methBtn._clickHandler);
       } else {
