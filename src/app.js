@@ -1413,6 +1413,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     // 📍 Badges ⓘ: ocultar ahora, updateWaypointInfoBox los revela al final de la secuencia
     document.querySelectorAll('.hs-caption').forEach(el => el.classList.add('hs-caption--hidden'));
     window._badgeAnnounceCancelled = false; // reset flag para el nuevo waypoint
+
+    // Actualizar highlight de echos si el popup está abierto
+    if (suspectsPopup?.classList.contains('is-open')) _highlightActiveEcho();
   }
 
   // ========= 📌 WAYPOINT INFO BOX =========
@@ -3005,6 +3008,80 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
   }
 
+  function _highlightActiveEcho() {
+    if (!suspectsPopup) return;
+
+    // 1. Highlight de echos del waypoint actual
+    const currentKey = `${mapManager.currentMapId}:${state.idx}`;
+    suspectsPopup.querySelectorAll('.suspect-card__tl-item').forEach(item => {
+      item.classList.toggle('is-active', item.dataset.echoKey === currentKey);
+    });
+
+    // 2. Reordenar cards: involucrados en el waypoint actual primero
+    const hotspots = state.currentIcons[state.idx] || [];
+    const mainHotspot = hotspots.find(h => !h.noPopup && h.involved?.length);
+    const activeIds = new Set((mainHotspot?.involved || []).map(p => p.id));
+    // highlighted: true dentro del involved para saber quién va primero
+    const highlightedId = mainHotspot?.involved?.find(p => p.highlighted)?.id;
+
+    const body = suspectsPopup.querySelector('.suspects-popup__body');
+    if (!body) return;
+
+    // Limpiar TODOS los divisores anteriores antes de reordenar
+    body.querySelectorAll('.suspects-popup__divider').forEach(d => d.remove());
+
+    // Recolectar cards en su estado actual (ya pueden estar reordenadas)
+    const allCards = [...body.querySelectorAll('.suspect-card[data-persona-id]')];
+
+    if (!activeIds.size) return;
+
+    const active = allCards.filter(c => activeIds.has(c.dataset.personaId));
+    const rest = allCards.filter(c => !activeIds.has(c.dataset.personaId));
+
+    if (!active.length) return;
+
+    // Ordenar activos: highlighted primero, luego el resto
+    active.sort((a, b) => {
+      if (a.dataset.personaId === highlightedId) return -1;
+      if (b.dataset.personaId === highlightedId) return 1;
+      return 0;
+    });
+
+    // Reconstruir orden en el DOM limpiamente
+    // 1. Mover activos al inicio
+    active.forEach(c => body.appendChild(c));
+    // 2. Mover resto al final
+    rest.forEach(c => body.appendChild(c));
+
+    // 3. Insertar divisor "En este momento" antes del primer activo
+    const divider = document.createElement('div');
+    divider.className = 'suspects-popup__divider';
+    divider.innerHTML = '<span>En este momento</span>';
+    active[0].before(divider);
+
+    // 4. Insertar divisor "Otros implicados" antes del primer card del resto
+    if (rest.length) {
+      const dividerOthers = document.createElement('div');
+      dividerOthers.className = 'suspects-popup__divider suspects-popup__divider--others';
+      dividerOthers.innerHTML = '<span>Otros implicados</span>';
+      rest[0].before(dividerOthers);
+    }
+
+    // 5. Mantener el botón footer-close siempre al final
+    const footerClose = body.querySelector('#suspects-footer-close');
+    if (footerClose) body.appendChild(footerClose);
+
+    // 6. Colapsar fases inactivas, expandir la fase activa
+    const currentMapa = mapManager.currentMapId;
+    suspectsPopup.querySelectorAll('.suspect-card__tl-phase-section').forEach(section => {
+      if (section.dataset.phase === currentMapa) {
+        section.classList.remove('is-collapsed');
+      } else {
+        section.classList.add('is-collapsed');
+      }
+    });
+  }
+
   function _buildSuspectTimelines() {
     if (!mapManager._personasEchos) return;
 
@@ -3019,7 +3096,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       const echos = mapManager._personasEchos[personaId];
       if (!echos || !Object.keys(echos).length) return;
 
-      // Botón toggle
+      // Botón toggle principal de la card
       const toggle = document.createElement('div');
       toggle.className = 'suspect-card__toggle';
       toggle.innerHTML = '<em class="suspect-card__toggle-icon">▾</em> Ver línea de tiempo';
@@ -3037,25 +3114,42 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
         return parseInt(wpA) - parseInt(wpB);
       });
 
-      let lastMapa = null;
+      // Agrupar por fase
+      const byPhase = {};
       sorted.forEach(([key, echoList]) => {
         const [mapa] = key.split(':');
-        echoList.forEach(echo => {
+        if (!byPhase[mapa]) byPhase[mapa] = [];
+        echoList.forEach(echo => byPhase[mapa].push({ key, echo }));
+      });
+
+      // Construir secciones colapsables por fase
+      Object.entries(byPhase).forEach(([mapa, items]) => {
+        const phaseSection = document.createElement('div');
+        phaseSection.className = 'suspect-card__tl-phase-section';
+        phaseSection.dataset.phase = mapa;
+
+        // Header de fase (clickeable)
+        const phaseHeader = document.createElement('div');
+        phaseHeader.className = 'suspect-card__tl-phase-header';
+        phaseHeader.innerHTML = `
+          <em class="suspect-card__tl-phase-icon">▾</em>
+          <span>${PHASE_LABELS[mapa] || mapa}</span>
+        `;
+
+        // Body de fase
+        const phaseBody = document.createElement('div');
+        phaseBody.className = 'suspect-card__tl-phase-body';
+
+        items.forEach(({ key, echo }) => {
           const item = document.createElement('div');
           item.className = 'suspect-card__tl-item';
           item.dataset.echoKey = key;
-
-          const phaseLabel = mapa !== lastMapa
-            ? `<div class="suspect-card__tl-phase">${PHASE_LABELS[mapa] || mapa}</div>`
-            : '';
-          lastMapa = mapa;
 
           const date = echo.datetime?.date || '';
           const time = echo.datetime?.time || '';
           const datetime = [date, time].filter(Boolean).join(' · ');
 
           item.innerHTML = `
-            ${phaseLabel}
             <div class="suspect-card__tl-header">
               ${datetime ? `<div class="suspect-card__tl-datetime">${datetime}</div>` : ''}
               <button class="suspect-card__tl-nav" aria-label="Ir al mapa" title="Ir al mapa">
@@ -3067,19 +3161,28 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
             <p class="suspect-card__tl-desc">${echo.description || ''}</p>
           `;
 
-          // Solo el botón navega — el resto de la card sigue toggleando
           item.querySelector('.suspect-card__tl-nav').addEventListener('click', (e) => {
             e.stopPropagation();
             navigateToEcho(item.dataset.echoKey);
           });
 
-          timeline.appendChild(item);
+          phaseBody.appendChild(item);
         });
+
+        // Toggle de la sección de fase — stopPropagation para no togglear la card
+        phaseHeader.addEventListener('click', (e) => {
+          e.stopPropagation();
+          phaseSection.classList.toggle('is-collapsed');
+        });
+
+        phaseSection.appendChild(phaseHeader);
+        phaseSection.appendChild(phaseBody);
+        timeline.appendChild(phaseSection);
       });
 
       card.appendChild(timeline);
 
-      // Click en toda la card expande/colapsa
+      // Click en toda la card expande/colapsa el timeline completo
       card.addEventListener('click', () => {
         card.classList.toggle('is-expanded');
         toggle.innerHTML = card.classList.contains('is-expanded')
@@ -3098,6 +3201,7 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       _suspectsTimelineBuilt = true;
       _buildSuspectTimelines();
     }
+    _highlightActiveEcho();
   }
 
   function closeSuspects() {

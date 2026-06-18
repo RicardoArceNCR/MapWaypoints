@@ -827,6 +827,121 @@ body.suspects-open .mosca-btn {
   transform: scale(0.95);
 }
 
+/* ── Fases colapsables en timeline ── */
+.suspect-card__tl-phase-section {
+  margin-bottom: 4px;
+}
+
+.suspect-card__tl-phase-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0 5px;
+  cursor: pointer;
+  user-select: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.suspect-card__tl-phase-section:first-child .suspect-card__tl-phase-header {
+  border-top: none;
+  padding-top: 0;
+}
+
+.suspect-card__tl-phase-header span {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.suspect-card__tl-phase-header:hover span {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.suspect-card__tl-phase-icon {
+  display: inline-block;
+  font-style: normal;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.25);
+  transition: transform 0.2s ease;
+  line-height: 1;
+}
+
+.suspect-card__tl-phase-section.is-collapsed .suspect-card__tl-phase-icon {
+  transform: rotate(-90deg);
+}
+
+.suspect-card__tl-phase-body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 2000px;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+  opacity: 1;
+}
+
+.suspect-card__tl-phase-section.is-collapsed .suspect-card__tl-phase-body {
+  max-height: 0;
+  opacity: 0;
+}
+
+/* Fase activa: header más visible */
+.suspect-card__tl-phase-section:not(.is-collapsed) .suspect-card__tl-phase-header span {
+  color: var(--phase-color, #1BC6EB);
+}
+
+.suspect-card__tl-phase-section:not(.is-collapsed) .suspect-card__tl-phase-icon {
+  color: var(--phase-color, #1BC6EB);
+}
+
+/* ── Divisores de sección en suspects popup ── */
+.suspects-popup__divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0 8px;
+}
+
+.suspects-popup__divider::before,
+.suspects-popup__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.suspects-popup__divider span {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--phase-color, #1BC6EB);
+  white-space: nowrap;
+}
+
+.suspects-popup__divider--others span {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Echo activo (waypoint actual) ── */
+.suspect-card__tl-item {
+  opacity: 0.45;
+  transition: opacity 0.25s ease;
+}
+
+.suspect-card__tl-item.is-active {
+  opacity: 1;
+}
+
+.suspect-card__tl-item.is-active .suspect-card__tl-datetime {
+  color: var(--phase-color, #1BC6EB);
+}
+
+.suspect-card__tl-item.is-active::before {
+  background: var(--phase-color, #1BC6EB);
+}
+
 /* ========= HAMBURGUESA (Mobile) ========= */
 .hamburger {
   position: fixed;
