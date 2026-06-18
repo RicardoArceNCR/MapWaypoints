@@ -441,12 +441,12 @@ let memoryMonitor = new MemoryMonitor();
   const BRIEF_SCENES = [
     {
       img: '/assets/linea-de-tiempo.webp',
-      caption: 'Actúa con nosotros www.divergentes.com/complices',
+      caption: 'Actúa con nosotros <a href="https://www.divergentes.com/complices/" target="_blank" rel="noopener noreferrer">divergentes.com/complices</a>',
       label: 'Click aquí',
     },
     {
       img: '/assets/post-crimen.webp',
-      caption: 'Actúa con nosotros www.divergentes.com/complices',
+      caption: 'Actúa con nosotros <a href="https://www.divergentes.com/complices/" target="_blank" rel="noopener noreferrer">divergentes.com/complices</a>',
       label: 'Click aquí',
     },
     {
@@ -847,7 +847,7 @@ let memoryMonitor = new MemoryMonitor();
         panel.classList.add('story-brief__panel--split');
         if (imgCol) imgCol.removeAttribute('aria-hidden');
         if (imgEl) { imgEl.src = image; imgEl.alt = imageCaption || ''; }
-        if (captionEl) captionEl.textContent = imageCaption || '';
+        if (captionEl) captionEl.innerHTML = imageCaption || '';
       } else {
         panel.classList.remove('story-brief__panel--split');
         if (imgCol) imgCol.setAttribute('aria-hidden', 'true');
@@ -872,7 +872,7 @@ let memoryMonitor = new MemoryMonitor();
       setTimeout(() => {
         imgEl.src = newSrc;
         imgEl.alt = newCaption || '';
-        if (captionEl) captionEl.textContent = newCaption || '';
+        if (captionEl) captionEl.innerHTML = newCaption || '';
         imgEl.classList.remove('is-switching');
         imgEl.classList.add('is-entering');
         imgEl.addEventListener('animationend', () => {

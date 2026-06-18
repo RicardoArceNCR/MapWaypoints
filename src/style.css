@@ -3219,6 +3219,16 @@ body:has(#story-intro:not([hidden])) .top-bar {
   font-style: italic;
 }
 
+.story-brief__image-caption a {
+  color: var(--phase-color, #1BC6EB);
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+}
+
+.story-brief__image-caption a:hover {
+  opacity: 0.8;
+}
+
 /* Content column — right 65% */
 .story-brief__content-col {
   flex: 1 1 0;
