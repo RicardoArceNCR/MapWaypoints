@@ -77,6 +77,14 @@
   <!-- <a class="skip-link" href="#main-content">.</a> -->
 
   <header class="top-bar" role="banner">
+    <div class="top-bar__end-spacer" aria-hidden="true"></div>
+
+    <!-- Filtro de fases (Desktop) -->
+    <div class="phase-filter" id="phase-filter" role="group" aria-label="Filtro de fases"></div>
+
+    <!-- Selector de mapas -->
+    <div class="map-selector-wrapper" id="map-selector"></div>
+
     <!-- Botón Home — fuera del phase-filter para que UIManager no lo borre -->
     <button class="home-btn" id="home-btn" aria-label="Volver al inicio" title="Inicio">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -86,12 +94,6 @@
           stroke-linecap="round" stroke-linejoin="round" />
       </svg>
     </button>
-    <!-- Filtro de fases (Desktop) -->
-    <div class="phase-filter" id="phase-filter" role="group" aria-label="Filtro de fases"></div>
-
-    <!-- Selector de mapas -->
-    <div class="map-selector-wrapper" id="map-selector"></div>
-    <div class="top-bar__end-spacer" aria-hidden="true"></div>
   </header>
 
   <main id="main-content" role="main" tabindex="-1">

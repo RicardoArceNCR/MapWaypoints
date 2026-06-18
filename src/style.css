@@ -323,6 +323,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0px 31px 14px 0px;
 }
 
 .home-btn:hover {
@@ -3181,6 +3182,29 @@ body:has(#story-intro:not([hidden])) .top-bar {
   object-position: center top;
   display: block;
   min-height: 0;
+  transition: opacity 0.22s ease;
+}
+
+.story-brief__image.is-switching {
+  opacity: 0;
+}
+
+@keyframes brief-img-enter {
+  from { opacity: 0; transform: scale(1.03); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+.story-brief__image.is-entering {
+  animation: brief-img-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-brief__image {
+    transition: none;
+  }
+  .story-brief__image.is-entering {
+    animation: none;
+  }
 }
 
 .story-brief__image-caption {
@@ -3273,7 +3297,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
 .story-brief__body h3 {
   margin: 0 0 10px;
-  font-size: clamp(1rem, 2.6vw, 1.15rem);
+  font-size: clamp(1.4rem, 2.6vw, 1.8rem);
   font-weight: 700;
   line-height: 1.35;
   color: rgba(255, 255, 255, 0.95);

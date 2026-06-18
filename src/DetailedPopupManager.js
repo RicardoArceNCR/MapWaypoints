@@ -347,31 +347,24 @@ export class DetailedPopupManager {
   }
 
   /**
-   * Selecciona/deselecciona una persona y maneja el acordeón de echos.
-   * Si ya está seleccionada, colapsa su grupo. Si no, expande el suyo
-   * y colapsa los demás.
+   * Selecciona una persona y promueve su grupo de echos
    */
   selectPerson(personId) {
-    const isSamePerson = this.selectedPersonId === personId;
-
-    this.echoGroupEls.forEach((el, id) => {
-      if (id === personId && !isSamePerson) {
-        this._openGroup(el);
-      } else {
-        this._collapseGroup(el);
-      }
-    });
+    this.selectedPersonId = personId;
 
     this.popupDetailedInvolved.querySelectorAll('.popup-detailed__person').forEach(el => {
-      const isActive = !isSamePerson && el.dataset.personId === personId;
-      el.classList.toggle('active', isActive);
-      if (isActive) {
+      if (el.dataset.personId === personId) {
+        el.classList.add('active');
         el.classList.add('popup-detailed__person--pulse');
-        setTimeout(() => el.classList.remove('popup-detailed__person--pulse'), 300);
+        setTimeout(() => {
+          el.classList.remove('popup-detailed__person--pulse');
+        }, 300);
+      } else {
+        el.classList.remove('active');
       }
     });
 
-    this.selectedPersonId = isSamePerson ? null : personId;
+    this.promotePerson(personId);
   }
 
   /**
@@ -414,7 +407,7 @@ export class DetailedPopupManager {
   /**
    * Crea un <section> tipo tarjeta (franja de acento + header avatar/nombre/rol
    * + lista de echos) para una persona. Limita animaciones a 15 items.
-   * El header es clickeable: acordeón con colapso/expansión CSS.
+   * Todos los grupos se muestran abiertos; el seleccionado se posiciona primero.
    */
   _createEchoGroup(personId, person, echos, isActive) {
     const section = document.createElement('section');
@@ -429,22 +422,15 @@ export class DetailedPopupManager {
     body.className = 'echo-group__body';
 
     const header = document.createElement('div');
-    header.className = 'echo-group-header echo-group-header--toggle';
-    header.setAttribute('role', 'button');
-    header.setAttribute('tabindex', '0');
-    header.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+    header.className = 'echo-group-header';
     header.innerHTML = `
       <img class="echo-group-avatar" src="${person.avatar || './assets/default.gif'}" alt="${person.name}" loading="lazy" />
       <div class="echo-group-info">
         <span class="echo-group-name">${person.name}</span>
         ${person.role ? `<span class="echo-group-role">${person.role}</span>` : ''}
       </div>
-      <span class="echo-group-chevron"></span>
     `;
     body.appendChild(header);
-
-    const collapse = document.createElement('div');
-    collapse.className = 'echo-group-collapse' + (isActive ? ' echo-group-collapse--open' : '');
 
     const list = document.createElement('div');
     list.className = 'echo-group-list';
@@ -469,68 +455,38 @@ export class DetailedPopupManager {
       list.appendChild(echoEl);
     });
 
-    collapse.appendChild(list);
-    body.appendChild(collapse);
+    body.appendChild(list);
     section.appendChild(body);
-
-    header.addEventListener('click', (e) => {
-      e.stopPropagation();
-      this.selectPerson(personId);
-    });
-
-    header.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        e.stopPropagation();
-        this.selectPerson(personId);
-      }
-    });
-
     return section;
   }
 
   /**
-   * Expande el grupo de echos: activa la franja de acento, abre el collapse
-   * y hace scroll suave hacia él.
-   */
-  _openGroup(section) {
-    section.classList.add('echo-group--active', 'echo-group--open');
-    const collapse = section.querySelector('.echo-group-collapse');
-    if (collapse) collapse.classList.add('echo-group-collapse--open');
-    const header = section.querySelector('.echo-group-header--toggle');
-    if (header) header.setAttribute('aria-expanded', 'true');
-
-    const content = this.popupDetailedContent;
-    if (content) {
-      requestAnimationFrame(() => {
-        const bar = this.popupDetailedInvolved;
-        const target = section.offsetTop - content.offsetTop - bar.offsetHeight;
-        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        content.scrollTo({
-          top: Math.max(0, target),
-          behavior: prefersReduced ? 'auto' : 'smooth'
-        });
-      });
-    }
-  }
-
-  /**
-   * Colapsa el grupo de echos: desactiva acento, cierra collapse.
-   */
-  _collapseGroup(section) {
-    section.classList.remove('echo-group--active', 'echo-group--open');
-    const collapse = section.querySelector('.echo-group-collapse');
-    if (collapse) collapse.classList.remove('echo-group-collapse--open');
-    const header = section.querySelector('.echo-group-header--toggle');
-    if (header) header.setAttribute('aria-expanded', 'false');
-  }
-
-  /**
-   * Promueve el grupo de echos de una persona.
-   * Delega en selectPerson() que maneja el acordeón completo.
+   * Promueve el grupo de echos de una persona al inicio del contenedor,
+   * sincroniza la franja de acento activa y hace scroll suave hacia él.
+   * Si la persona no tiene echos en este hotspot, solo actualiza el acento.
    */
   promotePerson(personId) {
-    this.selectPerson(personId);
+    this.echoGroupEls.forEach((el, id) => {
+      el.classList.toggle('echo-group--active', id === personId);
+    });
+
+    const groupEl = this.echoGroupEls.get(personId);
+    if (!groupEl) return;
+
+    const parent = this.popupDetailedEchos;
+    if (parent.firstChild !== groupEl) {
+      parent.prepend(groupEl);
+    }
+
+    if (this.popupDetailedContent) {
+      const bar = this.popupDetailedInvolved;
+      const target = groupEl.offsetTop - this.popupDetailedContent.offsetTop - bar.offsetHeight;
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      this.popupDetailedContent.scrollTo({
+        top: Math.max(0, target),
+        behavior: prefersReduced ? 'auto' : 'smooth'
+      });
+    }
   }
 
   /**

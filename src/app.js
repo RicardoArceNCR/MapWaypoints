@@ -440,14 +440,14 @@ let memoryMonitor = new MemoryMonitor();
   // Escenas del brief de cierre — cada una con su imagen, caption y label
   const BRIEF_SCENES = [
     {
-      img: '/assets/banner-2.webp',
-      caption: 'Vehículo de escape, Renault Duster blanco, abandonado en Coronado (Imagen ilustrativa)',
-      label: '19 jun 2025 — Rastreo inicial',
+      img: '/assets/linea-de-tiempo.webp',
+      caption: 'Actúa con nosotros www.divergentes.com/complices',
+      label: 'Click aquí',
     },
     {
-      img: '/assets/burned-duster.webp',
-      caption: 'El análisis forense del celular de Orozco González fue la pieza clave de la investigación',
-      label: '30 jun 2025 — El taxista y su celular',
+      img: '/assets/post-crimen.webp',
+      caption: 'Actúa con nosotros',
+      label: 'www.divergentes.com/complices',
     },
     {
       img: '/assets/banner-2.webp',
@@ -519,6 +519,8 @@ let memoryMonitor = new MemoryMonitor();
       methodology: {
         tabLabel: 'Post Crimen',
         backLabel: 'Línea de tiempo',
+        image: BRIEF_SCENES[1].img,
+        imageCaption: BRIEF_SCENES[1].caption,
         html: `
           <h3>Línea de Tiempo de las Pesquisas de la OIJ (Posterior al Crimen)</h3>
           <p>Las pesquisas del Organismo de Investigación Judicial (OIJ) comenzaron el 19 de junio de 2025, el mismo día del homicidio, con la recolección de incidentes del Sistema 9-1-1, que registraron llamadas reportando entre 7 y 10 disparos en el Condominio Naples de Moravia.</p>
@@ -903,9 +905,11 @@ let memoryMonitor = new MemoryMonitor();
           _renderBriefContent(elBody, showingMethodology ? methodology : mainContent);
           methBtn.textContent = showingMethodology ? `← ${methodology.backLabel || mainLabel}` : methLabel;
           // Cambiar imagen según la pestaña activa
-          if (showingMethodology && methImage) {
-            _switchImage(methImage, methCaption);
-          } else if (!showingMethodology && image) {
+          if (showingMethodology) {
+            const mImg = methodology.image || methImage;
+            const mCap = methodology.imageCaption || methCaption;
+            if (mImg) _switchImage(mImg, mCap);
+          } else if (image) {
             _switchImage(image, imageCaption || '');
           }
         };
