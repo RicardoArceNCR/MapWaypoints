@@ -3000,12 +3000,6 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       // Navegar al waypoint
       goToWaypoint(wpIndex);
 
-      // Abrir el hotspot principal (primer !noPopup)
-      await new Promise(r => setTimeout(r, 400));
-      const hotspots = state.currentIcons[String(wpIndex)] || state.currentIcons[wpIndex] || [];
-      const target = hotspots.find(h => !h.noPopup);
-      if (target) popupManager?.openPopup(target);
-
     } finally {
       _echoNavInProgress = false;
     }
