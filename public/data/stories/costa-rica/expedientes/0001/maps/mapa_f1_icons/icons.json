@@ -26,7 +26,7 @@
         "timeColor": "#1BC6EB"
       },
       "location": "Aeropuerto Juan Santamaría, Alajuela, Costa Rica",
-      "description": "Roberto Samcam Ruiz regresa a Costa Rica proveniente de México, por el Aeropuerto Juan Santamaría, después de una gira por varios países. Su reingreso ocurre apenas tres días antes de su asesinato. Utiliza un taxi formal para dirigirse a su vivienda, ubicada en Tibás.",
+      "description": "Roberto Samcam Ruiz regresa a Costa Rica proveniente de México, por el Aeropuerto Juan Santamaría, después de una gira por varios países. Su reingreso ocurre apenas tres días antes de su asesinato. Utiliza un taxi formal para dirigirse a su vivienda, ubicada en Moravia.",
       "involved": [
         {
           "id": "robles_murillo",
@@ -39,7 +39,7 @@
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario logístico"
+          "role": "Autor material"
         },
         {
           "id": "carvajal",
@@ -108,7 +108,7 @@
       "type": "hotspot",
       "image": "/assets/vacio.png",
       "noPopup": true,
-      "caption": "Su reingreso ocurre apenas tres días antes de su asesinato. Utiliza un taxi formal para dirigirse a su vivienda, ubicada en Tibás.",
+      "caption": "Su reingreso ocurre apenas tres días antes de su asesinato. Utiliza un taxi formal para dirigirse a su vivienda, ubicada en Moravia.",
       "title": "",
       "mobile": {
         "offsetX": -4,
@@ -154,13 +154,13 @@
         "time": "06:26 – 16:07 h"
       },
       "location": "Ingreso a León XIII, Tibás, San José",
-      "description": "Samcam realizó varios viajes matutinos en Uber desde su vivienda a la Clínica Rodrigo Fournier Guevara, en Tibás, y viceversa. Luego, se reunió en Casa España, en La Sábana, (11:15 h), donde se reunió con Rafael ‘Payo’ Solís y Óscar René Vargas. A las 16:07:26 horas regresó a su casa de habitación.",
+      "description": "Samcam realizó varios viajes matutinos en Uber desde su vivienda a la Clínica Rodrigo Fournier Guevara, en Moravia, y viceversa. Luego, se reunió en Casa España, en La Sábana, (11:15 h), donde se reunió con Rafael ‘Payo’ Solís y Óscar René Vargas. A las 16:07:26 horas regresó a su casa de habitación.",
       "involved": [
         {
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario logístico",
+          "role": "Autor material",
           "highlighted": true
         },
         {
@@ -288,7 +288,7 @@
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario logístico"
+          "role": "Autor material"
         },
         {
           "id": "carvajal",
@@ -416,7 +416,7 @@
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario logístico"
+          "role": "Autor material"
         },
         {
           "id": "carvajal",
@@ -544,7 +544,7 @@
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario logístico"
+          "role": "Autor material"
         },
         {
           "id": "carvajal",
@@ -672,7 +672,7 @@
           "id": "chaves_medina",
           "name": "Danilo José Chaves Medina",
           "avatar": "/assets/danilo-jose-chavez-medina.webp",
-          "role": "Intermediario logístico"
+          "role": "Autor material"
         },
         {
           "id": "carvajal",
