@@ -2454,9 +2454,46 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
   document.querySelector('.btn.next').addEventListener('click', showFullLineOrNext);
   document.querySelector('.btn.prev').addEventListener('click', prev);
   window.addEventListener('keydown', (e) => {
+    // Si hay input/textarea activo, ignorar todo excepto Escape
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
     if (e.key === 'Escape' && !popup.hidden) { closePopup(); return; }
-    if (['ArrowRight', 'Enter', ' '].includes(e.key)) { e.preventDefault(); showFullLineOrNext(); }
+
+    // Enter: si popup abierto → cerrar; si no → abrir primer hotspot del waypoint actual
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (popupManager?.isOpen()) {
+        closePopup();
+      } else {
+        const hotspots = state.currentIcons[state.idx] || [];
+        const target = hotspots.find(h => !h.noPopup) || hotspots[0];
+        if (target) openPopup(target);
+        else showFullLineOrNext();
+      }
+      return;
+    }
+
+    // Navegación horizontal
+    if (['ArrowRight', ' '].includes(e.key)) { e.preventDefault(); showFullLineOrNext(); }
     if (['ArrowLeft', 'Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
+
+    // Navegación vertical (flechas arriba/abajo entre filas del grid)
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      const wps = state.currentWaypoints;
+      if (!wps.length) return;
+      const current = wps[state.idx];
+      const m = (current?.id || '').match(/wp_f(\d+)_col(\d+)/);
+      if (!m) return;
+      const curRow = +m[1], curCol = +m[2];
+      const dir = e.key === 'ArrowDown' ? 1 : -1;
+      const targetRow = curRow + dir;
+      const targetIdx = wps.findIndex(wp => {
+        const n = (wp?.id || '').match(/wp_f(\d+)_col(\d+)/);
+        return n && +n[1] === targetRow && +n[2] === curCol;
+      });
+      if (targetIdx !== -1) goToWaypoint(targetIdx);
+    }
   });
 
   canvas.addEventListener('mousedown', (e) => {
@@ -2557,35 +2594,43 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
     }
 
     wrap.addEventListener('pointerdown', (e) => {
-      if (!isMobileViewport()) return;
       if (e.target.closest('#overlay-layer')) return;
-      if (e.pointerType === 'mouse') return;
       if (document.body.classList.contains('popup-open')) return;
-      swipe = { x: e.clientX, y: e.clientY, t: performance.now() };
+      // Touch/stylus: solo en mobile. Mouse (trackpad): en cualquier viewport
+      if (e.pointerType === 'mouse') {
+        swipe = { x: e.clientX, y: e.clientY, t: performance.now(), isTrackpad: true };
+        return;
+      }
+      if (!isMobileViewport()) return;
+      swipe = { x: e.clientX, y: e.clientY, t: performance.now(), isTrackpad: false };
     }, { passive: true });
 
     wrap.addEventListener('pointerup', (e) => {
       if (!swipe) return;
-      if (e.pointerType === 'mouse') { swipe = null; return; }
       const dx = e.clientX - swipe.x;
       const dy = e.clientY - swipe.y;
       const dt = performance.now() - swipe.t;
+      const isTrackpad = swipe.isTrackpad;
       swipe = null;
 
-      if (dt > 400) return;
+      // Trackpad: requiere gesto más rápido y mínimo recorrido mayor
+      // (los trackpads generan movimiento de puntero continuo)
+      const maxDt = isTrackpad ? 350 : 400;
+      const minDist = isTrackpad ? 60 : 40;
+      if (dt > maxDt) return;
 
       const absDx = Math.abs(dx);
       const absDy = Math.abs(dy);
 
       // Eje dominante: horizontal
-      if (absDx >= 40 && absDx > absDy * 1.2) {
+      if (absDx >= minDist && absDx > absDy * 1.2) {
         if (dx < 0) showFullLineOrNext();
         else prev();
         return;
       }
 
       // Eje dominante: vertical
-      if (absDy >= 40 && absDy > absDx * 1.2) {
+      if (absDy >= minDist && absDy > absDx * 1.2) {
         goVertical(dy < 0 ? 1 : -1);
         return;
       }

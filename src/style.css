@@ -1270,7 +1270,7 @@ body.suspects-open .mosca-btn {
     gap: 6px;
     flex: 1;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 32px;
     background: rgba(255, 255, 255, 0.07);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.75);
@@ -1280,6 +1280,7 @@ body.suspects-open .mosca-btn {
     white-space: nowrap;
     transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     justify-content: center;
+    max-width: 43px;
   }
 
   .drawer__share-link:active {
@@ -3161,13 +3162,14 @@ body:has(#story-intro:not([hidden])) .top-bar {
 
 /* Image column — left 35% */
 .story-brief__image-col {
-  display: none; /* hidden by default */
+  display: none;
+  /* hidden by default */
   flex: 0 0 35%;
   width: 35%;
   position: relative;
   overflow: hidden;
   border-radius: 18px 0 0 18px;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .story-brief__panel--split .story-brief__image-col {
@@ -3190,8 +3192,15 @@ body:has(#story-intro:not([hidden])) .top-bar {
 }
 
 @keyframes brief-img-enter {
-  from { opacity: 0; transform: scale(1.03); }
-  to   { opacity: 1; transform: scale(1);    }
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .story-brief__image.is-entering {
@@ -3202,6 +3211,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   .story-brief__image {
     transition: none;
   }
+
   .story-brief__image.is-entering {
     animation: none;
   }
@@ -3213,9 +3223,9 @@ body:has(#story-intro:not([hidden])) .top-bar {
   margin: 0;
   font-size: 0.72rem;
   line-height: 1.45;
-  color: rgba(255,255,255,0.5);
-  background: rgba(0,0,0,0.35);
-  border-top: 1px solid rgba(255,255,255,0.07);
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.35);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
   font-style: italic;
 }
 
@@ -3236,7 +3246,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-left: 1px solid rgba(255,255,255,0.06);
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .story-brief__heading {
@@ -3298,8 +3308,15 @@ body:has(#story-intro:not([hidden])) .top-bar {
 }
 
 @keyframes brief-body-enter {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0);   }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .story-brief__body.is-entering {
@@ -3310,6 +3327,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
   .story-brief__body {
     transition: none;
   }
+
   .story-brief__body.is-entering {
     animation: none;
   }
@@ -3347,6 +3365,7 @@ body:has(#story-intro:not([hidden])) .top-bar {
 .story-brief__body p:last-child {
   margin-bottom: 0;
 }
+
 /* ── Brief scenes: timeline vertical ── */
 .brief-scene {
   position: relative;
