@@ -1415,7 +1415,7 @@ body.suspects-open .mosca-btn {
 }
 
 .progress span {
-  width: 38px;
+  width: 11%;
   height: 20px;
   border-radius: 7px;
   background: rgba(255, 255, 255, 0.3);
