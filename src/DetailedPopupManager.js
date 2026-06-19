@@ -212,9 +212,11 @@ export class DetailedPopupManager {
 
     this.popupDetailedTitle.textContent = hotspot.title || '';
 
-    // Actualizar hrefs de compartir con URL + título dinámicos
-    const url = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent(hotspot.title || '');
+    // Compartir: URL fija del especial
+    const SHARE_URL = 'https://www.divergentes.com/asi-asesinaron-roberto-samcam-costa-rica-nicaragua/';
+    const SHARE_TITLE = 'Así asesinaron a Roberto Samcam';
+    const url = encodeURIComponent(SHARE_URL);
+    const title = encodeURIComponent(SHARE_TITLE);
     const fb = document.getElementById('popup-share-facebook');
     const wa = document.getElementById('popup-share-whatsapp');
     const x = document.getElementById('popup-share-x');
