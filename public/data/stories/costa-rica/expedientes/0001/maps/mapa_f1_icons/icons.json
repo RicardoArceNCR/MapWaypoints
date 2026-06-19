@@ -5,9 +5,9 @@
       "type": "hotspot",
       "mobile": {
         "offsetX": -7,
-        "offsetY": -186,
-        "width": 280,
-        "height": 400,
+        "offsetY": -176,
+        "width": 257,
+        "height": 379,
         "rotation": 0,
         "radius": 20
       },
@@ -134,9 +134,9 @@
       "type": "hotspot",
       "mobile": {
         "offsetX": -7,
-        "offsetY": -60,
-        "width": 280,
-        "height": 400,
+        "offsetY": -46,
+        "width": 247,
+        "height": 371,
         "rotation": 0,
         "radius": 0
       },
