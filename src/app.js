@@ -2925,6 +2925,9 @@ ${memStats ? `├─ Memory: ${memStats.current} (avg: ${memStats.average}, peak
       (!isMobile || effects.breathingMobileEnabled !== false) &&
       !appConfig.editorActive &&
       !popupManager?.isOpen() &&                                              // ⛔ pausa breathing con popup abierto
+      !document.body.classList.contains('brief-open') &&                     // ⛔ pausa con "Sobre esta reconstrucción" abierto
+      !document.body.classList.contains('suspects-open') &&                  // ⛔ pausa con panel de implicados abierto
+      !document.getElementById('menu-puntos')?.classList.contains('drawer--open') && // ⛔ pausa con drawer/menú abierto
       (!effects.disableBreathingDuringTransition || !transitionState.active);
 
     if (breathingAllowed) {
