@@ -1481,6 +1481,7 @@ body.suspects-open .mosca-btn {
     pointer-events: auto;
     /* clicables otra vez */
     filter: opacity(0.5);
+    font-size: 25px;
   }
 
   .ui .btn.prev {

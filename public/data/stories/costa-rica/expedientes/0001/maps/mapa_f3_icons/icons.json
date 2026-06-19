@@ -332,11 +332,11 @@
       "_note": "WP3-H0: Hotspot principal con popup",
       "type": "hotspot",
       "mobile": {
-        "offsetX": 9,
-        "offsetY": -180,
-        "width": 321,
-        "height": 353,
-        "rotation": -2,
+        "offsetX": 2,
+        "offsetY": -144,
+        "width": 256,
+        "height": 264,
+        "rotation": 0,
         "radius": 0
       },
       "desktop": {
