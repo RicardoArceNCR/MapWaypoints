@@ -6,9 +6,9 @@
       "type": "hotspot",
       "mobile": {
         "offsetX": 4,
-        "offsetY": -170,
-        "width": 317,
-        "height": 339,
+        "offsetY": -169,
+        "width": 268,
+        "height": 337,
         "rotation": 0,
         "radius": 20
       },
@@ -192,9 +192,9 @@
       "type": "hotspot",
       "mobile": {
         "offsetX": -16,
-        "offsetY": -84,
-        "width": 316,
-        "height": 328,
+        "offsetY": -79,
+        "width": 257,
+        "height": 318,
         "rotation": 0,
         "radius": 0
       },
@@ -382,9 +382,9 @@
       "title": "Cambio de roles y ajuste de posiciones finales",
       "mobile": {
         "offsetX": -1,
-        "offsetY": -79,
-        "width": 329,
-        "height": 303,
+        "offsetY": -74,
+        "width": 264,
+        "height": 293,
         "rotation": 0,
         "radius": 0
       },
